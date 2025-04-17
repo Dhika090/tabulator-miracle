@@ -2,12 +2,15 @@
 
 use App\Http\Controllers\MonevAimController;
 use App\Http\Controllers\SHG\HasilMonevController;
-use App\Http\Controllers\SHG\InputDataMonev\KalimantanJawaGasController; 
+use App\Http\Controllers\SHG\InputDataMonev\KalimantanJawaGasController;
 use App\Http\Controllers\SHG\InputDataMonev\PertaminaGasController;
+use App\Http\Controllers\SHG\InputTargetKinerja\StatusAssetInteregrityController;
+use App\Http\Controllers\SHG\InputTArgetKinerja\Target2025KPIController;
+use App\Http\Controllers\SHG\InputTargetKinerja\TargetSAPController;
+use App\Http\Controllers\SHG\InputTargetKinerja\TargetStatusAssetController;
 use App\Http\Controllers\SHG\KpiAssetIntegrityController;
 use App\Http\Controllers\SHG\TargetMandatoryCertificationController;
 use App\Http\Controllers\SHG\TargetSapAssetController;
-use App\Http\Controllers\SHG\TargetStatusAssetInteregrityController;
 use App\Http\Controllers\SHG\TargetStatusPLOController;
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
@@ -24,12 +27,52 @@ Route::get('monev-aim', [MonevAimController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('monev.aim');
 
-// SHG Target Status Asset Intergity
-Route::prefix('monev/shg/kinerja/target-status-asset-integrity')->middleware(['auth', 'verified'])->group(function () {
-    Route::get('/', [TargetStatusAssetInteregrityController::class, 'index'])->name('');
-    Route::post('/', [TargetStatusAssetInteregrityController::class, 'store'])->name('target-status-asset-integrity');
-    Route::get('/data', [TargetStatusAssetInteregrityController::class, 'getData'])->name('target-status-asset-integrity.data');
+// SHG Status Asset Intergity
+Route::prefix('monev/shg/kinerja/status-asset-integrity')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [StatusAssetInteregrityController::class, 'index'])->name('');
+    Route::post('/', [StatusAssetInteregrityController::class, 'store'])->name('status-asset-integrity');
+    Route::get('/data', [StatusAssetInteregrityController::class, 'getData'])->name('status-asset-integrity.data');
+
+    // Route::get('/target-status', [TargetStatusAssetInteregrityController::class, 'targetStatus'])->name('target-status');
+    // Route::get('/target-2025', [TargetStatusAssetInteregrityController::class, 'target2025'])->name('target-2025');
+    // Route::get('/prognosa', [TargetStatusAssetInteregrityController::class, 'prognosa'])->name('prognosa');
+    // Route::get('/selisih', [TargetStatusAssetInteregrityController::class, 'selisih'])->name('selisih');
 });
+
+// SHG Target Status
+Route::prefix('monev/shg/kinerja/target-status-asset')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [TargetStatusAssetController::class, 'index'])->name('target-status-asset');
+    Route::post('/', [TargetStatusAssetController::class, 'store'])->name('target-status-asset');
+    Route::get('/data', [TargetStatusAssetController::class, 'data'])->name('target-status-asset.data');
+    // Route::get('/{id}/edit', [TargetStatusPLOController::class, 'edit'])->name('target-status.edit');
+    // Route::put('/{id}', [TargetStatusPLOController::class, 'update'])->name('target-status.update');
+    // Route::delete('/{id}', [TargetStatusPLOController::class, 'destroy'])->name('target-status.destroy');
+});
+
+// SHG Target SAP
+Route::prefix('monev/shg/kinerja/target-sap')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [TargetSAPController::class, 'index'])->name('target-sap');
+    Route::post('/', [TargetSAPController::class, 'store'])->name('target-sap');
+    Route::get('/data', [TargetSAPController::class, 'data'])->name('target-sap.data');
+    Route::put('/{id}', [TargetSAPController::class, 'update'])->name('target-sap.update');
+    Route::delete('/{id}', [TargetSAPController::class, 'destroy'])->name('target-sap.destroy');
+});
+
+// SHG Target 2025 AI
+Route::prefix('monev/shg/kinerja/target-2025-ai')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [Target2025KPIController::class, 'index'])->name('target-2025-ai');
+    Route::post('/', [Target2025KPIController::class, 'store'])->name('target-2025-ai');
+    Route::get('/data', [Target2025KPIController::class, 'data'])->name('target-2025-ai.data');
+    Route::get('/{id}/edit', [Target2025KPIController::class, 'edit'])->name('target-2025-ai.edit');
+    Route::put('/{id}', [Target2025KPIController::class, 'update'])->name('target-2025-ai.update');
+    Route::delete('/{id}', [Target2025KPIController::class, 'destroy'])->name('target-2025-ai.destroy');
+});
+
+
+
+
+
+
 
 // target-status-plo
 Route::prefix('monev/shg/kinerja/target-status-plo')->middleware(['auth', 'verified'])->group(function () {

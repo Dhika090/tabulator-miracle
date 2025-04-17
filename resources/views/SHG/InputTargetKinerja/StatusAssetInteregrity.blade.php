@@ -1,5 +1,5 @@
-@section('title', __('TargetStatusAssetInteregrity'))
-<x-layouts.app :title="__('TargetStatusAssetInteregrity')">
+@section('title', __('StatusAssetInteregrity'))
+<x-layouts.app :title="__('StatusAssetInteregrity')">
     @push('styles')
         <link href="https://unpkg.com/tabulator-tables@5.6.0/dist/css/tabulator.min.css" rel="stylesheet">
         <style>
@@ -21,6 +21,17 @@
             .card {
                 margin-top: 20px;
             }
+
+            .tab-scroll-wrapper {
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+
+            #tabSwitcher .btn {
+                white-space: nowrap;
+                /* biar teks dalam button gak pecah ke bawah */
+            }
+
 
             /* modall */
             .modal {
@@ -79,31 +90,37 @@
 
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title mb-3 d-flex justify-content-between">Status Asset Integrity</h5>
+            <h5 class="card-title mb-3">Status Asset Integrity</h5>
 
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <button class="btn btn-primary" id="btnCreate">Create Data</button>
+            <div class="d-flex align-items-stretch gap-3">
+                <button onclick="openModal()" class="btn btn-primary">Create Data</button>
 
-                <div class="btn-group" role="group" id="tabSwitcher">
-                    <button type="button" class="btn btn-outline-secondary active" data-tab="status-asset">Status Asset
-                        Integrity</button>
-                    <button type="button" class="btn btn-outline-secondary" data-tab="target-status">Target Status
-                        Asset Integrity</button>
-                    <button type="button" class="btn btn-outline-secondary"
-                        data-tab="target-2025">Target-2025-AI</button>
-                    <button type="button" class="btn btn-outline-secondary" data-tab="prognosa">Prognosa Status -
-                        AI</button>
-                    <button type="button" class="btn btn-outline-secondary" data-tab="selisih">Selisih YTD Status Low
-                        Integrity</button>
-                    <button type="button" class="btn btn-outline-secondary" data-tab="target-sap">Target SAP
-                        Asset</button>
+                <div class="tab-scroll-wrapper flex-grow-1">
+                    <div class="btn-group" role="group" id="tabSwitcher">
+                        <a href="{{ route('status-asset-integrity') }}"
+                            class="btn btn-outline-secondary {{ request()->routeIs('status-asset-integrity') ? 'active' : '' }}">
+                            Status Asset Integrity
+                        </a>
+                        <a href="{{ route('target-status-asset') }}"
+                            class="btn btn-outline-secondary {{ request()->routeIs('target-status-asset') ? 'active' : '' }}">
+                            Target Status Asset Integrity
+                        </a>
+                        <a href="{{ route('target-2025-ai') }}"
+                            class="btn btn-outline-secondary {{ request()->routeIs('target-2025-ai') ? 'active' : '' }}">
+                            Target 2025 KPI
+                        </a>
+                        <a href="{{ route('target-sap') }}"
+                            class="btn btn-outline-secondary {{ request()->routeIs('target-sap') ? 'active' : '' }}"
+                            data-tab="target-sap">
+                            Target SAP Asset
+                        </a>
+                    </div>
                 </div>
             </div>
 
             <div id="mainTable"></div>
 
-            <br><br>
-            <div class="tabulator-wrapper">
+            <div class="tabulator-wrapper mt-4">
                 <div id="example-table"></div>
             </div>
         </div>
@@ -143,139 +160,6 @@
     @push('scripts')
         <script src="https://unpkg.com/tabulator-tables@5.6.0/dist/js/tabulator.min.js"></script>
 
-        {{-- <script>
-            const table = new Tabulator("#example-table", {
-                layout: "fitColumns",
-                responsiveLayout: "collapse",
-                autoResize: true,
-                movableColumns: true,
-                selectableRange: 1,
-                selectableRangeColumns: true,
-                selectableRangeRows: true,
-                selectableRangeClearCells: true,
-                editTriggerEvent: "dblclick",
-
-                pagination: "local",
-                paginationSize: 20,
-                paginationSizeSelector: [40, 60, 80, 100],
-                movableColumns: true,
-                paginationCounter: "rows",
-
-                clipboard: true,
-                clipboardCopyStyled: false,
-                clipboardCopyConfig: {
-                    rowHeaders: false,
-                    columnHeaders: false,
-                },
-                clipboardCopyRowRange: "range",
-                clipboardPasteParser: "range",
-                clipboardPasteAction: "range",
-
-                rowHeader: {
-                    resizable: false,
-                    frozen: true,
-                    width: 40,
-                    hozAlign: "center",
-                    formatter: "rownum",
-                    cssClass: "range-header-col",
-                    editor: false
-                },
-
-                columnDefaults: {
-                    headerSort: true,
-                    headerHozAlign: "center",
-                    editor: "input",
-                    resizable: "header",
-                },
-
-                columns: [{
-                        title: "No",
-                        formatter: "rownum",
-                        hozAlign: "center",
-                        width: 60,
-                        headerSort: true,
-                        sorter: "number",
-                        frozen: true
-                    },
-                    {
-                        title: "Periode",
-                        field: "periode",
-                    },
-                    {
-                        title: "Company",
-                        field: "company",
-                    },
-                    {
-                        title: "Asset Group",
-                        field: "asset_group",
-                    },
-                    {
-                        title: "Green Integrity",
-                        field: "green_integrity",
-                        hozAlign: "center",
-                        sorter: "number",
-                    },
-                    {
-                        title: "Yellow Integrity",
-                        field: "yellow_integrity",
-                        hozAlign: "center",
-                        sorter: "number",
-                    },
-                    {
-                        title: "Red Integrity",
-                        field: "red_integrity",
-                        hozAlign: "center",
-                        sorter: "number",
-                    },
-                    {
-                        title: "Information",
-                        field: "information",
-                        width: 300,
-                    },
-                ],
-
-            });
-
-            // Initial fetch default tab
-            loadTabData("status-asset");
-
-            // Tab click event
-            document.querySelectorAll('#tabSwitcher button').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    // Remove active class
-                    document.querySelectorAll('#tabSwitcher button').forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-
-                    const selectedTab = this.getAttribute('data-tab');
-                    loadTabData(selectedTab);
-                });
-            });
-
-            function loadTabData(tabName) {
-                let routeMap = {
-                    "status-asset": "{{ route('target-status-asset-integrity.data') }}",
-                };
-
-                let endpoint = routeMap[tabName];
-
-                if (!endpoint) return console.error("Route not defined for tab:", tabName);
-
-                fetch(endpoint, {
-                        headers: {
-                            "Accept": "application/json"
-                        }
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        console.log("Data for " + tabName + ":", data);
-                        table.setData(data);
-                    })
-                    .catch(error => {
-                        console.error("Error loading data for " + tabName + ":", error);
-                    });
-            }
-        </script> --}}
-
         <script>
             const table = new Tabulator("#example-table", {
                 layout: "fitColumns",
@@ -303,10 +187,8 @@
                 },
             });
 
-            // Map kolom untuk tiap tab
             const columnMap = {
-                "status-asset": [
-                    {
+                "status-asset": [{
                         title: "No",
                         formatter: "rownum",
                         hozAlign: "center",
@@ -350,8 +232,7 @@
                         field: "information",
                     },
                 ],
-                "target-status": [
-                    {
+                "target-status": [{
                         title: "No",
                         formatter: "rownum",
                         hozAlign: "center",
@@ -404,8 +285,7 @@
                         field: "information"
                     },
                 ],
-                "target-2025": [
-                    {
+                "target-2025": [{
                         title: "No",
                         formatter: "rownum",
                         hozAlign: "center",
@@ -431,8 +311,7 @@
                         field: "medium_kumulatif"
                     },
                 ],
-                "prognosa": [
-                    {
+                "prognosa": [{
                         title: "No",
                         formatter: "rownum",
                         hozAlign: "center",
@@ -485,8 +364,7 @@
                         field: "high"
                     },
                 ],
-                "selisih": [
-                    {
+                "selisih": [{
                         title: "No",
                         formatter: "rownum",
                         hozAlign: "center",
@@ -524,8 +402,7 @@
                         field: "information"
                     },
                 ],
-                "target-sap": [
-                    {
+                "target-sap": [{
                         title: "No",
                         formatter: "rownum",
                         hozAlign: "center",
@@ -545,23 +422,20 @@
                 ]
             };
 
-            // Route untuk tab yang butuh fetch
             const routeMap = {
-                "status-asset": "{{ route('target-status-asset-integrity.data') }}",
+                "status-asset": "{{ route('status-asset-integrity.data') }}",
             };
 
-            // Event klik tab
-            document.querySelectorAll('#tabSwitcher button').forEach(btn => {
+            document.querySelectorAll('#tabSwitcher a').forEach(btn => {
                 btn.addEventListener('click', function() {
-                    document.querySelectorAll('#tabSwitcher button').forEach(b => b.classList.remove('active'));
+                    localStorage.setItem('currentTab', this.getAttribute('data-tab'));
+                    document.querySelectorAll('#tabSwitcher a').forEach(b => b.classList.remove('active'));
                     this.classList.add('active');
-
                     const selectedTab = this.getAttribute('data-tab');
                     loadTabData(selectedTab);
                 });
             });
 
-            // Fungsi utama untuk handle kolom + data
             function loadTabData(tabName) {
                 const selectedColumns = columnMap[tabName] || [];
                 table.setColumns(selectedColumns);
@@ -579,6 +453,7 @@
                         .then(data => {
                             console.log("Data for " + tabName + ":", data);
                             table.setData(data);
+                            table.redraw();
                         })
                         .catch(error => {
                             console.error("Error loading data for " + tabName + ":", error);
@@ -586,11 +461,38 @@
                 }
             }
 
-            // Load default tab saat pertama kali
-            loadTabData("status-asset");
+            function editData(row) {
+                document.getElementById("form-id").value = row.id;
+                document.getElementById("unit_operasi").value = row.unit_operasi;
+                document.getElementById("jumlah").value = row.jumlah;
+                openModal();
+            }
+
+            function deleteData(id) {
+                if (confirm("Yakin ingin menghapus data ini?")) {
+                    fetch(`/target-sap/${id}`, {
+                            method: "DELETE",
+                            headers: {
+                                "Accept": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+                            }
+                        }).then(res => res.json())
+                        .then(result => {
+                            if (result.success) {
+                                alert(result.message);
+                                table.replaceData(); // refresh
+                            }
+                        });
+                }
+            }
+
+            document.addEventListener("DOMContentLoaded", function() {
+                loadTabData("status-asset");
+                localStorage.setItem("currentTab", "status-asset");
+            });
         </script>
 
-        {{-- create data --}}
+        {{-- create data Status Asset Integrity --}}
         <script>
             function openModal() {
                 document.getElementById("createModal").style.display = "block";
@@ -608,7 +510,7 @@
 
                 const token = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
 
-                fetch("{{ route('target-status-asset-integrity') }}", {
+                fetch("{{ route('status-asset-integrity') }}", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",

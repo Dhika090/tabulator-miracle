@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\SHG;
+namespace App\Http\Controllers\SHG\InputTargetKinerja;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SHGTargeStatusAssetIntergrityRequest;
 use App\Models\SHGTargetStatusAssetIntgrity;
 use Illuminate\Http\Request;
 
-class TargetStatusAssetInteregrityController extends Controller
+class StatusAssetInteregrityController extends Controller
 {
-
     public function index(Request $request)
     {
         if ($request->wantsJson()) {
@@ -17,7 +16,7 @@ class TargetStatusAssetInteregrityController extends Controller
             return response()->json($TargetPLO);
         }
 
-        return view('SHG.TargetStatusAssetInteregrity');
+        return view('SHG.InputTargetKinerja.StatusAssetInteregrity');
     }
 
 

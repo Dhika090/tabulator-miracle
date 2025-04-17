@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="layout-menu-fixed" data-base-url="{{ url('/') }}"
     data-framework="laravel">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
 <head>
     @include('partials.head')
     @stack('styles')
 </head>
 
-<body>  
+<body>
 
     <div class="layout-wrapper layout-content-navbar">
         <div class="layout-container">
@@ -18,14 +19,16 @@
 
             <!-- Layout container -->
             <div class="layout-page">
-                <!-- Navbar -->
-                {{-- <x-layouts.navbar.default :title="$title ?? null"></x-layouts.navbar.default> --}}
-                <!--/ Navbar -->
+                <button id="sidebarToggle" class="btn btn-sm btn-primary"
+                    style="position: fixed; margin-left: 25px; top: 8px;  z-index: 9999;">
+                    ☰
+                </button>
+
 
                 <!-- Content wrapper -->
                 <div class="content-wrapper">
                     <!-- Content -->
-                    <div class="container-xxl flex-grow-1 container-p-y">
+                    <div class="container-fluid  flex-grow-1 container-p-y">
                         {{ $slot }}
                     </div>
                     <!-- / Content -->

@@ -1,7 +1,46 @@
 <!-- Menu -->
+<style>
+    .layout-wrapper {
+        display: flex;
+        width: 100%;
+        height: 100vh;
+        position: relative;
+    }
+
+    .layout-menu {
+        width: 260px;
+        transition: transform 0.3s ease;
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        z-index: 100;
+        background-color: white;
+        /* sesuaikan */
+    }
+
+    .hide-sidebar {
+        transform: translateX(-100%);
+    }
+
+    .layout-page {
+        flex-grow: 1;
+        padding-left: 260px;
+        transition: all 0.3s ease;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .layout-wrapper.sidebar-collapsed .layout-page {
+        padding-left: 0;
+    }
+</style>
+
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+
     <div class="app-brand demo">
-        <a href="{{ url('/dashboard') }}" class="app-brand-link"><x-app-logo /></a>
+        <a href="{{ url('/dashboard') }}" class="app-brand-link"><img src="{{ asset('assets/img/pgn.png') }}" width="190"
+                alt="Pertamina Logo"></a>
     </div>
 
     <div class="menu-inner-shadow"></div>
@@ -32,7 +71,7 @@
                             </a>
                             <ul class="menu-sub">
                                 <li class="menu-item">
-                                    <a class="menu-link" href="{{ route('target-status-asset-integrity') }}">
+                                    <a class="menu-link" href="{{ route('status-asset-integrity') }}">
                                         Target Status Asset Integrity
                                     </a>
                                 </li>
@@ -63,7 +102,7 @@
                                 </li>
                             </ul>
                         </li>
-                        
+
                         {{-- Data Monev --}}
                         <li class="menu-item {{ request()->is('monev/shg/input-data*') ? 'active open' : '' }}">
                             <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -112,12 +151,14 @@
                                     </a>
                                 </li>
                                 <li class="menu-item">
-                                    <a class="menu-link" href="{{ url('monev/shg/input-data/gagas-energi-indonesia') }}">
+                                    <a class="menu-link"
+                                        href="{{ url('monev/shg/input-data/gagas-energi-indonesia') }}">
                                         <i class="fa fa-wrench me-2"></i>PT Gagas Energi Indonesia
                                     </a>
                                 </li>
                                 <li class="menu-item">
-                                    <a class="menu-link" href="{{ url('monev/shg/input-data/saka-energi-indonesia') }}">
+                                    <a class="menu-link"
+                                        href="{{ url('monev/shg/input-data/saka-energi-indonesia') }}">
                                         <i class="fa fa-wrench me-2"></i>PT Saka Energi Indonesia
                                     </a>
                                 </li>
@@ -127,7 +168,8 @@
                                     </a>
                                 </li>
                                 <li class="menu-item">
-                                    <a class="menu-link" href="{{ url('monev/shg/input-data/transportasi-indonesia') }}">
+                                    <a class="menu-link"
+                                        href="{{ url('monev/shg/input-data/transportasi-indonesia') }}">
                                         <i class="fa fa-wrench me-2"></i>PT Tranportasi Indonesia
                                     </a>
                                 </li>
@@ -135,22 +177,22 @@
                                     <a class="menu-link" href="{{ url('monev/shg/input-data/pgn-omm') }}">
                                         <i class="fa fa-wrench me-2"></i>PT PGN OMM
                                     </a>
-                                </li>   
+                                </li>
                                 <li class="menu-item">
                                     <a class="menu-link" href="{{ url('monev/shg/input-data/pgn-sor1') }}">
                                         <i class="fa fa-wrench me-2"></i>PGN SOR 1
                                     </a>
-                                </li>   
+                                </li>
                                 <li class="menu-item">
                                     <a class="menu-link" href="{{ url('monev/shg/input-data/pgn-sor2') }}">
                                         <i class="fa fa-wrench me-2"></i>PGN SOR 2
                                     </a>
-                                </li>   
+                                </li>
                                 <li class="menu-item">
                                     <a class="menu-link" href="{{ url('monev/shg/input-data/pgn-sor3') }}">
                                         <i class="fa fa-wrench me-2"></i>PGN SOR 3
                                     </a>
-                                </li>   
+                                </li>
                             </ul>
                         </li>
                     </ul>
@@ -193,17 +235,32 @@
             </ul>
         </li>
     </ul>
+
+
+
+
 </aside>
 
 <!-- / Menu -->
 
 <script>
-    // Toggle the 'open' class when the menu-toggle is clicked
     document.querySelectorAll('.menu-toggle').forEach(function(menuToggle) {
         menuToggle.addEventListener('click', function() {
             const menuItem = menuToggle.closest('.menu-item');
-            // Toggle the 'open' class on the clicked menu-item
             menuItem.classList.toggle('open');
+        });
+    });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const toggleBtn = document.getElementById("sidebarToggle");
+        const sidebar = document.getElementById("layout-menu");
+        const layoutWrapper = document.querySelector(".layout-wrapper");
+
+        toggleBtn.addEventListener("click", function() {
+            sidebar.classList.toggle("hide-sidebar");
+            layoutWrapper.classList.toggle("sidebar-collapsed");
         });
     });
 </script>

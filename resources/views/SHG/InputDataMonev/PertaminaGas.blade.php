@@ -18,48 +18,20 @@
                 font-size: 14px;
             }
 
-            .tabulator .tabulator-cell {
-                white-space: normal !important;
-                word-wrap: break-word;
-            }
-
             .card {
                 margin-top: 20px;
             }
 
-            .form-grid {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 30px;
-                padding: 20px;
+            .tab-scroll-wrapper {
+                overflow-x: auto;
+                white-space: nowrap;
             }
 
-            .form-column {
-                display: flex;
-                flex-direction: column;
+            #tabSwitcher .btn {
+                white-space: nowrap;
+                /* biar teks dalam button gak pecah ke bawah */
             }
 
-            .form-column label {
-                margin-top: 10px;
-                font-weight: bold;
-            }
-
-            .form-column input {
-                padding: 8px;
-                margin-top: 5px;
-                border: 1px solid #ccc;
-                border-radius: 5px;
-            }
-
-            .form-actions {
-                text-align: center;
-            }
-
-            @media (max-width: 768px) {
-                .form-grid {
-                    grid-template-columns: 1fr;
-                }
-            }
 
             /* modall */
             .modal {
@@ -118,11 +90,28 @@
 
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title mb-3 d-flex justify-content-between">PT. Pertamina Gas</h5>
+            <h5 class="card-title mb-3">PT. Pertamina Gas</h5>
 
-            <button onclick="openModal()" class="btn btn-primary">Create Data</button>
-            <br><br>
-            <div class="tabulator-wrapper">
+            <div class="d-flex align-items-stretch gap-3">
+                <button onclick="openModal()" class="btn btn-primary">Create Data</button>
+
+                <div class="tab-scroll-wrapper flex-grow-1">
+                    <div class="btn-group" role="group" id="tabSwitcher">
+                        <a href="{{ route('pertamina-gas') }}"
+                            class="btn btn-outline-secondary {{ request()->routeIs('pertamina-gas') ? 'active' : '' }}">
+                            Pertmina Gas
+                        </a>
+                        <a href="{{ route('mandatory-certification') }}"
+                            class="btn btn-outline-secondary {{ request()->routeIs('mandatory-certification-') ? 'active' : '' }}">
+                            Mandatory Certification PTG
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div id="mainTable"></div>
+
+            <div class="tabulator-wrapper mt-4">
                 <div id="example-table"></div>
             </div>
         </div>
