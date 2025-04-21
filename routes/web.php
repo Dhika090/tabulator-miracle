@@ -3,11 +3,14 @@
 use App\Http\Controllers\MonevAimController;
 use App\Http\Controllers\SHG\HasilMonevController;
 use App\Http\Controllers\SHG\InputDataMonev\KalimantanJawaGasController;
+use App\Http\Controllers\SHG\InputDataMonev\pertamina\AirBudgetTaggingPtgController;
 use App\Http\Controllers\SHG\InputDataMonev\pertamina\AssetBreakDownPtgController;
+use App\Http\Controllers\SHG\InputDataMonev\pertamina\AvailabilityPtgController;
 use App\Http\Controllers\SHG\InputDataMonev\pertamina\KondisiVacantAIMSPtgController;
 use App\Http\Controllers\SHG\InputDataMonev\pertamina\MandatoryCertificationPtgController;
 use App\Http\Controllers\SHG\InputDataMonev\pertamina\PelatihanAIMSPtgController;
 use App\Http\Controllers\SHG\InputDataMonev\pertamina\RealisasiAnggaranAIPtg2025Controller;
+use App\Http\Controllers\SHG\InputDataMonev\pertamina\RealisasiProgressFisikAI2025PtgController;
 use App\Http\Controllers\SHG\InputDataMonev\pertamina\RencanaPemeliharaanBesarPtgController;
 use App\Http\Controllers\SHG\InputDataMonev\pertamina\SapAssetPtgController;
 use App\Http\Controllers\SHG\InputDataMonev\pertamina\SistemInformasiAimsPtgController;
@@ -225,6 +228,36 @@ Route::prefix('monev/shg/input-data/realisasi-anggaran-ai-ptg')->middleware(['au
     // Route::get('/{id}/edit', [RealisasiAnggaranAIPtgController::class, 'edit'])->name('realisasi-anggaran-ai-ptg.edit');
     Route::put('/{id}', [RealisasiAnggaranAIPtg2025Controller::class, 'update'])->name('realisasi-anggaran-ai-ptg.update');
     Route::delete('/{id}', [RealisasiAnggaranAIPtg2025Controller::class, 'destroy'])->name('realisasi-anggaran-ai-ptg.destroy');
+});
+
+// Realisasi Progress Fisik AI 2025 PTG
+Route::prefix('monev/shg/input-data/realisasi-progress-fisik-ai-ptg')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [RealisasiProgressFisikAI2025PtgController::class, 'index'])->name('realisasi-progress-fisik-ai-ptg');
+    Route::post('/', [RealisasiProgressFisikAi2025PtgController::class, 'store'])->name('realisasi-progress-fisik-ai-ptg.store');
+    Route::get('/data', [RealisasiProgressFisikAi2025PtgController::class, 'data'])->name('realisasi-progress-fisik-ai-ptg.data');
+    // Route::get('/{id}/edit', [RealisasiProgressFisikAi2025PtgController::class, 'edit'])->name('realisasi-progress-fisik-ai-2025-ptg.edit');
+    Route::put('/{id}', [RealisasiProgressFisikAi2025PtgController::class, 'update'])->name('realisasi-progress-fisik-ai-ptg.update');
+    Route::delete('/{id}', [RealisasiProgressFisikAi2025PtgController::class, 'destroy'])->name('realisasi-progress-fisik-ai-ptg.destroy');
+});
+
+// Availability PTG
+Route::prefix('monev/shg/input-data/availability-ptg')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [AvailabilityPtgController::class, 'index'])->name('availability-ptg');
+    Route::post('/', [AvailabilityPtgController::class, 'store'])->name('availability-ptg.store');
+    Route::get('/data', [AvailabilityPtgController::class, 'data'])->name('availability-ptg.data');
+    // Route::get('/{id}/edit', [AvailabilityPtgController::class, 'edit'])->name('availability-ptg.edit');
+    Route::put('/{id}', [AvailabilityPtgController::class, 'update'])->name('availability-ptg.update');
+    Route::delete('/{id}', [AvailabilityPtgController::class, 'destroy'])->name('availability-ptg.destroy');
+});
+
+// Air Budget Tagging PTG
+Route::prefix('monev/shg/input-data/air-budget-tagging-ptg')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [AirBudgetTaggingPtgController::class, 'index'])->name('air-budget-tagging-ptg');
+    Route::post('/', [AirBudgetTaggingPtgController::class, 'store'])->name('air-budget-tagging-ptg.store');
+    Route::get('/data', [AirBudgetTaggingPtgController::class, 'data'])->name('air-budget-tagging-ptg.data');
+    // Route::get('/{id}/edit', [AirBudgetTaggingPtgController::class, 'edit'])->name('air-budget-tagging-ptg.edit');
+    Route::put('/{id}', [AirBudgetTaggingPtgController::class, 'update'])->name('air-budget-tagging-ptg.update');
+    Route::delete('/{id}', [AirBudgetTaggingPtgController::class, 'destroy'])->name('air-budget-tagging-ptg.destroy');
 });
 
 

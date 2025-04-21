@@ -54,6 +54,7 @@
                 position: absolute;
                 top: 3%;
                 left: 30%;
+                /* transform: translate(-50%, -50%); */
                 padding: 20px;
                 width: 50%;
                 border-radius: 10px;
@@ -92,7 +93,7 @@
 
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title mb-3">Realisasi Anggaran AI 2025 PTG</h5>
+            <h5 class="card-title mb-3">Realisasi Progress Fisik AI PTG 2025</h5>
 
             <div class="d-flex align-items-stretch gap-3">
                 <button onclick="openModal()" class="btn btn-primary px-4 py-2" style="white-space: nowrap;">Create
@@ -167,7 +168,7 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Realisasi Anggaran AI 2025 PTG</h3>
+            <h3>Tambah Realisasi Progress Fisik AI PTG</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
 
@@ -175,76 +176,184 @@
                     <label>Periode</label>
                     <input type="month" name="periode" id="periode" required>
                 </div>
-                <div><label>No</label><input type="number" name="no" id="no" required></div>
-                <div><label>Program Kerja</label><input type="text" name="program_kerja" id="program_kerja" required>
-                </div>
-                <div><label>Kategori AIBT</label><input type="text" name="kategori_aibt" id="kategori_aibt" required>
-                </div>
-                <div><label>Jenis Anggaran</label><input type="text" name="jenis_anggaran" id="jenis_anggaran"
-                        required></div>
-                <div><label>Besar RKAP</label><input type="text" name="besar_rkap" id="besar_rkap" required
-                        pattern="^\d{1,3}(?:\.\d{3})*(?:\,\d{1,2})?$"
-                        title="Please enter a valid number with up to 2 decimal places and comma as thousand separator">
-                </div>
-                <div><label>Entitas</label><input type="text" name="entitas" id="entitas" required></div>
-                <div><label>Unit</label><input type="text" name="unit" id="unit" required></div>
-                <div><label>Nilai Kontrak</label><input type="number" name="nilai_kontrak" id="nilai_kontrak">
+
+                <div>
+                    <label>No</label>
+                    <input type="text" name="no" id="no" required>
                 </div>
 
-                <!-- Plan -->
-                <div><label>Plan Jan</label><input type="number" name="plan_jan" id="plan_jan"></div>
-                <div><label>Plan Feb</label><input type="number" name="plan_feb" id="plan_feb"></div>
-                <div><label>Plan Mar</label><input type="number" name="plan_mar" id="plan_mar"></div>
-                <div><label>Plan Apr</label><input type="number" name="plan_apr" id="plan_apr"></div>
-                <div><label>Plan May</label><input type="number" name="plan_may" id="plan_may"></div>
-                <div><label>Plan Jun</label><input type="number" name="plan_jun" id="plan_jun"></div>
-                <div><label>Plan Jul</label><input type="number" name="plan_jul" id="plan_jul"></div>
-                <div><label>Plan Aug</label><input type="number" name="plan_aug" id="plan_aug"></div>
-                <div><label>Plan Sep</label><input type="number" name="plan_sep" id="plan_sep"></div>
-                <div><label>Plan Oct</label><input type="number" name="plan_oct" id="plan_oct"></div>
-                <div><label>Plan Nov</label><input type="number" name="plan_nov" id="plan_nov"></div>
-                <div><label>Plan Dec</label><input type="number" name="plan_dec" id="plan_dec"></div>
-
-                <!-- Prognosa -->
-                <div><label>Prognosa Jan</label><input type="number" name="prognosa_jan" id="prognosa_jan"></div>
-                <div><label>Prognosa Feb</label><input type="number" name="prognosa_feb" id="prognosa_feb"></div>
-                <div><label>Prognosa Mar</label><input type="number" name="prognosa_mar" id="prognosa_mar"></div>
-                <div><label>Prognosa Apr</label><input type="number" name="prognosa_apr" id="prognosa_apr"></div>
-                <div><label>Prognosa May</label><input type="number" name="prognosa_may" id="prognosa_may"></div>
-                <div><label>Prognosa Jun</label><input type="number" name="prognosa_jun" id="prognosa_jun"></div>
-                <div><label>Prognosa Jul</label><input type="number" name="prognosa_jul" id="prognosa_jul"></div>
-                <div><label>Prognosa Aug</label><input type="number" name="prognosa_aug" id="prognosa_aug"></div>
-                <div><label>Prognosa Sep</label><input type="number" name="prognosa_sep" id="prognosa_sep"></div>
-                <div><label>Prognosa Oct</label><input type="number" name="prognosa_oct" id="prognosa_oct"></div>
-                <div><label>Prognosa Nov</label><input type="number" name="prognosa_nov" id="prognosa_nov"></div>
-                <div><label>Prognosa Dec</label><input type="number" name="prognosa_dec" id="prognosa_dec"></div>
-
-                <!-- Actual -->
-                <div><label>Actual Jan</label><input type="number" name="actual_jan" id="actual_jan"></div>
-                <div><label>Actual Feb</label><input type="number" name="actual_feb" id="actual_feb"></div>
-                <div><label>Actual Mar</label><input type="number" name="actual_mar" id="actual_mar"></div>
-                <div><label>Actual Apr</label><input type="number" name="actual_apr" id="actual_apr"></div>
-                <div><label>Actual May</label><input type="number" name="actual_may" id="actual_may"></div>
-                <div><label>Actual Jun</label><input type="number" name="actual_jun" id="actual_jun"></div>
-                <div><label>Actual Jul</label><input type="number" name="actual_jul" id="actual_jul"></div>
-                <div><label>Actual Aug</label><input type="number" name="actual_aug" id="actual_aug"></div>
-                <div><label>Actual Sep</label><input type="number" name="actual_sep" id="actual_sep"></div>
-                <div><label>Actual Oct</label><input type="number" name="actual_oct" id="actual_oct"></div>
-                <div><label>Actual Nov</label><input type="number" name="actual_nov" id="actual_nov"></div>
-                <div><label>Actual Dec</label><input type="number" name="actual_dec" id="actual_dec"></div>
-
-                <!-- Kode, Kendala, Tindak Lanjut -->
-                <div><label>Kode</label><input type="text" name="kode" id="kode"></div>
-                <div><label>Kendala</label>
-                    <input type="text" name="kendala" id="kendala"></input>
+                <div>
+                    <label>Program Kerja</label>
+                    <input type="text" name="program_kerja" id="program_kerja" required>
                 </div>
-                <div><label>Tindak Lanjut</label>
-                    <input type="text" name="tindak_lanjut" id="tindak_lanjut"></input>
+
+                <div>
+                    <label>Kategori AIBT</label>
+                    <input type="text" name="kategori_aibt" id="kategori_aibt" required>
+                </div>
+
+                <div>
+                    <label>Jenis Anggaran</label>
+                    <input type="text" name="jenis_anggaran" id="jenis_anggaran" required>
+                </div>
+
+                <div>
+                    <label>Besar RKAP</label>
+                    <input type="text" name="besar_rkap" id="besar_rkap" required>
+                </div>
+
+                <div>
+                    <label>Entitas</label>
+                    <input type="text" name="entitas" id="entitas" required>
+                </div>
+
+                <div>
+                    <label>Unit</label>
+                    <input type="text" name="unit" id="unit" required>
+                </div>
+
+                <div>
+                    <label>Nilai Kontrak</label>
+                    <input type="number" name="nilai_kontrak" id="nilai_kontrak">
+                </div>
+
+                <div>
+                    <label>Plan Jan</label>
+                    <input type="number" name="plan_jan" id="plan_jan">
+                </div>
+
+                <div>
+                    <label>Plan Feb</label>
+                    <input type="number" name="plan_feb" id="plan_feb">
+                </div>
+
+                <div>
+                    <label>Plan Mar</label>
+                    <input type="number" name="plan_mar" id="plan_mar">
+                </div>
+
+                <div>
+                    <label>Plan Apr</label>
+                    <input type="number" name="plan_apr" id="plan_apr">
+                </div>
+
+                <div>
+                    <label>Plan May</label>
+                    <input type="number" name="plan_may" id="plan_may">
+                </div>
+
+                <div>
+                    <label>Plan Jun</label>
+                    <input type="number" name="plan_jun" id="plan_jun">
+                </div>
+
+                <div>
+                    <label>Plan Jul</label>
+                    <input type="number" name="plan_jul" id="plan_jul">
+                </div>
+
+                <div>
+                    <label>Plan Aug</label>
+                    <input type="number" name="plan_aug" id="plan_aug">
+                </div>
+
+                <div>
+                    <label>Plan Sep</label>
+                    <input type="number" name="plan_sep" id="plan_sep">
+                </div>
+
+                <div>
+                    <label>Plan Oct</label>
+                    <input type="number" name="plan_oct" id="plan_oct">
+                </div>
+
+                <div>
+                    <label>Plan Nov</label>
+                    <input type="number" name="plan_nov" id="plan_nov">
+                </div>
+
+                <div>
+                    <label>Plan Dec</label>
+                    <input type="number" name="plan_dec" id="plan_dec">
+                </div>
+
+                <div>
+                    <label>Actual Jan</label>
+                    <input type="number" name="actual_jan" id="actual_jan">
+                </div>
+
+                <div>
+                    <label>Actual Feb</label>
+                    <input type="number" name="actual_feb" id="actual_feb">
+                </div>
+
+                <div>
+                    <label>Actual Mar</label>
+                    <input type="number" name="actual_mar" id="actual_mar">
+                </div>
+
+                <div>
+                    <label>Actual Apr</label>
+                    <input type="number" name="actual_apr" id="actual_apr">
+                </div>
+
+                <div>
+                    <label>Actual May</label>
+                    <input type="number" name="actual_may" id="actual_may">
+                </div>
+
+                <div>
+                    <label>Actual Jun</label>
+                    <input type="number" name="actual_jun" id="actual_jun">
+                </div>
+
+                <div>
+                    <label>Actual Jul</label>
+                    <input type="number" name="actual_jul" id="actual_jul">
+                </div>
+
+                <div>
+                    <label>Actual Aug</label>
+                    <input type="number" name="actual_aug" id="actual_aug">
+                </div>
+
+                <div>
+                    <label>Actual Sep</label>
+                    <input type="number" name="actual_sep" id="actual_sep">
+                </div>
+
+                <div>
+                    <label>Actual Oct</label>
+                    <input type="number" name="actual_oct" id="actual_oct">
+                </div>
+
+                <div>
+                    <label>Actual Nov</label>
+                    <input type="number" name="actual_nov" id="actual_nov">
+                </div>
+
+                <div>
+                    <label>Actual Dec</label>
+                    <input type="number" name="actual_dec" id="actual_dec">
+                </div>
+
+                <div>
+                    <label>Kode</label>
+                    <input type="text" name="kode" id="kode">
+                </div>
+
+                <div>
+                    <label>Kendala</label>
+                    <input type="text" name="kendala" id="kendala">
+                </div>
+
+                <div>
+                    <label>Tindak Lanjut</label>
+                    <input type="text" name="tindak_lanjut" id="tindak_lanjut">
                 </div>
 
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
-
         </div>
     </div>
 
@@ -298,7 +407,7 @@
             });
 
             const columnMap = {
-                "realisasi-anggaran-ai-ptg": [{
+                "realisasi-progress-fisik-ai-ptg": [{
                         title: "No",
                         formatter: "rownum",
                         hozAlign: "center",
@@ -310,8 +419,7 @@
                     },
                     {
                         title: "No",
-                        field: "no",
-                        hozAlign: "center",
+                        field: "no"
                     },
                     {
                         title: "Program Kerja",
@@ -344,193 +452,126 @@
                         field: "nilai_kontrak",
                         hozAlign: "right"
                     },
-
-                    // Plan
                     {
                         title: "Plan Jan",
                         field: "plan_jan",
-                        hozAlign: "right"
+                        hozAlign: "center"
                     },
                     {
                         title: "Plan Feb",
                         field: "plan_feb",
-                        hozAlign: "right"
+                        hozAlign: "center"
                     },
                     {
                         title: "Plan Mar",
                         field: "plan_mar",
-                        hozAlign: "right"
+                        hozAlign: "center"
                     },
                     {
                         title: "Plan Apr",
                         field: "plan_apr",
-                        hozAlign: "right"
+                        hozAlign: "center"
                     },
                     {
                         title: "Plan May",
                         field: "plan_may",
-                        hozAlign: "right"
+                        hozAlign: "center"
                     },
                     {
                         title: "Plan Jun",
                         field: "plan_jun",
-                        hozAlign: "right"
+                        hozAlign: "center"
                     },
                     {
                         title: "Plan Jul",
                         field: "plan_jul",
-                        hozAlign: "right"
+                        hozAlign: "center"
                     },
                     {
                         title: "Plan Aug",
                         field: "plan_aug",
-                        hozAlign: "right"
+                        hozAlign: "center"
                     },
                     {
                         title: "Plan Sep",
                         field: "plan_sep",
-                        hozAlign: "right"
+                        hozAlign: "center"
                     },
                     {
                         title: "Plan Oct",
                         field: "plan_oct",
-                        hozAlign: "right"
+                        hozAlign: "center"
                     },
                     {
                         title: "Plan Nov",
                         field: "plan_nov",
-                        hozAlign: "right"
+                        hozAlign: "center"
                     },
                     {
                         title: "Plan Dec",
                         field: "plan_dec",
-                        hozAlign: "right"
+                        hozAlign: "center"
                     },
-
-                    // Prognosa
-                    {
-                        title: "Prognosa Jan",
-                        field: "prognosa_jan",
-                        hozAlign: "right"
-                    },
-                    {
-                        title: "Prognosa Feb",
-                        field: "prognosa_feb",
-                        hozAlign: "right"
-                    },
-                    {
-                        title: "Prognosa Mar",
-                        field: "prognosa_mar",
-                        hozAlign: "right"
-                    },
-                    {
-                        title: "Prognosa Apr",
-                        field: "prognosa_apr",
-                        hozAlign: "right"
-                    },
-                    {
-                        title: "Prognosa May",
-                        field: "prognosa_may",
-                        hozAlign: "right"
-                    },
-                    {
-                        title: "Prognosa Jun",
-                        field: "prognosa_jun",
-                        hozAlign: "right"
-                    },
-                    {
-                        title: "Prognosa Jul",
-                        field: "prognosa_jul",
-                        hozAlign: "right"
-                    },
-                    {
-                        title: "Prognosa Aug",
-                        field: "prognosa_aug",
-                        hozAlign: "right"
-                    },
-                    {
-                        title: "Prognosa Sep",
-                        field: "prognosa_sep",
-                        hozAlign: "right"
-                    },
-                    {
-                        title: "Prognosa Oct",
-                        field: "prognosa_oct",
-                        hozAlign: "right"
-                    },
-                    {
-                        title: "Prognosa Nov",
-                        field: "prognosa_nov",
-                        hozAlign: "right"
-                    },
-                    {
-                        title: "Prognosa Dec",
-                        field: "prognosa_dec",
-                        hozAlign: "right"
-                    },
-
-                    // Actual
                     {
                         title: "Actual Jan",
                         field: "actual_jan",
-                        hozAlign: "right"
+                        hozAlign: "center"
                     },
                     {
                         title: "Actual Feb",
                         field: "actual_feb",
-                        hozAlign: "right"
+                        hozAlign: "center"
                     },
                     {
                         title: "Actual Mar",
                         field: "actual_mar",
-                        hozAlign: "right"
+                        hozAlign: "center"
                     },
                     {
                         title: "Actual Apr",
                         field: "actual_apr",
-                        hozAlign: "right"
+                        hozAlign: "center"
                     },
                     {
                         title: "Actual May",
                         field: "actual_may",
-                        hozAlign: "right"
+                        hozAlign: "center"
                     },
                     {
                         title: "Actual Jun",
                         field: "actual_jun",
-                        hozAlign: "right"
+                        hozAlign: "center"
                     },
                     {
                         title: "Actual Jul",
                         field: "actual_jul",
-                        hozAlign: "right"
+                        hozAlign: "center"
                     },
                     {
                         title: "Actual Aug",
                         field: "actual_aug",
-                        hozAlign: "right"
+                        hozAlign: "center"
                     },
                     {
                         title: "Actual Sep",
                         field: "actual_sep",
-                        hozAlign: "right"
+                        hozAlign: "center"
                     },
                     {
                         title: "Actual Oct",
                         field: "actual_oct",
-                        hozAlign: "right"
+                        hozAlign: "center"
                     },
                     {
                         title: "Actual Nov",
                         field: "actual_nov",
-                        hozAlign: "right"
+                        hozAlign: "center"
                     },
                     {
                         title: "Actual Dec",
                         field: "actual_dec",
-                        hozAlign: "right"
+                        hozAlign: "center"
                     },
-
                     {
                         title: "Kode",
                         field: "kode"
@@ -543,25 +584,23 @@
                         title: "Tindak Lanjut",
                         field: "tindak_lanjut"
                     },
-
                     {
                         title: "Aksi",
                         formatter: (cell, formatterParams) => {
                             const row = cell.getData();
                             return `
-                <button onclick='editData(${JSON.stringify(row)})'>Edit</button>
-                <button onclick='deleteData("${row.id}")'>Hapus</button>
-            `;
+                    <button onclick='editData(${JSON.stringify(row)})'>Edit</button>
+                    <button onclick='deleteData("${row.id}")'>Hapus</button>
+                `;
                         },
                         hozAlign: "center",
                         width: 150
                     }
                 ]
-
             };
 
             const routeMap = {
-                "realisasi-anggaran-ai-ptg": "{{ route('realisasi-anggaran-ai-ptg.data') }}"
+                "realisasi-progress-fisik-ai-ptg": "{{ route('realisasi-progress-fisik-ai-ptg.data') }}"
             };
 
             document.querySelectorAll('#tabSwitcher a').forEach(btn => {
@@ -610,8 +649,6 @@
                 document.getElementById("entitas").value = row.entitas;
                 document.getElementById("unit").value = row.unit;
                 document.getElementById("nilai_kontrak").value = row.nilai_kontrak;
-
-                // Plan
                 document.getElementById("plan_jan").value = row.plan_jan;
                 document.getElementById("plan_feb").value = row.plan_feb;
                 document.getElementById("plan_mar").value = row.plan_mar;
@@ -624,22 +661,6 @@
                 document.getElementById("plan_oct").value = row.plan_oct;
                 document.getElementById("plan_nov").value = row.plan_nov;
                 document.getElementById("plan_dec").value = row.plan_dec;
-
-                // Prognosa
-                document.getElementById("prognosa_jan").value = row.prognosa_jan;
-                document.getElementById("prognosa_feb").value = row.prognosa_feb;
-                document.getElementById("prognosa_mar").value = row.prognosa_mar;
-                document.getElementById("prognosa_apr").value = row.prognosa_apr;
-                document.getElementById("prognosa_may").value = row.prognosa_may;
-                document.getElementById("prognosa_jun").value = row.prognosa_jun;
-                document.getElementById("prognosa_jul").value = row.prognosa_jul;
-                document.getElementById("prognosa_aug").value = row.prognosa_aug;
-                document.getElementById("prognosa_sep").value = row.prognosa_sep;
-                document.getElementById("prognosa_oct").value = row.prognosa_oct;
-                document.getElementById("prognosa_nov").value = row.prognosa_nov;
-                document.getElementById("prognosa_dec").value = row.prognosa_dec;
-
-                // Actual
                 document.getElementById("actual_jan").value = row.actual_jan;
                 document.getElementById("actual_feb").value = row.actual_feb;
                 document.getElementById("actual_mar").value = row.actual_mar;
@@ -652,17 +673,15 @@
                 document.getElementById("actual_oct").value = row.actual_oct;
                 document.getElementById("actual_nov").value = row.actual_nov;
                 document.getElementById("actual_dec").value = row.actual_dec;
-
                 document.getElementById("kode").value = row.kode;
                 document.getElementById("kendala").value = row.kendala;
                 document.getElementById("tindak_lanjut").value = row.tindak_lanjut;
-
                 openModal();
             }
 
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
-                    fetch(`realisasi-anggaran-ai-ptg/${id}`, {
+                    fetch(`realisasi-progress-fisik-ai-ptg/${id}`, {
                             method: "DELETE",
                             headers: {
                                 "Accept": "application/json",
@@ -673,7 +692,7 @@
                         .then(result => {
                             if (result.success) {
                                 alert(result.message);
-                                table.setData("/monev/shg/input-data/realisasi-anggaran-ai-ptg/data")
+                                table.setData("/monev/shg/input-data/realisasi-progress-fisik-ai-ptg/data")
                                 this.reset();
                             } else {
                                 alert('Gagal menyimpan data');
@@ -683,8 +702,8 @@
             }
 
             document.addEventListener("DOMContentLoaded", function() {
-                loadTabData("realisasi-anggaran-ai-ptg");
-                localStorage.setItem("currentTab", "realisasi-anggaran-ai-ptg");
+                loadTabData("realisasi-progress-fisik-ai-ptg");
+                localStorage.setItem("currentTab", "realisasi-progress-fisik-ai-ptg");
             });
         </script>
 
@@ -718,8 +737,6 @@
                 const entitas = document.getElementById("entitas").value;
                 const unit = document.getElementById("unit").value;
                 const nilaiKontrak = document.getElementById("nilai_kontrak").value;
-
-                // Plan
                 const planJan = document.getElementById("plan_jan").value;
                 const planFeb = document.getElementById("plan_feb").value;
                 const planMar = document.getElementById("plan_mar").value;
@@ -732,22 +749,6 @@
                 const planOct = document.getElementById("plan_oct").value;
                 const planNov = document.getElementById("plan_nov").value;
                 const planDec = document.getElementById("plan_dec").value;
-
-                // Prognosa
-                const prognosaJan = document.getElementById("prognosa_jan").value;
-                const prognosaFeb = document.getElementById("prognosa_feb").value;
-                const prognosaMar = document.getElementById("prognosa_mar").value;
-                const prognosaApr = document.getElementById("prognosa_apr").value;
-                const prognosaMay = document.getElementById("prognosa_may").value;
-                const prognosaJun = document.getElementById("prognosa_jun").value;
-                const prognosaJul = document.getElementById("prognosa_jul").value;
-                const prognosaAug = document.getElementById("prognosa_aug").value;
-                const prognosaSep = document.getElementById("prognosa_sep").value;
-                const prognosaOct = document.getElementById("prognosa_oct").value;
-                const prognosaNov = document.getElementById("prognosa_nov").value;
-                const prognosaDec = document.getElementById("prognosa_dec").value;
-
-                // Actual
                 const actualJan = document.getElementById("actual_jan").value;
                 const actualFeb = document.getElementById("actual_feb").value;
                 const actualMar = document.getElementById("actual_mar").value;
@@ -760,14 +761,13 @@
                 const actualOct = document.getElementById("actual_oct").value;
                 const actualNov = document.getElementById("actual_nov").value;
                 const actualDec = document.getElementById("actual_dec").value;
-
                 const kode = document.getElementById("kode").value;
                 const kendala = document.getElementById("kendala").value;
                 const tindakLanjut = document.getElementById("tindak_lanjut").value;
 
 
                 const method = id ? "PUT" : "POST";
-                const url = id ? `realisasi-anggaran-ai-ptg/${id}` : "realisasi-anggaran-ai-ptg";
+                const url = id ? `realisasi-progress-fisik-ai-ptg/${id}` : "realisasi-progress-fisik-ai-ptg";
 
                 fetch(url, {
                         method: method,
@@ -799,18 +799,6 @@
                             plan_oct: planOct,
                             plan_nov: planNov,
                             plan_dec: planDec,
-                            prognosa_jan: prognosaJan,
-                            prognosa_feb: prognosaFeb,
-                            prognosa_mar: prognosaMar,
-                            prognosa_apr: prognosaApr,
-                            prognosa_may: prognosaMay,
-                            prognosa_jun: prognosaJun,
-                            prognosa_jul: prognosaJul,
-                            prognosa_aug: prognosaAug,
-                            prognosa_sep: prognosaSep,
-                            prognosa_oct: prognosaOct,
-                            prognosa_nov: prognosaNov,
-                            prognosa_dec: prognosaDec,
                             actual_jan: actualJan,
                             actual_feb: actualFeb,
                             actual_mar: actualMar,
@@ -833,7 +821,7 @@
                         if (result.success) {
                             alert(result.message);
                             // table.addRow([result.data]);
-                            table.setData("/monev/shg/input-data/realisasi-anggaran-ai-ptg/data");
+                            table.setData("/monev/shg/input-data/realisasi-progress-fisik-ai-ptg/data");
                             this.reset();
                         } else {
                             alert('Gagal menyimpan data');

@@ -96,7 +96,8 @@
             <h5 class="card-title mb-3">Pelatihan AIMS PTG</h5>
 
             <div class="d-flex align-items-stretch gap-3">
-                <button onclick="openModal()" class="btn btn-primary">Create Data</button>
+                <button onclick="openModal()" class="btn btn-primary px-4 py-2" style="white-space: nowrap;">Create
+                    Data</button>
 
                 <div class="tab-scroll-wrapper flex-grow-1">
                     <div class="btn-group" role="group" id="tabSwitcher">
@@ -139,6 +140,18 @@
                         <a href="{{ route('realisasi-anggaran-ai-ptg') }}"
                             class="btn btn-outline-secondary {{ request()->routeIs('realisasi-anggaran-ai-ptg') ? 'active' : '' }}">
                             Realisasi Anggaran AI 2025 PTG
+                        </a>
+                        <a href="{{ route('realisasi-progress-fisik-ai-ptg') }}"
+                            class="btn btn-outline-secondary {{ request()->routeIs('realisasi-progress-fisik-ai-ptg') ? 'active' : '' }}">
+                            Realisasi Progress Fisik AI PTG 2025
+                        </a>
+                        <a href="{{ route('availability-ptg') }}"
+                            class="btn btn-outline-secondary {{ request()->routeIs('availability-ptg') ? 'active' : '' }}">
+                            Availability PTG
+                        </a>
+                        <a href="{{ route('air-budget-tagging-ptg') }}"
+                            class="btn btn-outline-secondary {{ request()->routeIs('air-budget-tagging-ptg') ? 'active' : '' }}">
+                            Availability PTG
                         </a>
                     </div>
                 </div>

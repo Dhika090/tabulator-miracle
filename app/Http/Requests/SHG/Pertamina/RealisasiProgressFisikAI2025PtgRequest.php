@@ -4,7 +4,7 @@ namespace App\Http\Requests\SHG\Pertamina;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class RealisasiAnggaranAiPtg2025Request extends FormRequest
+class RealisasiProgressFisikAI2025PtgRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,13 +22,12 @@ class RealisasiAnggaranAiPtg2025Request extends FormRequest
     public function rules(): array
     {
         return [
-            // 'periode' => 'required|date|max:255',
-            'periode' => 'required|date_format:Y-m',
-            'no' => 'required|integer',
+            'periode' => 'required|string|max:7',
+            'no' => 'required|string|max:255',
             'program_kerja' => 'required|string|max:255',
             'kategori_aibt' => 'required|string|max:255',
             'jenis_anggaran' => 'required|string|max:255',
-            'besar_rkap' => 'required|numeric',
+            'besar_rkap' => 'required|string|max:255',
             'entitas' => 'required|string|max:255',
             'unit' => 'required|string|max:255',
             'nilai_kontrak' => 'nullable|numeric',
@@ -44,18 +43,6 @@ class RealisasiAnggaranAiPtg2025Request extends FormRequest
             'plan_oct' => 'nullable|numeric',
             'plan_nov' => 'nullable|numeric',
             'plan_dec' => 'nullable|numeric',
-            'prognosa_jan' => 'nullable|numeric',
-            'prognosa_feb' => 'nullable|numeric',
-            'prognosa_mar' => 'nullable|numeric',
-            'prognosa_apr' => 'nullable|numeric',
-            'prognosa_may' => 'nullable|numeric',
-            'prognosa_jun' => 'nullable|numeric',
-            'prognosa_jul' => 'nullable|numeric',
-            'prognosa_aug' => 'nullable|numeric',
-            'prognosa_sep' => 'nullable|numeric',
-            'prognosa_oct' => 'nullable|numeric',
-            'prognosa_nov' => 'nullable|numeric',
-            'prognosa_dec' => 'nullable|numeric',
             'actual_jan' => 'nullable|numeric',
             'actual_feb' => 'nullable|numeric',
             'actual_mar' => 'nullable|numeric',

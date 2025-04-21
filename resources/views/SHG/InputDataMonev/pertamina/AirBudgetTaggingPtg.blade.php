@@ -29,9 +29,12 @@
 
             #tabSwitcher .btn {
                 white-space: nowrap;
-                /* biar teks dalam button gak pecah ke bawah */
             }
 
+            .tabulator .tabulator-cell {
+                white-space: normal !important;
+                word-wrap: break-word;
+            }
 
             /* modall */
             .modal {
@@ -90,7 +93,7 @@
 
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title mb-3">Status PLO PTG</h5>
+            <h5 class="card-title mb-3">AIR BUDGET TAGGING PTG</h5>
 
             <div class="d-flex align-items-stretch gap-3">
                 <button onclick="openModal()" class="btn btn-primary px-4 py-2" style="white-space: nowrap;">Create
@@ -165,97 +168,106 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Tambah Target SAP</h3>
+            <h3>Pelatihan AIMS PTG</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
 
                 <div>
                     <label>Periode</label>
-                    <input type="text" name="periode" id="periode" required>
+                    <input type="month" name="periode" id="periode" required>
                 </div>
 
                 <div>
-                    <label>Nomor PLO</label>
-                    <input type="text" name="nomor_plo" id="nomor_plo" required>
+                    <label>SATKER</label>
+                    <input type="text" name="satker" id="satker" required>
                 </div>
 
                 <div>
-                    <label>Company</label>
-                    <input type="text" name="company" id="company" required>
+                    <label>Kategori</label>
+                    <input type="text" name="kategori" id="kategori" required>
                 </div>
 
                 <div>
-                    <label>Area</label>
-                    <input type="text" name="area" id="area" required>
+                    <label>CE</label>
+                    <input type="text" name="ce" id="ce" >
                 </div>
 
                 <div>
-                    <label>Lokasi</label>
-                    <input type="text" name="lokasi" id="lokasi" required>
+                    <label>Cost Element Name</label>
+                    <input type="text" name="cost_element_name" id="cost_element_name" >
                 </div>
 
                 <div>
-                    <label>Nama Aset</label>
-                    <input type="text" name="nama_aset" id="nama_aset" required>
+                    <label>Program Kerja</label>
+                    <input type="text" name="program_kerja" id="program_kerja" required>
                 </div>
 
                 <div>
-                    <label>Tanggal Pengesahan</label>
-                    <input type="text" name="tanggal_pengesahan" id="tanggal_pengesahan" required>
+                    <label>Total Pagu (USD)</label>
+                    <input type="number" name="total_pagu_usd" id="total_pagu_usd" step="0.01" >
+                </div>
+
+                <!-- Bulan-bulan -->
+                <div><label>JAN</label><input type="number" name="jan" id="jan" step="0.01"></div>
+                <div><label>FEB</label><input type="number" name="feb" id="feb" step="0.01"></div>
+                <div><label>MAR</label><input type="number" name="mar" id="mar" step="0.01"></div>
+                <div><label>APR</label><input type="number" name="apr" id="apr" step="0.01"></div>
+                <div><label>MAY</label><input type="number" name="may" id="may" step="0.01"></div>
+                <div><label>JUN</label><input type="number" name="jun" id="jun" step="0.01"></div>
+                <div><label>JUL</label><input type="number" name="jul" id="jul" step="0.01"></div>
+                <div><label>AUG</label><input type="number" name="aug" id="aug" step="0.01"></div>
+                <div><label>SEP</label><input type="number" name="sep" id="sep" step="0.01"></div>
+                <div><label>OCT</label><input type="number" name="oct" id="oct" step="0.01"></div>
+                <div><label>NOV</label><input type="number" name="nov" id="nov" step="0.01"></div>
+                <div><label>DEC</label><input type="number" name="dec" id="dec" step="0.01"></div>
+
+                <div>
+                    <label>Aset Integrity (Yes/No)</label>
+                    <select name="aset_integrity" id="aset_integrity" required>
+                        <option value="">Pilih</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
                 </div>
 
                 <div>
-                    <label>Masa Berlaku</label>
-                    <input type="text" name="masa_berlaku" id="masa_berlaku" required>
+                    <label>AIRTagging (Asset Integrity & Reliability)</label>
+                    <input type="text" name="airtagging" id="airtagging">
                 </div>
 
                 <div>
-                    <label>Keterangan</label>
-                    <input type="text" name="keterangan" id="keterangan">
+                    <label>Prioritas</label>
+                    <input type="text" name="prioritas" id="prioritas">
                 </div>
 
                 <div>
-                    <label>Belum Proses</label>
-                    <input type="text" name="belum_proses" id="belum_proses">
+                    <label>Status Integrity per Des 2024</label>
+                    <input type="text" name="status_integrity" id="status_integrity">
                 </div>
 
                 <div>
-                    <label>Pre-Inspection</label>
-                    <input type="text" name="pre_inspection" id="pre_inspection">
+                    <label>Jumlah Aset Critical SECE</label>
+                    <input type="number" name="aset_critical_sece" id="jumlah_aset_critical_sece">
                 </div>
 
                 <div>
-                    <label>Inspection</label>
-                    <input type="text" name="inspection" id="inspection">
+                    <label>Jumlah Aset Critical PCE</label>
+                    <input type="number" name="aset_critical_pce" id="jumlah_aset_critical_pce">
                 </div>
 
                 <div>
-                    <label>COI Peralatan</label>
-                    <input type="text" name="coi_peralatan" id="coi_peralatan">
+                    <label>Jumlah Aset Important</label>
+                    <input type="number" name="aset_important" id="jumlah_aset_important">
                 </div>
 
                 <div>
-                    <label>BA PK</label>
-                    <input type="text" name="ba_pk" id="ba_pk">
-                </div>
-
-                <div>
-                    <label>Penerbitan PLO (Valid)</label>
-                    <input type="text" name="penerbitan_plo_valid" id="penerbitan_plo_valid">
-                </div>
-
-                <div>
-                    <label>Kendala</label>
-                    <input type="text" name="kendala" id="kendala">
-                </div>
-
-                <div>
-                    <label>Tindak Lanjut</label>
-                    <input type="text" name="tindak_lanjut" id="tindak_lanjut">
+                    <label>Jumlah Aset Secondary</label>
+                    <input type="number" name="aset_secondary" id="jumlah_aset_secondary">
                 </div>
 
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
+
         </div>
     </div>
 
@@ -309,7 +321,7 @@
             });
 
             const columnMap = {
-                "status-plo-ptg": [{
+                "air-budget-tagging-ptg": [{
                         title: "No",
                         formatter: "rownum",
                         hozAlign: "center",
@@ -320,94 +332,127 @@
                         field: "periode"
                     },
                     {
-                        title: "Nomor PLO",
-                        field: "nomor_plo"
+                        title: "SATKER",
+                        field: "satker"
                     },
                     {
-                        title: "Company",
-                        field: "company"
+                        title: "Kategori",
+                        field: "kategori"
                     },
                     {
-                        title: "Area",
-                        field: "area"
+                        title: "CE",
+                        field: "ce"
                     },
                     {
-                        title: "Lokasi",
-                        field: "lokasi"
+                        title: "Cost Element Name",
+                        field: "cost_element_name"
                     },
                     {
-                        title: "Nama Aset",
-                        field: "nama_aset"
+                        title: "Program Kerja",
+                        field: "program_kerja",
+                        width: 400
                     },
                     {
-                        title: "Tanggal Pengesahan",
-                        field: "tanggal_pengesahan"
+                        title: "Total Pagu (USD)",
+                        field: "total_pagu_usd"
                     },
                     {
-                        title: "Masa Berlaku",
-                        field: "masa_berlaku",
-                        hozAlign: "center"
+                        title: "JAN",
+                        field: "jan"
                     },
                     {
-                        title: "Keterangan",
-                        field: "keterangan"
+                        title: "FEB",
+                        field: "feb"
                     },
                     {
-                        title: "Belum Proses",
-                        field: "belum_proses",
-                        hozAlign: "center"
+                        title: "MAR",
+                        field: "mar"
                     },
                     {
-                        title: "Pre-Inspection",
-                        field: "pre_inspection",
-                        hozAlign: "center"
+                        title: "APR",
+                        field: "apr"
                     },
                     {
-                        title: "Inspection",
-                        field: "inspection",
-                        hozAlign: "center"
+                        title: "MAY",
+                        field: "may"
                     },
                     {
-                        title: "COI Peralatan",
-                        field: "coi_peralatan",
-                        hozAlign: "center"
+                        title: "JUN",
+                        field: "jun"
                     },
                     {
-                        title: "BA PK",
-                        field: "ba_pk",
-                        hozAlign: "center"
+                        title: "JUL",
+                        field: "jul"
                     },
                     {
-                        title: "Penerbitan PLO (Valid)",
-                        field: "penerbitan_plo_valid",
-                        hozAlign: "center"
+                        title: "AUG",
+                        field: "aug"
                     },
                     {
-                        title: "Kendala",
-                        field: "kendala"
+                        title: "SEP",
+                        field: "sep"
                     },
                     {
-                        title: "Tindak Lanjut",
-                        field: "tindak_lanjut"
+                        title: "OCT",
+                        field: "oct"
+                    },
+                    {
+                        title: "NOV",
+                        field: "nov"
+                    },
+                    {
+                        title: "DEC",
+                        field: "dec"
+                    },
+                    {
+                        title: "Aset Integrity (Yes/No)",
+                        field: "aset_integrity"
+                    },
+                    {
+                        title: "AIRTagging (Asset Integrity & Reliability)",
+                        field: "airtagging"
+                    },
+                    {
+                        title: "Prioritas",
+                        field: "prioritas"
+                    },
+                    {
+                        title: "Status Integrity per Des 2024",
+                        field: "status_integrity"
+                    },
+                    {
+                        title: "Jumlah Aset Critical SECE",
+                        field: "jumlah_aset_critical_sece"
+                    },
+                    {
+                        title: "Jumlah Aset Critical PCE",
+                        field: "jumlah_aset_critical_pce"
+                    },
+                    {
+                        title: "Jumlah Aset Important",
+                        field: "jumlah_aset_important"
+                    },
+                    {
+                        title: "Jumlah Aset Secondary",
+                        field: "jumlah_aset_secondary"
                     },
                     {
                         title: "Aksi",
                         formatter: (cell, formatterParams) => {
                             const row = cell.getData();
                             return `
-                <button onclick='editData(${JSON.stringify(row)})'>Edit</button>
-                <button onclick='deleteData("${row.id}")'>Hapus</button>
-            `;
+                    <button onclick='editData(${JSON.stringify(row)})'>Edit</button>
+                    <button onclick='deleteData("${row.id}")'>Hapus</button>
+                `;
                         },
                         hozAlign: "center",
                         width: 150
                     }
                 ]
-
             };
 
             const routeMap = {
-                "status-plo-ptg": "{{ route('status-plo-ptg.data') }}"
+                "air-budget-tagging-ptg": "{{ route('air-budget-tagging-ptg.data') }}"
             };
 
             document.querySelectorAll('#tabSwitcher a').forEach(btn => {
@@ -448,29 +493,38 @@
             function editData(row) {
                 document.getElementById("form-id").value = row.id;
                 document.getElementById("periode").value = row.periode;
-                document.getElementById("nomor_plo").value = row.nomor_plo;
-                document.getElementById("company").value = row.company;
-                document.getElementById("area").value = row.area;
-                document.getElementById("lokasi").value = row.lokasi;
-                document.getElementById("nama_aset").value = row.nama_aset;
-                document.getElementById("tanggal_pengesahan").value = row.tanggal_pengesahan;
-                document.getElementById("masa_berlaku").value = row.masa_berlaku;
-                document.getElementById("keterangan").value = row.keterangan;
-                document.getElementById("belum_proses").value = row.belum_proses;
-                document.getElementById("pre_inspection").value = row.pre_inspection;
-                document.getElementById("inspection").value = row.inspection;
-                document.getElementById("coi_peralatan").value = row.coi_peralatan;
-                document.getElementById("ba_pk").value = row.ba_pk;
-                document.getElementById("penerbitan_plo_valid").value = row.penerbitan_plo_valid;
-                document.getElementById("kendala").value = row.kendala;
-                document.getElementById("tindak_lanjut").value = row.tindak_lanjut;
-
+                document.getElementById("satker").value = row.satker;
+                document.getElementById("kategori").value = row.kategori;
+                document.getElementById("ce").value = row.ce;
+                document.getElementById("cost_element_name").value = row.cost_element_name;
+                document.getElementById("program_kerja").value = row.program_kerja;
+                document.getElementById("total_pagu_usd").value = row.total_pagu_usd;
+                document.getElementById("jan").value = row.jan;
+                document.getElementById("feb").value = row.feb;
+                document.getElementById("mar").value = row.mar;
+                document.getElementById("apr").value = row.apr;
+                document.getElementById("may").value = row.may;
+                document.getElementById("jun").value = row.jun;
+                document.getElementById("jul").value = row.jul;
+                document.getElementById("aug").value = row.aug;
+                document.getElementById("sep").value = row.sep;
+                document.getElementById("oct").value = row.oct;
+                document.getElementById("nov").value = row.nov;
+                document.getElementById("dec").value = row.dec;
+                document.getElementById("aset_integrity").value = row.aset_integrity;
+                document.getElementById("airtagging").value = row.airtagging;
+                document.getElementById("prioritas").value = row.prioritas;
+                document.getElementById("status_integrity").value = row.status_integrity;
+                document.getElementById("jumlah_aset_critical_sece").value = row.jumlah_aset_critical_sece;
+                document.getElementById("jumlah_aset_critical_pce").value = row.jumlah_aset_critical_pce;
+                document.getElementById("jumlah_aset_important").value = row.jumlah_aset_important;
+                document.getElementById("jumlah_aset_secondary").value = row.jumlah_aset_secondary;
                 openModal();
             }
 
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
-                    fetch(`status-plo-ptg/${id}`, {
+                    fetch(`air-budget-tagging-ptg/${id}`, {
                             method: "DELETE",
                             headers: {
                                 "Accept": "application/json",
@@ -481,7 +535,7 @@
                         .then(result => {
                             if (result.success) {
                                 alert(result.message);
-                                table.setData("/monev/shg/input-data/status-plo-ptg/data")
+                                table.setData("/monev/shg/input-data/air-budget-tagging-ptg/data")
                                 this.reset();
                             } else {
                                 alert('Gagal menyimpan data');
@@ -491,12 +545,12 @@
             }
 
             document.addEventListener("DOMContentLoaded", function() {
-                loadTabData("status-plo-ptg");
-                localStorage.setItem("currentTab", "status-plo-ptg");
+                loadTabData("air-budget-tagging-ptg");
+                localStorage.setItem("currentTab", "air-budget-tagging-ptg");
             });
         </script>
 
-        {{-- create data and create  --}}
+        {{-- create data  --}}
         <script>
             function openModal() {
                 document.getElementById("createModal").style.display = "block";
@@ -508,6 +562,7 @@
                 document.getElementById("createModal").style.display = "none";
             }
 
+            // update and delete data
             document.getElementById("createForm").addEventListener("submit", function(e) {
                 e.preventDefault();
 
@@ -517,27 +572,35 @@
 
                 const id = document.getElementById("form-id").value;
                 const periode = document.getElementById("periode").value;
-                const nomorPlo = document.getElementById("nomor_plo").value;
-                const company = document.getElementById("company").value;
-                const area = document.getElementById("area").value;
-                const lokasi = document.getElementById("lokasi").value;
-                const namaAset = document.getElementById("nama_aset").value;
-                const tanggalPengesahan = document.getElementById("tanggal_pengesahan").value;
-                const masaBerlaku = document.getElementById("masa_berlaku").value;
-                const keterangan = document.getElementById("keterangan").value;
-                const belumProses = document.getElementById("belum_proses").value;
-                const preInspection = document.getElementById("pre_inspection").value;
-                const inspection = document.getElementById("inspection").value;
-                const coiPeralatan = document.getElementById("coi_peralatan").value;
-                const baPk = document.getElementById("ba_pk").value;
-                const penerbitanPloValid = document.getElementById("penerbitan_plo_valid").value;
-                const kendala = document.getElementById("kendala").value;
-                const tindakLanjut = document.getElementById("tindak_lanjut").value;
-
-
+                const satker = document.getElementById("satker").value;
+                const kategori = document.getElementById("kategori").value;
+                const ce = document.getElementById("ce").value;
+                const costElementName = document.getElementById("cost_element_name").value;
+                const programKerja = document.getElementById("program_kerja").value;
+                const totalPaguUSD = document.getElementById("total_pagu_usd").value;
+                const jan = document.getElementById("jan").value;
+                const feb = document.getElementById("feb").value;
+                const mar = document.getElementById("mar").value;
+                const apr = document.getElementById("apr").value;
+                const may = document.getElementById("may").value;
+                const jun = document.getElementById("jun").value;
+                const jul = document.getElementById("jul").value;
+                const aug = document.getElementById("aug").value;
+                const sep = document.getElementById("sep").value;
+                const oct = document.getElementById("oct").value;
+                const nov = document.getElementById("nov").value;
+                const dec = document.getElementById("dec").value;
+                const asetIntegrity = document.getElementById("aset_integrity").value;
+                const airTagging = document.getElementById("airtagging").value;
+                const prioritas = document.getElementById("prioritas").value;
+                const statusIntegrity = document.getElementById("status_integrity").value;
+                const jumlahAsetCriticalSECE = document.getElementById("jumlah_aset_critical_sece").value;
+                const jumlahAsetCriticalPCE = document.getElementById("jumlah_aset_critical_pce").value;
+                const jumlahAsetImportant = document.getElementById("jumlah_aset_important").value;
+                const jumlahAsetSecondary = document.getElementById("jumlah_aset_secondary").value;
 
                 const method = id ? "PUT" : "POST";
-                const url = id ? `status-plo-ptg/${id}` : "status-plo-ptg";
+                const url = id ? `air-budget-tagging-ptg/${id}` : "air-budget-tagging-ptg";
 
                 fetch(url, {
                         method: method,
@@ -548,23 +611,34 @@
                                 "content")
                         },
                         body: JSON.stringify({
+                            id: id,
                             periode: periode,
-                            nomor_plo: nomorPlo,
-                            company: company,
-                            area: area,
-                            lokasi: lokasi,
-                            nama_aset: namaAset,
-                            tanggal_pengesahan: tanggalPengesahan,
-                            masa_berlaku: masaBerlaku,
-                            keterangan: keterangan,
-                            belum_proses: belumProses,
-                            pre_inspection: preInspection,
-                            inspection: inspection,
-                            coi_peralatan: coiPeralatan,
-                            ba_pk: baPk,
-                            penerbitan_plo_valid: penerbitanPloValid,
-                            kendala: kendala,
-                            tindak_lanjut: tindakLanjut
+                            satker: satker,
+                            kategori: kategori,
+                            ce: ce,
+                            cost_element_name: costElementName,
+                            program_kerja: programKerja,
+                            total_pagu_usd: totalPaguUSD,
+                            jan: jan,
+                            feb: feb,
+                            mar: mar,
+                            apr: apr,
+                            may: may,
+                            jun: jun,
+                            jul: jul,
+                            aug: aug,
+                            sep: sep,
+                            oct: oct,
+                            nov: nov,
+                            dec: dec,
+                            aset_integrity: asetIntegrity,
+                            airtagging: airTagging,
+                            prioritas: prioritas,
+                            status_integrity: statusIntegrity,
+                            jumlah_aset_critical_sece: jumlahAsetCriticalSECE,
+                            jumlah_aset_critical_pce: jumlahAsetCriticalPCE,
+                            jumlah_aset_important: jumlahAsetImportant,
+                            jumlah_aset_secondary: jumlahAsetSecondary
                         })
 
                     })
@@ -573,7 +647,7 @@
                         if (result.success) {
                             alert(result.message);
                             // table.addRow([result.data]);
-                            table.setData("/monev/shg/input-data/status-plo-ptg/data");
+                            table.setData("/monev/shg/input-data/air-budget-tagging-ptg/data");
                             this.reset();
                         } else {
                             alert('Gagal menyimpan data');
