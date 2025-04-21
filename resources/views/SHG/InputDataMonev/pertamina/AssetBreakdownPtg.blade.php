@@ -29,12 +29,9 @@
 
             #tabSwitcher .btn {
                 white-space: nowrap;
+                /* biar teks dalam button gak pecah ke bawah */
             }
 
-            .tabulator .tabulator-cell {
-                white-space: normal !important;
-                word-wrap: break-word;
-            }
 
             /* modall */
             .modal {
@@ -93,7 +90,7 @@
 
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title mb-3">Mandatory Certification</h5>
+            <h5 class="card-title mb-3">Asset Breakdown PTG</h5>
 
             <div class="d-flex align-items-stretch gap-3">
                 <button onclick="openModal()" class="btn btn-primary">Create Data</button>
@@ -158,14 +155,10 @@
             <h3>Tambah Target SAP</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
+
                 <div>
                     <label>Periode</label>
                     <input type="text" name="periode" id="periode" required>
-                </div>
-
-                <div>
-                    <label>Subholding</label>
-                    <input type="text" name="subholding" id="subholding" required>
                 </div>
 
                 <div>
@@ -174,28 +167,73 @@
                 </div>
 
                 <div>
-                    <label>Unit</label>
-                    <input type="text" name="unit" id="unit" required>
+                    <label>Plant/Segment</label>
+                    <input type="text" name="plant_segment" id="plant_segment" required>
                 </div>
 
                 <div>
-                    <label>Nama Sertifikasi</label>
-                    <input type="text" name="nama_sertifikasi" id="nama_sertifikasi" required>
+                    <label>Kategori Criticality</label>
+                    <input type="text" name="kategori_criticality" id="kategori_criticality" required>
                 </div>
 
                 <div>
-                    <label>Lembaga Penerbit Sertifikat</label>
-                    <input type="text" name="lembaga_penerbit_sertifikat" id="lembaga_penerbit_sertifikat" required>
+                    <label>Tag</label>
+                    <input type="text" name="tag" id="tag" required>
                 </div>
 
                 <div>
-                    <label>Jumlah Sertifikasi yang Sudah Terbit</label>
-                    <input type="number" name="jumlah_sertifikasi_terbit" id="jumlah_sertifikasi_terbit" required>
+                    <label>Deskripsi Peralatan</label>
+                    <input type="text" name="deskripsi_peralatan" id="deskripsi_peralatan" required>
                 </div>
 
                 <div>
-                    <label>Jumlah Learning Hours</label>
-                    <input type="number" name="jumlah_learning_hours" id="jumlah_learning_hours" required>
+                    <label>Jenis Kerusakan</label>
+                    <input type="text" name="jenis_kerusakan" id="jenis_kerusakan" required>
+                </div>
+
+                <div>
+                    <label>Penyebab / Root Cause</label>
+                    <input type="text" name="penyebab" id="penyebab" required>
+                </div>
+
+                <div>
+                    <label>Kendala Perbaikan</label>
+                    <input type="text" name="kendala_perbaikan" id="kendala_perbaikan" required>
+                </div>
+
+                <div>
+                    <label>Mitigasi / Penanganan Sementara</label>
+                    <input type="text" name="mitigasi" id="mitigasi">
+                </div>
+
+                <div>
+                    <label>Perbaikan Permanen</label>
+                    <input type="text" name="perbaikan_permanen" id="perbaikan_permanen">
+                </div>
+
+                <div>
+                    <label>Progres Perbaikan Permanen</label>
+                    <input type="text" name="progres_perbaikan_permanen" id="progres_perbaikan_permanen">
+                </div>
+
+                <div>
+                    <label>Tindak Lanjut</label>
+                    <input type="text" name="tindak_lanjut" id="tindak_lanjut" required>
+                </div>
+
+                <div>
+                    <label>Target Penyelesaian</label>
+                    <input type="text" name="target_penyelesaian" id="target_penyelesaian" required>
+                </div>
+
+                <div>
+                    <label>Estimasi Biaya Perbaikan</label>
+                    <input type="number" name="estimasi_biaya_perbaikan" id="estimasi_biaya_perbaikan">
+                </div>
+
+                <div>
+                    <label>Link Foto/Video</label>
+                    <input type="url" name="link_foto_video" id="link_foto_video">
                 </div>
 
                 <button type="submit" class="btn btn-success">Submit</button>
@@ -253,7 +291,7 @@
             });
 
             const columnMap = {
-                "mandatory-certification-ptg": [{
+                "asset-breakdown-ptg": [{
                         title: "No",
                         formatter: "rownum",
                         hozAlign: "center",
@@ -264,43 +302,74 @@
                         field: "periode"
                     },
                     {
-                        title: "Subholding",
-                        field: "subholding"
-                    },
-                    {
                         title: "Company",
                         field: "company"
                     },
                     {
-                        title: "Unit",
-                        field: "unit"
+                        title: "Plant/Segment",
+                        field: "plant_segment"
                     },
                     {
-                        title: "Nama Sertifikasi",
-                        field: "nama_sertifikasi"
+                        title: "Kategori Criticality",
+                        field: "kategori_criticality"
                     },
                     {
-                        title: "Lembaga Penerbit Sertifikat",
-                        field: "lembaga_penerbit_sertifikat"
+                        title: "Tag",
+                        field: "tag"
                     },
                     {
-                        title: "Jumlah Sertifikasi yang Sudah Terbit",
-                        field: "jumlah_sertifikasi_terbit",
+                        title: "Deskripsi Peralatan",
+                        field: "deskripsi_peralatan"
+                    },
+                    {
+                        title: "Jenis Kerusakan",
+                        field: "jenis_kerusakan"
+                    },
+                    {
+                        title: "Penyebab / Root Cause",
+                        field: "penyebab"
+                    },
+                    {
+                        title: "Kendala Perbaikan",
+                        field: "kendala_perbaikan"
+                    },
+                    {
+                        title: "Mitigasi / Penanganan Sementara",
+                        field: "mitigasi"
+                    },
+                    {
+                        title: "Perbaikan Permanen",
+                        field: "perbaikan_permanen"
+                    },
+                    {
+                        title: "Progres Perbaikan Permanen",
+                        field: "progres_perbaikan_permanen"
+                    },
+                    {
+                        title: "Tindak Lanjut",
+                        field: "tindak_lanjut"
+                    },
+                    {
+                        title: "Target Penyelesaian",
+                        field: "target_penyelesaian"
+                    },
+                    {
+                        title: "Estimasi Biaya Perbaikan",
+                        field: "estimasi_biaya_perbaikan",
                         hozAlign: "center"
                     },
                     {
-                        title: "Jumlah Learning Hours",
-                        field: "jumlah_learning_hours",
-                        hozAlign: "center"
+                        title: "Link Foto/Video",
+                        field: "link_foto_video"
                     },
                     {
                         title: "Aksi",
                         formatter: (cell, formatterParams) => {
                             const row = cell.getData();
                             return `
-                        <button onclick='editData(${JSON.stringify(row)})'>Edit</button>
-                        <button onclick='deleteData("${row.id}")'>Hapus</button>
-                        `;
+                    <button onclick='editData(${JSON.stringify(row)})'>Edit</button>
+                    <button onclick='deleteData("${row.id}")'>Hapus</button>
+                `;
                         },
                         hozAlign: "center",
                         width: 150
@@ -309,8 +378,9 @@
             };
 
             const routeMap = {
-                "mandatory-certification-ptg": "{{ route('mandatory-certification-ptg.data') }}"
+                "asset-breakdown-ptg": "{{ route('asset-breakdown-ptg.data') }}"
             };
+
 
             document.querySelectorAll('#tabSwitcher a').forEach(btn => {
                 btn.addEventListener('click', function() {
@@ -350,19 +420,28 @@
             function editData(row) {
                 document.getElementById("form-id").value = row.id;
                 document.getElementById("periode").value = row.periode;
-                document.getElementById("subholding").value = row.subholding;
                 document.getElementById("company").value = row.company;
-                document.getElementById("unit").value = row.unit;
-                document.getElementById("nama_sertifikasi").value = row.nama_sertifikasi;
-                document.getElementById("lembaga_penerbit_sertifikat").value = row.lembaga_penerbit_sertifikat;
-                document.getElementById("jumlah_sertifikasi_terbit").value = row.jumlah_sertifikasi_terbit;
-                document.getElementById("jumlah_learning_hours").value = row.jumlah_learning_hours;
+                document.getElementById("plant_segment").value = row.plant_segment;
+                document.getElementById("kategori_criticality").value = row.kategori_criticality;
+                document.getElementById("tag").value = row.tag;
+                document.getElementById("deskripsi_peralatan").value = row.deskripsi_peralatan;
+                document.getElementById("jenis_kerusakan").value = row.jenis_kerusakan;
+                document.getElementById("penyebab").value = row.penyebab;
+                document.getElementById("kendala_perbaikan").value = row.kendala_perbaikan;
+                document.getElementById("mitigasi").value = row.mitigasi;
+                document.getElementById("perbaikan_permanen").value = row.perbaikan_permanen;
+                document.getElementById("progres_perbaikan_permanen").value = row.progres_perbaikan_permanen;
+                document.getElementById("tindak_lanjut").value = row.tindak_lanjut;
+                document.getElementById("target_penyelesaian").value = row.target_penyelesaian;
+                document.getElementById("estimasi_biaya_perbaikan").value = row.estimasi_biaya_perbaikan;
+                document.getElementById("link_foto_video").value = row.link_foto_video;
+
                 openModal();
             }
 
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
-                    fetch(`mandatory-certification-ptg/${id}`, {
+                    fetch(`asset-breakdown-ptg/${id}`, {
                             method: "DELETE",
                             headers: {
                                 "Accept": "application/json",
@@ -373,7 +452,7 @@
                         .then(result => {
                             if (result.success) {
                                 alert(result.message);
-                                table.setData("/monev/shg/input-data/mandatory-certification-ptg/data")
+                                table.setData("/monev/shg/input-data/asset-breakdown-ptg/data")
                                 this.reset();
                             } else {
                                 alert('Gagal menyimpan data');
@@ -383,8 +462,8 @@
             }
 
             document.addEventListener("DOMContentLoaded", function() {
-                loadTabData("mandatory-certification-ptg");
-                localStorage.setItem("currentTab", "mandatory-certification-ptg");
+                loadTabData("asset-breakdown-ptg");
+                localStorage.setItem("currentTab", "asset-breakdown-ptg");
             });
         </script>
 
@@ -410,17 +489,26 @@
 
                 const id = document.getElementById("form-id").value;
                 const periode = document.getElementById("periode").value;
-                const subholding = document.getElementById("subholding").value;
                 const company = document.getElementById("company").value;
-                const unit = document.getElementById("unit").value;
-                const namaSertifikasi = document.getElementById("nama_sertifikasi").value;
-                const lembagaPenerbitSertifikat = document.getElementById("lembaga_penerbit_sertifikat").value;
-                const jumlahSertifikasiTerbit = document.getElementById("jumlah_sertifikasi_terbit").value;
-                const jumlahLearningHours = document.getElementById("jumlah_learning_hours").value;
+                const plantSegment = document.getElementById("plant_segment").value;
+                const kategoriCriticality = document.getElementById("kategori_criticality").value;
+                const tag = document.getElementById("tag").value;
+                const deskripsiPeralatan = document.getElementById("deskripsi_peralatan").value;
+                const jenisKerusakan = document.getElementById("jenis_kerusakan").value;
+                const penyebab = document.getElementById("penyebab").value;
+                const kendalaPerbaikan = document.getElementById("kendala_perbaikan").value;
+                const mitigasi = document.getElementById("mitigasi").value;
+                const perbaikanPermanen = document.getElementById("perbaikan_permanen").value;
+                const progresPerbaikanPermanen = document.getElementById("progres_perbaikan_permanen").value;
+                const tindakLanjut = document.getElementById("tindak_lanjut").value;
+                const targetPenyelesaian = document.getElementById("target_penyelesaian").value;
+                const estimasiBiayaPerbaikan = document.getElementById("estimasi_biaya_perbaikan").value;
+                const linkFotoVideo = document.getElementById("link_foto_video").value;
+
 
 
                 const method = id ? "PUT" : "POST";
-                const url = id ? `mandatory-certification-ptg/${id}` : "mandatory-certification-ptg";
+                const url = id ? `asset-breakdown-ptg/${id}` : "asset-breakdown-ptg";
 
                 fetch(url, {
                         method: method,
@@ -432,21 +520,30 @@
                         },
                         body: JSON.stringify({
                             periode: periode,
-                            subholding: subholding,
                             company: company,
-                            unit: unit,
-                            nama_sertifikasi: namaSertifikasi,
-                            lembaga_penerbit_sertifikat: lembagaPenerbitSertifikat,
-                            jumlah_sertifikasi_terbit: jumlahSertifikasiTerbit,
-                            jumlah_learning_hours: jumlahLearningHours
+                            plant_segment: plantSegment,
+                            kategori_criticality: kategoriCriticality,
+                            tag: tag,
+                            deskripsi_peralatan: deskripsiPeralatan,
+                            jenis_kerusakan: jenisKerusakan,
+                            penyebab: penyebab,
+                            kendala_perbaikan: kendalaPerbaikan,
+                            mitigasi: mitigasi,
+                            perbaikan_permanen: perbaikanPermanen,
+                            progres_perbaikan_permanen: progresPerbaikanPermanen,
+                            tindak_lanjut: tindakLanjut,
+                            target_penyelesaian: targetPenyelesaian,
+                            estimasi_biaya_perbaikan: estimasiBiayaPerbaikan,
+                            link_foto_video: linkFotoVideo
                         })
+
                     })
                     .then(response => response.json())
                     .then(result => {
                         if (result.success) {
                             alert(result.message);
                             // table.addRow([result.data]);
-                            table.setData("/monev/shg/input-data/mandatory-certification-ptg/data");
+                            table.setData("/monev/shg/input-data/asset-breakdown-ptg/data");
                             this.reset();
                         } else {
                             alert('Gagal menyimpan data');

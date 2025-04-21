@@ -7,8 +7,6 @@
                 overflow-x: auto;
             }
 
-
-
             #example-table {
                 background-color: white;
                 min-width: 800px;
@@ -18,8 +16,6 @@
 
             .tabulator-cell {
                 font-size: 14px;
-
-
             }
 
             .tabulator .tabulator-cell {
@@ -138,6 +134,7 @@
                 selectableRangeRows: true,
                 selectableRangeClearCells: true,
                 editTriggerEvent: "dblclick",
+                paginationCounter: "rows",
 
                 pagination: "local",
                 paginationSize: 20,
@@ -183,7 +180,8 @@
                     },
                     {
                         title: "Periode",
-                        field: "periode"
+                        field: "periode",
+                        hozAlign: "center",
                     },
                     {
                         title: "No",

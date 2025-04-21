@@ -9,13 +9,8 @@ use Illuminate\Http\Request;
 
 class PertaminaGasController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
-        if ($request->wantsJson()) {
-            $TargetPLO = DataMonevPertaminaGas::all();
-            return response()->json($TargetPLO);
-        }
-
         $companies = [
             'PGN',
             'PTG',
@@ -30,26 +25,43 @@ class PertaminaGasController extends Controller
             'PAG',
             'NR'
         ];
-        // return view('SHG.InputDataMonev.PertaminaGas');
+
         return view('SHG.InputDataMonev.PertaminaGas', compact('companies'));
     }
 
+    public function data()
+    {
+        
+        return response()->json(DataMonevPertaminaGas::all());
+    }
 
     public function store(DataMonevPertaminaGasRequest $request)
     {
-        $validated = $request->validated();
-        $TargetPLO = DataMonevPertaminaGas::create($validated);
+        $data = $request->validated();
+        $data = DataMonevPertaminaGas::create($data);
 
         return response()->json([
             'success' => true,
             'message' => 'Data berhasil disimpan',
-            'data' => $TargetPLO,
+            'data' => $data
         ]);
     }
 
-    public function getData()
+
+    public function update(DataMonevPertaminaGasRequest $request, $id)
     {
-        $TargetPLO = DataMonevPertaminaGas::all();
-        return response()->json($TargetPLO);
+        $progress = DataMonevPertaminaGas::findOrFail($id);
+        $progress->update($request->validated());
+
+        return response()->json(['success' => true, 'message' => 'Data berhasil diupdate']);
+    }
+
+
+    public function destroy($id)
+    {
+        $target = DataMonevPertaminaGas::findOrFail($id);
+        $target->delete();
+
+        return response()->json(['success' => true, 'message' => 'Data berhasil dihapus']);
     }
 }

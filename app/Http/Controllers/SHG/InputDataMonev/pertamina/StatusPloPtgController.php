@@ -3,27 +3,26 @@
 namespace App\Http\Controllers\SHG\InputDataMonev\pertamina;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\SHG\pertamina\MandatoryCertificationPtgRequest;
-use App\Models\SHG\pertamina\MandatoryCertificationPtg;
+use App\Http\Requests\SHG\Pertamina\StatusPloPtgRequest;
+use App\Models\SHG\Pertamina\StatusPloPtg;
 use Illuminate\Http\Request;
 
-class MandatoryCertificationPtgController extends Controller
+class StatusPloPtgController extends Controller
 {
     public function index()
     {
-        return view('SHG.InputDataMonev.pertamina.MandatoryCertificationPTG');
+        return view('SHG.InputDataMonev.pertamina.StatusPloPTG');
     }
-
 
     public function data()
     {
-        return response()->json(MandatoryCertificationPtg::all());
+        return response()->json(StatusPloPtg::all());
     }
 
-    public function store(MandatoryCertificationPtgRequest $request)
+    public function store(StatusPloPtgRequest $request)
     {
         $data = $request->validated();
-        $data = MandatoryCertificationPtg::create($data);
+        $data = StatusPloPtg::create($data);
 
         return response()->json([
             'success' => true,
@@ -32,9 +31,9 @@ class MandatoryCertificationPtgController extends Controller
         ]);
     }
 
-    public function update(MandatoryCertificationPtgRequest $request, $id)
+    public function update(StatusPloPtgRequest $request, $id)
     {
-        $progress = MandatoryCertificationPtg::findOrFail($id);
+        $progress = StatusPloPtg::findOrFail($id);
         $progress->update($request->validated());
 
         return response()->json(['success' => true, 'message' => 'Data berhasil diupdate']);
@@ -42,7 +41,7 @@ class MandatoryCertificationPtgController extends Controller
 
     public function destroy($id)
     {
-        $target = MandatoryCertificationPtg::findOrFail($id);
+        $target = StatusPloPtg::findOrFail($id);
         $target->delete();
 
         return response()->json(['success' => true, 'message' => 'Data berhasil dihapus']);

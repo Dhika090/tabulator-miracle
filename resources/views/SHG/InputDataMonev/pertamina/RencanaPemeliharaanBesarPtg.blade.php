@@ -18,6 +18,11 @@
                 font-size: 14px;
             }
 
+            .tabulator .tabulator-cell {
+                white-space: normal !important;
+                word-wrap: break-word;
+            }
+
             .card {
                 margin-top: 20px;
             }
@@ -29,11 +34,6 @@
 
             #tabSwitcher .btn {
                 white-space: nowrap;
-            }
-
-            .tabulator .tabulator-cell {
-                white-space: normal !important;
-                word-wrap: break-word;
             }
 
             /* modall */
@@ -93,7 +93,7 @@
 
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title mb-3">Mandatory Certification</h5>
+            <h5 class="card-title mb-3">Rencanaan Pemeliharaan Besar PTG</h5>
 
             <div class="d-flex align-items-stretch gap-3">
                 <button onclick="openModal()" class="btn btn-primary">Create Data</button>
@@ -155,17 +155,18 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Tambah Target SAP</h3>
+            <h3>Tambah Rencana Pemeliharaan Besar PTG</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
+
                 <div>
                     <label>Periode</label>
                     <input type="text" name="periode" id="periode" required>
                 </div>
 
                 <div>
-                    <label>Subholding</label>
-                    <input type="text" name="subholding" id="subholding" required>
+                    <label>No</label>
+                    <input type="number" name="no" id="no" required>
                 </div>
 
                 <div>
@@ -174,32 +175,120 @@
                 </div>
 
                 <div>
-                    <label>Unit</label>
-                    <input type="text" name="unit" id="unit" required>
+                    <label>Lokasi</label>
+                    <input type="text" name="lokasi" id="lokasi" required>
                 </div>
 
                 <div>
-                    <label>Nama Sertifikasi</label>
-                    <input type="text" name="nama_sertifikasi" id="nama_sertifikasi" required>
+                    <label>Program Kerja</label>
+                    <input type="text" name="program_kerja" id="program_kerja" required>
                 </div>
 
                 <div>
-                    <label>Lembaga Penerbit Sertifikat</label>
-                    <input type="text" name="lembaga_penerbit_sertifikat" id="lembaga_penerbit_sertifikat" required>
+                    <label>Kategori Maintenance</label>
+                    <input type="text" name="kategori_maintenance" id="kategori_maintenance" required>
                 </div>
 
                 <div>
-                    <label>Jumlah Sertifikasi yang Sudah Terbit</label>
-                    <input type="number" name="jumlah_sertifikasi_terbit" id="jumlah_sertifikasi_terbit" required>
+                    <label>Besar Phasing</label>
+                    <input type="text" name="besar_phasing" id="besar_phasing" required>
                 </div>
 
                 <div>
-                    <label>Jumlah Learning Hours</label>
-                    <input type="number" name="jumlah_learning_hours" id="jumlah_learning_hours" required>
+                    <label>Remark</label>
+                    <input type="text" name="remark" id="remark">
+                </div>
+
+                <!-- Bulan -->
+                <div>
+                    <label>Jan</label>
+                    <input type="number" name="jan" id="jan">
+                </div>
+
+                <div>
+                    <label>Feb</label>
+                    <input type="number" name="feb" id="feb">
+                </div>
+
+                <div>
+                    <label>Mar</label>
+                    <input type="number" name="mar" id="mar">
+                </div>
+
+                <div>
+                    <label>Apr</label>
+                    <input type="number" name="apr" id="apr">
+                </div>
+
+                <div>
+                    <label>May</label>
+                    <input type="number" name="may" id="may">
+                </div>
+
+                <div>
+                    <label>Jun</label>
+                    <input type="number" name="jun" id="jun">
+                </div>
+
+                <div>
+                    <label>Jul</label>
+                    <input type="number" name="jul" id="jul">
+                </div>
+
+                <div>
+                    <label>Aug</label>
+                    <input type="number" name="aug" id="aug">
+                </div>
+
+                <div>
+                    <label>Sep</label>
+                    <input type="number" name="sep" id="sep">
+                </div>
+
+                <div>
+                    <label>Oct</label>
+                    <input type="number" name="oct" id="oct">
+                </div>
+
+                <div>
+                    <label>Nov</label>
+                    <input type="number" name="nov" id="nov">
+                </div>
+
+                <div>
+                    <label>Dec</label>
+                    <input type="number" name="dec" id="dec">
+                </div>
+
+                <!-- Kerugian -->
+                <div>
+                    <label>Biaya Kerugian (USD)</label>
+                    <input type="number" name="biaya_kerugian" id="biaya_kerugian">
+                </div>
+
+                <div>
+                    <label>Keterangan Kerugian</label>
+                    <input type="text" name="keterangan_kerugian" id="keterangan_kerugian">
+                </div>
+
+                <div>
+                    <label>Penyebab</label>
+                    <input type="text" name="penyebab" id="penyebab">
+                </div>
+
+                <div>
+                    <label>Kendala</label>
+                    <input type="text" name="kendala" id="kendala">
+                </div>
+
+                <div>
+                    <label>Tindak Lanjut</label>
+                    <input type="text" name="tindak_lanjut" id="tindak_lanjut">
                 </div>
 
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
+
         </div>
     </div>
 
@@ -253,7 +342,7 @@
             });
 
             const columnMap = {
-                "mandatory-certification-ptg": [{
+                "rencana-pemeliharaan-besar-ptg": [{
                         title: "No",
                         formatter: "rownum",
                         hozAlign: "center",
@@ -264,43 +353,137 @@
                         field: "periode"
                     },
                     {
-                        title: "Subholding",
-                        field: "subholding"
+                        title: "No",
+                        field: "no"
                     },
                     {
                         title: "Company",
                         field: "company"
                     },
                     {
-                        title: "Unit",
-                        field: "unit"
+                        title: "Lokasi",
+                        field: "lokasi"
                     },
                     {
-                        title: "Nama Sertifikasi",
-                        field: "nama_sertifikasi"
+                        title: "Program Kerja",
+                        field: "program_kerja",
+                        width: 300
                     },
                     {
-                        title: "Lembaga Penerbit Sertifikat",
-                        field: "lembaga_penerbit_sertifikat"
+                        title: "Kategori Maintenance",
+                        field: "kategori_maintenance"
                     },
                     {
-                        title: "Jumlah Sertifikasi yang Sudah Terbit",
-                        field: "jumlah_sertifikasi_terbit",
+                        title: "Besar Phasing",
+                        field: "besar_phasing"
+                    },
+                    {
+                        title: "Remark",
+                        field: "remark"
+                    },
+                    {
+                        title: "Jan",
+                        field: "jan",
+                        hozAlign: "center",
+                        width: 70
+                    },
+                    {
+                        title: "Feb",
+                        field: "feb",
+                        hozAlign: "center",
+                        width: 70
+                    },
+                    {
+                        title: "Mar",
+                        field: "mar",
+                        hozAlign: "center",
+                        width: 70
+                    },
+                    {
+                        title: "Apr",
+                        field: "apr",
+                        hozAlign: "center",
+                        width: 70
+                    },
+                    {
+                        title: "May",
+                        field: "may",
+                        hozAlign: "center",
+                        width: 70
+                    },
+                    {
+                        title: "Jun",
+                        field: "jun",
+                        hozAlign: "center",
+                        width: 70
+                    },
+                    {
+                        title: "Jul",
+                        field: "jul",
+                        hozAlign: "center",
+                        width: 70
+                    },
+                    {
+                        title: "Aug",
+                        field: "aug",
+                        hozAlign: "center",
+                        width: 70
+                    },
+                    {
+                        title: "Sep",
+                        field: "sep",
+                        hozAlign: "center",
+                        width: 70
+                    },
+                    {
+                        title: "Oct",
+                        field: "oct",
+                        hozAlign: "center",
+                        width: 70
+                    },
+                    {
+                        title: "Nov",
+                        field: "nov",
+                        hozAlign: "center",
+                        width: 70
+                    },
+                    {
+                        title: "Dec",
+                        field: "dec",
+                        hozAlign: "center",
+                        width: 70
+                    },
+                    {
+                        title: "Biaya Kerugian (USD)",
+                        field: "biaya_kerugian",
                         hozAlign: "center"
                     },
                     {
-                        title: "Jumlah Learning Hours",
-                        field: "jumlah_learning_hours",
-                        hozAlign: "center"
+                        title: "Keterangan Kerugian",
+                        field: "keterangan_kerugian"
+                    },
+                    {
+                        title: "Penyebab",
+                        field: "penyebab",
+                        width: 250
+                    },
+                    {
+                        title: "Kendala",
+                        field: "kendala"
+                    },
+                    {
+                        title: "Tindak Lanjut",
+                        field: "tindak_lanjut",
+                        width: 250
                     },
                     {
                         title: "Aksi",
                         formatter: (cell, formatterParams) => {
                             const row = cell.getData();
                             return `
-                        <button onclick='editData(${JSON.stringify(row)})'>Edit</button>
-                        <button onclick='deleteData("${row.id}")'>Hapus</button>
-                        `;
+                    <button onclick='editData(${JSON.stringify(row)})'>Edit</button>
+                    <button onclick='deleteData("${row.id}")'>Hapus</button>
+                `;
                         },
                         hozAlign: "center",
                         width: 150
@@ -309,7 +492,7 @@
             };
 
             const routeMap = {
-                "mandatory-certification-ptg": "{{ route('mandatory-certification-ptg.data') }}"
+                "rencana-pemeliharaan-besar-ptg": "{{ route('rencana-pemeliharaan-besar-ptg.data') }}"
             };
 
             document.querySelectorAll('#tabSwitcher a').forEach(btn => {
@@ -350,19 +533,39 @@
             function editData(row) {
                 document.getElementById("form-id").value = row.id;
                 document.getElementById("periode").value = row.periode;
-                document.getElementById("subholding").value = row.subholding;
+                document.getElementById("no").value = row.no;
                 document.getElementById("company").value = row.company;
-                document.getElementById("unit").value = row.unit;
-                document.getElementById("nama_sertifikasi").value = row.nama_sertifikasi;
-                document.getElementById("lembaga_penerbit_sertifikat").value = row.lembaga_penerbit_sertifikat;
-                document.getElementById("jumlah_sertifikasi_terbit").value = row.jumlah_sertifikasi_terbit;
-                document.getElementById("jumlah_learning_hours").value = row.jumlah_learning_hours;
+                document.getElementById("lokasi").value = row.lokasi;
+                document.getElementById("program_kerja").value = row.program_kerja;
+                document.getElementById("kategori_maintenance").value = row.kategori_maintenance;
+                document.getElementById("besar_phasing").value = row.besar_phasing;
+                document.getElementById("remark").value = row.remark;
+
+                document.getElementById("jan").value = row.jan;
+                document.getElementById("feb").value = row.feb;
+                document.getElementById("mar").value = row.mar;
+                document.getElementById("apr").value = row.apr;
+                document.getElementById("may").value = row.may;
+                document.getElementById("jun").value = row.jun;
+                document.getElementById("jul").value = row.jul;
+                document.getElementById("aug").value = row.aug;
+                document.getElementById("sep").value = row.sep;
+                document.getElementById("oct").value = row.oct;
+                document.getElementById("nov").value = row.nov;
+                document.getElementById("dec").value = row.dec;
+
+                document.getElementById("biaya_kerugian").value = row.biaya_kerugian;
+                document.getElementById("keterangan_kerugian").value = row.keterangan_kerugian;
+                document.getElementById("penyebab").value = row.penyebab;
+                document.getElementById("kendala").value = row.kendala;
+                document.getElementById("tindak_lanjut").value = row.tindak_lanjut;
+
                 openModal();
             }
 
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
-                    fetch(`mandatory-certification-ptg/${id}`, {
+                    fetch(`rencana-pemeliharaan-besar-ptg/${id}`, {
                             method: "DELETE",
                             headers: {
                                 "Accept": "application/json",
@@ -373,7 +576,7 @@
                         .then(result => {
                             if (result.success) {
                                 alert(result.message);
-                                table.setData("/monev/shg/input-data/mandatory-certification-ptg/data")
+                                table.setData("/monev/shg/input-data/rencana-pemeliharaan-besar-ptg/data")
                                 this.reset();
                             } else {
                                 alert('Gagal menyimpan data');
@@ -383,8 +586,8 @@
             }
 
             document.addEventListener("DOMContentLoaded", function() {
-                loadTabData("mandatory-certification-ptg");
-                localStorage.setItem("currentTab", "mandatory-certification-ptg");
+                loadTabData("rencana-pemeliharaan-besar-ptg");
+                localStorage.setItem("currentTab", "rencana-pemeliharaan-besar-ptg");
             });
         </script>
 
@@ -410,17 +613,35 @@
 
                 const id = document.getElementById("form-id").value;
                 const periode = document.getElementById("periode").value;
-                const subholding = document.getElementById("subholding").value;
+                const no = document.getElementById("no").value;
                 const company = document.getElementById("company").value;
-                const unit = document.getElementById("unit").value;
-                const namaSertifikasi = document.getElementById("nama_sertifikasi").value;
-                const lembagaPenerbitSertifikat = document.getElementById("lembaga_penerbit_sertifikat").value;
-                const jumlahSertifikasiTerbit = document.getElementById("jumlah_sertifikasi_terbit").value;
-                const jumlahLearningHours = document.getElementById("jumlah_learning_hours").value;
+                const lokasi = document.getElementById("lokasi").value;
+                const programKerja = document.getElementById("program_kerja").value;
+                const kategoriMaintenance = document.getElementById("kategori_maintenance").value;
+                const besarPhasing = document.getElementById("besar_phasing").value;
+                const remark = document.getElementById("remark").value;
 
+                const jan = document.getElementById("jan").value;
+                const feb = document.getElementById("feb").value;
+                const mar = document.getElementById("mar").value;
+                const apr = document.getElementById("apr").value;
+                const may = document.getElementById("may").value;
+                const jun = document.getElementById("jun").value;
+                const jul = document.getElementById("jul").value;
+                const aug = document.getElementById("aug").value;
+                const sep = document.getElementById("sep").value;
+                const oct = document.getElementById("oct").value;
+                const nov = document.getElementById("nov").value;
+                const dec = document.getElementById("dec").value;
+
+                const biayaKerugian = document.getElementById("biaya_kerugian").value;
+                const keteranganKerugian = document.getElementById("keterangan_kerugian").value;
+                const penyebab = document.getElementById("penyebab").value;
+                const kendala = document.getElementById("kendala").value;
+                const tindakLanjut = document.getElementById("tindak_lanjut").value;
 
                 const method = id ? "PUT" : "POST";
-                const url = id ? `mandatory-certification-ptg/${id}` : "mandatory-certification-ptg";
+                const url = id ? `rencana-pemeliharaan-besar-ptg/${id}` : "rencana-pemeliharaan-besar-ptg";
 
                 fetch(url, {
                         method: method,
@@ -431,14 +652,32 @@
                                 "content")
                         },
                         body: JSON.stringify({
+                            id: id,
                             periode: periode,
-                            subholding: subholding,
+                            no: no,
                             company: company,
-                            unit: unit,
-                            nama_sertifikasi: namaSertifikasi,
-                            lembaga_penerbit_sertifikat: lembagaPenerbitSertifikat,
-                            jumlah_sertifikasi_terbit: jumlahSertifikasiTerbit,
-                            jumlah_learning_hours: jumlahLearningHours
+                            lokasi: lokasi,
+                            program_kerja: programKerja,
+                            kategori_maintenance: kategoriMaintenance,
+                            besar_phasing: besarPhasing,
+                            remark: remark,
+                            jan: jan,
+                            feb: feb,
+                            mar: mar,
+                            apr: apr,
+                            may: may,
+                            jun: jun,
+                            jul: jul,
+                            aug: aug,
+                            sep: sep,
+                            oct: oct,
+                            nov: nov,
+                            dec: dec,
+                            biaya_kerugian: biayaKerugian,
+                            keterangan_kerugian: keteranganKerugian,
+                            penyebab: penyebab,
+                            kendala: kendala,
+                            tindak_lanjut: tindakLanjut
                         })
                     })
                     .then(response => response.json())
@@ -446,7 +685,7 @@
                         if (result.success) {
                             alert(result.message);
                             // table.addRow([result.data]);
-                            table.setData("/monev/shg/input-data/mandatory-certification-ptg/data");
+                            table.setData("/monev/shg/input-data/rencana-pemeliharaan-besar-ptg/data");
                             this.reset();
                         } else {
                             alert('Gagal menyimpan data');

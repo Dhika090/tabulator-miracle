@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Models\SHG\pertamina;
+namespace App\Models\SHG\Pertamina;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 
-class MandatoryCertificationPtg extends Model
+class SistemInformasiAimsPtg extends Model
 {
     use HasFactory;
     public $incrementing = false;
@@ -22,16 +22,21 @@ class MandatoryCertificationPtg extends Model
         });
     }
 
-    protected $table = 'shg_pertamina_mandatory_certification_ptg';
+    protected $table = 'shg_pertamina_sistem_informasi_aims_ptg';
 
     protected $fillable = [
         'periode',
-        'subholding',
         'company',
-        'unit',
-        'nama_sertifikasi',
-        'lembaga_penerbit_sertifikat',
-        'jumlah_sertifikasi_terbit',
-        'jumlah_learning_hours',
+        'jumlah_aset_operasi',
+        'jumlah_aset_teregister',
+        'kendala_aset_register',
+        'tindak_lanjut_aset_register',
+        'sistem_informasi_aim',
+        'total_wo_comply',
+        'total_wo_completed',
+        'total_wo_in_progress',
+        'total_wo_backlog',
+        'kendala',
+        'tindak_lanjut',
     ];
 }

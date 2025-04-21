@@ -29,11 +29,7 @@
 
             #tabSwitcher .btn {
                 white-space: nowrap;
-            }
-
-            .tabulator .tabulator-cell {
-                white-space: normal !important;
-                word-wrap: break-word;
+                /* biar teks dalam button gak pecah ke bawah */
             }
 
             /* modall */
@@ -93,7 +89,7 @@
 
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title mb-3">Mandatory Certification</h5>
+            <h5 class="card-title mb-3">SAP Asset PTG</h5>
 
             <div class="d-flex align-items-stretch gap-3">
                 <button onclick="openModal()" class="btn btn-primary">Create Data</button>
@@ -179,23 +175,73 @@
                 </div>
 
                 <div>
-                    <label>Nama Sertifikasi</label>
-                    <input type="text" name="nama_sertifikasi" id="nama_sertifikasi" required>
+                    <label>Nama Stasiun</label>
+                    <input type="text" name="nama_stasiun" id="nama_stasiun" required>
                 </div>
 
                 <div>
-                    <label>Lembaga Penerbit Sertifikat</label>
-                    <input type="text" name="lembaga_penerbit_sertifikat" id="lembaga_penerbit_sertifikat" required>
+                    <label>Belum Mulai</label>
+                    <input type="number" name="belum_mulai" id="belum_mulai">
                 </div>
 
                 <div>
-                    <label>Jumlah Sertifikasi yang Sudah Terbit</label>
-                    <input type="number" name="jumlah_sertifikasi_terbit" id="jumlah_sertifikasi_terbit" required>
+                    <label>Kickoff Meeting</label>
+                    <input type="number" name="kickoff_meeting" id="kickoff_meeting">
                 </div>
 
                 <div>
-                    <label>Jumlah Learning Hours</label>
-                    <input type="number" name="jumlah_learning_hours" id="jumlah_learning_hours" required>
+                    <label>Identifikasi Peralatan</label>
+                    <input type="number" name="identifikasi_peralatan" id="identifikasi_peralatan">
+                </div>
+
+                <div>
+                    <label>Survey Lapangan</label>
+                    <input type="number" name="survey_lapangan" id="survey_lapangan">
+                </div>
+
+                <div>
+                    <label>Pembenahan Funloc</label>
+                    <input type="number" name="pembenahan_funloc" id="pembenahan_funloc">
+                </div>
+
+                <div>
+                    <label>Review Criticality</label>
+                    <input type="number" name="review_criticality" id="review_criticality">
+                </div>
+
+                <div>
+                    <label>Penyelarasan Dokumen dan Lapangan</label>
+                    <input type="number" name="penyelarasan_dokumen" id="penyelarasan_dokumen">
+                </div>
+
+                <div>
+                    <label>Melengkapi Tag Fisik</label>
+                    <input type="number" name="melengkapi_tag_fisik" id="melengkapi_tag_fisik">
+                </div>
+
+                <div>
+                    <label>Mempersiapkan Form Upload Data</label>
+                    <input type="number" name="form_upload_data" id="form_upload_data">
+                </div>
+
+                <div>
+                    <label>Request ke Master Data</label>
+                    <input type="number" name="request_master_data" id="request_master_data">
+                </div>
+
+                <div>
+                    <label>Update Di Master Data</label>
+                    <input type="number" name="update_master_data" id="update_master_data">
+                </div>
+
+                <div>
+                    <label>Kendala</label>
+                    <input type="text" name="kendala" id="kendala" rows="3"></input>
+                </div>
+
+                <div>
+                    <label>Tindak Lanjut</label>
+                    <input type="text" name="tindak_lanjut" id="tindak_lanjut" rows="3"></input>
                 </div>
 
                 <button type="submit" class="btn btn-success">Submit</button>
@@ -249,11 +295,10 @@
                     editor: "input",
                     resizable: "header",
                 },
-
             });
 
             const columnMap = {
-                "mandatory-certification-ptg": [{
+                "sap-asset-ptg": [{
                         title: "No",
                         formatter: "rownum",
                         hozAlign: "center",
@@ -276,31 +321,80 @@
                         field: "unit"
                     },
                     {
-                        title: "Nama Sertifikasi",
-                        field: "nama_sertifikasi"
+                        title: "Nama Stasiun",
+                        field: "nama_stasiun"
                     },
                     {
-                        title: "Lembaga Penerbit Sertifikat",
-                        field: "lembaga_penerbit_sertifikat"
+                        title: "Belum Mulai",
+                        field: "belum_mulai",
+                        hozAlign: "center",
                     },
                     {
-                        title: "Jumlah Sertifikasi yang Sudah Terbit",
-                        field: "jumlah_sertifikasi_terbit",
-                        hozAlign: "center"
+                        title: "Kickoff Meeting",
+                        field: "kickoff_meeting",
+                        hozAlign: "center",
                     },
                     {
-                        title: "Jumlah Learning Hours",
-                        field: "jumlah_learning_hours",
-                        hozAlign: "center"
+                        title: "Identifikasi Peralatan",
+                        field: "identifikasi_peralatan",
+                        hozAlign: "center",
+                    },
+                    {
+                        title: "Survey Lapangan",
+                        field: "survey_lapangan",
+                        hozAlign: "center",
+                    },
+                    {
+                        title: "Pembenahan Funloc",
+                        field: "pembenahan_funloc",
+                        hozAlign: "center",
+                    },
+                    {
+                        title: "Review Criticality",
+                        field: "review_criticality",
+                        hozAlign: "center",
+                    },
+                    {
+                        title: "Penyelarasan Dokumen dan Lapangan",
+                        field: "penyelarasan_dokumen",
+                        hozAlign: "center",
+                    },
+                    {
+                        title: "Melengkapi Tag Fisik",
+                        field: "melengkapi_tag_fisik",
+                        hozAlign: "center",
+                    },
+                    {
+                        title: "Mempersiapkan Form Upload Data",
+                        field: "form_upload_data",
+                        hozAlign: "center",
+                    },
+                    {
+                        title: "Request ke Master Data",
+                        field: "request_master_data",
+                        hozAlign: "center",
+                    },
+                    {
+                        title: "Update Di Master Data",
+                        field: "update_master_data",
+                        hozAlign: "center",
+                    },
+                    {
+                        title: "Kendala",
+                        field: "kendala"
+                    },
+                    {
+                        title: "Tindak Lanjut",
+                        field: "tindak_lanjut"
                     },
                     {
                         title: "Aksi",
                         formatter: (cell, formatterParams) => {
                             const row = cell.getData();
                             return `
-                        <button onclick='editData(${JSON.stringify(row)})'>Edit</button>
-                        <button onclick='deleteData("${row.id}")'>Hapus</button>
-                        `;
+                    <button onclick='editData(${JSON.stringify(row)})'>Edit</button>
+                    <button onclick='deleteData("${row.id}")'>Hapus</button>
+                `;
                         },
                         hozAlign: "center",
                         width: 150
@@ -308,8 +402,9 @@
                 ]
             };
 
+
             const routeMap = {
-                "mandatory-certification-ptg": "{{ route('mandatory-certification-ptg.data') }}"
+                "sap-asset-ptg": "{{ route('sap-asset-ptg.data') }}"
             };
 
             document.querySelectorAll('#tabSwitcher a').forEach(btn => {
@@ -353,16 +448,27 @@
                 document.getElementById("subholding").value = row.subholding;
                 document.getElementById("company").value = row.company;
                 document.getElementById("unit").value = row.unit;
-                document.getElementById("nama_sertifikasi").value = row.nama_sertifikasi;
-                document.getElementById("lembaga_penerbit_sertifikat").value = row.lembaga_penerbit_sertifikat;
-                document.getElementById("jumlah_sertifikasi_terbit").value = row.jumlah_sertifikasi_terbit;
-                document.getElementById("jumlah_learning_hours").value = row.jumlah_learning_hours;
+                document.getElementById("nama_stasiun").value = row.nama_stasiun;
+                document.getElementById("belum_mulai").value = row.belum_mulai;
+                document.getElementById("kickoff_meeting").value = row.kickoff_meeting;
+                document.getElementById("identifikasi_peralatan").value = row.identifikasi_peralatan;
+                document.getElementById("survey_lapangan").value = row.survey_lapangan;
+                document.getElementById("pembenahan_funloc").value = row.pembenahan_funloc;
+                document.getElementById("review_criticality").value = row.review_criticality;
+                document.getElementById("penyelarasan_dokumen").value = row.penyelarasan_dokumen;
+                document.getElementById("melengkapi_tag_fisik").value = row.melengkapi_tag_fisik;
+                document.getElementById("form_upload_data").value = row.form_upload_data;
+                document.getElementById("request_master_data").value = row.request_master_data;
+                document.getElementById("update_master_data").value = row.update_master_data;
+                document.getElementById("kendala").value = row.kendala;
+                document.getElementById("tindak_lanjut").value = row.tindak_lanjut;
+
                 openModal();
             }
 
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
-                    fetch(`mandatory-certification-ptg/${id}`, {
+                    fetch(`sap-asset-ptg/${id}`, {
                             method: "DELETE",
                             headers: {
                                 "Accept": "application/json",
@@ -373,7 +479,7 @@
                         .then(result => {
                             if (result.success) {
                                 alert(result.message);
-                                table.setData("/monev/shg/input-data/mandatory-certification-ptg/data")
+                                table.setData("/monev/shg/input-data/sap-asset-ptg/data")
                                 this.reset();
                             } else {
                                 alert('Gagal menyimpan data');
@@ -383,8 +489,8 @@
             }
 
             document.addEventListener("DOMContentLoaded", function() {
-                loadTabData("mandatory-certification-ptg");
-                localStorage.setItem("currentTab", "mandatory-certification-ptg");
+                loadTabData("sap-asset-ptg");
+                localStorage.setItem("currentTab", "sap-asset-ptg");
             });
         </script>
 
@@ -413,14 +519,26 @@
                 const subholding = document.getElementById("subholding").value;
                 const company = document.getElementById("company").value;
                 const unit = document.getElementById("unit").value;
-                const namaSertifikasi = document.getElementById("nama_sertifikasi").value;
-                const lembagaPenerbitSertifikat = document.getElementById("lembaga_penerbit_sertifikat").value;
-                const jumlahSertifikasiTerbit = document.getElementById("jumlah_sertifikasi_terbit").value;
-                const jumlahLearningHours = document.getElementById("jumlah_learning_hours").value;
+                const namaStasiun = document.getElementById("nama_stasiun").value;
+
+                const belumMulai = document.getElementById("belum_mulai").value;
+                const kickoffMeeting = document.getElementById("kickoff_meeting").value;
+                const identifikasiPeralatan = document.getElementById("identifikasi_peralatan").value;
+                const surveyLapangan = document.getElementById("survey_lapangan").value;
+                const pembenahanFunloc = document.getElementById("pembenahan_funloc").value;
+                const reviewCriticality = document.getElementById("review_criticality").value;
+                const penyelarasanDokumen = document.getElementById("penyelarasan_dokumen").value;
+                const melengkapiTagFisik = document.getElementById("melengkapi_tag_fisik").value;
+                const formUploadData = document.getElementById("form_upload_data").value;
+                const requestMasterData = document.getElementById("request_master_data").value;
+                const updateMasterData = document.getElementById("update_master_data").value;
+
+                const kendala = document.getElementById("kendala").value;
+                const tindakLanjut = document.getElementById("tindak_lanjut").value;
 
 
                 const method = id ? "PUT" : "POST";
-                const url = id ? `mandatory-certification-ptg/${id}` : "mandatory-certification-ptg";
+                const url = id ? `sap-asset-ptg/${id}` : "sap-asset-ptg";
 
                 fetch(url, {
                         method: method,
@@ -431,14 +549,25 @@
                                 "content")
                         },
                         body: JSON.stringify({
+                            id: id,
                             periode: periode,
                             subholding: subholding,
                             company: company,
                             unit: unit,
-                            nama_sertifikasi: namaSertifikasi,
-                            lembaga_penerbit_sertifikat: lembagaPenerbitSertifikat,
-                            jumlah_sertifikasi_terbit: jumlahSertifikasiTerbit,
-                            jumlah_learning_hours: jumlahLearningHours
+                            nama_stasiun: namaStasiun,
+                            belum_mulai: belumMulai,
+                            kickoff_meeting: kickoffMeeting,
+                            identifikasi_peralatan: identifikasiPeralatan,
+                            survey_lapangan: surveyLapangan,
+                            pembenahan_funloc: pembenahanFunloc,
+                            review_criticality: reviewCriticality,
+                            penyelarasan_dokumen: penyelarasanDokumen,
+                            melengkapi_tag_fisik: melengkapiTagFisik,
+                            form_upload_data: formUploadData,
+                            request_master_data: requestMasterData,
+                            update_master_data: updateMasterData,
+                            kendala: kendala,
+                            tindak_lanjut: tindakLanjut
                         })
                     })
                     .then(response => response.json())
@@ -446,7 +575,7 @@
                         if (result.success) {
                             alert(result.message);
                             // table.addRow([result.data]);
-                            table.setData("/monev/shg/input-data/mandatory-certification-ptg/data");
+                            table.setData("/monev/shg/input-data/sap-asset-ptg/data");
                             this.reset();
                         } else {
                             alert('Gagal menyimpan data');

@@ -171,7 +171,7 @@
 
         <script>
             const table = new Tabulator("#example-table", {
-                layout: "fitColumns",
+                layout: "fitDataTable",
                 responsiveLayout: "collapse",
                 autoResize: true,
                 movableColumns: true,
@@ -209,6 +209,7 @@
                     {
                         title: "Periode",
                         field: "periode"
+                        
                     },
                     {
                         title: "Company",
@@ -220,13 +221,11 @@
                     },
                     {
                         title: "Green Integrity",
-                        field: "green_integrity",
-                        width: 150,
+                        field: "green_integrity"
                     },
                     {
                         title: "Yellow Integrity",
-                        field: "yellow_integrity",
-                        width: 150,
+                        field: "yellow_integrity"
                     },
                     {
                         title: "Red Integrity",
@@ -243,7 +242,6 @@
                     {
                         title: "Low Important",
                         field: "low_important",
-                        width: 180,
                     },
                     {
                         title: "Information",

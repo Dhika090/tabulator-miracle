@@ -3,6 +3,15 @@
 use App\Http\Controllers\MonevAimController;
 use App\Http\Controllers\SHG\HasilMonevController;
 use App\Http\Controllers\SHG\InputDataMonev\KalimantanJawaGasController;
+use App\Http\Controllers\SHG\InputDataMonev\pertamina\AssetBreakDownPtgController;
+use App\Http\Controllers\SHG\InputDataMonev\pertamina\KondisiVacantAIMSPtgController;
+use App\Http\Controllers\SHG\InputDataMonev\pertamina\MandatoryCertificationPtgController;
+use App\Http\Controllers\SHG\InputDataMonev\pertamina\PelatihanAIMSPtgController;
+use App\Http\Controllers\SHG\InputDataMonev\pertamina\RealisasiAnggaranAIPtg2025Controller;
+use App\Http\Controllers\SHG\InputDataMonev\pertamina\RencanaPemeliharaanBesarPtgController;
+use App\Http\Controllers\SHG\InputDataMonev\pertamina\SapAssetPtgController;
+use App\Http\Controllers\SHG\InputDataMonev\pertamina\SistemInformasiAimsPtgController;
+use App\Http\Controllers\SHG\InputDataMonev\pertamina\StatusPloPtgController;
 use App\Http\Controllers\SHG\InputDataMonev\PertaminaGasController;
 use App\Http\Controllers\SHG\InputTargetKinerja\StatusAssetInteregrityController;
 use App\Http\Controllers\SHG\InputTArgetKinerja\Target2025KPIController;
@@ -72,8 +81,6 @@ Route::prefix('monev/shg/kinerja/target-2025-ai')->middleware(['auth', 'verified
 
 
 
-
-
 // target-status-plo
 Route::prefix('monev/shg/kinerja/target-status-plo')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/', [TargetStatusPLOController::class, 'index'])->name('target-status-plo');
@@ -108,13 +115,30 @@ Route::prefix('monev/shg/kinerja/mandatory-certification')->middleware(['auth', 
 });
 
 
+
+
+
 // Input Data Monev
 // Pertamina Gas
 Route::prefix('monev/shg/input-data/pertamina-gas')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/', [PertaminaGasController::class, 'index'])->name('pertamina-gas');
-    Route::post('/', [PertaminaGasController::class, 'store'])->name('pertamina-gas');
-    Route::get('/data', [PertaminaGasController::class, 'getData'])->name('pertamina-gas.data');
+    Route::post('/', [PertaminaGasController::class, 'store'])->name('pertamina-gas.store');
+    Route::get('/data', [PertaminaGasController::class, 'data'])->name('pertamina-gas.data');
+    Route::get('/{id}', [PertaminaGasController::class, 'show'])->name('pertamina-gas.show');
+    Route::put('/{id}', [PertaminaGasController::class, 'update'])->name('pertamina-gas.update');
+    Route::delete('/{id}', [PertaminaGasController::class, 'destroy'])->name('pertamina-gas.destroy');
 });
+
+// SHG Mandatory Certification PTG
+Route::prefix('monev/shg/input-data/mandatory-certification-ptg')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [MandatoryCertificationPtgController::class, 'index'])->name('mandatory-certification-ptg');
+    Route::post('/', [MandatoryCertificationPtgController::class, 'store'])->name('mandatory-certification-ptg');
+    Route::get('/data', [MandatoryCertificationPtgController::class, 'data'])->name('mandatory-certification-ptg.data');
+    // Route::get('/{id}/edit', [MandatoryCertificationPtgController::class, 'edit'])->name('mandatory-certification-ptg.edit');
+    Route::put('/{id}', [MandatoryCertificationPtgController::class, 'update'])->name('mandatory-certification-ptg.update');
+    Route::delete('/{id}', [MandatoryCertificationPtgController::class, 'destroy'])->name('mandatory-certification-ptg.destroy');
+});
+
 
 // Kalimantan Jawa Gas
 Route::prefix('monev/shg/input-data/kalimantan-jawa-gas')->middleware(['auth', 'verified'])->group(function () {
@@ -123,9 +147,85 @@ Route::prefix('monev/shg/input-data/kalimantan-jawa-gas')->middleware(['auth', '
     Route::get('/data', [KalimantanJawaGasController::class, 'getData'])->name('kalimantan-jawa-gas.data');
 });
 
+// SAP Asset PTG
+Route::prefix('monev/shg/input-data/sap-asset-ptg')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [SapAssetPtgController::class, 'index'])->name('sap-asset-ptg');
+    Route::post('/', [SapAssetPtgController::class, 'store'])->name('sap-asset-ptg.store');
+    Route::get('/data', [SapAssetPtgController::class, 'data'])->name('sap-asset-ptg.data');
+    // Route::get('/{id}', [SapAssetPtgController::class, 'show'])->name('sap-asset-ptg.show');
+    Route::put('/{id}', [SapAssetPtgController::class, 'update'])->name('sap-asset-ptg.update');
+    Route::delete('/{id}', [SapAssetPtgController::class, 'destroy'])->name('sap-asset-ptg.destroy');
+});
 
+// Status PLO PTG
+Route::prefix('monev/shg/input-data/status-plo-ptg')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [StatusPloPtgController::class, 'index'])->name('status-plo-ptg');
+    Route::post('/', [StatusPloPtgController::class, 'store'])->name('status-plo-ptg.store');
+    Route::get('/data', [StatusPloPtgController::class, 'data'])->name('status-plo-ptg.data');
+    // Route::get('/{id}/edit', [StatusPloPtgController::class, 'edit'])->name('status-plo-ptg.edit');
+    Route::put('/{id}', [StatusPloPtgController::class, 'update'])->name('status-plo-ptg.update');
+    Route::delete('/{id}', [StatusPloPtgController::class, 'destroy'])->name('status-plo-ptg.destroy');
+});
 
+// Asset Breakdown PTG
+Route::prefix('monev/shg/input-data/asset-breakdown-ptg')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [AssetBreakDownPtgController::class, 'index'])->name('asset-breakdown-ptg');
+    Route::post('/', [AssetBreakdownPtgController::class, 'store'])->name('asset-breakdown-ptg.store');
+    Route::get('/data', [AssetBreakdownPtgController::class, 'data'])->name('asset-breakdown-ptg.data');
+    // Route::get('/{id}', [AssetBreakdownPtgController::class, 'show'])->name('asset-breakdown-ptg.show');
+    Route::put('/{id}', [AssetBreakdownPtgController::class, 'update'])->name('asset-breakdown-ptg.update');
+    Route::delete('/{id}', [AssetBreakdownPtgController::class, 'destroy'])->name('asset-breakdown-ptg.destroy');
+});
 
+// Kondisi Vacant Fungsi Aims PTG
+Route::prefix('monev/shg/input-data/kondisi-vacant-fungsi-aims-ptg')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [KondisiVacantAIMSPtgController::class, 'index'])->name('kondisi-vacant-fungsi-aims-ptg');
+    Route::post('/', [KondisiVacantAIMSPtgController::class, 'store'])->name('kondisi-vacant-fungsi-aims-ptg.store');
+    Route::get('/data', [KondisiVacantAIMSPtgController::class, 'data'])->name('kondisi-vacant-fungsi-aims-ptg.data');
+    // Route::get('/{id}/edit', [KondisiVacantAIMSPtgController::class, 'edit'])->name('kondisi-vacant-fungsi-aims-ptg.edit');
+    Route::put('/{id}', [KondisiVacantAIMSPtgController::class, 'update'])->name('kondisi-vacant-fungsi-aims-ptg.update');
+    Route::delete('/{id}', [KondisiVacantAIMSPtgController::class, 'destroy'])->name('kondisi-vacant-fungsi-aims-ptg.destroy');
+});
+
+// Rencana Pemeliharaan Besar AIMS PTG
+Route::prefix('monev/shg/input-data/rencana-pemeliharaan-besar-ptg')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [RencanaPemeliharaanBesarPtgController::class, 'index'])->name('rencana-pemeliharaan-besar-ptg');
+    Route::post('/', [RencanaPemeliharaanBesarPtgController::class, 'store'])->name('rencana-pemeliharaan-besar-ptg.store');
+    Route::get('/data', [RencanaPemeliharaanBesarPtgController::class, 'data'])->name('rencana-pemeliharaan-besar-ptg.data');
+    // Route::get('/{id}/edit', [RencanaPemeliharaanBesarAimsPtgController::class, 'edit'])->name('rencana-pemeliharaan-besar-aims-ptg.edit');
+    Route::put('/{id}', [RencanaPemeliharaanBesarPtgController::class, 'update'])->name('rencana-pemeliharaan-besar-ptg.update');
+    Route::delete('/{id}', [RencanaPemeliharaanBesarPtgController::class, 'destroy'])->name('rencana-pemeliharaan-besar-ptg.destroy');
+});
+
+// Sistem Informasi AIMS PTG
+Route::prefix('monev/shg/input-data/sistem-informasi-aims-ptg')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [SistemInformasiAimsPtgController::class, 'index'])->name('sistem-informasi-aims-ptg');
+    Route::post('/', [SistemInformasiAimsPtgController::class, 'store'])->name('sistem-informasi-aims-ptg.store');
+    Route::get('/data', [SistemInformasiAimsPtgController::class, 'data'])->name('sistem-informasi-aims-ptg.data');
+    // Route::get('/{id}/edit', [SistemInformasiAimsPtgController::class, 'edit'])->name('sistem-informasi-aims-ptg.edit');
+    Route::put('/{id}', [SistemInformasiAimsPtgController::class, 'update'])->name('sistem-informasi-aims-ptg.update');
+    Route::delete('/{id}', [SistemInformasiAimsPtgController::class, 'destroy'])->name('sistem-informasi-aims-ptg.destroy');
+});
+
+// Pelatihan Aims PTG
+Route::prefix('monev/shg/input-data/pelatihan-aims-ptg')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [PelatihanAIMSPtgController::class, 'index'])->name('pelatihan-aims-ptg');
+    Route::post('/', [PelatihanAimsPtgController::class, 'store'])->name('pelatihan-aims-ptg.store');
+    Route::get('/data', [PelatihanAimsPtgController::class, 'data'])->name('pelatihan-aims-ptg.data');
+    // Route::get('/{id}/edit', [PelatihanAimsPtgController::class, 'edit'])->name('pelatihan-aims-ptg.edit');
+    Route::put('/{id}', [PelatihanAimsPtgController::class, 'update'])->name('pelatihan-aims-ptg.update');
+    Route::delete('/{id}', [PelatihanAimsPtgController::class, 'destroy'])->name('pelatihan-aims-ptg.destroy');
+});
+
+// Realisasi Anggaran AI PTG
+Route::prefix('monev/shg/input-data/realisasi-anggaran-ai-ptg')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [RealisasiAnggaranAIPtg2025Controller::class, 'index'])->name('realisasi-anggaran-ai-ptg');
+    Route::post('/', [RealisasiAnggaranAIPtg2025Controller::class, 'store'])->name('realisasi-anggaran-ai-ptg.store');
+    Route::get('/data', [RealisasiAnggaranAIPtg2025Controller::class, 'data'])->name('realisasi-anggaran-ai-ptg.data');
+    // Route::get('/{id}/edit', [RealisasiAnggaranAIPtgController::class, 'edit'])->name('realisasi-anggaran-ai-ptg.edit');
+    Route::put('/{id}', [RealisasiAnggaranAIPtg2025Controller::class, 'update'])->name('realisasi-anggaran-ai-ptg.update');
+    Route::delete('/{id}', [RealisasiAnggaranAIPtg2025Controller::class, 'destroy'])->name('realisasi-anggaran-ai-ptg.destroy');
+});
 
 
 

@@ -18,6 +18,11 @@
                 font-size: 14px;
             }
 
+            .tabulator .tabulator-cell {
+                white-space: normal !important;
+                word-wrap: break-word;
+            }
+
             .card {
                 margin-top: 20px;
             }
@@ -29,11 +34,6 @@
 
             #tabSwitcher .btn {
                 white-space: nowrap;
-            }
-
-            .tabulator .tabulator-cell {
-                white-space: normal !important;
-                word-wrap: break-word;
             }
 
             /* modall */
@@ -93,7 +93,7 @@
 
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title mb-3">Mandatory Certification</h5>
+            <h5 class="card-title mb-3">Kondisi Vacant Fungsi AIMS PTG</h5>
 
             <div class="d-flex align-items-stretch gap-3">
                 <button onclick="openModal()" class="btn btn-primary">Create Data</button>
@@ -158,14 +158,10 @@
             <h3>Tambah Target SAP</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
+
                 <div>
                     <label>Periode</label>
                     <input type="text" name="periode" id="periode" required>
-                </div>
-
-                <div>
-                    <label>Subholding</label>
-                    <input type="text" name="subholding" id="subholding" required>
                 </div>
 
                 <div>
@@ -174,32 +170,27 @@
                 </div>
 
                 <div>
-                    <label>Unit</label>
-                    <input type="text" name="unit" id="unit" required>
+                    <label>Total Personil Asset Integrity</label>
+                    <input type="number" name="total_personil_asset_integrity" id="total_personil_asset_integrity">
                 </div>
 
                 <div>
-                    <label>Nama Sertifikasi</label>
-                    <input type="text" name="nama_sertifikasi" id="nama_sertifikasi" required>
+                    <label>Jumlah Personil Vacant</label>
+                    <input type="number" name="jumlah_personil_vacant" id="jumlah_personil_vacant">
                 </div>
 
                 <div>
-                    <label>Lembaga Penerbit Sertifikat</label>
-                    <input type="text" name="lembaga_penerbit_sertifikat" id="lembaga_penerbit_sertifikat" required>
+                    <label>Jumlah Personil Pensiun &lt; 1 Thn</label>
+                    <input type="number" name="jumlah_personil_pensiun" id="jumlah_personil_pensiun">
                 </div>
 
                 <div>
-                    <label>Jumlah Sertifikasi yang Sudah Terbit</label>
-                    <input type="number" name="jumlah_sertifikasi_terbit" id="jumlah_sertifikasi_terbit" required>
+                    <label>Keterangan</label>
+                    <input type="text" name="keterangan" id="keterangan" rows="3"></input>
                 </div>
-
-                <div>
-                    <label>Jumlah Learning Hours</label>
-                    <input type="number" name="jumlah_learning_hours" id="jumlah_learning_hours" required>
-                </div>
-
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
+
         </div>
     </div>
 
@@ -208,7 +199,7 @@
 
         <script>
             const table = new Tabulator("#example-table", {
-                layout: "fitDataTable",
+                layout: "fitColumns",
                 responsiveLayout: "collapse",
                 autoResize: true,
                 selectableRange: 1,
@@ -253,7 +244,7 @@
             });
 
             const columnMap = {
-                "mandatory-certification-ptg": [{
+                "kondisi-vacant-fungsi-aims-ptg": [{
                         title: "No",
                         formatter: "rownum",
                         hozAlign: "center",
@@ -261,46 +252,44 @@
                     },
                     {
                         title: "Periode",
-                        field: "periode"
-                    },
-                    {
-                        title: "Subholding",
-                        field: "subholding"
+                        field: "periode",
+                        width: 100
                     },
                     {
                         title: "Company",
-                        field: "company"
+                        field: "company",
+                        width: 110
                     },
                     {
-                        title: "Unit",
-                        field: "unit"
+                        title: "Total Personil Asset Integrity",
+                        field: "total_personil_asset_integrity",
+                        hozAlign: "center",
+                        width: 229
                     },
                     {
-                        title: "Nama Sertifikasi",
-                        field: "nama_sertifikasi"
+                        title: "Jumlah Personil Vacant",
+                        field: "jumlah_personil_vacant",
+                        hozAlign: "center",
+                        width: 190
                     },
                     {
-                        title: "Lembaga Penerbit Sertifikat",
-                        field: "lembaga_penerbit_sertifikat"
+                        title: "Jumlah Personil Pensiun < 1 Thn",
+                        field: "jumlah_personil_pensiun",
+                        hozAlign: "center",
+                        width: 250
                     },
                     {
-                        title: "Jumlah Sertifikasi yang Sudah Terbit",
-                        field: "jumlah_sertifikasi_terbit",
-                        hozAlign: "center"
-                    },
-                    {
-                        title: "Jumlah Learning Hours",
-                        field: "jumlah_learning_hours",
-                        hozAlign: "center"
+                        title: "Keterangan",
+                        field: "keterangan"
                     },
                     {
                         title: "Aksi",
                         formatter: (cell, formatterParams) => {
                             const row = cell.getData();
                             return `
-                        <button onclick='editData(${JSON.stringify(row)})'>Edit</button>
-                        <button onclick='deleteData("${row.id}")'>Hapus</button>
-                        `;
+                    <button onclick='editData(${JSON.stringify(row)})'>Edit</button>
+                    <button onclick='deleteData("${row.id}")'>Hapus</button>
+                `;
                         },
                         hozAlign: "center",
                         width: 150
@@ -309,7 +298,7 @@
             };
 
             const routeMap = {
-                "mandatory-certification-ptg": "{{ route('mandatory-certification-ptg.data') }}"
+                "kondisi-vacant-fungsi-aims-ptg": "{{ route('kondisi-vacant-fungsi-aims-ptg.data') }}"
             };
 
             document.querySelectorAll('#tabSwitcher a').forEach(btn => {
@@ -350,19 +339,18 @@
             function editData(row) {
                 document.getElementById("form-id").value = row.id;
                 document.getElementById("periode").value = row.periode;
-                document.getElementById("subholding").value = row.subholding;
                 document.getElementById("company").value = row.company;
-                document.getElementById("unit").value = row.unit;
-                document.getElementById("nama_sertifikasi").value = row.nama_sertifikasi;
-                document.getElementById("lembaga_penerbit_sertifikat").value = row.lembaga_penerbit_sertifikat;
-                document.getElementById("jumlah_sertifikasi_terbit").value = row.jumlah_sertifikasi_terbit;
-                document.getElementById("jumlah_learning_hours").value = row.jumlah_learning_hours;
+                document.getElementById("total_personil_asset_integrity").value = row.total_personil_asset_integrity;
+                document.getElementById("jumlah_personil_vacant").value = row.jumlah_personil_vacant;
+                document.getElementById("jumlah_personil_pensiun").value = row.jumlah_personil_pensiun;
+                document.getElementById("keterangan").value = row.keterangan;
+
                 openModal();
             }
 
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
-                    fetch(`mandatory-certification-ptg/${id}`, {
+                    fetch(`kondisi-vacant-fungsi-aims-ptg/${id}`, {
                             method: "DELETE",
                             headers: {
                                 "Accept": "application/json",
@@ -373,7 +361,7 @@
                         .then(result => {
                             if (result.success) {
                                 alert(result.message);
-                                table.setData("/monev/shg/input-data/mandatory-certification-ptg/data")
+                                table.setData("/monev/shg/input-data/kondisi-vacant-fungsi-aims-ptg/data")
                                 this.reset();
                             } else {
                                 alert('Gagal menyimpan data');
@@ -383,8 +371,8 @@
             }
 
             document.addEventListener("DOMContentLoaded", function() {
-                loadTabData("mandatory-certification-ptg");
-                localStorage.setItem("currentTab", "mandatory-certification-ptg");
+                loadTabData("kondisi-vacant-fungsi-aims-ptg");
+                localStorage.setItem("currentTab", "kondisi-vacant-fungsi-aims-ptg");
             });
         </script>
 
@@ -410,17 +398,14 @@
 
                 const id = document.getElementById("form-id").value;
                 const periode = document.getElementById("periode").value;
-                const subholding = document.getElementById("subholding").value;
                 const company = document.getElementById("company").value;
-                const unit = document.getElementById("unit").value;
-                const namaSertifikasi = document.getElementById("nama_sertifikasi").value;
-                const lembagaPenerbitSertifikat = document.getElementById("lembaga_penerbit_sertifikat").value;
-                const jumlahSertifikasiTerbit = document.getElementById("jumlah_sertifikasi_terbit").value;
-                const jumlahLearningHours = document.getElementById("jumlah_learning_hours").value;
-
+                const totalPersonilAssetIntegrity = document.getElementById("total_personil_asset_integrity").value;
+                const jumlahPersonilVacant = document.getElementById("jumlah_personil_vacant").value;
+                const jumlahPersonilPensiun = document.getElementById("jumlah_personil_pensiun").value;
+                const keterangan = document.getElementById("keterangan").value;
 
                 const method = id ? "PUT" : "POST";
-                const url = id ? `mandatory-certification-ptg/${id}` : "mandatory-certification-ptg";
+                const url = id ? `kondisi-vacant-fungsi-aims-ptg/${id}` : "kondisi-vacant-fungsi-aims-ptg";
 
                 fetch(url, {
                         method: method,
@@ -432,13 +417,11 @@
                         },
                         body: JSON.stringify({
                             periode: periode,
-                            subholding: subholding,
                             company: company,
-                            unit: unit,
-                            nama_sertifikasi: namaSertifikasi,
-                            lembaga_penerbit_sertifikat: lembagaPenerbitSertifikat,
-                            jumlah_sertifikasi_terbit: jumlahSertifikasiTerbit,
-                            jumlah_learning_hours: jumlahLearningHours
+                            total_personil_asset_integrity: totalPersonilAssetIntegrity,
+                            jumlah_personil_vacant: jumlahPersonilVacant,
+                            jumlah_personil_pensiun: jumlahPersonilPensiun,
+                            keterangan: keterangan
                         })
                     })
                     .then(response => response.json())
@@ -446,7 +429,7 @@
                         if (result.success) {
                             alert(result.message);
                             // table.addRow([result.data]);
-                            table.setData("/monev/shg/input-data/mandatory-certification-ptg/data");
+                            table.setData("/monev/shg/input-data/kondisi-vacant-fungsi-aims-ptg/data");
                             this.reset();
                         } else {
                             alert('Gagal menyimpan data');

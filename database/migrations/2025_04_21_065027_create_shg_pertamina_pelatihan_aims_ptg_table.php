@@ -11,16 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('mandatory_certification_ptg', function (Blueprint $table) {
+        Schema::create('shg_pertamina_pelatihan_aims_ptg', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('periode');
-            $table->string('subholding');
             $table->string('company');
-            $table->string('unit');
-            $table->string('nama_sertifikasi')->nullable();
-            $table->string('lembaga_penerbit_sertifikat')->nullable();
-            $table->integer('jumlah_sertifikasi_terbit')->nullable();
-            $table->integer('jumlah_learning_hours')->nullable();
+            $table->string('judul_pelatihan')->nullable();
+            $table->integer('realisasi_perwira')->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('mandatory_certification_ptg');
+        Schema::dropIfExists('shg_pertamina_pelatihan_aims_ptg');
     }
 };

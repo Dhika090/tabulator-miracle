@@ -6,24 +6,19 @@
             .tabulator-wrapper {
                 overflow-x: auto;
             }
-
             #example-table {
                 background-color: white;
                 min-width: 800px;
                 border-radius: 8px;
                 box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             }
-
             .tabulator-cell {
-                font-size: 14px;
-
+                font-size: 14px
 
             }
-
             .card {
                 margin-top: 20px;
             }
-
             /* modall */
             .modal {
                 display: none;
@@ -36,7 +31,6 @@
                 overflow: auto;
                 background-color: rgba(0, 0, 0, 0.4);
             }
-
             .modal-content {
                 background-color: #fff;
                 position: absolute;
@@ -47,25 +41,21 @@
                 width: 50%;
                 border-radius: 10px;
             }
-
             .close {
                 color: #aaa;
                 float: right;
                 font-size: 28px;
                 cursor: pointer;
             }
-
             .close:hover {
                 color: red;
             }
-
             input {
                 width: 100%;
                 padding: 8px;
                 margin-top: 5px;
                 margin-bottom: 10px;
             }
-
 
             @media screen and (max-width: 768px) {
                 .tabulator .tabulator-header {
@@ -81,7 +71,7 @@
 
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title mb-3 d-flex justify-content-between">Kinerja   KPI Asset Integrity</h5>
+            <h5 class="card-title mb-3 d-flex justify-content-between">Kinerja KPI Asset Integrity</h5>
 
             <button onclick="openModal()" class="btn btn-primary">Create Data</button>
             <br><br>

@@ -93,7 +93,7 @@
 
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title mb-3">Mandatory Certification</h5>
+            <h5 class="card-title mb-3">Pelatihan AIMS PTG</h5>
 
             <div class="d-flex align-items-stretch gap-3">
                 <button onclick="openModal()" class="btn btn-primary">Create Data</button>
@@ -155,7 +155,7 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Tambah Target SAP</h3>
+            <h3>Pelatihan AIMS PTG</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
                 <div>
@@ -164,42 +164,23 @@
                 </div>
 
                 <div>
-                    <label>Subholding</label>
-                    <input type="text" name="subholding" id="subholding" required>
-                </div>
-
-                <div>
                     <label>Company</label>
                     <input type="text" name="company" id="company" required>
                 </div>
 
                 <div>
-                    <label>Unit</label>
-                    <input type="text" name="unit" id="unit" required>
+                    <label>Judul Pelatihan/Training/Forum</label>
+                    <input type="text" name="judul_pelatihan" id="judul_pelatihan" required>
                 </div>
 
                 <div>
-                    <label>Nama Sertifikasi</label>
-                    <input type="text" name="nama_sertifikasi" id="nama_sertifikasi" required>
-                </div>
-
-                <div>
-                    <label>Lembaga Penerbit Sertifikat</label>
-                    <input type="text" name="lembaga_penerbit_sertifikat" id="lembaga_penerbit_sertifikat" required>
-                </div>
-
-                <div>
-                    <label>Jumlah Sertifikasi yang Sudah Terbit</label>
-                    <input type="number" name="jumlah_sertifikasi_terbit" id="jumlah_sertifikasi_terbit" required>
-                </div>
-
-                <div>
-                    <label>Jumlah Learning Hours</label>
-                    <input type="number" name="jumlah_learning_hours" id="jumlah_learning_hours" required>
+                    <label>Realisasi Perwira</label>
+                    <input type="number" name="realisasi_perwira" id="realisasi_perwira">
                 </div>
 
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
+
         </div>
     </div>
 
@@ -208,7 +189,7 @@
 
         <script>
             const table = new Tabulator("#example-table", {
-                layout: "fitDataTable",
+                layout: "fitColumns",
                 responsiveLayout: "collapse",
                 autoResize: true,
                 selectableRange: 1,
@@ -253,7 +234,7 @@
             });
 
             const columnMap = {
-                "mandatory-certification-ptg": [{
+                "pelatihan-aims-ptg": [{
                         title: "No",
                         formatter: "rownum",
                         hozAlign: "center",
@@ -264,33 +245,16 @@
                         field: "periode"
                     },
                     {
-                        title: "Subholding",
-                        field: "subholding"
-                    },
-                    {
                         title: "Company",
                         field: "company"
                     },
                     {
-                        title: "Unit",
-                        field: "unit"
+                        title: "Judul Pelatihan/Training/Forum",
+                        field: "judul_pelatihan"
                     },
                     {
-                        title: "Nama Sertifikasi",
-                        field: "nama_sertifikasi"
-                    },
-                    {
-                        title: "Lembaga Penerbit Sertifikat",
-                        field: "lembaga_penerbit_sertifikat"
-                    },
-                    {
-                        title: "Jumlah Sertifikasi yang Sudah Terbit",
-                        field: "jumlah_sertifikasi_terbit",
-                        hozAlign: "center"
-                    },
-                    {
-                        title: "Jumlah Learning Hours",
-                        field: "jumlah_learning_hours",
+                        title: "Realisasi Perwira",
+                        field: "realisasi_perwira",
                         hozAlign: "center"
                     },
                     {
@@ -298,9 +262,9 @@
                         formatter: (cell, formatterParams) => {
                             const row = cell.getData();
                             return `
-                        <button onclick='editData(${JSON.stringify(row)})'>Edit</button>
-                        <button onclick='deleteData("${row.id}")'>Hapus</button>
-                        `;
+                    <button onclick='editData(${JSON.stringify(row)})'>Edit</button>
+                    <button onclick='deleteData("${row.id}")'>Hapus</button>
+                `;
                         },
                         hozAlign: "center",
                         width: 150
@@ -309,7 +273,7 @@
             };
 
             const routeMap = {
-                "mandatory-certification-ptg": "{{ route('mandatory-certification-ptg.data') }}"
+                "pelatihan-aims-ptg": "{{ route('pelatihan-aims-ptg.data') }}"
             };
 
             document.querySelectorAll('#tabSwitcher a').forEach(btn => {
@@ -350,19 +314,15 @@
             function editData(row) {
                 document.getElementById("form-id").value = row.id;
                 document.getElementById("periode").value = row.periode;
-                document.getElementById("subholding").value = row.subholding;
                 document.getElementById("company").value = row.company;
-                document.getElementById("unit").value = row.unit;
-                document.getElementById("nama_sertifikasi").value = row.nama_sertifikasi;
-                document.getElementById("lembaga_penerbit_sertifikat").value = row.lembaga_penerbit_sertifikat;
-                document.getElementById("jumlah_sertifikasi_terbit").value = row.jumlah_sertifikasi_terbit;
-                document.getElementById("jumlah_learning_hours").value = row.jumlah_learning_hours;
+                document.getElementById("judul_pelatihan").value = row.judul_pelatihan;
+                document.getElementById("realisasi_perwira").value = row.realisasi_perwira;
                 openModal();
             }
 
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
-                    fetch(`mandatory-certification-ptg/${id}`, {
+                    fetch(`pelatihan-aims-ptg/${id}`, {
                             method: "DELETE",
                             headers: {
                                 "Accept": "application/json",
@@ -373,7 +333,7 @@
                         .then(result => {
                             if (result.success) {
                                 alert(result.message);
-                                table.setData("/monev/shg/input-data/mandatory-certification-ptg/data")
+                                table.setData("/monev/shg/input-data/pelatihan-aims-ptg/data")
                                 this.reset();
                             } else {
                                 alert('Gagal menyimpan data');
@@ -383,8 +343,8 @@
             }
 
             document.addEventListener("DOMContentLoaded", function() {
-                loadTabData("mandatory-certification-ptg");
-                localStorage.setItem("currentTab", "mandatory-certification-ptg");
+                loadTabData("pelatihan-aims-ptg");
+                localStorage.setItem("currentTab", "pelatihan-aims-ptg");
             });
         </script>
 
@@ -410,17 +370,12 @@
 
                 const id = document.getElementById("form-id").value;
                 const periode = document.getElementById("periode").value;
-                const subholding = document.getElementById("subholding").value;
                 const company = document.getElementById("company").value;
-                const unit = document.getElementById("unit").value;
-                const namaSertifikasi = document.getElementById("nama_sertifikasi").value;
-                const lembagaPenerbitSertifikat = document.getElementById("lembaga_penerbit_sertifikat").value;
-                const jumlahSertifikasiTerbit = document.getElementById("jumlah_sertifikasi_terbit").value;
-                const jumlahLearningHours = document.getElementById("jumlah_learning_hours").value;
-
+                const judulPelatihan = document.getElementById("judul_pelatihan").value;
+                const realisasiPerwira = document.getElementById("realisasi_perwira").value;
 
                 const method = id ? "PUT" : "POST";
-                const url = id ? `mandatory-certification-ptg/${id}` : "mandatory-certification-ptg";
+                const url = id ? `pelatihan-aims-ptg/${id}` : "pelatihan-aims-ptg";
 
                 fetch(url, {
                         method: method,
@@ -432,13 +387,9 @@
                         },
                         body: JSON.stringify({
                             periode: periode,
-                            subholding: subholding,
                             company: company,
-                            unit: unit,
-                            nama_sertifikasi: namaSertifikasi,
-                            lembaga_penerbit_sertifikat: lembagaPenerbitSertifikat,
-                            jumlah_sertifikasi_terbit: jumlahSertifikasiTerbit,
-                            jumlah_learning_hours: jumlahLearningHours
+                            judul_pelatihan: judulPelatihan,
+                            realisasi_perwira: realisasiPerwira
                         })
                     })
                     .then(response => response.json())
@@ -446,7 +397,7 @@
                         if (result.success) {
                             alert(result.message);
                             // table.addRow([result.data]);
-                            table.setData("/monev/shg/input-data/mandatory-certification-ptg/data");
+                            table.setData("/monev/shg/input-data/pelatihan-aims-ptg/data");
                             this.reset();
                         } else {
                             alert('Gagal menyimpan data');

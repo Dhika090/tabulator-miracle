@@ -93,7 +93,7 @@
 
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title mb-3">Mandatory Certification</h5>
+            <h5 class="card-title mb-3">Sistem Informasi AIMS PTG </h5>
 
             <div class="d-flex align-items-stretch gap-3">
                 <button onclick="openModal()" class="btn btn-primary">Create Data</button>
@@ -155,47 +155,73 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Tambah Target SAP</h3>
+            <h3>Tambah Sistem Informasi AIMS PTG</h3>
             <form id="createForm">
+
                 <input type="hidden" name="id" id="form-id">
                 <div>
-                    <label>Periode</label>
-                    <input type="text" name="periode" id="periode" required>
+                    <label for="periode">Periode</label>
+                    <input type="text" id="periode" name="periode" required>
                 </div>
 
                 <div>
-                    <label>Subholding</label>
-                    <input type="text" name="subholding" id="subholding" required>
+                    <label for="company">Company</label>
+                    <input type="text" id="company" name="company" required>
                 </div>
 
                 <div>
-                    <label>Company</label>
-                    <input type="text" name="company" id="company" required>
+                    <label for="jumlah_aset_operasi">Jumlah Aset Operasi</label>
+                    <input type="number" id="jumlah_aset_operasi" name="jumlah_aset_operasi">
                 </div>
 
                 <div>
-                    <label>Unit</label>
-                    <input type="text" name="unit" id="unit" required>
+                    <label for="jumlah_aset_teregister">Jumlah Aset Teregister</label>
+                    <input type="number" id="jumlah_aset_teregister" name="jumlah_aset_teregister">
                 </div>
 
                 <div>
-                    <label>Nama Sertifikasi</label>
-                    <input type="text" name="nama_sertifikasi" id="nama_sertifikasi" required>
+                    <label for="kendala_aset_register">Kendala Aset Register</label>
+                    <input id="kendala_aset_register" type="text" name="kendala_aset_register"></input>
                 </div>
 
                 <div>
-                    <label>Lembaga Penerbit Sertifikat</label>
-                    <input type="text" name="lembaga_penerbit_sertifikat" id="lembaga_penerbit_sertifikat" required>
+                    <label for="tindak_lanjut_aset_register">Tindak Lanjut Aset Register</label>
+                    <input id="tindak_lanjut_aset_register" type="text" name="tindak_lanjut_aset_register"></input>
                 </div>
 
                 <div>
-                    <label>Jumlah Sertifikasi yang Sudah Terbit</label>
-                    <input type="number" name="jumlah_sertifikasi_terbit" id="jumlah_sertifikasi_terbit" required>
+                    <label for="sistem_informasi_aim">Sistem Informasi AIM</label>
+                    <input type="text" id="sistem_informasi_aim" name="sistem_informasi_aim">
                 </div>
 
                 <div>
-                    <label>Jumlah Learning Hours</label>
-                    <input type="number" name="jumlah_learning_hours" id="jumlah_learning_hours" required>
+                    <label for="total_wo_comply">Total WO Comply</label>
+                    <input type="number" id="total_wo_comply" name="total_wo_comply">
+                </div>
+
+                <div>
+                    <label for="total_wo_completed">Total WO Completed</label>
+                    <input type="number" id="total_wo_completed" name="total_wo_completed">
+                </div>
+
+                <div>
+                    <label for="total_wo_in_progress">Total WO In Progress</label>
+                    <input type="number" id="total_wo_in_progress" name="total_wo_in_progress">
+                </div>
+
+                <div>
+                    <label for="total_wo_backlog">Total WO Backlog</label>
+                    <input type="number" id="total_wo_backlog" name="total_wo_backlog">
+                </div>
+
+                <div>
+                    <label for="kendala">Kendala</label>
+                    <input id="kendala" type="text" name="kendala"></input>
+                </div>
+
+                <div>
+                    <label for="tindak_lanjut">Tindak Lanjut</label>
+                    <input id="tindak_lanjut" type="text" name="tindak_lanjut"></input>
                 </div>
 
                 <button type="submit" class="btn btn-success">Submit</button>
@@ -253,7 +279,7 @@
             });
 
             const columnMap = {
-                "mandatory-certification-ptg": [{
+                "sistem-informasi-aims-ptg": [{
                         title: "No",
                         formatter: "rownum",
                         hozAlign: "center",
@@ -264,43 +290,67 @@
                         field: "periode"
                     },
                     {
-                        title: "Subholding",
-                        field: "subholding"
-                    },
-                    {
                         title: "Company",
                         field: "company"
                     },
                     {
-                        title: "Unit",
-                        field: "unit"
-                    },
-                    {
-                        title: "Nama Sertifikasi",
-                        field: "nama_sertifikasi"
-                    },
-                    {
-                        title: "Lembaga Penerbit Sertifikat",
-                        field: "lembaga_penerbit_sertifikat"
-                    },
-                    {
-                        title: "Jumlah Sertifikasi yang Sudah Terbit",
-                        field: "jumlah_sertifikasi_terbit",
+                        title: "Jumlah Aset Operasi",
+                        field: "jumlah_aset_operasi",
                         hozAlign: "center"
                     },
                     {
-                        title: "Jumlah Learning Hours",
-                        field: "jumlah_learning_hours",
+                        title: "Jumlah Aset Teregister",
+                        field: "jumlah_aset_teregister",
                         hozAlign: "center"
+                    },
+                    {
+                        title: "Kendala Aset Register",
+                        field: "kendala_aset_register"
+                    },
+                    {
+                        title: "Tindak Lanjut Aset Register",
+                        field: "tindak_lanjut_aset_register"
+                    },
+                    {
+                        title: "Sistem Informasi AIM",
+                        field: "sistem_informasi_aim"
+                    },
+                    {
+                        title: "Total WO Comply",
+                        field: "total_wo_comply",
+                        hozAlign: "center"
+                    },
+                    {
+                        title: "Total WO Completed",
+                        field: "total_wo_completed",
+                        hozAlign: "center"
+                    },
+                    {
+                        title: "Total WO In Progress",
+                        field: "total_wo_in_progress",
+                        hozAlign: "center"
+                    },
+                    {
+                        title: "Total WO Backlog",
+                        field: "total_wo_backlog",
+                        hozAlign: "center"
+                    },
+                    {
+                        title: "Kendala",
+                        field: "kendala"
+                    },
+                    {
+                        title: "Tindak Lanjut",
+                        field: "tindak_lanjut"
                     },
                     {
                         title: "Aksi",
                         formatter: (cell, formatterParams) => {
                             const row = cell.getData();
                             return `
-                        <button onclick='editData(${JSON.stringify(row)})'>Edit</button>
-                        <button onclick='deleteData("${row.id}")'>Hapus</button>
-                        `;
+                    <button onclick='editData(${JSON.stringify(row)})'>Edit</button>
+                    <button onclick='deleteData("${row.id}")'>Hapus</button>
+                `;
                         },
                         hozAlign: "center",
                         width: 150
@@ -309,7 +359,7 @@
             };
 
             const routeMap = {
-                "mandatory-certification-ptg": "{{ route('mandatory-certification-ptg.data') }}"
+                "sistem-informasi-aims-ptg": "{{ route('sistem-informasi-aims-ptg.data') }}"
             };
 
             document.querySelectorAll('#tabSwitcher a').forEach(btn => {
@@ -350,19 +400,25 @@
             function editData(row) {
                 document.getElementById("form-id").value = row.id;
                 document.getElementById("periode").value = row.periode;
-                document.getElementById("subholding").value = row.subholding;
                 document.getElementById("company").value = row.company;
-                document.getElementById("unit").value = row.unit;
-                document.getElementById("nama_sertifikasi").value = row.nama_sertifikasi;
-                document.getElementById("lembaga_penerbit_sertifikat").value = row.lembaga_penerbit_sertifikat;
-                document.getElementById("jumlah_sertifikasi_terbit").value = row.jumlah_sertifikasi_terbit;
-                document.getElementById("jumlah_learning_hours").value = row.jumlah_learning_hours;
+                document.getElementById("jumlah_aset_operasi").value = row.jumlah_aset_operasi;
+                document.getElementById("jumlah_aset_teregister").value = row.jumlah_aset_teregister;
+                document.getElementById("kendala_aset_register").value = row.kendala_aset_register;
+                document.getElementById("tindak_lanjut_aset_register").value = row.tindak_lanjut_aset_register;
+                document.getElementById("sistem_informasi_aim").value = row.sistem_informasi_aim;
+                document.getElementById("total_wo_comply").value = row.total_wo_comply;
+                document.getElementById("total_wo_completed").value = row.total_wo_completed;
+                document.getElementById("total_wo_in_progress").value = row.total_wo_in_progress;
+                document.getElementById("total_wo_backlog").value = row.total_wo_backlog;
+                document.getElementById("kendala").value = row.kendala;
+                document.getElementById("tindak_lanjut").value = row.tindak_lanjut;
+
                 openModal();
             }
 
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
-                    fetch(`mandatory-certification-ptg/${id}`, {
+                    fetch(`sistem-informasi-aims-ptg/${id}`, {
                             method: "DELETE",
                             headers: {
                                 "Accept": "application/json",
@@ -373,7 +429,7 @@
                         .then(result => {
                             if (result.success) {
                                 alert(result.message);
-                                table.setData("/monev/shg/input-data/mandatory-certification-ptg/data")
+                                table.setData("/monev/shg/input-data/sistem-informasi-aims-ptg/data")
                                 this.reset();
                             } else {
                                 alert('Gagal menyimpan data');
@@ -383,8 +439,8 @@
             }
 
             document.addEventListener("DOMContentLoaded", function() {
-                loadTabData("mandatory-certification-ptg");
-                localStorage.setItem("currentTab", "mandatory-certification-ptg");
+                loadTabData("sistem-informasi-aims-ptg");
+                localStorage.setItem("currentTab", "sistem-informasi-aims-ptg");
             });
         </script>
 
@@ -410,17 +466,21 @@
 
                 const id = document.getElementById("form-id").value;
                 const periode = document.getElementById("periode").value;
-                const subholding = document.getElementById("subholding").value;
                 const company = document.getElementById("company").value;
-                const unit = document.getElementById("unit").value;
-                const namaSertifikasi = document.getElementById("nama_sertifikasi").value;
-                const lembagaPenerbitSertifikat = document.getElementById("lembaga_penerbit_sertifikat").value;
-                const jumlahSertifikasiTerbit = document.getElementById("jumlah_sertifikasi_terbit").value;
-                const jumlahLearningHours = document.getElementById("jumlah_learning_hours").value;
-
+                const jumlahAsetOperasi = document.getElementById("jumlah_aset_operasi").value;
+                const jumlahAsetTeregister = document.getElementById("jumlah_aset_teregister").value;
+                const kendalaAsetRegister = document.getElementById("kendala_aset_register").value;
+                const tindakLanjutAsetRegister = document.getElementById("tindak_lanjut_aset_register").value;
+                const sistemInformasiAim = document.getElementById("sistem_informasi_aim").value;
+                const totalWoComply = document.getElementById("total_wo_comply").value;
+                const totalWoCompleted = document.getElementById("total_wo_completed").value;
+                const totalWoInProgress = document.getElementById("total_wo_in_progress").value;
+                const totalWoBacklog = document.getElementById("total_wo_backlog").value;
+                const kendala = document.getElementById("kendala").value;
+                const tindakLanjut = document.getElementById("tindak_lanjut").value;
 
                 const method = id ? "PUT" : "POST";
-                const url = id ? `mandatory-certification-ptg/${id}` : "mandatory-certification-ptg";
+                const url = id ? `sistem-informasi-aims-ptg/${id}` : "sistem-informasi-aims-ptg";
 
                 fetch(url, {
                         method: method,
@@ -432,13 +492,18 @@
                         },
                         body: JSON.stringify({
                             periode: periode,
-                            subholding: subholding,
                             company: company,
-                            unit: unit,
-                            nama_sertifikasi: namaSertifikasi,
-                            lembaga_penerbit_sertifikat: lembagaPenerbitSertifikat,
-                            jumlah_sertifikasi_terbit: jumlahSertifikasiTerbit,
-                            jumlah_learning_hours: jumlahLearningHours
+                            jumlah_aset_operasi: jumlahAsetOperasi,
+                            jumlah_aset_teregister: jumlahAsetTeregister,
+                            kendala_aset_register: kendalaAsetRegister,
+                            tindak_lanjut_aset_register: tindakLanjutAsetRegister,
+                            sistem_informasi_aim: sistemInformasiAim,
+                            total_wo_comply: totalWoComply,
+                            total_wo_completed: totalWoCompleted,
+                            total_wo_in_progress: totalWoInProgress,
+                            total_wo_backlog: totalWoBacklog,
+                            kendala: kendala,
+                            tindak_lanjut: tindakLanjut
                         })
                     })
                     .then(response => response.json())
@@ -446,7 +511,7 @@
                         if (result.success) {
                             alert(result.message);
                             // table.addRow([result.data]);
-                            table.setData("/monev/shg/input-data/mandatory-certification-ptg/data");
+                            table.setData("/monev/shg/input-data/sistem-informasi-aims-ptg/data");
                             this.reset();
                         } else {
                             alert('Gagal menyimpan data');
