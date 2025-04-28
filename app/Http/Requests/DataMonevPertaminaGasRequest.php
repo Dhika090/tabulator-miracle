@@ -27,7 +27,7 @@ class DataMonevPertaminaGasRequest extends FormRequest
             'company' => 'required',
             'unit' => 'required',
             'asset_group' => 'required',
-            'jumlah' => 'required|numeric',
+            'jumlah' => 'nullable|numeric',
 
             'sece_low_breakdown' => 'nullable|numeric',
             'sece_medium_due_date_inspection' => 'nullable|numeric',

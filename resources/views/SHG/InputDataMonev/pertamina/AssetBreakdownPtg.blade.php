@@ -23,38 +23,67 @@
             }
 
             .tab-scroll-wrapper {
-                overflow-x: auto;
-                white-space: nowrap;
+                border-bottom: 1px solid #dee2e6;
+                padding-bottom: 5px;
             }
+
+            .tab-scroll-wrapper {
+                display: inline-block;
+                /* display: flex; */
+                align-items: center;
+                overflow-x: hidden;
+                max-width: 100%;
+                padding-bottom: 5px;
+                border-bottom: 1px solid #dee2e6;
+                white-space: nowrap;
+                position: relative;
+            }
+
 
             #tabSwitcher .btn {
-                white-space: nowrap;
-                /* biar teks dalam button gak pecah ke bawah */
+                border-radius: 0;
+                font-size: 14px;
+                border-bottom: 2px solid transparent;
+                color: #495057;
+                padding: 6px 10px;
+                background-color: transparent;
             }
 
+            #tabSwitcher .btn.active {
+                font-weight: bold;
+                color: #007bff;
+                border-bottom: 2px solid #007bff;
+            }
+
+            .dropdown-menu .dropdown-item.active {
+                font-weight: bold;
+                color: #007bff;
+                background-color: #e9ecef;
+            }
 
             /* modall */
             .modal {
                 display: none;
                 position: fixed;
-                z-index: 100;
+                z-index: 1050;
                 left: 0;
                 top: 0;
                 width: 100%;
                 height: 100%;
                 overflow: auto;
                 background-color: rgba(0, 0, 0, 0.4);
+                padding: 1rem;
             }
 
             .modal-content {
                 background-color: #fff;
-                position: absolute;
-                top: 3%;
-                left: 30%;
-                /* transform: translate(-50%, -50%); */
+                margin: 5% auto;
                 padding: 20px;
-                width: 50%;
+                width: 100%;
+                max-width: 600px;
                 border-radius: 10px;
+                position: relative;
+                z-index: 9999;
             }
 
             .close {
@@ -92,64 +121,37 @@
         <div class="card-body">
             <h5 class="card-title mb-3">Asset Breakdown PTG</h5>
 
-            <div class="d-flex align-items-stretch gap-3">
-                <button onclick="openModal()" class="btn btn-primary px-4 py-2" style="white-space: nowrap;">Create
-                    Data</button>
+            <div class="d-flex flex-column flex-md-row align-items-center gap-3">
+                <button onclick="openModal()" class="btn btn-primary px-4 py-2" style="white-space: nowrap;">
+                    Create Data
+                </button>
 
-                <div class="tab-scroll-wrapper flex-grow-1">
-                    <div class="btn-group" role="group" id="tabSwitcher">
-                        <a href="{{ route('pertamina-gas') }}"
-                            class="btn btn-outline-secondary {{ request()->routeIs('pertamina-gas') ? 'active' : '' }}">
-                            Pertmina Gas
-                        </a>
-                        <a href="{{ route('mandatory-certification-ptg') }}"
-                            class="btn btn-outline-secondary {{ request()->routeIs('mandatory-certification-ptg') ? 'active' : '' }}">
-                            Mandatory Certification PTG
-                        </a>
-                        <a href="{{ route('sap-asset-ptg') }}"
-                            class="btn btn-outline-secondary {{ request()->routeIs('sap-asset-ptg') ? 'active' : '' }}">
-                            SAP Asset PTG
-                        </a>
-                        <a href="{{ route('status-plo-ptg') }}"
-                            class="btn btn-outline-secondary {{ request()->routeIs('status-plo-ptg') ? 'active' : '' }}">
-                            Status PLO PTG
-                        </a>
-                        <a href="{{ route('asset-breakdown-ptg') }}"
-                            class="btn btn-outline-secondary {{ request()->routeIs('asset-breakdown-ptg') ? 'active' : '' }}">
-                            Asset Breakdown PTG
-                        </a>
-                        <a href="{{ route('kondisi-vacant-fungsi-aims-ptg') }}"
-                            class="btn btn-outline-secondary {{ request()->routeIs('kondisi-vacant-fungsi-aims-ptg') ? 'active' : '' }}">
-                            Kondisi Vacant Fungsi AIMS PTG
-                        </a>
-                        <a href="{{ route('rencana-pemeliharaan-besar-ptg') }}"
-                            class="btn btn-outline-secondary {{ request()->routeIs('rencana-pemeliharaan-besar-ptg') ? 'active' : '' }}">
-                            Rencana Pemeliharaan Besar PTG
-                        </a>
-                        <a href="{{ route('sistem-informasi-aims-ptg') }}"
-                            class="btn btn-outline-secondary {{ request()->routeIs('sistem-informasi-aims-ptg') ? 'active' : '' }}">
-                            Sistem Informasi AIMS PTG
-                        </a>
-                        <a href="{{ route('pelatihan-aims-ptg') }}"
-                            class="btn btn-outline-secondary {{ request()->routeIs('pelatihan-aims-ptg') ? 'active' : '' }}">
-                            Pelatihan AIMS PTG
-                        </a>
-                        <a href="{{ route('realisasi-anggaran-ai-ptg') }}"
-                            class="btn btn-outline-secondary {{ request()->routeIs('realisasi-anggaran-ai-ptg') ? 'active' : '' }}">
-                            Realisasi Anggaran AI 2025 PTG
-                        </a>
-                        <a href="{{ route('realisasi-progress-fisik-ai-ptg') }}"
-                            class="btn btn-outline-secondary {{ request()->routeIs('realisasi-progress-fisik-ai-ptg') ? 'active' : '' }}">
-                            Realisasi Progress Fisik AI PTG 2025
-                        </a>
-                        <a href="{{ route('availability-ptg') }}"
-                            class="btn btn-outline-secondary {{ request()->routeIs('availability-ptg') ? 'active' : '' }}">
-                            Availability PTG
-                        </a>
-                        <a href="{{ route('air-budget-tagging-ptg') }}"
-                            class="btn btn-outline-secondary {{ request()->routeIs('air-budget-tagging-ptg') ? 'active' : '' }}">
-                            Availability PTG
-                        </a>
+                <div class="dropdown me-2 position-relative" style="z-index: 1050;">
+                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="tabDropdown"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Navigasi
+                    </button>
+                    <ul class="dropdown-menu" id="tabDropdownList" style="max-height: 300px; overflow-y: auto;">
+                        @foreach ($tabs as $tab)
+                            <li>
+                                <a class="dropdown-item {{ $tab['active'] ? 'active' : '' }}"
+                                    href="{{ $tab['route'] }}">
+                                    {{ $tab['title'] }}
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+
+                <div class="tab-scroll-wrapper d-flex align-items-center flex-grow-1 overflow-auto"
+                    style="scroll-behavior: smooth;" id="tabContainer">
+                    <div class="btn-group" role="group" id="tabSwitcher" style="white-space: nowrap;">
+                        @foreach ($tabs as $tab)
+                            <a href="{{ $tab['route'] }}"
+                                class="btn btn-outline-secondary {{ $tab['active'] ? 'active' : '' }}">
+                                {{ $tab['title'] }}
+                            </a>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -332,7 +334,9 @@
                     },
                     {
                         title: "Deskripsi Peralatan",
-                        field: "deskripsi_peralatan"
+                        field: "deskripsi_peralatan",
+                        width: 400,
+                        cssClass: "wrap-text"
                     },
                     {
                         title: "Jenis Kerusakan",
@@ -340,11 +344,15 @@
                     },
                     {
                         title: "Penyebab / Root Cause",
-                        field: "penyebab"
+                        field: "penyebab",
+                        width: 400,
+                        cssClass: "wrap-text"
                     },
                     {
                         title: "Kendala Perbaikan",
-                        field: "kendala_perbaikan"
+                        field: "kendala_perbaikan",
+                        width: 400,
+                        cssClass: "wrap-text"
                     },
                     {
                         title: "Mitigasi / Penanganan Sementara",
@@ -360,7 +368,9 @@
                     },
                     {
                         title: "Tindak Lanjut",
-                        field: "tindak_lanjut"
+                        field: "tindak_lanjut",
+                        width: 400,
+                        cssClass: "wrap-text"
                     },
                     {
                         title: "Target Penyelesaian",
@@ -404,6 +414,100 @@
                     loadTabData(selectedTab);
                 });
             });
+
+            document.getElementById("search-input").addEventListener("input", function(e) {
+                const keyword = e.target.value;
+                table.setFilter([
+                    [{
+                            field: "periode",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "company",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "plant_segment",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "kategori_criticality",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "tag",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "deskripsi_peralatan",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "jenis_kerusakan",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "penyebab_root_cause",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "kendala_perbaikan",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "mitigasi_penanganan_sementara",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "perbaikan_permanen",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "progres_perbaikan_permanen",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "tindak_lanjut",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "target_penyelesaian",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "estimasi_biaya_perbaikan",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "link_foto_video",
+                            type: "like",
+                            value: keyword
+                        },
+                    ]
+                ]);
+
+            });
+
+            function clearSearch() {
+                document.getElementById("search-input").value = "";
+                table.clearFilter();
+            }
+
 
             function loadTabData(tabName) {
                 const selectedColumns = columnMap[tabName] || [];
@@ -521,7 +625,7 @@
 
 
                 const method = id ? "PUT" : "POST";
-                const url = id ? `asset-breakdown-ptg/${id}` : "asset-breakdown-ptg";
+                const url = id ? `asset-breakdown-ptgg/${id}` : "asset-breakdown-ptg";
 
                 fetch(url, {
                         method: method,
@@ -570,6 +674,49 @@
                         closeModal();
                         this.reset();
                     });
+            });
+        </script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const tabButtons = document.querySelectorAll('#tabSwitcher a');
+                const dropdownListItems = document.querySelectorAll('#tabDropdownList a');
+                const tabContainer = document.getElementById('tabContainer');
+
+                function scrollToActiveTab() {
+                    const activeTab = document.querySelector('#tabSwitcher a.active');
+                    if (activeTab) {
+                        const tabX = activeTab.offsetLeft;
+                        const tabW = activeTab.offsetWidth;
+                        const containerW = tabContainer.clientWidth;
+
+                        tabContainer.scrollTo({
+                            left: tabX - (containerW / 2) + (tabW / 2),
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+
+                dropdownListItems.forEach((dropdownItem, i) => {
+                    dropdownItem.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const targetHref = this.href;
+                        sessionStorage.setItem('scrollToActiveTab', 'yes');
+                        window.location.href = targetHref;
+                    });
+                });
+
+                tabButtons.forEach((tabBtn) => {
+                    tabBtn.addEventListener('click', function(e) {
+                        sessionStorage.setItem('scrollToActiveTab', 'yes');
+                    });
+                });
+
+                // Ketika halaman reload setelah klik, cek dan scroll otomatis
+                if (sessionStorage.getItem('scrollToActiveTab') === 'yes') {
+                    scrollToActiveTab();
+                    sessionStorage.removeItem('scrollToActiveTab');
+                }
             });
         </script>
     @endpush

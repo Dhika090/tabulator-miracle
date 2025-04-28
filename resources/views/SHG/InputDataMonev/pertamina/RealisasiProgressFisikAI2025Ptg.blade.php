@@ -23,41 +23,67 @@
             }
 
             .tab-scroll-wrapper {
-                overflow-x: auto;
-                white-space: nowrap;
+                border-bottom: 1px solid #dee2e6;
+                padding-bottom: 5px;
             }
+
+            .tab-scroll-wrapper {
+                display: inline-block;
+                /* display: flex; */
+                align-items: center;
+                overflow-x: hidden;
+                max-width: 100%;
+                padding-bottom: 5px;
+                border-bottom: 1px solid #dee2e6;
+                white-space: nowrap;
+                position: relative;
+            }
+
 
             #tabSwitcher .btn {
-                white-space: nowrap;
+                border-radius: 0;
+                font-size: 14px;
+                border-bottom: 2px solid transparent;
+                color: #495057;
+                padding: 6px 10px;
+                background-color: transparent;
             }
 
-            .tabulator .tabulator-cell {
-                white-space: normal !important;
-                word-wrap: break-word;
+            #tabSwitcher .btn.active {
+                font-weight: bold;
+                color: #007bff;
+                border-bottom: 2px solid #007bff;
+            }
+
+            .dropdown-menu .dropdown-item.active {
+                font-weight: bold;
+                color: #007bff;
+                background-color: #e9ecef;
             }
 
             /* modall */
             .modal {
                 display: none;
                 position: fixed;
-                z-index: 100;
+                z-index: 1050;
                 left: 0;
                 top: 0;
                 width: 100%;
                 height: 100%;
                 overflow: auto;
                 background-color: rgba(0, 0, 0, 0.4);
+                padding: 1rem;
             }
 
             .modal-content {
                 background-color: #fff;
-                position: absolute;
-                top: 3%;
-                left: 30%;
-                /* transform: translate(-50%, -50%); */
+                margin: 5% auto;
                 padding: 20px;
-                width: 50%;
+                width: 100%;
+                max-width: 600px;
                 border-radius: 10px;
+                position: relative;
+                z-index: 9999;
             }
 
             .close {
@@ -92,67 +118,46 @@
     @endpush
 
     <div class="card">
-        <div class="card-body">
-            <h5 class="card-title mb-3">Realisasi Progress Fisik AI PTG 2025</h5>
+        <div class="card-body d-flex flex-column">
+            <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
+                <h5 class="card-title mb-3 mb-md-0">Realisasi Progress Fisik AI KJG</h5>
+                <div class="d-flex">
+                    <input id="search-input" type="text" class="form-control" placeholder="Search data..."
+                        style="max-width: 200px;">
+                    <button class="btn btn-outline-secondary ms-2 h-100 mt-1" type="button"
+                        onclick="clearSearch()">Clear</button>
+                </div>
+            </div>
+            <div class="d-flex flex-column flex-md-row align-items-center gap-3">
+                <button onclick="openModal()" class="btn btn-primary px-4 py-2" style="white-space: nowrap;">
+                    Create Data
+                </button>
+                <div class="dropdown me-2 position-relative" style="z-index: 1050;">
+                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="tabDropdown"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Navigasi
+                    </button>
+                    <ul class="dropdown-menu" id="tabDropdownList" style="max-height: 300px; overflow-y: auto;">
+                        @foreach ($tabs as $tab)
+                            <li>
+                                <a class="dropdown-item {{ $tab['active'] ? 'active' : '' }}"
+                                    href="{{ $tab['route'] }}">
+                                    {{ $tab['title'] }}
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
 
-            <div class="d-flex align-items-stretch gap-3">
-                <button onclick="openModal()" class="btn btn-primary px-4 py-2" style="white-space: nowrap;">Create
-                    Data</button>
-
-                <div class="tab-scroll-wrapper flex-grow-1">
-                    <div class="btn-group" role="group" id="tabSwitcher">
-                        <a href="{{ route('pertamina-gas') }}"
-                            class="btn btn-outline-secondary {{ request()->routeIs('pertamina-gas') ? 'active' : '' }}">
-                            Pertmina Gas
-                        </a>
-                        <a href="{{ route('mandatory-certification-ptg') }}"
-                            class="btn btn-outline-secondary {{ request()->routeIs('mandatory-certification-ptg') ? 'active' : '' }}">
-                            Mandatory Certification PTG
-                        </a>
-                        <a href="{{ route('sap-asset-ptg') }}"
-                            class="btn btn-outline-secondary {{ request()->routeIs('sap-asset-ptg') ? 'active' : '' }}">
-                            SAP Asset PTG
-                        </a>
-                        <a href="{{ route('status-plo-ptg') }}"
-                            class="btn btn-outline-secondary {{ request()->routeIs('status-plo-ptg') ? 'active' : '' }}">
-                            Status PLO PTG
-                        </a>
-                        <a href="{{ route('asset-breakdown-ptg') }}"
-                            class="btn btn-outline-secondary {{ request()->routeIs('asset-breakdown-ptg') ? 'active' : '' }}">
-                            Asset Breakdown PTG
-                        </a>
-                        <a href="{{ route('kondisi-vacant-fungsi-aims-ptg') }}"
-                            class="btn btn-outline-secondary {{ request()->routeIs('kondisi-vacant-fungsi-aims-ptg') ? 'active' : '' }}">
-                            Kondisi Vacant Fungsi AIMS PTG
-                        </a>
-                        <a href="{{ route('rencana-pemeliharaan-besar-ptg') }}"
-                            class="btn btn-outline-secondary {{ request()->routeIs('rencana-pemeliharaan-besar-ptg') ? 'active' : '' }}">
-                            Rencana Pemeliharaan Besar PTG
-                        </a>
-                        <a href="{{ route('sistem-informasi-aims-ptg') }}"
-                            class="btn btn-outline-secondary {{ request()->routeIs('sistem-informasi-aims-ptg') ? 'active' : '' }}">
-                            Sistem Informasi AIMS PTG
-                        </a>
-                        <a href="{{ route('pelatihan-aims-ptg') }}"
-                            class="btn btn-outline-secondary {{ request()->routeIs('pelatihan-aims-ptg') ? 'active' : '' }}">
-                            Pelatihan AIMS PTG
-                        </a>
-                        <a href="{{ route('realisasi-anggaran-ai-ptg') }}"
-                            class="btn btn-outline-secondary {{ request()->routeIs('realisasi-anggaran-ai-ptg') ? 'active' : '' }}">
-                            Realisasi Anggaran AI 2025 PTG
-                        </a>
-                        <a href="{{ route('realisasi-progress-fisik-ai-ptg') }}"
-                            class="btn btn-outline-secondary {{ request()->routeIs('realisasi-progress-fisik-ai-ptg') ? 'active' : '' }}">
-                            Realisasi Progress Fisik AI PTG 2025
-                        </a>
-                        <a href="{{ route('availability-ptg') }}"
-                            class="btn btn-outline-secondary {{ request()->routeIs('availability-ptg') ? 'active' : '' }}">
-                            Availability PTG
-                        </a>
-                        <a href="{{ route('air-budget-tagging-ptg') }}"
-                            class="btn btn-outline-secondary {{ request()->routeIs('air-budget-tagging-ptg') ? 'active' : '' }}">
-                            Availability PTG
-                        </a>
+                <div class="tab-scroll-wrapper d-flex align-items-center flex-grow-1 overflow-auto"
+                    style="scroll-behavior: smooth;" id="tabContainer">
+                    <div class="btn-group" role="group" id="tabSwitcher" style="white-space: nowrap;">
+                        @foreach ($tabs as $tab)
+                            <a href="{{ $tab['route'] }}"
+                                class="btn btn-outline-secondary {{ $tab['active'] ? 'active' : '' }}">
+                                {{ $tab['title'] }}
+                            </a>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -361,324 +366,6 @@
         <script src="https://unpkg.com/tabulator-tables@5.6.0/dist/js/tabulator.min.js"></script>
 
         <script>
-            const table = new Tabulator("#example-table", {
-                layout: "fitDataTable",
-                responsiveLayout: "collapse",
-                autoResize: true,
-                selectableRange: 1,
-                selectableRangeColumns: true,
-                selectableRangeRows: true,
-                selectableRangeClearCells: true,
-                editTriggerEvent: "dblclick",
-
-                pagination: "local",
-                paginationSize: 20,
-                paginationSizeSelector: [40, 60, 80, 100],
-                movableColumns: true,
-                paginationCounter: "rows",
-
-                clipboard: true,
-                clipboardCopyStyled: false,
-                clipboardCopyConfig: {
-                    rowHeaders: false,
-                    columnHeaders: false,
-                },
-                clipboardCopyRowRange: "range",
-                clipboardPasteParser: "range",
-                clipboardPasteAction: "range",
-
-                rowHeader: {
-                    resizable: false,
-                    frozen: true,
-                    width: 40,
-                    hozAlign: "center",
-                    formatter: "rownum",
-                    cssClass: "range-header-col",
-                    editor: false
-                },
-
-                columnDefaults: {
-                    headerSort: true,
-                    headerHozAlign: "center",
-                    editor: "input",
-                    resizable: "header",
-                },
-
-            });
-
-            const columnMap = {
-                "realisasi-progress-fisik-ai-ptg": [{
-                        title: "No",
-                        formatter: "rownum",
-                        hozAlign: "center",
-                        width: 60
-                    },
-                    {
-                        title: "Periode",
-                        field: "periode"
-                    },
-                    {
-                        title: "No",
-                        field: "no"
-                    },
-                    {
-                        title: "Program Kerja",
-                        field: "program_kerja",
-                        width: 400
-                    },
-                    {
-                        title: "Kategori AIBT",
-                        field: "kategori_aibt"
-                    },
-                    {
-                        title: "Jenis Anggaran",
-                        field: "jenis_anggaran"
-                    },
-                    {
-                        title: "Besar RKAP",
-                        field: "besar_rkap",
-                        hozAlign: "right"
-                    },
-                    {
-                        title: "Entitas",
-                        field: "entitas"
-                    },
-                    {
-                        title: "Unit",
-                        field: "unit"
-                    },
-                    {
-                        title: "Nilai Kontrak",
-                        field: "nilai_kontrak",
-                        hozAlign: "right"
-                    },
-                    {
-                        title: "Plan Jan",
-                        field: "plan_jan",
-                        hozAlign: "center"
-                    },
-                    {
-                        title: "Plan Feb",
-                        field: "plan_feb",
-                        hozAlign: "center"
-                    },
-                    {
-                        title: "Plan Mar",
-                        field: "plan_mar",
-                        hozAlign: "center"
-                    },
-                    {
-                        title: "Plan Apr",
-                        field: "plan_apr",
-                        hozAlign: "center"
-                    },
-                    {
-                        title: "Plan May",
-                        field: "plan_may",
-                        hozAlign: "center"
-                    },
-                    {
-                        title: "Plan Jun",
-                        field: "plan_jun",
-                        hozAlign: "center"
-                    },
-                    {
-                        title: "Plan Jul",
-                        field: "plan_jul",
-                        hozAlign: "center"
-                    },
-                    {
-                        title: "Plan Aug",
-                        field: "plan_aug",
-                        hozAlign: "center"
-                    },
-                    {
-                        title: "Plan Sep",
-                        field: "plan_sep",
-                        hozAlign: "center"
-                    },
-                    {
-                        title: "Plan Oct",
-                        field: "plan_oct",
-                        hozAlign: "center"
-                    },
-                    {
-                        title: "Plan Nov",
-                        field: "plan_nov",
-                        hozAlign: "center"
-                    },
-                    {
-                        title: "Plan Dec",
-                        field: "plan_dec",
-                        hozAlign: "center"
-                    },
-                    {
-                        title: "Actual Jan",
-                        field: "actual_jan",
-                        hozAlign: "center"
-                    },
-                    {
-                        title: "Actual Feb",
-                        field: "actual_feb",
-                        hozAlign: "center"
-                    },
-                    {
-                        title: "Actual Mar",
-                        field: "actual_mar",
-                        hozAlign: "center"
-                    },
-                    {
-                        title: "Actual Apr",
-                        field: "actual_apr",
-                        hozAlign: "center"
-                    },
-                    {
-                        title: "Actual May",
-                        field: "actual_may",
-                        hozAlign: "center"
-                    },
-                    {
-                        title: "Actual Jun",
-                        field: "actual_jun",
-                        hozAlign: "center"
-                    },
-                    {
-                        title: "Actual Jul",
-                        field: "actual_jul",
-                        hozAlign: "center"
-                    },
-                    {
-                        title: "Actual Aug",
-                        field: "actual_aug",
-                        hozAlign: "center"
-                    },
-                    {
-                        title: "Actual Sep",
-                        field: "actual_sep",
-                        hozAlign: "center"
-                    },
-                    {
-                        title: "Actual Oct",
-                        field: "actual_oct",
-                        hozAlign: "center"
-                    },
-                    {
-                        title: "Actual Nov",
-                        field: "actual_nov",
-                        hozAlign: "center"
-                    },
-                    {
-                        title: "Actual Dec",
-                        field: "actual_dec",
-                        hozAlign: "center"
-                    },
-                    {
-                        title: "Kode",
-                        field: "kode"
-                    },
-                    {
-                        title: "Kendala",
-                        field: "kendala"
-                    },
-                    {
-                        title: "Tindak Lanjut",
-                        field: "tindak_lanjut"
-                    },
-                    {
-                        title: "Aksi",
-                        formatter: (cell, formatterParams) => {
-                            const row = cell.getData();
-                            return `
-                    <button onclick='editData(${JSON.stringify(row)})'>Edit</button>
-                    <button onclick='deleteData("${row.id}")'>Hapus</button>
-                `;
-                        },
-                        hozAlign: "center",
-                        width: 150
-                    }
-                ]
-            };
-
-            const routeMap = {
-                "realisasi-progress-fisik-ai-ptg": "{{ route('realisasi-progress-fisik-ai-ptg.data') }}"
-            };
-
-            document.querySelectorAll('#tabSwitcher a').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    localStorage.setItem('currentTab', this.getAttribute('data-tab'));
-                    document.querySelectorAll('#tabSwitcher a').forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    const selectedTab = this.getAttribute('data-tab');
-                    loadTabData(selectedTab);
-                });
-            });
-
-            function loadTabData(tabName) {
-                const selectedColumns = columnMap[tabName] || [];
-                table.setColumns(selectedColumns);
-                table.clearData();
-
-                const endpoint = routeMap[tabName];
-
-                if (endpoint) {
-                    fetch(endpoint, {
-                            headers: {
-                                "Accept": "application/json"
-                            }
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            console.log("Data for " + tabName + ":", data);
-                            table.setData(data);
-                            table.redraw();
-                        })
-                        .catch(error => {
-                            console.error("Error loading data for " + tabName + ":", error);
-                        });
-                }
-            }
-
-            function editData(row) {
-                document.getElementById("form-id").value = row.id;
-                document.getElementById("periode").value = row.periode;
-                document.getElementById("no").value = row.no;
-                document.getElementById("program_kerja").value = row.program_kerja;
-                document.getElementById("kategori_aibt").value = row.kategori_aibt;
-                document.getElementById("jenis_anggaran").value = row.jenis_anggaran;
-                document.getElementById("besar_rkap").value = row.besar_rkap;
-                document.getElementById("entitas").value = row.entitas;
-                document.getElementById("unit").value = row.unit;
-                document.getElementById("nilai_kontrak").value = row.nilai_kontrak;
-                document.getElementById("plan_jan").value = row.plan_jan;
-                document.getElementById("plan_feb").value = row.plan_feb;
-                document.getElementById("plan_mar").value = row.plan_mar;
-                document.getElementById("plan_apr").value = row.plan_apr;
-                document.getElementById("plan_may").value = row.plan_may;
-                document.getElementById("plan_jun").value = row.plan_jun;
-                document.getElementById("plan_jul").value = row.plan_jul;
-                document.getElementById("plan_aug").value = row.plan_aug;
-                document.getElementById("plan_sep").value = row.plan_sep;
-                document.getElementById("plan_oct").value = row.plan_oct;
-                document.getElementById("plan_nov").value = row.plan_nov;
-                document.getElementById("plan_dec").value = row.plan_dec;
-                document.getElementById("actual_jan").value = row.actual_jan;
-                document.getElementById("actual_feb").value = row.actual_feb;
-                document.getElementById("actual_mar").value = row.actual_mar;
-                document.getElementById("actual_apr").value = row.actual_apr;
-                document.getElementById("actual_may").value = row.actual_may;
-                document.getElementById("actual_jun").value = row.actual_jun;
-                document.getElementById("actual_jul").value = row.actual_jul;
-                document.getElementById("actual_aug").value = row.actual_aug;
-                document.getElementById("actual_sep").value = row.actual_sep;
-                document.getElementById("actual_oct").value = row.actual_oct;
-                document.getElementById("actual_nov").value = row.actual_nov;
-                document.getElementById("actual_dec").value = row.actual_dec;
-                document.getElementById("kode").value = row.kode;
-                document.getElementById("kendala").value = row.kendala;
-                document.getElementById("tindak_lanjut").value = row.tindak_lanjut;
-                openModal();
-            }
-
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
                     fetch(`realisasi-progress-fisik-ai-ptg/${id}`, {
@@ -688,22 +375,283 @@
                                 "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
                             }
                         })
-                        .then(response => response.json())
+                        .then(res => res.json())
                         .then(result => {
-                            if (result.success) {
-                                alert(result.message);
-                                table.setData("/monev/shg/input-data/realisasi-progress-fisik-ai-ptg/data")
-                                this.reset();
-                            } else {
-                                alert('Gagal menyimpan data');
-                            }
+                            alert(result.message || "Data berhasil dihapus");
+                            loadData();
+                        })
+                        .catch(err => {
+                            console.error("Gagal hapus data:", err);
+                            alert("Terjadi kesalahan saat menghapus data.");
                         });
                 }
             }
 
+            document.getElementById("search-input").addEventListener("input", function(e) {
+                const keyword = e.target.value;
+                table.setFilter([{
+                        field: "periode",
+                        type: "like",
+                        value: keyword
+                    },
+                    {
+                        field: "no",
+                        type: "like",
+                        value: keyword
+                    },
+                    {
+                        field: "program_kerja",
+                        type: "like",
+                        value: keyword
+                    },
+                    {
+                        field: "kategori_aibt",
+                        type: "like",
+                        value: keyword
+                    },
+                    {
+                        field: "jenis_anggaran",
+                        type: "like",
+                        value: keyword
+                    },
+                    {
+                        field: "besar_rkap",
+                        type: "like",
+                        value: keyword
+                    },
+                    {
+                        field: "entitas",
+                        type: "like",
+                        value: keyword
+                    },
+                    {
+                        field: "unit",
+                        type: "like",
+                        value: keyword
+                    },
+                    {
+                        field: "nilai_kontrak",
+                        type: "like",
+                        value: keyword
+                    },
+                    ...["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"].map(
+                        bulan => ({
+                            field: `plan_${bulan.toLowerCase()}`,
+                            type: "like",
+                            value: keyword
+                        })),
+                    ...["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"].map(
+                        bulan => ({
+                            field: `prognosa_${bulan.toLowerCase()}`,
+                            type: "like",
+                            value: keyword
+                        })),
+                    ...["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"].map(
+                        bulan => ({
+                            field: `actual_${bulan.toLowerCase()}`,
+                            type: "like",
+                            value: keyword
+                        })),
+                    {
+                        field: "kode",
+                        type: "like",
+                        value: keyword
+                    },
+                    {
+                        field: "kendala",
+                        type: "like",
+                        value: keyword
+                    },
+                    {
+                        field: "tindak_lanjut",
+                        type: "like",
+                        value: keyword
+                    }
+                ]);
+            });
+
+            function clearSearch() {
+                document.getElementById("search-input").value = "";
+                table.clearFilter();
+            }
+
+
+            function loadData() {
+                fetch("/monev/shg/input-data/realisasi-progress-fisik-ai-ptg/data", {
+                        headers: {
+                            "Accept": "application/json"
+                        }
+                    })
+                    .then(res => res.json())
+                    .then(data => table.setData(data))
+                    .catch(err => console.error("Gagal load data:", err));
+            }
+
             document.addEventListener("DOMContentLoaded", function() {
-                loadTabData("realisasi-progress-fisik-ai-ptg");
-                localStorage.setItem("currentTab", "realisasi-progress-fisik-ai-ptg");
+                const columnMap = {
+                    "realisasi-progress-fisik-ai-ptg": [{
+                            title: "No",
+                            formatter: "rownum",
+                            hozAlign: "center",
+                            width: 60
+                        },
+                        {
+                            title: "ID",
+                            field: "id",
+                            visible: false
+                        },
+                        {
+                            title: "Periode",
+                            field: "periode",
+                            editor: "input"
+                        },
+                        {
+                            title: "No",
+                            field: "no",
+                            editor: "input"
+                        },
+                        {
+                            title: "Program Kerja",
+                            field: "program_kerja",
+                            width: 400,
+                            editor: "input"
+                        },
+                        {
+                            title: "Kategori AIBT",
+                            field: "kategori_aibt",
+                            editor: "input"
+                        },
+                        {
+                            title: "Jenis Anggaran",
+                            field: "jenis_anggaran",
+                            editor: "input"
+                        },
+                        {
+                            title: "Besar RKAP",
+                            field: "besar_rkap",
+                            editor: "number"
+                        },
+                        {
+                            title: "Entitas",
+                            field: "entitas",
+                            editor: "input"
+                        },
+                        {
+                            title: "Unit",
+                            field: "unit",
+                            editor: "input"
+                        },
+                        {
+                            title: "Nilai Kontrak",
+                            field: "nilai_kontrak",
+                            editor: "number"
+                        },
+                        // Plan Fields
+                        ...["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+                        .map(bulan => ({
+                            title: `Plan ${bulan}`,
+                            field: `plan_${bulan.toLowerCase()}`,
+                            editor: "number"
+                        })),
+                        // Prognosa Fields
+                        ...["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+                        .map(bulan => ({
+                            title: `Prognosa ${bulan}`,
+                            field: `prognosa_${bulan.toLowerCase()}`,
+                            editor: "number"
+                        })),
+                        // Actual Fields
+                        ...["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+                        .map(bulan => ({
+                            title: `Actual ${bulan}`,
+                            field: `actual_${bulan.toLowerCase()}`,
+                            editor: "number"
+                        })),
+                        {
+                            title: "Kode",
+                            field: "kode",
+                            editor: "input"
+                        },
+                        {
+                            title: "Kendala",
+                            field: "kendala",
+                            editor: "input"
+                        },
+                        {
+                            title: "Tindak Lanjut",
+                            field: "tindak_lanjut",
+                            editor: "input"
+                        },
+                        {
+                            title: "Aksi",
+                            formatter: (cell) => {
+                                const row = cell.getData();
+                                return `<button onclick='deleteData("${row.id}")'>Hapus</button>`;
+                            },
+                            hozAlign: "center",
+                            width: 150
+                        }
+                    ]
+                };
+
+                window.table = new Tabulator("#example-table", {
+                    layout: "fitDataTable",
+                    responsiveLayout: "collapse",
+                    autoResize: true,
+                    columns: columnMap["realisasi-progress-fisik-ai-ptg"],
+
+                    selectableRange: 1,
+                    selectableRangeColumns: true,
+                    selectableRangeRows: true,
+                    selectableRangeClearCells: true,
+                    editTriggerEvent: "dblclick",
+
+                    pagination: "local",
+                    paginationSize: 20,
+                    paginationSizeSelector: [40, 60, 80, 100],
+                    paginationCounter: "rows",
+
+                    movableColumns: true,
+
+                    clipboard: true,
+                    clipboardCopyStyled: false,
+                    clipboardCopyConfig: {
+                        rowHeaders: false,
+                        columnHeaders: false,
+                    },
+                    clipboardCopyRowRange: "range",
+                    clipboardPasteParser: "range",
+                    clipboardPasteAction: "range",
+
+                    columnDefaults: {
+                        headerSort: true,
+                        headerHozAlign: "center",
+                        editor: "input",
+                        resizable: "header",
+                    },
+                });
+
+                table.on("cellEdited", function(cell) {
+                    const updatedData = cell.getRow().getData();
+                    const id = updatedData.id;
+
+                    if (!id) return;
+
+                    fetch(`realisasi-progress-fisik-ai-ptg/${id}`, {
+                            method: "PUT",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute("content")
+                            },
+                            body: JSON.stringify(updatedData)
+                        })
+                        .then(res => res.json())
+                        .then(data => console.log("Update berhasil:", data))
+                        .catch(err => console.error("Gagal update:", err));
+                });
+                loadData();
             });
         </script>
 
@@ -719,58 +667,14 @@
                 document.getElementById("createModal").style.display = "none";
             }
 
-            // update and delete data
             document.getElementById("createForm").addEventListener("submit", function(e) {
                 e.preventDefault();
 
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
-                console.log("Data submitted:", data);
 
-                const id = document.getElementById("form-id").value;
-                const periode = document.getElementById("periode").value;
-                const no = document.getElementById("no").value;
-                const programKerja = document.getElementById("program_kerja").value;
-                const kategoriAibt = document.getElementById("kategori_aibt").value;
-                const jenisAnggaran = document.getElementById("jenis_anggaran").value;
-                const besarRkap = document.getElementById("besar_rkap").value;
-                const entitas = document.getElementById("entitas").value;
-                const unit = document.getElementById("unit").value;
-                const nilaiKontrak = document.getElementById("nilai_kontrak").value;
-                const planJan = document.getElementById("plan_jan").value;
-                const planFeb = document.getElementById("plan_feb").value;
-                const planMar = document.getElementById("plan_mar").value;
-                const planApr = document.getElementById("plan_apr").value;
-                const planMay = document.getElementById("plan_may").value;
-                const planJun = document.getElementById("plan_jun").value;
-                const planJul = document.getElementById("plan_jul").value;
-                const planAug = document.getElementById("plan_aug").value;
-                const planSep = document.getElementById("plan_sep").value;
-                const planOct = document.getElementById("plan_oct").value;
-                const planNov = document.getElementById("plan_nov").value;
-                const planDec = document.getElementById("plan_dec").value;
-                const actualJan = document.getElementById("actual_jan").value;
-                const actualFeb = document.getElementById("actual_feb").value;
-                const actualMar = document.getElementById("actual_mar").value;
-                const actualApr = document.getElementById("actual_apr").value;
-                const actualMay = document.getElementById("actual_may").value;
-                const actualJun = document.getElementById("actual_jun").value;
-                const actualJul = document.getElementById("actual_jul").value;
-                const actualAug = document.getElementById("actual_aug").value;
-                const actualSep = document.getElementById("actual_sep").value;
-                const actualOct = document.getElementById("actual_oct").value;
-                const actualNov = document.getElementById("actual_nov").value;
-                const actualDec = document.getElementById("actual_dec").value;
-                const kode = document.getElementById("kode").value;
-                const kendala = document.getElementById("kendala").value;
-                const tindakLanjut = document.getElementById("tindak_lanjut").value;
-
-
-                const method = id ? "PUT" : "POST";
-                const url = id ? `realisasi-progress-fisik-ai-ptg/${id}` : "realisasi-progress-fisik-ai-ptg";
-
-                fetch(url, {
-                        method: method,
+                fetch("realisasi-progress-fisik-ai-ptg", {
+                        method: "POST",
                         headers: {
                             "Content-Type": "application/json",
                             "Accept": "application/json",
@@ -778,63 +682,104 @@
                                 "content")
                         },
                         body: JSON.stringify({
-                            periode: periode,
-                            no: no,
-                            program_kerja: programKerja,
-                            kategori_aibt: kategoriAibt,
-                            jenis_anggaran: jenisAnggaran,
-                            besar_rkap: besarRkap,
-                            entitas: entitas,
-                            unit: unit,
-                            nilai_kontrak: nilaiKontrak,
-                            plan_jan: planJan,
-                            plan_feb: planFeb,
-                            plan_mar: planMar,
-                            plan_apr: planApr,
-                            plan_may: planMay,
-                            plan_jun: planJun,
-                            plan_jul: planJul,
-                            plan_aug: planAug,
-                            plan_sep: planSep,
-                            plan_oct: planOct,
-                            plan_nov: planNov,
-                            plan_dec: planDec,
-                            actual_jan: actualJan,
-                            actual_feb: actualFeb,
-                            actual_mar: actualMar,
-                            actual_apr: actualApr,
-                            actual_may: actualMay,
-                            actual_jun: actualJun,
-                            actual_jul: actualJul,
-                            actual_aug: actualAug,
-                            actual_sep: actualSep,
-                            actual_oct: actualOct,
-                            actual_nov: actualNov,
-                            actual_dec: actualDec,
-                            kode: kode,
-                            kendala: kendala,
-                            tindak_lanjut: tindakLanjut
+                            periode: data.periode,
+                            no: data.no,
+                            program_kerja: data.program_kerja,
+                            kategori_aibt: data.kategori_aibt,
+                            jenis_anggaran: data.jenis_anggaran,
+                            besar_rkap: data.besar_rkap,
+                            entitas: data.entitas,
+                            unit: data.unit,
+                            nilai_kontrak: data.nilai_kontrak,
+
+                            plan_jan: data.plan_jan,
+                            plan_feb: data.plan_feb,
+                            plan_mar: data.plan_mar,
+                            plan_apr: data.plan_apr,
+                            plan_may: data.plan_may,
+                            plan_jun: data.plan_jun,
+                            plan_jul: data.plan_jul,
+                            plan_aug: data.plan_aug,
+                            plan_sep: data.plan_sep,
+                            plan_oct: data.plan_oct,
+                            plan_nov: data.plan_nov,
+                            plan_dec: data.plan_dec,
+
+                            actual_jan: data.actual_jan,
+                            actual_feb: data.actual_feb,
+                            actual_mar: data.actual_mar,
+                            actual_apr: data.actual_apr,
+                            actual_may: data.actual_may,
+                            actual_jun: data.actual_jun,
+                            actual_jul: data.actual_jul,
+                            actual_aug: data.actual_aug,
+                            actual_sep: data.actual_sep,
+                            actual_oct: data.actual_oct,
+                            actual_nov: data.actual_nov,
+                            actual_dec: data.actual_dec,
+
+                            kode: data.kode,
+                            kendala: data.kendala,
+                            tindak_lanjut: data.tindak_lanjut,
                         })
                     })
                     .then(response => response.json())
                     .then(result => {
                         if (result.success) {
-                            alert(result.message);
-                            // table.addRow([result.data]);
+                            alert(result.message || "Data berhasil disimpan");
                             table.setData("/monev/shg/input-data/realisasi-progress-fisik-ai-ptg/data");
                             this.reset();
+                            closeModal();
                         } else {
-                            alert('Gagal menyimpan data');
+                            alert("Gagal menyimpan data");
                         }
                     })
                     .catch(error => {
-                        console.error("Error submitting data:", error);
-                        alert('Terjadi kesalahan saat mengirim data.');
-                    })
-                    .finally(() => {
-                        closeModal();
-                        this.reset();
+                        console.error("Error saat submit:", error);
+                        alert("Terjadi kesalahan saat mengirim data.");
                     });
+            });
+        </script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const tabButtons = document.querySelectorAll('#tabSwitcher a');
+                const dropdownListItems = document.querySelectorAll('#tabDropdownList a');
+                const tabContainer = document.getElementById('tabContainer');
+
+                function scrollToActiveTab() {
+                    const activeTab = document.querySelector('#tabSwitcher a.active');
+                    if (activeTab) {
+                        const tabX = activeTab.offsetLeft;
+                        const tabW = activeTab.offsetWidth;
+                        const containerW = tabContainer.clientWidth;
+
+                        tabContainer.scrollTo({
+                            left: tabX - (containerW / 2) + (tabW / 2),
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+
+                dropdownListItems.forEach((dropdownItem, i) => {
+                    dropdownItem.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const targetHref = this.href;
+                        sessionStorage.setItem('scrollToActiveTab', 'yes');
+                        window.location.href = targetHref;
+                    });
+                });
+
+                tabButtons.forEach((tabBtn) => {
+                    tabBtn.addEventListener('click', function(e) {
+                        sessionStorage.setItem('scrollToActiveTab', 'yes');
+                    });
+                });
+
+                if (sessionStorage.getItem('scrollToActiveTab') === 'yes') {
+                    scrollToActiveTab();
+                    sessionStorage.removeItem('scrollToActiveTab');
+                }
             });
         </script>
     @endpush

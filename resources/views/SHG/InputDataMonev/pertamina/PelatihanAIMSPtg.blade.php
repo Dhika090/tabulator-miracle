@@ -23,41 +23,67 @@
             }
 
             .tab-scroll-wrapper {
-                overflow-x: auto;
-                white-space: nowrap;
+                border-bottom: 1px solid #dee2e6;
+                padding-bottom: 5px;
             }
+
+            .tab-scroll-wrapper {
+                display: inline-block;
+                /* display: flex; */
+                align-items: center;
+                overflow-x: hidden;
+                max-width: 100%;
+                padding-bottom: 5px;
+                border-bottom: 1px solid #dee2e6;
+                white-space: nowrap;
+                position: relative;
+            }
+
 
             #tabSwitcher .btn {
-                white-space: nowrap;
+                border-radius: 0;
+                font-size: 14px;
+                border-bottom: 2px solid transparent;
+                color: #495057;
+                padding: 6px 10px;
+                background-color: transparent;
             }
 
-            .tabulator .tabulator-cell {
-                white-space: normal !important;
-                word-wrap: break-word;
+            #tabSwitcher .btn.active {
+                font-weight: bold;
+                color: #007bff;
+                border-bottom: 2px solid #007bff;
+            }
+
+            .dropdown-menu .dropdown-item.active {
+                font-weight: bold;
+                color: #007bff;
+                background-color: #e9ecef;
             }
 
             /* modall */
             .modal {
                 display: none;
                 position: fixed;
-                z-index: 100;
+                z-index: 1050;
                 left: 0;
                 top: 0;
                 width: 100%;
                 height: 100%;
                 overflow: auto;
                 background-color: rgba(0, 0, 0, 0.4);
+                padding: 1rem;
             }
 
             .modal-content {
                 background-color: #fff;
-                position: absolute;
-                top: 3%;
-                left: 30%;
-                /* transform: translate(-50%, -50%); */
+                margin: 5% auto;
                 padding: 20px;
-                width: 50%;
+                width: 100%;
+                max-width: 600px;
                 border-radius: 10px;
+                position: relative;
+                z-index: 9999;
             }
 
             .close {
@@ -92,71 +118,51 @@
     @endpush
 
     <div class="card">
-        <div class="card-body">
-            <h5 class="card-title mb-3">Pelatihan AIMS PTG</h5>
-
-            <div class="d-flex align-items-stretch gap-3">
-                <button onclick="openModal()" class="btn btn-primary px-4 py-2" style="white-space: nowrap;">Create
-                    Data</button>
-
-                <div class="tab-scroll-wrapper flex-grow-1">
-                    <div class="btn-group" role="group" id="tabSwitcher">
-                        <a href="{{ route('pertamina-gas') }}"
-                            class="btn btn-outline-secondary {{ request()->routeIs('pertamina-gas') ? 'active' : '' }}">
-                            Pertmina Gas
-                        </a>
-                        <a href="{{ route('mandatory-certification-ptg') }}"
-                            class="btn btn-outline-secondary {{ request()->routeIs('mandatory-certification-ptg') ? 'active' : '' }}">
-                            Mandatory Certification PTG
-                        </a>
-                        <a href="{{ route('sap-asset-ptg') }}"
-                            class="btn btn-outline-secondary {{ request()->routeIs('sap-asset-ptg') ? 'active' : '' }}">
-                            SAP Asset PTG
-                        </a>
-                        <a href="{{ route('status-plo-ptg') }}"
-                            class="btn btn-outline-secondary {{ request()->routeIs('status-plo-ptg') ? 'active' : '' }}">
-                            Status PLO PTG
-                        </a>
-                        <a href="{{ route('asset-breakdown-ptg') }}"
-                            class="btn btn-outline-secondary {{ request()->routeIs('asset-breakdown-ptg') ? 'active' : '' }}">
-                            Asset Breakdown PTG
-                        </a>
-                        <a href="{{ route('kondisi-vacant-fungsi-aims-ptg') }}"
-                            class="btn btn-outline-secondary {{ request()->routeIs('kondisi-vacant-fungsi-aims-ptg') ? 'active' : '' }}">
-                            Kondisi Vacant Fungsi AIMS PTG
-                        </a>
-                        <a href="{{ route('rencana-pemeliharaan-besar-ptg') }}"
-                            class="btn btn-outline-secondary {{ request()->routeIs('rencana-pemeliharaan-besar-ptg') ? 'active' : '' }}">
-                            Rencana Pemeliharaan Besar PTG
-                        </a>
-                        <a href="{{ route('sistem-informasi-aims-ptg') }}"
-                            class="btn btn-outline-secondary {{ request()->routeIs('sistem-informasi-aims-ptg') ? 'active' : '' }}">
-                            Sistem Informasi AIMS PTG
-                        </a>
-                        <a href="{{ route('pelatihan-aims-ptg') }}"
-                            class="btn btn-outline-secondary {{ request()->routeIs('pelatihan-aims-ptg') ? 'active' : '' }}">
-                            Pelatihan AIMS PTG
-                        </a>
-                        <a href="{{ route('realisasi-anggaran-ai-ptg') }}"
-                            class="btn btn-outline-secondary {{ request()->routeIs('realisasi-anggaran-ai-ptg') ? 'active' : '' }}">
-                            Realisasi Anggaran AI 2025 PTG
-                        </a>
-                        <a href="{{ route('realisasi-progress-fisik-ai-ptg') }}"
-                            class="btn btn-outline-secondary {{ request()->routeIs('realisasi-progress-fisik-ai-ptg') ? 'active' : '' }}">
-                            Realisasi Progress Fisik AI PTG 2025
-                        </a>
-                        <a href="{{ route('availability-ptg') }}"
-                            class="btn btn-outline-secondary {{ request()->routeIs('availability-ptg') ? 'active' : '' }}">
-                            Availability PTG
-                        </a>
-                        <a href="{{ route('air-budget-tagging-ptg') }}"
-                            class="btn btn-outline-secondary {{ request()->routeIs('air-budget-tagging-ptg') ? 'active' : '' }}">
-                            Availability PTG
-                        </a>
-                    </div>
+        <div class="card-body d-flex flex-column">
+            <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
+                <h5 class="card-title mb-3 mb-md-0">Mandatory Certification</h5>
+                <div class="d-flex">
+                    <input id="search-input" type="text" class="form-control" placeholder="Search data..."
+                        style="max-width: 200px;">
+                    <button class="btn btn-outline-secondary ms-2 h-100 mt-1" type="button"
+                        onclick="clearSearch()">Clear</button>
                 </div>
             </div>
 
+            <div class="d-flex flex-column flex-md-row align-items-center gap-3">
+                <button onclick="openModal()" class="btn btn-primary px-4 py-2" style="white-space: nowrap;">
+                    Create Data
+                </button>
+
+                <div class="dropdown me-2 position-relative" style="z-index: 1050;">
+                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="tabDropdown"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Navigasi
+                    </button>
+                    <ul class="dropdown-menu" id="tabDropdownList" style="max-height: 300px; overflow-y: auto;">
+                        @foreach ($tabs as $tab)
+                            <li>
+                                <a class="dropdown-item {{ $tab['active'] ? 'active' : '' }}"
+                                    href="{{ $tab['route'] }}">
+                                    {{ $tab['title'] }}
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+
+                <div class="tab-scroll-wrapper d-flex align-items-center flex-grow-1 overflow-auto"
+                    style="scroll-behavior: smooth;" id="tabContainer">
+                    <div class="btn-group" role="group" id="tabSwitcher" style="white-space: nowrap;">
+                        @foreach ($tabs as $tab)
+                            <a href="{{ $tab['route'] }}"
+                                class="btn btn-outline-secondary {{ $tab['active'] ? 'active' : '' }}">
+                                {{ $tab['title'] }}
+                            </a>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
             <div id="mainTable"></div>
 
             <div class="tabulator-wrapper mt-4">
@@ -173,7 +179,7 @@
                 <input type="hidden" name="id" id="form-id">
                 <div>
                     <label>Periode</label>
-                    <input type="text" name="periode" id="periode" required>
+                    <input type="month" name="periode" id="periode" required>
                 </div>
 
                 <div>
@@ -183,7 +189,7 @@
 
                 <div>
                     <label>Judul Pelatihan/Training/Forum</label>
-                    <input type="text" name="judul_pelatihan" id="judul_pelatihan" required>
+                    <input type="text" name="judul_pelatihan" id="judul_pelatihan">
                 </div>
 
                 <div>
@@ -201,138 +207,6 @@
         <script src="https://unpkg.com/tabulator-tables@5.6.0/dist/js/tabulator.min.js"></script>
 
         <script>
-            const table = new Tabulator("#example-table", {
-                layout: "fitColumns",
-                responsiveLayout: "collapse",
-                autoResize: true,
-                selectableRange: 1,
-                selectableRangeColumns: true,
-                selectableRangeRows: true,
-                selectableRangeClearCells: true,
-                editTriggerEvent: "dblclick",
-
-                pagination: "local",
-                paginationSize: 20,
-                paginationSizeSelector: [40, 60, 80, 100],
-                movableColumns: true,
-                paginationCounter: "rows",
-
-                clipboard: true,
-                clipboardCopyStyled: false,
-                clipboardCopyConfig: {
-                    rowHeaders: false,
-                    columnHeaders: false,
-                },
-                clipboardCopyRowRange: "range",
-                clipboardPasteParser: "range",
-                clipboardPasteAction: "range",
-
-                rowHeader: {
-                    resizable: false,
-                    frozen: true,
-                    width: 40,
-                    hozAlign: "center",
-                    formatter: "rownum",
-                    cssClass: "range-header-col",
-                    editor: false
-                },
-
-                columnDefaults: {
-                    headerSort: true,
-                    headerHozAlign: "center",
-                    editor: "input",
-                    resizable: "header",
-                },
-
-            });
-
-            const columnMap = {
-                "pelatihan-aims-ptg": [{
-                        title: "No",
-                        formatter: "rownum",
-                        hozAlign: "center",
-                        width: 60
-                    },
-                    {
-                        title: "Periode",
-                        field: "periode"
-                    },
-                    {
-                        title: "Company",
-                        field: "company"
-                    },
-                    {
-                        title: "Judul Pelatihan/Training/Forum",
-                        field: "judul_pelatihan"
-                    },
-                    {
-                        title: "Realisasi Perwira",
-                        field: "realisasi_perwira",
-                        hozAlign: "center"
-                    },
-                    {
-                        title: "Aksi",
-                        formatter: (cell, formatterParams) => {
-                            const row = cell.getData();
-                            return `
-                    <button onclick='editData(${JSON.stringify(row)})'>Edit</button>
-                    <button onclick='deleteData("${row.id}")'>Hapus</button>
-                `;
-                        },
-                        hozAlign: "center",
-                        width: 150
-                    }
-                ]
-            };
-
-            const routeMap = {
-                "pelatihan-aims-ptg": "{{ route('pelatihan-aims-ptg.data') }}"
-            };
-
-            document.querySelectorAll('#tabSwitcher a').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    localStorage.setItem('currentTab', this.getAttribute('data-tab'));
-                    document.querySelectorAll('#tabSwitcher a').forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    const selectedTab = this.getAttribute('data-tab');
-                    loadTabData(selectedTab);
-                });
-            });
-
-            function loadTabData(tabName) {
-                const selectedColumns = columnMap[tabName] || [];
-                table.setColumns(selectedColumns);
-                table.clearData();
-
-                const endpoint = routeMap[tabName];
-
-                if (endpoint) {
-                    fetch(endpoint, {
-                            headers: {
-                                "Accept": "application/json"
-                            }
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            console.log("Data for " + tabName + ":", data);
-                            table.setData(data);
-                            table.redraw();
-                        })
-                        .catch(error => {
-                            console.error("Error loading data for " + tabName + ":", error);
-                        });
-                }
-            }
-
-            function editData(row) {
-                document.getElementById("form-id").value = row.id;
-                document.getElementById("periode").value = row.periode;
-                document.getElementById("company").value = row.company;
-                document.getElementById("judul_pelatihan").value = row.judul_pelatihan;
-                document.getElementById("realisasi_perwira").value = row.realisasi_perwira;
-                openModal();
-            }
-
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
                     fetch(`pelatihan-aims-ptg/${id}`, {
@@ -342,22 +216,165 @@
                                 "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
                             }
                         })
-                        .then(response => response.json())
+                        .then(res => res.json())
                         .then(result => {
-                            if (result.success) {
-                                alert(result.message);
-                                table.setData("/monev/shg/input-data/pelatihan-aims-ptg/data")
-                                this.reset();
-                            } else {
-                                alert('Gagal menyimpan data');
-                            }
+                            alert(result.message || "Data berhasil dihapus");
+                            loadData();
+                        })
+                        .catch(err => {
+                            console.error("Gagal hapus data:", err);
+                            alert("Terjadi kesalahan saat menghapus data.");
                         });
                 }
             }
 
+            document.getElementById("search-input").addEventListener("input", function(e) {
+                const keyword = e.target.value;
+                table.setFilter([
+                    [{
+                            field: "periode",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "company",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "judul_pelatihan",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "realisasi_perwira",
+                            type: "like",
+                            value: keyword
+                        }
+                    ]
+                ]);
+            });
+
+            function clearSearch() {
+                document.getElementById("search-input").value = "";
+                table.clearFilter();
+            }
+
+            function loadData() {
+                fetch("/monev/shg/input-data/pelatihan-aims-ptg/data", {
+                        headers: {
+                            "Accept": "application/json"
+                        }
+                    })
+                    .then(res => res.json())
+                    .then(data => table.setData(data))
+                    .catch(err => console.error("Gagal load data:", err));
+            }
+
             document.addEventListener("DOMContentLoaded", function() {
-                loadTabData("pelatihan-aims-ptg");
-                localStorage.setItem("currentTab", "pelatihan-aims-ptg");
+                const columnMap = {
+                    "pelatihan-aims-ptg": [{
+                            title: "No",
+                            formatter: "rownum",
+                            hozAlign: "center",
+                            width: 60
+                        },
+                        {
+                            title: "ID",
+                            field: "id",
+                            visible: false
+                        },
+                        {
+                            title: "Periode",
+                            field: "periode",
+                            editor: "input"
+                        },
+                        {
+                            title: "Company",
+                            field: "company",
+                            editor: "input"
+                        },
+                        {
+                            title: "Judul Pelatihan",
+                            field: "judul_pelatihan",
+                            editor: "input"
+                        },
+                        {
+                            title: "Realisasi Perwira",
+                            field: "realisasi_perwira",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Aksi",
+                            formatter: (cell) => {
+                                const row = cell.getData();
+                                return `<button onclick='deleteData("${row.id}")'>Hapus</button>`;
+                            },
+                            hozAlign: "center",
+                            width: 150
+                        }
+                    ]
+                };
+
+                window.table = new Tabulator("#example-table", {
+                    layout: "fitColumns",
+                    responsiveLayout: "collapse",
+                    autoResize: true,
+                    columns: columnMap["pelatihan-aims-ptg"],
+
+                    selectableRange: 1,
+                    selectableRangeColumns: true,
+                    selectableRangeRows: true,
+                    selectableRangeClearCells: true,
+                    editTriggerEvent: "dblclick",
+
+                    pagination: "local",
+                    paginationSize: 20,
+                    paginationSizeSelector: [40, 60, 80, 100],
+                    paginationCounter: "rows",
+
+                    movableColumns: true,
+
+                    clipboard: true,
+                    clipboardCopyStyled: false,
+                    clipboardCopyConfig: {
+                        rowHeaders: false,
+                        columnHeaders: false,
+                    },
+                    clipboardCopyRowRange: "range",
+                    clipboardPasteParser: "range",
+                    clipboardPasteAction: "range",
+
+                    columnDefaults: {
+                        headerSort: true,
+                        headerHozAlign: "center",
+                        editor: "input",
+                        resizable: "header",
+                    },
+                });
+
+                table.on("cellEdited", function(cell) {
+                    const updatedData = cell.getRow().getData();
+                    const id = updatedData.id;
+
+                    if (!id) return;
+
+                    fetch(`pelatihan-aims-ptg/${id}`, {
+                            method: "PUT",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute("content")
+                            },
+                            body: JSON.stringify(updatedData)
+                        })
+                        .then(res => res.json())
+                        .then(data => console.log("Update berhasil:", data))
+                        .catch(err => console.error("Gagal update:", err));
+                });
+                loadData();
             });
         </script>
 
@@ -373,25 +390,14 @@
                 document.getElementById("createModal").style.display = "none";
             }
 
-            // update and delete data
             document.getElementById("createForm").addEventListener("submit", function(e) {
                 e.preventDefault();
 
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
-                console.log("Data submitted:", data);
 
-                const id = document.getElementById("form-id").value;
-                const periode = document.getElementById("periode").value;
-                const company = document.getElementById("company").value;
-                const judulPelatihan = document.getElementById("judul_pelatihan").value;
-                const realisasiPerwira = document.getElementById("realisasi_perwira").value;
-
-                const method = id ? "PUT" : "POST";
-                const url = id ? `pelatihan-aims-ptg/${id}` : "pelatihan-aims-ptg";
-
-                fetch(url, {
-                        method: method,
+                fetch("pelatihan-aims-ptg", {
+                        method: "POST",
                         headers: {
                             "Content-Type": "application/json",
                             "Accept": "application/json",
@@ -399,31 +405,70 @@
                                 "content")
                         },
                         body: JSON.stringify({
-                            periode: periode,
-                            company: company,
-                            judul_pelatihan: judulPelatihan,
-                            realisasi_perwira: realisasiPerwira
+                            periode: data.periode,
+                            company: data.company,
+                            judul_pelatihan: data.judul_pelatihan,
+                            realisasi_perwira: data.realisasi_perwira
                         })
                     })
                     .then(response => response.json())
                     .then(result => {
                         if (result.success) {
-                            alert(result.message);
-                            // table.addRow([result.data]);
+                            alert(result.message || "Data berhasil disimpan");
                             table.setData("/monev/shg/input-data/pelatihan-aims-ptg/data");
                             this.reset();
+                            closeModal();
                         } else {
-                            alert('Gagal menyimpan data');
+                            alert("Gagal menyimpan data");
                         }
                     })
                     .catch(error => {
-                        console.error("Error submitting data:", error);
-                        alert('Terjadi kesalahan saat mengirim data.');
-                    })
-                    .finally(() => {
-                        closeModal();
-                        this.reset();
+                        console.error("Error saat submit:", error);
+                        alert("Terjadi kesalahan saat mengirim data.");
                     });
+            });
+        </script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const tabButtons = document.querySelectorAll('#tabSwitcher a');
+                const dropdownListItems = document.querySelectorAll('#tabDropdownList a');
+                const tabContainer = document.getElementById('tabContainer');
+
+                function scrollToActiveTab() {
+                    const activeTab = document.querySelector('#tabSwitcher a.active');
+                    if (activeTab) {
+                        const tabX = activeTab.offsetLeft;
+                        const tabW = activeTab.offsetWidth;
+                        const containerW = tabContainer.clientWidth;
+
+                        tabContainer.scrollTo({
+                            left: tabX - (containerW / 2) + (tabW / 2),
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+
+                dropdownListItems.forEach((dropdownItem, i) => {
+                    dropdownItem.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const targetHref = this.href;
+                        sessionStorage.setItem('scrollToActiveTab', 'yes');
+                        window.location.href = targetHref;
+                    });
+                });
+
+                tabButtons.forEach((tabBtn) => {
+                    tabBtn.addEventListener('click', function(e) {
+                        sessionStorage.setItem('scrollToActiveTab', 'yes');
+                    });
+                });
+
+                // Ketika halaman reload setelah klik, cek dan scroll otomatis
+                if (sessionStorage.getItem('scrollToActiveTab') === 'yes') {
+                    scrollToActiveTab();
+                    sessionStorage.removeItem('scrollToActiveTab');
+                }
             });
         </script>
     @endpush

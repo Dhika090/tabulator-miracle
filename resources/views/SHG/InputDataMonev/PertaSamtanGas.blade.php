@@ -1,5 +1,5 @@
-@section('title', __('Perta Samtan Gas'))
-<x-layouts.app :title="__('Perta Samtan Gas')">
+@section('title', __('KalimantanJawaGas'))
+<x-layouts.app :title="__('KalimantanJawaGas')">
     @push('styles')
         <link href="https://unpkg.com/tabulator-tables@5.6.0/dist/css/tabulator.min.css" rel="stylesheet">
         <style>
@@ -18,71 +18,72 @@
                 font-size: 14px;
             }
 
-            .tabulator .tabulator-cell {
-                white-space: normal !important;
-                word-wrap: break-word;
-            }
-
             .card {
                 margin-top: 20px;
             }
 
-            .form-grid {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 30px;
-                padding: 20px;
+            .tab-scroll-wrapper {
+                border-bottom: 1px solid #dee2e6;
+                padding-bottom: 5px;
             }
 
-            .form-column {
-                display: flex;
-                flex-direction: column;
+            .tab-scroll-wrapper {
+                display: inline-block;
+                /* display: flex; */
+                align-items: center;
+                overflow-x: hidden;
+                max-width: 100%;
+                padding-bottom: 5px;
+                border-bottom: 1px solid #dee2e6;
+                white-space: nowrap;
+                position: relative;
             }
 
-            .form-column label {
-                margin-top: 10px;
+
+            #tabSwitcher .btn {
+                border-radius: 0;
+                font-size: 14px;
+                border-bottom: 2px solid transparent;
+                color: #495057;
+                padding: 6px 10px;
+                background-color: transparent;
+            }
+
+            #tabSwitcher .btn.active {
                 font-weight: bold;
+                color: #007bff;
+                border-bottom: 2px solid #007bff;
             }
 
-            .form-column input {
-                padding: 8px;
-                margin-top: 5px;
-                border: 1px solid #ccc;
-                border-radius: 5px;
-            }
-
-            .form-actions {
-                text-align: center;
-            }
-
-            @media (max-width: 768px) {
-                .form-grid {
-                    grid-template-columns: 1fr;
-                }
+            .dropdown-menu .dropdown-item.active {
+                font-weight: bold;
+                color: #007bff;
+                background-color: #e9ecef;
             }
 
             /* modall */
             .modal {
                 display: none;
                 position: fixed;
-                z-index: 100;
+                z-index: 1050;
                 left: 0;
                 top: 0;
                 width: 100%;
                 height: 100%;
                 overflow: auto;
                 background-color: rgba(0, 0, 0, 0.4);
+                padding: 1rem;
             }
 
             .modal-content {
                 background-color: #fff;
-                position: absolute;
-                top: 3%;
-                left: 30%;
-                /* transform: translate(-50%, -50%); */
+                margin: 5% auto;
                 padding: 20px;
-                width: 50%;
+                width: 100%;
+                max-width: 600px;
                 border-radius: 10px;
+                position: relative;
+                z-index: 9999;
             }
 
             .close {
@@ -118,9 +119,43 @@
 
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title mb-3 d-flex justify-content-between">PT. Perta Samtan Gas</h5>
+            <h5 class="card-title mb-3 d-flex justify-content-between">Status Asset 2025 AI 2025 KJG</h5>
 
-            <button onclick="openModal()" class="btn btn-primary">Create Data</button>
+            <div class="d-flex align-items-stretch gap-3">
+                <button onclick="openModal()" class="btn btn-primary px-4 py-2" style="white-space: nowrap;">
+                    Create Data
+                </button>
+
+                <div class="dropdown me-2 position-relative" style="z-index: 1050;">
+                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="tabDropdown"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Navigasi
+                    </button>
+                    <ul class="dropdown-menu" id="tabDropdownList" style="max-height: 300px; overflow-y: auto;">
+                        @foreach ($tabs as $tab)
+                            <li>
+                                <a class="dropdown-item {{ $tab['active'] ? 'active' : '' }}"
+                                    href="{{ $tab['route'] }}">
+                                    {{ $tab['title'] }}
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+
+                <div class="tab-scroll-wrapper d-flex align-items-center flex-grow-1 overflow-auto"
+                    style="scroll-behavior: smooth;" id="tabContainer">
+                    <div class="btn-group" role="group" id="tabSwitcher" style="white-space: nowrap;">
+                        @foreach ($tabs as $tab)
+                            <a href="{{ $tab['route'] }}"
+                                class="btn btn-outline-secondary {{ $tab['active'] ? 'active' : '' }}">
+                                {{ $tab['title'] }}
+                            </a>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+
             <br><br>
             <div class="tabulator-wrapper">
                 <div id="example-table"></div>
@@ -132,115 +167,114 @@
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
             <h3>Create New Data</h3>
-            <form id="createForm" class="form-grid">
-                <div class="form-column">
-                    <label>Periode:</label>
-                    <input type="text" name="periode" required>
+            <form id="createForm">
+                <input type="hidden" name="id" id="form-id">
 
-                    <label>Subholding:</label>
-                    <input type="text" name="subholding" required>
-
-                    <label for="company">Company:</label>
-                    <select name="company" id="company" required class="form-select">
-                        <option value="">-- Pilih Company --</option>
-                        @foreach ($companies as $company)
-                            <option value="{{ $company }}">{{ $company }}</option>
-                        @endforeach
-                    </select>
-
-                    <label>Unit:</label>
-                    <input type="text" name="unit" required>
-
-                    <label>Asset Group:</label>
-                    <input type="text" name="asset_group" required>
-
-                    <label>Jumlah:</label>
-                    <input type="number" name="jumlah" required>
-
-                    <label>SECE Low Integrity - Breakdown:</label>
-                    <input type="number" name="sece_low_breakdown">
-
-                    <label>SECE Medium Integrity - Due Date Inspection:</label>
-                    <input type="number" name="sece_medium_due_date_inspection">
-
-                    <label>SECE Medium Integrity - Low Condition:</label>
-                    <input type="number" name="sece_medium_low_condition">
-
-                    <label>SECE Medium Integrity - Low Performance:</label>
-                    <input type="number" name="sece_medium_low_performance">
-
-                    <label>SECE High Integrity:</label>
-                    <input type="number" name="sece_high">
-
-                    <label>PCE Low Integrity - Breakdown:</label>
-                    <input type="number" name="pce_low_breakdown">
-
-                    <label>PCE Medium Integrity - Due Date Inspection:</label>
-                    <input type="number" name="pce_medium_due_date_inspection">
+                <div>
+                    <label>Periode</label>
+                    <input type="month" name="periode" id="periode" required>
                 </div>
 
-                <!-- Kolom Kanan -->
-                <div class="form-column">
-                    <label>PCE Medium Integrity - Low Condition:</label>
-                    <input type="number" name="pce_medium_low_condition">
-
-                    <label>PCE Medium Integrity - Low Performance:</label>
-                    <input type="number" name="pce_medium_low_performance">
-
-                    <label>PCE High Integrity:</label>
-                    <input type="number" name="pce_high">
-
-                    <label>IMPORTANT Low Integrity - Breakdown:</label>
-                    <input type="number" name="important_low_breakdown">
-
-                    <label>IMPORTANT Medium Integrity - Due Date Inspection:</label>
-                    <input type="number" name="important_medium_due_date_inspection">
-
-                    <label>IMPORTANT Medium Integrity - Low Condition:</label>
-                    <input type="number" name="important_medium_low_condition">
-
-                    <label>IMPORTANT Medium Integrity - Low Performance:</label>
-                    <input type="number" name="important_medium_low_performance">
-
-                    <label>IMPORTANT High Integrity:</label>
-                    <input type="number" name="important_high">
-
-                    <label>SECONDARY Low Integrity - Breakdown:</label>
-                    <input type="number" name="secondary_low_breakdown">
-
-                    <label>SECONDARY Medium Integrity - Due Date Inspection:</label>
-                    <input type="number" name="secondary_medium_due_date_inspection">
-
-                    <label>SECONDARY Medium Integrity - Low Condition:</label>
-                    <input type="number" name="secondary_medium_low_condition">
-
-                    <label>SECONDARY Medium Integrity - Low Performance:</label>
-                    <input type="number" name="secondary_medium_low_performance">
-
-                    <label>SECONDARY High Integrity:</label>
-                    <input type="number" name="secondary_high">
-
-                    <label>Kegiatan Penurunan Low:</label>
-                    <input type="text" name="kegiatan_penurunan_low">
-
-                    <label>Kegiatan Penurunan Med:</label>
-                    <input type="text" name="kegiatan_penurunan_med">
-
-                    <label>Informasi Penyebab Low Integrity:</label>
-                    <input type="text" name="penyebab_low_integrity">
-
-                    <label>Informasi Penambahan Jumlah Aset:</label>
-                    <input type="text" name="penambahan_jumlah_aset">
-
-                    <label>Informasi Naik Turun Low Integrity:</label>
-                    <input type="text" name="naik_turun_low_integrity">
+                <div>
+                    <label>Subholding</label>
+                    <input type="text" name="subholding" id="subholding" required>
                 </div>
 
-                <!-- Tombol Submit -->
-                <div class="form-actions" style="grid-column: span 2;">
-                    <br><br>
-                    <button type="submit" class="btn btn-success">Submit</button>
+                <label for="company">Company:</label>
+                <select name="company" id="company" required class="form-select">
+                    <option value="">-- Pilih Company --</option>
+                    @foreach ($companies as $company)
+                        <option value="{{ $company }}">{{ $company }}</option>
+                    @endforeach
+                </select>
+
+                <div>
+                    <label>Unit</label>
+                    <input type="text" name="unit" id="unit" required>
                 </div>
+
+                <div>
+                    <label>Asset Group</label>
+                    <input type="text" name="asset_group" id="asset_group" required>
+                </div>
+
+                <div>
+                    <label>Jumlah</label>
+                    <input type="number" name="jumlah" id="jumlah">
+                </div>
+
+                <!-- SECE -->
+                <h4>SECE</h4>
+                <div><label>Low Integrity - Breakdown</label><input type="number" id="sece_low_integrity_breakdown">
+                </div>
+                <div><label>Medium - Due Date Inspection</label><input type="number"
+                        id="sece_medium_due_date_inspection"></div>
+                <div><label>Medium - Low Condition</label><input type="number" id="sece_medium_low_condition"></div>
+                <div><label>Medium - Low Performance</label><input type="number" id="sece_medium_low_performance">
+                </div>
+                <div><label>High Integrity</label><input type="number" id="sece_high_integrity"></div>
+
+                <!-- PCE -->
+                <h4>PCE</h4>
+                <div><label>Low Integrity - Breakdown</label><input type="number" id="pce_low_integrity_breakdown">
+                </div>
+                <div><label>Medium - Due Date Inspection</label><input type="number"
+                        id="pce_medium_due_date_inspection"></div>
+                <div><label>Medium - Low Condition</label><input type="number" id="pce_medium_low_condition"></div>
+                <div><label>Medium - Low Performance</label><input type="number" id="pce_medium_low_performance"></div>
+                <div><label>High Integrity</label><input type="number" id="pce_high_integrity"></div>
+
+                <!-- IMPORTANT -->
+                <h4>IMPORTANT</h4>
+                <div><label>Low Integrity - Breakdown</label><input type="number"
+                        id="important_low_integrity_breakdown"></div>
+                <div><label>Medium - Due Date Inspection</label><input type="number"
+                        id="important_medium_due_date_inspection"></div>
+                <div><label>Medium - Low Condition</label><input type="number" id="important_medium_low_condition">
+                </div>
+                <div><label>Medium - Low Performance</label><input type="number" id="important_medium_low_performance">
+                </div>
+                <div><label>High Integrity</label><input type="number" id="important_high_integrity"></div>
+
+                <!-- SECONDARY -->
+                <h4>SECONDARY</h4>
+                <div><label>Low Integrity - Breakdown</label><input type="number"
+                        id="secondary_low_integrity_breakdown"></div>
+                <div><label>Medium - Due Date Inspection</label><input type="number"
+                        id="secondary_medium_due_date_inspection"></div>
+                <div><label>Medium - Low Condition</label><input type="number" id="secondary_medium_low_condition">
+                </div>
+                <div><label>Medium - Low Performance</label><input type="number" id="secondary_medium_low_performance">
+                </div>
+                <div><label>High Integrity</label><input type="number" id="secondary_high_integrity"></div>
+
+                <!-- Tambahan Informasi -->
+                <div>
+                    <label>Kegiatan Penurunan Low</label>
+                    <input type="text" id="kegiatan_penurunan_low">
+                </div>
+
+                <div>
+                    <label>Kegiatan Penurunan Med</label>
+                    <input type="text" id="kegiatan_penurunan_med">
+                </div>
+
+                <div>
+                    <label>Informasi Penyebab Low Integrity</label>
+                    <input id="informasi_penyebab_low_integrity"></input>
+                </div>
+
+                <div>
+                    <label>Informasi Penambahan Jumlah Aset</label>
+                    <input id="informasi_penambahan_jumlah_aset"></input>
+                </div>
+
+                <div>
+                    <label>Informasi Naik Turun Low Integrity</label>
+                    <input id="informasi_naik_turun_low_integrity"></input>
+                </div>
+
+                <button type="submit" class="btn btn-success">Submit</button>
             </form>
 
         </div>
@@ -250,252 +284,418 @@
         <script src="https://unpkg.com/tabulator-tables@5.6.0/dist/js/tabulator.min.js"></script>
 
         <script>
-            const table = new Tabulator("#example-table", {
-                layout: "fitDataTable",
-                responsiveLayout: "collapse",
-                autoResize: true,
-                selectableRange: 1,
-                selectableRangeColumns: true,
-                selectableRangeRows: true,
-                selectableRangeClearCells: true,
-                editTriggerEvent: "dblclick",
+            function deleteData(id) {
+                if (confirm("Yakin ingin menghapus data ini?")) {
+                    fetch(`perta-samtan-gas/${id}`, {
+                            method: "DELETE",
+                            headers: {
+                                "Accept": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+                            }
+                        })
+                        .then(res => res.json())
+                        .then(result => {
+                            alert(result.message || "Data berhasil dihapus");
+                            loadData();
+                        })
+                        .catch(err => {
+                            console.error("Gagal hapus data:", err);
+                            alert("Terjadi kesalahan saat menghapus data.");
+                        });
+                }
+            }
 
-                pagination: "local",
-                paginationSize: 20,
-                paginationSizeSelector: [40, 60, 80, 100],
-                movableColumns: true,
-                paginationCounter: "rows",
+            function loadData() {
+                fetch("/monev/shg/input-data/perta-samtan-gas/data", {
+                        headers: {
+                            "Accept": "application/json"
+                        }
+                    })
+                    .then(res => res.json())
+                    .then(data => table.setData(data))
+                    .catch(err => console.error("Gagal load data:", err));
+            }
 
-                clipboard: true,
-                clipboardCopyStyled: false,
-                clipboardCopyConfig: {
-                    rowHeaders: false,
-                    columnHeaders: false,
-                },
-                clipboardCopyRowRange: "range",
-                clipboardPasteParser: "range",
-                clipboardPasteAction: "range",
+            document.addEventListener("DOMContentLoaded", function() {
+                const columnMap = {
+                    "perta-samtan-gas": [{
+                            title: "No",
+                            formatter: "rownum",
+                            hozAlign: "center",
+                            width: 60
+                        },
+                        {
+                            title: "ID",
+                            field: "id",
+                            visible: false
+                        },
+                        {
+                            title: "Periode",
+                            field: "periode",
+                            editor: "input"
+                        },
+                        {
+                            title: "Subholding",
+                            field: "subholding",
+                            editor: "input"
+                        },
+                        {
+                            title: "Company",
+                            field: "company",
+                            editor: "input"
+                        },
+                        {
+                            title: "Unit",
+                            field: "unit",
+                            editor: "input"
+                        },
+                        {
+                            title: "Asset Group",
+                            field: "asset_group",
+                            editor: "input"
+                        },
+                        {
+                            title: "Jumlah",
+                            field: "jumlah",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "SECE Low Integrity - Breakdown",
+                            field: "sece_low_breakdown",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "SECE Medium Integrity - Due Date Inspection",
+                            field: "sece_medium_due_date_inspection",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "SECE Medium Integrity - Low Condition",
+                            field: "sece_medium_low_condition",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "SECE Medium Integrity - Low Performance",
+                            field: "sece_medium_low_performance",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "SECE High Integrity",
+                            field: "sece_high",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "PCE Low Integrity - Breakdown",
+                            field: "pce_low_breakdown",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "PCE Medium Integrity - Due Date Inspection",
+                            field: "pce_medium_due_date_inspection",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "PCE Medium Integrity - Low Condition",
+                            field: "pce_medium_low_condition",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "PCE Medium Integrity - Low Performance",
+                            field: "pce_medium_low_performance",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "PCE High Integrity",
+                            field: "pce_high",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "IMPORTANT Low Integrity - Breakdown",
+                            field: "important_low_breakdown",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "IMPORTANT Medium Integrity - Due Date Inspection",
+                            field: "important_medium_due_date_inspection",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "IMPORTANT Medium Integrity - Low Condition",
+                            field: "important_medium_low_condition",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "IMPORTANT Medium Integrity - Low Performance",
+                            field: "important_medium_low_performance",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "IMPORTANT High Integrity",
+                            field: "important_high",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "SECONDARY Low Integrity - Breakdown",
+                            field: "secondary_low_breakdown",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "SECONDARY Medium Integrity - Due Date Inspection",
+                            field: "secondary_medium_due_date_inspection",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "SECONDARY Medium Integrity - Low Condition",
+                            field: "secondary_medium_low_condition",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "SECONDARY Medium Integrity - Low Performance",
+                            field: "secondary_medium_low_performance",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "SECONDARY High Integrity",
+                            field: "secondary_high",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Kegiatan Penurunan Low",
+                            field: "kegiatan_penurunan_low",
+                            editor: "input"
+                        },
+                        {
+                            title: "Kegiatan Penurunan Med",
+                            field: "kegiatan_penurunan_med",
+                            editor: "input"
+                        },
+                        {
+                            title: "Informasi Penyebab Low Integrity",
+                            field: "informasi_penyebab_low",
+                            editor: "input"
+                        },
+                        {
+                            title: "Informasi Penambahan Jumlah Aset",
+                            field: "informasi_penambahan_jumlah_aset",
+                            editor: "input"
+                        },
+                        {
+                            title: "Informasi Naik Turun low Integrity",
+                            field: "informasi_naik_turun_low",
+                            editor: "input"
+                        },
+                        {
+                            title: "Aksi",
+                            formatter: (cell) => {
+                                const row = cell.getData();
+                                return `<button onclick='deleteData("${row.id}")'>Hapus</button>`;
+                            },
+                            hozAlign: "center",
+                            width: 150
+                        }
+                    ]
+                };
 
-                rowHeader: {
-                    resizable: false,
-                    frozen: true,
-                    width: 40,
-                    hozAlign: "center",
-                    formatter: "rownum",
-                    cssClass: "range-header-col",
-                    editor: false
-                },
+                window.table = new Tabulator("#example-table", {
+                    layout: "fitDataTable",
+                    responsiveLayout: "collapse",
+                    autoResize: true,
+                    columns: columnMap["perta-samtan-gas"],
 
-                columnDefaults: {
-                    headerSort: true,
-                    headerHozAlign: "center",
-                    editor: "input",
-                    resizable: "header",
-                },
+                    selectableRange: 1,
+                    selectableRangeColumns: true,
+                    selectableRangeRows: true,
+                    selectableRangeClearCells: true,
+                    editTriggerEvent: "dblclick",
 
-                columns: [{
-                        title: "No",
-                        formatter: "rownum",
-                        hozAlign: "center",
-                        width: 60
-                    },
-                    {
-                        title: "Periode",
-                        field: "periode"
-                    },
-                    {
-                        title: "Subholding",
-                        field: "subholding"
-                    },
-                    {
-                        title: "Company",
-                        field: "company"
-                    },
-                    {
-                        title: "Unit",
-                        field: "unit"
-                    },
-                    {
-                        title: "Asset Group",
-                        field: "asset_group"
-                    },
-                    {
-                        title: "Jumlah",
-                        field: "jumlah",
-                        hozAlign: "center"
-                    },
+                    pagination: "local",
+                    paginationSize: 20,
+                    paginationSizeSelector: [40, 60, 80, 100],
+                    paginationCounter: "rows",
 
-                    // SECE
-                    {
-                        title: "SECE Low - Breakdown",
-                        field: "sece_low_breakdown"
-                    },
-                    {
-                        title: "SECE Med - Due Date",
-                        field: "sece_medium_due_date_inspection"
-                    },
-                    {
-                        title: "SECE Med - Low Condition",
-                        field: "sece_medium_low_condition"
-                    },
-                    {
-                        title: "SECE Med - Low Performance",
-                        field: "sece_medium_low_performance"
-                    },
-                    {
-                        title: "SECE High",
-                        field: "sece_high"
-                    },
+                    movableColumns: true,
 
-                    // PCE
-                    {
-                        title: "PCE Low - Breakdown",
-                        field: "pce_low_breakdown"
+                    clipboard: true,
+                    clipboardCopyStyled: false,
+                    clipboardCopyConfig: {
+                        rowHeaders: false,
+                        columnHeaders: false,
                     },
-                    {
-                        title: "PCE Med - Due Date",
-                        field: "pce_medium_due_date_inspection"
-                    },
-                    {
-                        title: "PCE Med - Low Condition",
-                        field: "pce_medium_low_condition"
-                    },
-                    {
-                        title: "PCE Med - Low Performance",
-                        field: "pce_medium_low_performance"
-                    },
-                    {
-                        title: "PCE High",
-                        field: "pce_high"
-                    },
+                    clipboardCopyRowRange: "range",
+                    clipboardPasteParser: "range",
+                    clipboardPasteAction: "range",
 
-                    // IMPORTANT
-                    {
-                        title: "IMPORTANT Low - Breakdown",
-                        field: "important_low_breakdown"
+                    columnDefaults: {
+                        headerSort: true,
+                        headerHozAlign: "center",
+                        editor: "input",
+                        resizable: "header",
                     },
-                    {
-                        title: "IMPORTANT Med - Due Date",
-                        field: "important_medium_due_date_inspection"
-                    },
-                    {
-                        title: "IMPORTANT Med - Low Condition",
-                        field: "important_medium_low_condition"
-                    },
-                    {
-                        title: "IMPORTANT Med - Low Performance",
-                        field: "important_medium_low_performance"
-                    },
-                    {
-                        title: "IMPORTANT High",
-                        field: "important_high"
-                    },
+                });
 
-                    // SECONDARY
-                    {
-                        title: "SECONDARY Low - Breakdown",
-                        field: "secondary_low_breakdown"
-                    },
-                    {
-                        title: "SECONDARY Med - Due Date",
-                        field: "secondary_medium_due_date_inspection"
-                    },
-                    {
-                        title: "SECONDARY Med - Low Condition",
-                        field: "secondary_medium_low_condition"
-                    },
-                    {
-                        title: "SECONDARY Med - Low Performance",
-                        field: "secondary_medium_low_performance"
-                    },
-                    {
-                        title: "SECONDARY High",
-                        field: "secondary_high"
-                    },
+                table.on("cellEdited", function(cell) {
+                    const updatedData = cell.getRow().getData();
+                    const id = updatedData.id;
 
-                    // Info tambahan
-                    {
-                        title: "Kegiatan Penurunan Low",
-                        field: "kegiatan_penurunan_low"
-                    },
-                    {
-                        title: "Kegiatan Penurunan Med",
-                        field: "kegiatan_penurunan_med"
-                    },
-                    {
-                        title: "Penyebab Low Integrity",
-                        field: "penyebab_low_integrity"
-                    },
-                    {
-                        title: "Penambahan Aset",
-                        field: "penambahan_jumlah_aset"
-                    },
-                    {
-                        title: "Naik Turun Low Integrity",
-                        field: "naik_turun_low_integrity"
-                    },
-                ],
+                    if (!id) return;
 
+                    fetch(`perta-samtan-gas/${id}`, {
+                            method: "PUT",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute("content")
+                            },
+                            body: JSON.stringify(updatedData)
+                        })
+                        .then(res => res.json())
+                        .then(data => console.log("Update berhasil:", data))
+                        .catch(err => console.error("Gagal update:", err));
+                });
+                loadData();
             });
-
-            fetch("{{ route('kalimantan-jawa-gas.data') }}", {
-                    headers: {
-                        "Accept": "application/json"
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    console.log("Data from backend:", data);
-                    table.setData(data);
-                })
-                .catch(error => console.error("Error loading data:", error));
         </script>
 
-        {{-- create data --}}
+        {{-- create and update data --}}
         <script>
             function openModal() {
                 document.getElementById("createModal").style.display = "block";
             }
 
             function closeModal() {
+                document.getElementById("createForm").reset();
+                document.getElementById("form-id").value = "";
                 document.getElementById("createModal").style.display = "none";
             }
+
             document.getElementById("createForm").addEventListener("submit", function(e) {
                 e.preventDefault();
 
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
-                console.log("Data submitted:", data);
 
-                const token = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
-
-                fetch("{{ route('kalimantan-jawa-gas') }}", {
+                fetch("perta-samtan-gas", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
                             "Accept": "application/json",
-                            "X-CSRF-TOKEN": token,
+                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute(
+                                "content")
                         },
-                        body: JSON.stringify(data)
+                        body: JSON.stringify({
+                            periode: data.periode,
+                            subholding: data.subholding,
+                            company: data.company,
+                            unit: data.unit,
+                            asset_group: data.asset_group,
+                            jumlah: data.jumlah,
+                            sece_low_breakdown: data.sece_low_breakdown,
+                            sece_medium_due_date_inspection: data.sece_medium_due_date_inspection,
+                            sece_medium_low_condition: data.sece_medium_low_condition,
+                            sece_medium_low_performance: data.sece_medium_low_performance,
+                            sece_high: data.sece_high,
+                            pce_low_breakdown: data.pce_low_breakdown,
+                            pce_medium_due_date_inspection: data.pce_medium_due_date_inspection,
+                            pce_medium_low_condition: data.pce_medium_low_condition,
+                            pce_medium_low_performance: data.pce_medium_low_performance,
+                            pce_high: data.pce_high,
+                            important_low_breakdown: data.important_low_breakdown,
+                            important_medium_due_date_inspection: data.important_medium_due_date_inspection,
+                            important_medium_low_condition: data.important_medium_low_condition,
+                            important_medium_low_performance: data.important_medium_low_performance,
+                            important_high: data.important_high,
+                            secondary_low_breakdown: data.secondary_low_breakdown,
+                            secondary_medium_due_date_inspection: data.secondary_medium_due_date_inspection,
+                            secondary_medium_low_condition: data.secondary_medium_low_condition,
+                            secondary_medium_low_performance: data.secondary_medium_low_performance,
+                            secondary_high: data.secondary_high,
+                            kegiatan_penurunan_low: data.kegiatan_penurunan_low,
+                            kegiatan_penurunan_med: data.kegiatan_penurunan_med,
+                            informasi_penyebab_low: data.informasi_penyebab_low,
+                            informasi_penambahan_jumlah_aset: data.informasi_penambahan_jumlah_aset,
+                            informasi_naik_turun_low: data.informasi_naik_turun_low
+                        })
                     })
                     .then(response => response.json())
                     .then(result => {
                         if (result.success) {
-                            alert(result.message);
-                            table.addRow([result.data]);
+                            alert(result.message || "Data berhasil disimpan");
+                            table.setData("/monev/shg/input-data/perta-samtan-gas/data");
                             this.reset();
+                            closeModal();
                         } else {
-                            alert('Gagal menyimpan data');
+                            alert("Gagal menyimpan data");
                         }
                     })
                     .catch(error => {
-                        console.error("Error submitting data:", error);
-                        alert('Terjadi kesalahan saat mengirim data.');
-                    })
-                    .finally(() => {
-                        closeModal();
-                        this.reset();
+                        console.error("Error saat submit:", error);
+                        alert("Terjadi kesalahan saat mengirim data.");
                     });
+            });
+        </script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const tabButtons = document.querySelectorAll('#tabSwitcher a');
+                const dropdownListItems = document.querySelectorAll('#tabDropdownList a');
+                const tabContainer = document.getElementById('tabContainer');
+
+                function scrollToActiveTab() {
+                    const activeTab = document.querySelector('#tabSwitcher a.active');
+                    if (activeTab) {
+                        const tabX = activeTab.offsetLeft;
+                        const tabW = activeTab.offsetWidth;
+                        const containerW = tabContainer.clientWidth;
+
+                        tabContainer.scrollTo({
+                            left: tabX - (containerW / 2) + (tabW / 2),
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+
+                dropdownListItems.forEach((dropdownItem, i) => {
+                    dropdownItem.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const targetHref = this.href;
+                        sessionStorage.setItem('scrollToActiveTab', 'yes');
+                        window.location.href = targetHref;
+                    });
+                });
+
+                tabButtons.forEach((tabBtn) => {
+                    tabBtn.addEventListener('click', function(e) {
+                        sessionStorage.setItem('scrollToActiveTab', 'yes');
+                    });
+                });
+
+                // Ketika halaman reload setelah klik, cek dan scroll otomatis
+                if (sessionStorage.getItem('scrollToActiveTab') === 'yes') {
+                    scrollToActiveTab();
+                    sessionStorage.removeItem('scrollToActiveTab');
+                }
             });
         </script>
     @endpush

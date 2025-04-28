@@ -2,6 +2,17 @@
 
 use App\Http\Controllers\MonevAimController;
 use App\Http\Controllers\SHG\HasilMonevController;
+use App\Http\Controllers\SHG\InputDataMonev\kalimantan\AirBudgetTaggingKJGController;
+use App\Http\Controllers\SHG\InputDataMonev\kalimantan\AssetBreakDownKjgController;
+use App\Http\Controllers\SHG\InputDataMonev\kalimantan\AvailabilityKjgController;
+use App\Http\Controllers\SHG\InputDataMonev\kalimantan\KondisiVacantAIMSKjgController;
+use App\Http\Controllers\SHG\InputDataMonev\kalimantan\MandatoryCertificationKjgController;
+use App\Http\Controllers\SHG\InputDataMonev\kalimantan\PelatihanAimsKjgController;
+use App\Http\Controllers\SHG\InputDataMonev\kalimantan\RealisasiAnggaranAiKjg2025Controller;
+use App\Http\Controllers\SHG\InputDataMonev\kalimantan\RealisasiProgressFisikAI2025KjgController;
+use App\Http\Controllers\SHG\InputDataMonev\kalimantan\RencanaPemeliharaanBesarKjgController;
+use App\Http\Controllers\SHG\InputDataMonev\kalimantan\SistemInformasiAimsKjgController;
+use App\Http\Controllers\SHG\InputDataMonev\kalimantan\StatusPloKjgController;
 use App\Http\Controllers\SHG\InputDataMonev\KalimantanJawaGasController;
 use App\Http\Controllers\SHG\InputDataMonev\pertamina\AirBudgetTaggingPtgController;
 use App\Http\Controllers\SHG\InputDataMonev\pertamina\AssetBreakDownPtgController;
@@ -16,6 +27,7 @@ use App\Http\Controllers\SHG\InputDataMonev\pertamina\SapAssetPtgController;
 use App\Http\Controllers\SHG\InputDataMonev\pertamina\SistemInformasiAimsPtgController;
 use App\Http\Controllers\SHG\InputDataMonev\pertamina\StatusPloPtgController;
 use App\Http\Controllers\SHG\InputDataMonev\PertaminaGasController;
+use App\Http\Controllers\SHG\InputDataMonev\PertaSamtanGasController;
 use App\Http\Controllers\SHG\InputTargetKinerja\StatusAssetInteregrityController;
 use App\Http\Controllers\SHG\InputTArgetKinerja\Target2025KPIController;
 use App\Http\Controllers\SHG\InputTargetKinerja\TargetSAPController;
@@ -119,10 +131,8 @@ Route::prefix('monev/shg/kinerja/mandatory-certification')->middleware(['auth', 
 
 
 
-
-
 // Input Data Monev
-// Pertamina Gas
+// Pertamina Gas Status Asset 2025 AI PTG
 Route::prefix('monev/shg/input-data/pertamina-gas')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/', [PertaminaGasController::class, 'index'])->name('pertamina-gas');
     Route::post('/', [PertaminaGasController::class, 'store'])->name('pertamina-gas.store');
@@ -140,14 +150,6 @@ Route::prefix('monev/shg/input-data/mandatory-certification-ptg')->middleware(['
     // Route::get('/{id}/edit', [MandatoryCertificationPtgController::class, 'edit'])->name('mandatory-certification-ptg.edit');
     Route::put('/{id}', [MandatoryCertificationPtgController::class, 'update'])->name('mandatory-certification-ptg.update');
     Route::delete('/{id}', [MandatoryCertificationPtgController::class, 'destroy'])->name('mandatory-certification-ptg.destroy');
-});
-
-
-// Kalimantan Jawa Gas
-Route::prefix('monev/shg/input-data/kalimantan-jawa-gas')->middleware(['auth', 'verified'])->group(function () {
-    Route::get('/', [KalimantanJawaGasController::class, 'index'])->name('kalimantan-jawa-gas');
-    Route::post('/', [KalimantanJawaGasController::class, 'store'])->name('kalimantan-jawa-gas');
-    Route::get('/data', [KalimantanJawaGasController::class, 'getData'])->name('kalimantan-jawa-gas.data');
 });
 
 // SAP Asset PTG
@@ -260,6 +262,131 @@ Route::prefix('monev/shg/input-data/air-budget-tagging-ptg')->middleware(['auth'
     Route::delete('/{id}', [AirBudgetTaggingPtgController::class, 'destroy'])->name('air-budget-tagging-ptg.destroy');
 });
 
+
+// SHG
+// Kalimantan Jawa Gas
+Route::prefix('monev/shg/input-data/kalimantan-jawa-gas')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [KalimantanJawaGasController::class, 'index'])->name('kalimantan-jawa-gas');
+    Route::post('/', [KalimantanJawaGasController::class, 'store'])->name('kalimantan-jawa-gas');
+    Route::get('/data', [KalimantanJawaGasController::class, 'data'])->name('kalimantan-jawa-gas.data');
+    Route::put('/{id}', [KalimantanJawaGasController::class, 'update'])->name('kalimantan-jawa-gas.update');
+    Route::delete('/{id}', [KalimantanJawaGasController::class, 'destroy'])->name('kalimantan-jawa-gas.destroy');
+});
+
+Route::prefix('monev/shg/input-data/mandatory-certification-kjg')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [MandatoryCertificationKjgController::class, 'index'])->name('mandatory-certification-kjg');
+    Route::post('/', [MandatoryCertificationKjgController::class, 'store'])->name('mandatory-certification-kjg.store');
+    Route::get('/data', [MandatoryCertificationKjgController::class, 'data'])->name('mandatory-certification-kjg.data');
+    // Route::get('/{id}', [MandatoryCertificationKjgController::class, 'show'])->name('mandatory-certification-kjg.show');
+    Route::put('/{id}', [MandatoryCertificationKjgController::class, 'update'])->name('mandatory-certification-kjg.update');
+    Route::delete('/{id}', [MandatoryCertificationKjgController::class, 'destroy'])->name('mandatory-certification-kjg.destroy');
+});
+
+Route::prefix('monev/shg/input-data/asset-breakdown-kjg')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [AssetBreakdownKjgController::class, 'index'])->name('asset-breakdown-kjg');
+    Route::post('/', [AssetBreakdownKjgController::class, 'store'])->name('asset-breakdown-kjg.store');
+    Route::get('/data', [AssetBreakdownKjgController::class, 'data'])->name('asset-breakdown-kjg.data');
+    // Route::get('/{id}/edit', [AssetBreakdownKjgController::class, 'edit'])->name('asset-breakdown-kjg.edit');
+    Route::put('/{id}', [AssetBreakdownKjgController::class, 'update'])->name('asset-breakdown-kjg.update');
+    Route::delete('/{id}', [AssetBreakDownKjgController::class, 'destroy'])->name('asset-breakdown-kjg.destroy');
+});
+
+// Status PLO KJG
+Route::prefix('monev/shg/input-data/status-plo-kjg')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [StatusPloKjgController::class, 'index'])->name('status-plo-kjg');
+    Route::post('/', [StatusPloKjgController::class, 'store'])->name('status-plo-kjg.store');
+    Route::get('/data', [StatusPloKjgController::class, 'data'])->name('status-plo-kjg.data');
+    // Route::get('/{id}/edit', [StatusPloKjgController::class, 'edit'])->name('status-plo-kjg.edit');
+    Route::put('/{id}', [StatusPloKjgController::class, 'update'])->name('status-plo-kjg.update');
+    Route::delete('/{id}', [StatusPloKjgController::class, 'destroy'])->name('status-plo-kjg.destroy');
+});
+
+Route::prefix('monev/shg/input-data/kondisi-vacant-fungsi-aims-kjg')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [KondisiVacantAIMSKjgController::class, 'index'])->name('kondisi-vacant-fungsi-aims-kjg');
+    Route::post('/', [KondisiVacantAIMSKjgController::class, 'store'])->name('kondisi-vacant-fungsi-aims-kjg.store');
+    Route::get('/data', [KondisiVacantAIMSKjgController::class, 'data'])->name('kondisi-vacant-fungsi-aims-kjg.data');
+    // Route::get('/{id}/edit', [KondisiVacantAIMSKjgController::class, 'edit'])->name('kondisi-vacant-fungsi-aims-kjg.edit');
+    Route::put('/{id}', [KondisiVacantAIMSKjgController::class, 'update'])->name('kondisi-vacant-fungsi-aims-kjg.update');
+    Route::delete('/{id}', [KondisiVacantAIMSKjgController::class, 'destroy'])->name('kondisi-vacant-fungsi-aims-kjg.destroy');
+});
+
+// Pelatihan Aims KJG
+Route::prefix('monev/shg/input-data/pelatihan-aims-kjg')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [PelatihanAimsKjgController::class, 'index'])->name('pelatihan-aims-kjg');
+    Route::post('/', [PelatihanAimsKjgController::class, 'store'])->name('pelatihan-aims-kjg.store');
+    Route::get('/data', [PelatihanAimsKjgController::class, 'data'])->name('pelatihan-aims-kjg.data');
+    // Route::get('/{id}/edit', [PelatihanAimsKjgController::class, 'edit'])->name('pelatihan-aims-kjg.edit');
+    Route::put('/{id}', [PelatihanAimsKjgController::class, 'update'])->name('pelatihan-aims-kjg.update');
+    Route::delete('/{id}', [PelatihanAimsKjgController::class, 'destroy'])->name('pelatihan-aims-kjg.destroy');
+});
+
+// Sistem Informasi Aims KJG
+Route::prefix('monev/shg/input-data/sistem-informasi-aims-kjg')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [SistemInformasiAimsKjgController::class, 'index'])->name('sistem-informasi-aims-kjg');
+    Route::post('/', [SistemInformasiAimsKjgController::class, 'store'])->name('sistem-informasi-aims-kjg.store');
+    Route::get('/data', [SistemInformasiAimsKjgController::class, 'data'])->name('sistem-informasi-aims-kjg.data');
+    // Route::get('/{id}/edit', [SistemInformasiAimsKjgController::class, 'edit'])->name('sistem-informasi-aims-kjg.edit');
+    Route::put('/{id}', [SistemInformasiAimsKjgController::class, 'update'])->name('sistem-informasi-aims-kjg.update');
+    Route::delete('/{id}', [SistemInformasiAimsKjgController::class, 'destroy'])->name('sistem-informasi-aims-kjg.destroy');
+});
+
+// Rencana Pemeliharaan Besar AIMS KJG
+Route::prefix('monev/shg/input-data/rencana-pemeliharaan-besar-kjg')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [RencanaPemeliharaanBesarKjgController::class, 'index'])->name('rencana-pemeliharaan-besar-kjg');
+    Route::post('/', [RencanaPemeliharaanBesarKjgController::class, 'store'])->name('rencana-pemeliharaan-besar-kjg.store');
+    Route::get('/data', [RencanaPemeliharaanBesarKjgController::class, 'data'])->name('rencana-pemeliharaan-besar-kjg.data');
+    // Route::get('/{id}/edit', [RencanaPemeliharaanBesarKjgController::class, 'edit'])->name('rencana-pemeliharaan-besar-kjg.edit');
+    Route::put('/{id}', [RencanaPemeliharaanBesarKjgController::class, 'update'])->name('rencana-pemeliharaan-besar-kjg.update');
+    Route::delete('/{id}', [RencanaPemeliharaanBesarKjgController::class, 'destroy'])->name('rencana-pemeliharaan-besar-kjg.destroy');
+});
+
+// Realisasi Anggaran AI KJG
+Route::prefix('monev/shg/input-data/realisasi-anggaran-ai-kjg')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [RealisasiAnggaranAiKjg2025Controller::class, 'index'])->name('realisasi-anggaran-ai-kjg');
+    Route::post('/', [RealisasiAnggaranAiKjg2025Controller::class, 'store'])->name('realisasi-anggaran-ai-kjg.store');
+    Route::get('/data', [RealisasiAnggaranAiKjg2025Controller::class, 'data'])->name('realisasi-anggaran-ai-kjg.data');
+    // Route::get('/{id}/edit', [RealisasiAnggaranAIPtg2025Controller::class, 'edit'])->name('realisasi-anggaran-ai-kjg.edit');
+    Route::put('/{id}', [RealisasiAnggaranAiKjg2025Controller::class, 'update'])->name('realisasi-anggaran-ai-kjg.update');
+    Route::delete('/{id}', [RealisasiAnggaranAiKjg2025Controller::class, 'destroy'])->name('realisasi-anggaran-ai-kjg.destroy');
+});
+
+// Realisasi Progress Fisik AI KJG
+Route::prefix('monev/shg/input-data/realisasi-progress-fisik-ai-kjg')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [RealisasiProgressFisikAI2025KjgController::class, 'index'])->name('realisasi-progress-fisik-ai-kjg');
+    Route::post('/', [RealisasiProgressFisikAI2025KjgController::class, 'store'])->name('realisasi-progress-fisik-ai-kjg.store');
+    Route::get('/data', [RealisasiProgressFisikAI2025KjgController::class, 'data'])->name('realisasi-progress-fisik-ai-kjg.data');
+    // Route::get('/{id}/edit', [RealisasiProgressFisikAiKjgController::class, 'edit'])->name('realisasi-progress-fisik-ai-kjg.edit');
+    Route::put('/{id}', [RealisasiProgressFisikAI2025KjgController::class, 'update'])->name('realisasi-progress-fisik-ai-kjg.update');
+    Route::delete('/{id}', [RealisasiProgressFisikAI2025KjgController::class, 'destroy'])->name('realisasi-progress-fisik-ai-kjg.destroy');
+});
+
+// Availability KJG
+Route::prefix('monev/shg/input-data/availability-kjg')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [AvailabilityKjgController::class, 'index'])->name('availability-kjg');
+    Route::post('/', [AvailabilityKjgController::class, 'store'])->name('availability-kjg.store');
+    Route::get('/data', [AvailabilityKjgController::class, 'data'])->name('availability-kjg.data');
+    // Route::get('/{id}/edit', [AvailabilityKjgController::class, 'edit'])->name('availability-kjg.edit');
+    Route::put('/{id}', [AvailabilityKjgController::class, 'update'])->name('availability-kjg.update');
+    Route::delete('/{id}', [AvailabilityKjgController::class, 'destroy'])->name('availability-kjg.destroy');
+});
+
+Route::prefix('monev/shg/input-data/air-budget-tagging-kjg')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [AirBudgetTaggingKJGController::class, 'index'])->name('air-budget-tagging-kjg');
+    Route::post('/', [AirBudgetTaggingKjgController::class, 'store'])->name('air-budget-tagging-kjg.store');
+    Route::get('/data', [AirBudgetTaggingKjgController::class, 'data'])->name('air-budget-tagging-kjg.data');
+    // Route::get('/{id}/edit', [AirBudgetTaggingKjgController::class, 'edit'])->name('air-budget-tagging-kjg.edit');
+    Route::put('/{id}', [AirBudgetTaggingKjgController::class, 'update'])->name('air-budget-tagging-kjg.update');
+    Route::delete('/{id}', [AirBudgetTaggingKjgController::class, 'destroy'])->name('air-budget-tagging-kjg.destroy');
+});
+
+// PT. Perta Samtan Gas
+Route::prefix('monev/shg/input-data/perta-samtan-gas')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [PertaSamtanGasController::class, 'index'])->name('perta-samtan-gas');
+    Route::post('/', [PertaSamtanGasController::class, 'store'])->name('perta-samtan-gas');
+    Route::get('/data', [PertaSamtanGasController::class, 'data'])->name('perta-samtan-gas.data');
+    Route::put('/{id}', [PertaSamtanGasController::class, 'update'])->name('perta-samtan-gas.update');
+    Route::delete('/{id}', [PertaSamtanGasController::class, 'destroy'])->name('perta-samtan-gas.destroy');
+});
 
 
 Route::middleware(['auth'])->group(function () {

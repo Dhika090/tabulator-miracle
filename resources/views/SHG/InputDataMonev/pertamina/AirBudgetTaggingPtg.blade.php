@@ -23,41 +23,67 @@
             }
 
             .tab-scroll-wrapper {
-                overflow-x: auto;
-                white-space: nowrap;
+                border-bottom: 1px solid #dee2e6;
+                padding-bottom: 5px;
             }
+
+            .tab-scroll-wrapper {
+                display: inline-block;
+                /* display: flex; */
+                align-items: center;
+                overflow-x: hidden;
+                max-width: 100%;
+                padding-bottom: 5px;
+                border-bottom: 1px solid #dee2e6;
+                white-space: nowrap;
+                position: relative;
+            }
+
 
             #tabSwitcher .btn {
-                white-space: nowrap;
+                border-radius: 0;
+                font-size: 14px;
+                border-bottom: 2px solid transparent;
+                color: #495057;
+                padding: 6px 10px;
+                background-color: transparent;
             }
 
-            .tabulator .tabulator-cell {
-                white-space: normal !important;
-                word-wrap: break-word;
+            #tabSwitcher .btn.active {
+                font-weight: bold;
+                color: #007bff;
+                border-bottom: 2px solid #007bff;
+            }
+
+            .dropdown-menu .dropdown-item.active {
+                font-weight: bold;
+                color: #007bff;
+                background-color: #e9ecef;
             }
 
             /* modall */
             .modal {
                 display: none;
                 position: fixed;
-                z-index: 100;
+                z-index: 1050;
                 left: 0;
                 top: 0;
                 width: 100%;
                 height: 100%;
                 overflow: auto;
                 background-color: rgba(0, 0, 0, 0.4);
+                padding: 1rem;
             }
 
             .modal-content {
                 background-color: #fff;
-                position: absolute;
-                top: 3%;
-                left: 30%;
-                /* transform: translate(-50%, -50%); */
+                margin: 5% auto;
                 padding: 20px;
-                width: 50%;
+                width: 100%;
+                max-width: 600px;
                 border-radius: 10px;
+                position: relative;
+                z-index: 9999;
             }
 
             .close {
@@ -92,67 +118,48 @@
     @endpush
 
     <div class="card">
-        <div class="card-body">
-            <h5 class="card-title mb-3">AIR BUDGET TAGGING PTG</h5>
+        <div class="card-body d-flex flex-column">
+            <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
+                <h5 class="card-title mb-3 mb-md-0">Air Budget Tagging</h5>
+                <div class="d-flex">
+                    <input id="search-input" type="text" class="form-control" placeholder="Search data..."
+                        style="max-width: 200px;">
+                    <button class="btn btn-outline-secondary ms-2 h-100 mt-1" type="button"
+                        onclick="clearSearch()">Clear</button>
+                </div>
+            </div>
 
-            <div class="d-flex align-items-stretch gap-3">
-                <button onclick="openModal()" class="btn btn-primary px-4 py-2" style="white-space: nowrap;">Create
-                    Data</button>
+            <div class="d-flex flex-column flex-md-row align-items-center gap-3">
+                <button onclick="openModal()" class="btn btn-primary px-4 py-2" style="white-space: nowrap;">
+                    Create Data
+                </button>
 
-                <div class="tab-scroll-wrapper flex-grow-1">
-                    <div class="btn-group" role="group" id="tabSwitcher">
-                        <a href="{{ route('pertamina-gas') }}"
-                            class="btn btn-outline-secondary {{ request()->routeIs('pertamina-gas') ? 'active' : '' }}">
-                            Pertmina Gas
-                        </a>
-                        <a href="{{ route('mandatory-certification-ptg') }}"
-                            class="btn btn-outline-secondary {{ request()->routeIs('mandatory-certification-ptg') ? 'active' : '' }}">
-                            Mandatory Certification PTG
-                        </a>
-                        <a href="{{ route('sap-asset-ptg') }}"
-                            class="btn btn-outline-secondary {{ request()->routeIs('sap-asset-ptg') ? 'active' : '' }}">
-                            SAP Asset PTG
-                        </a>
-                        <a href="{{ route('status-plo-ptg') }}"
-                            class="btn btn-outline-secondary {{ request()->routeIs('status-plo-ptg') ? 'active' : '' }}">
-                            Status PLO PTG
-                        </a>
-                        <a href="{{ route('asset-breakdown-ptg') }}"
-                            class="btn btn-outline-secondary {{ request()->routeIs('asset-breakdown-ptg') ? 'active' : '' }}">
-                            Asset Breakdown PTG
-                        </a>
-                        <a href="{{ route('kondisi-vacant-fungsi-aims-ptg') }}"
-                            class="btn btn-outline-secondary {{ request()->routeIs('kondisi-vacant-fungsi-aims-ptg') ? 'active' : '' }}">
-                            Kondisi Vacant Fungsi AIMS PTG
-                        </a>
-                        <a href="{{ route('rencana-pemeliharaan-besar-ptg') }}"
-                            class="btn btn-outline-secondary {{ request()->routeIs('rencana-pemeliharaan-besar-ptg') ? 'active' : '' }}">
-                            Rencana Pemeliharaan Besar PTG
-                        </a>
-                        <a href="{{ route('sistem-informasi-aims-ptg') }}"
-                            class="btn btn-outline-secondary {{ request()->routeIs('sistem-informasi-aims-ptg') ? 'active' : '' }}">
-                            Sistem Informasi AIMS PTG
-                        </a>
-                        <a href="{{ route('pelatihan-aims-ptg') }}"
-                            class="btn btn-outline-secondary {{ request()->routeIs('pelatihan-aims-ptg') ? 'active' : '' }}">
-                            Pelatihan AIMS PTG
-                        </a>
-                        <a href="{{ route('realisasi-anggaran-ai-ptg') }}"
-                            class="btn btn-outline-secondary {{ request()->routeIs('realisasi-anggaran-ai-ptg') ? 'active' : '' }}">
-                            Realisasi Anggaran AI 2025 PTG
-                        </a>
-                        <a href="{{ route('realisasi-progress-fisik-ai-ptg') }}"
-                            class="btn btn-outline-secondary {{ request()->routeIs('realisasi-progress-fisik-ai-ptg') ? 'active' : '' }}">
-                            Realisasi Progress Fisik AI PTG 2025
-                        </a>
-                        <a href="{{ route('availability-ptg') }}"
-                            class="btn btn-outline-secondary {{ request()->routeIs('availability-ptg') ? 'active' : '' }}">
-                            Availability PTG
-                        </a>
-                        <a href="{{ route('air-budget-tagging-ptg') }}"
-                            class="btn btn-outline-secondary {{ request()->routeIs('air-budget-tagging-ptg') ? 'active' : '' }}">
-                            Availability PTG
-                        </a>
+                <div class="dropdown me-2 position-relative" style="z-index: 1050;">
+                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="tabDropdown"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Navigasi
+                    </button>
+                    <ul class="dropdown-menu" id="tabDropdownList" style="max-height: 300px; overflow-y: auto;">
+                        @foreach ($tabs as $tab)
+                            <li>
+                                <a class="dropdown-item {{ $tab['active'] ? 'active' : '' }}"
+                                    href="{{ $tab['route'] }}">
+                                    {{ $tab['title'] }}
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+
+                <div class="tab-scroll-wrapper d-flex align-items-center flex-grow-1 overflow-auto"
+                    style="scroll-behavior: smooth;" id="tabContainer">
+                    <div class="btn-group" role="group" id="tabSwitcher" style="white-space: nowrap;">
+                        @foreach ($tabs as $tab)
+                            <a href="{{ $tab['route'] }}"
+                                class="btn btn-outline-secondary {{ $tab['active'] ? 'active' : '' }}">
+                                {{ $tab['title'] }}
+                            </a>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -189,12 +196,12 @@
 
                 <div>
                     <label>CE</label>
-                    <input type="text" name="ce" id="ce" >
+                    <input type="text" name="ce" id="ce">
                 </div>
 
                 <div>
                     <label>Cost Element Name</label>
-                    <input type="text" name="cost_element_name" id="cost_element_name" >
+                    <input type="text" name="cost_element_name" id="cost_element_name">
                 </div>
 
                 <div>
@@ -204,7 +211,7 @@
 
                 <div>
                     <label>Total Pagu (USD)</label>
-                    <input type="number" name="total_pagu_usd" id="total_pagu_usd" step="0.01" >
+                    <input type="number" name="total_pagu_usd" id="total_pagu_usd" step="0.01">
                 </div>
 
                 <!-- Bulan-bulan -->
@@ -275,253 +282,6 @@
         <script src="https://unpkg.com/tabulator-tables@5.6.0/dist/js/tabulator.min.js"></script>
 
         <script>
-            const table = new Tabulator("#example-table", {
-                layout: "fitDataTable",
-                responsiveLayout: "collapse",
-                autoResize: true,
-                selectableRange: 1,
-                selectableRangeColumns: true,
-                selectableRangeRows: true,
-                selectableRangeClearCells: true,
-                editTriggerEvent: "dblclick",
-
-                pagination: "local",
-                paginationSize: 20,
-                paginationSizeSelector: [40, 60, 80, 100],
-                movableColumns: true,
-                paginationCounter: "rows",
-
-                clipboard: true,
-                clipboardCopyStyled: false,
-                clipboardCopyConfig: {
-                    rowHeaders: false,
-                    columnHeaders: false,
-                },
-                clipboardCopyRowRange: "range",
-                clipboardPasteParser: "range",
-                clipboardPasteAction: "range",
-
-                rowHeader: {
-                    resizable: false,
-                    frozen: true,
-                    width: 40,
-                    hozAlign: "center",
-                    formatter: "rownum",
-                    cssClass: "range-header-col",
-                    editor: false
-                },
-
-                columnDefaults: {
-                    headerSort: true,
-                    headerHozAlign: "center",
-                    editor: "input",
-                    resizable: "header",
-                },
-
-            });
-
-            const columnMap = {
-                "air-budget-tagging-ptg": [{
-                        title: "No",
-                        formatter: "rownum",
-                        hozAlign: "center",
-                        width: 60
-                    },
-                    {
-                        title: "Periode",
-                        field: "periode"
-                    },
-                    {
-                        title: "SATKER",
-                        field: "satker"
-                    },
-                    {
-                        title: "Kategori",
-                        field: "kategori"
-                    },
-                    {
-                        title: "CE",
-                        field: "ce"
-                    },
-                    {
-                        title: "Cost Element Name",
-                        field: "cost_element_name"
-                    },
-                    {
-                        title: "Program Kerja",
-                        field: "program_kerja",
-                        width: 400
-                    },
-                    {
-                        title: "Total Pagu (USD)",
-                        field: "total_pagu_usd"
-                    },
-                    {
-                        title: "JAN",
-                        field: "jan"
-                    },
-                    {
-                        title: "FEB",
-                        field: "feb"
-                    },
-                    {
-                        title: "MAR",
-                        field: "mar"
-                    },
-                    {
-                        title: "APR",
-                        field: "apr"
-                    },
-                    {
-                        title: "MAY",
-                        field: "may"
-                    },
-                    {
-                        title: "JUN",
-                        field: "jun"
-                    },
-                    {
-                        title: "JUL",
-                        field: "jul"
-                    },
-                    {
-                        title: "AUG",
-                        field: "aug"
-                    },
-                    {
-                        title: "SEP",
-                        field: "sep"
-                    },
-                    {
-                        title: "OCT",
-                        field: "oct"
-                    },
-                    {
-                        title: "NOV",
-                        field: "nov"
-                    },
-                    {
-                        title: "DEC",
-                        field: "dec"
-                    },
-                    {
-                        title: "Aset Integrity (Yes/No)",
-                        field: "aset_integrity"
-                    },
-                    {
-                        title: "AIRTagging (Asset Integrity & Reliability)",
-                        field: "airtagging"
-                    },
-                    {
-                        title: "Prioritas",
-                        field: "prioritas"
-                    },
-                    {
-                        title: "Status Integrity per Des 2024",
-                        field: "status_integrity"
-                    },
-                    {
-                        title: "Jumlah Aset Critical SECE",
-                        field: "jumlah_aset_critical_sece"
-                    },
-                    {
-                        title: "Jumlah Aset Critical PCE",
-                        field: "jumlah_aset_critical_pce"
-                    },
-                    {
-                        title: "Jumlah Aset Important",
-                        field: "jumlah_aset_important"
-                    },
-                    {
-                        title: "Jumlah Aset Secondary",
-                        field: "jumlah_aset_secondary"
-                    },
-                    {
-                        title: "Aksi",
-                        formatter: (cell, formatterParams) => {
-                            const row = cell.getData();
-                            return `
-                    <button onclick='editData(${JSON.stringify(row)})'>Edit</button>
-                    <button onclick='deleteData("${row.id}")'>Hapus</button>
-                `;
-                        },
-                        hozAlign: "center",
-                        width: 150
-                    }
-                ]
-            };
-
-            const routeMap = {
-                "air-budget-tagging-ptg": "{{ route('air-budget-tagging-ptg.data') }}"
-            };
-
-            document.querySelectorAll('#tabSwitcher a').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    localStorage.setItem('currentTab', this.getAttribute('data-tab'));
-                    document.querySelectorAll('#tabSwitcher a').forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    const selectedTab = this.getAttribute('data-tab');
-                    loadTabData(selectedTab);
-                });
-            });
-
-            function loadTabData(tabName) {
-                const selectedColumns = columnMap[tabName] || [];
-                table.setColumns(selectedColumns);
-                table.clearData();
-
-                const endpoint = routeMap[tabName];
-
-                if (endpoint) {
-                    fetch(endpoint, {
-                            headers: {
-                                "Accept": "application/json"
-                            }
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            console.log("Data for " + tabName + ":", data);
-                            table.setData(data);
-                            table.redraw();
-                        })
-                        .catch(error => {
-                            console.error("Error loading data for " + tabName + ":", error);
-                        });
-                }
-            }
-
-            function editData(row) {
-                document.getElementById("form-id").value = row.id;
-                document.getElementById("periode").value = row.periode;
-                document.getElementById("satker").value = row.satker;
-                document.getElementById("kategori").value = row.kategori;
-                document.getElementById("ce").value = row.ce;
-                document.getElementById("cost_element_name").value = row.cost_element_name;
-                document.getElementById("program_kerja").value = row.program_kerja;
-                document.getElementById("total_pagu_usd").value = row.total_pagu_usd;
-                document.getElementById("jan").value = row.jan;
-                document.getElementById("feb").value = row.feb;
-                document.getElementById("mar").value = row.mar;
-                document.getElementById("apr").value = row.apr;
-                document.getElementById("may").value = row.may;
-                document.getElementById("jun").value = row.jun;
-                document.getElementById("jul").value = row.jul;
-                document.getElementById("aug").value = row.aug;
-                document.getElementById("sep").value = row.sep;
-                document.getElementById("oct").value = row.oct;
-                document.getElementById("nov").value = row.nov;
-                document.getElementById("dec").value = row.dec;
-                document.getElementById("aset_integrity").value = row.aset_integrity;
-                document.getElementById("airtagging").value = row.airtagging;
-                document.getElementById("prioritas").value = row.prioritas;
-                document.getElementById("status_integrity").value = row.status_integrity;
-                document.getElementById("jumlah_aset_critical_sece").value = row.jumlah_aset_critical_sece;
-                document.getElementById("jumlah_aset_critical_pce").value = row.jumlah_aset_critical_pce;
-                document.getElementById("jumlah_aset_important").value = row.jumlah_aset_important;
-                document.getElementById("jumlah_aset_secondary").value = row.jumlah_aset_secondary;
-                openModal();
-            }
-
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
                     fetch(`air-budget-tagging-ptg/${id}`, {
@@ -531,22 +291,312 @@
                                 "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
                             }
                         })
-                        .then(response => response.json())
+                        .then(res => res.json())
                         .then(result => {
-                            if (result.success) {
-                                alert(result.message);
-                                table.setData("/monev/shg/input-data/air-budget-tagging-ptg/data")
-                                this.reset();
-                            } else {
-                                alert('Gagal menyimpan data');
-                            }
+                            alert(result.message || "Data berhasil dihapus");
+                            loadData();
+                        })
+                        .catch(err => {
+                            console.error("Gagal hapus data:", err);
+                            alert("Terjadi kesalahan saat menghapus data.");
                         });
                 }
             }
 
+            document.getElementById("search-input").addEventListener("input", function(e) {
+                const keyword = e.target.value;
+                table.setFilter([
+                    [{
+                            field: "periode",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "satker",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "kategori",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "ce",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "cost_element_name",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "program_kerja",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "total_pagu_usd",
+                            type: "like",
+                            value: keyword
+                        },
+                    ]
+                ]);
+
+            });
+
+            function clearSearch() {
+                document.getElementById("search-input").value = "";
+                table.clearFilter();
+            }
+
+            function loadData() {
+                fetch("/monev/shg/input-data/air-budget-tagging-ptg/data", {
+                        headers: {
+                            "Accept": "application/json"
+                        }
+                    })
+                    .then(res => res.json())
+                    .then(data => table.setData(data))
+                    .catch(err => console.error("Gagal load data:", err));
+            }
+
             document.addEventListener("DOMContentLoaded", function() {
-                loadTabData("air-budget-tagging-ptg");
-                localStorage.setItem("currentTab", "air-budget-tagging-ptg");
+                const columnMap = {
+                    "air-budget-tagging-ptg": [{
+                            title: "No",
+                            formatter: "rownum",
+                            hozAlign: "center",
+                            width: 60
+                        },
+                        {
+                            title: "ID",
+                            field: "id",
+                            visible: false
+                        },
+                        {
+                            title: "Periode",
+                            field: "periode",
+                            editor: "input"
+                        },
+                        {
+                            title: "Satker",
+                            field: "satker",
+                            editor: "input"
+                        },
+                        {
+                            title: "Kategori",
+                            field: "kategori",
+                            editor: "input"
+                        },
+                        {
+                            title: "CE",
+                            field: "ce",
+                            editor: "input"
+                        },
+                        {
+                            title: "Cost Element Name",
+                            field: "cost_element_name",
+                            editor: "input"
+                        },
+                        {
+                            title: "Program Kerja",
+                            field: "program_kerja",
+                            editor: "input"
+                        },
+                        {
+                            title: "Total Pagu (USD)",
+                            field: "total_pagu",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "JAN",
+                            field: "jan",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "FEB",
+                            field: "feb",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "MAR",
+                            field: "mar",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "APR",
+                            field: "apr",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "MAY",
+                            field: "may",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "JUN",
+                            field: "jun",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "JUL",
+                            field: "jul",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "AUG",
+                            field: "aug",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "SEP",
+                            field: "sep",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "OCT",
+                            field: "oct",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "NOV",
+                            field: "nov",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "DEC",
+                            field: "dec",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Aset Integrity (Yes/No)",
+                            field: "aset_integrity",
+                            editor: "input"
+                        },
+                        {
+                            title: "AIRTagging (Asset Integrity & Reliability)",
+                            field: "airtagging",
+                            editor: "input"
+                        },
+                        {
+                            title: "Prioritas",
+                            field: "prioritas",
+                            editor: "input"
+                        },
+                        {
+                            title: "Status Integrity per Des 2024",
+                            field: "status_integrity",
+                            editor: "input"
+                        },
+                        {
+                            title: "Jumlah Aset Critical SECE",
+                            field: "jumlah_aset_critical_sece",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Jumlah Aset Critical PCE",
+                            field: "jumlah_aset_critical_pce",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Jumlah Aset Important",
+                            field: "jumlah_aset_important",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Jumlah Aset Secondary",
+                            field: "jumlah_aset_secondary",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Aksi",
+                            formatter: (cell) => {
+                                const row = cell.getData();
+                                return `<button onclick='deleteData("${row.id}")'>Hapus</button>`;
+                            },
+                            hozAlign: "center",
+                            width: 150
+                        }
+                    ]
+                };
+
+                window.table = new Tabulator("#example-table", {
+                    layout: "fitDataTable",
+                    responsiveLayout: "collapse",
+                    autoResize: true,
+                    columns: columnMap["air-budget-tagging-ptg"],
+
+                    selectableRange: 1,
+                    selectableRangeColumns: true,
+                    selectableRangeRows: true,
+                    selectableRangeClearCells: true,
+                    editTriggerEvent: "dblclick",
+
+                    pagination: "local",
+                    paginationSize: 20,
+                    paginationSizeSelector: [40, 60, 80, 100],
+                    paginationCounter: "rows",
+
+                    movableColumns: true,
+
+                    clipboard: true,
+                    clipboardCopyStyled: false,
+                    clipboardCopyConfig: {
+                        rowHeaders: false,
+                        columnHeaders: false,
+                    },
+                    clipboardCopyRowRange: "range",
+                    clipboardPasteParser: "range",
+                    clipboardPasteAction: "range",
+
+                    columnDefaults: {
+                        headerSort: true,
+                        headerHozAlign: "center",
+                        editor: "input",
+                        resizable: "header",
+                    },
+                });
+
+                table.on("cellEdited", function(cell) {
+                    const updatedData = cell.getRow().getData();
+                    const id = updatedData.id;
+
+                    if (!id) return;
+
+                    fetch(`air-budget-tagging-ptg/${id}`, {
+                            method: "PUT",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute("content")
+                            },
+                            body: JSON.stringify(updatedData)
+                        })
+                        .then(res => res.json())
+                        .then(data => console.log("Update berhasil:", data))
+                        .catch(err => console.error("Gagal update:", err));
+                });
+                loadData();
             });
         </script>
 
@@ -562,48 +612,14 @@
                 document.getElementById("createModal").style.display = "none";
             }
 
-            // update and delete data
             document.getElementById("createForm").addEventListener("submit", function(e) {
                 e.preventDefault();
 
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
-                console.log("Data submitted:", data);
 
-                const id = document.getElementById("form-id").value;
-                const periode = document.getElementById("periode").value;
-                const satker = document.getElementById("satker").value;
-                const kategori = document.getElementById("kategori").value;
-                const ce = document.getElementById("ce").value;
-                const costElementName = document.getElementById("cost_element_name").value;
-                const programKerja = document.getElementById("program_kerja").value;
-                const totalPaguUSD = document.getElementById("total_pagu_usd").value;
-                const jan = document.getElementById("jan").value;
-                const feb = document.getElementById("feb").value;
-                const mar = document.getElementById("mar").value;
-                const apr = document.getElementById("apr").value;
-                const may = document.getElementById("may").value;
-                const jun = document.getElementById("jun").value;
-                const jul = document.getElementById("jul").value;
-                const aug = document.getElementById("aug").value;
-                const sep = document.getElementById("sep").value;
-                const oct = document.getElementById("oct").value;
-                const nov = document.getElementById("nov").value;
-                const dec = document.getElementById("dec").value;
-                const asetIntegrity = document.getElementById("aset_integrity").value;
-                const airTagging = document.getElementById("airtagging").value;
-                const prioritas = document.getElementById("prioritas").value;
-                const statusIntegrity = document.getElementById("status_integrity").value;
-                const jumlahAsetCriticalSECE = document.getElementById("jumlah_aset_critical_sece").value;
-                const jumlahAsetCriticalPCE = document.getElementById("jumlah_aset_critical_pce").value;
-                const jumlahAsetImportant = document.getElementById("jumlah_aset_important").value;
-                const jumlahAsetSecondary = document.getElementById("jumlah_aset_secondary").value;
-
-                const method = id ? "PUT" : "POST";
-                const url = id ? `air-budget-tagging-ptg/${id}` : "air-budget-tagging-ptg";
-
-                fetch(url, {
-                        method: method,
+                fetch("air-budget-tagging-ptg", {
+                        method: "POST",
                         headers: {
                             "Content-Type": "application/json",
                             "Accept": "application/json",
@@ -611,56 +627,94 @@
                                 "content")
                         },
                         body: JSON.stringify({
-                            id: id,
-                            periode: periode,
-                            satker: satker,
-                            kategori: kategori,
-                            ce: ce,
-                            cost_element_name: costElementName,
-                            program_kerja: programKerja,
-                            total_pagu_usd: totalPaguUSD,
-                            jan: jan,
-                            feb: feb,
-                            mar: mar,
-                            apr: apr,
-                            may: may,
-                            jun: jun,
-                            jul: jul,
-                            aug: aug,
-                            sep: sep,
-                            oct: oct,
-                            nov: nov,
-                            dec: dec,
-                            aset_integrity: asetIntegrity,
-                            airtagging: airTagging,
-                            prioritas: prioritas,
-                            status_integrity: statusIntegrity,
-                            jumlah_aset_critical_sece: jumlahAsetCriticalSECE,
-                            jumlah_aset_critical_pce: jumlahAsetCriticalPCE,
-                            jumlah_aset_important: jumlahAsetImportant,
-                            jumlah_aset_secondary: jumlahAsetSecondary
+                            periode: data.periode,
+                            satker: data.satker || null,
+                            kategori: data.kategori || null,
+                            ce: data.ce || null,
+                            cost_element_name: data.cost_element_name || null,
+                            program_kerja: data.program_kerja || null,
+                            total_pagu: data.total_pagu || null,
+                            jan: data.jan || null,
+                            feb: data.feb || null,
+                            mar: data.mar || null,
+                            apr: data.apr || null,
+                            may: data.may || null,
+                            jun: data.jun || null,
+                            jul: data.jul || null,
+                            aug: data.aug || null,
+                            sep: data.sep || null,
+                            oct: data.oct || null,
+                            nov: data.nov || null,
+                            dec: data.dec || null,
+                            aset_integrity: data.aset_integrity || null,
+                            airtagging: data.airtagging || null,
+                            prioritas: data.prioritas || null,
+                            status_integrity: data.status_integrity || null,
+                            jumlah_aset_critical_sece: data.jumlah_aset_critical_sece || null,
+                            jumlah_aset_critical_pce: data.jumlah_aset_critical_pce || null,
+                            jumlah_aset_important: data.jumlah_aset_important || null,
+                            jumlah_aset_secondary: data.jumlah_aset_secondary || null,
                         })
 
                     })
                     .then(response => response.json())
                     .then(result => {
                         if (result.success) {
-                            alert(result.message);
-                            // table.addRow([result.data]);
+                            alert(result.message || "Data berhasil disimpan");
                             table.setData("/monev/shg/input-data/air-budget-tagging-ptg/data");
                             this.reset();
+                            closeModal();
                         } else {
-                            alert('Gagal menyimpan data');
+                            alert("Gagal menyimpan data");
                         }
                     })
                     .catch(error => {
-                        console.error("Error submitting data:", error);
-                        alert('Terjadi kesalahan saat mengirim data.');
-                    })
-                    .finally(() => {
-                        closeModal();
-                        this.reset();
+                        console.error("Error saat submit:", error);
+                        alert("Terjadi kesalahan saat mengirim data.");
                     });
+            });
+        </script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const tabButtons = document.querySelectorAll('#tabSwitcher a');
+                const dropdownListItems = document.querySelectorAll('#tabDropdownList a');
+                const tabContainer = document.getElementById('tabContainer');
+
+                function scrollToActiveTab() {
+                    const activeTab = document.querySelector('#tabSwitcher a.active');
+                    if (activeTab) {
+                        const tabX = activeTab.offsetLeft;
+                        const tabW = activeTab.offsetWidth;
+                        const containerW = tabContainer.clientWidth;
+
+                        tabContainer.scrollTo({
+                            left: tabX - (containerW / 2) + (tabW / 2),
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+
+                dropdownListItems.forEach((dropdownItem, i) => {
+                    dropdownItem.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const targetHref = this.href;
+                        sessionStorage.setItem('scrollToActiveTab', 'yes');
+                        window.location.href = targetHref;
+                    });
+                });
+
+                tabButtons.forEach((tabBtn) => {
+                    tabBtn.addEventListener('click', function(e) {
+                        sessionStorage.setItem('scrollToActiveTab', 'yes');
+                    });
+                });
+
+                // Ketika halaman reload setelah klik, cek dan scroll otomatis
+                if (sessionStorage.getItem('scrollToActiveTab') === 'yes') {
+                    scrollToActiveTab();
+                    sessionStorage.removeItem('scrollToActiveTab');
+                }
             });
         </script>
     @endpush

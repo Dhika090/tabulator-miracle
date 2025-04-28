@@ -43,5 +43,4 @@ class AssetBreakdownPtg extends Model
         'link_foto_video'
     ];
 
-
 }

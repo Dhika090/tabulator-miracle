@@ -8,6 +8,8 @@
             }
 
             #example-table {
+                word-wrap: break-word;
+                white-space: normal;
                 background-color: white;
                 min-width: 800px;
                 border-radius: 8px;
@@ -18,46 +20,77 @@
                 font-size: 14px;
             }
 
-            .tabulator .tabulator-cell {
-                white-space: normal !important;
-                word-wrap: break-word;
-            }
-
             .card {
                 margin-top: 20px;
             }
 
             .tab-scroll-wrapper {
-                overflow-x: auto;
-                white-space: nowrap;
+                border-bottom: 1px solid #dee2e6;
+                padding-bottom: 5px;
             }
 
-            #tabSwitcher .btn {
+            .tab-scroll-wrapper {
+                display: inline-block;
+                /* display: flex; */
+                align-items: center;
+                overflow-x: hidden;
+                max-width: 100%;
+                padding-bottom: 5px;
+                border-bottom: 1px solid #dee2e6;
                 white-space: nowrap;
+                position: relative;
+            }
+
+            .tabulator .tabulator-cell {
+                white-space: normal !important;
+                word-wrap: break-word;
+            }
+
+
+            #tabSwitcher .btn {
+                border-radius: 0;
+                font-size: 14px;
+                border-bottom: 2px solid transparent;
+                color: #495057;
+                padding: 6px 10px;
+                background-color: transparent;
+            }
+
+            #tabSwitcher .btn.active {
+                font-weight: bold;
+                color: #007bff;
+                border-bottom: 2px solid #007bff;
+            }
+
+            .dropdown-menu .dropdown-item.active {
+                font-weight: bold;
+                color: #007bff;
+                background-color: #e9ecef;
             }
 
             /* modall */
             .modal {
                 display: none;
                 position: fixed;
-                z-index: 100;
+                z-index: 1050;
                 left: 0;
                 top: 0;
                 width: 100%;
                 height: 100%;
                 overflow: auto;
                 background-color: rgba(0, 0, 0, 0.4);
+                padding: 1rem;
             }
 
             .modal-content {
                 background-color: #fff;
-                position: absolute;
-                top: 3%;
-                left: 30%;
-                /* transform: translate(-50%, -50%); */
+                margin: 5% auto;
                 padding: 20px;
-                width: 50%;
+                width: 100%;
+                max-width: 600px;
                 border-radius: 10px;
+                position: relative;
+                z-index: 9999;
             }
 
             .close {
@@ -92,67 +125,48 @@
     @endpush
 
     <div class="card">
-        <div class="card-body">
-            <h5 class="card-title mb-3">Rencanaan Pemeliharaan Besar PTG</h5>
+        <div class="card-body d-flex flex-column">
+            <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
+                <h5 class="card-title mb-3 mb-md-0">Rencana Pemeliharaan PTG 2025</h5>
+                <div class="d-flex">
+                    <input id="search-input" type="text" class="form-control" placeholder="Search data..."
+                        style="max-width: 200px;">
+                    <button class="btn btn-outline-secondary ms-2 h-100 mt-1" type="button"
+                        onclick="clearSearch()">Clear</button>
+                </div>
+            </div>
 
-            <div class="d-flex align-items-stretch gap-3">
-                <button onclick="openModal()" class="btn btn-primary px-4 py-2" style="white-space: nowrap;">Create
-                    Data</button>
+            <div class="d-flex flex-column flex-md-row align-items-center gap-3">
+                <button onclick="openModal()" class="btn btn-primary px-4 py-2" style="white-space: nowrap;">
+                    Create Data
+                </button>
 
-                <div class="tab-scroll-wrapper flex-grow-1">
-                    <div class="btn-group" role="group" id="tabSwitcher">
-                        <a href="{{ route('pertamina-gas') }}"
-                            class="btn btn-outline-secondary {{ request()->routeIs('pertamina-gas') ? 'active' : '' }}">
-                            Pertmina Gas
-                        </a>
-                        <a href="{{ route('mandatory-certification-ptg') }}"
-                            class="btn btn-outline-secondary {{ request()->routeIs('mandatory-certification-ptg') ? 'active' : '' }}">
-                            Mandatory Certification PTG
-                        </a>
-                        <a href="{{ route('sap-asset-ptg') }}"
-                            class="btn btn-outline-secondary {{ request()->routeIs('sap-asset-ptg') ? 'active' : '' }}">
-                            SAP Asset PTG
-                        </a>
-                        <a href="{{ route('status-plo-ptg') }}"
-                            class="btn btn-outline-secondary {{ request()->routeIs('status-plo-ptg') ? 'active' : '' }}">
-                            Status PLO PTG
-                        </a>
-                        <a href="{{ route('asset-breakdown-ptg') }}"
-                            class="btn btn-outline-secondary {{ request()->routeIs('asset-breakdown-ptg') ? 'active' : '' }}">
-                            Asset Breakdown PTG
-                        </a>
-                        <a href="{{ route('kondisi-vacant-fungsi-aims-ptg') }}"
-                            class="btn btn-outline-secondary {{ request()->routeIs('kondisi-vacant-fungsi-aims-ptg') ? 'active' : '' }}">
-                            Kondisi Vacant Fungsi AIMS PTG
-                        </a>
-                        <a href="{{ route('rencana-pemeliharaan-besar-ptg') }}"
-                            class="btn btn-outline-secondary {{ request()->routeIs('rencana-pemeliharaan-besar-ptg') ? 'active' : '' }}">
-                            Rencana Pemeliharaan Besar PTG
-                        </a>
-                        <a href="{{ route('sistem-informasi-aims-ptg') }}"
-                            class="btn btn-outline-secondary {{ request()->routeIs('sistem-informasi-aims-ptg') ? 'active' : '' }}">
-                            Sistem Informasi AIMS PTG
-                        </a>
-                        <a href="{{ route('pelatihan-aims-ptg') }}"
-                            class="btn btn-outline-secondary {{ request()->routeIs('pelatihan-aims-ptg') ? 'active' : '' }}">
-                            Pelatihan AIMS PTG
-                        </a>
-                        <a href="{{ route('realisasi-anggaran-ai-ptg') }}"
-                            class="btn btn-outline-secondary {{ request()->routeIs('realisasi-anggaran-ai-ptg') ? 'active' : '' }}">
-                            Realisasi Anggaran AI 2025 PTG
-                        </a>
-                        <a href="{{ route('realisasi-progress-fisik-ai-ptg') }}"
-                            class="btn btn-outline-secondary {{ request()->routeIs('realisasi-progress-fisik-ai-ptg') ? 'active' : '' }}">
-                            Realisasi Progress Fisik AI PTG 2025
-                        </a>
-                        <a href="{{ route('availability-ptg') }}"
-                            class="btn btn-outline-secondary {{ request()->routeIs('availability-ptg') ? 'active' : '' }}">
-                            Availability PTG
-                        </a>
-                        <a href="{{ route('air-budget-tagging-ptg') }}"
-                            class="btn btn-outline-secondary {{ request()->routeIs('air-budget-tagging-ptg') ? 'active' : '' }}">
-                            Availability PTG
-                        </a>
+                <div class="dropdown me-2 position-relative" style="z-index: 1050;">
+                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="tabDropdown"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Navigasi
+                    </button>
+                    <ul class="dropdown-menu" id="tabDropdownList" style="max-height: 300px; overflow-y: auto;">
+                        @foreach ($tabs as $tab)
+                            <li>
+                                <a class="dropdown-item {{ $tab['active'] ? 'active' : '' }}"
+                                    href="{{ $tab['route'] }}">
+                                    {{ $tab['title'] }}
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+
+                <div class="tab-scroll-wrapper d-flex align-items-center flex-grow-1 overflow-auto"
+                    style="scroll-behavior: smooth;" id="tabContainer">
+                    <div class="btn-group" role="group" id="tabSwitcher" style="white-space: nowrap;">
+                        @foreach ($tabs as $tab)
+                            <a href="{{ $tab['route'] }}"
+                                class="btn btn-outline-secondary {{ $tab['active'] ? 'active' : '' }}">
+                                {{ $tab['title'] }}
+                            </a>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -174,7 +188,7 @@
 
                 <div>
                     <label>Periode</label>
-                    <input type="text" name="periode" id="periode" required>
+                    <input type="month" name="periode" id="periode" required>
                 </div>
 
                 <div>
@@ -309,273 +323,6 @@
         <script src="https://unpkg.com/tabulator-tables@5.6.0/dist/js/tabulator.min.js"></script>
 
         <script>
-            const table = new Tabulator("#example-table", {
-                layout: "fitDataTable",
-                responsiveLayout: "collapse",
-                autoResize: true,
-                selectableRange: 1,
-                selectableRangeColumns: true,
-                selectableRangeRows: true,
-                selectableRangeClearCells: true,
-                editTriggerEvent: "dblclick",
-
-                pagination: "local",
-                paginationSize: 20,
-                paginationSizeSelector: [40, 60, 80, 100],
-                movableColumns: true,
-                paginationCounter: "rows",
-
-                clipboard: true,
-                clipboardCopyStyled: false,
-                clipboardCopyConfig: {
-                    rowHeaders: false,
-                    columnHeaders: false,
-                },
-                clipboardCopyRowRange: "range",
-                clipboardPasteParser: "range",
-                clipboardPasteAction: "range",
-
-                rowHeader: {
-                    resizable: false,
-                    frozen: true,
-                    width: 40,
-                    hozAlign: "center",
-                    formatter: "rownum",
-                    cssClass: "range-header-col",
-                    editor: false
-                },
-
-                columnDefaults: {
-                    headerSort: true,
-                    headerHozAlign: "center",
-                    editor: "input",
-                    resizable: "header",
-                },
-
-            });
-
-            const columnMap = {
-                "rencana-pemeliharaan-besar-ptg": [{
-                        title: "No",
-                        formatter: "rownum",
-                        hozAlign: "center",
-                        width: 60
-                    },
-                    {
-                        title: "Periode",
-                        field: "periode"
-                    },
-                    {
-                        title: "No",
-                        field: "no"
-                    },
-                    {
-                        title: "Company",
-                        field: "company"
-                    },
-                    {
-                        title: "Lokasi",
-                        field: "lokasi"
-                    },
-                    {
-                        title: "Program Kerja",
-                        field: "program_kerja",
-                        width: 300
-                    },
-                    {
-                        title: "Kategori Maintenance",
-                        field: "kategori_maintenance"
-                    },
-                    {
-                        title: "Besar Phasing",
-                        field: "besar_phasing"
-                    },
-                    {
-                        title: "Remark",
-                        field: "remark"
-                    },
-                    {
-                        title: "Jan",
-                        field: "jan",
-                        hozAlign: "center",
-                        width: 70
-                    },
-                    {
-                        title: "Feb",
-                        field: "feb",
-                        hozAlign: "center",
-                        width: 70
-                    },
-                    {
-                        title: "Mar",
-                        field: "mar",
-                        hozAlign: "center",
-                        width: 70
-                    },
-                    {
-                        title: "Apr",
-                        field: "apr",
-                        hozAlign: "center",
-                        width: 70
-                    },
-                    {
-                        title: "May",
-                        field: "may",
-                        hozAlign: "center",
-                        width: 70
-                    },
-                    {
-                        title: "Jun",
-                        field: "jun",
-                        hozAlign: "center",
-                        width: 70
-                    },
-                    {
-                        title: "Jul",
-                        field: "jul",
-                        hozAlign: "center",
-                        width: 70
-                    },
-                    {
-                        title: "Aug",
-                        field: "aug",
-                        hozAlign: "center",
-                        width: 70
-                    },
-                    {
-                        title: "Sep",
-                        field: "sep",
-                        hozAlign: "center",
-                        width: 70
-                    },
-                    {
-                        title: "Oct",
-                        field: "oct",
-                        hozAlign: "center",
-                        width: 70
-                    },
-                    {
-                        title: "Nov",
-                        field: "nov",
-                        hozAlign: "center",
-                        width: 70
-                    },
-                    {
-                        title: "Dec",
-                        field: "dec",
-                        hozAlign: "center",
-                        width: 70
-                    },
-                    {
-                        title: "Biaya Kerugian (USD)",
-                        field: "biaya_kerugian",
-                        hozAlign: "center"
-                    },
-                    {
-                        title: "Keterangan Kerugian",
-                        field: "keterangan_kerugian"
-                    },
-                    {
-                        title: "Penyebab",
-                        field: "penyebab",
-                        width: 250
-                    },
-                    {
-                        title: "Kendala",
-                        field: "kendala"
-                    },
-                    {
-                        title: "Tindak Lanjut",
-                        field: "tindak_lanjut",
-                        width: 250
-                    },
-                    {
-                        title: "Aksi",
-                        formatter: (cell, formatterParams) => {
-                            const row = cell.getData();
-                            return `
-                    <button onclick='editData(${JSON.stringify(row)})'>Edit</button>
-                    <button onclick='deleteData("${row.id}")'>Hapus</button>
-                `;
-                        },
-                        hozAlign: "center",
-                        width: 150
-                    }
-                ]
-            };
-
-            const routeMap = {
-                "rencana-pemeliharaan-besar-ptg": "{{ route('rencana-pemeliharaan-besar-ptg.data') }}"
-            };
-
-            document.querySelectorAll('#tabSwitcher a').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    localStorage.setItem('currentTab', this.getAttribute('data-tab'));
-                    document.querySelectorAll('#tabSwitcher a').forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    const selectedTab = this.getAttribute('data-tab');
-                    loadTabData(selectedTab);
-                });
-            });
-
-            function loadTabData(tabName) {
-                const selectedColumns = columnMap[tabName] || [];
-                table.setColumns(selectedColumns);
-                table.clearData();
-
-                const endpoint = routeMap[tabName];
-
-                if (endpoint) {
-                    fetch(endpoint, {
-                            headers: {
-                                "Accept": "application/json"
-                            }
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            console.log("Data for " + tabName + ":", data);
-                            table.setData(data);
-                            table.redraw();
-                        })
-                        .catch(error => {
-                            console.error("Error loading data for " + tabName + ":", error);
-                        });
-                }
-            }
-
-            function editData(row) {
-                document.getElementById("form-id").value = row.id;
-                document.getElementById("periode").value = row.periode;
-                document.getElementById("no").value = row.no;
-                document.getElementById("company").value = row.company;
-                document.getElementById("lokasi").value = row.lokasi;
-                document.getElementById("program_kerja").value = row.program_kerja;
-                document.getElementById("kategori_maintenance").value = row.kategori_maintenance;
-                document.getElementById("besar_phasing").value = row.besar_phasing;
-                document.getElementById("remark").value = row.remark;
-
-                document.getElementById("jan").value = row.jan;
-                document.getElementById("feb").value = row.feb;
-                document.getElementById("mar").value = row.mar;
-                document.getElementById("apr").value = row.apr;
-                document.getElementById("may").value = row.may;
-                document.getElementById("jun").value = row.jun;
-                document.getElementById("jul").value = row.jul;
-                document.getElementById("aug").value = row.aug;
-                document.getElementById("sep").value = row.sep;
-                document.getElementById("oct").value = row.oct;
-                document.getElementById("nov").value = row.nov;
-                document.getElementById("dec").value = row.dec;
-
-                document.getElementById("biaya_kerugian").value = row.biaya_kerugian;
-                document.getElementById("keterangan_kerugian").value = row.keterangan_kerugian;
-                document.getElementById("penyebab").value = row.penyebab;
-                document.getElementById("kendala").value = row.kendala;
-                document.getElementById("tindak_lanjut").value = row.tindak_lanjut;
-
-                openModal();
-            }
-
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
                     fetch(`rencana-pemeliharaan-besar-ptg/${id}`, {
@@ -585,22 +332,411 @@
                                 "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
                             }
                         })
-                        .then(response => response.json())
+                        .then(res => res.json())
                         .then(result => {
-                            if (result.success) {
-                                alert(result.message);
-                                table.setData("/monev/shg/input-data/rencana-pemeliharaan-besar-ptg/data")
-                                this.reset();
-                            } else {
-                                alert('Gagal menyimpan data');
-                            }
+                            alert(result.message || "Data berhasil dihapus");
+                            loadData();
+                        })
+                        .catch(err => {
+                            console.error("Gagal hapus data:", err);
+                            alert("Terjadi kesalahan saat menghapus data.");
                         });
                 }
             }
+            document.getElementById("search-input").addEventListener("input", function(e) {
+                const keyword = e.target.value;
+                table.setFilter([
+                    [{
+                            field: "periode",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "no",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "company",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "lokasi",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "program_kerja",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "kategori_maintenance",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "besar_phasing",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "remark",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "jan",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "feb",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "mar",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "apr",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "may",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "jun",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "jul",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "aug",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "sep",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "oct",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "nov",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "dec",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "biaya_kerugian",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "keterangan_kerugian",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "penyebab",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "kendala",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "tindak_lanjut",
+                            type: "like",
+                            value: keyword
+                        }
+                    ]
+                ]);
+            });
+
+            function clearSearch() {
+                document.getElementById("search-input").value = "";
+                table.clearFilter();
+            }
+
+
+            function loadData() {
+                fetch("/monev/shg/input-data/rencana-pemeliharaan-besar-ptg/data", {
+                        headers: {
+                            "Accept": "application/json"
+                        }
+                    })
+                    .then(res => res.json())
+                    .then(data => table.setData(data))
+                    .catch(err => console.error("Gagal load data:", err));
+            }
 
             document.addEventListener("DOMContentLoaded", function() {
-                loadTabData("rencana-pemeliharaan-besar-ptg");
-                localStorage.setItem("currentTab", "rencana-pemeliharaan-besar-ptg");
+                const columnMap = {
+                    "rencana-pemeliharaan-besar-ptg": [{
+                            title: "No",
+                            formatter: "rownum",
+                            hozAlign: "center",
+                            width: 60
+                        },
+                        {
+                            title: "ID",
+                            field: "id",
+                            visible: false
+                        },
+                        {
+                            title: "Periode",
+                            field: "periode",
+                            editor: "input"
+                        },
+                        {
+                            title: "No",
+                            field: "no",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Company",
+                            field: "company",
+                            editor: "input"
+                        },
+                        {
+                            title: "Lokasi",
+                            field: "lokasi",
+                            editor: "input"
+                        },
+                        {
+                            title: "Program Kerja",
+                            field: "program_kerja",
+                            editor: "input",
+                            width: 450
+                        },
+                        {
+                            title: "Kategori Maintenance",
+                            field: "kategori_maintenance",
+                            editor: "input",
+                            width: 450
+                        },
+                        {
+                            title: "Besar Phasing",
+                            field: "besar_phasing",
+                            hozAlign: "right",
+                            formatter: function(cell) {
+                                let rawValue = cell.getValue();
+                                if (rawValue === null || rawValue === undefined || rawValue === "") {
+                                    return "0.00";
+                                }
+
+                                let cleanValue = rawValue.toString().replace(/[^0-9.-]+/g, '');
+                                let value = parseFloat(cleanValue);
+
+                                if (!isNaN(value)) {
+                                    return value.toLocaleString("en-US", {
+                                        minimumFractionDigits: 2,
+                                        maximumFractionDigits: 2
+                                    });
+                                }
+
+                                return "0.00";
+                            },
+                            editor: "input"
+                        },
+                        {
+                            title: "Remark",
+                            field: "remark",
+                            editor: "input"
+                        },
+                        {
+                            title: "Jan",
+                            field: "jan",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Feb",
+                            field: "feb",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Mar",
+                            field: "mar",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Apr",
+                            field: "apr",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "May",
+                            field: "may",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Jun",
+                            field: "jun",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Jul",
+                            field: "jul",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Aug",
+                            field: "aug",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Sep",
+                            field: "sep",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Oct",
+                            field: "oct",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Nov",
+                            field: "nov",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Dec",
+                            field: "dec",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Biaya Kerugian (USD)",
+                            field: "biaya_kerugian",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Keterangan Kerugian",
+                            field: "keterangan_kerugian",
+                            editor: "input"
+                        },
+                        {
+                            title: "Penyebab",
+                            field: "penyebab",
+                            editor: "input"
+                        },
+                        {
+                            title: "Kendala",
+                            field: "kendala",
+                            editor: "input"
+                        },
+                        {
+                            title: "Tindak Lanjut",
+                            field: "tindak_lanjut",
+                            editor: "input"
+                        },
+                        {
+                            title: "Aksi",
+                            formatter: (cell) => {
+                                const row = cell.getData();
+                                return `<button onclick='deleteData("${row.id}")'>Hapus</button>`;
+                            },
+                            hozAlign: "center",
+                            width: 150
+                        }
+                    ]
+                };
+
+                window.table = new Tabulator("#example-table", {
+                    layout: "fitDataTable",
+                    responsiveLayout: "collapse",
+                    autoResize: true,
+                    columns: columnMap["rencana-pemeliharaan-besar-ptg"],
+
+                    selectableRange: 1,
+                    selectableRangeColumns: true,
+                    selectableRangeRows: true,
+                    selectableRangeClearCells: true,
+                    editTriggerEvent: "dblclick",
+
+                    pagination: "local",
+                    paginationSize: 20,
+                    paginationSizeSelector: [40, 60, 80, 100],
+                    paginationCounter: "rows",
+
+                    movableColumns: true,
+
+                    clipboard: true,
+                    clipboardCopyStyled: false,
+                    clipboardCopyConfig: {
+                        rowHeaders: false,
+                        columnHeaders: false,
+                    },
+                    clipboardCopyRowRange: "range",
+                    clipboardPasteParser: "range",
+                    clipboardPasteAction: "range",
+
+                    columnDefaults: {
+                        headerSort: true,
+                        headerHozAlign: "center",
+                        editor: "input",
+                        resizable: "header",
+                    },
+                });
+
+
+                table.on("cellEdited", function(cell) {
+                    const updatedData = cell.getRow().getData();
+                    const id = updatedData.id;
+
+                    if (!id) return;
+
+                    fetch(`rencana-pemeliharaan-besar-ptg/${id}`, {
+                            method: "PUT",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute("content")
+                            },
+                            body: JSON.stringify(updatedData)
+                        })
+                        .then(res => res.json())
+                        .then(data => console.log("Berhasil update:", data))
+                        .catch(err => console.error("Gagal update:", err));
+                });
+
+                loadData();
             });
         </script>
 
@@ -616,48 +752,14 @@
                 document.getElementById("createModal").style.display = "none";
             }
 
-            // update and delete data
             document.getElementById("createForm").addEventListener("submit", function(e) {
                 e.preventDefault();
 
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
-                console.log("Data submitted:", data);
 
-                const id = document.getElementById("form-id").value;
-                const periode = document.getElementById("periode").value;
-                const no = document.getElementById("no").value;
-                const company = document.getElementById("company").value;
-                const lokasi = document.getElementById("lokasi").value;
-                const programKerja = document.getElementById("program_kerja").value;
-                const kategoriMaintenance = document.getElementById("kategori_maintenance").value;
-                const besarPhasing = document.getElementById("besar_phasing").value;
-                const remark = document.getElementById("remark").value;
-
-                const jan = document.getElementById("jan").value;
-                const feb = document.getElementById("feb").value;
-                const mar = document.getElementById("mar").value;
-                const apr = document.getElementById("apr").value;
-                const may = document.getElementById("may").value;
-                const jun = document.getElementById("jun").value;
-                const jul = document.getElementById("jul").value;
-                const aug = document.getElementById("aug").value;
-                const sep = document.getElementById("sep").value;
-                const oct = document.getElementById("oct").value;
-                const nov = document.getElementById("nov").value;
-                const dec = document.getElementById("dec").value;
-
-                const biayaKerugian = document.getElementById("biaya_kerugian").value;
-                const keteranganKerugian = document.getElementById("keterangan_kerugian").value;
-                const penyebab = document.getElementById("penyebab").value;
-                const kendala = document.getElementById("kendala").value;
-                const tindakLanjut = document.getElementById("tindak_lanjut").value;
-
-                const method = id ? "PUT" : "POST";
-                const url = id ? `rencana-pemeliharaan-besar-ptg/${id}` : "rencana-pemeliharaan-besar-ptg";
-
-                fetch(url, {
-                        method: method,
+                fetch("rencana-pemeliharaan-besar-ptg", {
+                        method: "POST",
                         headers: {
                             "Content-Type": "application/json",
                             "Accept": "application/json",
@@ -665,53 +767,91 @@
                                 "content")
                         },
                         body: JSON.stringify({
-                            id: id,
-                            periode: periode,
-                            no: no,
-                            company: company,
-                            lokasi: lokasi,
-                            program_kerja: programKerja,
-                            kategori_maintenance: kategoriMaintenance,
-                            besar_phasing: besarPhasing,
-                            remark: remark,
-                            jan: jan,
-                            feb: feb,
-                            mar: mar,
-                            apr: apr,
-                            may: may,
-                            jun: jun,
-                            jul: jul,
-                            aug: aug,
-                            sep: sep,
-                            oct: oct,
-                            nov: nov,
-                            dec: dec,
-                            biaya_kerugian: biayaKerugian,
-                            keterangan_kerugian: keteranganKerugian,
-                            penyebab: penyebab,
-                            kendala: kendala,
-                            tindak_lanjut: tindakLanjut
+                            periode: data.periode,
+                            no: data.no,
+                            company: data.company,
+                            lokasi: data.lokasi,
+                            program_kerja: data.program_kerja,
+                            kategori_maintenance: data.kategori_maintenance,
+                            besar_phasing: data.besar_phasing,
+                            remark: data.remark,
+                            jan: data.jan,
+                            feb: data.feb,
+                            mar: data.mar,
+                            apr: data.apr,
+                            may: data.may,
+                            jun: data.jun,
+                            jul: data.jul,
+                            aug: data.aug,
+                            sep: data.sep,
+                            oct: data.oct,
+                            nov: data.nov,
+                            dec: data.dec,
+                            biaya_kerugian: data.biaya_kerugian,
+                            keterangan_kerugian: data.keterangan_kerugian,
+                            penyebab: data.penyebab,
+                            kendala: data.kendala,
+                            tindak_lanjut: data.tindak_lanjut
                         })
                     })
                     .then(response => response.json())
                     .then(result => {
                         if (result.success) {
-                            alert(result.message);
-                            // table.addRow([result.data]);
+                            alert(result.message || "Data berhasil disimpan");
                             table.setData("/monev/shg/input-data/rencana-pemeliharaan-besar-ptg/data");
                             this.reset();
+                            closeModal();
                         } else {
-                            alert('Gagal menyimpan data');
+                            alert("Gagal menyimpan data");
                         }
                     })
                     .catch(error => {
-                        console.error("Error submitting data:", error);
-                        alert('Terjadi kesalahan saat mengirim data.');
-                    })
-                    .finally(() => {
-                        closeModal();
-                        this.reset();
+                        console.error("Error saat submit:", error);
+                        alert("Terjadi kesalahan saat mengirim data.");
                     });
+            });
+        </script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const tabButtons = document.querySelectorAll('#tabSwitcher a');
+                const dropdownListItems = document.querySelectorAll('#tabDropdownList a');
+                const tabContainer = document.getElementById('tabContainer');
+
+                function scrollToActiveTab() {
+                    const activeTab = document.querySelector('#tabSwitcher a.active');
+                    if (activeTab) {
+                        const tabX = activeTab.offsetLeft;
+                        const tabW = activeTab.offsetWidth;
+                        const containerW = tabContainer.clientWidth;
+
+                        tabContainer.scrollTo({
+                            left: tabX - (containerW / 2) + (tabW / 2),
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+
+                dropdownListItems.forEach((dropdownItem, i) => {
+                    dropdownItem.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const targetHref = this.href;
+                        sessionStorage.setItem('scrollToActiveTab', 'yes');
+                        window.location.href = targetHref;
+                    });
+                });
+
+                tabButtons.forEach((tabBtn) => {
+                    tabBtn.addEventListener('click', function(e) {
+                        sessionStorage.setItem('scrollToActiveTab', 'yes');
+                    });
+                });
+
+                // Ketika halaman reload setelah klik, cek dan scroll otomatis
+                if (sessionStorage.getItem('scrollToActiveTab') === 'yes') {
+                    scrollToActiveTab();
+                    sessionStorage.removeItem('scrollToActiveTab');
+                }
             });
         </script>
     @endpush
