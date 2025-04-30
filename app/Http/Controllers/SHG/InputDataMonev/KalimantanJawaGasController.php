@@ -30,8 +30,7 @@ class KalimantanJawaGasController extends Controller
             'PAG',
             'NR'
         ];
-        // return view('SHG.InputDataMonev.KalimantanJawaGas', compact('companies'));
-        
+
         $tabs = [
             [
                 'title' => 'Status Asset 2025 AI 2025 KJG',
@@ -95,7 +94,7 @@ class KalimantanJawaGasController extends Controller
             ],
         ];
 
-        return view('SHG.InputDataMonev.KalimantanJawaGas', compact('tabs','companies'));
+        return view('SHG.InputDataMonev.KalimantanJawaGas', compact('tabs', 'companies'));
     }
 
 

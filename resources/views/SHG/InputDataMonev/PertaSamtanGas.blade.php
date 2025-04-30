@@ -14,12 +14,21 @@
                 box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             }
 
+            .tabulator .tabulator-cell {
+                white-space: normal !important;
+                word-wrap: break-word;
+            }
             .tabulator-cell {
                 font-size: 14px;
             }
 
             .card {
                 margin-top: 20px;
+            }
+
+            .tabulator .tabulator-cell {
+                white-space: normal !important;
+                word-wrap: break-word;
             }
 
             .tab-scroll-wrapper {
@@ -118,10 +127,18 @@
     @endpush
 
     <div class="card">
-        <div class="card-body">
-            <h5 class="card-title mb-3 d-flex justify-content-between">Status Asset 2025 AI 2025 KJG</h5>
+        <div class="card-body d-flex flex-column">
+            <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
+                <h5 class="card-title mb-3 mb-md-0">Status Asset 2025 AI PTSG</h5>
+                <div class="d-flex">
+                    <input id="search-input" type="text" class="form-control" placeholder="Search data..."
+                        style="max-width: 200px;">
+                    <button class="btn btn-outline-secondary ms-2 h-100 mt-1" type="button"
+                        onclick="clearSearch()">Clear</button>
+                </div>
+            </div>
 
-            <div class="d-flex align-items-stretch gap-3">
+            <div class="d-flex flex-column flex-md-row align-items-center gap-3">
                 <button onclick="openModal()" class="btn btn-primary px-4 py-2" style="white-space: nowrap;">
                     Create Data
                 </button>
@@ -156,8 +173,9 @@
                 </div>
             </div>
 
-            <br><br>
-            <div class="tabulator-wrapper">
+            <div id="mainTable"></div>
+
+            <div class="tabulator-wrapper mt-4">
                 <div id="example-table"></div>
             </div>
         </div>
@@ -232,7 +250,8 @@
                         id="important_medium_due_date_inspection"></div>
                 <div><label>Medium - Low Condition</label><input type="number" id="important_medium_low_condition">
                 </div>
-                <div><label>Medium - Low Performance</label><input type="number" id="important_medium_low_performance">
+                <div><label>Medium - Low Performance</label><input type="number"
+                        id="important_medium_low_performance">
                 </div>
                 <div><label>High Integrity</label><input type="number" id="important_high_integrity"></div>
 
@@ -244,7 +263,8 @@
                         id="secondary_medium_due_date_inspection"></div>
                 <div><label>Medium - Low Condition</label><input type="number" id="secondary_medium_low_condition">
                 </div>
-                <div><label>Medium - Low Performance</label><input type="number" id="secondary_medium_low_performance">
+                <div><label>Medium - Low Performance</label><input type="number"
+                        id="secondary_medium_low_performance">
                 </div>
                 <div><label>High Integrity</label><input type="number" id="secondary_high_integrity"></div>
 
@@ -362,7 +382,7 @@
                         },
                         {
                             title: "SECE Low Integrity - Breakdown",
-                            field: "sece_low_breakdown",
+                            field: "sece_low_integrity_breakdown",
                             editor: "number",
                             hozAlign: "center"
                         },
@@ -386,13 +406,13 @@
                         },
                         {
                             title: "SECE High Integrity",
-                            field: "sece_high",
+                            field: "sece_high_integrity",
                             editor: "number",
                             hozAlign: "center"
                         },
                         {
                             title: "PCE Low Integrity - Breakdown",
-                            field: "pce_low_breakdown",
+                            field: "pce_low_integrity_breakdown",
                             editor: "number",
                             hozAlign: "center"
                         },
@@ -416,13 +436,13 @@
                         },
                         {
                             title: "PCE High Integrity",
-                            field: "pce_high",
+                            field: "pce_high_integrity",
                             editor: "number",
                             hozAlign: "center"
                         },
                         {
                             title: "IMPORTANT Low Integrity - Breakdown",
-                            field: "important_low_breakdown",
+                            field: "important_low_integrity_breakdown",
                             editor: "number",
                             hozAlign: "center"
                         },
@@ -446,13 +466,13 @@
                         },
                         {
                             title: "IMPORTANT High Integrity",
-                            field: "important_high",
+                            field: "important_high_integrity",
                             editor: "number",
                             hozAlign: "center"
                         },
                         {
                             title: "SECONDARY Low Integrity - Breakdown",
-                            field: "secondary_low_breakdown",
+                            field: "secondary_low_integrity_breakdown",
                             editor: "number",
                             hozAlign: "center"
                         },
@@ -476,7 +496,7 @@
                         },
                         {
                             title: "SECONDARY High Integrity",
-                            field: "secondary_high",
+                            field: "secondary_high_integrity",
                             editor: "number",
                             hozAlign: "center"
                         },
@@ -492,8 +512,9 @@
                         },
                         {
                             title: "Informasi Penyebab Low Integrity",
-                            field: "informasi_penyebab_low",
-                            editor: "input"
+                            field: "informasi_penyebab_low_integrity",
+                            editor: "input",
+                            width: 450
                         },
                         {
                             title: "Informasi Penambahan Jumlah Aset",
@@ -502,8 +523,9 @@
                         },
                         {
                             title: "Informasi Naik Turun low Integrity",
-                            field: "informasi_naik_turun_low",
-                            editor: "input"
+                            field: "informasi_naik_turun_low_integrity",
+                            editor: "input",
+                            width: 450
                         },
                         {
                             title: "Aksi",

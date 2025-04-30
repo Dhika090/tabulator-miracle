@@ -308,34 +308,40 @@
                         {
                             title: "Periode",
                             field: "periode",
-                            editor: "input"
+                            editor: "input",
+                            width: 90
                         },
                         {
                             title: "Company",
                             field: "company",
-                            editor: "input"
+                            editor: "input",
+                            width: 100
                         },
                         {
                             title: "Total Personil Asset Integrity",
                             field: "total_personil_asset_integrity",
                             editor: "number",
-                            hozAlign: "center"
+                            hozAlign: "center",
+                            width: 250
                         },
                         {
                             title: "Jumlah Personil Vacant",
                             field: "jumlah_personil_vacant",
                             editor: "number",
-                            hozAlign: "center"
+                            hozAlign: "center",
+                            width: 200
                         },
                         {
                             title: "Jumlah Personil Pensiun <1 Thn",
                             field: "jumlah_personil_pensiun",
                             editor: "number",
-                            hozAlign: "center"
+                            hozAlign: "center",
+                            width: 250
                         },
                         {
                             title: "Keterangan",
                             field: "keterangan",
+                            width: 200,
                             editor: "input"
                         },
                         {
@@ -345,13 +351,12 @@
                                 return `<button onclick='deleteData("${row.id}")'>Hapus</button>`;
                             },
                             hozAlign: "center",
-                            width: 150
                         }
                     ]
                 };
 
                 window.table = new Tabulator("#example-table", {
-                    layout: "fitDataTable",
+                    layout: "fitColumns",
                     responsiveLayout: "collapse",
                     autoResize: true,
                     columns: columnMap["kondisi-vacant-fungsi-aims-kjg"],

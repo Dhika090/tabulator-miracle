@@ -17,6 +17,10 @@
             .tabulator-cell {
                 font-size: 14px;
             }
+            .tabulator .tabulator-cell {
+                white-space: normal !important;
+                word-wrap: break-word;
+            }
 
             .card {
                 margin-top: 20px;
@@ -118,8 +122,16 @@
     @endpush
 
     <div class="card">
-        <div class="card-body">
-            <h5 class="card-title mb-3">Asset Breakdown PTG</h5>
+        <div class="card-body d-flex flex-column">
+            <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
+                <h5 class="card-title mb-3 mb-md-0">Asset Breakdown</h5>
+                <div class="d-flex">
+                    <input id="search-input" type="text" class="form-control" placeholder="Search data..."
+                        style="max-width: 200px;">
+                    <button class="btn btn-outline-secondary ms-2 h-100 mt-1" type="button"
+                        onclick="clearSearch()">Clear</button>
+                </div>
+            </div>
 
             <div class="d-flex flex-column flex-md-row align-items-center gap-3">
                 <button onclick="openModal()" class="btn btn-primary px-4 py-2" style="white-space: nowrap;">
@@ -173,47 +185,47 @@
 
                 <div>
                     <label>Periode</label>
-                    <input type="text" name="periode" id="periode" required>
+                    <input type="month" name="periode" id="periode" required>
                 </div>
 
                 <div>
                     <label>Company</label>
-                    <input type="text" name="company" id="company" required>
+                    <input type="text" name="company" id="company">
                 </div>
 
                 <div>
                     <label>Plant/Segment</label>
-                    <input type="text" name="plant_segment" id="plant_segment" required>
+                    <input type="text" name="plant_segment" id="plant_segment">
                 </div>
 
                 <div>
                     <label>Kategori Criticality</label>
-                    <input type="text" name="kategori_criticality" id="kategori_criticality" required>
+                    <input type="text" name="kategori_criticality" id="kategori_criticality">
                 </div>
 
                 <div>
                     <label>Tag</label>
-                    <input type="text" name="tag" id="tag" required>
+                    <input type="text" name="tag" id="tag">
                 </div>
 
                 <div>
                     <label>Deskripsi Peralatan</label>
-                    <input type="text" name="deskripsi_peralatan" id="deskripsi_peralatan" required>
+                    <input type="text" name="deskripsi_peralatan" id="deskripsi_peralatan">
                 </div>
 
                 <div>
                     <label>Jenis Kerusakan</label>
-                    <input type="text" name="jenis_kerusakan" id="jenis_kerusakan" required>
+                    <input type="text" name="jenis_kerusakan" id="jenis_kerusakan">
                 </div>
 
                 <div>
                     <label>Penyebab / Root Cause</label>
-                    <input type="text" name="penyebab" id="penyebab" required>
+                    <input type="text" name="penyebab" id="penyebab">
                 </div>
 
                 <div>
                     <label>Kendala Perbaikan</label>
-                    <input type="text" name="kendala_perbaikan" id="kendala_perbaikan" required>
+                    <input type="text" name="kendala_perbaikan" id="kendala_perbaikan">
                 </div>
 
                 <div>
@@ -233,12 +245,12 @@
 
                 <div>
                     <label>Tindak Lanjut</label>
-                    <input type="text" name="tindak_lanjut" id="tindak_lanjut" required>
+                    <input type="text" name="tindak_lanjut" id="tindak_lanjut">
                 </div>
 
                 <div>
                     <label>Target Penyelesaian</label>
-                    <input type="text" name="target_penyelesaian" id="target_penyelesaian" required>
+                    <input type="text" name="target_penyelesaian" id="target_penyelesaian">
                 </div>
 
                 <div>
@@ -259,161 +271,28 @@
     @push('scripts')
         <script src="https://unpkg.com/tabulator-tables@5.6.0/dist/js/tabulator.min.js"></script>
 
+
         <script>
-            const table = new Tabulator("#example-table", {
-                layout: "fitDataTable",
-                responsiveLayout: "collapse",
-                autoResize: true,
-                selectableRange: 1,
-                selectableRangeColumns: true,
-                selectableRangeRows: true,
-                selectableRangeClearCells: true,
-                editTriggerEvent: "dblclick",
-
-                pagination: "local",
-                paginationSize: 20,
-                paginationSizeSelector: [40, 60, 80, 100],
-                movableColumns: true,
-                paginationCounter: "rows",
-
-                clipboard: true,
-                clipboardCopyStyled: false,
-                clipboardCopyConfig: {
-                    rowHeaders: false,
-                    columnHeaders: false,
-                },
-                clipboardCopyRowRange: "range",
-                clipboardPasteParser: "range",
-                clipboardPasteAction: "range",
-
-                rowHeader: {
-                    resizable: false,
-                    frozen: true,
-                    width: 40,
-                    hozAlign: "center",
-                    formatter: "rownum",
-                    cssClass: "range-header-col",
-                    editor: false
-                },
-
-                columnDefaults: {
-                    headerSort: true,
-                    headerHozAlign: "center",
-                    editor: "input",
-                    resizable: "header",
-                },
-
-            });
-
-            const columnMap = {
-                "asset-breakdown-ptg": [{
-                        title: "No",
-                        formatter: "rownum",
-                        hozAlign: "center",
-                        width: 60
-                    },
-                    {
-                        title: "Periode",
-                        field: "periode"
-                    },
-                    {
-                        title: "Company",
-                        field: "company"
-                    },
-                    {
-                        title: "Plant/Segment",
-                        field: "plant_segment"
-                    },
-                    {
-                        title: "Kategori Criticality",
-                        field: "kategori_criticality"
-                    },
-                    {
-                        title: "Tag",
-                        field: "tag"
-                    },
-                    {
-                        title: "Deskripsi Peralatan",
-                        field: "deskripsi_peralatan",
-                        width: 400,
-                        cssClass: "wrap-text"
-                    },
-                    {
-                        title: "Jenis Kerusakan",
-                        field: "jenis_kerusakan"
-                    },
-                    {
-                        title: "Penyebab / Root Cause",
-                        field: "penyebab",
-                        width: 400,
-                        cssClass: "wrap-text"
-                    },
-                    {
-                        title: "Kendala Perbaikan",
-                        field: "kendala_perbaikan",
-                        width: 400,
-                        cssClass: "wrap-text"
-                    },
-                    {
-                        title: "Mitigasi / Penanganan Sementara",
-                        field: "mitigasi"
-                    },
-                    {
-                        title: "Perbaikan Permanen",
-                        field: "perbaikan_permanen"
-                    },
-                    {
-                        title: "Progres Perbaikan Permanen",
-                        field: "progres_perbaikan_permanen"
-                    },
-                    {
-                        title: "Tindak Lanjut",
-                        field: "tindak_lanjut",
-                        width: 400,
-                        cssClass: "wrap-text"
-                    },
-                    {
-                        title: "Target Penyelesaian",
-                        field: "target_penyelesaian"
-                    },
-                    {
-                        title: "Estimasi Biaya Perbaikan",
-                        field: "estimasi_biaya_perbaikan",
-                        hozAlign: "center"
-                    },
-                    {
-                        title: "Link Foto/Video",
-                        field: "link_foto_video"
-                    },
-                    {
-                        title: "Aksi",
-                        formatter: (cell, formatterParams) => {
-                            const row = cell.getData();
-                            return `
-                    <button onclick='editData(${JSON.stringify(row)})'>Edit</button>
-                    <button onclick='deleteData("${row.id}")'>Hapus</button>
-                `;
-                        },
-                        hozAlign: "center",
-                        width: 150
-                    }
-                ]
-            };
-
-            const routeMap = {
-                "asset-breakdown-ptg": "{{ route('asset-breakdown-ptg.data') }}"
-            };
-
-
-            document.querySelectorAll('#tabSwitcher a').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    localStorage.setItem('currentTab', this.getAttribute('data-tab'));
-                    document.querySelectorAll('#tabSwitcher a').forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    const selectedTab = this.getAttribute('data-tab');
-                    loadTabData(selectedTab);
-                });
-            });
+            function deleteData(id) {
+                if (confirm("Yakin ingin menghapus data ini?")) {
+                    fetch(`asset-breakdown-ptg/${id}`, {
+                            method: "DELETE",
+                            headers: {
+                                "Accept": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+                            }
+                        })
+                        .then(res => res.json())
+                        .then(result => {
+                            alert(result.message || "Data berhasil dihapus");
+                            loadData();
+                        })
+                        .catch(err => {
+                            console.error("Gagal hapus data:", err);
+                            alert("Terjadi kesalahan saat menghapus data.");
+                        });
+                }
+            }
 
             document.getElementById("search-input").addEventListener("input", function(e) {
                 const keyword = e.target.value;
@@ -497,10 +376,9 @@
                             field: "link_foto_video",
                             type: "like",
                             value: keyword
-                        },
+                        }
                     ]
                 ]);
-
             });
 
             function clearSearch() {
@@ -508,79 +386,183 @@
                 table.clearFilter();
             }
 
-
-            function loadTabData(tabName) {
-                const selectedColumns = columnMap[tabName] || [];
-                table.setColumns(selectedColumns);
-                table.clearData();
-
-                const endpoint = routeMap[tabName];
-
-                if (endpoint) {
-                    fetch(endpoint, {
-                            headers: {
-                                "Accept": "application/json"
-                            }
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            console.log("Data for " + tabName + ":", data);
-                            table.setData(data);
-                            table.redraw();
-                        })
-                        .catch(error => {
-                            console.error("Error loading data for " + tabName + ":", error);
-                        });
-                }
-            }
-
-            function editData(row) {
-                document.getElementById("form-id").value = row.id;
-                document.getElementById("periode").value = row.periode;
-                document.getElementById("company").value = row.company;
-                document.getElementById("plant_segment").value = row.plant_segment;
-                document.getElementById("kategori_criticality").value = row.kategori_criticality;
-                document.getElementById("tag").value = row.tag;
-                document.getElementById("deskripsi_peralatan").value = row.deskripsi_peralatan;
-                document.getElementById("jenis_kerusakan").value = row.jenis_kerusakan;
-                document.getElementById("penyebab").value = row.penyebab;
-                document.getElementById("kendala_perbaikan").value = row.kendala_perbaikan;
-                document.getElementById("mitigasi").value = row.mitigasi;
-                document.getElementById("perbaikan_permanen").value = row.perbaikan_permanen;
-                document.getElementById("progres_perbaikan_permanen").value = row.progres_perbaikan_permanen;
-                document.getElementById("tindak_lanjut").value = row.tindak_lanjut;
-                document.getElementById("target_penyelesaian").value = row.target_penyelesaian;
-                document.getElementById("estimasi_biaya_perbaikan").value = row.estimasi_biaya_perbaikan;
-                document.getElementById("link_foto_video").value = row.link_foto_video;
-
-                openModal();
-            }
-
-            function deleteData(id) {
-                if (confirm("Yakin ingin menghapus data ini?")) {
-                    fetch(`asset-breakdown-ptg/${id}`, {
-                            method: "DELETE",
-                            headers: {
-                                "Accept": "application/json",
-                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
-                            }
-                        })
-                        .then(response => response.json())
-                        .then(result => {
-                            if (result.success) {
-                                alert(result.message);
-                                table.setData("/monev/shg/input-data/asset-breakdown-ptg/data")
-                                this.reset();
-                            } else {
-                                alert('Gagal menyimpan data');
-                            }
-                        });
-                }
+            function loadData() {
+                fetch("/monev/shg/input-data/asset-breakdown-ptg/data", {
+                        headers: {
+                            "Accept": "application/json"
+                        }
+                    })
+                    .then(res => res.json())
+                    .then(data => table.setData(data))
+                    .catch(err => console.error("Gagal load data:", err));
             }
 
             document.addEventListener("DOMContentLoaded", function() {
-                loadTabData("asset-breakdown-ptg");
-                localStorage.setItem("currentTab", "asset-breakdown-ptg");
+                const columnMap = {
+                    "asset-breakdown-ptg": [{
+                            title: "No",
+                            formatter: "rownum",
+                            hozAlign: "center",
+                            width: 60
+                        },
+                        {
+                            title: "ID",
+                            field: "id",
+                            visible: false
+                        },
+                        {
+                            title: "Periode",
+                            field: "periode",
+                            editor: "input"
+                        },
+                        {
+                            title: "Company",
+                            field: "company",
+                            editor: "input"
+                        },
+                        {
+                            title: "Plant/Segment",
+                            field: "plant_segment",
+                            editor: "input"
+                        },
+                        {
+                            title: "Kategori Criticality",
+                            field: "kategori_criticality",
+                            editor: "input"
+                        },
+                        {
+                            title: "Tag",
+                            field: "tag",
+                            editor: "input"
+                        },
+                        {
+                            title: "Deskripsi Peralatan",
+                            field: "deskripsi_peralatan",
+                            editor: "input"
+                        },
+                        {
+                            title: "Jenis Kerusakan",
+                            field: "jenis_kerusakan",
+                            editor: "input",
+                            width: 450
+                        },
+                        {
+                            title: "Penyebab/Root Cause",
+                            field: "penyebab",
+                            editor: "input"
+                        },
+                        {
+                            title: "Kendala Perbaikan",
+                            field: "kendala_perbaikan",
+                            editor: "input"
+                        },
+                        {
+                            title: "Mitigasi / Penanganan Sementara",
+                            field: "mitigasi_penanganan_sementara",
+                            editor: "input"
+                        },
+                        {
+                            title: "Perbaikan Permanen",
+                            field: "perbaikan_permanen",
+                            editor: "input"
+                        },
+                        {
+                            title: "Progres Perbaikan Permanen",
+                            field: "progres_perbaikan_permanen",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Tindak Lanjut",
+                            field: "tindak_lanjut",
+                            editor: "input"
+                        },
+                        {
+                            title: "Target Penyelesaian",
+                            field: "target_penyelesaian",
+                            editor: "input"
+                        },
+                        {
+                            title: "Estimasi Biaya Perbaikan",
+                            field: "estimasi_biaya_perbaikan",
+                            editor: "number",
+                            hozAlign: "right"
+                        },
+                        {
+                            title: "Link Foto/Video",
+                            field: "link_foto_video",
+                            editor: "input"
+                        },
+                        {
+                            title: "Aksi",
+                            formatter: (cell) => {
+                                const row = cell.getData();
+                                return `<button onclick='deleteData("${row.id}")'>Hapus</button>`;
+                            },
+                            hozAlign: "center",
+                            width: 150
+                        }
+                    ]
+                };
+
+                window.table = new Tabulator("#example-table", {
+                    layout: "fitDataTable",
+                    responsiveLayout: "collapse",
+                    autoResize: true,
+                    columns: columnMap["asset-breakdown-ptg"],
+
+                    selectableRange: 1,
+                    selectableRangeColumns: true,
+                    selectableRangeRows: true,
+                    selectableRangeClearCells: true,
+                    editTriggerEvent: "dblclick",
+
+                    pagination: "local",
+                    paginationSize: 20,
+                    paginationSizeSelector: [40, 60, 80, 100],
+                    paginationCounter: "rows",
+
+                    movableColumns: true,
+
+                    clipboard: true,
+                    clipboardCopyStyled: false,
+                    clipboardCopyConfig: {
+                        rowHeaders: false,
+                        columnHeaders: false,
+                    },
+                    clipboardCopyRowRange: "range",
+                    clipboardPasteParser: "range",
+                    clipboardPasteAction: "range",
+
+                    columnDefaults: {
+                        headerSort: true,
+                        headerHozAlign: "center",
+                        editor: "input",
+                        resizable: "header",
+                    },
+                });
+
+                table.on("cellEdited", function(cell) {
+                    const updatedData = cell.getRow().getData();
+                    const id = updatedData.id;
+
+                    if (!id) return;
+
+                    fetch(`asset-breakdown-ptg/${id}`, {
+                            method: "PUT",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute("content")
+                            },
+                            body: JSON.stringify(updatedData)
+                        })
+                        .then(res => res.json())
+                        .then(data => console.log("Update berhasil:", data))
+                        .catch(err => console.error("Gagal update:", err));
+                });
+                loadData();
             });
         </script>
 
@@ -596,39 +578,14 @@
                 document.getElementById("createModal").style.display = "none";
             }
 
-            // update and delete data
             document.getElementById("createForm").addEventListener("submit", function(e) {
                 e.preventDefault();
 
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
-                console.log("Data submitted:", data);
 
-                const id = document.getElementById("form-id").value;
-                const periode = document.getElementById("periode").value;
-                const company = document.getElementById("company").value;
-                const plantSegment = document.getElementById("plant_segment").value;
-                const kategoriCriticality = document.getElementById("kategori_criticality").value;
-                const tag = document.getElementById("tag").value;
-                const deskripsiPeralatan = document.getElementById("deskripsi_peralatan").value;
-                const jenisKerusakan = document.getElementById("jenis_kerusakan").value;
-                const penyebab = document.getElementById("penyebab").value;
-                const kendalaPerbaikan = document.getElementById("kendala_perbaikan").value;
-                const mitigasi = document.getElementById("mitigasi").value;
-                const perbaikanPermanen = document.getElementById("perbaikan_permanen").value;
-                const progresPerbaikanPermanen = document.getElementById("progres_perbaikan_permanen").value;
-                const tindakLanjut = document.getElementById("tindak_lanjut").value;
-                const targetPenyelesaian = document.getElementById("target_penyelesaian").value;
-                const estimasiBiayaPerbaikan = document.getElementById("estimasi_biaya_perbaikan").value;
-                const linkFotoVideo = document.getElementById("link_foto_video").value;
-
-
-
-                const method = id ? "PUT" : "POST";
-                const url = id ? `asset-breakdown-ptgg/${id}` : "asset-breakdown-ptg";
-
-                fetch(url, {
-                        method: method,
+                fetch("asset-breakdown-ptg", {
+                        method: "POST",
                         headers: {
                             "Content-Type": "application/json",
                             "Accept": "application/json",
@@ -636,43 +593,38 @@
                                 "content")
                         },
                         body: JSON.stringify({
-                            periode: periode,
-                            company: company,
-                            plant_segment: plantSegment,
-                            kategori_criticality: kategoriCriticality,
-                            tag: tag,
-                            deskripsi_peralatan: deskripsiPeralatan,
-                            jenis_kerusakan: jenisKerusakan,
-                            penyebab: penyebab,
-                            kendala_perbaikan: kendalaPerbaikan,
-                            mitigasi: mitigasi,
-                            perbaikan_permanen: perbaikanPermanen,
-                            progres_perbaikan_permanen: progresPerbaikanPermanen,
-                            tindak_lanjut: tindakLanjut,
-                            target_penyelesaian: targetPenyelesaian,
-                            estimasi_biaya_perbaikan: estimasiBiayaPerbaikan,
-                            link_foto_video: linkFotoVideo
+                            periode: data.periode,
+                            company: data.company,
+                            plant_segment: data.plant_segment,
+                            kategori_criticality: data.kategori_criticality,
+                            tag: data.tag,
+                            deskripsi_peralatan: data.deskripsi_peralatan,
+                            jenis_kerusakan: data.jenis_kerusakan,
+                            penyebab_root_cause: data.penyebab_root_cause,
+                            kendala_perbaikan: data.kendala_perbaikan,
+                            mitigasi_penanganan_sementara: data.mitigasi_penanganan_sementara,
+                            perbaikan_permanen: data.perbaikan_permanen,
+                            progres_perbaikan_permanen: data.progres_perbaikan_permanen,
+                            tindak_lanjut: data.tindak_lanjut,
+                            target_penyelesaian: data.target_penyelesaian,
+                            estimasi_biaya_perbaikan: data.estimasi_biaya_perbaikan,
+                            link_foto_video: data.link_foto_video
                         })
-
                     })
                     .then(response => response.json())
                     .then(result => {
                         if (result.success) {
-                            alert(result.message);
-                            // table.addRow([result.data]);
+                            alert(result.message || "Data berhasil disimpan");
                             table.setData("/monev/shg/input-data/asset-breakdown-ptg/data");
                             this.reset();
+                            closeModal();
                         } else {
-                            alert('Gagal menyimpan data');
+                            alert("Gagal menyimpan data");
                         }
                     })
                     .catch(error => {
-                        console.error("Error submitting data:", error);
-                        alert('Terjadi kesalahan saat mengirim data.');
-                    })
-                    .finally(() => {
-                        closeModal();
-                        this.reset();
+                        console.error("Error saat submit:", error);
+                        alert("Terjadi kesalahan saat mengirim data.");
                     });
             });
         </script>

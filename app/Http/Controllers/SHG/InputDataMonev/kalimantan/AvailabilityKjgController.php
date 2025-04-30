@@ -11,7 +11,6 @@ class AvailabilityKjgController extends Controller
 {
     public function index()
     {
-        // return view('SHG.InputDataMonev.kalimantanJawa.AvailabilityKJG');
         $tabs = [
             [
                 'title' => 'Status Asset 2025 AI 2025 KJG',

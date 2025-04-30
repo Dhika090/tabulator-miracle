@@ -23,11 +23,11 @@ class RencanaPemeliharaanBesarPtgRequest extends FormRequest
     {
         return [
             'periode' => 'required|string',
-            'no'=> 'required|integer',
-            'company' => 'required|string',
-            'lokasi' => 'required|string',
-            'program_kerja' => 'required|string|max:550',
-            'kategori_maintenance' => 'required|string',
+            'no'=> 'nullable|integer',
+            'company' => 'nullable|string',
+            'lokasi' => 'nullable|string',
+            'program_kerja' => 'nullable|string|max:550',
+            'kategori_maintenance' => 'nullable|string',
             'besar_phasing' => 'nullable|string',
             'remark' => 'nullable|string',
             'jan' => 'nullable|integer',

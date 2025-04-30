@@ -14,6 +14,11 @@
                 box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             }
 
+            .tabulator .tabulator-cell {
+                white-space: normal !important;
+                word-wrap: break-word;
+            }
+
             .tabulator-cell {
                 font-size: 14px;
             }
@@ -120,7 +125,7 @@
     <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-                <h5 class="card-title mb-3 mb-md-0">Kalimantan Jawa Gas</h5>
+                <h5 class="card-title mb-3 mb-md-0">Status Asset 2025 AI KJG</h5>
                 <div class="d-flex">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
@@ -164,7 +169,9 @@
                 </div>
             </div>
 
-            <div class="tabulator-wrapper">
+            <div id="mainTable"></div>
+
+            <div class="tabulator-wrapper mt-4">
                 <div id="example-table"></div>
             </div>
         </div>
@@ -239,7 +246,8 @@
                         id="important_medium_due_date_inspection"></div>
                 <div><label>Medium - Low Condition</label><input type="number" id="important_medium_low_condition">
                 </div>
-                <div><label>Medium - Low Performance</label><input type="number" id="important_medium_low_performance">
+                <div><label>Medium - Low Performance</label><input type="number"
+                        id="important_medium_low_performance">
                 </div>
                 <div><label>High Integrity</label><input type="number" id="important_high_integrity"></div>
 
@@ -347,106 +355,6 @@
                             value: keyword
                         },
                         {
-                            field: "sece_low_breakdown",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "sece_medium_due_date_inspection",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "sece_medium_low_condition",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "sece_medium_low_performance",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "sece_high",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "pce_low_breakdown",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "pce_medium_due_date_inspection",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "pce_medium_low_condition",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "pce_medium_low_performance",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "pce_high",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "important_low_breakdown",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "important_medium_due_date_inspection",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "important_medium_low_condition",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "important_medium_low_performance",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "important_high",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "secondary_low_breakdown",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "secondary_medium_due_date_inspection",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "secondary_medium_low_condition",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "secondary_medium_low_performance",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "secondary_high",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
                             field: "kegiatan_penurunan_low",
                             type: "like",
                             value: keyword
@@ -537,7 +445,7 @@
                         },
                         {
                             title: "SECE Low Integrity - Breakdown",
-                            field: "sece_low_breakdown",
+                            field: "sece_low_integrity_breakdown",
                             editor: "number",
                             hozAlign: "center"
                         },
@@ -561,13 +469,13 @@
                         },
                         {
                             title: "SECE High Integrity",
-                            field: "sece_high",
+                            field: "sece_high_integrity",
                             editor: "number",
                             hozAlign: "center"
                         },
                         {
                             title: "PCE Low Integrity - Breakdown",
-                            field: "pce_low_breakdown",
+                            field: "pce_low_integrity_breakdown",
                             editor: "number",
                             hozAlign: "center"
                         },
@@ -591,13 +499,13 @@
                         },
                         {
                             title: "PCE High Integrity",
-                            field: "pce_high",
+                            field: "pce_high_integrity",
                             editor: "number",
                             hozAlign: "center"
                         },
                         {
                             title: "IMPORTANT Low Integrity - Breakdown",
-                            field: "important_low_breakdown",
+                            field: "important_low_integrity_breakdown",
                             editor: "number",
                             hozAlign: "center"
                         },
@@ -621,13 +529,13 @@
                         },
                         {
                             title: "IMPORTANT High Integrity",
-                            field: "important_high",
+                            field: "important_high_integrity",
                             editor: "number",
                             hozAlign: "center"
                         },
                         {
                             title: "SECONDARY Low Integrity - Breakdown",
-                            field: "secondary_low_breakdown",
+                            field: "secondary_low_integrity_breakdown",
                             editor: "number",
                             hozAlign: "center"
                         },
@@ -651,7 +559,7 @@
                         },
                         {
                             title: "SECONDARY High Integrity",
-                            field: "secondary_high",
+                            field: "secondary_high_integrity",
                             editor: "number",
                             hozAlign: "center"
                         },
@@ -667,8 +575,9 @@
                         },
                         {
                             title: "Informasi Penyebab Low Integrity",
-                            field: "informasi_penyebab_low",
-                            editor: "input"
+                            field: "informasi_penyebab_low_integrity",
+                            editor: "input",
+                            width: 450
                         },
                         {
                             title: "Informasi Penambahan Jumlah Aset",
@@ -677,8 +586,9 @@
                         },
                         {
                             title: "Informasi Naik Turun low Integrity",
-                            field: "informasi_naik_turun_low",
-                            editor: "input"
+                            field: "informasi_naik_turun_low_integrity",
+                            editor: "input",
+                            width: 450
                         },
                         {
                             title: "Aksi",

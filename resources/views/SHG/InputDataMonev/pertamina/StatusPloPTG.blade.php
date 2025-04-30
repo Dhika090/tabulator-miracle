@@ -120,7 +120,7 @@
     <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-                <h5 class="card-title mb-3 mb-md-0">Sistem Informasi AIMS KJG</h5>
+                <h5 class="card-title mb-3 mb-md-0">Status PLO PTG</h5>
                 <div class="d-flex">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
@@ -181,7 +181,7 @@
 
                 <div>
                     <label>Periode</label>
-                    <input type="text" name="periode" id="periode" required>
+                    <input type="month" name="periode" id="periode" required>
                 </div>
 
                 <div>
@@ -273,297 +273,6 @@
         <script src="https://unpkg.com/tabulator-tables@5.6.0/dist/js/tabulator.min.js"></script>
 
         <script>
-            const table = new Tabulator("#example-table", {
-                layout: "fitDataTable",
-                responsiveLayout: "collapse",
-                autoResize: true,
-                selectableRange: 1,
-                selectableRangeColumns: true,
-                selectableRangeRows: true,
-                selectableRangeClearCells: true,
-                editTriggerEvent: "dblclick",
-
-                pagination: "local",
-                paginationSize: 20,
-                paginationSizeSelector: [40, 60, 80, 100],
-                movableColumns: true,
-                paginationCounter: "rows",
-
-                clipboard: true,
-                clipboardCopyStyled: false,
-                clipboardCopyConfig: {
-                    rowHeaders: false,
-                    columnHeaders: false,
-                },
-                clipboardCopyRowRange: "range",
-                clipboardPasteParser: "range",
-                clipboardPasteAction: "range",
-
-                rowHeader: {
-                    resizable: false,
-                    frozen: true,
-                    width: 40,
-                    hozAlign: "center",
-                    formatter: "rownum",
-                    cssClass: "range-header-col",
-                    editor: false
-                },
-
-                columnDefaults: {
-                    headerSort: true,
-                    headerHozAlign: "center",
-                    editor: "input",
-                    resizable: "header",
-                },
-
-            });
-
-            const columnMap = {
-                "status-plo-ptg": [{
-                        title: "No",
-                        formatter: "rownum",
-                        hozAlign: "center",
-                        width: 60
-                    },
-                    {
-                        title: "Periode",
-                        field: "periode"
-                    },
-                    {
-                        title: "Nomor PLO",
-                        field: "nomor_plo"
-                    },
-                    {
-                        title: "Company",
-                        field: "company"
-                    },
-                    {
-                        title: "Area",
-                        field: "area"
-                    },
-                    {
-                        title: "Lokasi",
-                        field: "lokasi"
-                    },
-                    {
-                        title: "Nama Aset",
-                        field: "nama_aset"
-                    },
-                    {
-                        title: "Tanggal Pengesahan",
-                        field: "tanggal_pengesahan"
-                    },
-                    {
-                        title: "Masa Berlaku",
-                        field: "masa_berlaku",
-                        hozAlign: "center"
-                    },
-                    {
-                        title: "Keterangan",
-                        field: "keterangan"
-                    },
-                    {
-                        title: "Belum Proses",
-                        field: "belum_proses",
-                        hozAlign: "center"
-                    },
-                    {
-                        title: "Pre-Inspection",
-                        field: "pre_inspection",
-                        hozAlign: "center"
-                    },
-                    {
-                        title: "Inspection",
-                        field: "inspection",
-                        hozAlign: "center"
-                    },
-                    {
-                        title: "COI Peralatan",
-                        field: "coi_peralatan",
-                        hozAlign: "center"
-                    },
-                    {
-                        title: "BA PK",
-                        field: "ba_pk",
-                        hozAlign: "center"
-                    },
-                    {
-                        title: "Penerbitan PLO (Valid)",
-                        field: "penerbitan_plo_valid",
-                        hozAlign: "center"
-                    },
-                    {
-                        title: "Kendala",
-                        field: "kendala"
-                    },
-                    {
-                        title: "Tindak Lanjut",
-                        field: "tindak_lanjut"
-                    },
-                    {
-                        title: "Aksi",
-                        formatter: (cell, formatterParams) => {
-                            const row = cell.getData();
-                            return `
-                <button onclick='editData(${JSON.stringify(row)})'>Edit</button>
-                <button onclick='deleteData("${row.id}")'>Hapus</button>
-            `;
-                        },
-                        hozAlign: "center",
-                        width: 150
-                    }
-                ]
-
-            };
-
-            const routeMap = {
-                "status-plo-ptg": "{{ route('status-plo-ptg.data') }}"
-            };
-
-            document.querySelectorAll('#tabSwitcher a').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    localStorage.setItem('currentTab', this.getAttribute('data-tab'));
-                    document.querySelectorAll('#tabSwitcher a').forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    const selectedTab = this.getAttribute('data-tab');
-                    loadTabData(selectedTab);
-                });
-            });
-
-            document.getElementById("search-input").addEventListener("input", function(e) {
-                const keyword = e.target.value;
-                table.setFilter([{
-                        field: "periode",
-                        type: "like",
-                        value: keyword
-                    },
-                    {
-                        field: "nomor_plo",
-                        type: "like",
-                        value: keyword
-                    },
-                    {
-                        field: "company",
-                        type: "like",
-                        value: keyword
-                    },
-                    {
-                        field: "area",
-                        type: "like",
-                        value: keyword
-                    },
-                    {
-                        field: "lokasi",
-                        type: "like",
-                        value: keyword
-                    },
-                    {
-                        field: "nama_aset",
-                        type: "like",
-                        value: keyword
-                    },
-                    {
-                        field: "tanggal_pengesahan",
-                        type: "like",
-                        value: keyword
-                    },
-                    {
-                        field: "keterangan",
-                        type: "like",
-                        value: keyword
-                    },
-                    {
-                        field: "belum_proses",
-                        type: "like",
-                        value: keyword
-                    },
-                    {
-                        field: "pre_inspection",
-                        type: "like",
-                        value: keyword
-                    },
-                    {
-                        field: "inspection",
-                        type: "like",
-                        value: keyword
-                    },
-                    {
-                        field: "coi_peralatan",
-                        type: "like",
-                        value: keyword
-                    },
-                    {
-                        field: "ba_pk",
-                        type: "like",
-                        value: keyword
-                    },
-                    {
-                        field: "penerbitan_plo_valid",
-                        type: "like",
-                        value: keyword
-                    },
-                    {
-                        field: "kendala",
-                        type: "like",
-                        value: keyword
-                    }
-                ]);
-            });
-
-            function clearSearch() {
-                document.getElementById("search-input").value = "";
-                table.clearFilter();
-            }
-
-
-            function loadTabData(tabName) {
-                const selectedColumns = columnMap[tabName] || [];
-                table.setColumns(selectedColumns);
-                table.clearData();
-
-                const endpoint = routeMap[tabName];
-
-                if (endpoint) {
-                    fetch(endpoint, {
-                            headers: {
-                                "Accept": "application/json"
-                            }
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            console.log("Data for " + tabName + ":", data);
-                            table.setData(data);
-                            table.redraw();
-                        })
-                        .catch(error => {
-                            console.error("Error loading data for " + tabName + ":", error);
-                        });
-                }
-            }
-
-            function editData(row) {
-                document.getElementById("form-id").value = row.id;
-                document.getElementById("periode").value = row.periode;
-                document.getElementById("nomor_plo").value = row.nomor_plo;
-                document.getElementById("company").value = row.company;
-                document.getElementById("area").value = row.area;
-                document.getElementById("lokasi").value = row.lokasi;
-                document.getElementById("nama_aset").value = row.nama_aset;
-                document.getElementById("tanggal_pengesahan").value = row.tanggal_pengesahan;
-                document.getElementById("masa_berlaku").value = row.masa_berlaku;
-                document.getElementById("keterangan").value = row.keterangan;
-                document.getElementById("belum_proses").value = row.belum_proses;
-                document.getElementById("pre_inspection").value = row.pre_inspection;
-                document.getElementById("inspection").value = row.inspection;
-                document.getElementById("coi_peralatan").value = row.coi_peralatan;
-                document.getElementById("ba_pk").value = row.ba_pk;
-                document.getElementById("penerbitan_plo_valid").value = row.penerbitan_plo_valid;
-                document.getElementById("kendala").value = row.kendala;
-                document.getElementById("tindak_lanjut").value = row.tindak_lanjut;
-
-                openModal();
-            }
-
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
                     fetch(`status-plo-ptg/${id}`, {
@@ -573,22 +282,297 @@
                                 "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
                             }
                         })
-                        .then(response => response.json())
+                        .then(res => res.json())
                         .then(result => {
-                            if (result.success) {
-                                alert(result.message);
-                                table.setData("/monev/shg/input-data/status-plo-ptg/data")
-                                this.reset();
-                            } else {
-                                alert('Gagal menyimpan data');
-                            }
+                            alert(result.message || "Data berhasil dihapus");
+                            loadData();
+                        })
+                        .catch(err => {
+                            console.error("Gagal hapus data:", err);
+                            alert("Terjadi kesalahan saat menghapus data.");
                         });
                 }
             }
 
+            document.getElementById("search-input").addEventListener("input", function(e) {
+                const keyword = e.target.value;
+                table.setFilter([
+                    [{
+                            field: "periode",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "nomor_plo",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "company",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "area",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "lokasi",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "nama_aset",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "tanggal_pengesahan",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "masa_berlaku",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "keterangan",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "belum_proses",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "pre_inspection",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "inspection",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "coi_peralatan",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "ba_pk",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "penerbitan_plo_valid",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "kendala",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "tindak_lanjut",
+                            type: "like",
+                            value: keyword
+                        }
+                    ]
+                ]);
+            });
+
+            function clearSearch() {
+                document.getElementById("search-input").value = "";
+                table.clearFilter();
+            }
+
+            function loadData() {
+                fetch("/monev/shg/input-data/status-plo-ptg/data", {
+                        headers: {
+                            "Accept": "application/json"
+                        }
+                    })
+                    .then(res => res.json())
+                    .then(data => table.setData(data))
+                    .catch(err => console.error("Gagal load data:", err));
+            }
+
             document.addEventListener("DOMContentLoaded", function() {
-                loadTabData("status-plo-ptg");
-                localStorage.setItem("currentTab", "status-plo-ptg");
+                const columnMap = {
+                    "status-plo-ptg": [{
+                            title: "No",
+                            formatter: "rownum",
+                            hozAlign: "center",
+                            width: 60
+                        },
+                        {
+                            title: "ID",
+                            field: "id",
+                            visible: false
+                        },
+                        {
+                            title: "Periode",
+                            field: "periode",
+                            editor: "input"
+                        },
+                        {
+                            title: "Nomor PLO",
+                            field: "nomor_plo",
+                            editor: "input"
+                        },
+                        {
+                            title: "Company",
+                            field: "company",
+                            editor: "input"
+                        },
+                        {
+                            title: "Area",
+                            field: "area",
+                            editor: "input"
+                        },
+                        {
+                            title: "Lokasi",
+                            field: "lokasi",
+                            editor: "input"
+                        },
+                        {
+                            title: "Nama Aset",
+                            field: "nama_aset",
+                            editor: "input"
+                        },
+                        {
+                            title: "Tanggal Pengesahan",
+                            field: "tanggal_pengesahan",
+                            editor: "input"
+                        },
+                        {
+                            title: "Masa Berlaku",
+                            field: "masa_berlaku",
+                            editor: "input"
+                        },
+                        {
+                            title: "Keterangan",
+                            field: "keterangan",
+                            editor: "input"
+                        },
+                        {
+                            title: "Belum Proses",
+                            field: "belum_proses",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Pre-Inspection",
+                            field: "pre_inspection",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Inspection",
+                            field: "inspection",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "COI Peralatan",
+                            field: "coi_peralatan",
+                            editor: "input"
+                        },
+                        {
+                            title: "BA PK",
+                            field: "ba_pk",
+                            editor: "input"
+                        },
+                        {
+                            title: "Penerbitan PLO (Valid)",
+                            field: "penerbitan_plo_valid",
+                            editor: "input"
+                        },
+                        {
+                            title: "Kendala",
+                            field: "kendala",
+                            editor: "input"
+                        },
+                        {
+                            title: "Tindak Lanjut",
+                            field: "tindak_lanjut",
+                            editor: "input"
+                        },
+                        {
+                            title: "Aksi",
+                            formatter: (cell) => {
+                                const row = cell.getData();
+                                return `<button onclick='deleteData("${row.id}")'>Hapus</button>`;
+                            },
+                            hozAlign: "center",
+                            width: 150
+                        }
+                    ]
+                };
+
+                window.table = new Tabulator("#example-table", {
+                    layout: "fitDataTable",
+                    responsiveLayout: "collapse",
+                    autoResize: true,
+                    columns: columnMap["status-plo-ptg"],
+
+                    selectableRange: 1,
+                    selectableRangeColumns: true,
+                    selectableRangeRows: true,
+                    selectableRangeClearCells: true,
+                    editTriggerEvent: "dblclick",
+
+                    pagination: "local",
+                    paginationSize: 20,
+                    paginationSizeSelector: [40, 60, 80, 100],
+                    paginationCounter: "rows",
+
+                    movableColumns: true,
+
+                    clipboard: true,
+                    clipboardCopyStyled: false,
+                    clipboardCopyConfig: {
+                        rowHeaders: false,
+                        columnHeaders: false,
+                    },
+                    clipboardCopyRowRange: "range",
+                    clipboardPasteParser: "range",
+                    clipboardPasteAction: "range",
+
+                    columnDefaults: {
+                        headerSort: true,
+                        headerHozAlign: "center",
+                        editor: "input",
+                        resizable: "header",
+                    },
+                });
+
+                table.on("cellEdited", function(cell) {
+                    const updatedData = cell.getRow().getData();
+                    const id = updatedData.id;
+
+                    if (!id) return;
+
+                    fetch(`status-plo-ptg/${id}`, {
+                            method: "PUT",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute("content")
+                            },
+                            body: JSON.stringify(updatedData)
+                        })
+                        .then(res => res.json())
+                        .then(data => console.log("Update berhasil:", data))
+                        .catch(err => console.error("Gagal update:", err));
+                });
+                loadData();
             });
         </script>
 
@@ -630,8 +614,6 @@
                 const kendala = document.getElementById("kendala").value;
                 const tindakLanjut = document.getElementById("tindak_lanjut").value;
 
-
-
                 const method = id ? "PUT" : "POST";
                 const url = id ? `status-plo-ptg/${id}` : "status-plo-ptg";
 
@@ -644,6 +626,7 @@
                                 "content")
                         },
                         body: JSON.stringify({
+                            id: id,
                             periode: periode,
                             nomor_plo: nomorPlo,
                             company: company,
@@ -662,7 +645,6 @@
                             kendala: kendala,
                             tindak_lanjut: tindakLanjut
                         })
-
                     })
                     .then(response => response.json())
                     .then(result => {

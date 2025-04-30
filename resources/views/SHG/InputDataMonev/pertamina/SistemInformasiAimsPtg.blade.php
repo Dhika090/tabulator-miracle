@@ -14,6 +14,11 @@
                 box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             }
 
+            .tabulator .tabulator-cell {
+                white-space: normal !important;
+                word-wrap: break-word;
+            }
+
             .tabulator-cell {
                 font-size: 14px;
             }
@@ -181,7 +186,7 @@
                 <input type="hidden" name="id" id="form-id">
                 <div>
                     <label for="periode">Periode</label>
-                    <input type="text" id="periode" name="periode" required>
+                    <input type="month" id="periode" name="periode" required>
                 </div>
 
                 <div>
@@ -445,7 +450,8 @@
                         {
                             title: "Tindak Lanjut",
                             field: "tindak_lanjut",
-                            editor: "input"
+                            editor: "input",
+                            width: 300
                         },
                         {
                             title: "Aksi",

@@ -18,6 +18,12 @@
                 font-size: 14px;
             }
 
+            .tabulator .tabulator-cell {
+                white-space: normal !important;
+                word-wrap: break-word;
+            }
+
+
             .card {
                 margin-top: 20px;
             }
@@ -118,8 +124,16 @@
     @endpush
 
     <div class="card">
-        <div class="card-body">
-            <h5 class="card-title mb-3">Availability PTG</h5>
+        <div class="card-body d-flex flex-column">
+            <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
+                <h5 class="card-title mb-3 mb-md-0">Availability PTG</h5>
+                <div class="d-flex">
+                    <input id="search-input" type="text" class="form-control" placeholder="Search data..."
+                        style="max-width: 200px;">
+                    <button class="btn btn-outline-secondary ms-2 h-100 mt-1" type="button"
+                        onclick="clearSearch()">Clear</button>
+                </div>
+            </div>
 
             <div class="d-flex flex-column flex-md-row align-items-center gap-3">
                 <button onclick="openModal()" class="btn btn-primary px-4 py-2" style="white-space: nowrap;">
@@ -349,7 +363,8 @@
                         {
                             title: "Isu / Problem / Bad Actor",
                             field: "isu",
-                            editor: "input"
+                            editor: "input",
+                            width: 400
                         },
                         {
                             title: "Kendala",
@@ -374,7 +389,7 @@
                 };
 
                 window.table = new Tabulator("#example-table", {
-                    layout: "fitColumns",
+                    layout: "fitDataTable",
                     responsiveLayout: "collapse",
                     autoResize: true,
                     columns: columnMap["availability-ptg"],

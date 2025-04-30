@@ -11,7 +11,6 @@ class RealisasiProgressFisikAI2025KjgController extends Controller
 {
     public function index()
     {
-        // return view('SHG.InputDataMonev.kalimantanJawa.RealisasiProgressFisikAIKjg');
         $tabs = [
             [
                 'title' => 'Status Asset 2025 AI 2025 KJG',

@@ -4,22 +4,21 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::create('shg_pertamina_asset_breakdown_ptg', function (Blueprint $table) {
+        Schema::create('shg_perta_samtan_asset_breakdown_ptsg', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('periode');
-            $table->string('company');
-            $table->string('plant_segment');
-            $table->string('kategori_criticality');
-            $table->string('tag');
-            $table->string('deskripsi_peralatan');
-            $table->string('jenis_kerusakan');
+            $table->string('company')->nullable();
+            $table->string('plant_segment')->nullable();
+            $table->string('kategori_criticality')->nullable();
+            $table->string('tag')->nullable();
+            $table->string('deskripsi_peralatan')->nullable();
+            $table->string('jenis_kerusakan')->nullable();
             $table->string('penyebab')->nullable();
             $table->string('kendala_perbaikan')->nullable();
             $table->string('mitigasi')->nullable();
@@ -38,6 +37,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('shg_pertamina_asset_breakdown_ptg');
+        Schema::dropIfExists('shg_perta_samtan_asset_breakdown_ptsg');
     }
 };

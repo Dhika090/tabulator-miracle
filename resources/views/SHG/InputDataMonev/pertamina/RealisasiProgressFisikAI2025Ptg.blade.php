@@ -14,6 +14,11 @@
                 box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             }
 
+            .tabulator .tabulator-cell {
+                white-space: normal !important;
+                word-wrap: break-word;
+            }
+
             .tabulator-cell {
                 font-size: 14px;
             }
@@ -434,24 +439,6 @@
                         type: "like",
                         value: keyword
                     },
-                    ...["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"].map(
-                        bulan => ({
-                            field: `plan_${bulan.toLowerCase()}`,
-                            type: "like",
-                            value: keyword
-                        })),
-                    ...["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"].map(
-                        bulan => ({
-                            field: `prognosa_${bulan.toLowerCase()}`,
-                            type: "like",
-                            value: keyword
-                        })),
-                    ...["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"].map(
-                        bulan => ({
-                            field: `actual_${bulan.toLowerCase()}`,
-                            type: "like",
-                            value: keyword
-                        })),
                     {
                         field: "kode",
                         type: "like",
@@ -513,7 +500,7 @@
                         {
                             title: "Program Kerja",
                             field: "program_kerja",
-                            width: 400,
+                            width: 450,
                             editor: "input"
                         },
                         {

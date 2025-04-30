@@ -14,6 +14,11 @@
                 box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             }
 
+            .tabulator .tabulator-cell {
+                white-space: normal !important;
+                word-wrap: break-word;
+            }
+
             .tabulator-cell {
                 font-size: 14px;
             }
@@ -118,8 +123,16 @@
     @endpush
 
     <div class="card">
-        <div class="card-body">
-            <h5 class="card-title mb-3">Kondisi Vacant Fungsi AIMS PTG</h5>
+        <div class="card-body d-flex flex-column">
+            <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
+                <h5 class="card-title mb-3 mb-md-0">Kondisi Vacant Fungsi AIMS</h5>
+                <div class="d-flex">
+                    <input id="search-input" type="text" class="form-control" placeholder="Search data..."
+                        style="max-width: 200px;">
+                    <button class="btn btn-outline-secondary ms-2 h-100 mt-1" type="button"
+                        onclick="clearSearch()">Clear</button>
+                </div>
+            </div>
 
             <div class="d-flex flex-column flex-md-row align-items-center gap-3">
                 <button onclick="openModal()" class="btn btn-primary px-4 py-2" style="white-space: nowrap;">
@@ -173,7 +186,7 @@
 
                 <div>
                     <label>Periode</label>
-                    <input type="text" name="periode" id="periode" required>
+                    <input type="month" name="periode" id="periode" required>
                 </div>
 
                 <div>
@@ -210,118 +223,26 @@
         <script src="https://unpkg.com/tabulator-tables@5.6.0/dist/js/tabulator.min.js"></script>
 
         <script>
-            const table = new Tabulator("#example-table", {
-                layout: "fitColumns",
-                responsiveLayout: "collapse",
-                autoResize: true,
-                selectableRange: 1,
-                selectableRangeColumns: true,
-                selectableRangeRows: true,
-                selectableRangeClearCells: true,
-                editTriggerEvent: "dblclick",
-
-                pagination: "local",
-                paginationSize: 20,
-                paginationSizeSelector: [40, 60, 80, 100],
-                movableColumns: true,
-                paginationCounter: "rows",
-
-                clipboard: true,
-                clipboardCopyStyled: false,
-                clipboardCopyConfig: {
-                    rowHeaders: false,
-                    columnHeaders: false,
-                },
-                clipboardCopyRowRange: "range",
-                clipboardPasteParser: "range",
-                clipboardPasteAction: "range",
-
-                rowHeader: {
-                    resizable: false,
-                    frozen: true,
-                    width: 40,
-                    hozAlign: "center",
-                    formatter: "rownum",
-                    cssClass: "range-header-col",
-                    editor: false
-                },
-
-                columnDefaults: {
-                    headerSort: true,
-                    headerHozAlign: "center",
-                    editor: "input",
-                    resizable: "header",
-                },
-
-            });
-
-            const columnMap = {
-                "kondisi-vacant-fungsi-aims-ptg": [{
-                        title: "No",
-                        formatter: "rownum",
-                        hozAlign: "center",
-                        width: 60
-                    },
-                    {
-                        title: "Periode",
-                        field: "periode",
-                        width: 100
-                    },
-                    {
-                        title: "Company",
-                        field: "company",
-                        width: 110
-                    },
-                    {
-                        title: "Total Personil Asset Integrity",
-                        field: "total_personil_asset_integrity",
-                        hozAlign: "center",
-                        width: 229
-                    },
-                    {
-                        title: "Jumlah Personil Vacant",
-                        field: "jumlah_personil_vacant",
-                        hozAlign: "center",
-                        width: 190
-                    },
-                    {
-                        title: "Jumlah Personil Pensiun < 1 Thn",
-                        field: "jumlah_personil_pensiun",
-                        hozAlign: "center",
-                        width: 250
-                    },
-                    {
-                        title: "Keterangan",
-                        field: "keterangan"
-                    },
-                    {
-                        title: "Aksi",
-                        formatter: (cell, formatterParams) => {
-                            const row = cell.getData();
-                            return `
-                    <button onclick='editData(${JSON.stringify(row)})'>Edit</button>
-                    <button onclick='deleteData("${row.id}")'>Hapus</button>
-                `;
-                        },
-                        hozAlign: "center",
-                        width: 150
-                    }
-                ]
-            };
-
-            const routeMap = {
-                "kondisi-vacant-fungsi-aims-ptg": "{{ route('kondisi-vacant-fungsi-aims-ptg.data') }}"
-            };
-
-            document.querySelectorAll('#tabSwitcher a').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    localStorage.setItem('currentTab', this.getAttribute('data-tab'));
-                    document.querySelectorAll('#tabSwitcher a').forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    const selectedTab = this.getAttribute('data-tab');
-                    loadTabData(selectedTab);
-                });
-            });
+            function deleteData(id) {
+                if (confirm("Yakin ingin menghapus data ini?")) {
+                    fetch(`kondisi-vacant-fungsi-aims-ptg/${id}`, {
+                            method: "DELETE",
+                            headers: {
+                                "Accept": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+                            }
+                        })
+                        .then(res => res.json())
+                        .then(result => {
+                            alert(result.message || "Data berhasil dihapus");
+                            loadData();
+                        })
+                        .catch(err => {
+                            console.error("Gagal hapus data:", err);
+                            alert("Terjadi kesalahan saat menghapus data.");
+                        });
+                }
+            }
 
             document.getElementById("search-input").addEventListener("input", function(e) {
                 const keyword = e.target.value;
@@ -350,6 +271,11 @@
                             field: "jumlah_personil_pensiun",
                             type: "like",
                             value: keyword
+                        },
+                        {
+                            field: "keterangan",
+                            type: "like",
+                            value: keyword
                         }
                     ]
                 ]);
@@ -360,69 +286,138 @@
                 table.clearFilter();
             }
 
-
-            function loadTabData(tabName) {
-                const selectedColumns = columnMap[tabName] || [];
-                table.setColumns(selectedColumns);
-                table.clearData();
-
-                const endpoint = routeMap[tabName];
-
-                if (endpoint) {
-                    fetch(endpoint, {
-                            headers: {
-                                "Accept": "application/json"
-                            }
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            console.log("Data for " + tabName + ":", data);
-                            table.setData(data);
-                            table.redraw();
-                        })
-                        .catch(error => {
-                            console.error("Error loading data for " + tabName + ":", error);
-                        });
-                }
-            }
-
-            function editData(row) {
-                document.getElementById("form-id").value = row.id;
-                document.getElementById("periode").value = row.periode;
-                document.getElementById("company").value = row.company;
-                document.getElementById("total_personil_asset_integrity").value = row.total_personil_asset_integrity;
-                document.getElementById("jumlah_personil_vacant").value = row.jumlah_personil_vacant;
-                document.getElementById("jumlah_personil_pensiun").value = row.jumlah_personil_pensiun;
-                document.getElementById("keterangan").value = row.keterangan;
-
-                openModal();
-            }
-
-            function deleteData(id) {
-                if (confirm("Yakin ingin menghapus data ini?")) {
-                    fetch(`kondisi-vacant-fungsi-aims-ptg/${id}`, {
-                            method: "DELETE",
-                            headers: {
-                                "Accept": "application/json",
-                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
-                            }
-                        })
-                        .then(response => response.json())
-                        .then(result => {
-                            if (result.success) {
-                                alert(result.message);
-                                table.setData("/monev/shg/input-data/kondisi-vacant-fungsi-aims-ptg/data")
-                                this.reset();
-                            } else {
-                                alert('Gagal menyimpan data');
-                            }
-                        });
-                }
+            function loadData() {
+                fetch("/monev/shg/input-data/kondisi-vacant-fungsi-aims-ptg/data", {
+                        headers: {
+                            "Accept": "application/json"
+                        }
+                    })
+                    .then(res => res.json())
+                    .then(data => table.setData(data))
+                    .catch(err => console.error("Gagal load data:", err));
             }
 
             document.addEventListener("DOMContentLoaded", function() {
-                loadTabData("kondisi-vacant-fungsi-aims-ptg");
-                localStorage.setItem("currentTab", "kondisi-vacant-fungsi-aims-ptg");
+                const columnMap = {
+                    "kondisi-vacant-fungsi-aims-ptg": [{
+                            title: "No",
+                            formatter: "rownum",
+                            hozAlign: "center",
+                            width: 60
+                        },
+                        {
+                            title: "ID",
+                            field: "id",
+                            visible: false
+                        },
+                        {
+                            title: "Periode",
+                            field: "periode",
+                            editor: "input",
+                            width: 90
+                        },
+                        {
+                            title: "Company",
+                            field: "company",
+                            editor: "input",
+                            width: 100
+                        },
+                        {
+                            title: "Total Personil Asset Integrity",
+                            field: "total_personil_asset_integrity",
+                            editor: "number",
+                            hozAlign: "center",
+                            width: 250
+                        },
+                        {
+                            title: "Jumlah Personil Vacant",
+                            field: "jumlah_personil_vacant",
+                            editor: "number",
+                            hozAlign: "center",
+                            width: 200
+                        },
+                        {
+                            title: "Jumlah Personil Pensiun <1 Thn",
+                            field: "jumlah_personil_pensiun",
+                            editor: "number",
+                            hozAlign: "center",
+                            width: 250
+                        },
+                        {
+                            title: "Keterangan",
+                            field: "keterangan",
+                            width: 200,
+                            editor: "input"
+                        },
+                        {
+                            title: "Aksi",
+                            formatter: (cell) => {
+                                const row = cell.getData();
+                                return `<button onclick='deleteData("${row.id}")'>Hapus</button>`;
+                            },
+                            hozAlign: "center",
+                        }
+                    ]
+                };
+
+                window.table = new Tabulator("#example-table", {
+                    layout: "fitDataTable",
+                    responsiveLayout: "collapse",
+                    autoResize: true,
+                    columns: columnMap["kondisi-vacant-fungsi-aims-ptg"],
+
+                    selectableRange: 1,
+                    selectableRangeColumns: true,
+                    selectableRangeRows: true,
+                    selectableRangeClearCells: true,
+                    editTriggerEvent: "dblclick",
+
+                    pagination: "local",
+                    paginationSize: 20,
+                    paginationSizeSelector: [40, 60, 80, 100],
+                    paginationCounter: "rows",
+
+                    movableColumns: true,
+
+                    clipboard: true,
+                    clipboardCopyStyled: false,
+                    clipboardCopyConfig: {
+                        rowHeaders: false,
+                        columnHeaders: false,
+                    },
+                    clipboardCopyRowRange: "range",
+                    clipboardPasteParser: "range",
+                    clipboardPasteAction: "range",
+
+                    columnDefaults: {
+                        headerSort: true,
+                        headerHozAlign: "center",
+                        editor: "input",
+                        resizable: "header",
+                    },
+                });
+
+                table.on("cellEdited", function(cell) {
+                    const updatedData = cell.getRow().getData();
+                    const id = updatedData.id;
+
+                    if (!id) return;
+
+                    fetch(`kondisi-vacant-fungsi-aims-ptg/${id}`, {
+                            method: "PUT",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute("content")
+                            },
+                            body: JSON.stringify(updatedData)
+                        })
+                        .then(res => res.json())
+                        .then(data => console.log("Update berhasil:", data))
+                        .catch(err => console.error("Gagal update:", err));
+                });
+                loadData();
             });
         </script>
 
@@ -438,27 +433,14 @@
                 document.getElementById("createModal").style.display = "none";
             }
 
-            // update and delete data
             document.getElementById("createForm").addEventListener("submit", function(e) {
                 e.preventDefault();
 
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
-                console.log("Data submitted:", data);
 
-                const id = document.getElementById("form-id").value;
-                const periode = document.getElementById("periode").value;
-                const company = document.getElementById("company").value;
-                const totalPersonilAssetIntegrity = document.getElementById("total_personil_asset_integrity").value;
-                const jumlahPersonilVacant = document.getElementById("jumlah_personil_vacant").value;
-                const jumlahPersonilPensiun = document.getElementById("jumlah_personil_pensiun").value;
-                const keterangan = document.getElementById("keterangan").value;
-
-                const method = id ? "PUT" : "POST";
-                const url = id ? `kondisi-vacant-fungsi-aims-ptg/${id}` : "kondisi-vacant-fungsi-aims-ptg";
-
-                fetch(url, {
-                        method: method,
+                fetch("kondisi-vacant-fungsi-aims-ptg", {
+                        method: "POST",
                         headers: {
                             "Content-Type": "application/json",
                             "Accept": "application/json",
@@ -466,32 +448,28 @@
                                 "content")
                         },
                         body: JSON.stringify({
-                            periode: periode,
-                            company: company,
-                            total_personil_asset_integrity: totalPersonilAssetIntegrity,
-                            jumlah_personil_vacant: jumlahPersonilVacant,
-                            jumlah_personil_pensiun: jumlahPersonilPensiun,
-                            keterangan: keterangan
+                            periode: data.periode,
+                            company: data.company,
+                            total_personil_asset_integrity: data.total_personil_asset_integrity,
+                            jumlah_personil_vacant: data.jumlah_personil_vacant,
+                            jumlah_personil_pensiun_1_thn: data.jumlah_personil_pensiun,
+                            keterangan: data.keterangan
                         })
                     })
                     .then(response => response.json())
                     .then(result => {
                         if (result.success) {
-                            alert(result.message);
-                            // table.addRow([result.data]);
+                            alert(result.message || "Data berhasil disimpan");
                             table.setData("/monev/shg/input-data/kondisi-vacant-fungsi-aims-ptg/data");
                             this.reset();
+                            closeModal();
                         } else {
-                            alert('Gagal menyimpan data');
+                            alert("Gagal menyimpan data");
                         }
                     })
                     .catch(error => {
-                        console.error("Error submitting data:", error);
-                        alert('Terjadi kesalahan saat mengirim data.');
-                    })
-                    .finally(() => {
-                        closeModal();
-                        this.reset();
+                        console.error("Error saat submit:", error);
+                        alert("Terjadi kesalahan saat mengirim data.");
                     });
             });
         </script>

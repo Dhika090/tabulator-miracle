@@ -20,6 +20,12 @@
                 word-wrap: break-word;
             }
 
+            .tabulator .tabulator-cell {
+                white-space: normal !important;
+                word-wrap: break-word;
+            }
+
+
             .card {
                 margin-top: 20px;
             }
@@ -228,7 +234,7 @@
 
     @push('scripts')
         <script src="https://unpkg.com/tabulator-tables@5.6.0/dist/js/tabulator.min.js"></script>
-        
+
         <script>
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
@@ -358,7 +364,8 @@
                         {
                             title: "Isu / Problem / Bad Actor",
                             field: "isu",
-                            editor: "input"
+                            editor: "input",
+                            width: 400
                         },
                         {
                             title: "Kendala",

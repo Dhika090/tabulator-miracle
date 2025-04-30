@@ -14,6 +14,11 @@
                 box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             }
 
+            .tabulator .tabulator-cell {
+                white-space: normal !important;
+                word-wrap: break-word;
+            }
+
             .tabulator-cell {
                 font-size: 14px;
             }
@@ -120,7 +125,7 @@
     <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-                <h5 class="card-title mb-3 mb-md-0">Mandatory Certification</h5>
+                <h5 class="card-title mb-3 mb-md-0">Pelatihan AIMS PTG</h5>
                 <div class="d-flex">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
@@ -297,13 +302,14 @@
                         {
                             title: "Judul Pelatihan",
                             field: "judul_pelatihan",
-                            editor: "input"
+                            editor: "input",
+                            width: 450
                         },
                         {
                             title: "Realisasi Perwira",
                             field: "realisasi_perwira",
                             editor: "number",
-                            hozAlign: "center"
+                            hozAlign: "center",
                         },
                         {
                             title: "Aksi",

@@ -18,6 +18,11 @@
                 font-size: 14px;
             }
 
+            .tabulator .tabulator-cell {
+                white-space: normal !important;
+                word-wrap: break-word;
+            }
+
             .card {
                 margin-top: 20px;
             }
@@ -439,12 +444,14 @@
                         {
                             title: "Kendala",
                             field: "kendala",
-                            editor: "input"
+                            editor: "input",
+                            width: 450
                         },
                         {
                             title: "Tindak Lanjut",
                             field: "tindak_lanjut",
-                            editor: "input"
+                            editor: "input",
+                            width: 400
                         },
                         {
                             title: "Aksi",

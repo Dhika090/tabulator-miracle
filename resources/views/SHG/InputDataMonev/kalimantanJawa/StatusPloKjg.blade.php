@@ -18,6 +18,10 @@
                 font-size: 14px;
             }
 
+            .tabulator .tabulator-cell {
+                white-space: normal !important;
+                word-wrap: break-word;
+            }
             .card {
                 margin-top: 20px;
             }
@@ -303,17 +307,82 @@
                             value: keyword
                         },
                         {
+                            field: "nomor_plo",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
                             field: "company",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "judul_pelatihan",
+                            field: "area",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "realisasi_perwira",
+                            field: "lokasi",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "nama_aset",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "tanggal_pengesahan",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "masa_berlaku",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "keterangan",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "belum_proses",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "pre_inspection",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "inspection",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "coi_peralatan",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "ba_pk",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "penerbitan_plo_valid",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "kendala",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "tindak_lanjut",
                             type: "like",
                             value: keyword
                         }
@@ -358,7 +427,8 @@
                         {
                             title: "Nomor PLO",
                             field: "nomor_plo",
-                            editor: "input"
+                            editor: "input",
+                            width: 400
                         },
                         {
                             title: "Company",

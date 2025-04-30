@@ -118,8 +118,16 @@
     @endpush
 
     <div class="card">
-        <div class="card-body">
-            <h5 class="card-title mb-3">Mandatory Certification PTG</h5>
+        <div class="card-body d-flex flex-column">
+            <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
+                <h5 class="card-title mb-3 mb-md-0">Mandatory Certification PTG</h5>
+                <div class="d-flex">
+                    <input id="search-input" type="text" class="form-control" placeholder="Search data..."
+                        style="max-width: 200px;">
+                    <button class="btn btn-outline-secondary ms-2 h-100 mt-1" type="button"
+                        onclick="clearSearch()">Clear</button>
+                </div>
+            </div>
 
             <div class="d-flex flex-column flex-md-row align-items-center gap-3">
                 <button onclick="openModal()" class="btn btn-primary px-4 py-2" style="white-space: nowrap;">
@@ -192,22 +200,22 @@
 
                 <div>
                     <label>Nama Sertifikasi</label>
-                    <input type="text" name="nama_sertifikasi" id="nama_sertifikasi" >
+                    <input type="text" name="nama_sertifikasi" id="nama_sertifikasi">
                 </div>
 
                 <div>
                     <label>Lembaga Penerbit Sertifikat</label>
-                    <input type="text" name="lembaga_penerbit_sertifikat" id="lembaga_penerbit_sertifikat" >
+                    <input type="text" name="lembaga_penerbit_sertifikat" id="lembaga_penerbit_sertifikat">
                 </div>
 
                 <div>
                     <label>Jumlah Sertifikasi yang Sudah Terbit</label>
-                    <input type="number" name="jumlah_sertifikasi_terbit" id="jumlah_sertifikasi_terbit" >
+                    <input type="number" name="jumlah_sertifikasi_terbit" id="jumlah_sertifikasi_terbit">
                 </div>
 
                 <div>
                     <label>Jumlah Learning Hours</label>
-                    <input type="number" name="jumlah_learning_hours" id="jumlah_learning_hours" >
+                    <input type="number" name="jumlah_learning_hours" id="jumlah_learning_hours">
                 </div>
 
                 <button type="submit" class="btn btn-success">Submit</button>
@@ -219,159 +227,6 @@
         <script src="https://unpkg.com/tabulator-tables@5.6.0/dist/js/tabulator.min.js"></script>
 
         <script>
-            const table = new Tabulator("#example-table", {
-                layout: "fitDataTable",
-                responsiveLayout: "collapse",
-                autoResize: true,
-                selectableRange: 1,
-                selectableRangeColumns: true,
-                selectableRangeRows: true,
-                selectableRangeClearCells: true,
-                editTriggerEvent: "dblclick",
-
-                pagination: "local",
-                paginationSize: 20,
-                paginationSizeSelector: [40, 60, 80, 100],
-                movableColumns: true,
-                paginationCounter: "rows",
-
-                clipboard: true,
-                clipboardCopyStyled: false,
-                clipboardCopyConfig: {
-                    rowHeaders: false,
-                    columnHeaders: false,
-                },
-                clipboardCopyRowRange: "range",
-                clipboardPasteParser: "range",
-                clipboardPasteAction: "range",
-
-                rowHeader: {
-                    resizable: false,
-                    frozen: true,
-                    width: 40,
-                    hozAlign: "center",
-                    formatter: "rownum",
-                    cssClass: "range-header-col",
-                    editor: false
-                },
-
-                columnDefaults: {
-                    headerSort: true,
-                    headerHozAlign: "center",
-                    editor: "input",
-                    resizable: "header",
-                },
-
-            });
-
-            const columnMap = {
-                "mandatory-certification-ptg": [{
-                        title: "No",
-                        formatter: "rownum",
-                        hozAlign: "center",
-                        width: 60
-                    },
-                    {
-                        title: "Periode",
-                        field: "periode"
-                    },
-                    {
-                        title: "Subholding",
-                        field: "subholding"
-                    },
-                    {
-                        title: "Company",
-                        field: "company"
-                    },
-                    {
-                        title: "Unit",
-                        field: "unit"
-                    },
-                    {
-                        title: "Nama Sertifikasi",
-                        field: "nama_sertifikasi"
-                    },
-                    {
-                        title: "Lembaga Penerbit Sertifikat",
-                        field: "lembaga_penerbit_sertifikat"
-                    },
-                    {
-                        title: "Jumlah Sertifikasi yang Sudah Terbit",
-                        field: "jumlah_sertifikasi_terbit",
-                        hozAlign: "center"
-                    },
-                    {
-                        title: "Jumlah Learning Hours",
-                        field: "jumlah_learning_hours",
-                        hozAlign: "center"
-                    },
-                    {
-                        title: "Aksi",
-                        formatter: (cell, formatterParams) => {
-                            const row = cell.getData();
-                            return `
-                        <button onclick='editData(${JSON.stringify(row)})'>Edit</button>
-                        <button onclick='deleteData("${row.id}")'>Hapus</button>
-                        `;
-                        },
-                        hozAlign: "center",
-                        width: 150
-                    }
-                ]
-            };
-
-            const routeMap = {
-                "mandatory-certification-ptg": "{{ route('mandatory-certification-ptg.data') }}"
-            };
-
-            document.querySelectorAll('#tabSwitcher a').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    localStorage.setItem('currentTab', this.getAttribute('data-tab'));
-                    document.querySelectorAll('#tabSwitcher a').forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    const selectedTab = this.getAttribute('data-tab');
-                    loadTabData(selectedTab);
-                });
-            });
-
-            function loadTabData(tabName) {
-                const selectedColumns = columnMap[tabName] || [];
-                table.setColumns(selectedColumns);
-                table.clearData();
-
-                const endpoint = routeMap[tabName];
-
-                if (endpoint) {
-                    fetch(endpoint, {
-                            headers: {
-                                "Accept": "application/json"
-                            }
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            console.log("Data for " + tabName + ":", data);
-                            table.setData(data);
-                            table.redraw();
-                        })
-                        .catch(error => {
-                            console.error("Error loading data for " + tabName + ":", error);
-                        });
-                }
-            }
-
-            function editData(row) {
-                document.getElementById("form-id").value = row.id;
-                document.getElementById("periode").value = row.periode;
-                document.getElementById("subholding").value = row.subholding;
-                document.getElementById("company").value = row.company;
-                document.getElementById("unit").value = row.unit;
-                document.getElementById("nama_sertifikasi").value = row.nama_sertifikasi;
-                document.getElementById("lembaga_penerbit_sertifikat").value = row.lembaga_penerbit_sertifikat;
-                document.getElementById("jumlah_sertifikasi_terbit").value = row.jumlah_sertifikasi_terbit;
-                document.getElementById("jumlah_learning_hours").value = row.jumlah_learning_hours;
-                openModal();
-            }
-
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
                     fetch(`mandatory-certification-ptg/${id}`, {
@@ -381,22 +236,207 @@
                                 "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
                             }
                         })
-                        .then(response => response.json())
+                        .then(res => res.json())
                         .then(result => {
-                            if (result.success) {
-                                alert(result.message);
-                                table.setData("/monev/shg/input-data/mandatory-certification-ptg/data")
-                                this.reset();
-                            } else {
-                                alert('Gagal menyimpan data');
-                            }
+                            alert(result.message || "Data berhasil dihapus");
+                            loadData();
+                        })
+                        .catch(err => {
+                            console.error("Gagal hapus data:", err);
+                            alert("Terjadi kesalahan saat menghapus data.");
                         });
                 }
             }
 
+            document.getElementById("search-input").addEventListener("input", function(e) {
+                const keyword = e.target.value;
+                table.setFilter([
+                    [{
+                            field: "periode",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "subholding",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "company",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "unit",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "nama_sertifikasi",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "lembaga_penerbit_sertifikat",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "jumlah_sertifikasi_sudah_terbit",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "jumlah_learning_hours",
+                            type: "like",
+                            value: keyword
+                        }
+                    ]
+                ]);
+
+            });
+
+            function clearSearch() {
+                document.getElementById("search-input").value = "";
+                table.clearFilter();
+            }
+
+            function loadData() {
+                fetch("/monev/shg/input-data/mandatory-certification-ptg/data", {
+                        headers: {
+                            "Accept": "application/json"
+                        }
+                    })
+                    .then(res => res.json())
+                    .then(data => table.setData(data))
+                    .catch(err => console.error("Gagal load data:", err));
+            }
+
             document.addEventListener("DOMContentLoaded", function() {
-                loadTabData("mandatory-certification-ptg");
-                localStorage.setItem("currentTab", "mandatory-certification-ptg");
+                const columnMap = {
+                    "mandatory-certification-ptg": [{
+                            title: "No",
+                            formatter: "rownum",
+                            hozAlign: "center",
+                            width: 60
+                        },
+                        {
+                            title: "ID",
+                            field: "id",
+                            visible: false
+                        },
+                        {
+                            title: "Periode",
+                            field: "periode",
+                            editor: "input"
+                        },
+                        {
+                            title: "Subholding",
+                            field: "subholding",
+                            editor: "input"
+                        },
+                        {
+                            title: "Company",
+                            field: "company",
+                            editor: "input"
+                        },
+                        {
+                            title: "Unit",
+                            field: "unit",
+                            editor: "input"
+                        },
+                        {
+                            title: "Nama Sertifikasi",
+                            field: "nama_sertifikasi",
+                            editor: "input"
+                        },
+                        {
+                            title: "Lembaga Penerbit Sertifikat",
+                            field: "lembaga_penerbit_sertifikat",
+                            editor: "input"
+                        },
+                        {
+                            title: "Jumlah Sertifikasi yang Sudah Terbit",
+                            field: "jumlah_sertifikasi_terbit",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Jumlah Learning Hours",
+                            field: "jumlah_learning_hours",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Aksi",
+                            formatter: (cell) => {
+                                const row = cell.getData();
+                                return `<button onclick='deleteData("${row.id}")'>Hapus</button>`;
+                            },
+                            hozAlign: "center",
+                            width: 150
+                        }
+                    ]
+                };
+
+                window.table = new Tabulator("#example-table", {
+                    layout: "fitDataTable",
+                    responsiveLayout: "collapse",
+                    autoResize: true,
+                    columns: columnMap["mandatory-certification-ptg"],
+
+                    selectableRange: 1,
+                    selectableRangeColumns: true,
+                    selectableRangeRows: true,
+                    selectableRangeClearCells: true,
+                    editTriggerEvent: "dblclick",
+
+                    pagination: "local",
+                    paginationSize: 20,
+                    paginationSizeSelector: [40, 60, 80, 100],
+                    paginationCounter: "rows",
+
+                    movableColumns: true,
+
+                    clipboard: true,
+                    clipboardCopyStyled: false,
+                    clipboardCopyConfig: {
+                        rowHeaders: false,
+                        columnHeaders: false,
+                    },
+                    clipboardCopyRowRange: "range",
+                    clipboardPasteParser: "range",
+                    clipboardPasteAction: "range",
+
+                    columnDefaults: {
+                        headerSort: true,
+                        headerHozAlign: "center",
+                        editor: "input",
+                        resizable: "header",
+                    },
+                });
+
+                table.on("cellEdited", function(cell) {
+                    const updatedData = cell.getRow().getData();
+                    const id = updatedData.id;
+
+                    if (!id) return;
+
+                    fetch(`mandatory-certification-ptg/${id}`, {
+                            method: "PUT",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute("content")
+                            },
+                            body: JSON.stringify(updatedData)
+                        })
+                        .then(res => res.json())
+                        .then(data => console.log("Update berhasil:", data))
+                        .catch(err => console.error("Gagal update:", err));
+                });
+                loadData();
             });
         </script>
 
@@ -412,30 +452,14 @@
                 document.getElementById("createModal").style.display = "none";
             }
 
-            // update and delete data
             document.getElementById("createForm").addEventListener("submit", function(e) {
                 e.preventDefault();
 
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
-                console.log("Data submitted:", data);
 
-                const id = document.getElementById("form-id").value;
-                const periode = document.getElementById("periode").value;
-                const subholding = document.getElementById("subholding").value;
-                const company = document.getElementById("company").value;
-                const unit = document.getElementById("unit").value;
-                const namaSertifikasi = document.getElementById("nama_sertifikasi").value;
-                const lembagaPenerbitSertifikat = document.getElementById("lembaga_penerbit_sertifikat").value;
-                const jumlahSertifikasiTerbit = document.getElementById("jumlah_sertifikasi_terbit").value;
-                const jumlahLearningHours = document.getElementById("jumlah_learning_hours").value;
-
-
-                const method = id ? "PUT" : "POST";
-                const url = id ? `mandatory-certification-ptg/${id}` : "mandatory-certification-ptg";
-
-                fetch(url, {
-                        method: method,
+                fetch("mandatory-certification-ptg", {
+                        method: "POST",
                         headers: {
                             "Content-Type": "application/json",
                             "Accept": "application/json",
@@ -443,34 +467,31 @@
                                 "content")
                         },
                         body: JSON.stringify({
-                            periode: periode,
-                            subholding: subholding,
-                            company: company,
-                            unit: unit,
-                            nama_sertifikasi: namaSertifikasi,
-                            lembaga_penerbit_sertifikat: lembagaPenerbitSertifikat,
-                            jumlah_sertifikasi_terbit: jumlahSertifikasiTerbit,
-                            jumlah_learning_hours: jumlahLearningHours
+                            periode: data.periode,
+                            subholding: data.subholding,
+                            company: data.company,
+                            unit: data.unit,
+                            nama_sertifikasi: data.nama_sertifikasi,
+                            lembaga_penerbit_sertifikat: data.lembaga_penerbit_sertifikat,
+                            jumlah_sertifikasi_sudah_terbit: data.jumlah_sertifikasi_sudah_terbit,
+                            jumlah_learning_hours: data.jumlah_learning_hours
                         })
+
                     })
                     .then(response => response.json())
                     .then(result => {
                         if (result.success) {
-                            alert(result.message);
-                            // table.addRow([result.data]);
+                            alert(result.message || "Data berhasil disimpan");
                             table.setData("/monev/shg/input-data/mandatory-certification-ptg/data");
                             this.reset();
+                            closeModal();
                         } else {
-                            alert('Gagal menyimpan data');
+                            alert("Gagal menyimpan data");
                         }
                     })
                     .catch(error => {
-                        console.error("Error submitting data:", error);
-                        alert('Terjadi kesalahan saat mengirim data.');
-                    })
-                    .finally(() => {
-                        closeModal();
-                        this.reset();
+                        console.error("Error saat submit:", error);
+                        alert("Terjadi kesalahan saat mengirim data.");
                     });
             });
         </script>

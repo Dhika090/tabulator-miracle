@@ -14,6 +14,11 @@
                 box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             }
 
+            .tabulator .tabulator-cell {
+                white-space: normal !important;
+                word-wrap: break-word;
+            }
+
             .tabulator-cell {
                 font-size: 14px;
             }
@@ -391,7 +396,7 @@
                         {
                             title: "Program Kerja",
                             field: "program_kerja",
-                            width: 400,
+                            width: 450,
                             editor: "input"
                         },
                         {

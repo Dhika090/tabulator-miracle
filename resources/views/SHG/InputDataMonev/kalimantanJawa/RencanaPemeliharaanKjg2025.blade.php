@@ -7,7 +7,6 @@
                 overflow-x: auto;
             }
 
-
             #example-table {
                 background-color: white;
                 min-width: 800px;
@@ -380,66 +379,6 @@
                         },
                         {
                             field: "remark",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "jan",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "feb",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "mar",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "apr",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "may",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "jun",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "jul",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "aug",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "sep",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "oct",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "nov",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "dec",
                             type: "like",
                             value: keyword
                         },

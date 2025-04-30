@@ -21,7 +21,7 @@ class RealisasiProgressFisikAI2025Kjg extends Model
             }
         });
     }
-    protected $table = 'shg_kalimantan_realisasi_progress_fisik_ai_2025';
+    protected $table = 'shg_pertsamtan_realisasi_progress_fisik_ai_ptsg';
     protected $fillable = [
         'periode',
         'no',

@@ -19,11 +19,6 @@ class SapAssetPtgController extends Controller
                 'active' => request()->routeIs('pertamina-gas'),
             ],
             [
-                'title' => 'Status Asset 2025 AI 2025 PTG',
-                'route' => route('pertamina-gas'),
-                'active' => request()->routeIs('pertamina-gas'),
-            ],
-            [
                 'title' => 'Mandatory Certification PTG',
                 'route' => route('mandatory-certification-ptg'),
                 'active' => request()->routeIs('mandatory-certification-ptg'),

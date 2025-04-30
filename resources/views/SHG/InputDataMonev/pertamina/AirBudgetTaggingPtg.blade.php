@@ -18,6 +18,11 @@
                 font-size: 14px;
             }
 
+            .tabulator .tabulator-cell {
+                white-space: normal !important;
+                word-wrap: break-word;
+            }
+
             .card {
                 margin-top: 20px;
             }
@@ -120,7 +125,7 @@
     <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-                <h5 class="card-title mb-3 mb-md-0">Air Budget Tagging</h5>
+                <h5 class="card-title mb-3 mb-md-0">Air Budget Tagging PTG</h5>
                 <div class="d-flex">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
@@ -191,7 +196,7 @@
 
                 <div>
                     <label>Kategori</label>
-                    <input type="text" name="kategori" id="kategori" required>
+                    <input type="text" name="kategori" id="kategori">
                 </div>
 
                 <div>
@@ -206,31 +211,31 @@
 
                 <div>
                     <label>Program Kerja</label>
-                    <input type="text" name="program_kerja" id="program_kerja" required>
+                    <input type="text" name="program_kerja" id="program_kerja">
                 </div>
 
                 <div>
                     <label>Total Pagu (USD)</label>
-                    <input type="number" name="total_pagu_usd" id="total_pagu_usd" step="0.01">
+                    <input type="text" name="total_pagu_usd" id="total_pagu_usd" step="0.01" min="0">
                 </div>
 
                 <!-- Bulan-bulan -->
-                <div><label>JAN</label><input type="number" name="jan" id="jan" step="0.01"></div>
-                <div><label>FEB</label><input type="number" name="feb" id="feb" step="0.01"></div>
-                <div><label>MAR</label><input type="number" name="mar" id="mar" step="0.01"></div>
-                <div><label>APR</label><input type="number" name="apr" id="apr" step="0.01"></div>
-                <div><label>MAY</label><input type="number" name="may" id="may" step="0.01"></div>
-                <div><label>JUN</label><input type="number" name="jun" id="jun" step="0.01"></div>
-                <div><label>JUL</label><input type="number" name="jul" id="jul" step="0.01"></div>
-                <div><label>AUG</label><input type="number" name="aug" id="aug" step="0.01"></div>
-                <div><label>SEP</label><input type="number" name="sep" id="sep" step="0.01"></div>
-                <div><label>OCT</label><input type="number" name="oct" id="oct" step="0.01"></div>
-                <div><label>NOV</label><input type="number" name="nov" id="nov" step="0.01"></div>
-                <div><label>DEC</label><input type="number" name="dec" id="dec" step="0.01"></div>
+                <div><label>JAN</label><input type="number" name="jan" id="jan"></div>
+                <div><label>FEB</label><input type="number" name="feb" id="feb"></div>
+                <div><label>MAR</label><input type="number" name="mar" id="mar"></div>
+                <div><label>APR</label><input type="number" name="apr" id="apr"></div>
+                <div><label>MAY</label><input type="number" name="may" id="may"></div>
+                <div><label>JUN</label><input type="number" name="jun" id="jun"></div>
+                <div><label>JUL</label><input type="number" name="jul" id="jul"></div>
+                <div><label>AUG</label><input type="number" name="aug" id="aug"></div>
+                <div><label>SEP</label><input type="number" name="sep" id="sep"></div>
+                <div><label>OCT</label><input type="number" name="oct" id="oct"></div>
+                <div><label>NOV</label><input type="number" name="nov" id="nov"></div>
+                <div><label>DEC</label><input type="number" name="dec" id="dec"></div>
 
                 <div>
                     <label>Aset Integrity (Yes/No)</label>
-                    <select name="aset_integrity" id="aset_integrity" required>
+                    <select name="aset_integrity" id="aset_integrity" required class="form-select">
                         <option value="">Pilih</option>
                         <option value="Yes">Yes</option>
                         <option value="No">No</option>
@@ -378,16 +383,19 @@
                         {
                             title: "Periode",
                             field: "periode",
+                            hozAlign: "center",
                             editor: "input"
                         },
                         {
                             title: "Satker",
                             field: "satker",
+                            hozAlign: "center",
                             editor: "input"
                         },
                         {
                             title: "Kategori",
                             field: "kategori",
+                            hozAlign: "center",
                             editor: "input"
                         },
                         {
@@ -398,94 +406,97 @@
                         {
                             title: "Cost Element Name",
                             field: "cost_element_name",
+                            hozAlign: "center",
                             editor: "input"
                         },
                         {
                             title: "Program Kerja",
                             field: "program_kerja",
+                            width: 450,
                             editor: "input"
                         },
                         {
                             title: "Total Pagu (USD)",
-                            field: "total_pagu",
-                            editor: "number",
+                            field: "total_pagu_usd",
+                            editor: "input",
                             hozAlign: "center"
                         },
                         {
                             title: "JAN",
                             field: "jan",
-                            editor: "number",
+                            editor: "input",
                             hozAlign: "center"
                         },
                         {
                             title: "FEB",
                             field: "feb",
-                            editor: "number",
+                            editor: "input",
                             hozAlign: "center"
                         },
                         {
                             title: "MAR",
                             field: "mar",
-                            editor: "number",
+                            editor: "input",
                             hozAlign: "center"
                         },
                         {
                             title: "APR",
                             field: "apr",
-                            editor: "number",
+                            editor: "input",
                             hozAlign: "center"
                         },
                         {
                             title: "MAY",
                             field: "may",
-                            editor: "number",
+                            editor: "input",
                             hozAlign: "center"
                         },
                         {
                             title: "JUN",
                             field: "jun",
-                            editor: "number",
+                            editor: "input",
                             hozAlign: "center"
                         },
                         {
                             title: "JUL",
                             field: "jul",
-                            editor: "number",
+                            editor: "input",
                             hozAlign: "center"
                         },
                         {
                             title: "AUG",
                             field: "aug",
-                            editor: "number",
+                            editor: "input",
                             hozAlign: "center"
                         },
                         {
                             title: "SEP",
                             field: "sep",
-                            editor: "number",
+                            editor: "input",
                             hozAlign: "center"
                         },
                         {
                             title: "OCT",
                             field: "oct",
-                            editor: "number",
+                            editor: "input",
                             hozAlign: "center"
                         },
                         {
                             title: "NOV",
                             field: "nov",
-                            editor: "number",
+                            editor: "input",
                             hozAlign: "center"
                         },
                         {
                             title: "DEC",
                             field: "dec",
-                            editor: "number",
+                            editor: "input",
                             hozAlign: "center"
                         },
                         {
                             title: "Aset Integrity (Yes/No)",
                             field: "aset_integrity",
+                            hozAlign: "center",
                             editor: "input"
                         },
                         {
