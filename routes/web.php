@@ -38,11 +38,14 @@ use App\Http\Controllers\SHG\InputDataMonev\pertaSamtan\RencanaPemeliharaanPtsgC
 use App\Http\Controllers\SHG\InputDataMonev\pertaSamtan\SistemInformasiAimsPtsgController;
 use App\Http\Controllers\SHG\InputDataMonev\pertaSamtan\StatusPloPtsgController;
 use App\Http\Controllers\SHG\InputDataMonev\PertaSamtanGasController;
+use App\Http\Controllers\SHG\InputDataMonev\pgnLngIndonesia\AirBudgetTaggingPLIController;
 use App\Http\Controllers\SHG\InputDataMonev\pgnLngIndonesia\AssetBreakdownPliController;
+use App\Http\Controllers\SHG\InputDataMonev\pgnLngIndonesia\AvailabilityPLIController;
 use App\Http\Controllers\SHG\InputDataMonev\pgnLngIndonesia\KondisiVacantAimsPliController;
 use App\Http\Controllers\SHG\InputDataMonev\pgnLngIndonesia\MandatoryCertificationPliController;
 use App\Http\Controllers\SHG\InputDataMonev\pgnLngIndonesia\PelatihanAimsPliController;
 use App\Http\Controllers\SHG\InputDataMonev\pgnLngIndonesia\RealisasiAnggaranAiPLIController;
+use App\Http\Controllers\SHG\InputDataMonev\pgnLngIndonesia\RealisasiProgressFisikAiPLIController;
 use App\Http\Controllers\SHG\InputDataMonev\pgnLngIndonesia\RencanaPemeliharaanPliController;
 use App\Http\Controllers\SHG\InputDataMonev\pgnLngIndonesia\SistemInformasiAimsPliController;
 use App\Http\Controllers\SHG\InputDataMonev\pgnlngindonesia\StatusAssetAIPLIController;
@@ -591,6 +594,31 @@ Route::prefix('monev/shg/input-data/realisasi-anggaran-ai-pli')->middleware(['au
     Route::put('/{id}', [RealisasiAnggaranAiPLIController::class, 'update'])->name('realisasi-anggaran-ai-pli.update');
     Route::delete('/{id}', [RealisasiAnggaranAiPLIController::class, 'destroy'])->name('realisasi-anggaran-ai-pli.destroy');
 });
+
+Route::prefix('monev/shg/input-data/realisasi-progress-fisik-ai-pli')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [RealisasiProgressFisikAiPLIController::class, 'index'])->name('realisasi-progress-fisik-ai-pli');
+    Route::post('/', [RealisasiProgressFisikAiPLIController::class, 'store'])->name('realisasi-progress-fisik-ai-pli.store');
+    Route::get('/data', [RealisasiProgressFisikAiPLIController::class, 'data'])->name('realisasi-progress-fisik-ai-pli.data');
+    // Route::get('/{id}/edit', [RealisasiProgressFisikAiPLIController::class, 'edit'])->name('realisasi-progress-fisik-ai-pli.edit');
+    Route::put('/{id}', [RealisasiProgressFisikAiPLIController::class, 'update'])->name('realisasi-progress-fisik-ai-pli.update');
+    Route::delete('/{id}', [RealisasiProgressFisikAiPLIController::class, 'destroy'])->name('realisasi-progress-fisik-ai-pli.destroy');
+});
+Route::prefix('monev/shg/input-data/availability-pli')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [AvailabilityPLIController::class, 'index'])->name('availability-pli');
+    Route::post('/', [AvailabilityPliController::class, 'store'])->name('availability-pli.store');
+    Route::get('/data', [AvailabilityPliController::class, 'data'])->name('availability-pli.data');
+    Route::put('/{id}', [AvailabilityPliController::class, 'update'])->name('availability-pli.update');
+    Route::delete('/{id}', [AvailabilityPliController::class, 'destroy'])->name('availability-pli.destroy');
+});
+Route::prefix('monev/shg/input-data/air-budget-tagging-pli')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [AirBudgetTaggingPLIController::class, 'index'])->name('air-budget-tagging-pli');
+    Route::post('/', [AirBudgetTaggingPliController::class, 'store'])->name('air-budget-tagging-pli.store');
+    Route::get('/data', [AirBudgetTaggingPliController::class, 'data'])->name('air-budget-tagging-pli.data');
+    // Route::get('/{id}/edit', [AirBudgetTaggingPliController::class, 'edit'])->name('air-budget-tagging-pli.edit');
+    Route::put('/{id}', [AirBudgetTaggingPliController::class, 'update'])->name('air-budget-tagging-pli.update');
+    Route::delete('/{id}', [AirBudgetTaggingPliController::class, 'destroy'])->name('air-budget-tagging-pli.destroy');
+});
+
 
 
 

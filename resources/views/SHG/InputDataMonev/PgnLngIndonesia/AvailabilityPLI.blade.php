@@ -128,7 +128,7 @@
     <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-                <h5 class="card-title mb-3 mb-md-0">Availability</h5>
+                <h5 class="card-title mb-3 mb-md-0">Availability PLI</h5>
                 <div class="d-flex">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
@@ -204,12 +204,14 @@
 
                 <div>
                     <label>Target</label>
-                    <input type="number" step="0.01" name="target" id="target">
+                    <input type="number" name="target" id="target" step="0.01" min="0" max="100">
+
                 </div>
 
                 <div>
                     <label>Availability</label>
-                    <input type="number" step="0.01" name="availability" id="availability">
+                    <input type="number" name="availability" id="availability" step="0.01" min="0"
+                        max="100">
                 </div>
 
                 <div>
@@ -238,7 +240,7 @@
         <script>
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
-                    fetch(`availability-kjg/${id}`, {
+                    fetch(`availability-pli/${id}`, {
                             method: "DELETE",
                             headers: {
                                 "Accept": "application/json",
@@ -311,7 +313,7 @@
 
 
             function loadData() {
-                fetch("/monev/shg/input-data/availability-kjg/data", {
+                fetch("/monev/shg/input-data/availability-pli/data", {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -323,7 +325,7 @@
 
             document.addEventListener("DOMContentLoaded", function() {
                 const columnMap = {
-                    "availability-kjg": [{
+                    "availability-pli": [{
                             title: "No",
                             formatter: "rownum",
                             hozAlign: "center",
@@ -342,6 +344,7 @@
                         {
                             title: "Company",
                             field: "company",
+                            hozAlign: "center",
                             editor: "input"
                         },
                         {
@@ -353,13 +356,21 @@
                             title: "Target",
                             field: "target",
                             editor: "number",
-                            hozAlign: "center"
+                            hozAlign: "center",
+                            formatter: function(cell) {
+                                let value = parseFloat(cell.getValue());
+                                return isNaN(value) ? "-" : value.toFixed(2) + " %";
+                            }
                         },
                         {
                             title: "Availability",
                             field: "availability",
                             editor: "number",
-                            hozAlign: "center"
+                            hozAlign: "center",
+                            formatter: function(cell) {
+                                let value = parseFloat(cell.getValue());
+                                return isNaN(value) ? "-" : value.toFixed(2) + " %";
+                            }
                         },
                         {
                             title: "Isu / Problem / Bad Actor",
@@ -390,10 +401,10 @@
                 };
 
                 window.table = new Tabulator("#example-table", {
-                    layout: "fitColumns",
+                    layout: "fitDataTable",
                     responsiveLayout: "collapse",
                     autoResize: true,
-                    columns: columnMap["availability-kjg"],
+                    columns: columnMap["availability-pli"],
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -452,7 +463,15 @@
                     console.log("Baris yang berubah:", changedRows);
 
                     changedRows.forEach(rowData => {
-                        fetch(`availability-kjg/${rowData.id}`, {
+                        if (rowData.target !== undefined && typeof rowData.target === "string") {
+                            rowData.target = parseFloat(rowData.target.replace("%", "").trim());
+                        }
+                        if (rowData.availability !== undefined && typeof rowData.availability ===
+                            "string") {
+                            rowData.availability = parseFloat(rowData.availability.replace("%", "")
+                                .trim());
+                        }
+                        fetch(`availability-pli/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
                                     "Content-Type": "application/json",
@@ -480,7 +499,7 @@
 
                     if (!id) return;
 
-                    fetch(`availability-kjg/${id}`, {
+                    fetch(`availability-pli/${id}`, {
                             method: "PUT",
                             headers: {
                                 "Content-Type": "application/json",
@@ -516,7 +535,7 @@
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
 
-                fetch("availability-kjg", {
+                fetch("availability-pli", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -524,6 +543,7 @@
                             "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute(
                                 "content")
                         },
+
                         body: JSON.stringify({
                             periode: data.periode,
                             company: data.company,
@@ -540,7 +560,7 @@
                     .then(result => {
                         if (result.success) {
                             alert(result.message || "Data berhasil disimpan");
-                            table.setData("/monev/shg/input-data/availability-kjg/data");
+                            table.setData("/monev/shg/input-data/availability-pli/data");
                             this.reset();
                             closeModal();
                         } else {

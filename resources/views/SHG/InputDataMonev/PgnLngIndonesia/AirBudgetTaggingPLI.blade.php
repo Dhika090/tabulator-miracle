@@ -16,6 +16,14 @@
 
             .tabulator-cell {
                 font-size: 14px;
+            }
+
+            .tabulator .tabulator-cell {
+                white-space: normal !important;
+                word-wrap: break-word;
+            }
+
+            .tabulator .tabulator-cell {
                 white-space: normal !important;
                 word-wrap: break-word;
             }
@@ -122,7 +130,7 @@
     <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-                <h5 class="card-title mb-3 mb-md-0">Air Budget Tagging</h5>
+                <h5 class="card-title mb-3 mb-md-0">Air Budget Tagging PLI</h5>
                 <div class="d-flex">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
@@ -177,7 +185,7 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Tambah Data Availability KJG</h3>
+            <h3>Tambah Data Availability PLI</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
 
@@ -331,7 +339,7 @@
         <script>
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
-                    fetch(`air-budget-tagging-kjg/${id}`, {
+                    fetch(`air-budget-tagging-pli/${id}`, {
                             method: "DELETE",
                             headers: {
                                 "Accept": "application/json",
@@ -399,7 +407,7 @@
             }
 
             function loadData() {
-                fetch("/monev/shg/input-data/air-budget-tagging-kjg/data", {
+                fetch("/monev/shg/input-data/air-budget-tagging-pli/data", {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -411,7 +419,7 @@
 
             document.addEventListener("DOMContentLoaded", function() {
                 const columnMap = {
-                    "air-budget-tagging-kjg": [{
+                    "air-budget-tagging-pli": [{
                             title: "No",
                             formatter: "rownum",
                             hozAlign: "center",
@@ -450,84 +458,332 @@
                         {
                             title: "Program Kerja",
                             field: "program_kerja",
+                            width: 450,
                             editor: "input"
                         },
                         {
                             title: "Total Pagu (USD)",
                             field: "total_pagu",
-                            editor: "number",
+                            editor: function(cell, onRendered, success, cancel) {
+                                const input = document.createElement("input");
+                                input.type = "number";
+                                input.step = "any";
+                                input.placeholder = "0.00";
+                                input.style.width = "100%";
+                                onRendered(function() {
+                                    input.focus();
+                                    input.select();
+                                });
+                                input.addEventListener("blur", function(e) {
+                                    const val = e.target.value;
+                                    if (val) {
+                                        success(val.replace(/[^\d.,]/g, ""));
+                                    } else {
+                                        cancel();
+                                    }
+                                });
+                                cell.element.appendChild(input);
+                            },
                             hozAlign: "center"
                         },
                         {
                             title: "JAN",
                             field: "jan",
-                            editor: "number",
+                            editor: function(cell, onRendered, success, cancel) {
+                                const input = document.createElement("input");
+                                input.type = "number";
+                                input.step = "any";
+                                input.placeholder = "0.00";
+                                input.style.width = "100%";
+                                onRendered(function() {
+                                    input.focus();
+                                    input.select();
+                                });
+                                input.addEventListener("blur", function(e) {
+                                    const val = e.target.value;
+                                    if (val) {
+                                        success(val.replace(/[^\d.,]/g, ""));
+                                    } else {
+                                        cancel();
+                                    }
+                                });
+                                cell.element.appendChild(input);
+                            },
                             hozAlign: "center"
                         },
                         {
                             title: "FEB",
                             field: "feb",
-                            editor: "number",
+                            editor: function(cell, onRendered, success, cancel) {
+                                const input = document.createElement("input");
+                                input.type = "number";
+                                input.step = "any";
+                                input.placeholder = "0.00";
+                                input.style.width = "100%";
+                                onRendered(function() {
+                                    input.focus();
+                                    input.select();
+                                });
+                                input.addEventListener("blur", function(e) {
+                                    const val = e.target.value;
+                                    if (val) {
+                                        success(val.replace(/[^\d.,]/g, ""));
+                                    } else {
+                                        cancel();
+                                    }
+                                });
+                                cell.element.appendChild(input);
+                            },
                             hozAlign: "center"
                         },
                         {
                             title: "MAR",
                             field: "mar",
-                            editor: "number",
+                            editor: function(cell, onRendered, success, cancel) {
+                                const input = document.createElement("input");
+                                input.type = "number";
+                                input.step = "any";
+                                input.placeholder = "0.00";
+                                input.style.width = "100%";
+                                onRendered(function() {
+                                    input.focus();
+                                    input.select();
+                                });
+                                input.addEventListener("blur", function(e) {
+                                    const val = e.target.value;
+                                    if (val) {
+                                        success(val.replace(/[^\d.,]/g, ""));
+                                    } else {
+                                        cancel();
+                                    }
+                                });
+                                cell.element.appendChild(input);
+                            },
                             hozAlign: "center"
                         },
                         {
                             title: "APR",
                             field: "apr",
-                            editor: "number",
+                            editor: function(cell, onRendered, success, cancel) {
+                                const input = document.createElement("input");
+                                input.type = "number";
+                                input.step = "any";
+                                input.placeholder = "0.00";
+                                input.style.width = "100%";
+                                onRendered(function() {
+                                    input.focus();
+                                    input.select();
+                                });
+                                input.addEventListener("blur", function(e) {
+                                    const val = e.target.value;
+                                    if (val) {
+                                        success(val.replace(/[^\d.,]/g, ""));
+                                    } else {
+                                        cancel();
+                                    }
+                                });
+                                cell.element.appendChild(input);
+                            },
                             hozAlign: "center"
                         },
                         {
                             title: "MAY",
                             field: "may",
-                            editor: "number",
+                            editor: function(cell, onRendered, success, cancel) {
+                                const input = document.createElement("input");
+                                input.type = "number";
+                                input.step = "any";
+                                input.placeholder = "0.00";
+                                input.style.width = "100%";
+                                onRendered(function() {
+                                    input.focus();
+                                    input.select();
+                                });
+                                input.addEventListener("blur", function(e) {
+                                    const val = e.target.value;
+                                    if (val) {
+                                        success(val.replace(/[^\d.,]/g, ""));
+                                    } else {
+                                        cancel();
+                                    }
+                                });
+                                cell.element.appendChild(input);
+                            },
                             hozAlign: "center"
                         },
                         {
                             title: "JUN",
                             field: "jun",
-                            editor: "number",
+                            editor: function(cell, onRendered, success, cancel) {
+                                const input = document.createElement("input");
+                                input.type = "number";
+                                input.step = "any";
+                                input.placeholder = "0.00";
+                                input.style.width = "100%";
+                                onRendered(function() {
+                                    input.focus();
+                                    input.select();
+                                });
+                                input.addEventListener("blur", function(e) {
+                                    const val = e.target.value;
+                                    if (val) {
+                                        success(val.replace(/[^\d.,]/g, ""));
+                                    } else {
+                                        cancel();
+                                    }
+                                });
+                                cell.element.appendChild(input);
+                            },
                             hozAlign: "center"
                         },
                         {
                             title: "JUL",
                             field: "jul",
-                            editor: "number",
+                            editor: function(cell, onRendered, success, cancel) {
+                                const input = document.createElement("input");
+                                input.type = "number";
+                                input.step = "any";
+                                input.placeholder = "0.00";
+                                input.style.width = "100%";
+                                onRendered(function() {
+                                    input.focus();
+                                    input.select();
+                                });
+                                input.addEventListener("blur", function(e) {
+                                    const val = e.target.value;
+                                    if (val) {
+                                        success(val.replace(/[^\d.,]/g, ""));
+                                    } else {
+                                        cancel();
+                                    }
+                                });
+                                cell.element.appendChild(input);
+                            },
                             hozAlign: "center"
                         },
                         {
                             title: "AUG",
                             field: "aug",
-                            editor: "number",
+                            editor: function(cell, onRendered, success, cancel) {
+                                const input = document.createElement("input");
+                                input.type = "number";
+                                input.step = "any";
+                                input.placeholder = "0.00";
+                                input.style.width = "100%";
+                                onRendered(function() {
+                                    input.focus();
+                                    input.select();
+                                });
+                                input.addEventListener("blur", function(e) {
+                                    const val = e.target.value;
+                                    if (val) {
+                                        success(val.replace(/[^\d.,]/g, ""));
+                                    } else {
+                                        cancel();
+                                    }
+                                });
+                                cell.element.appendChild(input);
+                            },
                             hozAlign: "center"
                         },
                         {
                             title: "SEP",
                             field: "sep",
-                            editor: "number",
+                            editor: function(cell, onRendered, success, cancel) {
+                                const input = document.createElement("input");
+                                input.type = "number";
+                                input.step = "any";
+                                input.placeholder = "0.00";
+                                input.style.width = "100%";
+                                onRendered(function() {
+                                    input.focus();
+                                    input.select();
+                                });
+                                input.addEventListener("blur", function(e) {
+                                    const val = e.target.value;
+                                    if (val) {
+                                        success(val.replace(/[^\d.,]/g, ""));
+                                    } else {
+                                        cancel();
+                                    }
+                                });
+                                cell.element.appendChild(input);
+                            },
                             hozAlign: "center"
                         },
                         {
                             title: "OCT",
                             field: "oct",
-                            editor: "number",
+                            editor: function(cell, onRendered, success, cancel) {
+                                const input = document.createElement("input");
+                                input.type = "number";
+                                input.step = "any";
+                                input.placeholder = "0.00";
+                                input.style.width = "100%";
+                                onRendered(function() {
+                                    input.focus();
+                                    input.select();
+                                });
+                                input.addEventListener("blur", function(e) {
+                                    const val = e.target.value;
+                                    if (val) {
+                                        success(val.replace(/[^\d.,]/g, ""));
+                                    } else {
+                                        cancel();
+                                    }
+                                });
+                                cell.element.appendChild(input);
+                            },
                             hozAlign: "center"
                         },
                         {
                             title: "NOV",
                             field: "nov",
-                            editor: "number",
+                            editor: function(cell, onRendered, success, cancel) {
+                                const input = document.createElement("input");
+                                input.type = "number";
+                                input.step = "any";
+                                input.placeholder = "0.00";
+                                input.style.width = "100%";
+                                onRendered(function() {
+                                    input.focus();
+                                    input.select();
+                                });
+                                input.addEventListener("blur", function(e) {
+                                    const val = e.target.value;
+                                    if (val) {
+                                        success(val.replace(/[^\d.,]/g, ""));
+                                    } else {
+                                        cancel();
+                                    }
+                                });
+                                cell.element.appendChild(input);
+                            },
                             hozAlign: "center"
                         },
                         {
                             title: "DEC",
                             field: "dec",
-                            editor: "number",
+                            editor: function(cell, onRendered, success, cancel) {
+                                const input = document.createElement("input");
+                                input.type = "number";
+                                input.step = "any";
+                                input.placeholder = "0.00";
+                                input.style.width = "100%";
+                                onRendered(function() {
+                                    input.focus();
+                                    input.select();
+                                });
+                                input.addEventListener("blur", function(e) {
+                                    const val = e.target.value;
+                                    if (val) {
+                                        success(val.replace(/[^\d.,]/g, ""));
+                                    } else {
+                                        cancel();
+                                    }
+                                });
+                                cell.element.appendChild(input);
+                            },
                             hozAlign: "center"
                         },
                         {
@@ -590,7 +846,7 @@
                     layout: "fitDataTable",
                     responsiveLayout: "collapse",
                     autoResize: true,
-                    columns: columnMap["air-budget-tagging-kjg"],
+                    columns: columnMap["air-budget-tagging-pli"],
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -614,7 +870,6 @@
                     clipboardCopyRowRange: "range",
                     clipboardPasteParser: "range",
                     clipboardPasteAction: "range",
-                    clipboardPasteRow: true,
 
                     columnDefaults: {
                         headerSort: true,
@@ -622,6 +877,27 @@
                         editor: "input",
                         resizable: "header",
                     },
+                });
+
+                table.on("cellEdited", function(cell) {
+                    const updatedData = cell.getRow().getData();
+                    const id = updatedData.id;
+
+                    if (!id) return;
+
+                    fetch(`air-budget-tagging-pli/${id}`, {
+                            method: "PUT",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute("content")
+                            },
+                            body: JSON.stringify(updatedData)
+                        })
+                        .then(res => res.json())
+                        .then(data => console.log("Update berhasil:", data))
+                        .catch(err => console.error("Gagal update:", err));
                 });
 
                 let previousData = [];
@@ -649,7 +925,7 @@
                     console.log("Baris yang berubah:", changedRows);
 
                     changedRows.forEach(rowData => {
-                        fetch(`air-budget-tagging-kjg/${rowData.id}`, {
+                        fetch(`air-budget-tagging-pli/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
                                     "Content-Type": "application/json",
@@ -669,27 +945,6 @@
                     });
 
                     previousData = JSON.parse(JSON.stringify(newData));
-                });
-
-                table.on("cellEdited", function(cell) {
-                    const updatedData = cell.getRow().getData();
-                    const id = updatedData.id;
-
-                    if (!id) return;
-
-                    fetch(`air-budget-tagging-kjg/${id}`, {
-                            method: "PUT",
-                            headers: {
-                                "Content-Type": "application/json",
-                                "Accept": "application/json",
-                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
-                                    .getAttribute("content")
-                            },
-                            body: JSON.stringify(updatedData)
-                        })
-                        .then(res => res.json())
-                        .then(data => console.log("Update berhasil:", data))
-                        .catch(err => console.error("Gagal update:", err));
                 });
                 loadData();
             });
@@ -713,7 +968,7 @@
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
 
-                fetch("air-budget-tagging-kjg", {
+                fetch("air-budget-tagging-pli", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -756,7 +1011,7 @@
                     .then(result => {
                         if (result.success) {
                             alert(result.message || "Data berhasil disimpan");
-                            table.setData("/monev/shg/input-data/air-budget-tagging-kjg/data");
+                            table.setData("/monev/shg/input-data/air-budget-tagging-pli/data");
                             this.reset();
                             closeModal();
                         } else {

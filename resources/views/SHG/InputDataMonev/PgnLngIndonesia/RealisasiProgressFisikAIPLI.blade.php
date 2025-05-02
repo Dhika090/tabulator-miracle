@@ -20,12 +20,6 @@
                 word-wrap: break-word;
             }
 
-            .tabulator .tabulator-cell {
-                white-space: normal !important;
-                word-wrap: break-word;
-            }
-
-
             .card {
                 margin-top: 20px;
             }
@@ -128,7 +122,7 @@
     <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-                <h5 class="card-title mb-3 mb-md-0">Availability</h5>
+                <h5 class="card-title mb-3 mb-md-0">Realisasi Progress Fisik AI PLI</h5>
                 <div class="d-flex">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
@@ -183,62 +177,112 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Tambah Data Availability KJG</h3>
+            <h3>Tambah Data Realisasi Anggaran AI 2025</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
-
                 <div>
                     <label>Periode</label>
-                    <input type="month" name="periode" id="periode" required>
+                    <input type="month" name="periode" required>
                 </div>
 
                 <div>
-                    <label>Company</label>
-                    <input type="text" name="company" id="company">
+                    <label>No</label>
+                    <input type="number" name="no" required>
                 </div>
 
                 <div>
-                    <label>Kategori</label>
-                    <input type="text" name="kategori" id="kategori">
+                    <label>Program Kerja</label>
+                    <input type="text" name="program_kerja">
                 </div>
 
                 <div>
-                    <label>Target</label>
-                    <input type="number" step="0.01" name="target" id="target">
+                    <label>Kategori AIBT</label>
+                    <input type="text" name="kategori_aibt">
                 </div>
 
                 <div>
-                    <label>Availability</label>
-                    <input type="number" step="0.01" name="availability" id="availability">
+                    <label>Jenis Anggaran</label>
+                    <input type="text" name="jenis_anggaran">
                 </div>
 
                 <div>
-                    <label>Isu / Problem / Bad Actor</label>
-                    <input type="text" name="isu" id="isu"></input>
+                    <label>Besar RKAP</label>
+                    <input type="number" name="besar_rkap" id="besar_rkap" step="any">
+                </div>
+
+                <div>
+                    <label>Entitas</label>
+                    <input type="text" name="entitas">
+                </div>
+
+                <div>
+                    <label>Unit</label>
+                    <input type="text" name="unit">
+                </div>
+
+                <div>
+                    <label>Nilai Kontrak</label>
+                    <input type="number" name="nilai_kontrak" step="0.01">
+                </div>
+
+                <fieldset>
+                    <legend>Rencana (Plan)</legend>
+                    <label>Plan Jan</label><input type="number" name="plan_jan" step="0.01">
+                    <label>Plan Feb</label><input type="number" name="plan_feb" step="0.01">
+                    <label>Plan Mar</label><input type="number" name="plan_mar" step="0.01">
+                    <label>Plan Apr</label><input type="number" name="plan_apr" step="0.01">
+                    <label>Plan May</label><input type="number" name="plan_may" step="0.01">
+                    <label>Plan Jun</label><input type="number" name="plan_jun" step="0.01">
+                    <label>Plan Jul</label><input type="number" name="plan_jul" step="0.01">
+                    <label>Plan Aug</label><input type="number" name="plan_aug" step="0.01">
+                    <label>Plan Sep</label><input type="number" name="plan_sep" step="0.01">
+                    <label>Plan Oct</label><input type="number" name="plan_oct" step="0.01">
+                    <label>Plan Nov</label><input type="number" name="plan_nov" step="0.01">
+                    <label>Plan Dec</label><input type="number" name="plan_dec" step="0.01">
+                </fieldset>
+
+                <fieldset>
+                    <legend>Realisasi (Actual)</legend>
+                    <label>Actual Jan</label><input type="number" name="actual_jan" step="0.01">
+                    <label>Actual Feb</label><input type="number" name="actual_feb" step="0.01">
+                    <label>Actual Mar</label><input type="number" name="actual_mar" step="0.01">
+                    <label>Actual Apr</label><input type="number" name="actual_apr" step="0.01">
+                    <label>Actual May</label><input type="number" name="actual_may" step="0.01">
+                    <label>Actual Jun</label><input type="number" name="actual_jun" step="0.01">
+                    <label>Actual Jul</label><input type="number" name="actual_jul" step="0.01">
+                    <label>Actual Aug</label><input type="number" name="actual_aug" step="0.01">
+                    <label>Actual Sep</label><input type="number" name="actual_sep" step="0.01">
+                    <label>Actual Oct</label><input type="number" name="actual_oct" step="0.01">
+                    <label>Actual Nov</label><input type="number" name="actual_nov" step="0.01">
+                    <label>Actual Dec</label><input type="number" name="actual_dec" step="0.01">
+                </fieldset>
+
+                <div>
+                    <label>Kode</label>
+                    <input type="text" name="kode">
                 </div>
 
                 <div>
                     <label>Kendala</label>
-                    <input type="text" name="kendala" id="kendala"></input>
+                    <input type="text" name="kendala"></input>
                 </div>
 
                 <div>
                     <label>Tindak Lanjut</label>
-                    <input type="text" name="tindak_lanjut" id="tindak_lanjut"></input>
+                    <input type="text" name="tindak_lanjut"></input>
                 </div>
 
-                <button type="submit" class="btn btn-success">Submit</button>
+                <button class="btn btn-primary" type="submit">Simpan</button>
             </form>
         </div>
     </div>
 
     @push('scripts')
         <script src="https://unpkg.com/tabulator-tables@5.6.0/dist/js/tabulator.min.js"></script>
-
         <script>
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
-                    fetch(`availability-kjg/${id}`, {
+                    fetch(`realisasi-progress-fisik-ai-pli/${id}`, {
                             method: "DELETE",
                             headers: {
                                 "Accept": "application/json",
@@ -259,48 +303,84 @@
 
             document.getElementById("search-input").addEventListener("input", function(e) {
                 const keyword = e.target.value;
-                table.setFilter([
-                    [{
-                            field: "periode",
+                table.setFilter([{
+                        field: "periode",
+                        type: "like",
+                        value: keyword
+                    },
+                    {
+                        field: "no",
+                        type: "like",
+                        value: keyword
+                    },
+                    {
+                        field: "program_kerja",
+                        type: "like",
+                        value: keyword
+                    },
+                    {
+                        field: "kategori_aibt",
+                        type: "like",
+                        value: keyword
+                    },
+                    {
+                        field: "jenis_anggaran",
+                        type: "like",
+                        value: keyword
+                    },
+                    {
+                        field: "besar_rkap",
+                        type: "like",
+                        value: keyword
+                    },
+                    {
+                        field: "entitas",
+                        type: "like",
+                        value: keyword
+                    },
+                    {
+                        field: "unit",
+                        type: "like",
+                        value: keyword
+                    },
+                    {
+                        field: "nilai_kontrak",
+                        type: "like",
+                        value: keyword
+                    },
+                    ...["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"].map(
+                        bulan => ({
+                            field: `plan_${bulan.toLowerCase()}`,
                             type: "like",
                             value: keyword
-                        },
-                        {
-                            field: "company",
+                        })),
+                    ...["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"].map(
+                        bulan => ({
+                            field: `prognosa_${bulan.toLowerCase()}`,
                             type: "like",
                             value: keyword
-                        },
-                        {
-                            field: "kategori",
+                        })),
+                    ...["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"].map(
+                        bulan => ({
+                            field: `actual_${bulan.toLowerCase()}`,
                             type: "like",
                             value: keyword
-                        },
-                        {
-                            field: "target",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "availability",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "isu",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "kendala",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "tindak_lanjut",
-                            type: "like",
-                            value: keyword
-                        }
-                    ]
+                        })),
+                    {
+                        field: "kode",
+                        type: "like",
+                        value: keyword
+                    },
+                    {
+                        field: "kendala",
+                        type: "like",
+                        value: keyword
+                    },
+                    {
+                        field: "tindak_lanjut",
+                        type: "like",
+                        value: keyword
+                    }
                 ]);
             });
 
@@ -311,7 +391,7 @@
 
 
             function loadData() {
-                fetch("/monev/shg/input-data/availability-kjg/data", {
+                fetch("/monev/shg/input-data/realisasi-progress-fisik-ai-pli/data", {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -323,7 +403,7 @@
 
             document.addEventListener("DOMContentLoaded", function() {
                 const columnMap = {
-                    "availability-kjg": [{
+                    "realisasi-progress-fisik-ai-pli": [{
                             title: "No",
                             formatter: "rownum",
                             hozAlign: "center",
@@ -340,32 +420,89 @@
                             editor: "input"
                         },
                         {
-                            title: "Company",
-                            field: "company",
+                            title: "No",
+                            field: "no",
+                            editor: "number"
+                        },
+                        {
+                            title: "Program Kerja",
+                            field: "program_kerja",
+                            width: 400,
                             editor: "input"
                         },
                         {
-                            title: "Kategori",
-                            field: "kategori",
+                            title: "Kategori AIBT",
+                            field: "kategori_aibt",
                             editor: "input"
                         },
                         {
-                            title: "Target",
-                            field: "target",
-                            editor: "number",
-                            hozAlign: "center"
+                            title: "Jenis Anggaran",
+                            field: "jenis_anggaran",
+                            editor: "input"
                         },
                         {
-                            title: "Availability",
-                            field: "availability",
-                            editor: "number",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "Isu / Problem / Bad Actor",
-                            field: "isu",
+                            title: "Besar RKAP",
+                            field: "besar_rkap",
                             editor: "input",
-                            width: 400
+                            formatter: function(cell) {
+                                let rawValue = cell.getValue();
+                                if (rawValue === null || rawValue === undefined || rawValue === "") {
+                                    return "0.00";
+                                }
+
+                                let cleanValue = rawValue.toString().replace(/[^0-9.-]+/g, '');
+                                let value = parseFloat(cleanValue);
+
+                                if (!isNaN(value)) {
+                                    return value.toLocaleString("en-US", {
+                                        minimumFractionDigits: 2,
+                                        maximumFractionDigits: 2
+                                    });
+                                }
+
+                                return "0.00";
+                            },
+                        },
+                        {
+                            title: "Entitas",
+                            field: "entitas",
+                            editor: "input"
+                        },
+                        {
+                            title: "Unit",
+                            field: "unit",
+                            editor: "input"
+                        },
+                        {
+                            title: "Nilai Kontrak",
+                            field: "nilai_kontrak",
+                            editor: "number"
+                        },
+                        // Plan Fields
+                        ...["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+                        .map(bulan => ({
+                            title: `Plan ${bulan}`,
+                            field: `plan_${bulan.toLowerCase()}`,
+                            editor: "number"
+                        })),
+                        // Prognosa Fields
+                        ...["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+                        .map(bulan => ({
+                            title: `Prognosa ${bulan}`,
+                            field: `prognosa_${bulan.toLowerCase()}`,
+                            editor: "number"
+                        })),
+                        // Actual Fields
+                        ...["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+                        .map(bulan => ({
+                            title: `Actual ${bulan}`,
+                            field: `actual_${bulan.toLowerCase()}`,
+                            editor: "number"
+                        })),
+                        {
+                            title: "Kode",
+                            field: "kode",
+                            editor: "input"
                         },
                         {
                             title: "Kendala",
@@ -390,10 +527,10 @@
                 };
 
                 window.table = new Tabulator("#example-table", {
-                    layout: "fitColumns",
+                    layout: "fitDataTable",
                     responsiveLayout: "collapse",
                     autoResize: true,
-                    columns: columnMap["availability-kjg"],
+                    columns: columnMap["realisasi-progress-fisik-ai-pli"],
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -427,6 +564,27 @@
                     },
                 });
 
+                table.on("cellEdited", function(cell) {
+                    const updatedData = cell.getRow().getData();
+                    const id = updatedData.id;
+
+                    if (!id) return;
+
+                    fetch(`realisasi-progress-fisik-ai-pli/${id}`, {
+                            method: "PUT",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute("content")
+                            },
+                            body: JSON.stringify(updatedData)
+                        })
+                        .then(res => res.json())
+                        .then(data => console.log("Update berhasil:", data))
+                        .catch(err => console.error("Gagal update:", err));
+                });
+
                 let previousData = [];
                 table.on("dataLoaded", function(newData) {
                     previousData = JSON.parse(JSON.stringify(newData));
@@ -452,7 +610,7 @@
                     console.log("Baris yang berubah:", changedRows);
 
                     changedRows.forEach(rowData => {
-                        fetch(`availability-kjg/${rowData.id}`, {
+                        fetch(`realisasi-progress-fisik-ai-pli/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
                                     "Content-Type": "application/json",
@@ -474,26 +632,6 @@
                     previousData = JSON.parse(JSON.stringify(newData));
                 });
 
-                table.on("cellEdited", function(cell) {
-                    const updatedData = cell.getRow().getData();
-                    const id = updatedData.id;
-
-                    if (!id) return;
-
-                    fetch(`availability-kjg/${id}`, {
-                            method: "PUT",
-                            headers: {
-                                "Content-Type": "application/json",
-                                "Accept": "application/json",
-                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
-                                    .getAttribute("content")
-                            },
-                            body: JSON.stringify(updatedData)
-                        })
-                        .then(res => res.json())
-                        .then(data => console.log("Update berhasil:", data))
-                        .catch(err => console.error("Gagal update:", err));
-                });
                 loadData();
             });
         </script>
@@ -516,7 +654,7 @@
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
 
-                fetch("availability-kjg", {
+                fetch("realisasi-progress-fisik-ai-pli", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -526,21 +664,51 @@
                         },
                         body: JSON.stringify({
                             periode: data.periode,
-                            company: data.company,
-                            kategori: data.kategori || null,
-                            target: data.target || null,
-                            availability: data.availability || null,
-                            isu: data.isu || null,
-                            kendala: data.kendala || null,
-                            tindak_lanjut: data.tindak_lanjut || null,
-                        })
+                            no: data.no,
+                            program_kerja: data.program_kerja,
+                            kategori_aibt: data.kategori_aibt,
+                            jenis_anggaran: data.jenis_anggaran,
+                            besar_rkap: data.besar_rkap,
+                            entitas: data.entitas,
+                            unit: data.unit,
+                            nilai_kontrak: data.nilai_kontrak,
 
+                            plan_jan: data.plan_jan,
+                            plan_feb: data.plan_feb,
+                            plan_mar: data.plan_mar,
+                            plan_apr: data.plan_apr,
+                            plan_may: data.plan_may,
+                            plan_jun: data.plan_jun,
+                            plan_jul: data.plan_jul,
+                            plan_aug: data.plan_aug,
+                            plan_sep: data.plan_sep,
+                            plan_oct: data.plan_oct,
+                            plan_nov: data.plan_nov,
+                            plan_dec: data.plan_dec,
+
+                            actual_jan: data.actual_jan,
+                            actual_feb: data.actual_feb,
+                            actual_mar: data.actual_mar,
+                            actual_apr: data.actual_apr,
+                            actual_may: data.actual_may,
+                            actual_jun: data.actual_jun,
+                            actual_jul: data.actual_jul,
+                            actual_aug: data.actual_aug,
+                            actual_sep: data.actual_sep,
+                            actual_oct: data.actual_oct,
+                            actual_nov: data.actual_nov,
+                            actual_dec: data.actual_dec,
+
+                            kode: data.kode,
+                            kendala: data.kendala,
+                            tindak_lanjut: data.tindak_lanjut,
+                        })
                     })
                     .then(response => response.json())
                     .then(result => {
                         if (result.success) {
                             alert(result.message || "Data berhasil disimpan");
-                            table.setData("/monev/shg/input-data/availability-kjg/data");
+                            table.setData("/monev/shg/input-data/realisasi-progress-fisik-ai-pli/data");
                             this.reset();
                             closeModal();
                         } else {

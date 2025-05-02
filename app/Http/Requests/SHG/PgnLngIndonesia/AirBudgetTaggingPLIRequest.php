@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\SHG\Pertamina;
+namespace App\Http\Requests\SHG\PgnLngIndonesia;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AirBudgetTaggingPtgRequest extends FormRequest
+class AirBudgetTaggingPLIRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

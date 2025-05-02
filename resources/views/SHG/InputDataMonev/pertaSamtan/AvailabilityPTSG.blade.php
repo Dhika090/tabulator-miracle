@@ -210,7 +210,8 @@
 
                 <div>
                     <label>Availability</label>
-                    <input type="number" name="availability" id="availability" step="0.01" min="0" max="100">
+                    <input type="number" name="availability" id="availability" step="0.01" min="0"
+                        max="100">
                 </div>
 
                 <div>
@@ -426,6 +427,7 @@
                     clipboardCopyRowRange: "range",
                     clipboardPasteParser: "range",
                     clipboardPasteAction: "range",
+                    clipboardPasteRow: true,
 
                     columnDefaults: {
                         headerSort: true,
@@ -433,6 +435,53 @@
                         editor: "input",
                         resizable: "header",
                     },
+                });
+
+                let previousData = [];
+                table.on("dataLoaded", function(newData) {
+                    previousData = JSON.parse(JSON.stringify(newData));
+                });
+
+                function getChangedRows(newData, oldData) {
+                    const changes = [];
+                    newData.forEach((row, index) => {
+                        if (!row.id) return;
+                        const oldRow = oldData[index];
+                        if (!oldRow) return;
+
+                        const isDifferent = Object.keys(row).some(key => row[key] !== oldRow[key]);
+                        if (isDifferent) {
+                            changes.push(row);
+                        }
+                    });
+                    return changes;
+                }
+
+                table.on("dataChanged", function(newData) {
+                    const changedRows = getChangedRows(newData, previousData);
+                    console.log("Baris yang berubah:", changedRows);
+
+                    changedRows.forEach(rowData => {
+                        fetch(`availability-ptsg/${rowData.id}`, {
+                                method: "PUT",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                    "Accept": "application/json",
+                                    "X-CSRF-TOKEN": document.querySelector(
+                                        'meta[name="csrf-token"]').getAttribute("content")
+                                },
+                                body: JSON.stringify(rowData)
+                            })
+                            .then(res => res.json())
+                            .then(response => {
+                                console.log("Data berhasil disimpan:", response);
+                            })
+                            .catch(err => {
+                                console.error("Gagal menyimpan hasil paste:", err);
+                            });
+                    });
+
+                    previousData = JSON.parse(JSON.stringify(newData));
                 });
 
                 table.on("cellEdited", function(cell) {

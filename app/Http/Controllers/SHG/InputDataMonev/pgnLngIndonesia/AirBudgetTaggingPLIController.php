@@ -3,13 +3,12 @@
 namespace App\Http\Controllers\SHG\InputDataMonev\pgnLngIndonesia;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\SHG\PgnLngIndonesia\PelatihanAimsPLIRequest;
-use App\Models\SHG\PgnLngIndonesia\PelatihanAimsPLI;
+use App\Http\Requests\SHG\PgnLngIndonesia\AirBudgetTaggingPLIRequest;
+use App\Models\SHG\PgnLngIndonesia\AirBudgetTaggingPLI;
 use Illuminate\Http\Request;
 
-class PelatihanAimsPliController extends Controller
+class AirBudgetTaggingPLIController extends Controller
 {
-
     public function index()
     {
         $tabs = [
@@ -73,21 +72,21 @@ class PelatihanAimsPliController extends Controller
                 'route' => route('air-budget-tagging-pli'),
                 'active' => request()->routeIs('air-budget-tagging-pli'),
             ],
-
         ];
 
-        return view('SHG.InputDataMonev.pgnLngIndonesia.PelatihanAimsPLI', compact('tabs'));
+        return view('SHG.InputDataMonev.PgnLngIndonesia.AirBudgetTaggingPLI', compact('tabs'));
     }
+
 
     public function data()
     {
-        return response()->json(PelatihanAimsPLI::all());
+        return response()->json(AirBudgetTaggingPLI::all());
     }
 
-    public function store(PelatihanAimsPLIRequest $request)
+    public function store(AirBudgetTaggingPLIRequest $request)
     {
         $data = $request->validated();
-        $data = PelatihanAimsPLI::create($data);
+        $data = AirBudgetTaggingPLI::create($data);
 
         return response()->json([
             'success' => true,
@@ -96,9 +95,9 @@ class PelatihanAimsPliController extends Controller
         ]);
     }
 
-    public function update(PelatihanAimsPLIRequest $request, $id)
+    public function update(AirBudgetTaggingPLIRequest $request, $id)
     {
-        $progress = PelatihanAimsPLI::findOrFail($id);
+        $progress = AirBudgetTaggingPLI::findOrFail($id);
         $progress->update($request->validated());
 
         return response()->json(['success' => true, 'message' => 'Data berhasil diupdate']);
@@ -106,7 +105,7 @@ class PelatihanAimsPliController extends Controller
 
     public function destroy($id)
     {
-        $target = PelatihanAimsPLI::findOrFail($id);
+        $target = AirBudgetTaggingPLI::findOrFail($id);
         $target->delete();
 
         return response()->json(['success' => true, 'message' => 'Data berhasil dihapus']);

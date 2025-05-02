@@ -3,13 +3,12 @@
 namespace App\Http\Controllers\SHG\InputDataMonev\pgnLngIndonesia;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\SHG\PgnLngIndonesia\PelatihanAimsPLIRequest;
-use App\Models\SHG\PgnLngIndonesia\PelatihanAimsPLI;
+use App\Http\Requests\SHG\PgnLngIndonesia\AvailabilityPLIRequest;
+use App\Models\SHG\PgnLngIndonesia\AvailabilityPLI;
 use Illuminate\Http\Request;
 
-class PelatihanAimsPliController extends Controller
+class AvailabilityPLIController extends Controller
 {
-
     public function index()
     {
         $tabs = [
@@ -73,21 +72,20 @@ class PelatihanAimsPliController extends Controller
                 'route' => route('air-budget-tagging-pli'),
                 'active' => request()->routeIs('air-budget-tagging-pli'),
             ],
-
         ];
 
-        return view('SHG.InputDataMonev.pgnLngIndonesia.PelatihanAimsPLI', compact('tabs'));
+        return view('SHG.InputDataMonev.PgnLngIndonesia.AvailabilityPLI', compact('tabs'));
     }
 
     public function data()
     {
-        return response()->json(PelatihanAimsPLI::all());
+        return response()->json(AvailabilityPLI::all());
     }
 
-    public function store(PelatihanAimsPLIRequest $request)
+    public function store(AvailabilityPLIRequest $request)
     {
         $data = $request->validated();
-        $data = PelatihanAimsPLI::create($data);
+        $data = AvailabilityPLI::create($data);
 
         return response()->json([
             'success' => true,
@@ -96,9 +94,9 @@ class PelatihanAimsPliController extends Controller
         ]);
     }
 
-    public function update(PelatihanAimsPLIRequest $request, $id)
+    public function update(AvailabilityPLIRequest $request, $id)
     {
-        $progress = PelatihanAimsPLI::findOrFail($id);
+        $progress = AvailabilityPLI::findOrFail($id);
         $progress->update($request->validated());
 
         return response()->json(['success' => true, 'message' => 'Data berhasil diupdate']);
@@ -106,7 +104,7 @@ class PelatihanAimsPliController extends Controller
 
     public function destroy($id)
     {
-        $target = PelatihanAimsPLI::findOrFail($id);
+        $target = AvailabilityPLI::findOrFail($id);
         $target->delete();
 
         return response()->json(['success' => true, 'message' => 'Data berhasil dihapus']);

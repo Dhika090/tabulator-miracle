@@ -58,6 +58,21 @@ class RealisasiAnggaranAiPLIController extends Controller
                 'route' => route('realisasi-anggaran-ai-pli'),
                 'active' => request()->routeIs('realisasi-anggaran-ai-pli'),
             ],
+            [
+                'title' => 'Realisasi Progress Fisik AI PLI',
+                'route' => route('realisasi-progress-fisik-ai-pli'),
+                'active' => request()->routeIs('realisasi-progress-fisik-ai-pli'),
+            ],
+            [
+                'title' => 'Availability PLI',
+                'route' => route('availability-pli'),
+                'active' => request()->routeIs('availability-pli'),
+            ],
+            [
+                'title' => 'Air Budget Tagging PLI',
+                'route' => route('air-budget-tagging-pli'),
+                'active' => request()->routeIs('air-budget-tagging-pli'),
+            ],
         ];
 
         return view('SHG.InputDataMonev.PgnLngIndonesia.RealisasiAnggaranAiPLI', compact('tabs'));

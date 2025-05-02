@@ -17,6 +17,7 @@
             .tabulator-cell {
                 font-size: 14px;
             }
+
             .tabulator .tabulator-cell {
                 white-space: normal !important;
                 word-wrap: break-word;
@@ -533,6 +534,7 @@
                     clipboardCopyRowRange: "range",
                     clipboardPasteParser: "range",
                     clipboardPasteAction: "range",
+                    clipboardPasteRow: true,
 
                     columnDefaults: {
                         headerSort: true,
@@ -561,6 +563,53 @@
                         .then(res => res.json())
                         .then(data => console.log("Update berhasil:", data))
                         .catch(err => console.error("Gagal update:", err));
+                });
+
+                let previousData = [];
+                table.on("dataLoaded", function(newData) {
+                    previousData = JSON.parse(JSON.stringify(newData));
+                });
+
+                function getChangedRows(newData, oldData) {
+                    const changes = [];
+                    newData.forEach((row, index) => {
+                        if (!row.id) return;
+                        const oldRow = oldData[index];
+                        if (!oldRow) return;
+
+                        const isDifferent = Object.keys(row).some(key => row[key] !== oldRow[key]);
+                        if (isDifferent) {
+                            changes.push(row);
+                        }
+                    });
+                    return changes;
+                }
+
+                table.on("dataChanged", function(newData) {
+                    const changedRows = getChangedRows(newData, previousData);
+                    console.log("Baris yang berubah:", changedRows);
+
+                    changedRows.forEach(rowData => {
+                        fetch(`asset-breakdown-ptg/${rowData.id}`, {
+                                method: "PUT",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                    "Accept": "application/json",
+                                    "X-CSRF-TOKEN": document.querySelector(
+                                        'meta[name="csrf-token"]').getAttribute("content")
+                                },
+                                body: JSON.stringify(rowData)
+                            })
+                            .then(res => res.json())
+                            .then(response => {
+                                console.log("Data berhasil disimpan:", response);
+                            })
+                            .catch(err => {
+                                console.error("Gagal menyimpan hasil paste:", err);
+                            });
+                    });
+
+                    previousData = JSON.parse(JSON.stringify(newData));
                 });
                 loadData();
             });

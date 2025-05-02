@@ -10,7 +10,7 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('shg_kalimantan_air_budget_tagging_kjg', function (Blueprint $table) {
+        Schema::create('shg_pgnlngindonesia_air_budget_tagging_pli', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('periode');
             $table->string('satker')->nullable();
@@ -18,19 +18,19 @@ return new class extends Migration {
             $table->string('ce')->nullable();
             $table->string('cost_element_name')->nullable();
             $table->string('program_kerja')->nullable();
-            $table->decimal('total_pagu_usd', 15, 2)->nullable();
-            $table->decimal('jan', 15, 2)->nullable();
-            $table->decimal('feb', 15, 2)->nullable();
-            $table->decimal('mar', 15, 2)->nullable();
-            $table->decimal('apr', 15, 2)->nullable();
-            $table->decimal('may', 15, 2)->nullable();
-            $table->decimal('jun', 15, 2)->nullable();
-            $table->decimal('jul', 15, 2)->nullable();
-            $table->decimal('aug', 15, 2)->nullable();
-            $table->decimal('sep', 15, 2)->nullable();
-            $table->decimal('oct', 15, 2)->nullable();
-            $table->decimal('nov', 15, 2)->nullable();
-            $table->decimal('dec', 15, 2)->nullable();
+            $table->string('total_pagu_usd')->nullable();
+            $table->string('jan')->nullable();
+            $table->string('feb')->nullable();
+            $table->string('mar')->nullable();
+            $table->string('apr')->nullable();
+            $table->string('may')->nullable();
+            $table->string('jun')->nullable();
+            $table->string('jul')->nullable();
+            $table->string('aug')->nullable();
+            $table->string('sep')->nullable();
+            $table->string('oct')->nullable();
+            $table->string('nov')->nullable();
+            $table->string('dec')->nullable();
             $table->enum('aset_integrity', ['Yes', 'No']);
             $table->string('airtagging')->nullable();
             $table->string('prioritas')->nullable();
@@ -48,6 +48,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('shg_kalimantan_air_budget_tagging_kjg');
+        Schema::dropIfExists('shg_pgnlngindonesia_air_budget_tagging_pli');
     }
 };
