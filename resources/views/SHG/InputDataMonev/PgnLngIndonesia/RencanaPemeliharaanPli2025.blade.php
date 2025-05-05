@@ -180,7 +180,7 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Tambah Rencana Pemeliharaan KJG</h3>
+            <h3>Tambah Rencana Pemeliharaan PLI</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
 

@@ -18,15 +18,10 @@
                 font-size: 14px;
             }
 
-            .tabulator .tabulator-cell {
+            /* .tabulator .tabulator-cell {
                 white-space: normal !important;
                 word-wrap: break-word;
-            }
-
-            .tabulator .tabulator-cell {
-                white-space: normal !important;
-                word-wrap: break-word;
-            }
+            } */
 
             .card {
                 margin-top: 20px;
@@ -185,7 +180,7 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Tambah Target SAP</h3>
+            <h3>Tambah Target PLI</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
 
@@ -434,7 +429,6 @@
                             title: "Nomor PLO",
                             field: "nomor_plo",
                             editor: "input",
-                            width: 450
                         },
                         {
                             title: "Company",

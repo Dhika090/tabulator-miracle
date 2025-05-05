@@ -177,12 +177,13 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Tambah Data Realisasi Anggaran AI 2025</h3>
+            <h3>Tambah Data Realisasi Progress Fisik AI 2025</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
                 <div>
                     <label>Periode</label>
-                    <input type="month" name="periode" required>
+                    <input type="number" name="periode" id="periode" required pattern="^\d{4}$"
+                        title="The periode field must match the format YYYY." placeholder="YYYY">
                 </div>
 
                 <div>
@@ -483,21 +484,16 @@
                         .map(bulan => ({
                             title: `Plan ${bulan}`,
                             field: `plan_${bulan.toLowerCase()}`,
-                            editor: "number"
-                        })),
-                        // Prognosa Fields
-                        ...["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-                        .map(bulan => ({
-                            title: `Prognosa ${bulan}`,
-                            field: `prognosa_${bulan.toLowerCase()}`,
-                            editor: "number"
+                            editor: "input",
+                            
                         })),
                         // Actual Fields
                         ...["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
                         .map(bulan => ({
                             title: `Actual ${bulan}`,
                             field: `actual_${bulan.toLowerCase()}`,
-                            editor: "number"
+                            editor: "input",
+                            
                         })),
                         {
                             title: "Kode",

@@ -9,8 +9,6 @@ use Illuminate\Http\Request;
 
 class KondisiVacantAimsPliController extends Controller
 {
-
-
     public function index()
     {
         $tabs = [

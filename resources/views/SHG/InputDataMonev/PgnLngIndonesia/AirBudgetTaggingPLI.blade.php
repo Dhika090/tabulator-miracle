@@ -463,327 +463,80 @@
                         },
                         {
                             title: "Total Pagu (USD)",
-                            field: "total_pagu",
-                            editor: function(cell, onRendered, success, cancel) {
-                                const input = document.createElement("input");
-                                input.type = "number";
-                                input.step = "any";
-                                input.placeholder = "0.00";
-                                input.style.width = "100%";
-                                onRendered(function() {
-                                    input.focus();
-                                    input.select();
-                                });
-                                input.addEventListener("blur", function(e) {
-                                    const val = e.target.value;
-                                    if (val) {
-                                        success(val.replace(/[^\d.,]/g, ""));
-                                    } else {
-                                        cancel();
-                                    }
-                                });
-                                cell.element.appendChild(input);
-                            },
+                            field: "total_pagu_usd",
+                            editor: "input",
                             hozAlign: "center"
                         },
                         {
                             title: "JAN",
                             field: "jan",
-                            editor: function(cell, onRendered, success, cancel) {
-                                const input = document.createElement("input");
-                                input.type = "number";
-                                input.step = "any";
-                                input.placeholder = "0.00";
-                                input.style.width = "100%";
-                                onRendered(function() {
-                                    input.focus();
-                                    input.select();
-                                });
-                                input.addEventListener("blur", function(e) {
-                                    const val = e.target.value;
-                                    if (val) {
-                                        success(val.replace(/[^\d.,]/g, ""));
-                                    } else {
-                                        cancel();
-                                    }
-                                });
-                                cell.element.appendChild(input);
-                            },
+                            editor: "input",
                             hozAlign: "center"
                         },
                         {
                             title: "FEB",
                             field: "feb",
-                            editor: function(cell, onRendered, success, cancel) {
-                                const input = document.createElement("input");
-                                input.type = "number";
-                                input.step = "any";
-                                input.placeholder = "0.00";
-                                input.style.width = "100%";
-                                onRendered(function() {
-                                    input.focus();
-                                    input.select();
-                                });
-                                input.addEventListener("blur", function(e) {
-                                    const val = e.target.value;
-                                    if (val) {
-                                        success(val.replace(/[^\d.,]/g, ""));
-                                    } else {
-                                        cancel();
-                                    }
-                                });
-                                cell.element.appendChild(input);
-                            },
+                            editor: "input",
                             hozAlign: "center"
                         },
                         {
                             title: "MAR",
                             field: "mar",
-                            editor: function(cell, onRendered, success, cancel) {
-                                const input = document.createElement("input");
-                                input.type = "number";
-                                input.step = "any";
-                                input.placeholder = "0.00";
-                                input.style.width = "100%";
-                                onRendered(function() {
-                                    input.focus();
-                                    input.select();
-                                });
-                                input.addEventListener("blur", function(e) {
-                                    const val = e.target.value;
-                                    if (val) {
-                                        success(val.replace(/[^\d.,]/g, ""));
-                                    } else {
-                                        cancel();
-                                    }
-                                });
-                                cell.element.appendChild(input);
-                            },
+                            editor: "input",
                             hozAlign: "center"
                         },
                         {
                             title: "APR",
                             field: "apr",
-                            editor: function(cell, onRendered, success, cancel) {
-                                const input = document.createElement("input");
-                                input.type = "number";
-                                input.step = "any";
-                                input.placeholder = "0.00";
-                                input.style.width = "100%";
-                                onRendered(function() {
-                                    input.focus();
-                                    input.select();
-                                });
-                                input.addEventListener("blur", function(e) {
-                                    const val = e.target.value;
-                                    if (val) {
-                                        success(val.replace(/[^\d.,]/g, ""));
-                                    } else {
-                                        cancel();
-                                    }
-                                });
-                                cell.element.appendChild(input);
-                            },
+                            editor: "input",
                             hozAlign: "center"
                         },
                         {
                             title: "MAY",
                             field: "may",
-                            editor: function(cell, onRendered, success, cancel) {
-                                const input = document.createElement("input");
-                                input.type = "number";
-                                input.step = "any";
-                                input.placeholder = "0.00";
-                                input.style.width = "100%";
-                                onRendered(function() {
-                                    input.focus();
-                                    input.select();
-                                });
-                                input.addEventListener("blur", function(e) {
-                                    const val = e.target.value;
-                                    if (val) {
-                                        success(val.replace(/[^\d.,]/g, ""));
-                                    } else {
-                                        cancel();
-                                    }
-                                });
-                                cell.element.appendChild(input);
-                            },
+                            editor: "input",
                             hozAlign: "center"
                         },
                         {
                             title: "JUN",
                             field: "jun",
-                            editor: function(cell, onRendered, success, cancel) {
-                                const input = document.createElement("input");
-                                input.type = "number";
-                                input.step = "any";
-                                input.placeholder = "0.00";
-                                input.style.width = "100%";
-                                onRendered(function() {
-                                    input.focus();
-                                    input.select();
-                                });
-                                input.addEventListener("blur", function(e) {
-                                    const val = e.target.value;
-                                    if (val) {
-                                        success(val.replace(/[^\d.,]/g, ""));
-                                    } else {
-                                        cancel();
-                                    }
-                                });
-                                cell.element.appendChild(input);
-                            },
+                            editor: "input",
                             hozAlign: "center"
                         },
                         {
                             title: "JUL",
                             field: "jul",
-                            editor: function(cell, onRendered, success, cancel) {
-                                const input = document.createElement("input");
-                                input.type = "number";
-                                input.step = "any";
-                                input.placeholder = "0.00";
-                                input.style.width = "100%";
-                                onRendered(function() {
-                                    input.focus();
-                                    input.select();
-                                });
-                                input.addEventListener("blur", function(e) {
-                                    const val = e.target.value;
-                                    if (val) {
-                                        success(val.replace(/[^\d.,]/g, ""));
-                                    } else {
-                                        cancel();
-                                    }
-                                });
-                                cell.element.appendChild(input);
-                            },
+                            editor: "input",
                             hozAlign: "center"
                         },
                         {
                             title: "AUG",
                             field: "aug",
-                            editor: function(cell, onRendered, success, cancel) {
-                                const input = document.createElement("input");
-                                input.type = "number";
-                                input.step = "any";
-                                input.placeholder = "0.00";
-                                input.style.width = "100%";
-                                onRendered(function() {
-                                    input.focus();
-                                    input.select();
-                                });
-                                input.addEventListener("blur", function(e) {
-                                    const val = e.target.value;
-                                    if (val) {
-                                        success(val.replace(/[^\d.,]/g, ""));
-                                    } else {
-                                        cancel();
-                                    }
-                                });
-                                cell.element.appendChild(input);
-                            },
+                            editor: "input",
                             hozAlign: "center"
                         },
                         {
                             title: "SEP",
                             field: "sep",
-                            editor: function(cell, onRendered, success, cancel) {
-                                const input = document.createElement("input");
-                                input.type = "number";
-                                input.step = "any";
-                                input.placeholder = "0.00";
-                                input.style.width = "100%";
-                                onRendered(function() {
-                                    input.focus();
-                                    input.select();
-                                });
-                                input.addEventListener("blur", function(e) {
-                                    const val = e.target.value;
-                                    if (val) {
-                                        success(val.replace(/[^\d.,]/g, ""));
-                                    } else {
-                                        cancel();
-                                    }
-                                });
-                                cell.element.appendChild(input);
-                            },
+                            editor: "input",
                             hozAlign: "center"
                         },
                         {
                             title: "OCT",
                             field: "oct",
-                            editor: function(cell, onRendered, success, cancel) {
-                                const input = document.createElement("input");
-                                input.type = "number";
-                                input.step = "any";
-                                input.placeholder = "0.00";
-                                input.style.width = "100%";
-                                onRendered(function() {
-                                    input.focus();
-                                    input.select();
-                                });
-                                input.addEventListener("blur", function(e) {
-                                    const val = e.target.value;
-                                    if (val) {
-                                        success(val.replace(/[^\d.,]/g, ""));
-                                    } else {
-                                        cancel();
-                                    }
-                                });
-                                cell.element.appendChild(input);
-                            },
+                            editor: "input",
                             hozAlign: "center"
                         },
                         {
                             title: "NOV",
                             field: "nov",
-                            editor: function(cell, onRendered, success, cancel) {
-                                const input = document.createElement("input");
-                                input.type = "number";
-                                input.step = "any";
-                                input.placeholder = "0.00";
-                                input.style.width = "100%";
-                                onRendered(function() {
-                                    input.focus();
-                                    input.select();
-                                });
-                                input.addEventListener("blur", function(e) {
-                                    const val = e.target.value;
-                                    if (val) {
-                                        success(val.replace(/[^\d.,]/g, ""));
-                                    } else {
-                                        cancel();
-                                    }
-                                });
-                                cell.element.appendChild(input);
-                            },
+                            editor: "input",
                             hozAlign: "center"
                         },
                         {
                             title: "DEC",
                             field: "dec",
-                            editor: function(cell, onRendered, success, cancel) {
-                                const input = document.createElement("input");
-                                input.type = "number";
-                                input.step = "any";
-                                input.placeholder = "0.00";
-                                input.style.width = "100%";
-                                onRendered(function() {
-                                    input.focus();
-                                    input.select();
-                                });
-                                input.addEventListener("blur", function(e) {
-                                    const val = e.target.value;
-                                    if (val) {
-                                        success(val.replace(/[^\d.,]/g, ""));
-                                    } else {
-                                        cancel();
-                                    }
-                                });
-                                cell.element.appendChild(input);
-                            },
+                            editor: "input",
                             hozAlign: "center"
                         },
                         {
