@@ -3,14 +3,12 @@
 namespace App\Http\Controllers\SHG\InputDataMonev\PertaArunGas;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\SHG\PertaArun\KondisiVacantAimsPAGRequest;
-use App\Http\Requests\SHG\PertaArun\KondisiVacantAimsRequest;
-use App\Models\SHG\PertaArun\KondisiVacantAimsPAG;
+use App\Http\Requests\SHG\PertaArun\RencanaPemeliharaanPAGRequest;
+use App\Models\SHG\PertaArun\RencanaPemeliharaanPAG;
 use Illuminate\Http\Request;
 
-class KondisiVacantAimsPAGController extends Controller
+class RencanaPemeliharaanPAGController extends Controller
 {
-
     public function index()
     {
         $tabs = [
@@ -69,22 +67,23 @@ class KondisiVacantAimsPAGController extends Controller
                 'route' => route('realisasi-progress-fisik-ai-pag'),
                 'active' => request()->routeIs('realisasi-progress-fisik-ai-pag'),
             ],
+            
         ];
 
-        return view('SHG.InputDataMonev.PertaArun.KondisiVacantFungsiAimsPAG', compact('tabs'));
+        return view('SHG.InputDataMonev.PertaArun.RencanaPemeliharaanPAG', compact('tabs'));
     }
 
 
     public function data()
     {
-        return response()->json(KondisiVacantAimsPAG::all());
+        return response()->json(RencanaPemeliharaanPAG::all());
     }
 
 
-    public function store(KondisiVacantAimsPAGRequest $request)
+    public function store(RencanaPemeliharaanPAGRequest $request)
     {
         $data = $request->validated();
-        $data = KondisiVacantAimsPAG::create($data);
+        $data = RencanaPemeliharaanPAG::create($data);
 
         return response()->json([
             'success' => true,
@@ -93,9 +92,9 @@ class KondisiVacantAimsPAGController extends Controller
         ]);
     }
 
-    public function update(KondisiVacantAimsPAGRequest $request, $id)
+    public function update(RencanaPemeliharaanPAGRequest $request, $id)
     {
-        $progress = KondisiVacantAimsPAG::findOrFail($id);
+        $progress = RencanaPemeliharaanPAG::findOrFail($id);
         $progress->update($request->validated());
 
         return response()->json(['success' => true, 'message' => 'Data berhasil diupdate']);
@@ -103,7 +102,7 @@ class KondisiVacantAimsPAGController extends Controller
 
     public function destroy($id)
     {
-        $target = KondisiVacantAimsPAG::findOrFail($id);
+        $target = RencanaPemeliharaanPAG::findOrFail($id);
         $target->delete();
 
         return response()->json(['success' => true, 'message' => 'Data berhasil dihapus']);

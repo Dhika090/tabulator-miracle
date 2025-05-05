@@ -185,8 +185,9 @@
                 <input type="hidden" name="id" id="form-id">
 
                 <div>
-                    <label for="periode">Periode</label>
-                    <input type="month" id="periode" name="periode" required>
+                    <label>Periode</label>
+                    <input type="number" name="periode" id="periode" required pattern="^\d{4}$"
+                        title="The periode field must match the format YYYY." placeholder="YYYY">
                 </div>
 
                 <div>

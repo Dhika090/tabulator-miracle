@@ -48,7 +48,26 @@ class SistemInformasiAimsPAGController extends Controller
                 'route' => route('sistem-informasi-aims-pag'),
                 'active' => request()->routeIs('sistem-informasi-aims-pag'),
             ],
-
+            [
+                'title' => 'Rencana Pemeliharaan Besar PAG',
+                'route' => route('rencana-pemeliharaan-pag'),
+                'active' => request()->routeIs('rencana-pemeliharaan-pag'),
+            ],
+            [
+                'title' => 'Availability PAG',
+                'route' => route('availability-pag'),
+                'active' => request()->routeIs('availability-pag'),
+            ],
+            [
+                'title' => 'Realisasi Anggaran AI PAG',
+                'route' => route('realisasi-anggaran-ai-pag'),
+                'active' => request()->routeIs('realisasi-anggaran-ai-pag'),
+            ],
+            [
+                'title' => 'Realisasi Progress Fisik AI PAG',
+                'route' => route('realisasi-progress-fisik-ai-pag'),
+                'active' => request()->routeIs('realisasi-progress-fisik-ai-pag'),
+            ],
         ];
 
         return view('SHG.InputDataMonev.PertaArun.SistemInformasiAimsPAG', compact('tabs'));

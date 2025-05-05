@@ -3,12 +3,11 @@
 namespace App\Http\Controllers\SHG\InputDataMonev\PertaArunGas;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\SHG\PertaArun\KondisiVacantAimsPAGRequest;
-use App\Http\Requests\SHG\PertaArun\KondisiVacantAimsRequest;
-use App\Models\SHG\PertaArun\KondisiVacantAimsPAG;
+use App\Http\Requests\SHG\PertaArun\AvailabilityPAGRequest;
+use App\Models\SHG\PertaArun\AvailabilityPAG;
 use Illuminate\Http\Request;
 
-class KondisiVacantAimsPAGController extends Controller
+class AvailabilityPAGController extends Controller
 {
 
     public function index()
@@ -71,20 +70,20 @@ class KondisiVacantAimsPAGController extends Controller
             ],
         ];
 
-        return view('SHG.InputDataMonev.PertaArun.KondisiVacantFungsiAimsPAG', compact('tabs'));
+        return view('SHG.InputDataMonev.PertaArun.AvailabilityPAG', compact('tabs'));
     }
 
 
     public function data()
     {
-        return response()->json(KondisiVacantAimsPAG::all());
+        return response()->json(AvailabilityPAG::all());
     }
 
 
-    public function store(KondisiVacantAimsPAGRequest $request)
+    public function store(AvailabilityPAGRequest $request)
     {
         $data = $request->validated();
-        $data = KondisiVacantAimsPAG::create($data);
+        $data = AvailabilityPAG::create($data);
 
         return response()->json([
             'success' => true,
@@ -93,9 +92,9 @@ class KondisiVacantAimsPAGController extends Controller
         ]);
     }
 
-    public function update(KondisiVacantAimsPAGRequest $request, $id)
+    public function update(AvailabilityPAGRequest $request, $id)
     {
-        $progress = KondisiVacantAimsPAG::findOrFail($id);
+        $progress = AvailabilityPAG::findOrFail($id);
         $progress->update($request->validated());
 
         return response()->json(['success' => true, 'message' => 'Data berhasil diupdate']);
@@ -103,7 +102,7 @@ class KondisiVacantAimsPAGController extends Controller
 
     public function destroy($id)
     {
-        $target = KondisiVacantAimsPAG::findOrFail($id);
+        $target = AvailabilityPAG::findOrFail($id);
         $target->delete();
 
         return response()->json(['success' => true, 'message' => 'Data berhasil dihapus']);

@@ -15,9 +15,13 @@ use App\Http\Controllers\SHG\InputDataMonev\kalimantan\SistemInformasiAimsKjgCon
 use App\Http\Controllers\SHG\InputDataMonev\kalimantan\StatusPloKjgController;
 use App\Http\Controllers\SHG\InputDataMonev\KalimantanJawaGasController;
 use App\Http\Controllers\SHG\InputDataMonev\PertaArunGas\AssetBreakdownPAGController;
+use App\Http\Controllers\SHG\InputDataMonev\PertaArunGas\AvailabilityPAGController;
 use App\Http\Controllers\SHG\InputDataMonev\PertaArunGas\KondisiVacantAimsPAGController;
 use App\Http\Controllers\SHG\InputDataMonev\PertaArunGas\MandatoryCertificationPAGController;
 use App\Http\Controllers\SHG\InputDataMonev\PertaArunGas\PelatihanAimsPAGController;
+use App\Http\Controllers\SHG\InputDataMonev\PertaArunGas\RealisasiAnggaranAiPAGController;
+use App\Http\Controllers\SHG\InputDataMonev\PertaArunGas\RealisasiProgressFisikAiPAGController;
+use App\Http\Controllers\SHG\InputDataMonev\PertaArunGas\RencanaPemeliharaanPAGController;
 use App\Http\Controllers\SHG\InputDataMonev\PertaArunGas\SistemInformasiAimsPAGController;
 use App\Http\Controllers\SHG\InputDataMonev\PertaArunGas\StatusAssetAiPAGController;
 use App\Http\Controllers\SHG\InputDataMonev\PertaArunGas\StatusPloPAGController;
@@ -804,6 +808,39 @@ Route::prefix('monev/shg/input-data/sistem-informasi-aims-pag')->middleware(['au
     Route::delete('/{id}', [SistemInformasiAimsPAGController::class, 'destroy'])->name('sistem-informasi-aims-pag.destroy');
 });
 
+Route::prefix('monev/shg/input-data/rencana-pemeliharaan-pag')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [RencanaPemeliharaanPAGController::class, 'index'])->name('rencana-pemeliharaan-pag');
+    Route::post('/', [RencanaPemeliharaanPAGController::class, 'store'])->name('rencana-pemeliharaan-pag.store');
+    Route::get('/data', [RencanaPemeliharaanPAGController::class, 'data'])->name('rencana-pemeliharaan-pag.data');
+    // Route::get('/{id}/edit', [RencanaPemeliharaanPAGController::class, 'edit'])->name('rencana-pemeliharaan-pag.edit');
+    Route::put('/{id}', [RencanaPemeliharaanPAGController::class, 'update'])->name('rencana-pemeliharaan-pag.update');
+    Route::delete('/{id}', [RencanaPemeliharaanPAGController::class, 'destroy'])->name('rencana-pemeliharaan-pag.destroy');
+});
+Route::prefix('monev/shg/input-data/availability-pag')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [AvailabilityPAGController::class, 'index'])->name('availability-pag');
+    Route::post('/', [AvailabilityPAGController::class, 'store'])->name('availability-pag.store');
+    Route::get('/data', [AvailabilityPAGController::class, 'data'])->name('availability-pag.data');
+    Route::get('/{id}/edit', [AvailabilityPAGController::class, 'edit'])->name('availability-pag.edit');
+    Route::put('/{id}', [AvailabilityPAGController::class, 'update'])->name('availability-pag.update');
+    Route::delete('/{id}', [AvailabilityPAGController::class, 'destroy'])->name('availability-pag.destroy');
+});
+Route::prefix('monev/shg/input-data/realisasi-anggaran-ai-pag')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [RealisasiAnggaranAiPagController::class, 'index'])->name('realisasi-anggaran-ai-pag');
+    Route::post('/', [RealisasiAnggaranAiPagController::class, 'store'])->name('realisasi-anggaran-ai-pag.store');
+    Route::get('/data', [RealisasiAnggaranAiPagController::class, 'data'])->name('realisasi-anggaran-ai-pag.data');
+    Route::get('/{id}/edit', [RealisasiAnggaranAiPagController::class, 'edit'])->name('realisasi-anggaran-ai-pag.edit');
+    Route::put('/{id}', [RealisasiAnggaranAiPagController::class, 'update'])->name('realisasi-anggaran-ai-pag.update');
+    Route::delete('/{id}', [RealisasiAnggaranAiPAGController::class, 'destroy'])->name('realisasi-anggaran-ai-pag.destroy');
+});
+
+Route::prefix('monev/shg/input-data/realisasi-progress-fisik-ai-pag')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [RealisasiProgressFisikAiPAGController::class, 'index'])->name('realisasi-progress-fisik-ai-pag');
+    Route::post('/', [RealisasiProgressFisikAiPagController::class, 'store'])->name('realisasi-progress-fisik-ai-pag.store');
+    Route::get('/data', [RealisasiProgressFisikAiPagController::class, 'data'])->name('realisasi-progress-fisik-ai-pag.data');
+    Route::get('/{id}/edit', [RealisasiProgressFisikAiPagController::class, 'edit'])->name('realisasi-progress-fisik-ai-pag.edit');
+    Route::put('/{id}', [RealisasiProgressFisikAiPagController::class, 'update'])->name('realisasi-progress-fisik-ai-pag.update');
+    Route::delete('/{id}', [RealisasiProgressFisikAiPagController::class, 'destroy'])->name('realisasi-progress-fisik-ai-pag.destroy');
+});
 
 
 

@@ -359,6 +359,12 @@
                             formatter: function(cell) {
                                 let value = parseFloat(cell.getValue());
                                 return isNaN(value) ? "-" : value.toFixed(2) + " %";
+                            },
+                            mutator: function(value) {
+                                if (typeof value === "string") {
+                                    value = value.replace(/%/g, "").trim();
+                                }
+                                return parseFloat(value);
                             }
                         },
                         {
@@ -369,6 +375,12 @@
                             formatter: function(cell) {
                                 let value = parseFloat(cell.getValue());
                                 return isNaN(value) ? "-" : value.toFixed(2) + " %";
+                            },
+                            mutator: function(value) {
+                                if (typeof value === "string") {
+                                    value = value.replace(/%/g, "").trim();
+                                }
+                                return parseFloat(value);
                             }
                         },
                         {
