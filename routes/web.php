@@ -14,6 +14,7 @@ use App\Http\Controllers\SHG\InputDataMonev\kalimantan\RencanaPemeliharaanBesarK
 use App\Http\Controllers\SHG\InputDataMonev\kalimantan\SistemInformasiAimsKjgController;
 use App\Http\Controllers\SHG\InputDataMonev\kalimantan\StatusPloKjgController;
 use App\Http\Controllers\SHG\InputDataMonev\KalimantanJawaGasController;
+use App\Http\Controllers\SHG\InputDataMonev\PertaArunGas\AirBudgetTaggingPAGController;
 use App\Http\Controllers\SHG\InputDataMonev\PertaArunGas\AssetBreakdownPAGController;
 use App\Http\Controllers\SHG\InputDataMonev\PertaArunGas\AvailabilityPAGController;
 use App\Http\Controllers\SHG\InputDataMonev\PertaArunGas\KondisiVacantAimsPAGController;
@@ -25,6 +26,18 @@ use App\Http\Controllers\SHG\InputDataMonev\PertaArunGas\RencanaPemeliharaanPAGC
 use App\Http\Controllers\SHG\InputDataMonev\PertaArunGas\SistemInformasiAimsPAGController;
 use App\Http\Controllers\SHG\InputDataMonev\PertaArunGas\StatusAssetAiPAGController;
 use App\Http\Controllers\SHG\InputDataMonev\PertaArunGas\StatusPloPAGController;
+use App\Http\Controllers\SHG\InputDataMonev\PertaDayaGas\AssetBreakdownPDGController;
+use App\Http\Controllers\SHG\InputDataMonev\PertaDayaGas\AvailabilityPDGController;
+use App\Http\Controllers\SHG\InputDataMonev\PertaDayaGas\KondisiVacantAimsPDGController;
+use App\Http\Controllers\SHG\InputDataMonev\PertaDayaGas\MandatoryCertificationPDGController;
+use App\Http\Controllers\SHG\InputDataMonev\PertaDayaGas\PelatihanAimsPDGController;
+use App\Http\Controllers\SHG\InputDataMonev\PertaDayaGas\RealisasiAnggaranAiPDGController;
+use App\Http\Controllers\SHG\InputDataMonev\PertaDayaGas\RealisasiProgressFisikAiPDGController;
+use App\Http\Controllers\SHG\InputDataMonev\PertaDayaGas\RencanaPemeliharaanPDGController;
+use App\Http\Controllers\SHG\InputDataMonev\PertaDayaGas\SistemInformasiAimsPDGController;
+use App\Http\Controllers\SHG\InputDataMonev\PertaDayaGas\StatusAssetAiPDGController;
+use App\Http\Controllers\SHG\InputDataMonev\PertaDayaGas\StatusPloPDGController;
+use App\Http\Controllers\SHG\InputDataMonev\PertagasNiaga\StatusAssetAiPTGNController;
 use App\Http\Controllers\SHG\InputDataMonev\pertamina\AirBudgetTaggingPtgController;
 use App\Http\Controllers\SHG\InputDataMonev\pertamina\AssetBreakDownPtgController;
 use App\Http\Controllers\SHG\InputDataMonev\pertamina\AvailabilityPtgController;
@@ -841,6 +854,128 @@ Route::prefix('monev/shg/input-data/realisasi-progress-fisik-ai-pag')->middlewar
     Route::put('/{id}', [RealisasiProgressFisikAiPagController::class, 'update'])->name('realisasi-progress-fisik-ai-pag.update');
     Route::delete('/{id}', [RealisasiProgressFisikAiPagController::class, 'destroy'])->name('realisasi-progress-fisik-ai-pag.destroy');
 });
+
+Route::prefix('monev/shg/input-data/air-budget-tagging-pag')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [AirBudgetTaggingPAGController::class, 'index'])->name('air-budget-tagging-pag');
+    Route::post('/', [AirBudgetTaggingPAGController::class, 'store'])->name('air-budget-tagging-pag.store');
+    Route::get('/data', [AirBudgetTaggingPAGController::class, 'data'])->name('air-budget-tagging-pag.data');
+    Route::get('/{id}/edit', [AirBudgetTaggingPAGController::class, 'edit'])->name('air-budget-tagging-pag.edit');
+    Route::put('/{id}', [AirBudgetTaggingPAGController::class, 'update'])->name('air-budget-tagging-pag.update');
+    Route::delete('/{id}', [AirBudgetTaggingPAGController::class, 'destroy'])->name('air-budget-tagging-pag.destroy');
+});
+
+
+// Perta Daya Gas
+Route::prefix('monev/shg/input-data/perta-daya-gas')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [StatusAssetAiPDGController::class, 'index'])->name('perta-daya-gas');
+    Route::post('/', [StatusAssetAiPDGController::class, 'store'])->name('perta-daya-gas.store');
+    Route::get('/data', [StatusAssetAiPDGController::class, 'data'])->name('perta-daya-gas.data');
+    Route::get('/{id}/edit', [StatusAssetAiPDGController::class, 'edit'])->name('perta-daya-gas.edit');
+    Route::put('/{id}', [StatusAssetAiPDGController::class, 'update'])->name('perta-daya-gas.update');
+    Route::delete('/{id}', [StatusAssetAiPDGController::class, 'destroy'])->name('perta-daya-gas.destroy');
+});
+
+Route::prefix('monev/shg/input-data/mandatory-certification-pdg')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [MandatoryCertificationPDGController::class, 'index'])->name('mandatory-certification-pdg');
+    Route::post('/', [MandatoryCertificationPdgController::class, 'store'])->name('mandatory-certification-pdg.store');
+    Route::get('/data', [MandatoryCertificationPdgController::class, 'data'])->name('mandatory-certification-pdg.data');
+    Route::get('/{id}/edit', [MandatoryCertificationPdgController::class, 'edit'])->name('mandatory-certification-pdg.edit');
+    Route::put('/{id}', [MandatoryCertificationPdgController::class, 'update'])->name('mandatory-certification-pdg.update');
+    Route::delete('/{id}', [MandatoryCertificationPdgController::class, 'destroy'])->name('mandatory-certification-pdg.destroy');
+});
+
+Route::prefix('monev/shg/input-data/status-plo-pdg')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [StatusPloPDGController::class, 'index'])->name('status-plo-pdg');
+    Route::post('/', [StatusPloPDGController::class, 'store'])->name('status-plo-pdg.store');
+    Route::get('/data', [StatusPloPdgController::class, 'data'])->name('status-plo-pdg.data');
+    Route::get('/{id}/edit', [StatusPloPdgController::class, 'edit'])->name('status-plo-pdg.edit');
+    Route::put('/{id}', [StatusPloPdgController::class, 'update'])->name('status-plo-pdg.update');
+    Route::delete('/{id}', [StatusPloPdgController::class, 'destroy'])->name('status-plo-pdg.destroy');
+});
+Route::prefix('monev/shg/input-data/asset-breakdown-pdg')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [AssetBreakdownPDGController::class, 'index'])->name('asset-breakdown-pdg');
+    Route::post('/', [AssetBreakdownPDGController::class, 'store'])->name('asset-breakdown-pdg.store');
+    Route::get('/data', [AssetBreakdownPDGController::class, 'data'])->name('asset-breakdown-pdg.data');
+    Route::get('/{id}/edit', [AssetBreakdownPDGController::class, 'edit'])->name('asset-breakdown-pdg.edit');
+    Route::put('/{id}', [AssetBreakdownPDGController::class, 'update'])->name('asset-breakdown-pdg.update');
+    Route::delete('/{id}', [AssetBreakdownPDGController::class, 'destroy'])->name('asset-breakdown-pdg.destroy');
+});
+
+Route::prefix('monev/shg/input-data/pelatihan-aims-pdg')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [PelatihanAimsPDGController::class, 'index'])->name('pelatihan-aims-pdg');
+    Route::post('/', [PelatihanAimsPDGController::class, 'store'])->name('pelatihan-aims-pdg.store');
+    Route::get('/data', [PelatihanAimsPDGController::class, 'data'])->name('pelatihan-aims-pdg.data');
+    Route::get('/{id}/edit', [PelatihanAimsPDGController::class, 'edit'])->name('pelatihan-aims-pdg.edit');
+    Route::put('/{id}', [PelatihanAimsPDGController::class, 'update'])->name('pelatihan-aims-pdg.update');
+    Route::delete('/{id}', [PelatihanAimsPDGController::class, 'destroy'])->name('pelatihan-aims-pdg.destroy');
+});
+
+Route::prefix('monev/shg/input-data/kondisi-vacant-aims-pdg')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [KondisiVacantAimsPDGController::class, 'index'])->name('kondisi-vacant-aims-pdg');
+    Route::post('/', [KondisiVacantAimsPDGController::class, 'store'])->name('kondisi-vacant-aims-pdg.store');
+    Route::get('/data', [KondisiVacantAimsPDGController::class, 'data'])->name('kondisi-vacant-aims-pdg.data');
+    Route::get('/{id}/edit', [KondisiVacantAimsPDGController::class, 'edit'])->name('kondisi-vacant-aims-pdg.edit');
+    Route::put('/{id}', [KondisiVacantAimsPDGController::class, 'update'])->name('kondisi-vacant-aims-pdg.update');
+    Route::delete('/{id}', [KondisiVacantAimsPDGController::class, 'destroy'])->name('kondisi-vacant-aims-pdg.destroy');
+});
+
+Route::prefix('monev/shg/input-data/availability-pdg')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [AvailabilityPdgController::class, 'index'])->name('availability-pdg');
+    Route::post('/', [AvailabilityPDGController::class, 'store'])->name('availability-pdg.store');
+    Route::get('/data', [AvailabilityPdgController::class, 'data'])->name('availability-pdg.data');
+    Route::get('/{id}/edit', [AvailabilityPdgController::class, 'edit'])->name('availability-pdg.edit');
+    Route::put('/{id}', [AvailabilityPdgController::class, 'update'])->name('availability-pdg.update');
+    Route::delete('/{id}', [AvailabilityPdgController::class, 'destroy'])->name('availability-pdg.destroy');
+});
+Route::prefix('monev/shg/input-data/sistem-informasi-aims-pdg')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [SistemInformasiAimsPDGController::class, 'index'])->name('sistem-informasi-aims-pdg');
+    Route::post('/', [SistemInformasiAimsPdgController::class, 'store'])->name('sistem-informasi-aims-pdg.store');
+    Route::get('/data', [SistemInformasiAimsPdgController::class, 'data'])->name('sistem-informasi-aims-pdg.data');
+    Route::get('/{id}/edit', [SistemInformasiAimsPdgController::class, 'edit'])->name('sistem-informasi-aims-pdg.edit');
+    Route::put('/{id}', [SistemInformasiAimsPdgController::class, 'update'])->name('sistem-informasi-aims-pdg.update');
+    Route::delete('/{id}', [SistemInformasiAimsPdgController::class, 'destroy'])->name('sistem-informasi-aims-pdg.destroy');
+});
+
+Route::prefix('monev/shg/input-data/rencana-pemeliharaan-pdg')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [RencanaPemeliharaanPDGController::class, 'index'])->name('rencana-pemeliharaan-pdg');
+    Route::post('/', [RencanaPemeliharaanPdgController::class, 'store'])->name('rencana-pemeliharaan-pdg.store');
+    Route::get('/data', [RencanaPemeliharaanPdgController::class, 'data'])->name('rencana-pemeliharaan-pdg.data');
+    Route::get('/{id}/edit', [RencanaPemeliharaanPdgController::class, 'edit'])->name('rencana-pemeliharaan-pdg.edit');
+    Route::put('/{id}', [RencanaPemeliharaanPdgController::class, 'update'])->name('rencana-pemeliharaan-pdg.update');
+    Route::delete('/{id}', [RencanaPemeliharaanPdgController::class, 'destroy'])->name('rencana-pemeliharaan-pdg.destroy');
+});
+
+Route::prefix('monev/shg/input-data/realisasi-anggaran-ai-pdg')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [RealisasiAnggaranAiPDGController::class, 'index'])->name('realisasi-anggaran-ai-pdg');
+    Route::post('/', [RealisasiAnggaranAIPDGController::class, 'store'])->name('realisasi-anggaran-ai-pdg.store');
+    Route::get('/data', [RealisasiAnggaranAIPDGController::class, 'data'])->name('realisasi-anggaran-ai-pdg.data');
+    Route::get('/{id}/edit', [RealisasiAnggaranAIPDGController::class, 'edit'])->name('realisasi-anggaran-ai-pdg.edit');
+    Route::put('/{id}', [RealisasiAnggaranAIPDGController::class, 'update'])->name('realisasi-anggaran-ai-pdg.update');
+    Route::delete('/{id}', [RealisasiAnggaranAIPDGController::class, 'destroy'])->name('realisasi-anggaran-ai-pdg.destroy');
+});
+Route::prefix('monev/shg/input-data/realisasi-progress-fisik-ai-pdg')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [RealisasiProgressFisikAiPDGController::class, 'index'])->name('realisasi-progress-fisik-ai-pdg');
+    Route::post('/', [RealisasiProgressFisikAiPdgController::class, 'store'])->name('realisasi-progress-fisik-ai-pdg.store');
+    Route::get('/data', [RealisasiProgressFisikAiPdgController::class, 'data'])->name('realisasi-progress-fisik-ai-pdg.data');
+    Route::get('/{id}/edit', [RealisasiProgressFisikAiPdgController::class, 'edit'])->name('realisasi-progress-fisik-ai-pdg.edit');
+    Route::put('/{id}', [RealisasiProgressFisikAiPdgController::class, 'update'])->name('realisasi-progress-fisik-ai-pdg.update');
+    Route::delete('/{id}', [RealisasiProgressFisikAiPdgController::class, 'destroy'])->name('realisasi-progress-fisik-ai-pdg.destroy');
+});
+
+// Pertagas Niaga
+Route::prefix('monev/shg/input-data/pertagas-niaga')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [StatusAssetAiPTGNController::class, 'index'])->name('pertagas-niaga');
+    Route::post('/', [StatusAssetAiPTGNController::class, 'store'])->name('pertagas-niaga.store');
+    Route::get('/data', [StatusAssetAiPTGNController::class, 'data'])->name('pertagas-niaga.data');
+    Route::get('/{id}/edit', [StatusAssetAiPTGNController::class, 'edit'])->name('pertagas-niaga.edit');
+    Route::put('/{id}', [StatusAssetAiPTGNController::class, 'update'])->name('pertagas-niaga.update');
+    Route::delete('/{id}', [StatusAssetAiPTGNController::class, 'destroy'])->name('pertagas-niaga.destroy');
+});
+
+
+
+
+
 
 
 

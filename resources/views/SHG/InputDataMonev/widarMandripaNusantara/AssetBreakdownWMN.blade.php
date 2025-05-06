@@ -13,7 +13,10 @@
                 border-radius: 8px;
                 box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             }
-
+            .tabulator .tabulator-cell {
+                white-space: normal !important;
+                word-wrap: break-word;
+            }
             .tabulator-cell {
                 font-size: 14px;
             }
@@ -469,7 +472,8 @@
                         {
                             title: "Tindak Lanjut",
                             field: "tindak_lanjut",
-                            editor: "input"
+                            editor: "input",
+                            width: 450
                         },
                         {
                             title: "Target Penyelesaian",

@@ -183,12 +183,14 @@
             <h3>Tambah Rencana Pemeliharaan WMN</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
+                <label for="periode">Periode (Tahun):</label>
+                <select name="periode" id="periode" required class="form-select">
+                    <option value="" selected disabled>Pilih Periode</option>
+                    @for ($year = 2000; $year <= date('Y') + 5; $year++)
+                        <option value="{{ $year }}">{{ $year }}</option>
+                    @endfor
+                </select>
 
-                <div>
-                    <label>Periode</label>
-                    <input type="number" name="periode" id="periode" required pattern="^\d{4}$"
-                        title="The periode field must match the format YYYY." placeholder="YYYY">
-                </div>
 
                 <div>
                     <label for="no">No</label>
@@ -599,7 +601,8 @@
                         {
                             title: "Tindak Lanjut",
                             field: "tindak_lanjut",
-                            editor: "input"
+                            editor: "input",
+                            width: 450
                         },
                         {
                             title: "Aksi",

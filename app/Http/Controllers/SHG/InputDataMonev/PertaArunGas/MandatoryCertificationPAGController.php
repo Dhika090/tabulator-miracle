@@ -159,6 +159,11 @@ class MandatoryCertificationPAGController extends Controller
                 'route' => route('realisasi-progress-fisik-ai-pag'),
                 'active' => request()->routeIs('realisasi-progress-fisik-ai-pag'),
             ],
+            [
+                'title' => 'Air Budget Tagging PAG',
+                'route' => route('air-budget-tagging-pag'),
+                'active' => request()->routeIs('air-budget-tagging-pag'),
+            ],
         ];
 
         return view('SHG.InputDataMonev.PertaArun.MandatoryCertificationPAG', compact('tabs', 'sertifikasiOptions'));
