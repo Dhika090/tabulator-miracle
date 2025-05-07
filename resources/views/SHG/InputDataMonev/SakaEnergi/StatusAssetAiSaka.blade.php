@@ -13,12 +13,14 @@
                 border-radius: 8px;
                 box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             }
+
+            .tabulator-cell {
+                font-size: 14px;
+            }
+
             .tabulator .tabulator-cell {
                 white-space: normal !important;
                 word-wrap: break-word;
-            }
-            .tabulator-cell {
-                font-size: 14px;
             }
 
             .card {
@@ -123,7 +125,7 @@
     <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-                <h5 class="card-title mb-3 mb-md-0">Asset Breakdown PTGN</h5>
+                <h5 class="card-title mb-3 mb-md-0">Status Asset 2025 AI SAKA</h5>
                 <div class="d-flex">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
@@ -178,7 +180,7 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Tambah Target PTGN</h3>
+            <h3>Create New Data SAKA</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
 
@@ -188,82 +190,119 @@
                 </div>
 
                 <div>
-                    <label>Company</label>
-                    <input type="text" name="company" id="company" required>
+                    <label>Subholding</label>
+                    <input type="text" name="subholding" id="subholding" required>
+                </div>
+
+                <label for="company">Company:</label>
+                <select name="company" id="company" required class="form-select">
+                    <option value="">-- Pilih Company --</option>
+                    @foreach ($companies as $company)
+                        <option value="{{ $company }}">{{ $company }}</option>
+                    @endforeach
+                </select>
+
+                <div>
+                    <label>Unit</label>
+                    <input type="text" name="unit" id="unit" required>
                 </div>
 
                 <div>
-                    <label>Plant/Segment</label>
-                    <input type="text" name="plant_segment" id="plant_segment">
+                    <label>Asset Group</label>
+                    <input type="text" name="asset_group" id="asset_group" required>
                 </div>
 
                 <div>
-                    <label>Kategori Criticality</label>
-                    <input type="text" name="kategori_criticality" id="kategori_criticality">
+                    <label>Jumlah</label>
+                    <input type="number" name="jumlah" id="jumlah" step="0.01">
+                </div>
+
+                <!-- SECE -->
+                <h4>SECE</h4>
+                <div><label>Low Integrity - Breakdown</label><input type="number" id="sece_low_integrity_breakdown"
+                        step="0.01">
+                </div>
+                <div><label>Medium - Due Date Inspection</label><input type="number"
+                        id="sece_medium_due_date_inspection" step="0.01"></div>
+                <div><label>Medium - Low Condition</label><input type="number" id="sece_medium_low_condition"
+                        step="0.01"></div>
+                <div><label>Medium - Low Performance</label><input type="number" id="sece_medium_low_performance"
+                        step="0.01">
+                </div>
+                <div><label>High Integrity</label><input type="number" id="sece_high_integrity" step="0.01"></div>
+
+                <!-- PCE -->
+                <h4>PCE</h4>
+                <div><label>Low Integrity - Breakdown</label><input type="number" id="pce_low_integrity_breakdown"
+                        step="0.01">
+                </div>
+                <div><label>Medium - Due Date Inspection</label><input type="number"
+                        id="pce_medium_due_date_inspection" step="0.01"></div>
+                <div><label>Medium - Low Condition</label><input type="number" id="pce_medium_low_condition"
+                        step="0.01"></div>
+                <div><label>Medium - Low Performance</label><input type="number" id="pce_medium_low_performance"
+                        step="0.01"></div>
+                <div><label>High Integrity</label><input type="number" id="pce_high_integrity" step="0.01"></div>
+
+                <!-- IMPORTANT -->
+                <h4>IMPORTANT</h4>
+                <div><label>Low Integrity - Breakdown</label><input type="number"
+                        id="important_low_integrity_breakdown" step="0.01"></div>
+                <div><label>Medium - Due Date Inspection</label><input type="number"
+                        id="important_medium_due_date_inspection" step="0.01"></div>
+                <div><label>Medium - Low Condition</label><input type="number" id="important_medium_low_condition"
+                        step="0.01">
+                </div>
+                <div><label>Medium - Low Performance</label><input type="number"
+                        id="important_medium_low_performance" step="0.01">
+                </div>
+                <div><label>High Integrity</label><input type="number" id="important_high_integrity" step="0.01">
+                </div>
+
+                <!-- SECONDARY -->
+                <h4>SECONDARY</h4>
+                <div><label>Low Integrity - Breakdown</label><input type="number"
+                        id="secondary_low_integrity_breakdown" step="0.01"></div>
+                <div><label>Medium - Due Date Inspection</label><input type="number"
+                        id="secondary_medium_due_date_inspection" step="0.01"></div>
+                <div><label>Medium - Low Condition</label><input type="number" id="secondary_medium_low_condition"
+                        step="0.01">
+                </div>
+                <div><label>Medium - Low Performance</label><input type="number"
+                        id="secondary_medium_low_performance" step="0.01">
+                </div>
+                <div><label>High Integrity</label><input type="number" id="secondary_high_integrity" step="0.01">
+                </div>
+
+                <!-- Tambahan Informasi -->
+                <div>
+                    <label>Kegiatan Penurunan Low</label>
+                    <input type="text" id="kegiatan_penurunan_low">
                 </div>
 
                 <div>
-                    <label>Tag</label>
-                    <input type="text" name="tag" id="tag">
+                    <label>Kegiatan Penurunan Med</label>
+                    <input type="text" id="kegiatan_penurunan_med">
                 </div>
 
                 <div>
-                    <label>Deskripsi Peralatan</label>
-                    <input type="text" name="deskripsi_peralatan" id="deskripsi_peralatan">
+                    <label>Informasi Penyebab Low Integrity</label>
+                    <input id="informasi_penyebab_low_integrity"></input>
                 </div>
 
                 <div>
-                    <label>Jenis Kerusakan</label>
-                    <input type="text" name="jenis_kerusakan" id="jenis_kerusakan">
+                    <label>Informasi Penambahan Jumlah Aset</label>
+                    <input id="informasi_penambahan_jumlah_aset"></input>
                 </div>
 
                 <div>
-                    <label>Penyebab / Root Cause</label>
-                    <input type="text" name="penyebab" id="penyebab">
-                </div>
-
-                <div>
-                    <label>Kendala Perbaikan</label>
-                    <input type="text" name="kendala_perbaikan" id="kendala_perbaikan">
-                </div>
-
-                <div>
-                    <label>Mitigasi / Penanganan Sementara</label>
-                    <input type="text" name="mitigasi" id="mitigasi">
-                </div>
-
-                <div>
-                    <label>Perbaikan Permanen</label>
-                    <input type="text" name="perbaikan_permanen" id="perbaikan_permanen">
-                </div>
-
-                <div>
-                    <label>Progres Perbaikan Permanen</label>
-                    <input type="text" name="progres_perbaikan_permanen" id="progres_perbaikan_permanen">
-                </div>
-
-                <div>
-                    <label>Tindak Lanjut</label>
-                    <input type="text" name="tindak_lanjut" id="tindak_lanjut">
-                </div>
-
-                <div>
-                    <label>Target Penyelesaian</label>
-                    <input type="month" name="target_penyelesaian" id="target_penyelesaian">
-                </div>
-
-                <div>
-                    <label>Estimasi Biaya Perbaikan</label>
-                    <input type="number" name="estimasi_biaya_perbaikan" id="estimasi_biaya_perbaikan">
-                </div>
-
-                <div>
-                    <label>Link Foto/Video</label>
-                    <input type="url" name="link_foto_video" id="link_foto_video">
+                    <label>Informasi Naik Turun Low Integrity</label>
+                    <input id="informasi_naik_turun_low_integrity"></input>
                 </div>
 
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
+
         </div>
     </div>
 
@@ -273,7 +312,7 @@
         <script>
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
-                    fetch(`asset-breakdown-ptgn/${id}`, {
+                    fetch(`saka-energi-indonesia/${id}`, {
                             method: "DELETE",
                             headers: {
                                 "Accept": "application/json",
@@ -301,80 +340,55 @@
                             value: keyword
                         },
                         {
+                            field: "subholding",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
                             field: "company",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "plant_segment",
+                            field: "unit",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "kategori_criticality",
+                            field: "asset_group",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "tag",
+                            field: "jumlah",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "deskripsi_peralatan",
+                            field: "kegiatan_penurunan_low",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "jenis_kerusakan",
+                            field: "kegiatan_penurunan_med",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "penyebab_root_cause",
+                            field: "informasi_penyebab_low",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "kendala_perbaikan",
+                            field: "informasi_penambahan_jumlah_aset",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "mitigasi_penanganan_sementara",
+                            field: "informasi_naik_turun_low",
                             type: "like",
                             value: keyword
                         },
-                        {
-                            field: "perbaikan_permanen",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "progres_perbaikan_permanen",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "tindak_lanjut",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "target_penyelesaian",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "estimasi_biaya_perbaikan",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "link_foto_video",
-                            type: "like",
-                            value: keyword
-                        }
                     ]
                 ]);
             });
@@ -385,7 +399,7 @@
             }
 
             function loadData() {
-                fetch("/monev/shg/input-data/asset-breakdown-ptgn/data", {
+                fetch("/monev/shg/input-data/saka-energi-indonesia/data", {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -397,7 +411,7 @@
 
             document.addEventListener("DOMContentLoaded", function() {
                 const columnMap = {
-                    "asset-breakdown-ptgn": [{
+                    "saka-energi-indonesia": [{
                             title: "No",
                             formatter: "rownum",
                             hozAlign: "center",
@@ -414,100 +428,177 @@
                             editor: "input"
                         },
                         {
+                            title: "Subholding",
+                            field: "subholding",
+                            editor: "input"
+                        },
+                        {
                             title: "Company",
                             field: "company",
                             editor: "input"
                         },
                         {
-                            title: "Plant/Segment",
-                            field: "plant_segment",
+                            title: "Unit",
+                            field: "unit",
                             editor: "input"
                         },
                         {
-                            title: "Kategori Criticality",
-                            field: "kategori_criticality",
+                            title: "Asset Group",
+                            field: "asset_group",
                             editor: "input"
                         },
                         {
-                            title: "Tag",
-                            field: "tag",
-                            editor: "input"
-                        },
-                        {
-                            title: "Deskripsi Peralatan",
-                            field: "deskripsi_peralatan",
-                            editor: "input"
-                        },
-                        {
-                            title: "Jenis Kerusakan",
-                            field: "jenis_kerusakan",
-                            editor: "input"
-                        },
-                        {
-                            title: "Penyebab/Root Cause",
-                            field: "penyebab_root_cause",
-                            editor: "input"
-                        },
-                        {
-                            title: "Kendala Perbaikan",
-                            field: "kendala_perbaikan",
-                            editor: "input"
-                        },
-                        {
-                            title: "Mitigasi / Penanganan Sementara",
-                            field: "mitigasi_penanganan_sementara",
-                            editor: "input"
-                        },
-                        {
-                            title: "Perbaikan Permanen",
-                            field: "perbaikan_permanen",
-                            editor: "input"
-                        },
-                        {
-                            title: "Progres Perbaikan Permanen",
-                            field: "progres_perbaikan_permanen",
+                            title: "Jumlah",
+                            field: "jumlah",
                             editor: "number",
                             hozAlign: "center"
                         },
                         {
-                            title: "Tindak Lanjut",
-                            field: "tindak_lanjut",
+                            title: "SECE Low Integrity - Breakdown",
+                            field: "sece_low_integrity_breakdown",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "SECE Medium Integrity - Due Date Inspection",
+                            field: "sece_medium_due_date_inspection",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "SECE Medium Integrity - Low Condition",
+                            field: "sece_medium_low_condition",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "SECE Medium Integrity - Low Performance",
+                            field: "sece_medium_low_performance",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "SECE High Integrity",
+                            field: "sece_high_integrity",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "PCE Low Integrity - Breakdown",
+                            field: "pce_low_integrity_breakdown",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "PCE Medium Integrity - Due Date Inspection",
+                            field: "pce_medium_due_date_inspection",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "PCE Medium Integrity - Low Condition",
+                            field: "pce_medium_low_condition",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "PCE Medium Integrity - Low Performance",
+                            field: "pce_medium_low_performance",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "PCE High Integrity",
+                            field: "pce_high_integrity",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "IMPORTANT Low Integrity - Breakdown",
+                            field: "important_low_integrity_breakdown",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "IMPORTANT Medium Integrity - Due Date Inspection",
+                            field: "important_medium_due_date_inspection",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "IMPORTANT Medium Integrity - Low Condition",
+                            field: "important_medium_low_condition",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "IMPORTANT Medium Integrity - Low Performance",
+                            field: "important_medium_low_performance",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "IMPORTANT High Integrity",
+                            field: "important_high_integrity",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "SECONDARY Low Integrity - Breakdown",
+                            field: "secondary_low_integrity_breakdown",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "SECONDARY Medium Integrity - Due Date Inspection",
+                            field: "secondary_medium_due_date_inspection",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "SECONDARY Medium Integrity - Low Condition",
+                            field: "secondary_medium_low_condition",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "SECONDARY Medium Integrity - Low Performance",
+                            field: "secondary_medium_low_performance",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "SECONDARY High Integrity",
+                            field: "secondary_high_integrity",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Kegiatan Penurunan Low",
+                            field: "kegiatan_penurunan_low",
+                            editor: "input"
+                        },
+                        {
+                            title: "Kegiatan Penurunan Med",
+                            field: "kegiatan_penurunan_med",
+                            editor: "input"
+                        },
+                        {
+                            title: "Informasi Penyebab Low Integrity",
+                            field: "informasi_penyebab_low_integrity",
                             editor: "input",
                             width: 450
                         },
                         {
-                            title: "Target Penyelesaian",
-                            field: "target_penyelesaian",
+                            title: "Informasi Penambahan Jumlah Aset",
+                            field: "informasi_penambahan_jumlah_aset",
                             editor: "input"
                         },
                         {
-                            title: "Estimasi Biaya Perbaikan",
-                            field: "estimasi_biaya_perbaikan",
-                            hozAlign: "center",
-                            formatter: function(cell) {
-                                let rawValue = cell.getValue();
-                                if (rawValue === null || rawValue === undefined || rawValue === "") {
-                                    return "0.00";
-                                }
-
-                                let cleanValue = rawValue.toString().replace(/[^0-9.-]+/g, '');
-                                let value = parseFloat(cleanValue);
-
-                                if (!isNaN(value)) {
-                                    return value.toLocaleString("en-US", {
-                                        minimumFractionDigits: 2,
-                                        maximumFractionDigits: 2
-                                    });
-                                }
-
-                                return "0.00";
-                            },
-                            editor: "input"
-                        },
-                        {
-                            title: "Link Foto/Video",
-                            field: "link_foto_video",
-                            editor: "input"
+                            title: "Informasi Naik Turun low Integrity",
+                            field: "informasi_naik_turun_low_integrity",
+                            editor: "input",
+                            width: 450
                         },
                         {
                             title: "Aksi",
@@ -525,7 +616,7 @@
                     layout: "fitDataTable",
                     responsiveLayout: "collapse",
                     autoResize: true,
-                    columns: columnMap["asset-breakdown-ptgn"],
+                    columns: columnMap["saka-energi-indonesia"],
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -565,7 +656,7 @@
 
                     if (!id) return;
 
-                    fetch(`asset-breakdown-ptgn/${id}`, {
+                    fetch(`saka-energi-indonesia/${id}`, {
                             method: "PUT",
                             headers: {
                                 "Content-Type": "application/json",
@@ -605,7 +696,7 @@
                     console.log("Baris yang berubah:", changedRows);
 
                     changedRows.forEach(rowData => {
-                        fetch(`asset-breakdown-ptgn/${rowData.id}`, {
+                        fetch(`saka-energi-indonesia/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
                                     "Content-Type": "application/json",
@@ -626,12 +717,11 @@
 
                     previousData = JSON.parse(JSON.stringify(newData));
                 });
-
                 loadData();
             });
         </script>
 
-        {{-- create data  --}}
+        {{-- create and update data --}}
         <script>
             function openModal() {
                 document.getElementById("createModal").style.display = "block";
@@ -649,7 +739,7 @@
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
 
-                fetch("asset-breakdown-ptgn", {
+                fetch("saka-energi-indonesia", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -659,28 +749,43 @@
                         },
                         body: JSON.stringify({
                             periode: data.periode,
+                            subholding: data.subholding,
                             company: data.company,
-                            plant_segment: data.plant_segment,
-                            kategori_criticality: data.kategori_criticality,
-                            tag: data.tag,
-                            deskripsi_peralatan: data.deskripsi_peralatan,
-                            jenis_kerusakan: data.jenis_kerusakan,
-                            penyebab_root_cause: data.penyebab_root_cause,
-                            kendala_perbaikan: data.kendala_perbaikan,
-                            mitigasi_penanganan_sementara: data.mitigasi_penanganan_sementara,
-                            perbaikan_permanen: data.perbaikan_permanen,
-                            progres_perbaikan_permanen: data.progres_perbaikan_permanen,
-                            tindak_lanjut: data.tindak_lanjut,
-                            target_penyelesaian: data.target_penyelesaian,
-                            estimasi_biaya_perbaikan: data.estimasi_biaya_perbaikan,
-                            link_foto_video: data.link_foto_video
+                            unit: data.unit,
+                            asset_group: data.asset_group,
+                            jumlah: data.jumlah,
+                            sece_low_breakdown: data.sece_low_breakdown,
+                            sece_medium_due_date_inspection: data.sece_medium_due_date_inspection,
+                            sece_medium_low_condition: data.sece_medium_low_condition,
+                            sece_medium_low_performance: data.sece_medium_low_performance,
+                            sece_high: data.sece_high,
+                            pce_low_breakdown: data.pce_low_breakdown,
+                            pce_medium_due_date_inspection: data.pce_medium_due_date_inspection,
+                            pce_medium_low_condition: data.pce_medium_low_condition,
+                            pce_medium_low_performance: data.pce_medium_low_performance,
+                            pce_high: data.pce_high,
+                            important_low_breakdown: data.important_low_breakdown,
+                            important_medium_due_date_inspection: data.important_medium_due_date_inspection,
+                            important_medium_low_condition: data.important_medium_low_condition,
+                            important_medium_low_performance: data.important_medium_low_performance,
+                            important_high: data.important_high,
+                            secondary_low_breakdown: data.secondary_low_breakdown,
+                            secondary_medium_due_date_inspection: data.secondary_medium_due_date_inspection,
+                            secondary_medium_low_condition: data.secondary_medium_low_condition,
+                            secondary_medium_low_performance: data.secondary_medium_low_performance,
+                            secondary_high: data.secondary_high,
+                            kegiatan_penurunan_low: data.kegiatan_penurunan_low,
+                            kegiatan_penurunan_med: data.kegiatan_penurunan_med,
+                            informasi_penyebab_low: data.informasi_penyebab_low,
+                            informasi_penambahan_jumlah_aset: data.informasi_penambahan_jumlah_aset,
+                            informasi_naik_turun_low: data.informasi_naik_turun_low
                         })
                     })
                     .then(response => response.json())
                     .then(result => {
                         if (result.success) {
                             alert(result.message || "Data berhasil disimpan");
-                            table.setData("/monev/shg/input-data/asset-breakdown-ptgn/data");
+                            table.setData("/monev/shg/input-data/saka-energi-indonesia/data");
                             this.reset();
                             closeModal();
                         } else {

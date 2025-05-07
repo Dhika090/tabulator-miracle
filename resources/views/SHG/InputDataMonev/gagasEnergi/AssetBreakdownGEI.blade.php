@@ -123,7 +123,7 @@
     <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-                <h5 class="card-title mb-3 mb-md-0">Asset Breakdown PTGN</h5>
+                <h5 class="card-title mb-3 mb-md-0">Asset Breakdown GEI</h5>
                 <div class="d-flex">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
@@ -178,7 +178,7 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Tambah Target PTGN</h3>
+            <h3>Tambah Target GEI</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
 
@@ -273,7 +273,7 @@
         <script>
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
-                    fetch(`asset-breakdown-ptgn/${id}`, {
+                    fetch(`asset-breakdown-gei/${id}`, {
                             method: "DELETE",
                             headers: {
                                 "Accept": "application/json",
@@ -385,7 +385,7 @@
             }
 
             function loadData() {
-                fetch("/monev/shg/input-data/asset-breakdown-ptgn/data", {
+                fetch("/monev/shg/input-data/asset-breakdown-gei/data", {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -397,7 +397,7 @@
 
             document.addEventListener("DOMContentLoaded", function() {
                 const columnMap = {
-                    "asset-breakdown-ptgn": [{
+                    "asset-breakdown-gei": [{
                             title: "No",
                             formatter: "rownum",
                             hozAlign: "center",
@@ -525,7 +525,7 @@
                     layout: "fitDataTable",
                     responsiveLayout: "collapse",
                     autoResize: true,
-                    columns: columnMap["asset-breakdown-ptgn"],
+                    columns: columnMap["asset-breakdown-gei"],
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -565,7 +565,7 @@
 
                     if (!id) return;
 
-                    fetch(`asset-breakdown-ptgn/${id}`, {
+                    fetch(`asset-breakdown-gei/${id}`, {
                             method: "PUT",
                             headers: {
                                 "Content-Type": "application/json",
@@ -605,7 +605,7 @@
                     console.log("Baris yang berubah:", changedRows);
 
                     changedRows.forEach(rowData => {
-                        fetch(`asset-breakdown-ptgn/${rowData.id}`, {
+                        fetch(`asset-breakdown-gei/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
                                     "Content-Type": "application/json",
@@ -649,7 +649,7 @@
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
 
-                fetch("asset-breakdown-ptgn", {
+                fetch("asset-breakdown-gei", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -680,7 +680,7 @@
                     .then(result => {
                         if (result.success) {
                             alert(result.message || "Data berhasil disimpan");
-                            table.setData("/monev/shg/input-data/asset-breakdown-ptgn/data");
+                            table.setData("/monev/shg/input-data/asset-breakdown-gei/data");
                             this.reset();
                             closeModal();
                         } else {

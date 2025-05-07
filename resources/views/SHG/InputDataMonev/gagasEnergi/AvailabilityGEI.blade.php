@@ -13,12 +13,16 @@
                 border-radius: 8px;
                 box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             }
-            .tabulator .tabulator-cell {
+
+            .tabulator-cell {
+                font-size: 14px;
                 white-space: normal !important;
                 word-wrap: break-word;
             }
-            .tabulator-cell {
-                font-size: 14px;
+
+            .tabulator .tabulator-cell {
+                white-space: normal !important;
+                word-wrap: break-word;
             }
 
             .card {
@@ -123,7 +127,7 @@
     <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-                <h5 class="card-title mb-3 mb-md-0">Asset Breakdown PTGN</h5>
+                <h5 class="card-title mb-3 mb-md-0">Availability GEI</h5>
                 <div class="d-flex">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
@@ -178,7 +182,7 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Tambah Target PTGN</h3>
+            <h3>Tambah Data Availability GEI</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
 
@@ -189,77 +193,39 @@
 
                 <div>
                     <label>Company</label>
-                    <input type="text" name="company" id="company" required>
+                    <input type="text" name="company" id="company">
                 </div>
 
                 <div>
-                    <label>Plant/Segment</label>
-                    <input type="text" name="plant_segment" id="plant_segment">
+                    <label>Kategori</label>
+                    <input type="text" name="kategori" id="kategori">
                 </div>
 
                 <div>
-                    <label>Kategori Criticality</label>
-                    <input type="text" name="kategori_criticality" id="kategori_criticality">
+                    <label>Target</label>
+                    <input type="number" name="target" id="target" step="0.01" min="0" max="100">
+
                 </div>
 
                 <div>
-                    <label>Tag</label>
-                    <input type="text" name="tag" id="tag">
+                    <label>Availability</label>
+                    <input type="number" name="availability" id="availability" step="0.01" min="0"
+                        max="100">
                 </div>
 
                 <div>
-                    <label>Deskripsi Peralatan</label>
-                    <input type="text" name="deskripsi_peralatan" id="deskripsi_peralatan">
+                    <label>Isu / Problem / Bad Actor</label>
+                    <input type="text" name="isu" id="isu"></input>
                 </div>
 
                 <div>
-                    <label>Jenis Kerusakan</label>
-                    <input type="text" name="jenis_kerusakan" id="jenis_kerusakan">
-                </div>
-
-                <div>
-                    <label>Penyebab / Root Cause</label>
-                    <input type="text" name="penyebab" id="penyebab">
-                </div>
-
-                <div>
-                    <label>Kendala Perbaikan</label>
-                    <input type="text" name="kendala_perbaikan" id="kendala_perbaikan">
-                </div>
-
-                <div>
-                    <label>Mitigasi / Penanganan Sementara</label>
-                    <input type="text" name="mitigasi" id="mitigasi">
-                </div>
-
-                <div>
-                    <label>Perbaikan Permanen</label>
-                    <input type="text" name="perbaikan_permanen" id="perbaikan_permanen">
-                </div>
-
-                <div>
-                    <label>Progres Perbaikan Permanen</label>
-                    <input type="text" name="progres_perbaikan_permanen" id="progres_perbaikan_permanen">
+                    <label>Kendala</label>
+                    <input type="text" name="kendala" id="kendala"></input>
                 </div>
 
                 <div>
                     <label>Tindak Lanjut</label>
-                    <input type="text" name="tindak_lanjut" id="tindak_lanjut">
-                </div>
-
-                <div>
-                    <label>Target Penyelesaian</label>
-                    <input type="month" name="target_penyelesaian" id="target_penyelesaian">
-                </div>
-
-                <div>
-                    <label>Estimasi Biaya Perbaikan</label>
-                    <input type="number" name="estimasi_biaya_perbaikan" id="estimasi_biaya_perbaikan">
-                </div>
-
-                <div>
-                    <label>Link Foto/Video</label>
-                    <input type="url" name="link_foto_video" id="link_foto_video">
+                    <input type="text" name="tindak_lanjut" id="tindak_lanjut"></input>
                 </div>
 
                 <button type="submit" class="btn btn-success">Submit</button>
@@ -273,7 +239,7 @@
         <script>
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
-                    fetch(`asset-breakdown-ptgn/${id}`, {
+                    fetch(`availability-gei/${id}`, {
                             method: "DELETE",
                             headers: {
                                 "Accept": "application/json",
@@ -306,72 +272,32 @@
                             value: keyword
                         },
                         {
-                            field: "plant_segment",
+                            field: "kategori",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "kategori_criticality",
+                            field: "target",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "tag",
+                            field: "availability",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "deskripsi_peralatan",
+                            field: "isu",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "jenis_kerusakan",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "penyebab_root_cause",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "kendala_perbaikan",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "mitigasi_penanganan_sementara",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "perbaikan_permanen",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "progres_perbaikan_permanen",
+                            field: "kendala",
                             type: "like",
                             value: keyword
                         },
                         {
                             field: "tindak_lanjut",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "target_penyelesaian",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "estimasi_biaya_perbaikan",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "link_foto_video",
                             type: "like",
                             value: keyword
                         }
@@ -384,8 +310,9 @@
                 table.clearFilter();
             }
 
+
             function loadData() {
-                fetch("/monev/shg/input-data/asset-breakdown-ptgn/data", {
+                fetch("/monev/shg/input-data/availability-gei/data", {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -397,7 +324,7 @@
 
             document.addEventListener("DOMContentLoaded", function() {
                 const columnMap = {
-                    "asset-breakdown-ptgn": [{
+                    "availability-gei": [{
                             title: "No",
                             formatter: "rownum",
                             hozAlign: "center",
@@ -416,97 +343,48 @@
                         {
                             title: "Company",
                             field: "company",
+                            hozAlign: "center",
                             editor: "input"
                         },
                         {
-                            title: "Plant/Segment",
-                            field: "plant_segment",
+                            title: "Kategori",
+                            field: "kategori",
                             editor: "input"
                         },
                         {
-                            title: "Kategori Criticality",
-                            field: "kategori_criticality",
-                            editor: "input"
-                        },
-                        {
-                            title: "Tag",
-                            field: "tag",
-                            editor: "input"
-                        },
-                        {
-                            title: "Deskripsi Peralatan",
-                            field: "deskripsi_peralatan",
-                            editor: "input"
-                        },
-                        {
-                            title: "Jenis Kerusakan",
-                            field: "jenis_kerusakan",
-                            editor: "input"
-                        },
-                        {
-                            title: "Penyebab/Root Cause",
-                            field: "penyebab_root_cause",
-                            editor: "input"
-                        },
-                        {
-                            title: "Kendala Perbaikan",
-                            field: "kendala_perbaikan",
-                            editor: "input"
-                        },
-                        {
-                            title: "Mitigasi / Penanganan Sementara",
-                            field: "mitigasi_penanganan_sementara",
-                            editor: "input"
-                        },
-                        {
-                            title: "Perbaikan Permanen",
-                            field: "perbaikan_permanen",
-                            editor: "input"
-                        },
-                        {
-                            title: "Progres Perbaikan Permanen",
-                            field: "progres_perbaikan_permanen",
+                            title: "Target",
+                            field: "target",
                             editor: "number",
-                            hozAlign: "center"
+                            hozAlign: "center",
+                            formatter: function(cell) {
+                                let value = parseFloat(cell.getValue());
+                                return isNaN(value) ? "-" : value.toFixed(2) + " %";
+                            }
+                        },
+                        {
+                            title: "Availability",
+                            field: "availability",
+                            editor: "number",
+                            hozAlign: "center",
+                            formatter: function(cell) {
+                                let value = parseFloat(cell.getValue());
+                                return isNaN(value) ? "-" : value.toFixed(2) + " %";
+                            }
+                        },
+                        {
+                            title: "Isu / Problem / Bad Actor",
+                            field: "isu",
+                            editor: "textarea",
+                            width: 400
+                        },
+                        {
+                            title: "Kendala",
+                            field: "kendala",
+                            editor: "input"
                         },
                         {
                             title: "Tindak Lanjut",
                             field: "tindak_lanjut",
-                            editor: "input",
-                            width: 450
-                        },
-                        {
-                            title: "Target Penyelesaian",
-                            field: "target_penyelesaian",
-                            editor: "input"
-                        },
-                        {
-                            title: "Estimasi Biaya Perbaikan",
-                            field: "estimasi_biaya_perbaikan",
-                            hozAlign: "center",
-                            formatter: function(cell) {
-                                let rawValue = cell.getValue();
-                                if (rawValue === null || rawValue === undefined || rawValue === "") {
-                                    return "0.00";
-                                }
-
-                                let cleanValue = rawValue.toString().replace(/[^0-9.-]+/g, '');
-                                let value = parseFloat(cleanValue);
-
-                                if (!isNaN(value)) {
-                                    return value.toLocaleString("en-US", {
-                                        minimumFractionDigits: 2,
-                                        maximumFractionDigits: 2
-                                    });
-                                }
-
-                                return "0.00";
-                            },
-                            editor: "input"
-                        },
-                        {
-                            title: "Link Foto/Video",
-                            field: "link_foto_video",
                             editor: "input"
                         },
                         {
@@ -525,7 +403,7 @@
                     layout: "fitDataTable",
                     responsiveLayout: "collapse",
                     autoResize: true,
-                    columns: columnMap["asset-breakdown-ptgn"],
+                    columns: columnMap["availability-gei"],
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -559,27 +437,6 @@
                     },
                 });
 
-                table.on("cellEdited", function(cell) {
-                    const updatedData = cell.getRow().getData();
-                    const id = updatedData.id;
-
-                    if (!id) return;
-
-                    fetch(`asset-breakdown-ptgn/${id}`, {
-                            method: "PUT",
-                            headers: {
-                                "Content-Type": "application/json",
-                                "Accept": "application/json",
-                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
-                                    .getAttribute("content")
-                            },
-                            body: JSON.stringify(updatedData)
-                        })
-                        .then(res => res.json())
-                        .then(data => console.log("Update berhasil:", data))
-                        .catch(err => console.error("Gagal update:", err));
-                });
-
                 let previousData = [];
                 table.on("dataLoaded", function(newData) {
                     previousData = JSON.parse(JSON.stringify(newData));
@@ -605,7 +462,15 @@
                     console.log("Baris yang berubah:", changedRows);
 
                     changedRows.forEach(rowData => {
-                        fetch(`asset-breakdown-ptgn/${rowData.id}`, {
+                        if (rowData.target !== undefined && typeof rowData.target === "string") {
+                            rowData.target = parseFloat(rowData.target.replace("%", "").trim());
+                        }
+                        if (rowData.availability !== undefined && typeof rowData.availability ===
+                            "string") {
+                            rowData.availability = parseFloat(rowData.availability.replace("%", "")
+                                .trim());
+                        }
+                        fetch(`availability-gei/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
                                     "Content-Type": "application/json",
@@ -627,6 +492,26 @@
                     previousData = JSON.parse(JSON.stringify(newData));
                 });
 
+                table.on("cellEdited", function(cell) {
+                    const updatedData = cell.getRow().getData();
+                    const id = updatedData.id;
+
+                    if (!id) return;
+
+                    fetch(`availability-gei/${id}`, {
+                            method: "PUT",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute("content")
+                            },
+                            body: JSON.stringify(updatedData)
+                        })
+                        .then(res => res.json())
+                        .then(data => console.log("Update berhasil:", data))
+                        .catch(err => console.error("Gagal update:", err));
+                });
                 loadData();
             });
         </script>
@@ -649,7 +534,7 @@
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
 
-                fetch("asset-breakdown-ptgn", {
+                fetch("availability-gei", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -657,30 +542,24 @@
                             "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute(
                                 "content")
                         },
+
                         body: JSON.stringify({
                             periode: data.periode,
                             company: data.company,
-                            plant_segment: data.plant_segment,
-                            kategori_criticality: data.kategori_criticality,
-                            tag: data.tag,
-                            deskripsi_peralatan: data.deskripsi_peralatan,
-                            jenis_kerusakan: data.jenis_kerusakan,
-                            penyebab_root_cause: data.penyebab_root_cause,
-                            kendala_perbaikan: data.kendala_perbaikan,
-                            mitigasi_penanganan_sementara: data.mitigasi_penanganan_sementara,
-                            perbaikan_permanen: data.perbaikan_permanen,
-                            progres_perbaikan_permanen: data.progres_perbaikan_permanen,
-                            tindak_lanjut: data.tindak_lanjut,
-                            target_penyelesaian: data.target_penyelesaian,
-                            estimasi_biaya_perbaikan: data.estimasi_biaya_perbaikan,
-                            link_foto_video: data.link_foto_video
+                            kategori: data.kategori || null,
+                            target: data.target || null,
+                            availability: data.availability || null,
+                            isu: data.isu || null,
+                            kendala: data.kendala || null,
+                            tindak_lanjut: data.tindak_lanjut || null,
                         })
+
                     })
                     .then(response => response.json())
                     .then(result => {
                         if (result.success) {
                             alert(result.message || "Data berhasil disimpan");
-                            table.setData("/monev/shg/input-data/asset-breakdown-ptgn/data");
+                            table.setData("/monev/shg/input-data/availability-gei/data");
                             this.reset();
                             closeModal();
                         } else {
@@ -729,6 +608,7 @@
                     });
                 });
 
+                // Ketika halaman reload setelah klik, cek dan scroll otomatis
                 if (sessionStorage.getItem('scrollToActiveTab') === 'yes') {
                     scrollToActiveTab();
                     sessionStorage.removeItem('scrollToActiveTab');

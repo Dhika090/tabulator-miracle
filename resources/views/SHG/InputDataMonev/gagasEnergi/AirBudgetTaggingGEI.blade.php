@@ -13,12 +13,19 @@
                 border-radius: 8px;
                 box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             }
+
+            .tabulator-cell {
+                font-size: 14px;
+            }
+
             .tabulator .tabulator-cell {
                 white-space: normal !important;
                 word-wrap: break-word;
             }
-            .tabulator-cell {
-                font-size: 14px;
+
+            .tabulator .tabulator-cell {
+                white-space: normal !important;
+                word-wrap: break-word;
             }
 
             .card {
@@ -123,7 +130,7 @@
     <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-                <h5 class="card-title mb-3 mb-md-0">Asset Breakdown PTGN</h5>
+                <h5 class="card-title mb-3 mb-md-0">Air Budget Tagging GEI</h5>
                 <div class="d-flex">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
@@ -178,88 +185,144 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Tambah Target PTGN</h3>
+            <h3>Tambah Data Air Budget Tagging GEI</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
-
                 <div>
                     <label>Periode</label>
                     <input type="month" name="periode" id="periode" required>
                 </div>
-
                 <div>
-                    <label>Company</label>
-                    <input type="text" name="company" id="company" required>
+                    <label>Satker</label>
+                    <input type="text" name="satker" id="satker">
                 </div>
 
                 <div>
-                    <label>Plant/Segment</label>
-                    <input type="text" name="plant_segment" id="plant_segment">
+                    <label>Kategori</label>
+                    <input type="text" name="kategori" id="kategori">
                 </div>
 
                 <div>
-                    <label>Kategori Criticality</label>
-                    <input type="text" name="kategori_criticality" id="kategori_criticality">
+                    <label>CE</label>
+                    <input type="text" name="ce" id="ce">
                 </div>
 
                 <div>
-                    <label>Tag</label>
-                    <input type="text" name="tag" id="tag">
+                    <label>Cost Element Name</label>
+                    <input type="text" name="cost_element_name" id="cost_element_name">
                 </div>
 
                 <div>
-                    <label>Deskripsi Peralatan</label>
-                    <input type="text" name="deskripsi_peralatan" id="deskripsi_peralatan">
+                    <label>Program Kerja</label>
+                    <input type="text" name="program_kerja" id="program_kerja">
                 </div>
 
                 <div>
-                    <label>Jenis Kerusakan</label>
-                    <input type="text" name="jenis_kerusakan" id="jenis_kerusakan">
+                    <label>Total Pagu (USD)</label>
+                    <input type="text" name="total_pagu_usd" id="total_pagu_usd">
                 </div>
 
                 <div>
-                    <label>Penyebab / Root Cause</label>
-                    <input type="text" name="penyebab" id="penyebab">
+                    <label>JAN</label>
+                    <input type="text" name="jan" id="jan">
                 </div>
 
                 <div>
-                    <label>Kendala Perbaikan</label>
-                    <input type="text" name="kendala_perbaikan" id="kendala_perbaikan">
+                    <label>FEB</label>
+                    <input type="text" name="feb" id="feb">
                 </div>
 
                 <div>
-                    <label>Mitigasi / Penanganan Sementara</label>
-                    <input type="text" name="mitigasi" id="mitigasi">
+                    <label>MAR</label>
+                    <input type="text" name="mar" id="mar">
                 </div>
 
                 <div>
-                    <label>Perbaikan Permanen</label>
-                    <input type="text" name="perbaikan_permanen" id="perbaikan_permanen">
+                    <label>APR</label>
+                    <input type="text" name="apr" id="apr">
                 </div>
 
                 <div>
-                    <label>Progres Perbaikan Permanen</label>
-                    <input type="text" name="progres_perbaikan_permanen" id="progres_perbaikan_permanen">
+                    <label>MAY</label>
+                    <input type="text" name="may" id="may">
                 </div>
 
                 <div>
-                    <label>Tindak Lanjut</label>
-                    <input type="text" name="tindak_lanjut" id="tindak_lanjut">
+                    <label>JUN</label>
+                    <input type="text" name="jun" id="jun">
                 </div>
 
                 <div>
-                    <label>Target Penyelesaian</label>
-                    <input type="month" name="target_penyelesaian" id="target_penyelesaian">
+                    <label>JUL</label>
+                    <input type="text" name="jul" id="jul">
                 </div>
 
                 <div>
-                    <label>Estimasi Biaya Perbaikan</label>
-                    <input type="number" name="estimasi_biaya_perbaikan" id="estimasi_biaya_perbaikan">
+                    <label>AUG</label>
+                    <input type="text" name="aug" id="aug">
                 </div>
 
                 <div>
-                    <label>Link Foto/Video</label>
-                    <input type="url" name="link_foto_video" id="link_foto_video">
+                    <label>SEP</label>
+                    <input type="text" name="sep" id="sep">
+                </div>
+
+                <div>
+                    <label>OCT</label>
+                    <input type="text" name="oct" id="oct">
+                </div>
+
+                <div>
+                    <label>NOV</label>
+                    <input type="text" name="nov" id="nov">
+                </div>
+
+                <div>
+                    <label>DEC</label>
+                    <input type="text" name="dec" id="dec">
+                </div>
+
+                <div>
+                    <label>Aset Integrity (Yes/No)</label>
+                    <select name="aset_integrity" id="aset_integrity" required class="form-select">
+                        <option value="">Pilih</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+                <div>
+                    <label>AIRTagging (Asset Integrity & Reliability)</label>
+                    <input type="text" name="airtagging" id="airtagging">
+                </div>
+
+                <div>
+                    <label>Prioritas</label>
+                    <input type="text" name="prioritas" id="prioritas">
+                </div>
+
+                <div>
+                    <label>Status Integrity per Des 2024</label>
+                    <input type="text" name="status_integrity" id="status_integrity">
+                </div>
+
+                <div>
+                    <label>Jumlah Aset Critical SECE</label>
+                    <input type="number" name="jumlah_aset_critical_sece" id="jumlah_aset_critical_sece">
+                </div>
+
+                <div>
+                    <label>Jumlah Aset Critical PCE</label>
+                    <input type="number" name="jumlah_aset_critical_pce" id="jumlah_aset_critical_pce">
+                </div>
+
+                <div>
+                    <label>Jumlah Aset Important</label>
+                    <input type="number" name="jumlah_aset_important" id="jumlah_aset_important">
+                </div>
+
+                <div>
+                    <label>Jumlah Aset Secondary</label>
+                    <input type="number" name="jumlah_aset_secondary" id="jumlah_aset_secondary">
                 </div>
 
                 <button type="submit" class="btn btn-success">Submit</button>
@@ -273,7 +336,7 @@
         <script>
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
-                    fetch(`asset-breakdown-ptgn/${id}`, {
+                    fetch(`air-budget-tagging-gei/${id}`, {
                             method: "DELETE",
                             headers: {
                                 "Accept": "application/json",
@@ -301,82 +364,38 @@
                             value: keyword
                         },
                         {
-                            field: "company",
+                            field: "satker",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "plant_segment",
+                            field: "kategori",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "kategori_criticality",
+                            field: "ce",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "tag",
+                            field: "cost_element_name",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "deskripsi_peralatan",
+                            field: "program_kerja",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "jenis_kerusakan",
+                            field: "total_pagu_usd",
                             type: "like",
                             value: keyword
                         },
-                        {
-                            field: "penyebab_root_cause",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "kendala_perbaikan",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "mitigasi_penanganan_sementara",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "perbaikan_permanen",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "progres_perbaikan_permanen",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "tindak_lanjut",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "target_penyelesaian",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "estimasi_biaya_perbaikan",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "link_foto_video",
-                            type: "like",
-                            value: keyword
-                        }
                     ]
                 ]);
+
             });
 
             function clearSearch() {
@@ -385,7 +404,7 @@
             }
 
             function loadData() {
-                fetch("/monev/shg/input-data/asset-breakdown-ptgn/data", {
+                fetch("/monev/shg/input-data/air-budget-tagging-gei/data", {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -397,7 +416,7 @@
 
             document.addEventListener("DOMContentLoaded", function() {
                 const columnMap = {
-                    "asset-breakdown-ptgn": [{
+                    "air-budget-tagging-gei": [{
                             title: "No",
                             formatter: "rownum",
                             hozAlign: "center",
@@ -414,100 +433,152 @@
                             editor: "input"
                         },
                         {
-                            title: "Company",
-                            field: "company",
+                            title: "Satker",
+                            field: "satker",
                             editor: "input"
                         },
                         {
-                            title: "Plant/Segment",
-                            field: "plant_segment",
+                            title: "Kategori",
+                            field: "kategori",
                             editor: "input"
                         },
                         {
-                            title: "Kategori Criticality",
-                            field: "kategori_criticality",
+                            title: "CE",
+                            field: "ce",
                             editor: "input"
                         },
                         {
-                            title: "Tag",
-                            field: "tag",
+                            title: "Cost Element Name",
+                            field: "cost_element_name",
                             editor: "input"
                         },
                         {
-                            title: "Deskripsi Peralatan",
-                            field: "deskripsi_peralatan",
+                            title: "Program Kerja",
+                            field: "program_kerja",
+                            width: 400,
                             editor: "input"
                         },
                         {
-                            title: "Jenis Kerusakan",
-                            field: "jenis_kerusakan",
+                            title: "Total Pagu (USD)",
+                            field: "total_pagu_usd",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "JAN",
+                            field: "jan",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "FEB",
+                            field: "feb",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "MAR",
+                            field: "mar",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "APR",
+                            field: "apr",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "MAY",
+                            field: "may",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "JUN",
+                            field: "jun",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "JUL",
+                            field: "jul",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "AUG",
+                            field: "aug",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "SEP",
+                            field: "sep",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "OCT",
+                            field: "oct",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "NOV",
+                            field: "nov",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "DEC",
+                            field: "dec",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Aset Integrity (Yes/No)",
+                            field: "aset_integrity",
                             editor: "input"
                         },
                         {
-                            title: "Penyebab/Root Cause",
-                            field: "penyebab_root_cause",
+                            title: "AIRTagging (Asset Integrity & Reliability)",
+                            field: "airtagging",
                             editor: "input"
                         },
                         {
-                            title: "Kendala Perbaikan",
-                            field: "kendala_perbaikan",
+                            title: "Prioritas",
+                            field: "prioritas",
                             editor: "input"
                         },
                         {
-                            title: "Mitigasi / Penanganan Sementara",
-                            field: "mitigasi_penanganan_sementara",
+                            title: "Status Integrity per Des 2024",
+                            field: "status_integrity",
                             editor: "input"
                         },
                         {
-                            title: "Perbaikan Permanen",
-                            field: "perbaikan_permanen",
-                            editor: "input"
-                        },
-                        {
-                            title: "Progres Perbaikan Permanen",
-                            field: "progres_perbaikan_permanen",
+                            title: "Jumlah Aset Critical SECE",
+                            field: "jumlah_aset_critical_sece",
                             editor: "number",
                             hozAlign: "center"
                         },
                         {
-                            title: "Tindak Lanjut",
-                            field: "tindak_lanjut",
-                            editor: "input",
-                            width: 450
+                            title: "Jumlah Aset Critical PCE",
+                            field: "jumlah_aset_critical_pce",
+                            editor: "number",
+                            hozAlign: "center"
                         },
                         {
-                            title: "Target Penyelesaian",
-                            field: "target_penyelesaian",
-                            editor: "input"
+                            title: "Jumlah Aset Important",
+                            field: "jumlah_aset_important",
+                            editor: "number",
+                            hozAlign: "center"
                         },
                         {
-                            title: "Estimasi Biaya Perbaikan",
-                            field: "estimasi_biaya_perbaikan",
-                            hozAlign: "center",
-                            formatter: function(cell) {
-                                let rawValue = cell.getValue();
-                                if (rawValue === null || rawValue === undefined || rawValue === "") {
-                                    return "0.00";
-                                }
-
-                                let cleanValue = rawValue.toString().replace(/[^0-9.-]+/g, '');
-                                let value = parseFloat(cleanValue);
-
-                                if (!isNaN(value)) {
-                                    return value.toLocaleString("en-US", {
-                                        minimumFractionDigits: 2,
-                                        maximumFractionDigits: 2
-                                    });
-                                }
-
-                                return "0.00";
-                            },
-                            editor: "input"
-                        },
-                        {
-                            title: "Link Foto/Video",
-                            field: "link_foto_video",
-                            editor: "input"
+                            title: "Jumlah Aset Secondary",
+                            field: "jumlah_aset_secondary",
+                            editor: "number",
+                            hozAlign: "center"
                         },
                         {
                             title: "Aksi",
@@ -525,7 +596,7 @@
                     layout: "fitDataTable",
                     responsiveLayout: "collapse",
                     autoResize: true,
-                    columns: columnMap["asset-breakdown-ptgn"],
+                    columns: columnMap["air-budget-tagging-gei"],
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -549,7 +620,6 @@
                     clipboardCopyRowRange: "range",
                     clipboardPasteParser: "range",
                     clipboardPasteAction: "range",
-                    clipboardPasteRow: true,
 
                     columnDefaults: {
                         headerSort: true,
@@ -565,7 +635,7 @@
 
                     if (!id) return;
 
-                    fetch(`asset-breakdown-ptgn/${id}`, {
+                    fetch(`air-budget-tagging-gei/${id}`, {
                             method: "PUT",
                             headers: {
                                 "Content-Type": "application/json",
@@ -605,7 +675,7 @@
                     console.log("Baris yang berubah:", changedRows);
 
                     changedRows.forEach(rowData => {
-                        fetch(`asset-breakdown-ptgn/${rowData.id}`, {
+                        fetch(`air-budget-tagging-gei/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
                                     "Content-Type": "application/json",
@@ -626,7 +696,6 @@
 
                     previousData = JSON.parse(JSON.stringify(newData));
                 });
-
                 loadData();
             });
         </script>
@@ -649,7 +718,7 @@
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
 
-                fetch("asset-breakdown-ptgn", {
+                fetch("air-budget-tagging-gei", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -659,28 +728,40 @@
                         },
                         body: JSON.stringify({
                             periode: data.periode,
-                            company: data.company,
-                            plant_segment: data.plant_segment,
-                            kategori_criticality: data.kategori_criticality,
-                            tag: data.tag,
-                            deskripsi_peralatan: data.deskripsi_peralatan,
-                            jenis_kerusakan: data.jenis_kerusakan,
-                            penyebab_root_cause: data.penyebab_root_cause,
-                            kendala_perbaikan: data.kendala_perbaikan,
-                            mitigasi_penanganan_sementara: data.mitigasi_penanganan_sementara,
-                            perbaikan_permanen: data.perbaikan_permanen,
-                            progres_perbaikan_permanen: data.progres_perbaikan_permanen,
-                            tindak_lanjut: data.tindak_lanjut,
-                            target_penyelesaian: data.target_penyelesaian,
-                            estimasi_biaya_perbaikan: data.estimasi_biaya_perbaikan,
-                            link_foto_video: data.link_foto_video
+                            satker: data.satker || null,
+                            kategori: data.kategori || null,
+                            ce: data.ce || null,
+                            cost_element_name: data.cost_element_name || null,
+                            program_kerja: data.program_kerja || null,
+                            total_pagu_usd: data.total_pagu_usd || null,
+                            jan: data.jan || null,
+                            feb: data.feb || null,
+                            mar: data.mar || null,
+                            apr: data.apr || null,
+                            may: data.may || null,
+                            jun: data.jun || null,
+                            jul: data.jul || null,
+                            aug: data.aug || null,
+                            sep: data.sep || null,
+                            oct: data.oct || null,
+                            nov: data.nov || null,
+                            dec: data.dec || null,
+                            aset_integrity: data.aset_integrity || null,
+                            airtagging: data.airtagging || null,
+                            prioritas: data.prioritas || null,
+                            status_integrity: data.status_integrity || null,
+                            jumlah_aset_critical_sece: data.jumlah_aset_critical_sece || null,
+                            jumlah_aset_critical_pce: data.jumlah_aset_critical_pce || null,
+                            jumlah_aset_important: data.jumlah_aset_important || null,
+                            jumlah_aset_secondary: data.jumlah_aset_secondary || null,
                         })
+
                     })
                     .then(response => response.json())
                     .then(result => {
                         if (result.success) {
                             alert(result.message || "Data berhasil disimpan");
-                            table.setData("/monev/shg/input-data/asset-breakdown-ptgn/data");
+                            table.setData("/monev/shg/input-data/air-budget-tagging-gei/data");
                             this.reset();
                             closeModal();
                         } else {
@@ -729,6 +810,7 @@
                     });
                 });
 
+                // Ketika halaman reload setelah klik, cek dan scroll otomatis
                 if (sessionStorage.getItem('scrollToActiveTab') === 'yes') {
                     scrollToActiveTab();
                     sessionStorage.removeItem('scrollToActiveTab');

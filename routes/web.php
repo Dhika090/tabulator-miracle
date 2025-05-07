@@ -2,6 +2,18 @@
 
 use App\Http\Controllers\MonevAimController;
 use App\Http\Controllers\SHG\HasilMonevController;
+use App\Http\Controllers\SHG\InputDataMonev\GagasEnergi\AirBudgetTaggingGEIController;
+use App\Http\Controllers\SHG\InputDataMonev\GagasEnergi\AssetBreakdownGEIController;
+use App\Http\Controllers\SHG\InputDataMonev\GagasEnergi\AvailabilityGEIController;
+use App\Http\Controllers\SHG\InputDataMonev\GagasEnergi\KondisiVacantAimsGEIController;
+use App\Http\Controllers\SHG\InputDataMonev\GagasEnergi\MandatoryCertificationGEIController;
+use App\Http\Controllers\SHG\InputDataMonev\GagasEnergi\PelatihanAimsGEIController;
+use App\Http\Controllers\SHG\InputDataMonev\GagasEnergi\RealisasiAnggaranAiGEIController;
+use App\Http\Controllers\SHG\InputDataMonev\GagasEnergi\RealisasiProgressFisikAiGEIController;
+use App\Http\Controllers\SHG\InputDataMonev\GagasEnergi\RencanaPemeliharaanGEIController;
+use App\Http\Controllers\SHG\InputDataMonev\GagasEnergi\SistemInformasiAimsGEIController;
+use App\Http\Controllers\SHG\InputDataMonev\GagasEnergi\StatusAssetAiGEIController;
+use App\Http\Controllers\SHG\InputDataMonev\GagasEnergi\StatusPloGEIController;
 use App\Http\Controllers\SHG\InputDataMonev\kalimantan\AirBudgetTaggingKJGController;
 use App\Http\Controllers\SHG\InputDataMonev\kalimantan\AssetBreakDownKjgController;
 use App\Http\Controllers\SHG\InputDataMonev\kalimantan\AvailabilityKjgController;
@@ -1083,6 +1095,109 @@ Route::prefix('monev/shg/input-data/realisasi-progress-fisik-ai-ptgn')->middlewa
     Route::put('/{id}', [RealisasiProgressFisikAiPTGNController::class, 'update'])->name('realisasi-progress-fisik-ai-ptgn.update');
     Route::delete('/{id}', [RealisasiProgressFisikAiPTGNController::class, 'destroy'])->name('realisasi-progress-fisik-ai-ptgn.destroy');
 });
+
+// PT GAGAS ENERGI INDONESIA
+Route::prefix('monev/shg/input-data/gagas-energi-indonesia')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [StatusAssetAiGEIController::class, 'index'])->name('gagas-energi-indonesia');
+    Route::post('/', [StatusAssetAiGEIController::class, 'store'])->name('gagas-energi-indonesia.store');
+    Route::get('/data', [StatusAssetAiGEIController::class, 'data'])->name('gagas-energi-indonesia.data');
+    Route::get('/{id}/edit', [StatusAssetAiGEIController::class, 'edit'])->name('gagas-energi-indonesia.edit');
+    Route::put('/{id}', [StatusAssetAiGEIController::class, 'update'])->name('gagas-energi-indonesia.update');
+    Route::delete('/{id}', [StatusAssetAiGEIController::class, 'destroy'])->name('gagas-energi-indonesia.destroy');
+});
+
+Route::prefix('monev/shg/input-data/mandatory-certification-gei')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [MandatoryCertificationGEIController::class, 'index'])->name('mandatory-certification-gei');
+    Route::post('/', [MandatoryCertificationGEIController::class, 'store'])->name('mandatory-certification-gei.store');
+    Route::get('/data', [MandatoryCertificationGEIController::class, 'data'])->name('mandatory-certification-gei.data');
+    Route::get('/{id}/edit', [MandatoryCertificationGEIController::class, 'edit'])->name('mandatory-certification-gei.edit');
+    Route::put('/{id}', [MandatoryCertificationGEIController::class, 'update'])->name('mandatory-certification-gei.update');
+    Route::delete('/{id}', [MandatoryCertificationGEIController::class, 'destroy'])->name('mandatory-certification-gei.destroy');
+});
+Route::prefix('monev/shg/input-data/asset-breakdown-gei')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [AssetBreakdownGEIController::class, 'index'])->name('asset-breakdown-gei');
+    Route::post('/', [AssetBreakdownGEIController::class, 'store'])->name('asset-breakdown-gei.store');
+    Route::get('/data', [AssetBreakdownGEIController::class, 'data'])->name('asset-breakdown-gei.data');
+    Route::get('/{id}/edit', [AssetBreakdownGEIController::class, 'edit'])->name('asset-breakdown-gei.edit');
+    Route::put('/{id}', [AssetBreakdownGEIController::class, 'update'])->name('asset-breakdown-gei.update');
+    Route::delete('/{id}', [AssetBreakdownGEIController::class, 'destroy'])->name('asset-breakdown-gei.destroy');
+});
+
+Route::prefix('monev/shg/input-data/sistem-informasi-aims-gei')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [SistemInformasiAimsGEIController::class, 'index'])->name('sistem-informasi-aims-gei');
+    Route::post('/', [SistemInformasiAimsGEIController::class, 'store'])->name('sistem-informasi-aims-gei.store');
+    Route::get('/data', [SistemInformasiAimsGEIController::class, 'data'])->name('sistem-informasi-aims-gei.data');
+    Route::get('/{id}/edit', [SistemInformasiAimsGEIController::class, 'edit'])->name('sistem-informasi-aims-gei.edit');
+    Route::put('/{id}', [SistemInformasiAimsGEIController::class, 'update'])->name('sistem-informasi-aims-gei.update');
+    Route::delete('/{id}', [SistemInformasiAimsGEIController::class, 'destroy'])->name('sistem-informasi-aims-gei.destroy');
+});
+Route::prefix('monev/shg/input-data/kondisi-vacant-fungsi-aims-gei')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [KondisiVacantAimsGEIController::class, 'index'])->name('kondisi-vacant-fungsi-aims-gei');
+    Route::post('/', [KondisiVacantAimsGEIController::class, 'store'])->name('kondisi-vacant-fungsi-aims-gei.store');
+    Route::get('/data', [KondisiVacantAimsGEIController::class, 'data'])->name('kondisi-vacant-fungsi-aims-gei.data');
+    Route::get('/{id}/edit', [KondisiVacantAimsGEIController::class, 'edit'])->name('kondisi-vacant-fungsi-aims-gei.edit');
+    Route::put('/{id}', [KondisiVacantAimsGEIController::class, 'update'])->name('kondisi-vacant-fungsi-aims-gei.update');
+    Route::delete('/{id}', [KondisiVacantAimsGEIController::class, 'destroy'])->name('kondisi-vacant-fungsi-aims-gei.destroy');
+});
+Route::prefix('monev/shg/input-data/status-plo-gei')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [StatusPloGEIController::class, 'index'])->name('status-plo-gei');
+    Route::post('/', [StatusPloGEIController::class, 'store'])->name('status-plo-gei.store');
+    Route::get('/data', [StatusPloGEIController::class, 'data'])->name('status-plo-gei.data');
+    Route::get('/{id}/edit', [StatusPloGEIController::class, 'edit'])->name('status-plo-gei.edit');
+    Route::put('/{id}', [StatusPloGEIController::class, 'update'])->name('status-plo-gei.update');
+    Route::delete('/{id}', [StatusPloGEIController::class, 'destroy'])->name('status-plo-gei.destroy');
+});
+Route::prefix('monev/shg/input-data/pelatihan-aims-gei')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [PelatihanAimsGEIController::class, 'index'])->name('pelatihan-aims-gei');
+    Route::post('/', [PelatihanAimsGEIController::class, 'store'])->name('pelatihan-aims-gei.store');
+    Route::get('/data', [PelatihanAimsGEIController::class, 'data'])->name('pelatihan-aims-gei.data');
+    Route::get('/{id}/edit', [PelatihanAimsGEIController::class, 'edit'])->name('pelatihan-aims-gei.edit');
+    Route::put('/{id}', [PelatihanAimsGEIController::class, 'update'])->name('pelatihan-aims-gei.update');
+    Route::delete('/{id}', [PelatihanAimsGEIController::class, 'destroy'])->name('pelatihan-aims-gei.destroy');
+});
+Route::prefix('monev/shg/input-data/availability-gei')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [AvailabilityGEIController::class, 'index'])->name('availability-gei');
+    Route::post('/', [AvailabilityGEIController::class, 'store'])->name('availability-gei.store');
+    Route::get('/data', [AvailabilityGEIController::class, 'data'])->name('availability-gei.data');
+    Route::get('/{id}/edit', [AvailabilityGEIController::class, 'edit'])->name('availability-gei.edit');
+    Route::put('/{id}', [AvailabilityGEIController::class, 'update'])->name('availability-gei.update');
+    Route::delete('/{id}', [AvailabilityGEIController::class, 'destroy'])->name('availability-gei.destroy');
+});
+Route::prefix('monev/shg/input-data/realisasi-anggaran-ai-gei')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [RealisasiAnggaranAiGEIController::class, 'index'])->name('realisasi-anggaran-ai-gei');
+    Route::post('/', [RealisasiAnggaranAiGEIController::class, 'store'])->name('realisasi-anggaran-ai-gei.store');
+    Route::get('/data', [RealisasiAnggaranAiGEIController::class, 'data'])->name('realisasi-anggaran-ai-gei.data');
+    Route::get('/{id}/edit', [RealisasiAnggaranAiGEIController::class, 'edit'])->name('realisasi-anggaran-ai-gei.edit');
+    Route::put('/{id}', [RealisasiAnggaranAiGEIController::class, 'update'])->name('realisasi-anggaran-ai-gei.update');
+    Route::delete('/{id}', [RealisasiAnggaranAiGEIController::class, 'destroy'])->name('realisasi-anggaran-ai-gei.destroy');
+});
+Route::prefix('monev/shg/input-data/realisasi-progress-fisik-ai-gei')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [RealisasiProgressFisikAiGEIController::class, 'index'])->name('realisasi-progress-fisik-ai-gei');
+    Route::post('/', [RealisasiProgressFisikAiGEIController::class, 'store'])->name('realisasi-progress-fisik-ai-gei.store');
+    Route::get('/data', [RealisasiProgressFisikAiGEIController::class, 'data'])->name('realisasi-progress-fisik-ai-gei.data');
+    Route::get('/{id}/edit', [RealisasiProgressFisikAiGEIController::class, 'edit'])->name('realisasi-progress-fisik-ai-gei.edit');
+    Route::put('/{id}', [RealisasiProgressFisikAiGEIController::class, 'update'])->name('realisasi-progress-fisik-ai-gei.update');
+    Route::delete('/{id}', [RealisasiProgressFisikAiGEIController::class, 'destroy'])->name('realisasi-progress-fisik-ai-gei.destroy');
+});
+Route::prefix('monev/shg/input-data/rencana-pemeliharaan-gei')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [RencanaPemeliharaanGEIController::class, 'index'])->name('rencana-pemeliharaan-gei');
+    Route::post('/', [RencanaPemeliharaanGEIController::class, 'store'])->name('rencana-pemeliharaan-gei.store');
+    Route::get('/data', [RencanaPemeliharaanGEIController::class, 'data'])->name('rencana-pemeliharaan-gei.data');
+    Route::get('/{id}/edit', [RencanaPemeliharaanGEIController::class, 'edit'])->name('rencana-pemeliharaan-gei.edit');
+    Route::put('/{id}', [RencanaPemeliharaanGEIController::class, 'update'])->name('rencana-pemeliharaan-gei.update');
+    Route::delete('/{id}', [RencanaPemeliharaanGEIController::class, 'destroy'])->name('rencana-pemeliharaan-gei.destroy');
+});
+Route::prefix('monev/shg/input-data/air-budget-tagging-gei')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [AirBudgetTaggingGEIController::class, 'index'])->name('air-budget-tagging-gei');
+    Route::post('/', [AirBudgetTaggingGEIController::class, 'store'])->name('air-budget-tagging-gei.store');
+    Route::get('/data', [AirBudgetTaggingGEIController::class, 'data'])->name('air-budget-tagging-gei.data');
+    Route::get('/{id}/edit', [AirBudgetTaggingGEIController::class, 'edit'])->name('air-budget-tagging-gei.edit');
+    Route::put('/{id}', [AirBudgetTaggingGEIController::class, 'update'])->name('air-budget-tagging-gei.update');
+    Route::delete('/{id}', [AirBudgetTaggingGEIController::class, 'destroy'])->name('air-budget-tagging-gei.destroy');
+});
+
+
+
 
 
 

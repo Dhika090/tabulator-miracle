@@ -13,12 +13,14 @@
                 border-radius: 8px;
                 box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             }
+
+            .tabulator-cell {
+                font-size: 14px;
+            }
+
             .tabulator .tabulator-cell {
                 white-space: normal !important;
                 word-wrap: break-word;
-            }
-            .tabulator-cell {
-                font-size: 14px;
             }
 
             .card {
@@ -123,7 +125,7 @@
     <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-                <h5 class="card-title mb-3 mb-md-0">Asset Breakdown PTGN</h5>
+                <h5 class="card-title mb-3 mb-md-0">Rencana Pemeliharaan GEI 2025</h5>
                 <div class="d-flex">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
@@ -178,102 +180,151 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Tambah Target PTGN</h3>
+            <h3>Tambah Rencana Pemeliharaan GEI</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
+                <label for="periode">Periode (Tahun):</label>
+                <select name="periode" id="periode" required class="form-select">
+                    <option value="" selected disabled>Pilih Periode</option>
+                    @for ($year = 2000; $year <= date('Y') + 5; $year++)
+                        <option value="{{ $year }}">{{ $year }}</option>
+                    @endfor
+                </select>
+
 
                 <div>
-                    <label>Periode</label>
-                    <input type="month" name="periode" id="periode" required>
+                    <label for="no">No</label>
+                    <input type="number" id="no" name="no" required>
                 </div>
 
                 <div>
-                    <label>Company</label>
-                    <input type="text" name="company" id="company" required>
+                    <label for="company">Company</label>
+                    <input type="text" id="company" name="company">
                 </div>
 
                 <div>
-                    <label>Plant/Segment</label>
-                    <input type="text" name="plant_segment" id="plant_segment">
+                    <label for="lokasi">Lokasi</label>
+                    <input type="text" id="lokasi" name="lokasi">
                 </div>
 
                 <div>
-                    <label>Kategori Criticality</label>
-                    <input type="text" name="kategori_criticality" id="kategori_criticality">
+                    <label for="program_kerja">Program Kerja</label>
+                    <input type="text" id="program_kerja" name="program_kerja">
                 </div>
 
                 <div>
-                    <label>Tag</label>
-                    <input type="text" name="tag" id="tag">
+                    <label for="kategori_maintenance">Kategori Maintenance</label>
+                    <input type="text" id="kategori_maintenance" name="kategori_maintenance">
                 </div>
 
                 <div>
-                    <label>Deskripsi Peralatan</label>
-                    <input type="text" name="deskripsi_peralatan" id="deskripsi_peralatan">
+                    <label for="besar_phasing">Besar Phasing</label>
+                    <input type="number" id="besar_phasing" name="besar_phasing" step="any">
                 </div>
 
                 <div>
-                    <label>Jenis Kerusakan</label>
-                    <input type="text" name="jenis_kerusakan" id="jenis_kerusakan">
+                    <label for="remark">Remark</label>
+                    <input type="text" id="remark" name="remark">
+                </div>
+
+                <!-- Bulan -->
+                <div>
+                    <label for="jan">Jan</label>
+                    <input type="number" id="jan" name="jan">
                 </div>
 
                 <div>
-                    <label>Penyebab / Root Cause</label>
-                    <input type="text" name="penyebab" id="penyebab">
+                    <label for="feb">Feb</label>
+                    <input type="number" id="feb" name="feb">
                 </div>
 
                 <div>
-                    <label>Kendala Perbaikan</label>
-                    <input type="text" name="kendala_perbaikan" id="kendala_perbaikan">
+                    <label for="mar">Mar</label>
+                    <input type="number" id="mar" name="mar">
                 </div>
 
                 <div>
-                    <label>Mitigasi / Penanganan Sementara</label>
-                    <input type="text" name="mitigasi" id="mitigasi">
+                    <label for="apr">Apr</label>
+                    <input type="number" id="apr" name="apr">
                 </div>
 
                 <div>
-                    <label>Perbaikan Permanen</label>
-                    <input type="text" name="perbaikan_permanen" id="perbaikan_permanen">
+                    <label for="may">May</label>
+                    <input type="number" id="may" name="may">
                 </div>
 
                 <div>
-                    <label>Progres Perbaikan Permanen</label>
-                    <input type="text" name="progres_perbaikan_permanen" id="progres_perbaikan_permanen">
+                    <label for="jun">Jun</label>
+                    <input type="number" id="jun" name="jun">
                 </div>
 
                 <div>
-                    <label>Tindak Lanjut</label>
-                    <input type="text" name="tindak_lanjut" id="tindak_lanjut">
+                    <label for="jul">Jul</label>
+                    <input type="number" id="jul" name="jul">
                 </div>
 
                 <div>
-                    <label>Target Penyelesaian</label>
-                    <input type="month" name="target_penyelesaian" id="target_penyelesaian">
+                    <label for="aug">Aug</label>
+                    <input type="number" id="aug" name="aug">
                 </div>
 
                 <div>
-                    <label>Estimasi Biaya Perbaikan</label>
-                    <input type="number" name="estimasi_biaya_perbaikan" id="estimasi_biaya_perbaikan">
+                    <label for="sep">Sep</label>
+                    <input type="number" id="sep" name="sep">
                 </div>
 
                 <div>
-                    <label>Link Foto/Video</label>
-                    <input type="url" name="link_foto_video" id="link_foto_video">
+                    <label for="oct">Oct</label>
+                    <input type="number" id="oct" name="oct">
+                </div>
+
+                <div>
+                    <label for="nov">Nov</label>
+                    <input type="number" id="nov" name="nov">
+                </div>
+
+                <div>
+                    <label for="dec">Dec</label>
+                    <input type="number" id="dec" name="dec">
+                </div>
+
+                <div>
+                    <label for="biaya_kerugian">Biaya Kerugian (USD)</label>
+                    <input type="number" id="biaya_kerugian" name="biaya_kerugian" step="0.01">
+                </div>
+
+                <div>
+                    <label for="keterangan_kerugian">Keterangan Kerugian</label>
+                    <input type="text" id="keterangan_kerugian" name="keterangan_kerugian">
+                </div>
+
+                <div>
+                    <label for="penyebab">Penyebab</label>
+                    <input type="text" id="penyebab" name="penyebab">
+                </div>
+
+                <div>
+                    <label for="kendala">Kendala</label>
+                    <input type="text" id="kendala" name="kendala">
+                </div>
+
+                <div>
+                    <label for="tindak_lanjut">Tindak Lanjut</label>
+                    <input type="text" id="tindak_lanjut" name="tindak_lanjut">
                 </div>
 
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
+
         </div>
     </div>
 
     @push('scripts')
         <script src="https://unpkg.com/tabulator-tables@5.6.0/dist/js/tabulator.min.js"></script>
-
         <script>
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
-                    fetch(`asset-breakdown-ptgn/${id}`, {
+                    fetch(`rencana-pemeliharaan-gei/${id}`, {
                             method: "DELETE",
                             headers: {
                                 "Accept": "application/json",
@@ -291,7 +342,6 @@
                         });
                 }
             }
-
             document.getElementById("search-input").addEventListener("input", function(e) {
                 const keyword = e.target.value;
                 table.setFilter([
@@ -301,77 +351,62 @@
                             value: keyword
                         },
                         {
+                            field: "no",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
                             field: "company",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "plant_segment",
+                            field: "lokasi",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "kategori_criticality",
+                            field: "program_kerja",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "tag",
+                            field: "kategori_maintenance",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "deskripsi_peralatan",
+                            field: "besar_phasing",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "jenis_kerusakan",
+                            field: "remark",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "penyebab_root_cause",
+                            field: "biaya_kerugian",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "kendala_perbaikan",
+                            field: "keterangan_kerugian",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "mitigasi_penanganan_sementara",
+                            field: "penyebab",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "perbaikan_permanen",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "progres_perbaikan_permanen",
+                            field: "kendala",
                             type: "like",
                             value: keyword
                         },
                         {
                             field: "tindak_lanjut",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "target_penyelesaian",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "estimasi_biaya_perbaikan",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "link_foto_video",
                             type: "like",
                             value: keyword
                         }
@@ -384,8 +419,9 @@
                 table.clearFilter();
             }
 
+
             function loadData() {
-                fetch("/monev/shg/input-data/asset-breakdown-ptgn/data", {
+                fetch("/monev/shg/input-data/rencana-pemeliharaan-gei/data", {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -397,7 +433,7 @@
 
             document.addEventListener("DOMContentLoaded", function() {
                 const columnMap = {
-                    "asset-breakdown-ptgn": [{
+                    "rencana-pemeliharaan-gei": [{
                             title: "No",
                             formatter: "rownum",
                             hozAlign: "center",
@@ -414,76 +450,36 @@
                             editor: "input"
                         },
                         {
+                            title: "No",
+                            field: "no",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
                             title: "Company",
                             field: "company",
                             editor: "input"
                         },
                         {
-                            title: "Plant/Segment",
-                            field: "plant_segment",
+                            title: "Lokasi",
+                            field: "lokasi",
                             editor: "input"
                         },
                         {
-                            title: "Kategori Criticality",
-                            field: "kategori_criticality",
-                            editor: "input"
-                        },
-                        {
-                            title: "Tag",
-                            field: "tag",
-                            editor: "input"
-                        },
-                        {
-                            title: "Deskripsi Peralatan",
-                            field: "deskripsi_peralatan",
-                            editor: "input"
-                        },
-                        {
-                            title: "Jenis Kerusakan",
-                            field: "jenis_kerusakan",
-                            editor: "input"
-                        },
-                        {
-                            title: "Penyebab/Root Cause",
-                            field: "penyebab_root_cause",
-                            editor: "input"
-                        },
-                        {
-                            title: "Kendala Perbaikan",
-                            field: "kendala_perbaikan",
-                            editor: "input"
-                        },
-                        {
-                            title: "Mitigasi / Penanganan Sementara",
-                            field: "mitigasi_penanganan_sementara",
-                            editor: "input"
-                        },
-                        {
-                            title: "Perbaikan Permanen",
-                            field: "perbaikan_permanen",
-                            editor: "input"
-                        },
-                        {
-                            title: "Progres Perbaikan Permanen",
-                            field: "progres_perbaikan_permanen",
-                            editor: "number",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "Tindak Lanjut",
-                            field: "tindak_lanjut",
+                            title: "Program Kerja",
+                            field: "program_kerja",
                             editor: "input",
                             width: 450
                         },
                         {
-                            title: "Target Penyelesaian",
-                            field: "target_penyelesaian",
+                            title: "Kategori Maintenance",
+                            field: "kategori_maintenance",
                             editor: "input"
                         },
                         {
-                            title: "Estimasi Biaya Perbaikan",
-                            field: "estimasi_biaya_perbaikan",
-                            hozAlign: "center",
+                            title: "Besar Phasing",
+                            field: "besar_phasing",
+                            hozAlign: "right",
                             formatter: function(cell) {
                                 let rawValue = cell.getValue();
                                 if (rawValue === null || rawValue === undefined || rawValue === "") {
@@ -505,9 +501,108 @@
                             editor: "input"
                         },
                         {
-                            title: "Link Foto/Video",
-                            field: "link_foto_video",
+                            title: "Remark",
+                            field: "remark",
                             editor: "input"
+                        },
+                        {
+                            title: "Jan",
+                            field: "jan",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Feb",
+                            field: "feb",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Mar",
+                            field: "mar",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Apr",
+                            field: "apr",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "May",
+                            field: "may",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Jun",
+                            field: "jun",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Jul",
+                            field: "jul",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Aug",
+                            field: "aug",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Sep",
+                            field: "sep",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Oct",
+                            field: "oct",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Nov",
+                            field: "nov",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Dec",
+                            field: "dec",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Biaya Kerugian (USD)",
+                            field: "biaya_kerugian",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Keterangan Kerugian",
+                            field: "keterangan_kerugian",
+                            editor: "input"
+                        },
+                        {
+                            title: "Penyebab",
+                            field: "penyebab",
+                            editor: "input"
+                        },
+                        {
+                            title: "Kendala",
+                            field: "kendala",
+                            editor: "input"
+                        },
+                        {
+                            title: "Tindak Lanjut",
+                            field: "tindak_lanjut",
+                            editor: "input",
+                            width: 450
                         },
                         {
                             title: "Aksi",
@@ -525,7 +620,7 @@
                     layout: "fitDataTable",
                     responsiveLayout: "collapse",
                     autoResize: true,
-                    columns: columnMap["asset-breakdown-ptgn"],
+                    columns: columnMap["rencana-pemeliharaan-gei"],
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -559,13 +654,14 @@
                     },
                 });
 
+
                 table.on("cellEdited", function(cell) {
                     const updatedData = cell.getRow().getData();
                     const id = updatedData.id;
 
                     if (!id) return;
 
-                    fetch(`asset-breakdown-ptgn/${id}`, {
+                    fetch(`rencana-pemeliharaan-gei/${id}`, {
                             method: "PUT",
                             headers: {
                                 "Content-Type": "application/json",
@@ -576,7 +672,7 @@
                             body: JSON.stringify(updatedData)
                         })
                         .then(res => res.json())
-                        .then(data => console.log("Update berhasil:", data))
+                        .then(data => console.log("Berhasil update:", data))
                         .catch(err => console.error("Gagal update:", err));
                 });
 
@@ -605,7 +701,7 @@
                     console.log("Baris yang berubah:", changedRows);
 
                     changedRows.forEach(rowData => {
-                        fetch(`asset-breakdown-ptgn/${rowData.id}`, {
+                        fetch(`rencana-pemeliharaan-gei/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
                                     "Content-Type": "application/json",
@@ -649,7 +745,7 @@
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
 
-                fetch("asset-breakdown-ptgn", {
+                fetch("rencana-pemeliharaan-gei", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -659,28 +755,37 @@
                         },
                         body: JSON.stringify({
                             periode: data.periode,
+                            no: data.no,
                             company: data.company,
-                            plant_segment: data.plant_segment,
-                            kategori_criticality: data.kategori_criticality,
-                            tag: data.tag,
-                            deskripsi_peralatan: data.deskripsi_peralatan,
-                            jenis_kerusakan: data.jenis_kerusakan,
-                            penyebab_root_cause: data.penyebab_root_cause,
-                            kendala_perbaikan: data.kendala_perbaikan,
-                            mitigasi_penanganan_sementara: data.mitigasi_penanganan_sementara,
-                            perbaikan_permanen: data.perbaikan_permanen,
-                            progres_perbaikan_permanen: data.progres_perbaikan_permanen,
-                            tindak_lanjut: data.tindak_lanjut,
-                            target_penyelesaian: data.target_penyelesaian,
-                            estimasi_biaya_perbaikan: data.estimasi_biaya_perbaikan,
-                            link_foto_video: data.link_foto_video
+                            lokasi: data.lokasi,
+                            program_kerja: data.program_kerja,
+                            kategori_maintenance: data.kategori_maintenance,
+                            besar_phasing: data.besar_phasing,
+                            remark: data.remark,
+                            jan: data.jan,
+                            feb: data.feb,
+                            mar: data.mar,
+                            apr: data.apr,
+                            may: data.may,
+                            jun: data.jun,
+                            jul: data.jul,
+                            aug: data.aug,
+                            sep: data.sep,
+                            oct: data.oct,
+                            nov: data.nov,
+                            dec: data.dec,
+                            biaya_kerugian: data.biaya_kerugian,
+                            keterangan_kerugian: data.keterangan_kerugian,
+                            penyebab: data.penyebab,
+                            kendala: data.kendala,
+                            tindak_lanjut: data.tindak_lanjut
                         })
                     })
                     .then(response => response.json())
                     .then(result => {
                         if (result.success) {
                             alert(result.message || "Data berhasil disimpan");
-                            table.setData("/monev/shg/input-data/asset-breakdown-ptgn/data");
+                            table.setData("/monev/shg/input-data/rencana-pemeliharaan-gei/data");
                             this.reset();
                             closeModal();
                         } else {

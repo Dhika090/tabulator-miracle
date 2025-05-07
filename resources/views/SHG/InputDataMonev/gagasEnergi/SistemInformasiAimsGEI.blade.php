@@ -13,12 +13,14 @@
                 border-radius: 8px;
                 box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             }
+
+            .tabulator-cell {
+                font-size: 14px;
+            }
+
             .tabulator .tabulator-cell {
                 white-space: normal !important;
                 word-wrap: break-word;
-            }
-            .tabulator-cell {
-                font-size: 14px;
             }
 
             .card {
@@ -123,7 +125,7 @@
     <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-                <h5 class="card-title mb-3 mb-md-0">Asset Breakdown PTGN</h5>
+                <h5 class="card-title mb-3 mb-md-0">Sistem Informasi AIMS GEI</h5>
                 <div class="d-flex">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
@@ -178,88 +180,73 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Tambah Target PTGN</h3>
+            <h3>Tambah Sistem Informasi AIMS GEI</h3>
             <form id="createForm">
+
                 <input type="hidden" name="id" id="form-id">
-
                 <div>
-                    <label>Periode</label>
-                    <input type="month" name="periode" id="periode" required>
+                    <label for="periode">Periode</label>
+                    <input type="month" id="periode" name="periode" required>
                 </div>
 
                 <div>
-                    <label>Company</label>
-                    <input type="text" name="company" id="company" required>
+                    <label for="company">Company</label>
+                    <input type="text" id="company" name="company" required>
                 </div>
 
                 <div>
-                    <label>Plant/Segment</label>
-                    <input type="text" name="plant_segment" id="plant_segment">
+                    <label for="jumlah_aset_operasi">Jumlah Aset Operasi</label>
+                    <input type="text" id="jumlah_aset_operasi" name="jumlah_aset_operasi">
                 </div>
 
                 <div>
-                    <label>Kategori Criticality</label>
-                    <input type="text" name="kategori_criticality" id="kategori_criticality">
+                    <label for="jumlah_aset_teregister">Jumlah Aset Teregister</label>
+                    <input type="text" id="jumlah_aset_teregister" name="jumlah_aset_teregister">
                 </div>
 
                 <div>
-                    <label>Tag</label>
-                    <input type="text" name="tag" id="tag">
+                    <label for="kendala_aset_register">Kendala Aset Register</label>
+                    <input id="kendala_aset_register" type="text" name="kendala_aset_register"></input>
                 </div>
 
                 <div>
-                    <label>Deskripsi Peralatan</label>
-                    <input type="text" name="deskripsi_peralatan" id="deskripsi_peralatan">
+                    <label for="tindak_lanjut_aset_register">Tindak Lanjut Aset Register</label>
+                    <input id="tindak_lanjut_aset_register" type="text" name="tindak_lanjut_aset_register"></input>
                 </div>
 
                 <div>
-                    <label>Jenis Kerusakan</label>
-                    <input type="text" name="jenis_kerusakan" id="jenis_kerusakan">
+                    <label for="sistem_informasi_aim">Sistem Informasi AIM</label>
+                    <input type="text" id="sistem_informasi_aim" name="sistem_informasi_aim">
                 </div>
 
                 <div>
-                    <label>Penyebab / Root Cause</label>
-                    <input type="text" name="penyebab" id="penyebab">
+                    <label for="total_wo_comply">Total WO Comply</label>
+                    <input type="number" id="total_wo_comply" name="total_wo_comply">
                 </div>
 
                 <div>
-                    <label>Kendala Perbaikan</label>
-                    <input type="text" name="kendala_perbaikan" id="kendala_perbaikan">
+                    <label for="total_wo_completed">Total WO Completed</label>
+                    <input type="number" id="total_wo_completed" name="total_wo_completed">
                 </div>
 
                 <div>
-                    <label>Mitigasi / Penanganan Sementara</label>
-                    <input type="text" name="mitigasi" id="mitigasi">
+                    <label for="total_wo_in_progress">Total WO In Progress</label>
+                    <input type="number" id="total_wo_in_progress" name="total_wo_in_progress">
                 </div>
 
                 <div>
-                    <label>Perbaikan Permanen</label>
-                    <input type="text" name="perbaikan_permanen" id="perbaikan_permanen">
+                    <label for="total_wo_backlog">Total WO Backlog</label>
+                    <input type="number" id="total_wo_backlog" name="total_wo_backlog">
                 </div>
 
                 <div>
-                    <label>Progres Perbaikan Permanen</label>
-                    <input type="text" name="progres_perbaikan_permanen" id="progres_perbaikan_permanen">
+                    <label for="kendala">Kendala</label>
+                    <input id="kendala" type="text" name="kendala"></input>
                 </div>
 
                 <div>
-                    <label>Tindak Lanjut</label>
-                    <input type="text" name="tindak_lanjut" id="tindak_lanjut">
-                </div>
-
-                <div>
-                    <label>Target Penyelesaian</label>
-                    <input type="month" name="target_penyelesaian" id="target_penyelesaian">
-                </div>
-
-                <div>
-                    <label>Estimasi Biaya Perbaikan</label>
-                    <input type="number" name="estimasi_biaya_perbaikan" id="estimasi_biaya_perbaikan">
-                </div>
-
-                <div>
-                    <label>Link Foto/Video</label>
-                    <input type="url" name="link_foto_video" id="link_foto_video">
+                    <label for="tindak_lanjut">Tindak Lanjut</label>
+                    <input id="tindak_lanjut" type="text" name="tindak_lanjut"></input>
                 </div>
 
                 <button type="submit" class="btn btn-success">Submit</button>
@@ -269,11 +256,10 @@
 
     @push('scripts')
         <script src="https://unpkg.com/tabulator-tables@5.6.0/dist/js/tabulator.min.js"></script>
-
         <script>
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
-                    fetch(`asset-breakdown-ptgn/${id}`, {
+                    fetch(`sistem-informasi-aims-gei/${id}`, {
                             method: "DELETE",
                             headers: {
                                 "Accept": "application/json",
@@ -306,72 +292,57 @@
                             value: keyword
                         },
                         {
-                            field: "plant_segment",
+                            field: "jumlah_aset_operasi",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "kategori_criticality",
+                            field: "jumlah_aset_teregister",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "tag",
+                            field: "kendala_aset_register",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "deskripsi_peralatan",
+                            field: "tindak_lanjut_aset_register",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "jenis_kerusakan",
+                            field: "sistem_informasi_aim",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "penyebab_root_cause",
+                            field: "total_wo_comply",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "kendala_perbaikan",
+                            field: "total_wo_completed",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "mitigasi_penanganan_sementara",
+                            field: "total_wo_in_progress",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "perbaikan_permanen",
+                            field: "total_wo_backlog",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "progres_perbaikan_permanen",
+                            field: "kendala",
                             type: "like",
                             value: keyword
                         },
                         {
                             field: "tindak_lanjut",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "target_penyelesaian",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "estimasi_biaya_perbaikan",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "link_foto_video",
                             type: "like",
                             value: keyword
                         }
@@ -384,8 +355,9 @@
                 table.clearFilter();
             }
 
+
             function loadData() {
-                fetch("/monev/shg/input-data/asset-breakdown-ptgn/data", {
+                fetch("/monev/shg/input-data/sistem-informasi-aims-gei/data", {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -397,7 +369,7 @@
 
             document.addEventListener("DOMContentLoaded", function() {
                 const columnMap = {
-                    "asset-breakdown-ptgn": [{
+                    "sistem-informasi-aims-gei": [{
                             title: "No",
                             formatter: "rownum",
                             hozAlign: "center",
@@ -419,95 +391,67 @@
                             editor: "input"
                         },
                         {
-                            title: "Plant/Segment",
-                            field: "plant_segment",
+                            title: "Jumlah Aset Operasi",
+                            field: "jumlah_aset_operasi",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Jumlah Aset Teregister",
+                            field: "jumlah_aset_teregister",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Kendala Aset Register",
+                            field: "kendala_aset_register",
                             editor: "input"
                         },
                         {
-                            title: "Kategori Criticality",
-                            field: "kategori_criticality",
+                            title: "Tindak Lanjut Aset Register",
+                            field: "tindak_lanjut_aset_register",
                             editor: "input"
                         },
                         {
-                            title: "Tag",
-                            field: "tag",
+                            title: "Sistem Informasi AIM",
+                            field: "sistem_informasi_aim",
                             editor: "input"
                         },
                         {
-                            title: "Deskripsi Peralatan",
-                            field: "deskripsi_peralatan",
-                            editor: "input"
-                        },
-                        {
-                            title: "Jenis Kerusakan",
-                            field: "jenis_kerusakan",
-                            editor: "input"
-                        },
-                        {
-                            title: "Penyebab/Root Cause",
-                            field: "penyebab_root_cause",
-                            editor: "input"
-                        },
-                        {
-                            title: "Kendala Perbaikan",
-                            field: "kendala_perbaikan",
-                            editor: "input"
-                        },
-                        {
-                            title: "Mitigasi / Penanganan Sementara",
-                            field: "mitigasi_penanganan_sementara",
-                            editor: "input"
-                        },
-                        {
-                            title: "Perbaikan Permanen",
-                            field: "perbaikan_permanen",
-                            editor: "input"
-                        },
-                        {
-                            title: "Progres Perbaikan Permanen",
-                            field: "progres_perbaikan_permanen",
+                            title: "Total WO Comply",
+                            field: "total_wo_comply",
                             editor: "number",
                             hozAlign: "center"
+                        },
+                        {
+                            title: "Total WO Completed",
+                            field: "total_wo_completed",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Total WO In Progress",
+                            field: "total_wo_in_progress",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Total WO Backlog",
+                            field: "total_wo_backlog",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Kendala",
+                            field: "kendala",
+                            editor: "input",
+                            width: 450
                         },
                         {
                             title: "Tindak Lanjut",
                             field: "tindak_lanjut",
                             editor: "input",
-                            width: 450
-                        },
-                        {
-                            title: "Target Penyelesaian",
-                            field: "target_penyelesaian",
-                            editor: "input"
-                        },
-                        {
-                            title: "Estimasi Biaya Perbaikan",
-                            field: "estimasi_biaya_perbaikan",
-                            hozAlign: "center",
-                            formatter: function(cell) {
-                                let rawValue = cell.getValue();
-                                if (rawValue === null || rawValue === undefined || rawValue === "") {
-                                    return "0.00";
-                                }
-
-                                let cleanValue = rawValue.toString().replace(/[^0-9.-]+/g, '');
-                                let value = parseFloat(cleanValue);
-
-                                if (!isNaN(value)) {
-                                    return value.toLocaleString("en-US", {
-                                        minimumFractionDigits: 2,
-                                        maximumFractionDigits: 2
-                                    });
-                                }
-
-                                return "0.00";
-                            },
-                            editor: "input"
-                        },
-                        {
-                            title: "Link Foto/Video",
-                            field: "link_foto_video",
-                            editor: "input"
+                            width: 400
                         },
                         {
                             title: "Aksi",
@@ -525,7 +469,7 @@
                     layout: "fitDataTable",
                     responsiveLayout: "collapse",
                     autoResize: true,
-                    columns: columnMap["asset-breakdown-ptgn"],
+                    columns: columnMap["sistem-informasi-aims-gei"],
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -559,13 +503,14 @@
                     },
                 });
 
+
                 table.on("cellEdited", function(cell) {
                     const updatedData = cell.getRow().getData();
                     const id = updatedData.id;
 
                     if (!id) return;
 
-                    fetch(`asset-breakdown-ptgn/${id}`, {
+                    fetch(`sistem-informasi-aims-gei/${id}`, {
                             method: "PUT",
                             headers: {
                                 "Content-Type": "application/json",
@@ -576,7 +521,7 @@
                             body: JSON.stringify(updatedData)
                         })
                         .then(res => res.json())
-                        .then(data => console.log("Update berhasil:", data))
+                        .then(data => console.log("Berhasil update:", data))
                         .catch(err => console.error("Gagal update:", err));
                 });
 
@@ -605,7 +550,7 @@
                     console.log("Baris yang berubah:", changedRows);
 
                     changedRows.forEach(rowData => {
-                        fetch(`asset-breakdown-ptgn/${rowData.id}`, {
+                        fetch(`sistem-informasi-aims-gei/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
                                     "Content-Type": "application/json",
@@ -626,7 +571,6 @@
 
                     previousData = JSON.parse(JSON.stringify(newData));
                 });
-
                 loadData();
             });
         </script>
@@ -649,7 +593,7 @@
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
 
-                fetch("asset-breakdown-ptgn", {
+                fetch("sistem-informasi-aims-gei", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -660,27 +604,24 @@
                         body: JSON.stringify({
                             periode: data.periode,
                             company: data.company,
-                            plant_segment: data.plant_segment,
-                            kategori_criticality: data.kategori_criticality,
-                            tag: data.tag,
-                            deskripsi_peralatan: data.deskripsi_peralatan,
-                            jenis_kerusakan: data.jenis_kerusakan,
-                            penyebab_root_cause: data.penyebab_root_cause,
-                            kendala_perbaikan: data.kendala_perbaikan,
-                            mitigasi_penanganan_sementara: data.mitigasi_penanganan_sementara,
-                            perbaikan_permanen: data.perbaikan_permanen,
-                            progres_perbaikan_permanen: data.progres_perbaikan_permanen,
-                            tindak_lanjut: data.tindak_lanjut,
-                            target_penyelesaian: data.target_penyelesaian,
-                            estimasi_biaya_perbaikan: data.estimasi_biaya_perbaikan,
-                            link_foto_video: data.link_foto_video
+                            jumlah_aset_operasi: data.jumlah_aset_operasi,
+                            jumlah_aset_teregister: data.jumlah_aset_teregister,
+                            kendala_aset_register: data.kendala_aset_register,
+                            tindak_lanjut_aset_register: data.tindak_lanjut_aset_register,
+                            sistem_informasi_aim: data.sistem_informasi_aim,
+                            total_wo_comply: data.total_wo_comply,
+                            total_wo_completed: data.total_wo_completed,
+                            total_wo_in_progress: data.total_wo_in_progress,
+                            total_wo_backlog: data.total_wo_backlog,
+                            kendala: data.kendala,
+                            tindak_lanjut: data.tindak_lanjut
                         })
                     })
                     .then(response => response.json())
                     .then(result => {
                         if (result.success) {
                             alert(result.message || "Data berhasil disimpan");
-                            table.setData("/monev/shg/input-data/asset-breakdown-ptgn/data");
+                            table.setData("/monev/shg/input-data/sistem-informasi-aims-gei/data");
                             this.reset();
                             closeModal();
                         } else {
@@ -729,6 +670,7 @@
                     });
                 });
 
+                // Ketika halaman reload setelah klik, cek dan scroll otomatis
                 if (sessionStorage.getItem('scrollToActiveTab') === 'yes') {
                     scrollToActiveTab();
                     sessionStorage.removeItem('scrollToActiveTab');

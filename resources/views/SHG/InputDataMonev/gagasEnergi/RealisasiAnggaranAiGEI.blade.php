@@ -13,12 +13,11 @@
                 border-radius: 8px;
                 box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             }
-            .tabulator .tabulator-cell {
-                white-space: normal !important;
-                word-wrap: break-word;
-            }
+
             .tabulator-cell {
                 font-size: 14px;
+                white-space: normal !important;
+                word-wrap: break-word;
             }
 
             .card {
@@ -123,7 +122,7 @@
     <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-                <h5 class="card-title mb-3 mb-md-0">Asset Breakdown PTGN</h5>
+                <h5 class="card-title mb-3 mb-md-0">Realisasi Anggaran AI GEI</h5>
                 <div class="d-flex">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
@@ -166,7 +165,6 @@
                     </div>
                 </div>
             </div>
-
             <div id="mainTable"></div>
 
             <div class="tabulator-wrapper mt-4">
@@ -178,88 +176,231 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Tambah Target PTGN</h3>
+            <h3>Tambah Data Realisasi Anggaran AI 2025</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
-
                 <div>
-                    <label>Periode</label>
-                    <input type="month" name="periode" id="periode" required>
+                    <label for="periode">Periode (Tahun):</label>
+                    <select name="periode" id="periode" required class="form-select">
+                        <option value="" selected disabled>Pilih Periode</option>
+                        @for ($year = 2000; $year <= date('Y') + 5; $year++)
+                            <option value="{{ $year }}">{{ $year }}</option>
+                        @endfor
+                    </select>
+                </div>
+                <div>
+                    <label>No</label>
+                    <input type="number" name="no" id="no" required>
                 </div>
 
                 <div>
-                    <label>Company</label>
-                    <input type="text" name="company" id="company" required>
+                    <label>Program Kerja</label>
+                    <input type="text" name="program_kerja" id="program_kerja">
                 </div>
 
                 <div>
-                    <label>Plant/Segment</label>
-                    <input type="text" name="plant_segment" id="plant_segment">
+                    <label>Kategori AIBT</label>
+                    <input type="text" name="kategori_aibt" id="kategori_aibt">
                 </div>
 
                 <div>
-                    <label>Kategori Criticality</label>
-                    <input type="text" name="kategori_criticality" id="kategori_criticality">
+                    <label>Jenis Anggaran</label>
+                    <input type="text" name="jenis_anggaran" id="jenis_anggaran">
                 </div>
 
                 <div>
-                    <label>Tag</label>
-                    <input type="text" name="tag" id="tag">
+                    <label>Besar RKAP</label>
+                    <input type="number" name="besar_rkap" id="besar_rkap" step="0.01">
                 </div>
 
                 <div>
-                    <label>Deskripsi Peralatan</label>
-                    <input type="text" name="deskripsi_peralatan" id="deskripsi_peralatan">
+                    <label>Entitas</label>
+                    <input type="text" name="entitas" id="entitas">
                 </div>
 
                 <div>
-                    <label>Jenis Kerusakan</label>
-                    <input type="text" name="jenis_kerusakan" id="jenis_kerusakan">
+                    <label>Unit</label>
+                    <input type="text" name="unit" id="unit">
                 </div>
 
                 <div>
-                    <label>Penyebab / Root Cause</label>
-                    <input type="text" name="penyebab" id="penyebab">
+                    <label>Nilai Kontrak</label>
+                    <input type="number" name="nilai_kontrak" id="nilai_kontrak" step="0.01">
+                </div>
+
+                <!-- Plan Fields -->
+                <fieldset>
+                    <legend>Plan</legend>
+                    <div>
+                        <label>Plan Jan</label>
+                        <input type="text" name="plan_jan">
+                    </div>
+                    <div>
+                        <label>Plan Feb</label>
+                        <input type="text" name="plan_feb">
+                    </div>
+                    <div>
+                        <label>Plan Mar</label>
+                        <input type="text" name="plan_mar">
+                    </div>
+                    <div>
+                        <label>Plan Apr</label>
+                        <input type="text" name="plan_apr">
+                    </div>
+                    <div>
+                        <label>Plan May</label>
+                        <input type="text" name="plan_may">
+                    </div>
+                    <div>
+                        <label>Plan Jun</label>
+                        <input type="text" name="plan_jun">
+                    </div>
+                    <div>
+                        <label>Plan Jul</label>
+                        <input type="text" name="plan_jul">
+                    </div>
+                    <div>
+                        <label>Plan Aug</label>
+                        <input type="text" name="plan_aug">
+                    </div>
+                    <div>
+                        <label>Plan Sep</label>
+                        <input type="text" name="plan_sep">
+                    </div>
+                    <div>
+                        <label>Plan Oct</label>
+                        <input type="text" name="plan_oct">
+                    </div>
+                    <div>
+                        <label>Plan Nov</label>
+                        <input type="text" name="plan_nov">
+                    </div>
+                    <div>
+                        <label>Plan Dec</label>
+                        <input type="text" name="plan_dec">
+                    </div>
+                </fieldset>
+
+                <!-- Prognosa Fields -->
+                <fieldset>
+                    <legend>Prognosa</legend>
+                    <!-- Sama seperti Plan -->
+                    <div>
+                        <label>Prognosa Jan</label>
+                        <input type="text" name="prognosa_jan">
+                    </div>
+                    <div>
+                        <label>Prognosa Feb</label>
+                        <input type="text" name="prognosa_feb">
+                    </div>
+                    <div>
+                        <label>Prognosa Mar</label>
+                        <input type="text" name="prognosa_mar">
+                    </div>
+                    <div>
+                        <label>Prognosa Apr</label>
+                        <input type="text" name="prognosa_apr">
+                    </div>
+                    <div>
+                        <label>Prognosa May</label>
+                        <input type="text" name="prognosa_may">
+                    </div>
+                    <div>
+                        <label>Prognosa Jun</label>
+                        <input type="text" name="prognosa_jun">
+                    </div>
+                    <div>
+                        <label>Prognosa Jul</label>
+                        <input type="text" name="prognosa_jul">
+                    </div>
+                    <div>
+                        <label>Prognosa Aug</label>
+                        <input type="text" name="prognosa_aug">
+                    </div>
+                    <div>
+                        <label>Prognosa Sep</label>
+                        <input type="text" name="prognosa_sep">
+                    </div>
+                    <div>
+                        <label>Prognosa Oct</label>
+                        <input type="text" name="prognosa_oct">
+                    </div>
+                    <div>
+                        <label>Prognosa Nov</label>
+                        <input type="text" name="prognosa_nov">
+                    </div>
+                    <div>
+                        <label>Prognosa Dec</label>
+                        <input type="text" name="prognosa_dec">
+                    </div>
+                </fieldset>
+
+                <!-- Actual Fields -->
+                <fieldset>
+                    <legend>Actual</legend>
+                    <div>
+                        <label>Actual Jan</label>
+                        <input type="text" name="actual_jan">
+                    </div>
+                    <div>
+                        <label>Actual Feb</label>
+                        <input type="text" name="actual_feb">
+                    </div>
+                    <div>
+                        <label>Actual Mar</label>
+                        <input type="text" name="actual_mar">
+                    </div>
+                    <div>
+                        <label>Actual Apr</label>
+                        <input type="text" name="actual_apr">
+                    </div>
+                    <div>
+                        <label>Actual May</label>
+                        <input type="text" name="actual_may">
+                    </div>
+                    <div>
+                        <label>Actual Jun</label>
+                        <input type="text" name="actual_jun">
+                    </div>
+                    <div>
+                        <label>Actual Jul</label>
+                        <input type="text" name="actual_jul">
+                    </div>
+                    <div>
+                        <label>Actual Aug</label>
+                        <input type="text" name="actual_aug">
+                    </div>
+                    <div>
+                        <label>Actual Sep</label>
+                        <input type="text" name="actual_sep">
+                    </div>
+                    <div>
+                        <label>Actual Oct</label>
+                        <input type="text" name="actual_oct">
+                    </div>
+                    <div>
+                        <label>Actual Nov</label>
+                        <input type="text" name="actual_nov">
+                    </div>
+                    <div>
+                        <label>Actual Dec</label>
+                        <input type="text" name="actual_dec">
+                    </div>
+                </fieldset>
+
+                <div>
+                    <label>Kode</label>
+                    <input type="text" name="kode" id="kode">
                 </div>
 
                 <div>
-                    <label>Kendala Perbaikan</label>
-                    <input type="text" name="kendala_perbaikan" id="kendala_perbaikan">
-                </div>
-
-                <div>
-                    <label>Mitigasi / Penanganan Sementara</label>
-                    <input type="text" name="mitigasi" id="mitigasi">
-                </div>
-
-                <div>
-                    <label>Perbaikan Permanen</label>
-                    <input type="text" name="perbaikan_permanen" id="perbaikan_permanen">
-                </div>
-
-                <div>
-                    <label>Progres Perbaikan Permanen</label>
-                    <input type="text" name="progres_perbaikan_permanen" id="progres_perbaikan_permanen">
+                    <label>Kendala</label>
+                    <input name="kendala" id="kendala"></input>
                 </div>
 
                 <div>
                     <label>Tindak Lanjut</label>
-                    <input type="text" name="tindak_lanjut" id="tindak_lanjut">
-                </div>
-
-                <div>
-                    <label>Target Penyelesaian</label>
-                    <input type="month" name="target_penyelesaian" id="target_penyelesaian">
-                </div>
-
-                <div>
-                    <label>Estimasi Biaya Perbaikan</label>
-                    <input type="number" name="estimasi_biaya_perbaikan" id="estimasi_biaya_perbaikan">
-                </div>
-
-                <div>
-                    <label>Link Foto/Video</label>
-                    <input type="url" name="link_foto_video" id="link_foto_video">
+                    <input name="tindak_lanjut" id="tindak_lanjut"></input>
                 </div>
 
                 <button type="submit" class="btn btn-success">Submit</button>
@@ -269,11 +410,10 @@
 
     @push('scripts')
         <script src="https://unpkg.com/tabulator-tables@5.6.0/dist/js/tabulator.min.js"></script>
-
         <script>
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
-                    fetch(`asset-breakdown-ptgn/${id}`, {
+                    fetch(`realisasi-anggaran-ai-gei/${id}`, {
                             method: "DELETE",
                             headers: {
                                 "Accept": "application/json",
@@ -301,77 +441,57 @@
                             value: keyword
                         },
                         {
-                            field: "company",
+                            field: "no",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "plant_segment",
+                            field: "program_kerja",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "kategori_criticality",
+                            field: "kategori_aibt",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "tag",
+                            field: "jenis_anggaran",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "deskripsi_peralatan",
+                            field: "besar_rkap",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "jenis_kerusakan",
+                            field: "entitas",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "penyebab_root_cause",
+                            field: "unit",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "kendala_perbaikan",
+                            field: "nilai_kontrak",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "mitigasi_penanganan_sementara",
+                            field: "kode",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "perbaikan_permanen",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "progres_perbaikan_permanen",
+                            field: "kendala",
                             type: "like",
                             value: keyword
                         },
                         {
                             field: "tindak_lanjut",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "target_penyelesaian",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "estimasi_biaya_perbaikan",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "link_foto_video",
                             type: "like",
                             value: keyword
                         }
@@ -384,8 +504,9 @@
                 table.clearFilter();
             }
 
+
             function loadData() {
-                fetch("/monev/shg/input-data/asset-breakdown-ptgn/data", {
+                fetch("/monev/shg/input-data/realisasi-anggaran-ai-gei/data", {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -397,7 +518,7 @@
 
             document.addEventListener("DOMContentLoaded", function() {
                 const columnMap = {
-                    "asset-breakdown-ptgn": [{
+                    "realisasi-anggaran-ai-gei": [{
                             title: "No",
                             formatter: "rownum",
                             hozAlign: "center",
@@ -414,100 +535,92 @@
                             editor: "input"
                         },
                         {
-                            title: "Company",
-                            field: "company",
+                            title: "No",
+                            field: "no",
+                            editor: "number",
+                            hozAlign: "center",
+                        },
+                        {
+                            title: "Program Kerja",
+                            field: "program_kerja",
+                            width: 400,
                             editor: "input"
                         },
                         {
-                            title: "Plant/Segment",
-                            field: "plant_segment",
-                            editor: "input"
+                            title: "Kategori AIBT",
+                            field: "kategori_aibt",
+                            hozAlign: "center",
+                            editor: "input",
                         },
                         {
-                            title: "Kategori Criticality",
-                            field: "kategori_criticality",
-                            editor: "input"
+                            title: "Jenis Anggaran",
+                            field: "jenis_anggaran",
+                            hozAlign: "center",
+                            editor: "input",
                         },
                         {
-                            title: "Tag",
-                            field: "tag",
-                            editor: "input"
+                            title: "Besar RKAP",
+                            field: "besar_rkap",
+                            editor: "input",
+                            hozAlign: "center"
                         },
                         {
-                            title: "Deskripsi Peralatan",
-                            field: "deskripsi_peralatan",
-                            editor: "input"
+                            title: "Entitas",
+                            field: "entitas",
+                            editor: "input",
+                            hozAlign: "center"
                         },
                         {
-                            title: "Jenis Kerusakan",
-                            field: "jenis_kerusakan",
-                            editor: "input"
+                            title: "Unit",
+                            field: "unit",
+                            editor: "input",
+                            hozAlign: "center"
                         },
                         {
-                            title: "Penyebab/Root Cause",
-                            field: "penyebab_root_cause",
-                            editor: "input"
-                        },
-                        {
-                            title: "Kendala Perbaikan",
-                            field: "kendala_perbaikan",
-                            editor: "input"
-                        },
-                        {
-                            title: "Mitigasi / Penanganan Sementara",
-                            field: "mitigasi_penanganan_sementara",
-                            editor: "input"
-                        },
-                        {
-                            title: "Perbaikan Permanen",
-                            field: "perbaikan_permanen",
-                            editor: "input"
-                        },
-                        {
-                            title: "Progres Perbaikan Permanen",
-                            field: "progres_perbaikan_permanen",
+                            title: "Nilai Kontrak",
+                            field: "nilai_kontrak",
                             editor: "number",
                             hozAlign: "center"
+                        },
+                        // Plan Fields
+                        ...["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+                        .map(bulan => ({
+                            title: `Plan ${bulan}`,
+                            field: `plan_${bulan.toLowerCase()}`,
+                            editor: "input",
+                            hozAlign: "center"
+                        })),
+                        // Prognosa Fields
+                        ...["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+                        .map(bulan => ({
+                            title: `Prognosa ${bulan}`,
+                            field: `prognosa_${bulan.toLowerCase()}`,
+                            editor: "input",
+                            hozAlign: "center"
+                        })),
+                        // Actual Fields
+                        ...["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+                        .map(bulan => ({
+                            title: `Actual ${bulan}`,
+                            field: `actual_${bulan.toLowerCase()}`,
+                            editor: "input",
+                            hozAlign: "center"
+                        })),
+                        {
+                            title: "Kode",
+                            field: "kode",
+                            editor: "input"
+                        },
+                        {
+                            title: "Kendala",
+                            field: "kendala",
+                            editor: "input"
                         },
                         {
                             title: "Tindak Lanjut",
                             field: "tindak_lanjut",
                             editor: "input",
-                            width: 450
-                        },
-                        {
-                            title: "Target Penyelesaian",
-                            field: "target_penyelesaian",
-                            editor: "input"
-                        },
-                        {
-                            title: "Estimasi Biaya Perbaikan",
-                            field: "estimasi_biaya_perbaikan",
-                            hozAlign: "center",
-                            formatter: function(cell) {
-                                let rawValue = cell.getValue();
-                                if (rawValue === null || rawValue === undefined || rawValue === "") {
-                                    return "0.00";
-                                }
-
-                                let cleanValue = rawValue.toString().replace(/[^0-9.-]+/g, '');
-                                let value = parseFloat(cleanValue);
-
-                                if (!isNaN(value)) {
-                                    return value.toLocaleString("en-US", {
-                                        minimumFractionDigits: 2,
-                                        maximumFractionDigits: 2
-                                    });
-                                }
-
-                                return "0.00";
-                            },
-                            editor: "input"
-                        },
-                        {
-                            title: "Link Foto/Video",
-                            field: "link_foto_video",
-                            editor: "input"
+                            width: 400
                         },
                         {
                             title: "Aksi",
@@ -525,7 +638,7 @@
                     layout: "fitDataTable",
                     responsiveLayout: "collapse",
                     autoResize: true,
-                    columns: columnMap["asset-breakdown-ptgn"],
+                    columns: columnMap["realisasi-anggaran-ai-gei"],
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -565,7 +678,7 @@
 
                     if (!id) return;
 
-                    fetch(`asset-breakdown-ptgn/${id}`, {
+                    fetch(`realisasi-anggaran-ai-gei/${id}`, {
                             method: "PUT",
                             headers: {
                                 "Content-Type": "application/json",
@@ -605,7 +718,7 @@
                     console.log("Baris yang berubah:", changedRows);
 
                     changedRows.forEach(rowData => {
-                        fetch(`asset-breakdown-ptgn/${rowData.id}`, {
+                        fetch(`realisasi-anggaran-ai-gei/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
                                     "Content-Type": "application/json",
@@ -626,7 +739,6 @@
 
                     previousData = JSON.parse(JSON.stringify(newData));
                 });
-
                 loadData();
             });
         </script>
@@ -649,7 +761,7 @@
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
 
-                fetch("asset-breakdown-ptgn", {
+                fetch("realisasi-anggaran-ai-gei", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -658,29 +770,69 @@
                                 "content")
                         },
                         body: JSON.stringify({
-                            periode: data.periode,
-                            company: data.company,
-                            plant_segment: data.plant_segment,
-                            kategori_criticality: data.kategori_criticality,
-                            tag: data.tag,
-                            deskripsi_peralatan: data.deskripsi_peralatan,
-                            jenis_kerusakan: data.jenis_kerusakan,
-                            penyebab_root_cause: data.penyebab_root_cause,
-                            kendala_perbaikan: data.kendala_perbaikan,
-                            mitigasi_penanganan_sementara: data.mitigasi_penanganan_sementara,
-                            perbaikan_permanen: data.perbaikan_permanen,
-                            progres_perbaikan_permanen: data.progres_perbaikan_permanen,
-                            tindak_lanjut: data.tindak_lanjut,
-                            target_penyelesaian: data.target_penyelesaian,
-                            estimasi_biaya_perbaikan: data.estimasi_biaya_perbaikan,
-                            link_foto_video: data.link_foto_video
+                            periode: data.periode || "",
+                            no: data.no || 0,
+                            program_kerja: data.program_kerja || "",
+                            kategori_aibt: data.kategori_aibt || "",
+                            jenis_anggaran: data.jenis_anggaran || "",
+                            besar_rkap: data.besar_rkap !== "" ? parseFloat(data.besar_rkap) : null,
+                            entitas: data.entitas || "",
+                            unit: data.unit || "",
+                            nilai_kontrak: data.nilai_kontrak !== "" ? parseFloat(data.nilai_kontrak) :
+                                null,
+
+                            // Plan
+                            plan_jan: data.plan_jan,
+                            plan_feb: data.plan_feb,
+                            plan_mar: data.plan_mar,
+                            plan_apr: data.plan_apr,
+                            plan_may: data.plan_may,
+                            plan_jun: data.plan_jun,
+                            plan_jul: data.plan_jul,
+                            plan_aug: data.plan_aug,
+                            plan_sep: data.plan_sep,
+                            plan_oct: data.plan_oct,
+                            plan_nov: data.plan_nov,
+                            plan_dec: data.plan_dec,
+
+                            // Prognosa
+                            prognosa_jan: data.prognosa_jan,
+                            prognosa_feb: data.prognosa_feb,
+                            prognosa_mar: data.prognosa_mar,
+                            prognosa_apr: data.prognosa_apr,
+                            prognosa_may: data.prognosa_may,
+                            prognosa_jun: data.prognosa_jun,
+                            prognosa_jul: data.prognosa_jul,
+                            prognosa_aug: data.prognosa_aug,
+                            prognosa_sep: data.prognosa_sep,
+                            prognosa_oct: data.prognosa_oct,
+                            prognosa_nov: data.prognosa_nov,
+                            prognosa_dec: data.prognosa_dec,
+
+                            // Actual
+                            actual_jan: data.actual_jan,
+                            actual_feb: data.actual_feb,
+                            actual_mar: data.actual_mar,
+                            actual_apr: data.actual_apr,
+                            actual_may: data.actual_may,
+                            actual_jun: data.actual_jun,
+                            actual_jul: data.actual_jul,
+                            actual_aug: data.actual_aug,
+                            actual_sep: data.actual_sep,
+                            actual_oct: data.actual_oct,
+                            actual_nov: data.actual_nov,
+                            actual_dec: data.actual_dec,
+
+                            kode: data.kode,
+                            kendala: data.kendala,
+                            tindak_lanjut: data.tindak_lanjut
                         })
                     })
                     .then(response => response.json())
                     .then(result => {
                         if (result.success) {
                             alert(result.message || "Data berhasil disimpan");
-                            table.setData("/monev/shg/input-data/asset-breakdown-ptgn/data");
+                            table.setData("/monev/shg/input-data/realisasi-anggaran-ai-gei/data");
                             this.reset();
                             closeModal();
                         } else {
