@@ -2,12 +2,6 @@
 <x-layouts.app :title="__('')">
     @push('styles')
         <link href="https://unpkg.com/tabulator-tables@5.6.0/dist/css/tabulator.min.css" rel="stylesheet">
-        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
         <style>
             .tabulator-wrapper {
                 overflow-x: auto;
@@ -131,7 +125,7 @@
     <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-                <h5 class="card-title mb-3 mb-md-0">PLAN Mandatory Certification WMN </h5>
+                <h5 class="card-title mb-3 mb-md-0">Sistem Informasi AIMS PTGN</h5>
                 <div class="d-flex">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
@@ -174,6 +168,7 @@
                     </div>
                 </div>
             </div>
+
             <div id="mainTable"></div>
 
             <div class="tabulator-wrapper mt-4">
@@ -185,52 +180,73 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Tambah Target WMN</h3>
+            <h3>Tambah Sistem Informasi AIMS PTGN</h3>
             <form id="createForm">
+
                 <input type="hidden" name="id" id="form-id">
                 <div>
-                    <label>Periode</label>
-                    <input type="month" name="periode" id="periode" required>
+                    <label for="periode">Periode</label>
+                    <input type="month" id="periode" name="periode" required>
                 </div>
 
                 <div>
-                    <label>Subholding</label>
-                    <input type="text" name="subholding" id="subholding" required>
+                    <label for="company">Company</label>
+                    <input type="text" id="company" name="company" required>
                 </div>
 
                 <div>
-                    <label>Company</label>
-                    <input type="text" name="company" id="company" >
+                    <label for="jumlah_aset_operasi">Jumlah Aset Operasi</label>
+                    <input type="text" id="jumlah_aset_operasi" name="jumlah_aset_operasi">
                 </div>
 
                 <div>
-                    <label>Unit</label>
-                    <input type="text" name="unit" id="unit" >
+                    <label for="jumlah_aset_teregister">Jumlah Aset Teregister</label>
+                    <input type="text" id="jumlah_aset_teregister" name="jumlah_aset_teregister">
                 </div>
 
                 <div>
-                    <label>Nama Personil Tersertifikasi Plan</label>
-                    <input type="text" name="nama_personil_tersertifikasi_plan" id="nama_personil_tersertifikasi_plan" >
+                    <label for="kendala_aset_register">Kendala Aset Register</label>
+                    <input id="kendala_aset_register" type="text" name="kendala_aset_register"></input>
                 </div>
 
                 <div>
-                    <label>Jumlah Sertifikasi</label>
-                    <input type="number" name="jumlah_sertifikasi" id="jumlah_sertifikasi">
+                    <label for="tindak_lanjut_aset_register">Tindak Lanjut Aset Register</label>
+                    <input id="tindak_lanjut_aset_register" type="text" name="tindak_lanjut_aset_register"></input>
                 </div>
 
                 <div>
-                    <label>Nama Sertifikasi</label>
-                    <select name="nama_sertifikasi" id="nama_sertifikasi" class="form-control">
-                        <option value="">-- Pilih Sertifikasi --</option>
-                        @foreach ($sertifikasiOptions as $option)
-                            <option value="{{ $option }}">{{ $option }}</option>
-                        @endforeach
-                    </select>
+                    <label for="sistem_informasi_aim">Sistem Informasi AIM</label>
+                    <input type="text" id="sistem_informasi_aim" name="sistem_informasi_aim">
                 </div>
 
                 <div>
-                    <label>Lembaga Penerbit Sertifikat</label>
-                    <input type="text" name="lembaga_penerbit_sertifikat" id="lembaga_penerbit_sertifikat">
+                    <label for="total_wo_comply">Total WO Comply</label>
+                    <input type="number" id="total_wo_comply" name="total_wo_comply">
+                </div>
+
+                <div>
+                    <label for="total_wo_completed">Total WO Completed</label>
+                    <input type="number" id="total_wo_completed" name="total_wo_completed">
+                </div>
+
+                <div>
+                    <label for="total_wo_in_progress">Total WO In Progress</label>
+                    <input type="number" id="total_wo_in_progress" name="total_wo_in_progress">
+                </div>
+
+                <div>
+                    <label for="total_wo_backlog">Total WO Backlog</label>
+                    <input type="number" id="total_wo_backlog" name="total_wo_backlog">
+                </div>
+
+                <div>
+                    <label for="kendala">Kendala</label>
+                    <input id="kendala" type="text" name="kendala"></input>
+                </div>
+
+                <div>
+                    <label for="tindak_lanjut">Tindak Lanjut</label>
+                    <input id="tindak_lanjut" type="text" name="tindak_lanjut"></input>
                 </div>
 
                 <button type="submit" class="btn btn-success">Submit</button>
@@ -240,11 +256,10 @@
 
     @push('scripts')
         <script src="https://unpkg.com/tabulator-tables@5.6.0/dist/js/tabulator.min.js"></script>
-
         <script>
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
-                    fetch(`plan-mandatory-certification/${id}`, {
+                    fetch(`sistem-informasi-aims-ptgn/${id}`, {
                             method: "DELETE",
                             headers: {
                                 "Accept": "application/json",
@@ -272,43 +287,67 @@
                             value: keyword
                         },
                         {
-                            field: "subholding",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
                             field: "company",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "unit",
+                            field: "jumlah_aset_operasi",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "nama_personil_tersertifikasi_plan",
+                            field: "jumlah_aset_teregister",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "jumlah_sertifikasi",
+                            field: "kendala_aset_register",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "nama_sertifikasi",
+                            field: "tindak_lanjut_aset_register",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "lembaga_penerbit_sertifikat",
+                            field: "sistem_informasi_aim",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "total_wo_comply",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "total_wo_completed",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "total_wo_in_progress",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "total_wo_backlog",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "kendala",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "tindak_lanjut",
                             type: "like",
                             value: keyword
                         }
                     ]
                 ]);
-
             });
 
             function clearSearch() {
@@ -316,8 +355,9 @@
                 table.clearFilter();
             }
 
+
             function loadData() {
-                fetch("/monev/shg/input-data/plan-mandatory-certification/data", {
+                fetch("/monev/shg/input-data/sistem-informasi-aims-ptgn/data", {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -329,7 +369,7 @@
 
             document.addEventListener("DOMContentLoaded", function() {
                 const columnMap = {
-                    "plan-mandatory-certification": [{
+                    "sistem-informasi-aims-ptgn": [{
                             title: "No",
                             formatter: "rownum",
                             hozAlign: "center",
@@ -346,41 +386,72 @@
                             editor: "input"
                         },
                         {
-                            title: "Subholding",
-                            field: "subholding",
-                            editor: "input"
-                        },
-                        {
                             title: "Company",
                             field: "company",
                             editor: "input"
                         },
                         {
-                            title: "Unit",
-                            field: "unit",
+                            title: "Jumlah Aset Operasi",
+                            field: "jumlah_aset_operasi",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Jumlah Aset Teregister",
+                            field: "jumlah_aset_teregister",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Kendala Aset Register",
+                            field: "kendala_aset_register",
                             editor: "input"
                         },
                         {
-                            title: "Nama Personil Tersertifikasi Plan",
-                            field: "nama_personil_tersertifikasi_plan",
+                            title: "Tindak Lanjut Aset Register",
+                            field: "tindak_lanjut_aset_register",
                             editor: "input"
                         },
                         {
-                            title: "Jumlah Sertifikasi",
-                            field: "jumlah_sertifikasi",
+                            title: "Sistem Informasi AIM",
+                            field: "sistem_informasi_aim",
+                            editor: "input"
+                        },
+                        {
+                            title: "Total WO Comply",
+                            field: "total_wo_comply",
                             editor: "number",
                             hozAlign: "center"
                         },
                         {
-                            title: "Nama Sertifikasi",
-                            field: "nama_sertifikasi",
+                            title: "Total WO Completed",
+                            field: "total_wo_completed",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Total WO In Progress",
+                            field: "total_wo_in_progress",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Total WO Backlog",
+                            field: "total_wo_backlog",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Kendala",
+                            field: "kendala",
                             editor: "input",
                             width: 450
                         },
                         {
-                            title: "Lembaga Penerbit Sertifikat",
-                            field: "lembaga_penerbit_sertifikat",
-                            editor: "input"
+                            title: "Tindak Lanjut",
+                            field: "tindak_lanjut",
+                            editor: "input",
+                            width: 400
                         },
                         {
                             title: "Aksi",
@@ -398,7 +469,7 @@
                     layout: "fitDataTable",
                     responsiveLayout: "collapse",
                     autoResize: true,
-                    columns: columnMap["plan-mandatory-certification"],
+                    columns: columnMap["sistem-informasi-aims-ptgn"],
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -432,13 +503,14 @@
                     },
                 });
 
+
                 table.on("cellEdited", function(cell) {
                     const updatedData = cell.getRow().getData();
                     const id = updatedData.id;
 
                     if (!id) return;
 
-                    fetch(`plan-mandatory-certification/${id}`, {
+                    fetch(`sistem-informasi-aims-ptgn/${id}`, {
                             method: "PUT",
                             headers: {
                                 "Content-Type": "application/json",
@@ -449,9 +521,10 @@
                             body: JSON.stringify(updatedData)
                         })
                         .then(res => res.json())
-                        .then(data => console.log("Update berhasil:", data))
+                        .then(data => console.log("Berhasil update:", data))
                         .catch(err => console.error("Gagal update:", err));
                 });
+
                 let previousData = [];
                 table.on("dataLoaded", function(newData) {
                     previousData = JSON.parse(JSON.stringify(newData));
@@ -477,7 +550,7 @@
                     console.log("Baris yang berubah:", changedRows);
 
                     changedRows.forEach(rowData => {
-                        fetch(`plan-mandatory-certification/${rowData.id}`, {
+                        fetch(`sistem-informasi-aims-ptgn/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
                                     "Content-Type": "application/json",
@@ -520,7 +593,7 @@
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
 
-                fetch("plan-mandatory-certification", {
+                fetch("sistem-informasi-aims-ptgn", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -530,21 +603,25 @@
                         },
                         body: JSON.stringify({
                             periode: data.periode,
-                            subholding: data.subholding,
                             company: data.company,
-                            unit: data.unit,
-                            nama_personil_tersertifikasi_plan: data.nama_personil_tersertifikasi_plan,
-                            jumlah_sertifikasi: data.jumlah_sertifikasi,
-                            nama_sertifikasi: data.nama_sertifikasi,
-                            lembaga_penerbit_sertifikat: data.lembaga_penerbit_sertifikat,
+                            jumlah_aset_operasi: data.jumlah_aset_operasi,
+                            jumlah_aset_teregister: data.jumlah_aset_teregister,
+                            kendala_aset_register: data.kendala_aset_register,
+                            tindak_lanjut_aset_register: data.tindak_lanjut_aset_register,
+                            sistem_informasi_aim: data.sistem_informasi_aim,
+                            total_wo_comply: data.total_wo_comply,
+                            total_wo_completed: data.total_wo_completed,
+                            total_wo_in_progress: data.total_wo_in_progress,
+                            total_wo_backlog: data.total_wo_backlog,
+                            kendala: data.kendala,
+                            tindak_lanjut: data.tindak_lanjut
                         })
-
                     })
                     .then(response => response.json())
                     .then(result => {
                         if (result.success) {
                             alert(result.message || "Data berhasil disimpan");
-                            table.setData("/monev/shg/input-data/plan-mandatory-certification/data");
+                            table.setData("/monev/shg/input-data/sistem-informasi-aims-ptgn/data");
                             this.reset();
                             closeModal();
                         } else {

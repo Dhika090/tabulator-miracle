@@ -2,12 +2,6 @@
 <x-layouts.app :title="__('')">
     @push('styles')
         <link href="https://unpkg.com/tabulator-tables@5.6.0/dist/css/tabulator.min.css" rel="stylesheet">
-        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
         <style>
             .tabulator-wrapper {
                 overflow-x: auto;
@@ -24,11 +18,6 @@
                 font-size: 14px;
             }
 
-            .tabulator .tabulator-cell {
-                white-space: normal !important;
-                word-wrap: break-word;
-            }
-
             .card {
                 margin-top: 20px;
             }
@@ -36,6 +25,11 @@
             .tab-scroll-wrapper {
                 border-bottom: 1px solid #dee2e6;
                 padding-bottom: 5px;
+            }
+
+            .tabulator .tabulator-cell {
+                white-space: normal !important;
+                word-wrap: break-word;
             }
 
             .tab-scroll-wrapper {
@@ -131,7 +125,7 @@
     <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-                <h5 class="card-title mb-3 mb-md-0">PLAN Mandatory Certification WMN </h5>
+                <h5 class="card-title mb-3 mb-md-0">Kondisi Vacant Fungsi AIMS PTGN</h5>
                 <div class="d-flex">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
@@ -174,6 +168,7 @@
                     </div>
                 </div>
             </div>
+
             <div id="mainTable"></div>
 
             <div class="tabulator-wrapper mt-4">
@@ -185,56 +180,42 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Tambah Target WMN</h3>
+            <h3>Tambah Target PTGN</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
+
                 <div>
                     <label>Periode</label>
                     <input type="month" name="periode" id="periode" required>
                 </div>
 
                 <div>
-                    <label>Subholding</label>
-                    <input type="text" name="subholding" id="subholding" required>
-                </div>
-
-                <div>
                     <label>Company</label>
-                    <input type="text" name="company" id="company" >
+                    <input type="text" name="company" id="company" required>
                 </div>
 
                 <div>
-                    <label>Unit</label>
-                    <input type="text" name="unit" id="unit" >
+                    <label>Total Personil Asset Integrity</label>
+                    <input type="number" name="total_personil_asset_integrity" id="total_personil_asset_integrity">
                 </div>
 
                 <div>
-                    <label>Nama Personil Tersertifikasi Plan</label>
-                    <input type="text" name="nama_personil_tersertifikasi_plan" id="nama_personil_tersertifikasi_plan" >
+                    <label>Jumlah Personil Vacant</label>
+                    <input type="number" name="jumlah_personil_vacant" id="jumlah_personil_vacant">
                 </div>
 
                 <div>
-                    <label>Jumlah Sertifikasi</label>
-                    <input type="number" name="jumlah_sertifikasi" id="jumlah_sertifikasi">
+                    <label>Jumlah Personil Pensiun &lt; 1 Thn</label>
+                    <input type="number" name="jumlah_personil_pensiun" id="jumlah_personil_pensiun">
                 </div>
 
                 <div>
-                    <label>Nama Sertifikasi</label>
-                    <select name="nama_sertifikasi" id="nama_sertifikasi" class="form-control">
-                        <option value="">-- Pilih Sertifikasi --</option>
-                        @foreach ($sertifikasiOptions as $option)
-                            <option value="{{ $option }}">{{ $option }}</option>
-                        @endforeach
-                    </select>
+                    <label>Keterangan</label>
+                    <input type="text" name="keterangan" id="keterangan" rows="3"></input>
                 </div>
-
-                <div>
-                    <label>Lembaga Penerbit Sertifikat</label>
-                    <input type="text" name="lembaga_penerbit_sertifikat" id="lembaga_penerbit_sertifikat">
-                </div>
-
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
+
         </div>
     </div>
 
@@ -244,7 +225,7 @@
         <script>
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
-                    fetch(`plan-mandatory-certification/${id}`, {
+                    fetch(`kondisi-vacant-fungsi-aims-ptgn/${id}`, {
                             method: "DELETE",
                             headers: {
                                 "Accept": "application/json",
@@ -272,43 +253,32 @@
                             value: keyword
                         },
                         {
-                            field: "subholding",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
                             field: "company",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "unit",
+                            field: "total_personil_asset_integrity",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "nama_personil_tersertifikasi_plan",
+                            field: "jumlah_personil_vacant",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "jumlah_sertifikasi",
+                            field: "jumlah_personil_pensiun",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "nama_sertifikasi",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "lembaga_penerbit_sertifikat",
+                            field: "keterangan",
                             type: "like",
                             value: keyword
                         }
                     ]
                 ]);
-
             });
 
             function clearSearch() {
@@ -317,7 +287,7 @@
             }
 
             function loadData() {
-                fetch("/monev/shg/input-data/plan-mandatory-certification/data", {
+                fetch("/monev/shg/input-data/kondisi-vacant-fungsi-aims-ptgn/data", {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -329,7 +299,7 @@
 
             document.addEventListener("DOMContentLoaded", function() {
                 const columnMap = {
-                    "plan-mandatory-certification": [{
+                    "kondisi-vacant-fungsi-aims-ptgn": [{
                             title: "No",
                             formatter: "rownum",
                             hozAlign: "center",
@@ -343,43 +313,40 @@
                         {
                             title: "Periode",
                             field: "periode",
-                            editor: "input"
-                        },
-                        {
-                            title: "Subholding",
-                            field: "subholding",
-                            editor: "input"
+                            editor: "input",
+                            width: 90
                         },
                         {
                             title: "Company",
                             field: "company",
-                            editor: "input"
-                        },
-                        {
-                            title: "Unit",
-                            field: "unit",
-                            editor: "input"
-                        },
-                        {
-                            title: "Nama Personil Tersertifikasi Plan",
-                            field: "nama_personil_tersertifikasi_plan",
-                            editor: "input"
-                        },
-                        {
-                            title: "Jumlah Sertifikasi",
-                            field: "jumlah_sertifikasi",
-                            editor: "number",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "Nama Sertifikasi",
-                            field: "nama_sertifikasi",
                             editor: "input",
-                            width: 450
+                            width: 100
                         },
                         {
-                            title: "Lembaga Penerbit Sertifikat",
-                            field: "lembaga_penerbit_sertifikat",
+                            title: "Total Personil Asset Integrity",
+                            field: "total_personil_asset_integrity",
+                            editor: "number",
+                            hozAlign: "center",
+                            width: 250
+                        },
+                        {
+                            title: "Jumlah Personil Vacant",
+                            field: "jumlah_personil_vacant",
+                            editor: "number",
+                            hozAlign: "center",
+                            width: 200
+                        },
+                        {
+                            title: "Jumlah Personil Pensiun <1 Thn",
+                            field: "jumlah_personil_pensiun",
+                            editor: "number",
+                            hozAlign: "center",
+                            width: 250
+                        },
+                        {
+                            title: "Keterangan",
+                            field: "keterangan",
+                            width: 350,
                             editor: "input"
                         },
                         {
@@ -389,7 +356,6 @@
                                 return `<button onclick='deleteData("${row.id}")'>Hapus</button>`;
                             },
                             hozAlign: "center",
-                            width: 150
                         }
                     ]
                 };
@@ -398,7 +364,7 @@
                     layout: "fitDataTable",
                     responsiveLayout: "collapse",
                     autoResize: true,
-                    columns: columnMap["plan-mandatory-certification"],
+                    columns: columnMap["kondisi-vacant-fungsi-aims-ptgn"],
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -438,7 +404,7 @@
 
                     if (!id) return;
 
-                    fetch(`plan-mandatory-certification/${id}`, {
+                    fetch(`kondisi-vacant-fungsi-aims-ptgn/${id}`, {
                             method: "PUT",
                             headers: {
                                 "Content-Type": "application/json",
@@ -452,6 +418,7 @@
                         .then(data => console.log("Update berhasil:", data))
                         .catch(err => console.error("Gagal update:", err));
                 });
+
                 let previousData = [];
                 table.on("dataLoaded", function(newData) {
                     previousData = JSON.parse(JSON.stringify(newData));
@@ -477,7 +444,7 @@
                     console.log("Baris yang berubah:", changedRows);
 
                     changedRows.forEach(rowData => {
-                        fetch(`plan-mandatory-certification/${rowData.id}`, {
+                        fetch(`kondisi-vacant-fungsi-aims-ptgn/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
                                     "Content-Type": "application/json",
@@ -498,6 +465,7 @@
 
                     previousData = JSON.parse(JSON.stringify(newData));
                 });
+
                 loadData();
             });
         </script>
@@ -520,7 +488,7 @@
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
 
-                fetch("plan-mandatory-certification", {
+                fetch("kondisi-vacant-fungsi-aims-ptgn", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -530,21 +498,18 @@
                         },
                         body: JSON.stringify({
                             periode: data.periode,
-                            subholding: data.subholding,
                             company: data.company,
-                            unit: data.unit,
-                            nama_personil_tersertifikasi_plan: data.nama_personil_tersertifikasi_plan,
-                            jumlah_sertifikasi: data.jumlah_sertifikasi,
-                            nama_sertifikasi: data.nama_sertifikasi,
-                            lembaga_penerbit_sertifikat: data.lembaga_penerbit_sertifikat,
+                            total_personil_asset_integrity: data.total_personil_asset_integrity,
+                            jumlah_personil_vacant: data.jumlah_personil_vacant,
+                            jumlah_personil_pensiun_1_thn: data.jumlah_personil_pensiun,
+                            keterangan: data.keterangan
                         })
-
                     })
                     .then(response => response.json())
                     .then(result => {
                         if (result.success) {
                             alert(result.message || "Data berhasil disimpan");
-                            table.setData("/monev/shg/input-data/plan-mandatory-certification/data");
+                            table.setData("/monev/shg/input-data/kondisi-vacant-fungsi-aims-ptgn/data");
                             this.reset();
                             closeModal();
                         } else {

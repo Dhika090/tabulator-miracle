@@ -2,12 +2,6 @@
 <x-layouts.app :title="__('')">
     @push('styles')
         <link href="https://unpkg.com/tabulator-tables@5.6.0/dist/css/tabulator.min.css" rel="stylesheet">
-        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
         <style>
             .tabulator-wrapper {
                 overflow-x: auto;
@@ -22,12 +16,15 @@
 
             .tabulator-cell {
                 font-size: 14px;
+                white-space: normal !important;
+                word-wrap: break-word;
             }
 
             .tabulator .tabulator-cell {
                 white-space: normal !important;
                 word-wrap: break-word;
             }
+
 
             .card {
                 margin-top: 20px;
@@ -131,7 +128,7 @@
     <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-                <h5 class="card-title mb-3 mb-md-0">PLAN Mandatory Certification WMN </h5>
+                <h5 class="card-title mb-3 mb-md-0">Availability PTGN</h5>
                 <div class="d-flex">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
@@ -174,6 +171,7 @@
                     </div>
                 </div>
             </div>
+
             <div id="mainTable"></div>
 
             <div class="tabulator-wrapper mt-4">
@@ -185,52 +183,50 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Tambah Target WMN</h3>
+            <h3>Tambah Data Availability PTGN</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
+
                 <div>
                     <label>Periode</label>
                     <input type="month" name="periode" id="periode" required>
                 </div>
 
                 <div>
-                    <label>Subholding</label>
-                    <input type="text" name="subholding" id="subholding" required>
-                </div>
-
-                <div>
                     <label>Company</label>
-                    <input type="text" name="company" id="company" >
+                    <input type="text" name="company" id="company">
                 </div>
 
                 <div>
-                    <label>Unit</label>
-                    <input type="text" name="unit" id="unit" >
+                    <label>Kategori</label>
+                    <input type="text" name="kategori" id="kategori">
                 </div>
 
                 <div>
-                    <label>Nama Personil Tersertifikasi Plan</label>
-                    <input type="text" name="nama_personil_tersertifikasi_plan" id="nama_personil_tersertifikasi_plan" >
+                    <label>Target</label>
+                    <input type="number" name="target" id="target" step="0.01" min="0" max="100">
+
                 </div>
 
                 <div>
-                    <label>Jumlah Sertifikasi</label>
-                    <input type="number" name="jumlah_sertifikasi" id="jumlah_sertifikasi">
+                    <label>Availability</label>
+                    <input type="number" name="availability" id="availability" step="0.01" min="0"
+                        max="100">
                 </div>
 
                 <div>
-                    <label>Nama Sertifikasi</label>
-                    <select name="nama_sertifikasi" id="nama_sertifikasi" class="form-control">
-                        <option value="">-- Pilih Sertifikasi --</option>
-                        @foreach ($sertifikasiOptions as $option)
-                            <option value="{{ $option }}">{{ $option }}</option>
-                        @endforeach
-                    </select>
+                    <label>Isu / Problem / Bad Actor</label>
+                    <input type="text" name="isu" id="isu"></input>
                 </div>
 
                 <div>
-                    <label>Lembaga Penerbit Sertifikat</label>
-                    <input type="text" name="lembaga_penerbit_sertifikat" id="lembaga_penerbit_sertifikat">
+                    <label>Kendala</label>
+                    <input type="text" name="kendala" id="kendala"></input>
+                </div>
+
+                <div>
+                    <label>Tindak Lanjut</label>
+                    <input type="text" name="tindak_lanjut" id="tindak_lanjut"></input>
                 </div>
 
                 <button type="submit" class="btn btn-success">Submit</button>
@@ -244,7 +240,7 @@
         <script>
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
-                    fetch(`plan-mandatory-certification/${id}`, {
+                    fetch(`availability-ptgn/${id}`, {
                             method: "DELETE",
                             headers: {
                                 "Accept": "application/json",
@@ -272,43 +268,42 @@
                             value: keyword
                         },
                         {
-                            field: "subholding",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
                             field: "company",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "unit",
+                            field: "kategori",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "nama_personil_tersertifikasi_plan",
+                            field: "target",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "jumlah_sertifikasi",
+                            field: "availability",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "nama_sertifikasi",
+                            field: "isu",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "lembaga_penerbit_sertifikat",
+                            field: "kendala",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "tindak_lanjut",
                             type: "like",
                             value: keyword
                         }
                     ]
                 ]);
-
             });
 
             function clearSearch() {
@@ -316,8 +311,9 @@
                 table.clearFilter();
             }
 
+
             function loadData() {
-                fetch("/monev/shg/input-data/plan-mandatory-certification/data", {
+                fetch("/monev/shg/input-data/availability-ptgn/data", {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -329,7 +325,7 @@
 
             document.addEventListener("DOMContentLoaded", function() {
                 const columnMap = {
-                    "plan-mandatory-certification": [{
+                    "availability-ptgn": [{
                             title: "No",
                             formatter: "rownum",
                             hozAlign: "center",
@@ -346,40 +342,50 @@
                             editor: "input"
                         },
                         {
-                            title: "Subholding",
-                            field: "subholding",
-                            editor: "input"
-                        },
-                        {
                             title: "Company",
                             field: "company",
+                            hozAlign: "center",
                             editor: "input"
                         },
                         {
-                            title: "Unit",
-                            field: "unit",
+                            title: "Kategori",
+                            field: "kategori",
                             editor: "input"
                         },
                         {
-                            title: "Nama Personil Tersertifikasi Plan",
-                            field: "nama_personil_tersertifikasi_plan",
-                            editor: "input"
-                        },
-                        {
-                            title: "Jumlah Sertifikasi",
-                            field: "jumlah_sertifikasi",
+                            title: "Target",
+                            field: "target",
                             editor: "number",
-                            hozAlign: "center"
+                            hozAlign: "center",
+                            formatter: function(cell) {
+                                let value = parseFloat(cell.getValue());
+                                return isNaN(value) ? "-" : value.toFixed(2) + " %";
+                            }
                         },
                         {
-                            title: "Nama Sertifikasi",
-                            field: "nama_sertifikasi",
+                            title: "Availability",
+                            field: "availability",
+                            editor: "number",
+                            hozAlign: "center",
+                            formatter: function(cell) {
+                                let value = parseFloat(cell.getValue());
+                                return isNaN(value) ? "-" : value.toFixed(2) + " %";
+                            }
+                        },
+                        {
+                            title: "Isu / Problem / Bad Actor",
+                            field: "isu",
                             editor: "input",
-                            width: 450
+                            width: 400
                         },
                         {
-                            title: "Lembaga Penerbit Sertifikat",
-                            field: "lembaga_penerbit_sertifikat",
+                            title: "Kendala",
+                            field: "kendala",
+                            editor: "input"
+                        },
+                        {
+                            title: "Tindak Lanjut",
+                            field: "tindak_lanjut",
                             editor: "input"
                         },
                         {
@@ -398,7 +404,7 @@
                     layout: "fitDataTable",
                     responsiveLayout: "collapse",
                     autoResize: true,
-                    columns: columnMap["plan-mandatory-certification"],
+                    columns: columnMap["availability-ptgn"],
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -432,26 +438,6 @@
                     },
                 });
 
-                table.on("cellEdited", function(cell) {
-                    const updatedData = cell.getRow().getData();
-                    const id = updatedData.id;
-
-                    if (!id) return;
-
-                    fetch(`plan-mandatory-certification/${id}`, {
-                            method: "PUT",
-                            headers: {
-                                "Content-Type": "application/json",
-                                "Accept": "application/json",
-                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
-                                    .getAttribute("content")
-                            },
-                            body: JSON.stringify(updatedData)
-                        })
-                        .then(res => res.json())
-                        .then(data => console.log("Update berhasil:", data))
-                        .catch(err => console.error("Gagal update:", err));
-                });
                 let previousData = [];
                 table.on("dataLoaded", function(newData) {
                     previousData = JSON.parse(JSON.stringify(newData));
@@ -477,7 +463,15 @@
                     console.log("Baris yang berubah:", changedRows);
 
                     changedRows.forEach(rowData => {
-                        fetch(`plan-mandatory-certification/${rowData.id}`, {
+                        if (rowData.target !== undefined && typeof rowData.target === "string") {
+                            rowData.target = parseFloat(rowData.target.replace("%", "").trim());
+                        }
+                        if (rowData.availability !== undefined && typeof rowData.availability ===
+                            "string") {
+                            rowData.availability = parseFloat(rowData.availability.replace("%", "")
+                                .trim());
+                        }
+                        fetch(`availability-ptgn/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
                                     "Content-Type": "application/json",
@@ -497,6 +491,27 @@
                     });
 
                     previousData = JSON.parse(JSON.stringify(newData));
+                });
+
+                table.on("cellEdited", function(cell) {
+                    const updatedData = cell.getRow().getData();
+                    const id = updatedData.id;
+
+                    if (!id) return;
+
+                    fetch(`availability-ptgn/${id}`, {
+                            method: "PUT",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute("content")
+                            },
+                            body: JSON.stringify(updatedData)
+                        })
+                        .then(res => res.json())
+                        .then(data => console.log("Update berhasil:", data))
+                        .catch(err => console.error("Gagal update:", err));
                 });
                 loadData();
             });
@@ -520,7 +535,7 @@
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
 
-                fetch("plan-mandatory-certification", {
+                fetch("availability-ptgn", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -528,15 +543,16 @@
                             "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute(
                                 "content")
                         },
+
                         body: JSON.stringify({
                             periode: data.periode,
-                            subholding: data.subholding,
                             company: data.company,
-                            unit: data.unit,
-                            nama_personil_tersertifikasi_plan: data.nama_personil_tersertifikasi_plan,
-                            jumlah_sertifikasi: data.jumlah_sertifikasi,
-                            nama_sertifikasi: data.nama_sertifikasi,
-                            lembaga_penerbit_sertifikat: data.lembaga_penerbit_sertifikat,
+                            kategori: data.kategori || null,
+                            target: data.target || null,
+                            availability: data.availability || null,
+                            isu: data.isu || null,
+                            kendala: data.kendala || null,
+                            tindak_lanjut: data.tindak_lanjut || null,
                         })
 
                     })
@@ -544,7 +560,7 @@
                     .then(result => {
                         if (result.success) {
                             alert(result.message || "Data berhasil disimpan");
-                            table.setData("/monev/shg/input-data/plan-mandatory-certification/data");
+                            table.setData("/monev/shg/input-data/availability-ptgn/data");
                             this.reset();
                             closeModal();
                         } else {

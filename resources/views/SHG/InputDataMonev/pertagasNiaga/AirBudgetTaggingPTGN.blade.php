@@ -2,12 +2,6 @@
 <x-layouts.app :title="__('')">
     @push('styles')
         <link href="https://unpkg.com/tabulator-tables@5.6.0/dist/css/tabulator.min.css" rel="stylesheet">
-        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
         <style>
             .tabulator-wrapper {
                 overflow-x: auto;
@@ -22,6 +16,11 @@
 
             .tabulator-cell {
                 font-size: 14px;
+            }
+
+            .tabulator .tabulator-cell {
+                white-space: normal !important;
+                word-wrap: break-word;
             }
 
             .tabulator .tabulator-cell {
@@ -131,7 +130,7 @@
     <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-                <h5 class="card-title mb-3 mb-md-0">PLAN Mandatory Certification WMN </h5>
+                <h5 class="card-title mb-3 mb-md-0">Air Budget Tagging PTGN</h5>
                 <div class="d-flex">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
@@ -174,6 +173,7 @@
                     </div>
                 </div>
             </div>
+
             <div id="mainTable"></div>
 
             <div class="tabulator-wrapper mt-4">
@@ -185,52 +185,149 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Tambah Target WMN</h3>
+            <h3>Tambah Data Availability PTGN</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
+                <label for="periode">Periode (Tahun):</label>
+                <select name="periode" id="periode" required class="form-select">
+                    <option value="" selected disabled>Pilih Periode</option>
+                    @for ($year = 2000; $year <= date('Y') + 5; $year++)
+                        <option value="{{ $year }}">{{ $year }}</option>
+                    @endfor
+                </select>
+
+
                 <div>
-                    <label>Periode</label>
-                    <input type="month" name="periode" id="periode" required>
+                    <label>Satker</label>
+                    <input type="text" name="satker" id="satker">
                 </div>
 
                 <div>
-                    <label>Subholding</label>
-                    <input type="text" name="subholding" id="subholding" required>
+                    <label>Kategori</label>
+                    <input type="text" name="kategori" id="kategori">
                 </div>
 
                 <div>
-                    <label>Company</label>
-                    <input type="text" name="company" id="company" >
+                    <label>CE</label>
+                    <input type="text" name="ce" id="ce">
                 </div>
 
                 <div>
-                    <label>Unit</label>
-                    <input type="text" name="unit" id="unit" >
+                    <label>Cost Element Name</label>
+                    <input type="text" name="cost_element_name" id="cost_element_name">
                 </div>
 
                 <div>
-                    <label>Nama Personil Tersertifikasi Plan</label>
-                    <input type="text" name="nama_personil_tersertifikasi_plan" id="nama_personil_tersertifikasi_plan" >
+                    <label>Program Kerja</label>
+                    <input type="text" name="program_kerja" id="program_kerja">
                 </div>
 
                 <div>
-                    <label>Jumlah Sertifikasi</label>
-                    <input type="number" name="jumlah_sertifikasi" id="jumlah_sertifikasi">
+                    <label>Total Pagu (USD)</label>
+                    <input type="text" name="total_pagu_usd" id="total_pagu_usd">
                 </div>
 
                 <div>
-                    <label>Nama Sertifikasi</label>
-                    <select name="nama_sertifikasi" id="nama_sertifikasi" class="form-control">
-                        <option value="">-- Pilih Sertifikasi --</option>
-                        @foreach ($sertifikasiOptions as $option)
-                            <option value="{{ $option }}">{{ $option }}</option>
-                        @endforeach
+                    <label>JAN</label>
+                    <input type="text" name="jan" id="jan">
+                </div>
+
+                <div>
+                    <label>FEB</label>
+                    <input type="text" name="feb" id="feb">
+                </div>
+
+                <div>
+                    <label>MAR</label>
+                    <input type="text" name="mar" id="mar">
+                </div>
+
+                <div>
+                    <label>APR</label>
+                    <input type="text" name="apr" id="apr">
+                </div>
+
+                <div>
+                    <label>MAY</label>
+                    <input type="text" name="may" id="may">
+                </div>
+
+                <div>
+                    <label>JUN</label>
+                    <input type="text" name="jun" id="jun">
+                </div>
+
+                <div>
+                    <label>JUL</label>
+                    <input type="text" name="jul" id="jul">
+                </div>
+
+                <div>
+                    <label>AUG</label>
+                    <input type="text" name="aug" id="aug">
+                </div>
+
+                <div>
+                    <label>SEP</label>
+                    <input type="text" name="sep" id="sep">
+                </div>
+
+                <div>
+                    <label>OCT</label>
+                    <input type="text" name="oct" id="oct">
+                </div>
+
+                <div>
+                    <label>NOV</label>
+                    <input type="text" name="nov" id="nov">
+                </div>
+
+                <div>
+                    <label>DEC</label>
+                    <input type="text" name="dec" id="dec">
+                </div>
+
+                <div>
+                    <label>Aset Integrity (Yes/No)</label>
+                    <select name="aset_integrity" id="aset_integrity" required class="form-select">
+                        <option value="">Pilih</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
                     </select>
                 </div>
+                <div>
+                    <label>AIRTagging (Asset Integrity & Reliability)</label>
+                    <input type="text" name="airtagging" id="airtagging">
+                </div>
 
                 <div>
-                    <label>Lembaga Penerbit Sertifikat</label>
-                    <input type="text" name="lembaga_penerbit_sertifikat" id="lembaga_penerbit_sertifikat">
+                    <label>Prioritas</label>
+                    <input type="text" name="prioritas" id="prioritas">
+                </div>
+
+                <div>
+                    <label>Status Integrity per Des 2024</label>
+                    <input type="text" name="status_integrity" id="status_integrity">
+                </div>
+
+                <div>
+                    <label>Jumlah Aset Critical SECE</label>
+                    <input type="number" name="jumlah_aset_critical_sece" id="jumlah_aset_critical_sece">
+                </div>
+
+                <div>
+                    <label>Jumlah Aset Critical PCE</label>
+                    <input type="number" name="jumlah_aset_critical_pce" id="jumlah_aset_critical_pce">
+                </div>
+
+                <div>
+                    <label>Jumlah Aset Important</label>
+                    <input type="number" name="jumlah_aset_important" id="jumlah_aset_important">
+                </div>
+
+                <div>
+                    <label>Jumlah Aset Secondary</label>
+                    <input type="number" name="jumlah_aset_secondary" id="jumlah_aset_secondary">
                 </div>
 
                 <button type="submit" class="btn btn-success">Submit</button>
@@ -244,7 +341,7 @@
         <script>
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
-                    fetch(`plan-mandatory-certification/${id}`, {
+                    fetch(`air-budget-tagging-ptgn/${id}`, {
                             method: "DELETE",
                             headers: {
                                 "Accept": "application/json",
@@ -272,40 +369,35 @@
                             value: keyword
                         },
                         {
-                            field: "subholding",
+                            field: "satker",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "company",
+                            field: "kategori",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "unit",
+                            field: "ce",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "nama_personil_tersertifikasi_plan",
+                            field: "cost_element_name",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "jumlah_sertifikasi",
+                            field: "program_kerja",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "nama_sertifikasi",
+                            field: "total_pagu_usd",
                             type: "like",
                             value: keyword
                         },
-                        {
-                            field: "lembaga_penerbit_sertifikat",
-                            type: "like",
-                            value: keyword
-                        }
                     ]
                 ]);
 
@@ -317,7 +409,7 @@
             }
 
             function loadData() {
-                fetch("/monev/shg/input-data/plan-mandatory-certification/data", {
+                fetch("/monev/shg/input-data/air-budget-tagging-ptgn/data", {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -329,7 +421,7 @@
 
             document.addEventListener("DOMContentLoaded", function() {
                 const columnMap = {
-                    "plan-mandatory-certification": [{
+                    "air-budget-tagging-ptgn": [{
                             title: "No",
                             formatter: "rownum",
                             hozAlign: "center",
@@ -346,41 +438,152 @@
                             editor: "input"
                         },
                         {
-                            title: "Subholding",
-                            field: "subholding",
+                            title: "Satker",
+                            field: "satker",
                             editor: "input"
                         },
                         {
-                            title: "Company",
-                            field: "company",
+                            title: "Kategori",
+                            field: "kategori",
                             editor: "input"
                         },
                         {
-                            title: "Unit",
-                            field: "unit",
+                            title: "CE",
+                            field: "ce",
                             editor: "input"
                         },
                         {
-                            title: "Nama Personil Tersertifikasi Plan",
-                            field: "nama_personil_tersertifikasi_plan",
+                            title: "Cost Element Name",
+                            field: "cost_element_name",
                             editor: "input"
                         },
                         {
-                            title: "Jumlah Sertifikasi",
-                            field: "jumlah_sertifikasi",
+                            title: "Program Kerja",
+                            field: "program_kerja",
+                            width: 400,
+                            editor: "input"
+                        },
+                        {
+                            title: "Total Pagu (USD)",
+                            field: "total_pagu_usd",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "JAN",
+                            field: "jan",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "FEB",
+                            field: "feb",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "MAR",
+                            field: "mar",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "APR",
+                            field: "apr",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "MAY",
+                            field: "may",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "JUN",
+                            field: "jun",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "JUL",
+                            field: "jul",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "AUG",
+                            field: "aug",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "SEP",
+                            field: "sep",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "OCT",
+                            field: "oct",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "NOV",
+                            field: "nov",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "DEC",
+                            field: "dec",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Aset Integrity (Yes/No)",
+                            field: "aset_integrity",
+                            editor: "input"
+                        },
+                        {
+                            title: "AIRTagging (Asset Integrity & Reliability)",
+                            field: "airtagging",
+                            editor: "input"
+                        },
+                        {
+                            title: "Prioritas",
+                            field: "prioritas",
+                            editor: "input"
+                        },
+                        {
+                            title: "Status Integrity per Des 2024",
+                            field: "status_integrity",
+                            editor: "input"
+                        },
+                        {
+                            title: "Jumlah Aset Critical SECE",
+                            field: "jumlah_aset_critical_sece",
                             editor: "number",
                             hozAlign: "center"
                         },
                         {
-                            title: "Nama Sertifikasi",
-                            field: "nama_sertifikasi",
-                            editor: "input",
-                            width: 450
+                            title: "Jumlah Aset Critical PCE",
+                            field: "jumlah_aset_critical_pce",
+                            editor: "number",
+                            hozAlign: "center"
                         },
                         {
-                            title: "Lembaga Penerbit Sertifikat",
-                            field: "lembaga_penerbit_sertifikat",
-                            editor: "input"
+                            title: "Jumlah Aset Important",
+                            field: "jumlah_aset_important",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Jumlah Aset Secondary",
+                            field: "jumlah_aset_secondary",
+                            editor: "number",
+                            hozAlign: "center"
                         },
                         {
                             title: "Aksi",
@@ -398,7 +601,7 @@
                     layout: "fitDataTable",
                     responsiveLayout: "collapse",
                     autoResize: true,
-                    columns: columnMap["plan-mandatory-certification"],
+                    columns: columnMap["air-budget-tagging-ptgn"],
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -422,7 +625,6 @@
                     clipboardCopyRowRange: "range",
                     clipboardPasteParser: "range",
                     clipboardPasteAction: "range",
-                    clipboardPasteRow: true,
 
                     columnDefaults: {
                         headerSort: true,
@@ -438,7 +640,7 @@
 
                     if (!id) return;
 
-                    fetch(`plan-mandatory-certification/${id}`, {
+                    fetch(`air-budget-tagging-ptgn/${id}`, {
                             method: "PUT",
                             headers: {
                                 "Content-Type": "application/json",
@@ -452,6 +654,7 @@
                         .then(data => console.log("Update berhasil:", data))
                         .catch(err => console.error("Gagal update:", err));
                 });
+
                 let previousData = [];
                 table.on("dataLoaded", function(newData) {
                     previousData = JSON.parse(JSON.stringify(newData));
@@ -477,7 +680,7 @@
                     console.log("Baris yang berubah:", changedRows);
 
                     changedRows.forEach(rowData => {
-                        fetch(`plan-mandatory-certification/${rowData.id}`, {
+                        fetch(`air-budget-tagging-ptgn/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
                                     "Content-Type": "application/json",
@@ -520,7 +723,7 @@
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
 
-                fetch("plan-mandatory-certification", {
+                fetch("air-budget-tagging-ptgn", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -530,13 +733,32 @@
                         },
                         body: JSON.stringify({
                             periode: data.periode,
-                            subholding: data.subholding,
-                            company: data.company,
-                            unit: data.unit,
-                            nama_personil_tersertifikasi_plan: data.nama_personil_tersertifikasi_plan,
-                            jumlah_sertifikasi: data.jumlah_sertifikasi,
-                            nama_sertifikasi: data.nama_sertifikasi,
-                            lembaga_penerbit_sertifikat: data.lembaga_penerbit_sertifikat,
+                            satker: data.satker || null,
+                            kategori: data.kategori || null,
+                            ce: data.ce || null,
+                            cost_element_name: data.cost_element_name || null,
+                            program_kerja: data.program_kerja || null,
+                            total_pagu_usd: data.total_pagu_usd || null,
+                            jan: data.jan || null,
+                            feb: data.feb || null,
+                            mar: data.mar || null,
+                            apr: data.apr || null,
+                            may: data.may || null,
+                            jun: data.jun || null,
+                            jul: data.jul || null,
+                            aug: data.aug || null,
+                            sep: data.sep || null,
+                            oct: data.oct || null,
+                            nov: data.nov || null,
+                            dec: data.dec || null,
+                            aset_integrity: data.aset_integrity || null,
+                            airtagging: data.airtagging || null,
+                            prioritas: data.prioritas || null,
+                            status_integrity: data.status_integrity || null,
+                            jumlah_aset_critical_sece: data.jumlah_aset_critical_sece || null,
+                            jumlah_aset_critical_pce: data.jumlah_aset_critical_pce || null,
+                            jumlah_aset_important: data.jumlah_aset_important || null,
+                            jumlah_aset_secondary: data.jumlah_aset_secondary || null,
                         })
 
                     })
@@ -544,7 +766,7 @@
                     .then(result => {
                         if (result.success) {
                             alert(result.message || "Data berhasil disimpan");
-                            table.setData("/monev/shg/input-data/plan-mandatory-certification/data");
+                            table.setData("/monev/shg/input-data/air-budget-tagging-ptgn/data");
                             this.reset();
                             closeModal();
                         } else {

@@ -1,5 +1,5 @@
-@section('title', __('TargetStatusPLO'))
-<x-layouts.app :title="__('TargetStatusPLO')">
+@section('title', __(''))
+<x-layouts.app :title="__('')">
     @push('styles')
         <link href="https://unpkg.com/tabulator-tables@5.6.0/dist/css/tabulator.min.css" rel="stylesheet">
         <style>
@@ -16,8 +16,6 @@
 
             .tabulator-cell {
                 font-size: 14px;
-
-
             }
 
             .card {

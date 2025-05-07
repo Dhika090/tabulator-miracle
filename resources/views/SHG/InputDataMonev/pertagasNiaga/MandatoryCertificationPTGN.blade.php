@@ -131,7 +131,7 @@
     <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-                <h5 class="card-title mb-3 mb-md-0">PLAN Mandatory Certification WMN </h5>
+                <h5 class="card-title mb-3 mb-md-0">Mandatory Certification PTGN</h5>
                 <div class="d-flex">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
@@ -185,7 +185,7 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Tambah Target WMN</h3>
+            <h3>Tambah Target PTGN</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
                 <div>
@@ -205,19 +205,10 @@
 
                 <div>
                     <label>Unit</label>
-                    <input type="text" name="unit" id="unit" >
+                    <input type="text" name="unit" id="unit">
                 </div>
 
-                <div>
-                    <label>Nama Personil Tersertifikasi Plan</label>
-                    <input type="text" name="nama_personil_tersertifikasi_plan" id="nama_personil_tersertifikasi_plan" >
-                </div>
-
-                <div>
-                    <label>Jumlah Sertifikasi</label>
-                    <input type="number" name="jumlah_sertifikasi" id="jumlah_sertifikasi">
-                </div>
-
+                {{-- dropdown nama Sertifikasi --}}
                 <div>
                     <label>Nama Sertifikasi</label>
                     <select name="nama_sertifikasi" id="nama_sertifikasi" class="form-control">
@@ -233,6 +224,16 @@
                     <input type="text" name="lembaga_penerbit_sertifikat" id="lembaga_penerbit_sertifikat">
                 </div>
 
+                <div>
+                    <label>Jumlah Sertifikasi yang Sudah Terbit</label>
+                    <input type="number" name="jumlah_sertifikasi_terbit" id="jumlah_sertifikasi_terbit">
+                </div>
+
+                <div>
+                    <label>Jumlah Learning Hours</label>
+                    <input type="number" name="jumlah_learning_hours" id="jumlah_learning_hours">
+                </div>
+
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
         </div>
@@ -244,7 +245,7 @@
         <script>
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
-                    fetch(`plan-mandatory-certification/${id}`, {
+                    fetch(`mandatory-certification-ptgn/${id}`, {
                             method: "DELETE",
                             headers: {
                                 "Accept": "application/json",
@@ -287,22 +288,22 @@
                             value: keyword
                         },
                         {
-                            field: "nama_personil_tersertifikasi_plan",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "jumlah_sertifikasi",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
                             field: "nama_sertifikasi",
                             type: "like",
                             value: keyword
                         },
                         {
                             field: "lembaga_penerbit_sertifikat",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "jumlah_sertifikasi_sudah_terbit",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "jumlah_learning_hours",
                             type: "like",
                             value: keyword
                         }
@@ -317,7 +318,7 @@
             }
 
             function loadData() {
-                fetch("/monev/shg/input-data/plan-mandatory-certification/data", {
+                fetch("/monev/shg/input-data/mandatory-certification-ptgn/data", {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -329,7 +330,7 @@
 
             document.addEventListener("DOMContentLoaded", function() {
                 const columnMap = {
-                    "plan-mandatory-certification": [{
+                    "mandatory-certification-ptgn": [{
                             title: "No",
                             formatter: "rownum",
                             hozAlign: "center",
@@ -361,17 +362,6 @@
                             editor: "input"
                         },
                         {
-                            title: "Nama Personil Tersertifikasi Plan",
-                            field: "nama_personil_tersertifikasi_plan",
-                            editor: "input"
-                        },
-                        {
-                            title: "Jumlah Sertifikasi",
-                            field: "jumlah_sertifikasi",
-                            editor: "number",
-                            hozAlign: "center"
-                        },
-                        {
                             title: "Nama Sertifikasi",
                             field: "nama_sertifikasi",
                             editor: "input",
@@ -381,6 +371,18 @@
                             title: "Lembaga Penerbit Sertifikat",
                             field: "lembaga_penerbit_sertifikat",
                             editor: "input"
+                        },
+                        {
+                            title: "Jumlah Sertifikasi yang Sudah Terbit",
+                            field: "jumlah_sertifikasi_terbit",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Jumlah Learning Hours",
+                            field: "jumlah_learning_hours",
+                            editor: "number",
+                            hozAlign: "center"
                         },
                         {
                             title: "Aksi",
@@ -398,7 +400,7 @@
                     layout: "fitDataTable",
                     responsiveLayout: "collapse",
                     autoResize: true,
-                    columns: columnMap["plan-mandatory-certification"],
+                    columns: columnMap["mandatory-certification-ptgn"],
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -438,7 +440,7 @@
 
                     if (!id) return;
 
-                    fetch(`plan-mandatory-certification/${id}`, {
+                    fetch(`mandatory-certification-ptgn/${id}`, {
                             method: "PUT",
                             headers: {
                                 "Content-Type": "application/json",
@@ -477,7 +479,7 @@
                     console.log("Baris yang berubah:", changedRows);
 
                     changedRows.forEach(rowData => {
-                        fetch(`plan-mandatory-certification/${rowData.id}`, {
+                        fetch(`mandatory-certification-ptgn/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
                                     "Content-Type": "application/json",
@@ -520,7 +522,7 @@
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
 
-                fetch("plan-mandatory-certification", {
+                fetch("mandatory-certification-ptgn", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -533,10 +535,10 @@
                             subholding: data.subholding,
                             company: data.company,
                             unit: data.unit,
-                            nama_personil_tersertifikasi_plan: data.nama_personil_tersertifikasi_plan,
-                            jumlah_sertifikasi: data.jumlah_sertifikasi,
                             nama_sertifikasi: data.nama_sertifikasi,
                             lembaga_penerbit_sertifikat: data.lembaga_penerbit_sertifikat,
+                            jumlah_sertifikasi_terbit: data.jumlah_sertifikasi_terbit,
+                            jumlah_learning_hours: data.jumlah_learning_hours
                         })
 
                     })
@@ -544,7 +546,7 @@
                     .then(result => {
                         if (result.success) {
                             alert(result.message || "Data berhasil disimpan");
-                            table.setData("/monev/shg/input-data/plan-mandatory-certification/data");
+                            table.setData("/monev/shg/input-data/mandatory-certification-ptgn/data");
                             this.reset();
                             closeModal();
                         } else {

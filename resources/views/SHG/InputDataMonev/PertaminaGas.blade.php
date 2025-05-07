@@ -1,5 +1,5 @@
-@section('title', __('PertaminaGas'))
-<x-layouts.app :title="__('PertaminaGas')">
+@section('title', __(''))
+<x-layouts.app :title="__('')">
     @push('styles')
         <link href="https://unpkg.com/tabulator-tables@5.6.0/dist/css/tabulator.min.css" rel="stylesheet">
         <style>

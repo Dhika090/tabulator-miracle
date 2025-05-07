@@ -1,13 +1,8 @@
 @section('title', __(''))
+
 <x-layouts.app :title="__('')">
     @push('styles')
         <link href="https://unpkg.com/tabulator-tables@5.6.0/dist/css/tabulator.min.css" rel="stylesheet">
-        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
         <style>
             .tabulator-wrapper {
                 overflow-x: auto;
@@ -22,11 +17,6 @@
 
             .tabulator-cell {
                 font-size: 14px;
-            }
-
-            .tabulator .tabulator-cell {
-                white-space: normal !important;
-                word-wrap: break-word;
             }
 
             .card {
@@ -131,7 +121,7 @@
     <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-                <h5 class="card-title mb-3 mb-md-0">PLAN Mandatory Certification WMN </h5>
+                <h5 class="card-title mb-3 mb-md-0">Pelatihan AIMS PTGN</h5>
                 <div class="d-flex">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
@@ -174,6 +164,7 @@
                     </div>
                 </div>
             </div>
+
             <div id="mainTable"></div>
 
             <div class="tabulator-wrapper mt-4">
@@ -185,52 +176,93 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Tambah Target WMN</h3>
+            <h3>Tambah Target PTGN</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
+
                 <div>
                     <label>Periode</label>
                     <input type="month" name="periode" id="periode" required>
                 </div>
 
                 <div>
-                    <label>Subholding</label>
-                    <input type="text" name="subholding" id="subholding" required>
+                    <label>Nomor PLO</label>
+                    <input type="text" name="nomor_plo" id="nomor_plo" required>
                 </div>
 
                 <div>
                     <label>Company</label>
-                    <input type="text" name="company" id="company" >
+                    <input type="text" name="company" id="company">
                 </div>
 
                 <div>
-                    <label>Unit</label>
-                    <input type="text" name="unit" id="unit" >
+                    <label>Area</label>
+                    <input type="text" name="area" id="area">
                 </div>
 
                 <div>
-                    <label>Nama Personil Tersertifikasi Plan</label>
-                    <input type="text" name="nama_personil_tersertifikasi_plan" id="nama_personil_tersertifikasi_plan" >
+                    <label>Lokasi</label>
+                    <input type="text" name="lokasi" id="lokasi">
                 </div>
 
                 <div>
-                    <label>Jumlah Sertifikasi</label>
-                    <input type="number" name="jumlah_sertifikasi" id="jumlah_sertifikasi">
+                    <label>Nama Aset</label>
+                    <input type="text" name="nama_aset" id="nama_aset">
                 </div>
 
                 <div>
-                    <label>Nama Sertifikasi</label>
-                    <select name="nama_sertifikasi" id="nama_sertifikasi" class="form-control">
-                        <option value="">-- Pilih Sertifikasi --</option>
-                        @foreach ($sertifikasiOptions as $option)
-                            <option value="{{ $option }}">{{ $option }}</option>
-                        @endforeach
-                    </select>
+                    <label>Tanggal Pengesahan</label>
+                    <input type="date" name="tanggal_pengesahan" id="tanggal_pengesahan" required>
                 </div>
 
                 <div>
-                    <label>Lembaga Penerbit Sertifikat</label>
-                    <input type="text" name="lembaga_penerbit_sertifikat" id="lembaga_penerbit_sertifikat">
+                    <label>Masa Berlaku</label>
+                    <input type="date" name="masa_berlaku" id="masa_berlaku" required>
+                </div>
+
+                <div>
+                    <label>Keterangan</label>
+                    <input type="text" name="keterangan" id="keterangan">
+                </div>
+
+                <div>
+                    <label>Belum Proses</label>
+                    <input type="text" name="belum_proses" id="belum_proses">
+                </div>
+
+                <div>
+                    <label>Pre-Inspection</label>
+                    <input type="text" name="pre_inspection" id="pre_inspection">
+                </div>
+
+                <div>
+                    <label>Inspection</label>
+                    <input type="text" name="inspection" id="inspection">
+                </div>
+
+                <div>
+                    <label>COI Peralatan</label>
+                    <input type="text" name="coi_peralatan" id="coi_peralatan">
+                </div>
+
+                <div>
+                    <label>BA PK</label>
+                    <input type="text" name="ba_pk" id="ba_pk">
+                </div>
+
+                <div>
+                    <label>Penerbitan PLO (Valid)</label>
+                    <input type="text" name="penerbitan_plo_valid" id="penerbitan_plo_valid">
+                </div>
+
+                <div>
+                    <label>Kendala</label>
+                    <input type="text" name="kendala" id="kendala">
+                </div>
+
+                <div>
+                    <label>Tindak Lanjut</label>
+                    <input type="text" name="tindak_lanjut" id="tindak_lanjut">
                 </div>
 
                 <button type="submit" class="btn btn-success">Submit</button>
@@ -238,13 +270,29 @@
         </div>
     </div>
 
+
     @push('scripts')
         <script src="https://unpkg.com/tabulator-tables@5.6.0/dist/js/tabulator.min.js"></script>
-
         <script>
+            const pengesahanInput = document.getElementById('tanggal_pengesahan');
+            const berlakuInput = document.getElementById('masa_berlaku');
+
+            function validateDates() {
+                const pengesahan = new Date(pengesahanInput.value);
+                const berlaku = new Date(berlakuInput.value);
+
+                if (berlaku <= pengesahan) {
+                    alert("Tanggal Masa Berlaku harus lebih dari Tanggal Pengesahan!");
+                    berlakuInput.value = '';
+                }
+            }
+
+            pengesahanInput.addEventListener('change', validateDates);
+            berlakuInput.addEventListener('change', validateDates);
+
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
-                    fetch(`plan-mandatory-certification/${id}`, {
+                    fetch(`status-plo-ptgn/${id}`, {
                             method: "DELETE",
                             headers: {
                                 "Accept": "application/json",
@@ -272,7 +320,7 @@
                             value: keyword
                         },
                         {
-                            field: "subholding",
+                            field: "nomor_plo",
                             type: "like",
                             value: keyword
                         },
@@ -282,33 +330,77 @@
                             value: keyword
                         },
                         {
-                            field: "unit",
+                            field: "area",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "nama_personil_tersertifikasi_plan",
+                            field: "lokasi",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "jumlah_sertifikasi",
+                            field: "nama_aset",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "nama_sertifikasi",
+                            field: "tanggal_pengesahan",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "lembaga_penerbit_sertifikat",
+                            field: "masa_berlaku",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "keterangan",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "belum_proses",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "pre_inspection",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "inspection",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "coi_peralatan",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "ba_pk",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "penerbitan_plo_valid",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "kendala",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "tindak_lanjut",
                             type: "like",
                             value: keyword
                         }
                     ]
                 ]);
-
             });
 
             function clearSearch() {
@@ -317,7 +409,7 @@
             }
 
             function loadData() {
-                fetch("/monev/shg/input-data/plan-mandatory-certification/data", {
+                fetch("/monev/shg/input-data/status-plo-ptgn/data", {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -328,8 +420,9 @@
             }
 
             document.addEventListener("DOMContentLoaded", function() {
+
                 const columnMap = {
-                    "plan-mandatory-certification": [{
+                    "status-plo-ptgn": [{
                             title: "No",
                             formatter: "rownum",
                             hozAlign: "center",
@@ -346,9 +439,10 @@
                             editor: "input"
                         },
                         {
-                            title: "Subholding",
-                            field: "subholding",
-                            editor: "input"
+                            title: "Nomor PLO",
+                            field: "nomor_plo",
+                            editor: "input",
+                            width: 250
                         },
                         {
                             title: "Company",
@@ -356,30 +450,76 @@
                             editor: "input"
                         },
                         {
-                            title: "Unit",
-                            field: "unit",
+                            title: "Area",
+                            field: "area",
                             editor: "input"
                         },
                         {
-                            title: "Nama Personil Tersertifikasi Plan",
-                            field: "nama_personil_tersertifikasi_plan",
+                            title: "Lokasi",
+                            field: "lokasi",
                             editor: "input"
                         },
                         {
-                            title: "Jumlah Sertifikasi",
-                            field: "jumlah_sertifikasi",
+                            title: "Nama Aset",
+                            field: "nama_aset",
+                            editor: "input"
+                        },
+                        {
+                            title: "Tanggal Pengesahan",
+                            field: "tanggal_pengesahan",
+                            editor: "input"
+                        },
+                        {
+                            title: "Masa Berlaku",
+                            field: "masa_berlaku",
+                            editor: "input"
+                        },
+                        {
+                            title: "Keterangan",
+                            field: "keterangan",
+                            editor: "input"
+                        },
+                        {
+                            title: "Belum Proses",
+                            field: "belum_proses",
                             editor: "number",
                             hozAlign: "center"
                         },
                         {
-                            title: "Nama Sertifikasi",
-                            field: "nama_sertifikasi",
-                            editor: "input",
-                            width: 450
+                            title: "Pre-Inspection",
+                            field: "pre_inspection",
+                            editor: "number",
+                            hozAlign: "center"
                         },
                         {
-                            title: "Lembaga Penerbit Sertifikat",
-                            field: "lembaga_penerbit_sertifikat",
+                            title: "Inspection",
+                            field: "inspection",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "COI Peralatan",
+                            field: "coi_peralatan",
+                            editor: "input"
+                        },
+                        {
+                            title: "BA PK",
+                            field: "ba_pk",
+                            editor: "input"
+                        },
+                        {
+                            title: "Penerbitan PLO (Valid)",
+                            field: "penerbitan_plo_valid",
+                            editor: "input"
+                        },
+                        {
+                            title: "Kendala",
+                            field: "kendala",
+                            editor: "input"
+                        },
+                        {
+                            title: "Tindak Lanjut",
+                            field: "tindak_lanjut",
                             editor: "input"
                         },
                         {
@@ -398,7 +538,7 @@
                     layout: "fitDataTable",
                     responsiveLayout: "collapse",
                     autoResize: true,
-                    columns: columnMap["plan-mandatory-certification"],
+                    columns: columnMap["status-plo-ptgn"],
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -438,7 +578,7 @@
 
                     if (!id) return;
 
-                    fetch(`plan-mandatory-certification/${id}`, {
+                    fetch(`status-plo-ptgn/${id}`, {
                             method: "PUT",
                             headers: {
                                 "Content-Type": "application/json",
@@ -452,6 +592,7 @@
                         .then(data => console.log("Update berhasil:", data))
                         .catch(err => console.error("Gagal update:", err));
                 });
+
                 let previousData = [];
                 table.on("dataLoaded", function(newData) {
                     previousData = JSON.parse(JSON.stringify(newData));
@@ -477,7 +618,7 @@
                     console.log("Baris yang berubah:", changedRows);
 
                     changedRows.forEach(rowData => {
-                        fetch(`plan-mandatory-certification/${rowData.id}`, {
+                        fetch(`status-plo-ptgn/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
                                     "Content-Type": "application/json",
@@ -502,7 +643,7 @@
             });
         </script>
 
-        {{-- create data  --}}
+        {{-- create data and create  --}}
         <script>
             function openModal() {
                 document.getElementById("createModal").style.display = "block";
@@ -519,9 +660,32 @@
 
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
+                console.log("Data submitted:", data);
 
-                fetch("plan-mandatory-certification", {
-                        method: "POST",
+                const id = document.getElementById("form-id").value;
+                const periode = document.getElementById("periode").value;
+                const nomorPlo = document.getElementById("nomor_plo").value;
+                const company = document.getElementById("company").value;
+                const area = document.getElementById("area").value;
+                const lokasi = document.getElementById("lokasi").value;
+                const namaAset = document.getElementById("nama_aset").value;
+                const tanggalPengesahan = document.getElementById("tanggal_pengesahan").value;
+                const masaBerlaku = document.getElementById("masa_berlaku").value;
+                const keterangan = document.getElementById("keterangan").value;
+                const belumProses = document.getElementById("belum_proses").value;
+                const preInspection = document.getElementById("pre_inspection").value;
+                const inspection = document.getElementById("inspection").value;
+                const coiPeralatan = document.getElementById("coi_peralatan").value;
+                const baPk = document.getElementById("ba_pk").value;
+                const penerbitanPloValid = document.getElementById("penerbitan_plo_valid").value;
+                const kendala = document.getElementById("kendala").value;
+                const tindakLanjut = document.getElementById("tindak_lanjut").value;
+
+                const method = id ? "PUT" : "POST";
+                const url = id ? `status-plo-ptgn/${id}` : "status-plo-ptgn";
+
+                fetch(url, {
+                        method: method,
                         headers: {
                             "Content-Type": "application/json",
                             "Accept": "application/json",
@@ -529,31 +693,44 @@
                                 "content")
                         },
                         body: JSON.stringify({
-                            periode: data.periode,
-                            subholding: data.subholding,
-                            company: data.company,
-                            unit: data.unit,
-                            nama_personil_tersertifikasi_plan: data.nama_personil_tersertifikasi_plan,
-                            jumlah_sertifikasi: data.jumlah_sertifikasi,
-                            nama_sertifikasi: data.nama_sertifikasi,
-                            lembaga_penerbit_sertifikat: data.lembaga_penerbit_sertifikat,
+                            id: id,
+                            periode: periode,
+                            nomor_plo: nomorPlo,
+                            company: company,
+                            area: area,
+                            lokasi: lokasi,
+                            nama_aset: namaAset,
+                            tanggal_pengesahan: tanggalPengesahan,
+                            masa_berlaku: masaBerlaku,
+                            keterangan: keterangan,
+                            belum_proses: belumProses,
+                            pre_inspection: preInspection,
+                            inspection: inspection,
+                            coi_peralatan: coiPeralatan,
+                            ba_pk: baPk,
+                            penerbitan_plo_valid: penerbitanPloValid,
+                            kendala: kendala,
+                            tindak_lanjut: tindakLanjut
                         })
-
                     })
                     .then(response => response.json())
                     .then(result => {
                         if (result.success) {
-                            alert(result.message || "Data berhasil disimpan");
-                            table.setData("/monev/shg/input-data/plan-mandatory-certification/data");
+                            alert(result.message);
+                            // table.addRow([result.data]);
+                            table.setData("/monev/shg/input-data/status-plo-ptgn/data");
                             this.reset();
-                            closeModal();
                         } else {
-                            alert("Gagal menyimpan data");
+                            alert('Gagal menyimpan data');
                         }
                     })
                     .catch(error => {
-                        console.error("Error saat submit:", error);
-                        alert("Terjadi kesalahan saat mengirim data.");
+                        console.error("Error submitting data:", error);
+                        alert('Terjadi kesalahan saat mengirim data.');
+                    })
+                    .finally(() => {
+                        closeModal();
+                        this.reset();
                     });
             });
         </script>
@@ -593,7 +770,6 @@
                     });
                 });
 
-                // Ketika halaman reload setelah klik, cek dan scroll otomatis
                 if (sessionStorage.getItem('scrollToActiveTab') === 'yes') {
                     scrollToActiveTab();
                     sessionStorage.removeItem('scrollToActiveTab');
@@ -601,4 +777,5 @@
             });
         </script>
     @endpush
+
 </x-layouts.app>
