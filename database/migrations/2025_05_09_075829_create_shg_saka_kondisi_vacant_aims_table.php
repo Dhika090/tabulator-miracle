@@ -12,7 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('shg_saka_kondisi_vacant_aims', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
+            $table->string('periode');
+            $table->string('company')->nullable();
+            $table->integer('total_personil_asset_integrity')->nullable();
+            $table->integer('jumlah_personil_vacant')->nullable();
+            $table->integer('jumlah_personil_pensiun')->nullable();
+            $table->string('keterangan')->nullable();
             $table->timestamps();
         });
     }

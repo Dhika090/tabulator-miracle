@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Models\SHG\SakaEnergi;
+namespace App\Models\SHG\NusantaraRegas;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 
-class KondisiVacantAimsSAKA extends Model
+class PelatihanAimsNR extends Model
 {
     use HasFactory;
     public $incrementing = false;
@@ -22,14 +22,11 @@ class KondisiVacantAimsSAKA extends Model
         });
     }
 
-    protected $table = 'shg_saka_kondisi_vacant_aims';
-
+    protected $table = 'shg_nr_pelatihan_aims';
     protected $fillable = [
         'periode',
         'company',
-        'total_personil_asset_integrity',
-        'jumlah_personil_vacant',
-        'jumlah_personil_pensiun',
-        'keterangan',
+        'judul_pelatihan',
+        'realisasi_perwira'
     ];
 }

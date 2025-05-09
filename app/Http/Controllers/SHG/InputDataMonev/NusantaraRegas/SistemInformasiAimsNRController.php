@@ -3,35 +3,16 @@
 namespace App\Http\Controllers\SHG\InputDataMonev\NusantaraRegas;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\SHG\NusantaraRegas\StatusAssetAiNRRequest;
-use App\Models\SHG\NusantaraRegas\StatusAssetAiNR;
+use App\Http\Requests\SHG\NusantaraRegas\SistemInformasiNRReuqest;
+use App\Models\SHG\NusantaraRegas\SistemInformasiNR;
 use Illuminate\Http\Request;
 
-class StatusAssetAiNRController extends Controller
+class SistemInformasiAimsNRController extends Controller
 {
+
 
     public function index(Request $request)
     {
-        if ($request->wantsJson()) {
-            $TargetPLO = StatusAssetAiNR::all();
-            return response()->json($TargetPLO);
-        }
-
-        $companies = [
-            'PGN',
-            'PTG',
-            'PTGN',
-            'PTSG',
-            'PGN, PAG, SAKA, WMP',
-            'GEI',
-            'TGI',
-            'WMN',
-            'PLI',
-            'PDG',
-            'KJG',
-            'PAG',
-            'NR'
-        ];
 
         $tabs = [
             [
@@ -84,42 +65,40 @@ class StatusAssetAiNRController extends Controller
                 'route' => route('air-budget-tagging-nr'),
                 'active' => request()->routeIs('air-budget-tagging-nr'),
             ],
-            
         ];
 
-        return view('SHG.InputDataMonev.NusantaraRegas.StatusAssetAiNR', compact('tabs', 'companies'));
+        return view('SHG.InputDataMonev.NusantaraRegas.SistemInformasiAimsNR', compact('tabs'));
     }
 
-
-    public function data()
+    public function store(SistemInformasiNRReuqest $request)
     {
-        return response()->json(StatusAssetAiNR::all());
-    }
-
-
-    public function store(StatusAssetAiNRRequest $request)
-    {
-        $data = $request->validated();
-        $data = StatusAssetAiNR::create($data);
+        $validated = $request->validated();
+        $TargetPLO = SistemInformasiNR::create($validated);
 
         return response()->json([
             'success' => true,
             'message' => 'Data berhasil disimpan',
-            'data' => $data
+            'data' => $TargetPLO,
         ]);
     }
 
-    public function update(StatusAssetAiNRRequest $request, $id)
+    public function data()
     {
-        $progress = StatusAssetAiNR::findOrFail($id);
+        $TargetPLO = SistemInformasiNR::all();
+        return response()->json($TargetPLO);
+    }
+    public function update(SistemInformasiNRReuqest $request, $id)
+    {
+        $progress = SistemInformasiNR::findOrFail($id);
         $progress->update($request->validated());
 
         return response()->json(['success' => true, 'message' => 'Data berhasil diupdate']);
     }
 
+
     public function destroy($id)
     {
-        $target = StatusAssetAiNR::findOrFail($id);
+        $target = SistemInformasiNR::findOrFail($id);
         $target->delete();
 
         return response()->json(['success' => true, 'message' => 'Data berhasil dihapus']);

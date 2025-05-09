@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Models\SHG\SakaEnergi;
+namespace App\Models\SHG\NusantaraRegas;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 
-class KondisiVacantAimsSAKA extends Model
+class RencanaPemeliharaanNR extends Model
 {
     use HasFactory;
     public $incrementing = false;
@@ -21,15 +21,33 @@ class KondisiVacantAimsSAKA extends Model
             }
         });
     }
-
-    protected $table = 'shg_saka_kondisi_vacant_aims';
+    protected $table = 'shg_nr_rencana_pemeliharaan';
 
     protected $fillable = [
         'periode',
+        'no',
         'company',
-        'total_personil_asset_integrity',
-        'jumlah_personil_vacant',
-        'jumlah_personil_pensiun',
-        'keterangan',
+        'lokasi',
+        'program_kerja',
+        'kategori_maintenance',
+        'besar_phasing',
+        'remark',
+        'jan',
+        'feb',
+        'mar',
+        'apr',
+        'may',
+        'jun',
+        'jul',
+        'aug',
+        'sep',
+        'oct',
+        'nov',
+        'dec',
+        'biaya_kerugian',
+        'keterangan_kerugian',
+        'penyebab',
+        'kendala',
+        'tindak_lanjut',
     ];
 }

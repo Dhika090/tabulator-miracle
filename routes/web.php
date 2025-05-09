@@ -26,6 +26,16 @@ use App\Http\Controllers\SHG\InputDataMonev\kalimantan\RencanaPemeliharaanBesarK
 use App\Http\Controllers\SHG\InputDataMonev\kalimantan\SistemInformasiAimsKjgController;
 use App\Http\Controllers\SHG\InputDataMonev\kalimantan\StatusPloKjgController;
 use App\Http\Controllers\SHG\InputDataMonev\KalimantanJawaGasController;
+use App\Http\Controllers\SHG\InputDataMonev\NusantaraRegas\AirBudgetTaggingNRController;
+use App\Http\Controllers\SHG\InputDataMonev\NusantaraRegas\AssetBreakdownNRController;
+use App\Http\Controllers\SHG\InputDataMonev\NusantaraRegas\AvailabilityNRController;
+use App\Http\Controllers\SHG\InputDataMonev\NusantaraRegas\KondisiVacantNRController;
+use App\Http\Controllers\SHG\InputDataMonev\NusantaraRegas\MandatoryCertificationNRController;
+use App\Http\Controllers\SHG\InputDataMonev\NusantaraRegas\PelatihanAimsNRController;
+use App\Http\Controllers\SHG\InputDataMonev\NusantaraRegas\RencanaPemeliharaanNRController;
+use App\Http\Controllers\SHG\InputDataMonev\NusantaraRegas\SistemInformasiAimsNRController;
+use App\Http\Controllers\SHG\InputDataMonev\NusantaraRegas\StatusAssetAiNRController;
+use App\Http\Controllers\SHG\InputDataMonev\NusantaraRegas\StatusPloNRController;
 use App\Http\Controllers\SHG\InputDataMonev\PertaArunGas\AirBudgetTaggingPAGController;
 use App\Http\Controllers\SHG\InputDataMonev\PertaArunGas\AssetBreakdownPAGController;
 use App\Http\Controllers\SHG\InputDataMonev\PertaArunGas\AvailabilityPAGController;
@@ -1193,6 +1203,79 @@ Route::prefix('monev/shg/input-data/realisasi-progress-fisik-ai-saka')->middlewa
     Route::delete('/{id}', [RealisasiProgressFisikAiSakaController::class, 'destroy'])->name('realisasi-progress-fisik-ai-saka.destroy');
 });
 
+
+// Nusantara Regas NR
+Route::prefix('monev/shg/input-data/nusantara-regas')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [StatusAssetAiNRController::class, 'index'])->name('nusantara-regas');
+    Route::post('/', [StatusAssetAiNRController::class, 'store'])->name('nusantara-regas.store');
+    Route::get('/data', [StatusAssetAiNRController::class, 'data'])->name('nusantara-regas.data');
+    Route::put('/{id}', [StatusAssetAiNRController::class, 'update'])->name('nusantara-regas.update');
+    Route::delete('/{id}', [StatusAssetAiNRController::class, 'destroy'])->name('nusantara-regas.destroy');
+});
+Route::prefix('monev/shg/input-data/mandatory-certification-nr')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [MandatoryCertificationNRController::class, 'index'])->name('mandatory-certification-nr');
+    Route::post('/', [MandatoryCertificationNRController::class, 'store'])->name('mandatory-certification-nr.store');
+    Route::get('/data', [MandatoryCertificationNRController::class, 'data'])->name('mandatory-certification-nr.data');
+    Route::put('/{id}', [MandatoryCertificationNRController::class, 'update'])->name('mandatory-certification-nr.update');
+    Route::delete('/{id}', [MandatoryCertificationNRController::class, 'destroy'])->name('mandatory-certification-nr.destroy');
+});
+
+Route::prefix('monev/shg/input-data/asset-breakdown-nr')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [AssetBreakdownNRController::class, 'index'])->name('asset-breakdown-nr');
+    Route::post('/', [AssetBreakdownNRController::class, 'store'])->name('asset-breakdown-nr.store');
+    Route::get('/data', [AssetBreakdownNRController::class, 'data'])->name('asset-breakdown-nr.data');
+    Route::put('/{id}', [AssetBreakdownNRController::class, 'update'])->name('asset-breakdown-nr.update');
+    Route::delete('/{id}', [AssetBreakdownNRController::class, 'destroy'])->name('asset-breakdown-nr.destroy');
+});
+Route::prefix('monev/shg/input-data/status-plo-nr')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [StatusPloNRController::class, 'index'])->name('status-plo-nr');
+    Route::post('/', [StatusPloNRController::class, 'store'])->name('status-plo-nr.store');
+    Route::get('/data', [StatusPloNRController::class, 'data'])->name('status-plo-nr.data');
+    Route::put('/{id}', [StatusPloNRController::class, 'update'])->name('status-plo-nr.update');
+    Route::delete('/{id}', [StatusPloNRController::class, 'destroy'])->name('status-plo-nr.destroy');
+});
+Route::prefix('monev/shg/input-data/kondisi-vacant-fungsi-aims-nr')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [KondisiVacantNRController::class, 'index'])->name('kondisi-vacant-fungsi-aims-nr');
+    Route::post('/', [KondisiVacantNRController::class, 'store'])->name('kondisi-vacant-fungsi-aims-nr.store');
+    Route::get('/data', [KondisiVacantNRController::class, 'data'])->name('kondisi-vacant-fungsi-aims-nr.data');
+    Route::put('/{id}', [KondisiVacantNRController::class, 'update'])->name('kondisi-vacant-fungsi-aims-nr.update');
+    Route::delete('/{id}', [KondisiVacantNRController::class, 'destroy'])->name('kondisi-vacant-fungsi-aims-nr.destroy');
+});
+Route::prefix('monev/shg/input-data/pelatihan-aims-nr')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [PelatihanAimsNRController::class, 'index'])->name('pelatihan-aims-nr');
+    Route::post('/', [PelatihanAimsNRController::class, 'store'])->name('pelatihan-aims-nr.store');
+    Route::get('/data', [PelatihanAimsNRController::class, 'data'])->name('pelatihan-aims-nr.data');
+    Route::put('/{id}', [PelatihanAimsNRController::class, 'update'])->name('pelatihan-aims-nr.update');
+    Route::delete('/{id}', [PelatihanAimsNRController::class, 'destroy'])->name('pelatihan-aims-nr.destroy');
+});
+Route::prefix('monev/shg/input-data/rencana-pemeliharaan-nr')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [RencanaPemeliharaanNRController::class, 'index'])->name('rencana-pemeliharaan-nr');
+    Route::post('/', [RencanaPemeliharaanNRController::class, 'store'])->name('rencana-pemeliharaan-nr.store');
+    Route::get('/data', [RencanaPemeliharaanNRController::class, 'data'])->name('rencana-pemeliharaan-nr.data');
+    Route::put('/{id}', [RencanaPemeliharaanNRController::class, 'update'])->name('rencana-pemeliharaan-nr.update');
+    Route::delete('/{id}', [RencanaPemeliharaanNRController::class, 'destroy'])->name('rencana-pemeliharaan-nr.destroy');
+});
+Route::prefix('monev/shg/input-data/sistem-informasi-aims-nr')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [SistemInformasiAimsNRController::class, 'index'])->name('sistem-informasi-aims-nr');
+    Route::post('/', [SistemInformasiAimsNRController::class, 'store'])->name('sistem-informasi-aims-nr.store');
+    Route::get('/data', [SistemInformasiAimsNRController::class, 'data'])->name('sistem-informasi-aims-nr.data');
+    Route::put('/{id}', [SistemInformasiAimsNRController::class, 'update'])->name('sistem-informasi-aims-nr.update');
+    Route::delete('/{id}', [SistemInformasiAimsNRController::class, 'destroy'])->name('sistem-informasi-aims-nr.destroy');
+});
+Route::prefix('monev/shg/input-data/availability-nr')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [AvailabilityNRController::class, 'index'])->name('availability-nr');
+    Route::post('/', [AvailabilityNRController::class, 'store'])->name('availability-nr.store');
+    Route::get('/data', [AvailabilityNRController::class, 'data'])->name('availability-nr.data');
+    Route::put('/{id}', [AvailabilityNRController::class, 'update'])->name('availability-nr.update');
+    Route::delete('/{id}', [AvailabilityNRController::class, 'destroy'])->name('availability-nr.destroy');
+});
+Route::prefix('monev/shg/input-data/air-budget-tagging-nr')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [AirBudgetTaggingNRController::class, 'index'])->name('air-budget-tagging-nr');
+    Route::post('/', [AirBudgetTaggingNRController::class, 'store'])->name('air-budget-tagging-nr.store');
+    Route::get('/data', [AirBudgetTaggingNRController::class, 'data'])->name('air-budget-tagging-nr.data');
+    Route::put('/{id}', [AirBudgetTaggingNRController::class, 'update'])->name('air-budget-tagging-nr.update');
+    Route::delete('/{id}', [AirBudgetTaggingNRController::class, 'destroy'])->name('air-budget-tagging-nr.destroy');
+});
 
 
 
