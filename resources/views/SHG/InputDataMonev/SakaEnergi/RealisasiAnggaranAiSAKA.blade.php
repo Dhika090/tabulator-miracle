@@ -1,5 +1,4 @@
 @section('title', __(''))
-
 <x-layouts.app :title="__('')">
     @push('styles')
         <link href="https://unpkg.com/tabulator-tables@5.6.0/dist/css/tabulator.min.css" rel="stylesheet">
@@ -17,6 +16,8 @@
 
             .tabulator-cell {
                 font-size: 14px;
+                white-space: normal !important;
+                word-wrap: break-word;
             }
 
             .card {
@@ -121,7 +122,7 @@
     <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-                <h5 class="card-title mb-3 mb-md-0">Status PLO PTG</h5>
+                <h5 class="card-title mb-3 mb-md-0">Realisasi Anggaran AI SAKA</h5>
                 <div class="d-flex">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
@@ -164,7 +165,6 @@
                     </div>
                 </div>
             </div>
-
             <div id="mainTable"></div>
 
             <div class="tabulator-wrapper mt-4">
@@ -176,93 +176,231 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Tambah Target PTG</h3>
+            <h3>Tambah Data Realisasi Anggaran AI 2025</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
-
                 <div>
-                    <label>Periode</label>
-                    <input type="month" name="periode" id="periode" required>
+                    <label for="periode">Periode (Tahun):</label>
+                    <select name="periode" id="periode" required class="form-select">
+                        <option value="" selected disabled>Pilih Periode</option>
+                        @for ($year = 2000; $year <= date('Y') + 5; $year++)
+                            <option value="{{ $year }}">{{ $year }}</option>
+                        @endfor
+                    </select>
+                </div>
+                <div>
+                    <label>No</label>
+                    <input type="number" name="no" id="no" >
                 </div>
 
                 <div>
-                    <label>Nomor PLO</label>
-                    <input type="text" name="nomor_plo" id="nomor_plo" required>
+                    <label>Program Kerja</label>
+                    <input type="text" name="program_kerja" id="program_kerja">
                 </div>
 
                 <div>
-                    <label>Company</label>
-                    <input type="text" name="company" id="company">
+                    <label>Kategori AIBT</label>
+                    <input type="text" name="kategori_aibt" id="kategori_aibt">
                 </div>
 
                 <div>
-                    <label>Area</label>
-                    <input type="text" name="area" id="area">
+                    <label>Jenis Anggaran</label>
+                    <input type="text" name="jenis_anggaran" id="jenis_anggaran">
                 </div>
 
                 <div>
-                    <label>Lokasi</label>
-                    <input type="text" name="lokasi" id="lokasi">
+                    <label>Besar RKAP</label>
+                    <input type="number" name="besar_rkap" id="besar_rkap" step="0.01">
                 </div>
 
                 <div>
-                    <label>Nama Aset</label>
-                    <input type="text" name="nama_aset" id="nama_aset">
+                    <label>Entitas</label>
+                    <input type="text" name="entitas" id="entitas">
                 </div>
 
                 <div>
-                    <label>Tanggal Pengesahan</label>
-                    <input type="date" name="tanggal_pengesahan" id="tanggal_pengesahan" required>
+                    <label>Unit</label>
+                    <input type="text" name="unit" id="unit">
                 </div>
 
                 <div>
-                    <label>Masa Berlaku</label>
-                    <input type="date" name="masa_berlaku" id="masa_berlaku" required>
+                    <label>Nilai Kontrak</label>
+                    <input type="number" name="nilai_kontrak" id="nilai_kontrak" step="0.01">
                 </div>
 
-                <div>
-                    <label>Keterangan</label>
-                    <input type="text" name="keterangan" id="keterangan">
-                </div>
+                <!-- Plan Fields -->
+                <fieldset>
+                    <legend>Plan</legend>
+                    <div>
+                        <label>Plan Jan</label>
+                        <input type="text" name="plan_jan">
+                    </div>
+                    <div>
+                        <label>Plan Feb</label>
+                        <input type="text" name="plan_feb">
+                    </div>
+                    <div>
+                        <label>Plan Mar</label>
+                        <input type="text" name="plan_mar">
+                    </div>
+                    <div>
+                        <label>Plan Apr</label>
+                        <input type="text" name="plan_apr">
+                    </div>
+                    <div>
+                        <label>Plan May</label>
+                        <input type="text" name="plan_may">
+                    </div>
+                    <div>
+                        <label>Plan Jun</label>
+                        <input type="text" name="plan_jun">
+                    </div>
+                    <div>
+                        <label>Plan Jul</label>
+                        <input type="text" name="plan_jul">
+                    </div>
+                    <div>
+                        <label>Plan Aug</label>
+                        <input type="text" name="plan_aug">
+                    </div>
+                    <div>
+                        <label>Plan Sep</label>
+                        <input type="text" name="plan_sep">
+                    </div>
+                    <div>
+                        <label>Plan Oct</label>
+                        <input type="text" name="plan_oct">
+                    </div>
+                    <div>
+                        <label>Plan Nov</label>
+                        <input type="text" name="plan_nov">
+                    </div>
+                    <div>
+                        <label>Plan Dec</label>
+                        <input type="text" name="plan_dec">
+                    </div>
+                </fieldset>
+
+                <!-- Prognosa Fields -->
+                <fieldset>
+                    <legend>Prognosa</legend>
+                    <!-- Sama seperti Plan -->
+                    <div>
+                        <label>Prognosa Jan</label>
+                        <input type="text" name="prognosa_jan">
+                    </div>
+                    <div>
+                        <label>Prognosa Feb</label>
+                        <input type="text" name="prognosa_feb">
+                    </div>
+                    <div>
+                        <label>Prognosa Mar</label>
+                        <input type="text" name="prognosa_mar">
+                    </div>
+                    <div>
+                        <label>Prognosa Apr</label>
+                        <input type="text" name="prognosa_apr">
+                    </div>
+                    <div>
+                        <label>Prognosa May</label>
+                        <input type="text" name="prognosa_may">
+                    </div>
+                    <div>
+                        <label>Prognosa Jun</label>
+                        <input type="text" name="prognosa_jun">
+                    </div>
+                    <div>
+                        <label>Prognosa Jul</label>
+                        <input type="text" name="prognosa_jul">
+                    </div>
+                    <div>
+                        <label>Prognosa Aug</label>
+                        <input type="text" name="prognosa_aug">
+                    </div>
+                    <div>
+                        <label>Prognosa Sep</label>
+                        <input type="text" name="prognosa_sep">
+                    </div>
+                    <div>
+                        <label>Prognosa Oct</label>
+                        <input type="text" name="prognosa_oct">
+                    </div>
+                    <div>
+                        <label>Prognosa Nov</label>
+                        <input type="text" name="prognosa_nov">
+                    </div>
+                    <div>
+                        <label>Prognosa Dec</label>
+                        <input type="text" name="prognosa_dec">
+                    </div>
+                </fieldset>
+
+                <!-- Actual Fields -->
+                <fieldset>
+                    <legend>Actual</legend>
+                    <div>
+                        <label>Actual Jan</label>
+                        <input type="text" name="actual_jan">
+                    </div>
+                    <div>
+                        <label>Actual Feb</label>
+                        <input type="text" name="actual_feb">
+                    </div>
+                    <div>
+                        <label>Actual Mar</label>
+                        <input type="text" name="actual_mar">
+                    </div>
+                    <div>
+                        <label>Actual Apr</label>
+                        <input type="text" name="actual_apr">
+                    </div>
+                    <div>
+                        <label>Actual May</label>
+                        <input type="text" name="actual_may">
+                    </div>
+                    <div>
+                        <label>Actual Jun</label>
+                        <input type="text" name="actual_jun">
+                    </div>
+                    <div>
+                        <label>Actual Jul</label>
+                        <input type="text" name="actual_jul">
+                    </div>
+                    <div>
+                        <label>Actual Aug</label>
+                        <input type="text" name="actual_aug">
+                    </div>
+                    <div>
+                        <label>Actual Sep</label>
+                        <input type="text" name="actual_sep">
+                    </div>
+                    <div>
+                        <label>Actual Oct</label>
+                        <input type="text" name="actual_oct">
+                    </div>
+                    <div>
+                        <label>Actual Nov</label>
+                        <input type="text" name="actual_nov">
+                    </div>
+                    <div>
+                        <label>Actual Dec</label>
+                        <input type="text" name="actual_dec">
+                    </div>
+                </fieldset>
 
                 <div>
-                    <label>Belum Proses</label>
-                    <input type="text" name="belum_proses" id="belum_proses">
-                </div>
-
-                <div>
-                    <label>Pre-Inspection</label>
-                    <input type="text" name="pre_inspection" id="pre_inspection">
-                </div>
-
-                <div>
-                    <label>Inspection</label>
-                    <input type="text" name="inspection" id="inspection">
-                </div>
-
-                <div>
-                    <label>COI Peralatan</label>
-                    <input type="text" name="coi_peralatan" id="coi_peralatan">
-                </div>
-
-                <div>
-                    <label>BA PK</label>
-                    <input type="text" name="ba_pk" id="ba_pk">
-                </div>
-
-                <div>
-                    <label>Penerbitan PLO (Valid)</label>
-                    <input type="text" name="penerbitan_plo_valid" id="penerbitan_plo_valid">
+                    <label>Kode</label>
+                    <input type="text" name="kode" id="kode">
                 </div>
 
                 <div>
                     <label>Kendala</label>
-                    <input type="text" name="kendala" id="kendala">
+                    <input name="kendala" id="kendala"></input>
                 </div>
 
                 <div>
                     <label>Tindak Lanjut</label>
-                    <input type="text" name="tindak_lanjut" id="tindak_lanjut">
+                    <input name="tindak_lanjut" id="tindak_lanjut"></input>
                 </div>
 
                 <button type="submit" class="btn btn-success">Submit</button>
@@ -273,25 +411,9 @@
     @push('scripts')
         <script src="https://unpkg.com/tabulator-tables@5.6.0/dist/js/tabulator.min.js"></script>
         <script>
-            const pengesahanInput = document.getElementById('tanggal_pengesahan');
-            const berlakuInput = document.getElementById('masa_berlaku');
-
-            function validateDates() {
-                const pengesahan = new Date(pengesahanInput.value);
-                const berlaku = new Date(berlakuInput.value);
-
-                if (berlaku <= pengesahan) {
-                    alert("Tanggal Masa Berlaku harus lebih dari Tanggal Pengesahan!");
-                    berlakuInput.value = '';
-                }
-            }
-
-            pengesahanInput.addEventListener('change', validateDates);
-            berlakuInput.addEventListener('change', validateDates);
-
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
-                    fetch(`status-plo-ptg/${id}`, {
+                    fetch(`realisasi-anggaran-ai-saka/${id}`, {
                             method: "DELETE",
                             headers: {
                                 "Accept": "application/json",
@@ -319,72 +441,47 @@
                             value: keyword
                         },
                         {
-                            field: "nomor_plo",
+                            field: "no",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "company",
+                            field: "program_kerja",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "area",
+                            field: "kategori_aibt",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "lokasi",
+                            field: "jenis_anggaran",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "nama_aset",
+                            field: "besar_rkap",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "tanggal_pengesahan",
+                            field: "entitas",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "masa_berlaku",
+                            field: "unit",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "keterangan",
+                            field: "nilai_kontrak",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "belum_proses",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "pre_inspection",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "inspection",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "coi_peralatan",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "ba_pk",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "penerbitan_plo_valid",
+                            field: "kode",
                             type: "like",
                             value: keyword
                         },
@@ -407,8 +504,9 @@
                 table.clearFilter();
             }
 
+
             function loadData() {
-                fetch("/monev/shg/input-data/status-plo-ptg/data", {
+                fetch("/monev/shg/input-data/realisasi-anggaran-ai-saka/data", {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -419,21 +517,12 @@
             }
 
             document.addEventListener("DOMContentLoaded", function() {
-
                 const columnMap = {
-                    "status-plo-ptg": [{
+                    "realisasi-anggaran-ai-saka": [{
                             title: "No",
-                            formatter: function(cell, formatterParams, onRendered) {
-                                const row = cell.getRow();
-                                const table = row.getTable();
-                                const page = table.getPage();
-                                const pageSize = table.getPageSize();
-                                const rowIndex = row.getPosition();
-                                return (page - 1) * pageSize + rowIndex + 1;
-                            },
+                            formatter: "rownum",
                             hozAlign: "center",
-                            width: 60,
-                            frozen: true
+                            width: 60
                         },
                         {
                             title: "ID",
@@ -446,81 +535,81 @@
                             editor: "input"
                         },
                         {
-                            title: "Nomor PLO",
-                            field: "nomor_plo",
-                            editor: "input",
-                            width: 250
-                        },
-                        {
-                            title: "Company",
-                            field: "company",
-                            editor: "input"
-                        },
-                        {
-                            title: "Area",
-                            field: "area",
-                            editor: "input"
-                        },
-                        {
-                            title: "Lokasi",
-                            field: "lokasi",
-                            editor: "input"
-                        },
-                        {
-                            title: "Nama Aset",
-                            field: "nama_aset",
-                            editor: "input"
-                        },
-                        {
-                            title: "Tanggal Pengesahan",
-                            field: "tanggal_pengesahan",
-                            editor: "input",
+                            title: "No",
+                            field: "no",
+                            editor: "number",
                             hozAlign: "center",
                         },
                         {
-                            title: "Masa Berlaku",
-                            field: "masa_berlaku",
-                            editor: "input",
+                            title: "Program Kerja",
+                            field: "program_kerja",
+                            width: 400,
+                            editor: "input"
+                        },
+                        {
+                            title: "Kategori AIBT",
+                            field: "kategori_aibt",
                             hozAlign: "center",
-                        },
-                        {
-                            title: "Keterangan",
-                            field: "keterangan",
-                            editor: "input"
-                        },
-                        {
-                            title: "Belum Proses",
-                            field: "belum_proses",
-                            editor: "number",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "Pre-Inspection",
-                            field: "pre_inspection",
-                            editor: "number",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "Inspection",
-                            field: "inspection",
-                            editor: "number",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "COI Peralatan",
-                            field: "coi_peralatan",
-                            editor: "input"
-                        },
-                        {
-                            title: "BA PK",
-                            field: "ba_pk",
-                            editor: "input"
-                        },
-                        {
-                            title: "Penerbitan PLO (Valid)",
-                            field: "penerbitan_plo_valid",
                             editor: "input",
+                        },
+                        {
+                            title: "Jenis Anggaran",
+                            field: "jenis_anggaran",
                             hozAlign: "center",
+                            editor: "input",
+                        },
+                        {
+                            title: "Besar RKAP",
+                            field: "besar_rkap",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Entitas",
+                            field: "entitas",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Unit",
+                            field: "unit",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Nilai Kontrak",
+                            field: "nilai_kontrak",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        // Plan Fields
+                        ...["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+                        .map(bulan => ({
+                            title: `Plan ${bulan}`,
+                            field: `plan_${bulan.toLowerCase()}`,
+                            editor: "input",
+                            hozAlign: "center"
+                        })),
+                        // Prognosa Fields
+                        ...["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+                        .map(bulan => ({
+                            title: `Prognosa ${bulan}`,
+                            field: `prognosa_${bulan.toLowerCase()}`,
+                            editor: "input",
+                            hozAlign: "center"
+                        })),
+                        // Actual Fields
+                        ...["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+                        .map(bulan => ({
+                            title: `Actual ${bulan}`,
+                            field: `actual_${bulan.toLowerCase()}`,
+                            editor: "input",
+                            hozAlign: "center"
+                        })),
+                        {
+                            title: "Kode",
+                            field: "kode",
+                            editor: "input"
                         },
                         {
                             title: "Kendala",
@@ -530,7 +619,8 @@
                         {
                             title: "Tindak Lanjut",
                             field: "tindak_lanjut",
-                            editor: "input"
+                            editor: "input",
+                            width: 400
                         },
                         {
                             title: "Aksi",
@@ -548,7 +638,7 @@
                     layout: "fitDataTable",
                     responsiveLayout: "collapse",
                     autoResize: true,
-                    columns: columnMap["status-plo-ptg"],
+                    columns: columnMap["realisasi-anggaran-ai-saka"],
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -580,9 +670,6 @@
                         editor: "input",
                         resizable: "header",
                     },
-                    rowFormatter: function(row) {
-                        row.reformat();
-                    },
                 });
 
                 table.on("cellEdited", function(cell) {
@@ -591,7 +678,7 @@
 
                     if (!id) return;
 
-                    fetch(`status-plo-ptg/${id}`, {
+                    fetch(`realisasi-anggaran-ai-saka/${id}`, {
                             method: "PUT",
                             headers: {
                                 "Content-Type": "application/json",
@@ -631,7 +718,7 @@
                     console.log("Baris yang berubah:", changedRows);
 
                     changedRows.forEach(rowData => {
-                        fetch(`status-plo-ptg/${rowData.id}`, {
+                        fetch(`realisasi-anggaran-ai-saka/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
                                     "Content-Type": "application/json",
@@ -656,7 +743,7 @@
             });
         </script>
 
-        {{-- create data and create  --}}
+        {{-- create data  --}}
         <script>
             function openModal() {
                 document.getElementById("createModal").style.display = "block";
@@ -673,32 +760,9 @@
 
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
-                console.log("Data submitted:", data);
 
-                const id = document.getElementById("form-id").value;
-                const periode = document.getElementById("periode").value;
-                const nomorPlo = document.getElementById("nomor_plo").value;
-                const company = document.getElementById("company").value;
-                const area = document.getElementById("area").value;
-                const lokasi = document.getElementById("lokasi").value;
-                const namaAset = document.getElementById("nama_aset").value;
-                const tanggalPengesahan = document.getElementById("tanggal_pengesahan").value;
-                const masaBerlaku = document.getElementById("masa_berlaku").value;
-                const keterangan = document.getElementById("keterangan").value;
-                const belumProses = document.getElementById("belum_proses").value;
-                const preInspection = document.getElementById("pre_inspection").value;
-                const inspection = document.getElementById("inspection").value;
-                const coiPeralatan = document.getElementById("coi_peralatan").value;
-                const baPk = document.getElementById("ba_pk").value;
-                const penerbitanPloValid = document.getElementById("penerbitan_plo_valid").value;
-                const kendala = document.getElementById("kendala").value;
-                const tindakLanjut = document.getElementById("tindak_lanjut").value;
-
-                const method = id ? "PUT" : "POST";
-                const url = id ? `status-plo-ptg/${id}` : "status-plo-ptg";
-
-                fetch(url, {
-                        method: method,
+                fetch("realisasi-anggaran-ai-saka", {
+                        method: "POST",
                         headers: {
                             "Content-Type": "application/json",
                             "Accept": "application/json",
@@ -706,44 +770,78 @@
                                 "content")
                         },
                         body: JSON.stringify({
-                            id: id,
-                            periode: periode,
-                            nomor_plo: nomorPlo,
-                            company: company,
-                            area: area,
-                            lokasi: lokasi,
-                            nama_aset: namaAset,
-                            tanggal_pengesahan: tanggalPengesahan,
-                            masa_berlaku: masaBerlaku,
-                            keterangan: keterangan,
-                            belum_proses: belumProses,
-                            pre_inspection: preInspection,
-                            inspection: inspection,
-                            coi_peralatan: coiPeralatan,
-                            ba_pk: baPk,
-                            penerbitan_plo_valid: penerbitanPloValid,
-                            kendala: kendala,
-                            tindak_lanjut: tindakLanjut
+                            periode: data.periode || "",
+                            no: data.no || 0,
+                            program_kerja: data.program_kerja || "",
+                            kategori_aibt: data.kategori_aibt || "",
+                            jenis_anggaran: data.jenis_anggaran || "",
+                            besar_rkap: data.besar_rkap !== "" ? parseFloat(data.besar_rkap) : null,
+                            entitas: data.entitas || "",
+                            unit: data.unit || "",
+                            nilai_kontrak: data.nilai_kontrak !== "" ? parseFloat(data.nilai_kontrak) :
+                                null,
+
+                            // Plan
+                            plan_jan: data.plan_jan,
+                            plan_feb: data.plan_feb,
+                            plan_mar: data.plan_mar,
+                            plan_apr: data.plan_apr,
+                            plan_may: data.plan_may,
+                            plan_jun: data.plan_jun,
+                            plan_jul: data.plan_jul,
+                            plan_aug: data.plan_aug,
+                            plan_sep: data.plan_sep,
+                            plan_oct: data.plan_oct,
+                            plan_nov: data.plan_nov,
+                            plan_dec: data.plan_dec,
+
+                            // Prognosa
+                            prognosa_jan: data.prognosa_jan,
+                            prognosa_feb: data.prognosa_feb,
+                            prognosa_mar: data.prognosa_mar,
+                            prognosa_apr: data.prognosa_apr,
+                            prognosa_may: data.prognosa_may,
+                            prognosa_jun: data.prognosa_jun,
+                            prognosa_jul: data.prognosa_jul,
+                            prognosa_aug: data.prognosa_aug,
+                            prognosa_sep: data.prognosa_sep,
+                            prognosa_oct: data.prognosa_oct,
+                            prognosa_nov: data.prognosa_nov,
+                            prognosa_dec: data.prognosa_dec,
+
+                            // Actual
+                            actual_jan: data.actual_jan,
+                            actual_feb: data.actual_feb,
+                            actual_mar: data.actual_mar,
+                            actual_apr: data.actual_apr,
+                            actual_may: data.actual_may,
+                            actual_jun: data.actual_jun,
+                            actual_jul: data.actual_jul,
+                            actual_aug: data.actual_aug,
+                            actual_sep: data.actual_sep,
+                            actual_oct: data.actual_oct,
+                            actual_nov: data.actual_nov,
+                            actual_dec: data.actual_dec,
+
+                            kode: data.kode,
+                            kendala: data.kendala,
+                            tindak_lanjut: data.tindak_lanjut
                         })
                     })
                     .then(response => response.json())
                     .then(result => {
                         if (result.success) {
-                            alert(result.message);
-                            // table.addRow([result.data]);
-                            table.setData("/monev/shg/input-data/status-plo-ptg/data");
+                            alert(result.message || "Data berhasil disimpan");
+                            table.setData("/monev/shg/input-data/realisasi-anggaran-ai-saka/data");
                             this.reset();
+                            closeModal();
                         } else {
-                            alert('Gagal menyimpan data');
+                            alert("Gagal menyimpan data");
                         }
                     })
                     .catch(error => {
-                        console.error("Error submitting data:", error);
-                        alert('Terjadi kesalahan saat mengirim data.');
-                    })
-                    .finally(() => {
-                        closeModal();
-                        this.reset();
+                        console.error("Error saat submit:", error);
+                        alert("Terjadi kesalahan saat mengirim data.");
                     });
             });
         </script>
@@ -790,5 +888,4 @@
             });
         </script>
     @endpush
-
 </x-layouts.app>

@@ -1,5 +1,4 @@
 @section('title', __(''))
-
 <x-layouts.app :title="__('')">
     @push('styles')
         <link href="https://unpkg.com/tabulator-tables@5.6.0/dist/css/tabulator.min.css" rel="stylesheet">
@@ -17,6 +16,13 @@
 
             .tabulator-cell {
                 font-size: 14px;
+                white-space: normal !important;
+                word-wrap: break-word;
+            }
+
+            .tabulator .tabulator-cell {
+                white-space: normal !important;
+                word-wrap: break-word;
             }
 
             .card {
@@ -121,7 +127,7 @@
     <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-                <h5 class="card-title mb-3 mb-md-0">Status PLO PTG</h5>
+                <h5 class="card-title mb-3 mb-md-0">Availability SAKA</h5>
                 <div class="d-flex">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
@@ -176,7 +182,7 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Tambah Target PTG</h3>
+            <h3>Tambah Data Availability SAKA</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
 
@@ -186,83 +192,40 @@
                 </div>
 
                 <div>
-                    <label>Nomor PLO</label>
-                    <input type="text" name="nomor_plo" id="nomor_plo" required>
-                </div>
-
-                <div>
                     <label>Company</label>
                     <input type="text" name="company" id="company">
                 </div>
 
                 <div>
-                    <label>Area</label>
-                    <input type="text" name="area" id="area">
+                    <label>Kategori</label>
+                    <input type="text" name="kategori" id="kategori">
                 </div>
 
                 <div>
-                    <label>Lokasi</label>
-                    <input type="text" name="lokasi" id="lokasi">
+                    <label>Target</label>
+                    <input type="number" name="target" id="target" step="0.01" min="0" max="100">
+
                 </div>
 
                 <div>
-                    <label>Nama Aset</label>
-                    <input type="text" name="nama_aset" id="nama_aset">
+                    <label>Availability</label>
+                    <input type="number" name="availability" id="availability" step="0.01" min="0"
+                        max="100">
                 </div>
 
                 <div>
-                    <label>Tanggal Pengesahan</label>
-                    <input type="date" name="tanggal_pengesahan" id="tanggal_pengesahan" required>
-                </div>
-
-                <div>
-                    <label>Masa Berlaku</label>
-                    <input type="date" name="masa_berlaku" id="masa_berlaku" required>
-                </div>
-
-                <div>
-                    <label>Keterangan</label>
-                    <input type="text" name="keterangan" id="keterangan">
-                </div>
-
-                <div>
-                    <label>Belum Proses</label>
-                    <input type="text" name="belum_proses" id="belum_proses">
-                </div>
-
-                <div>
-                    <label>Pre-Inspection</label>
-                    <input type="text" name="pre_inspection" id="pre_inspection">
-                </div>
-
-                <div>
-                    <label>Inspection</label>
-                    <input type="text" name="inspection" id="inspection">
-                </div>
-
-                <div>
-                    <label>COI Peralatan</label>
-                    <input type="text" name="coi_peralatan" id="coi_peralatan">
-                </div>
-
-                <div>
-                    <label>BA PK</label>
-                    <input type="text" name="ba_pk" id="ba_pk">
-                </div>
-
-                <div>
-                    <label>Penerbitan PLO (Valid)</label>
-                    <input type="text" name="penerbitan_plo_valid" id="penerbitan_plo_valid">
+                    <label>Isu / Problem / Bad Actor</label>
+                    <input type="text" name="isu" id="isu"></input>
                 </div>
 
                 <div>
                     <label>Kendala</label>
-                    <input type="text" name="kendala" id="kendala">
+                    <input type="text" name="kendala" id="kendala"></input>
                 </div>
 
                 <div>
                     <label>Tindak Lanjut</label>
-                    <input type="text" name="tindak_lanjut" id="tindak_lanjut">
+                    <input type="text" name="tindak_lanjut" id="tindak_lanjut"></input>
                 </div>
 
                 <button type="submit" class="btn btn-success">Submit</button>
@@ -272,26 +235,11 @@
 
     @push('scripts')
         <script src="https://unpkg.com/tabulator-tables@5.6.0/dist/js/tabulator.min.js"></script>
+
         <script>
-            const pengesahanInput = document.getElementById('tanggal_pengesahan');
-            const berlakuInput = document.getElementById('masa_berlaku');
-
-            function validateDates() {
-                const pengesahan = new Date(pengesahanInput.value);
-                const berlaku = new Date(berlakuInput.value);
-
-                if (berlaku <= pengesahan) {
-                    alert("Tanggal Masa Berlaku harus lebih dari Tanggal Pengesahan!");
-                    berlakuInput.value = '';
-                }
-            }
-
-            pengesahanInput.addEventListener('change', validateDates);
-            berlakuInput.addEventListener('change', validateDates);
-
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
-                    fetch(`status-plo-ptg/${id}`, {
+                    fetch(`availability-saka/${id}`, {
                             method: "DELETE",
                             headers: {
                                 "Accept": "application/json",
@@ -319,72 +267,27 @@
                             value: keyword
                         },
                         {
-                            field: "nomor_plo",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
                             field: "company",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "area",
+                            field: "kategori",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "lokasi",
+                            field: "target",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "nama_aset",
+                            field: "availability",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "tanggal_pengesahan",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "masa_berlaku",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "keterangan",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "belum_proses",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "pre_inspection",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "inspection",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "coi_peralatan",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "ba_pk",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "penerbitan_plo_valid",
+                            field: "isu",
                             type: "like",
                             value: keyword
                         },
@@ -407,8 +310,9 @@
                 table.clearFilter();
             }
 
+
             function loadData() {
-                fetch("/monev/shg/input-data/status-plo-ptg/data", {
+                fetch("/monev/shg/input-data/availability-saka/data", {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -419,21 +323,12 @@
             }
 
             document.addEventListener("DOMContentLoaded", function() {
-
                 const columnMap = {
-                    "status-plo-ptg": [{
+                    "availability-saka": [{
                             title: "No",
-                            formatter: function(cell, formatterParams, onRendered) {
-                                const row = cell.getRow();
-                                const table = row.getTable();
-                                const page = table.getPage();
-                                const pageSize = table.getPageSize();
-                                const rowIndex = row.getPosition();
-                                return (page - 1) * pageSize + rowIndex + 1;
-                            },
+                            formatter: "rownum",
                             hozAlign: "center",
-                            width: 60,
-                            frozen: true
+                            width: 60
                         },
                         {
                             title: "ID",
@@ -446,81 +341,41 @@
                             editor: "input"
                         },
                         {
-                            title: "Nomor PLO",
-                            field: "nomor_plo",
-                            editor: "input",
-                            width: 250
-                        },
-                        {
                             title: "Company",
                             field: "company",
-                            editor: "input"
-                        },
-                        {
-                            title: "Area",
-                            field: "area",
-                            editor: "input"
-                        },
-                        {
-                            title: "Lokasi",
-                            field: "lokasi",
-                            editor: "input"
-                        },
-                        {
-                            title: "Nama Aset",
-                            field: "nama_aset",
-                            editor: "input"
-                        },
-                        {
-                            title: "Tanggal Pengesahan",
-                            field: "tanggal_pengesahan",
-                            editor: "input",
                             hozAlign: "center",
+                            editor: "input"
                         },
                         {
-                            title: "Masa Berlaku",
-                            field: "masa_berlaku",
-                            editor: "input",
+                            title: "Kategori",
+                            field: "kategori",
+                            editor: "input"
+                        },
+                        {
+                            title: "Target",
+                            field: "target",
+                            editor: "number",
                             hozAlign: "center",
+                            formatter: function(cell) {
+                                let value = parseFloat(cell.getValue());
+                                return isNaN(value) ? "-" : value.toFixed(2) + " %";
+                            }
                         },
                         {
-                            title: "Keterangan",
-                            field: "keterangan",
-                            editor: "input"
-                        },
-                        {
-                            title: "Belum Proses",
-                            field: "belum_proses",
+                            title: "Availability",
+                            field: "availability",
                             editor: "number",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "Pre-Inspection",
-                            field: "pre_inspection",
-                            editor: "number",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "Inspection",
-                            field: "inspection",
-                            editor: "number",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "COI Peralatan",
-                            field: "coi_peralatan",
-                            editor: "input"
-                        },
-                        {
-                            title: "BA PK",
-                            field: "ba_pk",
-                            editor: "input"
-                        },
-                        {
-                            title: "Penerbitan PLO (Valid)",
-                            field: "penerbitan_plo_valid",
-                            editor: "input",
                             hozAlign: "center",
+                            formatter: function(cell) {
+                                let value = parseFloat(cell.getValue());
+                                return isNaN(value) ? "-" : value.toFixed(2) + " %";
+                            }
+                        },
+                        {
+                            title: "Isu / Problem / Bad Actor",
+                            field: "isu",
+                            editor: "textarea",
+                            width: 400
                         },
                         {
                             title: "Kendala",
@@ -548,7 +403,7 @@
                     layout: "fitDataTable",
                     responsiveLayout: "collapse",
                     autoResize: true,
-                    columns: columnMap["status-plo-ptg"],
+                    columns: columnMap["availability-saka"],
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -580,30 +435,6 @@
                         editor: "input",
                         resizable: "header",
                     },
-                    rowFormatter: function(row) {
-                        row.reformat();
-                    },
-                });
-
-                table.on("cellEdited", function(cell) {
-                    const updatedData = cell.getRow().getData();
-                    const id = updatedData.id;
-
-                    if (!id) return;
-
-                    fetch(`status-plo-ptg/${id}`, {
-                            method: "PUT",
-                            headers: {
-                                "Content-Type": "application/json",
-                                "Accept": "application/json",
-                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
-                                    .getAttribute("content")
-                            },
-                            body: JSON.stringify(updatedData)
-                        })
-                        .then(res => res.json())
-                        .then(data => console.log("Update berhasil:", data))
-                        .catch(err => console.error("Gagal update:", err));
                 });
 
                 let previousData = [];
@@ -631,7 +462,15 @@
                     console.log("Baris yang berubah:", changedRows);
 
                     changedRows.forEach(rowData => {
-                        fetch(`status-plo-ptg/${rowData.id}`, {
+                        if (rowData.target !== undefined && typeof rowData.target === "string") {
+                            rowData.target = parseFloat(rowData.target.replace("%", "").trim());
+                        }
+                        if (rowData.availability !== undefined && typeof rowData.availability ===
+                            "string") {
+                            rowData.availability = parseFloat(rowData.availability.replace("%", "")
+                                .trim());
+                        }
+                        fetch(`availability-saka/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
                                     "Content-Type": "application/json",
@@ -652,11 +491,32 @@
 
                     previousData = JSON.parse(JSON.stringify(newData));
                 });
+
+                table.on("cellEdited", function(cell) {
+                    const updatedData = cell.getRow().getData();
+                    const id = updatedData.id;
+
+                    if (!id) return;
+
+                    fetch(`availability-saka/${id}`, {
+                            method: "PUT",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute("content")
+                            },
+                            body: JSON.stringify(updatedData)
+                        })
+                        .then(res => res.json())
+                        .then(data => console.log("Update berhasil:", data))
+                        .catch(err => console.error("Gagal update:", err));
+                });
                 loadData();
             });
         </script>
 
-        {{-- create data and create  --}}
+        {{-- create data  --}}
         <script>
             function openModal() {
                 document.getElementById("createModal").style.display = "block";
@@ -673,77 +533,42 @@
 
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
-                console.log("Data submitted:", data);
 
-                const id = document.getElementById("form-id").value;
-                const periode = document.getElementById("periode").value;
-                const nomorPlo = document.getElementById("nomor_plo").value;
-                const company = document.getElementById("company").value;
-                const area = document.getElementById("area").value;
-                const lokasi = document.getElementById("lokasi").value;
-                const namaAset = document.getElementById("nama_aset").value;
-                const tanggalPengesahan = document.getElementById("tanggal_pengesahan").value;
-                const masaBerlaku = document.getElementById("masa_berlaku").value;
-                const keterangan = document.getElementById("keterangan").value;
-                const belumProses = document.getElementById("belum_proses").value;
-                const preInspection = document.getElementById("pre_inspection").value;
-                const inspection = document.getElementById("inspection").value;
-                const coiPeralatan = document.getElementById("coi_peralatan").value;
-                const baPk = document.getElementById("ba_pk").value;
-                const penerbitanPloValid = document.getElementById("penerbitan_plo_valid").value;
-                const kendala = document.getElementById("kendala").value;
-                const tindakLanjut = document.getElementById("tindak_lanjut").value;
-
-                const method = id ? "PUT" : "POST";
-                const url = id ? `status-plo-ptg/${id}` : "status-plo-ptg";
-
-                fetch(url, {
-                        method: method,
+                fetch("availability-saka", {
+                        method: "POST",
                         headers: {
                             "Content-Type": "application/json",
                             "Accept": "application/json",
                             "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute(
                                 "content")
                         },
+
                         body: JSON.stringify({
-                            id: id,
-                            periode: periode,
-                            nomor_plo: nomorPlo,
-                            company: company,
-                            area: area,
-                            lokasi: lokasi,
-                            nama_aset: namaAset,
-                            tanggal_pengesahan: tanggalPengesahan,
-                            masa_berlaku: masaBerlaku,
-                            keterangan: keterangan,
-                            belum_proses: belumProses,
-                            pre_inspection: preInspection,
-                            inspection: inspection,
-                            coi_peralatan: coiPeralatan,
-                            ba_pk: baPk,
-                            penerbitan_plo_valid: penerbitanPloValid,
-                            kendala: kendala,
-                            tindak_lanjut: tindakLanjut
+                            periode: data.periode,
+                            company: data.company,
+                            kategori: data.kategori || null,
+                            target: data.target || null,
+                            availability: data.availability || null,
+                            isu: data.isu || null,
+                            kendala: data.kendala || null,
+                            tindak_lanjut: data.tindak_lanjut || null,
                         })
+
                     })
                     .then(response => response.json())
                     .then(result => {
                         if (result.success) {
-                            alert(result.message);
-                            // table.addRow([result.data]);
-                            table.setData("/monev/shg/input-data/status-plo-ptg/data");
+                            alert(result.message || "Data berhasil disimpan");
+                            table.setData("/monev/shg/input-data/availability-saka/data");
                             this.reset();
+                            closeModal();
                         } else {
-                            alert('Gagal menyimpan data');
+                            alert("Gagal menyimpan data");
                         }
                     })
                     .catch(error => {
-                        console.error("Error submitting data:", error);
-                        alert('Terjadi kesalahan saat mengirim data.');
-                    })
-                    .finally(() => {
-                        closeModal();
-                        this.reset();
+                        console.error("Error saat submit:", error);
+                        alert("Terjadi kesalahan saat mengirim data.");
                     });
             });
         </script>
@@ -783,6 +608,7 @@
                     });
                 });
 
+                // Ketika halaman reload setelah klik, cek dan scroll otomatis
                 if (sessionStorage.getItem('scrollToActiveTab') === 'yes') {
                     scrollToActiveTab();
                     sessionStorage.removeItem('scrollToActiveTab');
@@ -790,5 +616,4 @@
             });
         </script>
     @endpush
-
 </x-layouts.app>

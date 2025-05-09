@@ -1,5 +1,4 @@
 @section('title', __(''))
-
 <x-layouts.app :title="__('')">
     @push('styles')
         <link href="https://unpkg.com/tabulator-tables@5.6.0/dist/css/tabulator.min.css" rel="stylesheet">
@@ -17,6 +16,11 @@
 
             .tabulator-cell {
                 font-size: 14px;
+            }
+
+            .tabulator .tabulator-cell {
+                white-space: normal !important;
+                word-wrap: break-word;
             }
 
             .card {
@@ -121,7 +125,7 @@
     <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-                <h5 class="card-title mb-3 mb-md-0">Status PLO PTG</h5>
+                <h5 class="card-title mb-3 mb-md-0">Status Asset 2025 AI NR</h5>
                 <div class="d-flex">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
@@ -176,7 +180,7 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Tambah Target PTG</h3>
+            <h3>Create New Data NR</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
 
@@ -186,112 +190,129 @@
                 </div>
 
                 <div>
-                    <label>Nomor PLO</label>
-                    <input type="text" name="nomor_plo" id="nomor_plo" required>
+                    <label>Subholding</label>
+                    <input type="text" name="subholding" id="subholding" required>
+                </div>
+
+                <label for="company">Company:</label>
+                <select name="company" id="company" required class="form-select">
+                    <option value="">-- Pilih Company --</option>
+                    @foreach ($companies as $company)
+                        <option value="{{ $company }}">{{ $company }}</option>
+                    @endforeach
+                </select>
+
+                <div>
+                    <label>Unit</label>
+                    <input type="text" name="unit" id="unit" required>
                 </div>
 
                 <div>
-                    <label>Company</label>
-                    <input type="text" name="company" id="company">
+                    <label>Asset Group</label>
+                    <input type="text" name="asset_group" id="asset_group" required>
                 </div>
 
                 <div>
-                    <label>Area</label>
-                    <input type="text" name="area" id="area">
+                    <label>Jumlah</label>
+                    <input type="number" name="jumlah" id="jumlah" step="0.01">
+                </div>
+
+                <!-- SECE -->
+                <h4>SECE</h4>
+                <div><label>Low Integrity - Breakdown</label><input type="number" id="sece_low_integrity_breakdown"
+                        step="0.01">
+                </div>
+                <div><label>Medium - Due Date Inspection</label><input type="number"
+                        id="sece_medium_due_date_inspection" step="0.01"></div>
+                <div><label>Medium - Low Condition</label><input type="number" id="sece_medium_low_condition"
+                        step="0.01"></div>
+                <div><label>Medium - Low Performance</label><input type="number" id="sece_medium_low_performance"
+                        step="0.01">
+                </div>
+                <div><label>High Integrity</label><input type="number" id="sece_high_integrity" step="0.01"></div>
+
+                <!-- PCE -->
+                <h4>PCE</h4>
+                <div><label>Low Integrity - Breakdown</label><input type="number" id="pce_low_integrity_breakdown"
+                        step="0.01">
+                </div>
+                <div><label>Medium - Due Date Inspection</label><input type="number"
+                        id="pce_medium_due_date_inspection" step="0.01"></div>
+                <div><label>Medium - Low Condition</label><input type="number" id="pce_medium_low_condition"
+                        step="0.01"></div>
+                <div><label>Medium - Low Performance</label><input type="number" id="pce_medium_low_performance"
+                        step="0.01"></div>
+                <div><label>High Integrity</label><input type="number" id="pce_high_integrity" step="0.01"></div>
+
+                <!-- IMPORTANT -->
+                <h4>IMPORTANT</h4>
+                <div><label>Low Integrity - Breakdown</label><input type="number"
+                        id="important_low_integrity_breakdown" step="0.01"></div>
+                <div><label>Medium - Due Date Inspection</label><input type="number"
+                        id="important_medium_due_date_inspection" step="0.01"></div>
+                <div><label>Medium - Low Condition</label><input type="number" id="important_medium_low_condition"
+                        step="0.01">
+                </div>
+                <div><label>Medium - Low Performance</label><input type="number"
+                        id="important_medium_low_performance" step="0.01">
+                </div>
+                <div><label>High Integrity</label><input type="number" id="important_high_integrity" step="0.01">
+                </div>
+
+                <!-- SECONDARY -->
+                <h4>SECONDARY</h4>
+                <div><label>Low Integrity - Breakdown</label><input type="number"
+                        id="secondary_low_integrity_breakdown" step="0.01"></div>
+                <div><label>Medium - Due Date Inspection</label><input type="number"
+                        id="secondary_medium_due_date_inspection" step="0.01"></div>
+                <div><label>Medium - Low Condition</label><input type="number" id="secondary_medium_low_condition"
+                        step="0.01">
+                </div>
+                <div><label>Medium - Low Performance</label><input type="number"
+                        id="secondary_medium_low_performance" step="0.01">
+                </div>
+                <div><label>High Integrity</label><input type="number" id="secondary_high_integrity" step="0.01">
+                </div>
+
+                <!-- Tambahan Informasi -->
+                <div>
+                    <label>Kegiatan Penurunan Low</label>
+                    <input type="text" id="kegiatan_penurunan_low">
                 </div>
 
                 <div>
-                    <label>Lokasi</label>
-                    <input type="text" name="lokasi" id="lokasi">
+                    <label>Kegiatan Penurunan Med</label>
+                    <input type="text" id="kegiatan_penurunan_med">
                 </div>
 
                 <div>
-                    <label>Nama Aset</label>
-                    <input type="text" name="nama_aset" id="nama_aset">
+                    <label>Informasi Penyebab Low Integrity</label>
+                    <input id="informasi_penyebab_low_integrity"></input>
                 </div>
 
                 <div>
-                    <label>Tanggal Pengesahan</label>
-                    <input type="date" name="tanggal_pengesahan" id="tanggal_pengesahan" required>
+                    <label>Informasi Penambahan Jumlah Aset</label>
+                    <input id="informasi_penambahan_jumlah_aset"></input>
                 </div>
 
                 <div>
-                    <label>Masa Berlaku</label>
-                    <input type="date" name="masa_berlaku" id="masa_berlaku" required>
-                </div>
-
-                <div>
-                    <label>Keterangan</label>
-                    <input type="text" name="keterangan" id="keterangan">
-                </div>
-
-                <div>
-                    <label>Belum Proses</label>
-                    <input type="text" name="belum_proses" id="belum_proses">
-                </div>
-
-                <div>
-                    <label>Pre-Inspection</label>
-                    <input type="text" name="pre_inspection" id="pre_inspection">
-                </div>
-
-                <div>
-                    <label>Inspection</label>
-                    <input type="text" name="inspection" id="inspection">
-                </div>
-
-                <div>
-                    <label>COI Peralatan</label>
-                    <input type="text" name="coi_peralatan" id="coi_peralatan">
-                </div>
-
-                <div>
-                    <label>BA PK</label>
-                    <input type="text" name="ba_pk" id="ba_pk">
-                </div>
-
-                <div>
-                    <label>Penerbitan PLO (Valid)</label>
-                    <input type="text" name="penerbitan_plo_valid" id="penerbitan_plo_valid">
-                </div>
-
-                <div>
-                    <label>Kendala</label>
-                    <input type="text" name="kendala" id="kendala">
-                </div>
-
-                <div>
-                    <label>Tindak Lanjut</label>
-                    <input type="text" name="tindak_lanjut" id="tindak_lanjut">
+                    <label>Informasi Naik Turun Low Integrity</label>
+                    <input id="informasi_naik_turun_low_integrity"></input>
                 </div>
 
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
+
         </div>
     </div>
 
     @push('scripts')
         <script src="https://unpkg.com/tabulator-tables@5.6.0/dist/js/tabulator.min.js"></script>
+
         <script>
-            const pengesahanInput = document.getElementById('tanggal_pengesahan');
-            const berlakuInput = document.getElementById('masa_berlaku');
-
-            function validateDates() {
-                const pengesahan = new Date(pengesahanInput.value);
-                const berlaku = new Date(berlakuInput.value);
-
-                if (berlaku <= pengesahan) {
-                    alert("Tanggal Masa Berlaku harus lebih dari Tanggal Pengesahan!");
-                    berlakuInput.value = '';
-                }
-            }
-
-            pengesahanInput.addEventListener('change', validateDates);
-            berlakuInput.addEventListener('change', validateDates);
-
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
-                    fetch(`status-plo-ptg/${id}`, {
+                    fetch(`nusantara-regas/${id}`, {
                             method: "DELETE",
                             headers: {
                                 "Accept": "application/json",
@@ -319,7 +340,7 @@
                             value: keyword
                         },
                         {
-                            field: "nomor_plo",
+                            field: "subholding",
                             type: "like",
                             value: keyword
                         },
@@ -329,75 +350,45 @@
                             value: keyword
                         },
                         {
-                            field: "area",
+                            field: "unit",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "lokasi",
+                            field: "asset_group",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "nama_aset",
+                            field: "jumlah",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "tanggal_pengesahan",
+                            field: "kegiatan_penurunan_low",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "masa_berlaku",
+                            field: "kegiatan_penurunan_med",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "keterangan",
+                            field: "informasi_penyebab_low",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "belum_proses",
+                            field: "informasi_penambahan_jumlah_aset",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "pre_inspection",
+                            field: "informasi_naik_turun_low",
                             type: "like",
                             value: keyword
                         },
-                        {
-                            field: "inspection",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "coi_peralatan",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "ba_pk",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "penerbitan_plo_valid",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "kendala",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "tindak_lanjut",
-                            type: "like",
-                            value: keyword
-                        }
                     ]
                 ]);
             });
@@ -408,7 +399,7 @@
             }
 
             function loadData() {
-                fetch("/monev/shg/input-data/status-plo-ptg/data", {
+                fetch("/monev/shg/input-data/nusantara-regas/data", {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -419,21 +410,12 @@
             }
 
             document.addEventListener("DOMContentLoaded", function() {
-
                 const columnMap = {
-                    "status-plo-ptg": [{
+                    "nusantara-regas": [{
                             title: "No",
-                            formatter: function(cell, formatterParams, onRendered) {
-                                const row = cell.getRow();
-                                const table = row.getTable();
-                                const page = table.getPage();
-                                const pageSize = table.getPageSize();
-                                const rowIndex = row.getPosition();
-                                return (page - 1) * pageSize + rowIndex + 1;
-                            },
+                            formatter: "rownum",
                             hozAlign: "center",
-                            width: 60,
-                            frozen: true
+                            width: 60
                         },
                         {
                             title: "ID",
@@ -446,10 +428,9 @@
                             editor: "input"
                         },
                         {
-                            title: "Nomor PLO",
-                            field: "nomor_plo",
-                            editor: "input",
-                            width: 250
+                            title: "Subholding",
+                            field: "subholding",
+                            editor: "input"
                         },
                         {
                             title: "Company",
@@ -457,80 +438,167 @@
                             editor: "input"
                         },
                         {
-                            title: "Area",
-                            field: "area",
+                            title: "Unit",
+                            field: "unit",
                             editor: "input"
                         },
                         {
-                            title: "Lokasi",
-                            field: "lokasi",
+                            title: "Asset Group",
+                            field: "asset_group",
                             editor: "input"
                         },
                         {
-                            title: "Nama Aset",
-                            field: "nama_aset",
-                            editor: "input"
-                        },
-                        {
-                            title: "Tanggal Pengesahan",
-                            field: "tanggal_pengesahan",
-                            editor: "input",
-                            hozAlign: "center",
-                        },
-                        {
-                            title: "Masa Berlaku",
-                            field: "masa_berlaku",
-                            editor: "input",
-                            hozAlign: "center",
-                        },
-                        {
-                            title: "Keterangan",
-                            field: "keterangan",
-                            editor: "input"
-                        },
-                        {
-                            title: "Belum Proses",
-                            field: "belum_proses",
+                            title: "Jumlah",
+                            field: "jumlah",
                             editor: "number",
                             hozAlign: "center"
                         },
                         {
-                            title: "Pre-Inspection",
-                            field: "pre_inspection",
+                            title: "SECE Low Integrity - Breakdown",
+                            field: "sece_low_integrity_breakdown",
                             editor: "number",
                             hozAlign: "center"
                         },
                         {
-                            title: "Inspection",
-                            field: "inspection",
+                            title: "SECE Medium Integrity - Due Date Inspection",
+                            field: "sece_medium_due_date_inspection",
                             editor: "number",
                             hozAlign: "center"
                         },
                         {
-                            title: "COI Peralatan",
-                            field: "coi_peralatan",
+                            title: "SECE Medium Integrity - Low Condition",
+                            field: "sece_medium_low_condition",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "SECE Medium Integrity - Low Performance",
+                            field: "sece_medium_low_performance",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "SECE High Integrity",
+                            field: "sece_high_integrity",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "PCE Low Integrity - Breakdown",
+                            field: "pce_low_integrity_breakdown",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "PCE Medium Integrity - Due Date Inspection",
+                            field: "pce_medium_due_date_inspection",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "PCE Medium Integrity - Low Condition",
+                            field: "pce_medium_low_condition",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "PCE Medium Integrity - Low Performance",
+                            field: "pce_medium_low_performance",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "PCE High Integrity",
+                            field: "pce_high_integrity",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "IMPORTANT Low Integrity - Breakdown",
+                            field: "important_low_integrity_breakdown",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "IMPORTANT Medium Integrity - Due Date Inspection",
+                            field: "important_medium_due_date_inspection",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "IMPORTANT Medium Integrity - Low Condition",
+                            field: "important_medium_low_condition",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "IMPORTANT Medium Integrity - Low Performance",
+                            field: "important_medium_low_performance",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "IMPORTANT High Integrity",
+                            field: "important_high_integrity",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "SECONDARY Low Integrity - Breakdown",
+                            field: "secondary_low_integrity_breakdown",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "SECONDARY Medium Integrity - Due Date Inspection",
+                            field: "secondary_medium_due_date_inspection",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "SECONDARY Medium Integrity - Low Condition",
+                            field: "secondary_medium_low_condition",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "SECONDARY Medium Integrity - Low Performance",
+                            field: "secondary_medium_low_performance",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "SECONDARY High Integrity",
+                            field: "secondary_high_integrity",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Kegiatan Penurunan Low",
+                            field: "kegiatan_penurunan_low",
                             editor: "input"
                         },
                         {
-                            title: "BA PK",
-                            field: "ba_pk",
+                            title: "Kegiatan Penurunan Med",
+                            field: "kegiatan_penurunan_med",
                             editor: "input"
                         },
                         {
-                            title: "Penerbitan PLO (Valid)",
-                            field: "penerbitan_plo_valid",
+                            title: "Informasi Penyebab Low Integrity",
+                            field: "informasi_penyebab_low_integrity",
                             editor: "input",
-                            hozAlign: "center",
+                            width: 450
                         },
                         {
-                            title: "Kendala",
-                            field: "kendala",
+                            title: "Informasi Penambahan Jumlah Aset",
+                            field: "informasi_penambahan_jumlah_aset",
                             editor: "input"
                         },
                         {
-                            title: "Tindak Lanjut",
-                            field: "tindak_lanjut",
-                            editor: "input"
+                            title: "Informasi Naik Turun low Integrity",
+                            field: "informasi_naik_turun_low_integrity",
+                            editor: "input",
+                            width: 450
                         },
                         {
                             title: "Aksi",
@@ -548,7 +616,7 @@
                     layout: "fitDataTable",
                     responsiveLayout: "collapse",
                     autoResize: true,
-                    columns: columnMap["status-plo-ptg"],
+                    columns: columnMap["nusantara-regas"],
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -580,9 +648,6 @@
                         editor: "input",
                         resizable: "header",
                     },
-                    rowFormatter: function(row) {
-                        row.reformat();
-                    },
                 });
 
                 table.on("cellEdited", function(cell) {
@@ -591,7 +656,7 @@
 
                     if (!id) return;
 
-                    fetch(`status-plo-ptg/${id}`, {
+                    fetch(`nusantara-regas/${id}`, {
                             method: "PUT",
                             headers: {
                                 "Content-Type": "application/json",
@@ -631,7 +696,7 @@
                     console.log("Baris yang berubah:", changedRows);
 
                     changedRows.forEach(rowData => {
-                        fetch(`status-plo-ptg/${rowData.id}`, {
+                        fetch(`nusantara-regas/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
                                     "Content-Type": "application/json",
@@ -656,7 +721,7 @@
             });
         </script>
 
-        {{-- create data and create  --}}
+        {{-- create and update data --}}
         <script>
             function openModal() {
                 document.getElementById("createModal").style.display = "block";
@@ -673,32 +738,9 @@
 
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
-                console.log("Data submitted:", data);
 
-                const id = document.getElementById("form-id").value;
-                const periode = document.getElementById("periode").value;
-                const nomorPlo = document.getElementById("nomor_plo").value;
-                const company = document.getElementById("company").value;
-                const area = document.getElementById("area").value;
-                const lokasi = document.getElementById("lokasi").value;
-                const namaAset = document.getElementById("nama_aset").value;
-                const tanggalPengesahan = document.getElementById("tanggal_pengesahan").value;
-                const masaBerlaku = document.getElementById("masa_berlaku").value;
-                const keterangan = document.getElementById("keterangan").value;
-                const belumProses = document.getElementById("belum_proses").value;
-                const preInspection = document.getElementById("pre_inspection").value;
-                const inspection = document.getElementById("inspection").value;
-                const coiPeralatan = document.getElementById("coi_peralatan").value;
-                const baPk = document.getElementById("ba_pk").value;
-                const penerbitanPloValid = document.getElementById("penerbitan_plo_valid").value;
-                const kendala = document.getElementById("kendala").value;
-                const tindakLanjut = document.getElementById("tindak_lanjut").value;
-
-                const method = id ? "PUT" : "POST";
-                const url = id ? `status-plo-ptg/${id}` : "status-plo-ptg";
-
-                fetch(url, {
-                        method: method,
+                fetch("nusantara-regas", {
+                        method: "POST",
                         headers: {
                             "Content-Type": "application/json",
                             "Accept": "application/json",
@@ -706,44 +748,53 @@
                                 "content")
                         },
                         body: JSON.stringify({
-                            id: id,
-                            periode: periode,
-                            nomor_plo: nomorPlo,
-                            company: company,
-                            area: area,
-                            lokasi: lokasi,
-                            nama_aset: namaAset,
-                            tanggal_pengesahan: tanggalPengesahan,
-                            masa_berlaku: masaBerlaku,
-                            keterangan: keterangan,
-                            belum_proses: belumProses,
-                            pre_inspection: preInspection,
-                            inspection: inspection,
-                            coi_peralatan: coiPeralatan,
-                            ba_pk: baPk,
-                            penerbitan_plo_valid: penerbitanPloValid,
-                            kendala: kendala,
-                            tindak_lanjut: tindakLanjut
+                            periode: data.periode,
+                            subholding: data.subholding,
+                            company: data.company,
+                            unit: data.unit,
+                            asset_group: data.asset_group,
+                            jumlah: data.jumlah,
+                            sece_low_breakdown: data.sece_low_breakdown,
+                            sece_medium_due_date_inspection: data.sece_medium_due_date_inspection,
+                            sece_medium_low_condition: data.sece_medium_low_condition,
+                            sece_medium_low_performance: data.sece_medium_low_performance,
+                            sece_high: data.sece_high,
+                            pce_low_breakdown: data.pce_low_breakdown,
+                            pce_medium_due_date_inspection: data.pce_medium_due_date_inspection,
+                            pce_medium_low_condition: data.pce_medium_low_condition,
+                            pce_medium_low_performance: data.pce_medium_low_performance,
+                            pce_high: data.pce_high,
+                            important_low_breakdown: data.important_low_breakdown,
+                            important_medium_due_date_inspection: data.important_medium_due_date_inspection,
+                            important_medium_low_condition: data.important_medium_low_condition,
+                            important_medium_low_performance: data.important_medium_low_performance,
+                            important_high: data.important_high,
+                            secondary_low_breakdown: data.secondary_low_breakdown,
+                            secondary_medium_due_date_inspection: data.secondary_medium_due_date_inspection,
+                            secondary_medium_low_condition: data.secondary_medium_low_condition,
+                            secondary_medium_low_performance: data.secondary_medium_low_performance,
+                            secondary_high: data.secondary_high,
+                            kegiatan_penurunan_low: data.kegiatan_penurunan_low,
+                            kegiatan_penurunan_med: data.kegiatan_penurunan_med,
+                            informasi_penyebab_low: data.informasi_penyebab_low,
+                            informasi_penambahan_jumlah_aset: data.informasi_penambahan_jumlah_aset,
+                            informasi_naik_turun_low: data.informasi_naik_turun_low
                         })
                     })
                     .then(response => response.json())
                     .then(result => {
                         if (result.success) {
-                            alert(result.message);
-                            // table.addRow([result.data]);
-                            table.setData("/monev/shg/input-data/status-plo-ptg/data");
+                            alert(result.message || "Data berhasil disimpan");
+                            table.setData("/monev/shg/input-data/nusantara-regas/data");
                             this.reset();
+                            closeModal();
                         } else {
-                            alert('Gagal menyimpan data');
+                            alert("Gagal menyimpan data");
                         }
                     })
                     .catch(error => {
-                        console.error("Error submitting data:", error);
-                        alert('Terjadi kesalahan saat mengirim data.');
-                    })
-                    .finally(() => {
-                        closeModal();
-                        this.reset();
+                        console.error("Error saat submit:", error);
+                        alert("Terjadi kesalahan saat mengirim data.");
                     });
             });
         </script>
@@ -790,5 +841,4 @@
             });
         </script>
     @endpush
-
 </x-layouts.app>

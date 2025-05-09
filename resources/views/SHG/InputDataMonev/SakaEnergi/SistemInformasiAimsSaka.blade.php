@@ -1,5 +1,4 @@
 @section('title', __(''))
-
 <x-layouts.app :title="__('')">
     @push('styles')
         <link href="https://unpkg.com/tabulator-tables@5.6.0/dist/css/tabulator.min.css" rel="stylesheet">
@@ -17,6 +16,11 @@
 
             .tabulator-cell {
                 font-size: 14px;
+            }
+
+            .tabulator .tabulator-cell {
+                white-space: normal !important;
+                word-wrap: break-word;
             }
 
             .card {
@@ -121,7 +125,7 @@
     <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-                <h5 class="card-title mb-3 mb-md-0">Status PLO PTG</h5>
+                <h5 class="card-title mb-3 mb-md-0">Sistem Informasi AIMS SAKA</h5>
                 <div class="d-flex">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
@@ -176,93 +180,73 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Tambah Target PTG</h3>
+            <h3>Tambah Sistem Informasi AIMS SAKA</h3>
             <form id="createForm">
+
                 <input type="hidden" name="id" id="form-id">
-
                 <div>
-                    <label>Periode</label>
-                    <input type="month" name="periode" id="periode" required>
+                    <label for="periode">Periode</label>
+                    <input type="month" id="periode" name="periode" required>
                 </div>
 
                 <div>
-                    <label>Nomor PLO</label>
-                    <input type="text" name="nomor_plo" id="nomor_plo" required>
+                    <label for="company">Company</label>
+                    <input type="text" id="company" name="company" required>
                 </div>
 
                 <div>
-                    <label>Company</label>
-                    <input type="text" name="company" id="company">
+                    <label for="jumlah_aset_operasi">Jumlah Aset Operasi</label>
+                    <input type="text" id="jumlah_aset_operasi" name="jumlah_aset_operasi">
                 </div>
 
                 <div>
-                    <label>Area</label>
-                    <input type="text" name="area" id="area">
+                    <label for="jumlah_aset_teregister">Jumlah Aset Teregister</label>
+                    <input type="text" id="jumlah_aset_teregister" name="jumlah_aset_teregister">
                 </div>
 
                 <div>
-                    <label>Lokasi</label>
-                    <input type="text" name="lokasi" id="lokasi">
+                    <label for="kendala_aset_register">Kendala Aset Register</label>
+                    <input id="kendala_aset_register" type="text" name="kendala_aset_register"></input>
                 </div>
 
                 <div>
-                    <label>Nama Aset</label>
-                    <input type="text" name="nama_aset" id="nama_aset">
+                    <label for="tindak_lanjut_aset_register">Tindak Lanjut Aset Register</label>
+                    <input id="tindak_lanjut_aset_register" type="text" name="tindak_lanjut_aset_register"></input>
                 </div>
 
                 <div>
-                    <label>Tanggal Pengesahan</label>
-                    <input type="date" name="tanggal_pengesahan" id="tanggal_pengesahan" required>
+                    <label for="sistem_informasi_aim">Sistem Informasi AIM</label>
+                    <input type="text" id="sistem_informasi_aim" name="sistem_informasi_aim">
                 </div>
 
                 <div>
-                    <label>Masa Berlaku</label>
-                    <input type="date" name="masa_berlaku" id="masa_berlaku" required>
+                    <label for="total_wo_comply">Total WO Comply</label>
+                    <input type="number" id="total_wo_comply" name="total_wo_comply">
                 </div>
 
                 <div>
-                    <label>Keterangan</label>
-                    <input type="text" name="keterangan" id="keterangan">
+                    <label for="total_wo_completed">Total WO Completed</label>
+                    <input type="number" id="total_wo_completed" name="total_wo_completed">
                 </div>
 
                 <div>
-                    <label>Belum Proses</label>
-                    <input type="text" name="belum_proses" id="belum_proses">
+                    <label for="total_wo_in_progress">Total WO In Progress</label>
+                    <input type="number" id="total_wo_in_progress" name="total_wo_in_progress">
                 </div>
 
                 <div>
-                    <label>Pre-Inspection</label>
-                    <input type="text" name="pre_inspection" id="pre_inspection">
+                    <label for="total_wo_backlog">Total WO Backlog</label>
+                    <input type="number" id="total_wo_backlog" name="total_wo_backlog">
                 </div>
 
                 <div>
-                    <label>Inspection</label>
-                    <input type="text" name="inspection" id="inspection">
+                    <label for="kendala">Kendala</label>
+                    <input id="kendala" type="text" name="kendala"></input>
                 </div>
 
                 <div>
-                    <label>COI Peralatan</label>
-                    <input type="text" name="coi_peralatan" id="coi_peralatan">
-                </div>
-
-                <div>
-                    <label>BA PK</label>
-                    <input type="text" name="ba_pk" id="ba_pk">
-                </div>
-
-                <div>
-                    <label>Penerbitan PLO (Valid)</label>
-                    <input type="text" name="penerbitan_plo_valid" id="penerbitan_plo_valid">
-                </div>
-
-                <div>
-                    <label>Kendala</label>
-                    <input type="text" name="kendala" id="kendala">
-                </div>
-
-                <div>
-                    <label>Tindak Lanjut</label>
-                    <input type="text" name="tindak_lanjut" id="tindak_lanjut">
+                    <label for="tindak_lanjut">Tindak Lanjut</label>
+                    <input id="tindak_lanjut" type="text" name="tindak_lanjut"></input>
                 </div>
 
                 <button type="submit" class="btn btn-success">Submit</button>
@@ -273,25 +257,9 @@
     @push('scripts')
         <script src="https://unpkg.com/tabulator-tables@5.6.0/dist/js/tabulator.min.js"></script>
         <script>
-            const pengesahanInput = document.getElementById('tanggal_pengesahan');
-            const berlakuInput = document.getElementById('masa_berlaku');
-
-            function validateDates() {
-                const pengesahan = new Date(pengesahanInput.value);
-                const berlaku = new Date(berlakuInput.value);
-
-                if (berlaku <= pengesahan) {
-                    alert("Tanggal Masa Berlaku harus lebih dari Tanggal Pengesahan!");
-                    berlakuInput.value = '';
-                }
-            }
-
-            pengesahanInput.addEventListener('change', validateDates);
-            berlakuInput.addEventListener('change', validateDates);
-
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
-                    fetch(`status-plo-ptg/${id}`, {
+                    fetch(`sistem-informasi-aims-saka/${id}`, {
                             method: "DELETE",
                             headers: {
                                 "Accept": "application/json",
@@ -319,72 +287,52 @@
                             value: keyword
                         },
                         {
-                            field: "nomor_plo",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
                             field: "company",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "area",
+                            field: "jumlah_aset_operasi",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "lokasi",
+                            field: "jumlah_aset_teregister",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "nama_aset",
+                            field: "kendala_aset_register",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "tanggal_pengesahan",
+                            field: "tindak_lanjut_aset_register",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "masa_berlaku",
+                            field: "sistem_informasi_aim",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "keterangan",
+                            field: "total_wo_comply",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "belum_proses",
+                            field: "total_wo_completed",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "pre_inspection",
+                            field: "total_wo_in_progress",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "inspection",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "coi_peralatan",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "ba_pk",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "penerbitan_plo_valid",
+                            field: "total_wo_backlog",
                             type: "like",
                             value: keyword
                         },
@@ -407,8 +355,9 @@
                 table.clearFilter();
             }
 
+
             function loadData() {
-                fetch("/monev/shg/input-data/status-plo-ptg/data", {
+                fetch("/monev/shg/input-data/sistem-informasi-aims-saka/data", {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -419,21 +368,12 @@
             }
 
             document.addEventListener("DOMContentLoaded", function() {
-
                 const columnMap = {
-                    "status-plo-ptg": [{
+                    "sistem-informasi-aims-saka": [{
                             title: "No",
-                            formatter: function(cell, formatterParams, onRendered) {
-                                const row = cell.getRow();
-                                const table = row.getTable();
-                                const page = table.getPage();
-                                const pageSize = table.getPageSize();
-                                const rowIndex = row.getPosition();
-                                return (page - 1) * pageSize + rowIndex + 1;
-                            },
+                            formatter: "rownum",
                             hozAlign: "center",
-                            width: 60,
-                            frozen: true
+                            width: 60
                         },
                         {
                             title: "ID",
@@ -446,91 +386,72 @@
                             editor: "input"
                         },
                         {
-                            title: "Nomor PLO",
-                            field: "nomor_plo",
-                            editor: "input",
-                            width: 250
-                        },
-                        {
                             title: "Company",
                             field: "company",
                             editor: "input"
                         },
                         {
-                            title: "Area",
-                            field: "area",
-                            editor: "input"
-                        },
-                        {
-                            title: "Lokasi",
-                            field: "lokasi",
-                            editor: "input"
-                        },
-                        {
-                            title: "Nama Aset",
-                            field: "nama_aset",
-                            editor: "input"
-                        },
-                        {
-                            title: "Tanggal Pengesahan",
-                            field: "tanggal_pengesahan",
+                            title: "Jumlah Aset Operasi",
+                            field: "jumlah_aset_operasi",
                             editor: "input",
-                            hozAlign: "center",
+                            hozAlign: "center"
                         },
                         {
-                            title: "Masa Berlaku",
-                            field: "masa_berlaku",
+                            title: "Jumlah Aset Teregister",
+                            field: "jumlah_aset_teregister",
                             editor: "input",
-                            hozAlign: "center",
+                            hozAlign: "center"
                         },
                         {
-                            title: "Keterangan",
-                            field: "keterangan",
+                            title: "Kendala Aset Register",
+                            field: "kendala_aset_register",
                             editor: "input"
                         },
                         {
-                            title: "Belum Proses",
-                            field: "belum_proses",
+                            title: "Tindak Lanjut Aset Register",
+                            field: "tindak_lanjut_aset_register",
+                            editor: "input"
+                        },
+                        {
+                            title: "Sistem Informasi AIM",
+                            field: "sistem_informasi_aim",
+                            editor: "input"
+                        },
+                        {
+                            title: "Total WO Comply",
+                            field: "total_wo_comply",
                             editor: "number",
                             hozAlign: "center"
                         },
                         {
-                            title: "Pre-Inspection",
-                            field: "pre_inspection",
+                            title: "Total WO Completed",
+                            field: "total_wo_completed",
                             editor: "number",
                             hozAlign: "center"
                         },
                         {
-                            title: "Inspection",
-                            field: "inspection",
+                            title: "Total WO In Progress",
+                            field: "total_wo_in_progress",
                             editor: "number",
                             hozAlign: "center"
                         },
                         {
-                            title: "COI Peralatan",
-                            field: "coi_peralatan",
-                            editor: "input"
-                        },
-                        {
-                            title: "BA PK",
-                            field: "ba_pk",
-                            editor: "input"
-                        },
-                        {
-                            title: "Penerbitan PLO (Valid)",
-                            field: "penerbitan_plo_valid",
-                            editor: "input",
-                            hozAlign: "center",
+                            title: "Total WO Backlog",
+                            field: "total_wo_backlog",
+                            editor: "number",
+                            hozAlign: "center"
                         },
                         {
                             title: "Kendala",
                             field: "kendala",
-                            editor: "input"
+                            editor: "input",
+                            width: 450
                         },
                         {
                             title: "Tindak Lanjut",
                             field: "tindak_lanjut",
-                            editor: "input"
+                            editor: "input",
+                            width: 400
                         },
                         {
                             title: "Aksi",
@@ -548,7 +469,7 @@
                     layout: "fitDataTable",
                     responsiveLayout: "collapse",
                     autoResize: true,
-                    columns: columnMap["status-plo-ptg"],
+                    columns: columnMap["sistem-informasi-aims-saka"],
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -580,10 +501,8 @@
                         editor: "input",
                         resizable: "header",
                     },
-                    rowFormatter: function(row) {
-                        row.reformat();
-                    },
                 });
+
 
                 table.on("cellEdited", function(cell) {
                     const updatedData = cell.getRow().getData();
@@ -591,7 +510,7 @@
 
                     if (!id) return;
 
-                    fetch(`status-plo-ptg/${id}`, {
+                    fetch(`sistem-informasi-aims-saka/${id}`, {
                             method: "PUT",
                             headers: {
                                 "Content-Type": "application/json",
@@ -602,7 +521,7 @@
                             body: JSON.stringify(updatedData)
                         })
                         .then(res => res.json())
-                        .then(data => console.log("Update berhasil:", data))
+                        .then(data => console.log("Berhasil update:", data))
                         .catch(err => console.error("Gagal update:", err));
                 });
 
@@ -631,7 +550,7 @@
                     console.log("Baris yang berubah:", changedRows);
 
                     changedRows.forEach(rowData => {
-                        fetch(`status-plo-ptg/${rowData.id}`, {
+                        fetch(`sistem-informasi-aims-saka/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
                                     "Content-Type": "application/json",
@@ -656,7 +575,7 @@
             });
         </script>
 
-        {{-- create data and create  --}}
+        {{-- create data  --}}
         <script>
             function openModal() {
                 document.getElementById("createModal").style.display = "block";
@@ -673,32 +592,9 @@
 
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
-                console.log("Data submitted:", data);
 
-                const id = document.getElementById("form-id").value;
-                const periode = document.getElementById("periode").value;
-                const nomorPlo = document.getElementById("nomor_plo").value;
-                const company = document.getElementById("company").value;
-                const area = document.getElementById("area").value;
-                const lokasi = document.getElementById("lokasi").value;
-                const namaAset = document.getElementById("nama_aset").value;
-                const tanggalPengesahan = document.getElementById("tanggal_pengesahan").value;
-                const masaBerlaku = document.getElementById("masa_berlaku").value;
-                const keterangan = document.getElementById("keterangan").value;
-                const belumProses = document.getElementById("belum_proses").value;
-                const preInspection = document.getElementById("pre_inspection").value;
-                const inspection = document.getElementById("inspection").value;
-                const coiPeralatan = document.getElementById("coi_peralatan").value;
-                const baPk = document.getElementById("ba_pk").value;
-                const penerbitanPloValid = document.getElementById("penerbitan_plo_valid").value;
-                const kendala = document.getElementById("kendala").value;
-                const tindakLanjut = document.getElementById("tindak_lanjut").value;
-
-                const method = id ? "PUT" : "POST";
-                const url = id ? `status-plo-ptg/${id}` : "status-plo-ptg";
-
-                fetch(url, {
-                        method: method,
+                fetch("sistem-informasi-aims-saka", {
+                        method: "POST",
                         headers: {
                             "Content-Type": "application/json",
                             "Accept": "application/json",
@@ -706,44 +602,35 @@
                                 "content")
                         },
                         body: JSON.stringify({
-                            id: id,
-                            periode: periode,
-                            nomor_plo: nomorPlo,
-                            company: company,
-                            area: area,
-                            lokasi: lokasi,
-                            nama_aset: namaAset,
-                            tanggal_pengesahan: tanggalPengesahan,
-                            masa_berlaku: masaBerlaku,
-                            keterangan: keterangan,
-                            belum_proses: belumProses,
-                            pre_inspection: preInspection,
-                            inspection: inspection,
-                            coi_peralatan: coiPeralatan,
-                            ba_pk: baPk,
-                            penerbitan_plo_valid: penerbitanPloValid,
-                            kendala: kendala,
-                            tindak_lanjut: tindakLanjut
+                            periode: data.periode,
+                            company: data.company,
+                            jumlah_aset_operasi: data.jumlah_aset_operasi,
+                            jumlah_aset_teregister: data.jumlah_aset_teregister,
+                            kendala_aset_register: data.kendala_aset_register,
+                            tindak_lanjut_aset_register: data.tindak_lanjut_aset_register,
+                            sistem_informasi_aim: data.sistem_informasi_aim,
+                            total_wo_comply: data.total_wo_comply,
+                            total_wo_completed: data.total_wo_completed,
+                            total_wo_in_progress: data.total_wo_in_progress,
+                            total_wo_backlog: data.total_wo_backlog,
+                            kendala: data.kendala,
+                            tindak_lanjut: data.tindak_lanjut
                         })
                     })
                     .then(response => response.json())
                     .then(result => {
                         if (result.success) {
-                            alert(result.message);
-                            // table.addRow([result.data]);
-                            table.setData("/monev/shg/input-data/status-plo-ptg/data");
+                            alert(result.message || "Data berhasil disimpan");
+                            table.setData("/monev/shg/input-data/sistem-informasi-aims-saka/data");
                             this.reset();
+                            closeModal();
                         } else {
-                            alert('Gagal menyimpan data');
+                            alert("Gagal menyimpan data");
                         }
                     })
                     .catch(error => {
-                        console.error("Error submitting data:", error);
-                        alert('Terjadi kesalahan saat mengirim data.');
-                    })
-                    .finally(() => {
-                        closeModal();
-                        this.reset();
+                        console.error("Error saat submit:", error);
+                        alert("Terjadi kesalahan saat mengirim data.");
                     });
             });
         </script>
@@ -783,6 +670,7 @@
                     });
                 });
 
+                // Ketika halaman reload setelah klik, cek dan scroll otomatis
                 if (sessionStorage.getItem('scrollToActiveTab') === 'yes') {
                     scrollToActiveTab();
                     sessionStorage.removeItem('scrollToActiveTab');
@@ -790,5 +678,4 @@
             });
         </script>
     @endpush
-
 </x-layouts.app>

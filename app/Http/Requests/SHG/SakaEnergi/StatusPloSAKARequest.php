@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\SHG\Pertamina;
+namespace App\Http\Requests\SHG\SakaEnergi;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StatusPloPtgRequest extends FormRequest
+class StatusPloSAKARequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

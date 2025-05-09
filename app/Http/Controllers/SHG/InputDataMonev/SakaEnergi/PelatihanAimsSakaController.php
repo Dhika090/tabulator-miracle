@@ -3,35 +3,14 @@
 namespace App\Http\Controllers\SHG\InputDataMonev\SakaEnergi;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\SHG\SakaEnergi\StatusAssetAiSakaRequest;
-use App\Models\SHG\SakaEnergi\StatusAssetAiSaka;
+use App\Http\Requests\SHG\SakaEnergi\PelatihanAimsSakaRequest;
+use App\Models\SHG\SakaEnergi\PelatihanimsSAKA;
 use Illuminate\Http\Request;
 
-class StatusAssetAiSakaController extends Controller
+class PelatihanAimsSakaController extends Controller
 {
-
     public function index(Request $request)
     {
-        if ($request->wantsJson()) {
-            $TargetPLO = StatusAssetAiSaka::all();
-            return response()->json($TargetPLO);
-        }
-
-        $companies = [
-            'PGN',
-            'PTG',
-            'PTGN',
-            'PTSG',
-            'PGN, PAG, SAKA, WMP',
-            'GEI',
-            'TGI',
-            'WMN',
-            'PLI',
-            'PDG',
-            'KJG',
-            'PAG',
-            'NR'
-        ];
 
         $tabs = [
             [
@@ -96,39 +75,38 @@ class StatusAssetAiSakaController extends Controller
             ],
         ];
 
-        return view('SHG.InputDataMonev.SakaEnergi.StatusAssetAiSaka', compact('tabs', 'companies'));
+        return view('SHG.InputDataMonev.SakaEnergi.PelatihanAimsSaka', compact('tabs'));
     }
 
-
-    public function data()
+    public function store(PelatihanAimsSakaRequest $request)
     {
-        return response()->json(StatusAssetAiSaka::all());
-    }
-
-
-    public function store(StatusAssetAiSakaRequest $request)
-    {
-        $data = $request->validated();
-        $data = StatusAssetAiSaka::create($data);
+        $validated = $request->validated();
+        $TargetPLO = PelatihanimsSAKA::create($validated);
 
         return response()->json([
             'success' => true,
             'message' => 'Data berhasil disimpan',
-            'data' => $data
+            'data' => $TargetPLO,
         ]);
     }
 
-    public function update(StatusAssetAiSakaRequest $request, $id)
+    public function data()
     {
-        $progress = StatusAssetAiSaka::findOrFail($id);
+        $TargetPLO = PelatihanimsSAKA::all();
+        return response()->json($TargetPLO);
+    }
+    public function update(PelatihanAimsSakaRequest $request, $id)
+    {
+        $progress = PelatihanimsSAKA::findOrFail($id);
         $progress->update($request->validated());
 
         return response()->json(['success' => true, 'message' => 'Data berhasil diupdate']);
     }
 
+
     public function destroy($id)
     {
-        $target = StatusAssetAiSaka::findOrFail($id);
+        $target = PelatihanimsSAKA::findOrFail($id);
         $target->delete();
 
         return response()->json(['success' => true, 'message' => 'Data berhasil dihapus']);

@@ -80,26 +80,26 @@ class StatusPloPtgController extends Controller
         ];
 
         return view('SHG.InputDataMonev.pertamina.StatusPloPTG', compact('tabs'));
-        // return view('SHG.InputDataMonev.pertamina.StatusPloPTG');
     }
 
-    public function data()
-    {
-        return response()->json(StatusPloPtg::all());
-    }
 
     public function store(StatusPloPtgRequest $request)
     {
-        $data = $request->validated();
-        $data = StatusPloPtg::create($data);
+        $validated = $request->validated();
+        $TargetPLO = StatusPloPtg::create($validated);
 
         return response()->json([
             'success' => true,
             'message' => 'Data berhasil disimpan',
-            'data' => $data
+            'data' => $TargetPLO,
         ]);
     }
 
+    public function data()
+    {
+        $TargetPLO = StatusPloPtg::all();
+        return response()->json($TargetPLO);
+    }
     public function update(StatusPloPtgRequest $request, $id)
     {
         $progress = StatusPloPtg::findOrFail($id);
@@ -107,6 +107,7 @@ class StatusPloPtgController extends Controller
 
         return response()->json(['success' => true, 'message' => 'Data berhasil diupdate']);
     }
+
 
     public function destroy($id)
     {

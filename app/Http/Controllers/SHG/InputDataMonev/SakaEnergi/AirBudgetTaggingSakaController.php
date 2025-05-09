@@ -3,35 +3,15 @@
 namespace App\Http\Controllers\SHG\InputDataMonev\SakaEnergi;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\SHG\SakaEnergi\StatusAssetAiSakaRequest;
-use App\Models\SHG\SakaEnergi\StatusAssetAiSaka;
+use App\Http\Requests\SHG\SakaEnergi\AirBudgetTaggingSakaRequest;
+use App\Models\SHG\SakaEnergi\AirBudgetTaggingSAKA;
 use Illuminate\Http\Request;
 
-class StatusAssetAiSakaController extends Controller
+class AirBudgetTaggingSakaController extends Controller
 {
 
     public function index(Request $request)
     {
-        if ($request->wantsJson()) {
-            $TargetPLO = StatusAssetAiSaka::all();
-            return response()->json($TargetPLO);
-        }
-
-        $companies = [
-            'PGN',
-            'PTG',
-            'PTGN',
-            'PTSG',
-            'PGN, PAG, SAKA, WMP',
-            'GEI',
-            'TGI',
-            'WMN',
-            'PLI',
-            'PDG',
-            'KJG',
-            'PAG',
-            'NR'
-        ];
 
         $tabs = [
             [
@@ -96,39 +76,38 @@ class StatusAssetAiSakaController extends Controller
             ],
         ];
 
-        return view('SHG.InputDataMonev.SakaEnergi.StatusAssetAiSaka', compact('tabs', 'companies'));
+        return view('SHG.InputDataMonev.SakaEnergi.AirBudgetTaggingSaka', compact('tabs'));
     }
 
-
-    public function data()
+    public function store(AirBudgetTaggingSakaRequest $request)
     {
-        return response()->json(StatusAssetAiSaka::all());
-    }
-
-
-    public function store(StatusAssetAiSakaRequest $request)
-    {
-        $data = $request->validated();
-        $data = StatusAssetAiSaka::create($data);
+        $validated = $request->validated();
+        $TargetPLO = AirBudgetTaggingSAKA::create($validated);
 
         return response()->json([
             'success' => true,
             'message' => 'Data berhasil disimpan',
-            'data' => $data
+            'data' => $TargetPLO,
         ]);
     }
 
-    public function update(StatusAssetAiSakaRequest $request, $id)
+    public function data()
     {
-        $progress = StatusAssetAiSaka::findOrFail($id);
+        $TargetPLO = AirBudgetTaggingSAKA::all();
+        return response()->json($TargetPLO);
+    }
+    public function update(AirBudgetTaggingSakaRequest $request, $id)
+    {
+        $progress = AirBudgetTaggingSAKA::findOrFail($id);
         $progress->update($request->validated());
 
         return response()->json(['success' => true, 'message' => 'Data berhasil diupdate']);
     }
 
+
     public function destroy($id)
     {
-        $target = StatusAssetAiSaka::findOrFail($id);
+        $target = AirBudgetTaggingSAKA::findOrFail($id);
         $target->delete();
 
         return response()->json(['success' => true, 'message' => 'Data berhasil dihapus']);

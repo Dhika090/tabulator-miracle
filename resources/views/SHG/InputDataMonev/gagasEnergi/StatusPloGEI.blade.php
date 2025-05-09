@@ -121,7 +121,7 @@
     <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-                <h5 class="card-title mb-3 mb-md-0">Pelatihan AIMS GEI</h5>
+                <h5 class="card-title mb-3 mb-md-0">Status PLO GEI</h5>
                 <div class="d-flex">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">

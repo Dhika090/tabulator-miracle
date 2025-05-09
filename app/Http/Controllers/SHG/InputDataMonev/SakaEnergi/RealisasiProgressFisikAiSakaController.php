@@ -3,35 +3,15 @@
 namespace App\Http\Controllers\SHG\InputDataMonev\SakaEnergi;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\SHG\SakaEnergi\StatusAssetAiSakaRequest;
-use App\Models\SHG\SakaEnergi\StatusAssetAiSaka;
+use App\Http\Requests\SHG\SakaEnergi\RealisasiProgressFisikAiSakaRequest;
+use App\Models\SHG\SakaEnergi\RealisasiProgressFisikAiSAKA;
 use Illuminate\Http\Request;
 
-class StatusAssetAiSakaController extends Controller
+class RealisasiProgressFisikAiSakaController extends Controller
 {
-
+    
     public function index(Request $request)
     {
-        if ($request->wantsJson()) {
-            $TargetPLO = StatusAssetAiSaka::all();
-            return response()->json($TargetPLO);
-        }
-
-        $companies = [
-            'PGN',
-            'PTG',
-            'PTGN',
-            'PTSG',
-            'PGN, PAG, SAKA, WMP',
-            'GEI',
-            'TGI',
-            'WMN',
-            'PLI',
-            'PDG',
-            'KJG',
-            'PAG',
-            'NR'
-        ];
 
         $tabs = [
             [
@@ -96,39 +76,38 @@ class StatusAssetAiSakaController extends Controller
             ],
         ];
 
-        return view('SHG.InputDataMonev.SakaEnergi.StatusAssetAiSaka', compact('tabs', 'companies'));
+        return view('SHG.InputDataMonev.SakaEnergi.RealisasiProgressFisikAISAKA', compact('tabs'));
     }
 
-
-    public function data()
+    public function store(RealisasiProgressFisikAiSakaRequest $request)
     {
-        return response()->json(StatusAssetAiSaka::all());
-    }
-
-
-    public function store(StatusAssetAiSakaRequest $request)
-    {
-        $data = $request->validated();
-        $data = StatusAssetAiSaka::create($data);
+        $validated = $request->validated();
+        $TargetPLO = RealisasiProgressFisikAiSAKA::create($validated);
 
         return response()->json([
             'success' => true,
             'message' => 'Data berhasil disimpan',
-            'data' => $data
+            'data' => $TargetPLO,
         ]);
     }
 
-    public function update(StatusAssetAiSakaRequest $request, $id)
+    public function data()
     {
-        $progress = StatusAssetAiSaka::findOrFail($id);
+        $TargetPLO = RealisasiProgressFisikAiSAKA::all();
+        return response()->json($TargetPLO);
+    }
+    public function update(RealisasiProgressFisikAiSakaRequest $request, $id)
+    {
+        $progress = RealisasiProgressFisikAiSAKA::findOrFail($id);
         $progress->update($request->validated());
 
         return response()->json(['success' => true, 'message' => 'Data berhasil diupdate']);
     }
 
+
     public function destroy($id)
     {
-        $target = StatusAssetAiSaka::findOrFail($id);
+        $target = RealisasiProgressFisikAiSAKA::findOrFail($id);
         $target->delete();
 
         return response()->json(['success' => true, 'message' => 'Data berhasil dihapus']);

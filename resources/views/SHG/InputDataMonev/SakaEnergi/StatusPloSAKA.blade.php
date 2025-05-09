@@ -121,7 +121,7 @@
     <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-                <h5 class="card-title mb-3 mb-md-0">Status PLO PTG</h5>
+                <h5 class="card-title mb-3 mb-md-0">Status PLO GEI</h5>
                 <div class="d-flex">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
@@ -176,7 +176,7 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Tambah Target PTG</h3>
+            <h3>Tambah Target GEI</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
 
@@ -291,7 +291,7 @@
 
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
-                    fetch(`status-plo-ptg/${id}`, {
+                    fetch(`status-plo-saka/${id}`, {
                             method: "DELETE",
                             headers: {
                                 "Accept": "application/json",
@@ -408,7 +408,7 @@
             }
 
             function loadData() {
-                fetch("/monev/shg/input-data/status-plo-ptg/data", {
+                fetch("/monev/shg/input-data/status-plo-saka/data", {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -421,19 +421,11 @@
             document.addEventListener("DOMContentLoaded", function() {
 
                 const columnMap = {
-                    "status-plo-ptg": [{
+                    "status-plo-saka": [{
                             title: "No",
-                            formatter: function(cell, formatterParams, onRendered) {
-                                const row = cell.getRow();
-                                const table = row.getTable();
-                                const page = table.getPage();
-                                const pageSize = table.getPageSize();
-                                const rowIndex = row.getPosition();
-                                return (page - 1) * pageSize + rowIndex + 1;
-                            },
+                            formatter: "rownum",
                             hozAlign: "center",
-                            width: 60,
-                            frozen: true
+                            width: 60
                         },
                         {
                             title: "ID",
@@ -548,7 +540,7 @@
                     layout: "fitDataTable",
                     responsiveLayout: "collapse",
                     autoResize: true,
-                    columns: columnMap["status-plo-ptg"],
+                    columns: columnMap["status-plo-saka"],
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -580,9 +572,6 @@
                         editor: "input",
                         resizable: "header",
                     },
-                    rowFormatter: function(row) {
-                        row.reformat();
-                    },
                 });
 
                 table.on("cellEdited", function(cell) {
@@ -591,7 +580,7 @@
 
                     if (!id) return;
 
-                    fetch(`status-plo-ptg/${id}`, {
+                    fetch(`status-plo-saka/${id}`, {
                             method: "PUT",
                             headers: {
                                 "Content-Type": "application/json",
@@ -631,7 +620,7 @@
                     console.log("Baris yang berubah:", changedRows);
 
                     changedRows.forEach(rowData => {
-                        fetch(`status-plo-ptg/${rowData.id}`, {
+                        fetch(`status-plo-saka/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
                                     "Content-Type": "application/json",
@@ -695,7 +684,7 @@
                 const tindakLanjut = document.getElementById("tindak_lanjut").value;
 
                 const method = id ? "PUT" : "POST";
-                const url = id ? `status-plo-ptg/${id}` : "status-plo-ptg";
+                const url = id ? `status-plo-saka/${id}` : "status-plo-saka";
 
                 fetch(url, {
                         method: method,
@@ -731,7 +720,7 @@
                         if (result.success) {
                             alert(result.message);
                             // table.addRow([result.data]);
-                            table.setData("/monev/shg/input-data/status-plo-ptg/data");
+                            table.setData("/monev/shg/input-data/status-plo-saka/data");
                             this.reset();
                         } else {
                             alert('Gagal menyimpan data');
