@@ -120,6 +120,18 @@ use App\Http\Controllers\SHG\InputDataMonev\SakaEnergi\RencanaPemeliharaanSakaCo
 use App\Http\Controllers\SHG\InputDataMonev\SakaEnergi\SistemInformasiAimsSakaController;
 use App\Http\Controllers\SHG\InputDataMonev\SakaEnergi\StatusAssetAiSakaController;
 use App\Http\Controllers\SHG\InputDataMonev\SakaEnergi\StatusPloSakaController;
+use App\Http\Controllers\SHG\InputDataMonev\TransportasiGas\AirBudgetTaggingTGIController;
+use App\Http\Controllers\SHG\InputDataMonev\TransportasiGas\AssetBreakdownTGIController;
+use App\Http\Controllers\SHG\InputDataMonev\TransportasiGas\AvailabilityTGIController;
+use App\Http\Controllers\SHG\InputDataMonev\TransportasiGas\KondisiVacantAimsTGIController;
+use App\Http\Controllers\SHG\InputDataMonev\TransportasiGas\MandatoryCertificationTGIController;
+use App\Http\Controllers\SHG\InputDataMonev\TransportasiGas\PelatihanAimsTGIController;
+use App\Http\Controllers\SHG\InputDataMonev\TransportasiGas\RealisasiAnggaranAiTGIController;
+use App\Http\Controllers\SHG\InputDataMonev\TransportasiGas\RealisasiProgressFisikAiTGIController;
+use App\Http\Controllers\SHG\InputDataMonev\TransportasiGas\RencanaPemeliharaanTGIController;
+use App\Http\Controllers\SHG\InputDataMonev\TransportasiGas\SistemInformasiAimsTGIController;
+use App\Http\Controllers\SHG\InputDataMonev\TransportasiGas\StatusAssetAiTGIController;
+use App\Http\Controllers\SHG\InputDataMonev\TransportasiGas\StatusPloTGIController;
 use App\Http\Controllers\SHG\InputDataMonev\widarMandripa\AirBudetTaggingWmnController;
 use App\Http\Controllers\SHG\InputDataMonev\WidarMandripa\AssetBreakdownController;
 use App\Http\Controllers\SHG\InputDataMonev\widarMandripa\AvailabilityWmnController;
@@ -1277,8 +1289,91 @@ Route::prefix('monev/shg/input-data/air-budget-tagging-nr')->middleware(['auth',
     Route::delete('/{id}', [AirBudgetTaggingNRController::class, 'destroy'])->name('air-budget-tagging-nr.destroy');
 });
 
-
-
+// Tranportasi Gas Indonesia
+Route::prefix('monev/shg/input-data/transportasi-gas-indonesia')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [StatusAssetAiTGIController::class, 'index'])->name('transportasi-gas-indonesia');
+    Route::post('/', [StatusAssetAiTGIController::class, 'store'])->name('transportasi-gas-indonesia.store');
+    Route::get('/data', [StatusAssetAiTGIController::class, 'data'])->name('transportasi-gas-indonesia.data');
+    Route::put('/{id}', [StatusAssetAiTGIController::class, 'update'])->name('transportasi-gas-indonesia.update');
+    Route::delete('/{id}', [StatusAssetAiTGIController::class, 'destroy'])->name('transportasi-gas-indonesia.destroy');
+});
+Route::prefix('monev/shg/input-data/mandatory-certification-tgi')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [MandatoryCertificationTGIController::class, 'index'])->name('mandatory-certification-tgi');
+    Route::post('/', [MandatoryCertificationTGIController::class, 'store'])->name('mandatory-certification-tgi.store');
+    Route::get('/data', [MandatoryCertificationTGIController::class, 'data'])->name('mandatory-certification-tgi.data');
+    Route::put('/{id}', [MandatoryCertificationTGIController::class, 'update'])->name('mandatory-certification-tgi.update');
+    Route::delete('/{id}', [MandatoryCertificationTGIController::class, 'destroy'])->name('mandatory-certification-tgi.destroy');
+});
+Route::prefix('monev/shg/input-data/asset-breakdown-tgi')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [AssetBreakdownTGIController::class, 'index'])->name('asset-breakdown-tgi');
+    Route::post('/', [AssetBreakdownTGIController::class, 'store'])->name('asset-breakdown-tgi.store');
+    Route::get('/data', [AssetBreakdownTGIController::class, 'data'])->name('asset-breakdown-tgi.data');
+    Route::put('/{id}', [AssetBreakdownTGIController::class, 'update'])->name('asset-breakdown-tgi.update');
+    Route::delete('/{id}', [AssetBreakdownTGIController::class, 'destroy'])->name('asset-breakdown-tgi.destroy');
+});
+Route::prefix('monev/shg/input-data/sistem-informasi-aims-tgi')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [SistemInformasiAimsTGIController::class, 'index'])->name('sistem-informasi-aims-tgi');
+    Route::post('/', [SistemInformasiAimsTGIController::class, 'store'])->name('sistem-informasi-aims-tgi.store');
+    Route::get('/data', [SistemInformasiAimsTGIController::class, 'data'])->name('sistem-informasi-aims-tgi.data');
+    Route::put('/{id}', [SistemInformasiAimsTGIController::class, 'update'])->name('sistem-informasi-aims-tgi.update');
+    Route::delete('/{id}', [SistemInformasiAimsTGIController::class, 'destroy'])->name('sistem-informasi-aims-tgi.destroy');
+});
+Route::prefix('monev/shg/input-data/rencana-pemeliharaan-tgi')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [RencanaPemeliharaanTGIController::class, 'index'])->name('rencana-pemeliharaan-tgi');
+    Route::post('/', [RencanaPemeliharaanTGIController::class, 'store'])->name('rencana-pemeliharaan-tgi.store');
+    Route::get('/data', [RencanaPemeliharaanTGIController::class, 'data'])->name('rencana-pemeliharaan-tgi.data');
+    Route::put('/{id}', [RencanaPemeliharaanTGIController::class, 'update'])->name('rencana-pemeliharaan-tgi.update');
+    Route::delete('/{id}', [RencanaPemeliharaanTGIController::class, 'destroy'])->name('rencana-pemeliharaan-tgi.destroy');
+});
+Route::prefix('monev/shg/input-data/status-plo-tgi')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [StatusPloTGIController::class, 'index'])->name('status-plo-tgi');
+    Route::post('/', [StatusPloTGIController::class, 'store'])->name('status-plo-tgi.store');
+    Route::get('/data', [StatusPloTGIController::class, 'data'])->name('status-plo-tgi.data');
+    Route::put('/{id}', [StatusPloTGIController::class, 'update'])->name('status-plo-tgi.update');
+    Route::delete('/{id}', [StatusPloTGIController::class, 'destroy'])->name('status-plo-tgi.destroy');
+});
+Route::prefix('monev/shg/input-data/kondisi-vacant-fungsi-aims-tgi')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [KondisiVacantAimsTGIController::class, 'index'])->name('kondisi-vacant-fungsi-aims-tgi');
+    Route::post('/', [KondisiVacantAimsTGIController::class, 'store'])->name('kondisi-vacant-fungsi-aims-tgi.store');
+    Route::get('/data', [KondisiVacantAimsTGIController::class, 'data'])->name('kondisi-vacant-fungsi-aims-tgi.data');
+    Route::put('/{id}', [KondisiVacantAimsTGIController::class, 'update'])->name('kondisi-vacant-fungsi-aims-tgi.update');
+    Route::delete('/{id}', [KondisiVacantAimsTGIController::class, 'destroy'])->name('kondisi-vacant-fungsi-aims-tgi.destroy');
+});
+Route::prefix('monev/shg/input-data/pelatihan-aims-tgi')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [PelatihanAimsTGIController::class, 'index'])->name('pelatihan-aims-tgi');
+    Route::post('/', [PelatihanAimsTGIController::class, 'store'])->name('pelatihan-aims-tgi.store');
+    Route::get('/data', [PelatihanAimsTGIController::class, 'data'])->name('pelatihan-aims-tgi.data');
+    Route::put('/{id}', [PelatihanAimsTGIController::class, 'update'])->name('pelatihan-aims-tgi.update');
+    Route::delete('/{id}', [PelatihanAimsTGIController::class, 'destroy'])->name('pelatihan-aims-tgi.destroy');
+});
+Route::prefix('monev/shg/input-data/air-budget-tagging-tgi')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [AirBudgetTaggingTGIController::class, 'index'])->name('air-budget-tagging-tgi');
+    Route::post('/', [AirBudgetTaggingTGIController::class, 'store'])->name('air-budget-tagging-tgi.store');
+    Route::get('/data', [AirBudgetTaggingTGIController::class, 'data'])->name('air-budget-tagging-tgi.data');
+    Route::put('/{id}', [AirBudgetTaggingTGIController::class, 'update'])->name('air-budget-tagging-tgi.update');
+    Route::delete('/{id}', [AirBudgetTaggingTGIController::class, 'destroy'])->name('air-budget-tagging-tgi.destroy');
+});
+Route::prefix('monev/shg/input-data/availability-tgi')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [AvailabilityTGIController::class, 'index'])->name('availability-tgi');
+    Route::post('/', [AvailabilityTGIController::class, 'store'])->name('availability-tgi.store');
+    Route::get('/data', [AvailabilityTGIController::class, 'data'])->name('availability-tgi.data');
+    Route::put('/{id}', [AvailabilityTGIController::class, 'update'])->name('availability-tgi.update');
+    Route::delete('/{id}', [AvailabilityTGIController::class, 'destroy'])->name('availability-tgi.destroy');
+});
+Route::prefix('monev/shg/input-data/realisasi-anggaran-ai-tgi')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [RealisasiAnggaranAiTGIController::class, 'index'])->name('realisasi-anggaran-ai-tgi');
+    Route::post('/', [RealisasiAnggaranAiTGIController::class, 'store'])->name('realisasi-anggaran-ai-tgi.store');
+    Route::get('/data', [RealisasiAnggaranAiTGIController::class, 'data'])->name('realisasi-anggaran-ai-tgi.data');
+    Route::put('/{id}', [RealisasiAnggaranAiTGIController::class, 'update'])->name('realisasi-anggaran-ai-tgi.update');
+    Route::delete('/{id}', [RealisasiAnggaranAiTGIController::class, 'destroy'])->name('realisasi-anggaran-ai-tgi.destroy');
+});
+Route::prefix('monev/shg/input-data/realisasi-progress-fisik-ai-tgi')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [RealisasiProgressFisikAiTGIController::class, 'index'])->name('realisasi-progress-fisik-ai-tgi');
+    Route::post('/', [RealisasiProgressFisikAiTGIController::class, 'store'])->name('realisasi-progress-fisik-ai-tgi.store');
+    Route::get('/data', [RealisasiProgressFisikAiTGIController::class, 'data'])->name('realisasi-progress-fisik-ai-tgi.data');
+    Route::put('/{id}', [RealisasiProgressFisikAiTGIController::class, 'update'])->name('realisasi-progress-fisik-ai-tgi.update');
+    Route::delete('/{id}', [RealisasiProgressFisikAiTGIController::class, 'destroy'])->name('realisasi-progress-fisik-ai-tgi.destroy');
+});
 
 
 

@@ -1,5 +1,4 @@
 @section('title', __(''))
-
 <x-layouts.app :title="__('')">
     @push('styles')
         <link href="https://unpkg.com/tabulator-tables@5.6.0/dist/css/tabulator.min.css" rel="stylesheet">
@@ -17,6 +16,8 @@
 
             .tabulator-cell {
                 font-size: 14px;
+                white-space: normal !important;
+                word-wrap: break-word;
             }
 
             .card {
@@ -121,7 +122,7 @@
     <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-                <h5 class="card-title mb-3 mb-md-0">Status PLO SAKA</h5>
+                <h5 class="card-title mb-3 mb-md-0">Realisasi Progress Fisik AI TGI</h5>
                 <div class="d-flex">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
@@ -176,96 +177,131 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Tambah Target SAKA</h3>
+            <h3>Tambah Data Realisasi Progress Fisik AI 2025</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
-
                 <div>
-                    <label>Periode</label>
-                    <input type="month" name="periode" id="periode" required>
+                    <label for="periode">Periode (Tahun):</label>
+                    <select name="periode" id="periode" required class="form-select">
+                        <option value="" selected disabled>Pilih Periode</option>
+                        @for ($year = 2000; $year <= date('Y') + 5; $year++)
+                            <option value="{{ $year }}">{{ $year }}</option>
+                        @endfor
+                    </select>
                 </div>
 
                 <div>
-                    <label>Nomor PLO</label>
-                    <input type="text" name="nomor_plo" id="nomor_plo" required>
+                    <label>No</label>
+                    <input type="number" name="no">
                 </div>
 
                 <div>
-                    <label>Company</label>
-                    <input type="text" name="company" id="company">
+                    <label>Program Kerja</label>
+                    <input type="text" name="program_kerja">
                 </div>
 
                 <div>
-                    <label>Area</label>
-                    <input type="text" name="area" id="area">
+                    <label>Kategori AIBT</label>
+                    <input type="text" name="kategori_aibt">
                 </div>
 
                 <div>
-                    <label>Lokasi</label>
-                    <input type="text" name="lokasi" id="lokasi">
+                    <label>Jenis Anggaran</label>
+                    <input type="text" name="jenis_anggaran">
                 </div>
 
                 <div>
-                    <label>Nama Aset</label>
-                    <input type="text" name="nama_aset" id="nama_aset">
+                    <label>Besar RKAP</label>
+                    <input type="number" name="besar_rkap" id="besar_rkap" step="any">
                 </div>
 
                 <div>
-                    <label>Tanggal Pengesahan</label>
-                    <input type="date" name="tanggal_pengesahan" id="tanggal_pengesahan" required>
+                    <label>Entitas</label>
+                    <input type="text" name="entitas">
                 </div>
 
                 <div>
-                    <label>Masa Berlaku</label>
-                    <input type="date" name="masa_berlaku" id="masa_berlaku" required>
+                    <label>Unit</label>
+                    <input type="text" name="unit">
                 </div>
 
                 <div>
-                    <label>Keterangan</label>
-                    <input type="text" name="keterangan" id="keterangan">
+                    <label>Nilai Kontrak</label>
+                    <input type="number" name="nilai_kontrak" step="0.01">
                 </div>
 
-                <div>
-                    <label>Belum Proses</label>
-                    <input type="text" name="belum_proses" id="belum_proses">
-                </div>
+                <fieldset>
+                    <legend>Rencana (Plan)</legend>
+                    <label>Plan Jan</label><input type="text" name="plan_jan" pattern="^\d+(\.\d+)?$"
+                        inputmode="numeric">
+                    <label>Plan Feb</label><input type="text" name="plan_feb" pattern="^\d+(\.\d+)?$"
+                        inputmode="numeric">
+                    <label>Plan Mar</label><input type="text" name="plan_mar" pattern="^\d+(\.\d+)?$"
+                        inputmode="numeric">
+                    <label>Plan Apr</label><input type="text" name="plan_apr" pattern="^\d+(\.\d+)?$"
+                        inputmode="numeric">
+                    <label>Plan May</label><input type="text" name="plan_may" pattern="^\d+(\.\d+)?$"
+                        inputmode="numeric">
+                    <label>Plan Jun</label><input type="text" name="plan_jun" pattern="^\d+(\.\d+)?$"
+                        inputmode="numeric">
+                    <label>Plan Jul</label><input type="text" name="plan_jul" pattern="^\d+(\.\d+)?$"
+                        inputmode="numeric">
+                    <label>Plan Aug</label><input type="text" name="plan_aug" pattern="^\d+(\.\d+)?$"
+                        inputmode="numeric">
+                    <label>Plan Sep</label><input type="text" name="plan_sep" pattern="^\d+(\.\d+)?$"
+                        inputmode="numeric">
+                    <label>Plan Oct</label><input type="text" name="plan_oct" pattern="^\d+(\.\d+)?$"
+                        inputmode="numeric">
+                    <label>Plan Nov</label><input type="text" name="plan_nov" pattern="^\d+(\.\d+)?$"
+                        inputmode="numeric">
+                    <label>Plan Dec</label><input type="text" name="plan_dec" pattern="^\d+(\.\d+)?$"
+                        inputmode="numeric">
+                </fieldset>
+
+                <fieldset>
+                    <legend>Realisasi (Actual)</legend>
+                    <label>Actual Jan</label><input type="text" name="actual_jan" pattern="^\d+(\.\d+)?$"
+                        inputmode="numeric">
+                    <label>Actual Feb</label><input type="text" name="actual_feb" pattern="^\d+(\.\d+)?$"
+                        inputmode="numeric">
+                    <label>Actual Mar</label><input type="text" name="actual_mar" pattern="^\d+(\.\d+)?$"
+                        inputmode="numeric">
+                    <label>Actual Apr</label><input type="text" name="actual_apr" pattern="^\d+(\.\d+)?$"
+                        inputmode="numeric">
+                    <label>Actual May</label><input type="text" name="actual_may" pattern="^\d+(\.\d+)?$"
+                        inputmode="numeric">
+                    <label>Actual Jun</label><input type="text" name="actual_jun" pattern="^\d+(\.\d+)?$"
+                        inputmode="numeric">
+                    <label>Actual Jul</label><input type="text" name="actual_jul" pattern="^\d+(\.\d+)?$"
+                        inputmode="numeric">
+                    <label>Actual Aug</label><input type="text" name="actual_aug" pattern="^\d+(\.\d+)?$"
+                        inputmode="numeric">
+                    <label>Actual Sep</label><input type="text" name="actual_sep" pattern="^\d+(\.\d+)?$"
+                        inputmode="numeric">
+                    <label>Actual Oct</label><input type="text" name="actual_oct" pattern="^\d+(\.\d+)?$"
+                        inputmode="numeric">
+                    <label>Actual Nov</label><input type="text" name="actual_nov" pattern="^\d+(\.\d+)?$"
+                        inputmode="numeric">
+                    <label>Actual Dec</label><input type="text" name="actual_dec" pattern="^\d+(\.\d+)?$"
+                        inputmode="numeric">
+                </fieldset>
 
                 <div>
-                    <label>Pre-Inspection</label>
-                    <input type="text" name="pre_inspection" id="pre_inspection">
-                </div>
-
-                <div>
-                    <label>Inspection</label>
-                    <input type="text" name="inspection" id="inspection">
-                </div>
-
-                <div>
-                    <label>COI Peralatan</label>
-                    <input type="text" name="coi_peralatan" id="coi_peralatan">
-                </div>
-
-                <div>
-                    <label>BA PK</label>
-                    <input type="text" name="ba_pk" id="ba_pk">
-                </div>
-
-                <div>
-                    <label>Penerbitan PLO (Valid)</label>
-                    <input type="text" name="penerbitan_plo_valid" id="penerbitan_plo_valid">
+                    <label>Kode</label>
+                    <input type="text" name="kode">
                 </div>
 
                 <div>
                     <label>Kendala</label>
-                    <input type="text" name="kendala" id="kendala">
+                    <input type="text" name="kendala"></input>
                 </div>
 
                 <div>
                     <label>Tindak Lanjut</label>
-                    <input type="text" name="tindak_lanjut" id="tindak_lanjut">
+                    <input type="text" name="tindak_lanjut"></input>
                 </div>
 
-                <button type="submit" class="btn btn-success">Submit</button>
+                <button class="btn btn-primary" type="submit">Simpan</button>
             </form>
         </div>
     </div>
@@ -273,25 +309,9 @@
     @push('scripts')
         <script src="https://unpkg.com/tabulator-tables@5.6.0/dist/js/tabulator.min.js"></script>
         <script>
-            const pengesahanInput = document.getElementById('tanggal_pengesahan');
-            const berlakuInput = document.getElementById('masa_berlaku');
-
-            function validateDates() {
-                const pengesahan = new Date(pengesahanInput.value);
-                const berlaku = new Date(berlakuInput.value);
-
-                if (berlaku <= pengesahan) {
-                    alert("Tanggal Masa Berlaku harus lebih dari Tanggal Pengesahan!");
-                    berlakuInput.value = '';
-                }
-            }
-
-            pengesahanInput.addEventListener('change', validateDates);
-            berlakuInput.addEventListener('change', validateDates);
-
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
-                    fetch(`status-plo-saka/${id}`, {
+                    fetch(`realisasi-progress-fisik-ai-tgi/${id}`, {
                             method: "DELETE",
                             headers: {
                                 "Accept": "application/json",
@@ -312,93 +332,84 @@
 
             document.getElementById("search-input").addEventListener("input", function(e) {
                 const keyword = e.target.value;
-                table.setFilter([
-                    [{
-                            field: "periode",
+                table.setFilter([{
+                        field: "periode",
+                        type: "like",
+                        value: keyword
+                    },
+                    {
+                        field: "no",
+                        type: "like",
+                        value: keyword
+                    },
+                    {
+                        field: "program_kerja",
+                        type: "like",
+                        value: keyword
+                    },
+                    {
+                        field: "kategori_aibt",
+                        type: "like",
+                        value: keyword
+                    },
+                    {
+                        field: "jenis_anggaran",
+                        type: "like",
+                        value: keyword
+                    },
+                    {
+                        field: "besar_rkap",
+                        type: "like",
+                        value: keyword
+                    },
+                    {
+                        field: "entitas",
+                        type: "like",
+                        value: keyword
+                    },
+                    {
+                        field: "unit",
+                        type: "like",
+                        value: keyword
+                    },
+                    {
+                        field: "nilai_kontrak",
+                        type: "like",
+                        value: keyword
+                    },
+                    ...["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"].map(
+                        bulan => ({
+                            field: `plan_${bulan.toLowerCase()}`,
                             type: "like",
                             value: keyword
-                        },
-                        {
-                            field: "nomor_plo",
+                        })),
+                    ...["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"].map(
+                        bulan => ({
+                            field: `prognosa_${bulan.toLowerCase()}`,
                             type: "like",
                             value: keyword
-                        },
-                        {
-                            field: "company",
+                        })),
+                    ...["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"].map(
+                        bulan => ({
+                            field: `actual_${bulan.toLowerCase()}`,
                             type: "like",
                             value: keyword
-                        },
-                        {
-                            field: "area",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "lokasi",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "nama_aset",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "tanggal_pengesahan",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "masa_berlaku",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "keterangan",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "belum_proses",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "pre_inspection",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "inspection",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "coi_peralatan",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "ba_pk",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "penerbitan_plo_valid",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "kendala",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "tindak_lanjut",
-                            type: "like",
-                            value: keyword
-                        }
-                    ]
+                        })),
+                    {
+                        field: "kode",
+                        type: "like",
+                        value: keyword
+                    },
+                    {
+                        field: "kendala",
+                        type: "like",
+                        value: keyword
+                    },
+                    {
+                        field: "tindak_lanjut",
+                        type: "like",
+                        value: keyword
+                    }
                 ]);
             });
 
@@ -408,7 +419,7 @@
             }
 
             function loadData() {
-                fetch("/monev/shg/input-data/status-plo-saka/data", {
+                fetch("/monev/shg/input-data/realisasi-progress-fisik-ai-tgi/data", {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -419,9 +430,8 @@
             }
 
             document.addEventListener("DOMContentLoaded", function() {
-
                 const columnMap = {
-                    "status-plo-saka": [{
+                    "realisasi-progress-fisik-ai-tgi": [{
                             title: "No",
                             formatter: "rownum",
                             hozAlign: "center",
@@ -438,86 +448,96 @@
                             editor: "input"
                         },
                         {
-                            title: "Nomor PLO",
-                            field: "nomor_plo",
-                            editor: "input",
-                            width: 250
+                            title: "No",
+                            field: "no",
+                            editor: "number"
                         },
                         {
-                            title: "Company",
-                            field: "company",
+                            title: "Program Kerja",
+                            field: "program_kerja",
+                            width: 400,
                             editor: "input"
                         },
                         {
-                            title: "Area",
-                            field: "area",
-                            editor: "input"
-                        },
-                        {
-                            title: "Lokasi",
-                            field: "lokasi",
-                            editor: "input"
-                        },
-                        {
-                            title: "Nama Aset",
-                            field: "nama_aset",
-                            editor: "input"
-                        },
-                        {
-                            title: "Tanggal Pengesahan",
-                            field: "tanggal_pengesahan",
+                            title: "Kategori AIBT",
+                            field: "kategori_aibt",
                             editor: "input",
                             hozAlign: "center",
                         },
                         {
-                            title: "Masa Berlaku",
-                            field: "masa_berlaku",
+                            title: "Jenis Anggaran",
+                            field: "jenis_anggaran",
                             editor: "input",
                             hozAlign: "center",
                         },
                         {
-                            title: "Keterangan",
-                            field: "keterangan",
-                            editor: "input"
+                            title: "Besar RKAP",
+                            field: "besar_rkap",
+                            editor: "input",
+                            hozAlign: "center",
+                            formatter: function(cell) {
+                                let rawValue = cell.getValue();
+                                if (rawValue === null || rawValue === undefined || rawValue === "") {
+                                    return "0.00";
+                                }
+
+                                let cleanValue = rawValue.toString().replace(/[^0-9.-]+/g, '');
+                                let value = parseFloat(cleanValue);
+
+                                if (!isNaN(value)) {
+                                    return value.toLocaleString("en-US", {
+                                        minimumFractionDigits: 2,
+                                        maximumFractionDigits: 2
+                                    });
+                                }
+
+                                return "0.00";
+                            },
                         },
                         {
-                            title: "Belum Proses",
-                            field: "belum_proses",
+                            title: "Entitas",
+                            field: "entitas",
+                            editor: "input",
+                            hozAlign: "center",
+                        },
+                        {
+                            title: "Unit",
+                            field: "unit",
+                            editor: "input",
+                            hozAlign: "center",
+                        },
+                        {
+                            title: "Nilai Kontrak",
+                            field: "nilai_kontrak",
                             editor: "number",
-                            hozAlign: "center"
+                            whozAlign: "center",
                         },
+                        // Plan Fields
+                        ...["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+                        .map(bulan => ({
+                            title: `Plan ${bulan}`,
+                            field: `plan_${bulan.toLowerCase()}`,
+                            editor: "input",
+                            hozAlign: "center",
+                        })),
+                        // Actual Fields
+                        ...["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+                        .map(bulan => ({
+                            title: `Actual ${bulan}`,
+                            field: `actual_${bulan.toLowerCase()}`,
+                            editor: "input",
+                            hozAlign: "center",
+                        })),
                         {
-                            title: "Pre-Inspection",
-                            field: "pre_inspection",
-                            editor: "number",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "Inspection",
-                            field: "inspection",
-                            editor: "number",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "COI Peralatan",
-                            field: "coi_peralatan",
-                            editor: "input"
-                        },
-                        {
-                            title: "BA PK",
-                            field: "ba_pk",
-                            editor: "input"
-                        },
-                        {
-                            title: "Penerbitan PLO (Valid)",
-                            field: "penerbitan_plo_valid",
+                            title: "Kode",
+                            field: "kode",
                             editor: "input",
                             hozAlign: "center",
                         },
                         {
                             title: "Kendala",
                             field: "kendala",
-                            editor: "input"
+                            editor: "input",
                         },
                         {
                             title: "Tindak Lanjut",
@@ -540,7 +560,7 @@
                     layout: "fitDataTable",
                     responsiveLayout: "collapse",
                     autoResize: true,
-                    columns: columnMap["status-plo-saka"],
+                    columns: columnMap["realisasi-progress-fisik-ai-tgi"],
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -580,7 +600,7 @@
 
                     if (!id) return;
 
-                    fetch(`status-plo-saka/${id}`, {
+                    fetch(`realisasi-progress-fisik-ai-tgi/${id}`, {
                             method: "PUT",
                             headers: {
                                 "Content-Type": "application/json",
@@ -620,7 +640,7 @@
                     console.log("Baris yang berubah:", changedRows);
 
                     changedRows.forEach(rowData => {
-                        fetch(`status-plo-saka/${rowData.id}`, {
+                        fetch(`realisasi-progress-fisik-ai-tgi/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
                                     "Content-Type": "application/json",
@@ -641,11 +661,12 @@
 
                     previousData = JSON.parse(JSON.stringify(newData));
                 });
+
                 loadData();
             });
         </script>
 
-        {{-- create data and create  --}}
+        {{-- create data  --}}
         <script>
             function openModal() {
                 document.getElementById("createModal").style.display = "block";
@@ -662,32 +683,9 @@
 
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
-                console.log("Data submitted:", data);
 
-                const id = document.getElementById("form-id").value;
-                const periode = document.getElementById("periode").value;
-                const nomorPlo = document.getElementById("nomor_plo").value;
-                const company = document.getElementById("company").value;
-                const area = document.getElementById("area").value;
-                const lokasi = document.getElementById("lokasi").value;
-                const namaAset = document.getElementById("nama_aset").value;
-                const tanggalPengesahan = document.getElementById("tanggal_pengesahan").value;
-                const masaBerlaku = document.getElementById("masa_berlaku").value;
-                const keterangan = document.getElementById("keterangan").value;
-                const belumProses = document.getElementById("belum_proses").value;
-                const preInspection = document.getElementById("pre_inspection").value;
-                const inspection = document.getElementById("inspection").value;
-                const coiPeralatan = document.getElementById("coi_peralatan").value;
-                const baPk = document.getElementById("ba_pk").value;
-                const penerbitanPloValid = document.getElementById("penerbitan_plo_valid").value;
-                const kendala = document.getElementById("kendala").value;
-                const tindakLanjut = document.getElementById("tindak_lanjut").value;
-
-                const method = id ? "PUT" : "POST";
-                const url = id ? `status-plo-saka/${id}` : "status-plo-saka";
-
-                fetch(url, {
-                        method: method,
+                fetch("realisasi-progress-fisik-ai-tgi", {
+                        method: "POST",
                         headers: {
                             "Content-Type": "application/json",
                             "Accept": "application/json",
@@ -695,44 +693,61 @@
                                 "content")
                         },
                         body: JSON.stringify({
-                            id: id,
-                            periode: periode,
-                            nomor_plo: nomorPlo,
-                            company: company,
-                            area: area,
-                            lokasi: lokasi,
-                            nama_aset: namaAset,
-                            tanggal_pengesahan: tanggalPengesahan,
-                            masa_berlaku: masaBerlaku,
-                            keterangan: keterangan,
-                            belum_proses: belumProses,
-                            pre_inspection: preInspection,
-                            inspection: inspection,
-                            coi_peralatan: coiPeralatan,
-                            ba_pk: baPk,
-                            penerbitan_plo_valid: penerbitanPloValid,
-                            kendala: kendala,
-                            tindak_lanjut: tindakLanjut
+                            periode: data.periode,
+                            no: data.no,
+                            program_kerja: data.program_kerja,
+                            kategori_aibt: data.kategori_aibt,
+                            jenis_anggaran: data.jenis_anggaran,
+                            besar_rkap: data.besar_rkap,
+                            entitas: data.entitas,
+                            unit: data.unit,
+                            nilai_kontrak: data.nilai_kontrak,
+
+                            plan_jan: data.plan_jan,
+                            plan_feb: data.plan_feb,
+                            plan_mar: data.plan_mar,
+                            plan_apr: data.plan_apr,
+                            plan_may: data.plan_may,
+                            plan_jun: data.plan_jun,
+                            plan_jul: data.plan_jul,
+                            plan_aug: data.plan_aug,
+                            plan_sep: data.plan_sep,
+                            plan_oct: data.plan_oct,
+                            plan_nov: data.plan_nov,
+                            plan_dec: data.plan_dec,
+
+                            actual_jan: data.actual_jan,
+                            actual_feb: data.actual_feb,
+                            actual_mar: data.actual_mar,
+                            actual_apr: data.actual_apr,
+                            actual_may: data.actual_may,
+                            actual_jun: data.actual_jun,
+                            actual_jul: data.actual_jul,
+                            actual_aug: data.actual_aug,
+                            actual_sep: data.actual_sep,
+                            actual_oct: data.actual_oct,
+                            actual_nov: data.actual_nov,
+                            actual_dec: data.actual_dec,
+
+                            kode: data.kode,
+                            kendala: data.kendala,
+                            tindak_lanjut: data.tindak_lanjut,
                         })
                     })
                     .then(response => response.json())
                     .then(result => {
                         if (result.success) {
-                            alert(result.message);
-                            // table.addRow([result.data]);
-                            table.setData("/monev/shg/input-data/status-plo-saka/data");
+                            alert(result.message || "Data berhasil disimpan");
+                            table.setData("/monev/shg/input-data/realisasi-progress-fisik-ai-tgi/data");
                             this.reset();
+                            closeModal();
                         } else {
-                            alert('Gagal menyimpan data');
+                            alert("Gagal menyimpan data");
                         }
                     })
                     .catch(error => {
-                        console.error("Error submitting data:", error);
-                        alert('Terjadi kesalahan saat mengirim data.');
-                    })
-                    .finally(() => {
-                        closeModal();
-                        this.reset();
+                        console.error("Error saat submit:", error);
+                        alert("Terjadi kesalahan saat mengirim data.");
                     });
             });
         </script>
@@ -772,6 +787,7 @@
                     });
                 });
 
+                // Ketika halaman reload setelah klik, cek dan scroll otomatis
                 if (sessionStorage.getItem('scrollToActiveTab') === 'yes') {
                     scrollToActiveTab();
                     sessionStorage.removeItem('scrollToActiveTab');
@@ -779,5 +795,4 @@
             });
         </script>
     @endpush
-
 </x-layouts.app>

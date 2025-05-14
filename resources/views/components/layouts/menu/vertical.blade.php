@@ -169,8 +169,8 @@
                                 </li>
                                 <li class="menu-item">
                                     <a class="menu-link"
-                                        href="{{ url('monev/shg/input-data/transportasi-indonesia') }}">
-                                        <i class="fa fa-wrench me-2"></i>PT Tranportasi Indonesia
+                                        href="{{ url('monev/shg/input-data/transportasi-gas-indonesia') }}">
+                                        <i class="fa fa-wrench me-2"></i>PT Tranportasi Gas Indonesia
                                     </a>
                                 </li>
                                 <li class="menu-item">

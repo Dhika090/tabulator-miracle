@@ -1,5 +1,4 @@
 @section('title', __(''))
-
 <x-layouts.app :title="__('')">
     @push('styles')
         <link href="https://unpkg.com/tabulator-tables@5.6.0/dist/css/tabulator.min.css" rel="stylesheet">
@@ -17,6 +16,11 @@
 
             .tabulator-cell {
                 font-size: 14px;
+            }
+
+            .tabulator .tabulator-cell {
+                white-space: normal !important;
+                word-wrap: break-word;
             }
 
             .card {
@@ -121,7 +125,7 @@
     <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-                <h5 class="card-title mb-3 mb-md-0">Status PLO SAKA</h5>
+                <h5 class="card-title mb-3 mb-md-0">Pelatihan AIMS TGI</h5>
                 <div class="d-flex">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
@@ -176,122 +180,42 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Tambah Target SAKA</h3>
+            <h3>Pelatihan AIMS TGI</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
-
                 <div>
                     <label>Periode</label>
                     <input type="month" name="periode" id="periode" required>
                 </div>
 
                 <div>
-                    <label>Nomor PLO</label>
-                    <input type="text" name="nomor_plo" id="nomor_plo" required>
-                </div>
-
-                <div>
                     <label>Company</label>
-                    <input type="text" name="company" id="company">
+                    <input type="text" name="company" id="company" required>
                 </div>
 
                 <div>
-                    <label>Area</label>
-                    <input type="text" name="area" id="area">
+                    <label>Judul Pelatihan/Training/Forum</label>
+                    <input type="text" name="judul_pelatihan" id="judul_pelatihan">
                 </div>
 
                 <div>
-                    <label>Lokasi</label>
-                    <input type="text" name="lokasi" id="lokasi">
-                </div>
-
-                <div>
-                    <label>Nama Aset</label>
-                    <input type="text" name="nama_aset" id="nama_aset">
-                </div>
-
-                <div>
-                    <label>Tanggal Pengesahan</label>
-                    <input type="date" name="tanggal_pengesahan" id="tanggal_pengesahan" required>
-                </div>
-
-                <div>
-                    <label>Masa Berlaku</label>
-                    <input type="date" name="masa_berlaku" id="masa_berlaku" required>
-                </div>
-
-                <div>
-                    <label>Keterangan</label>
-                    <input type="text" name="keterangan" id="keterangan">
-                </div>
-
-                <div>
-                    <label>Belum Proses</label>
-                    <input type="text" name="belum_proses" id="belum_proses">
-                </div>
-
-                <div>
-                    <label>Pre-Inspection</label>
-                    <input type="text" name="pre_inspection" id="pre_inspection">
-                </div>
-
-                <div>
-                    <label>Inspection</label>
-                    <input type="text" name="inspection" id="inspection">
-                </div>
-
-                <div>
-                    <label>COI Peralatan</label>
-                    <input type="text" name="coi_peralatan" id="coi_peralatan">
-                </div>
-
-                <div>
-                    <label>BA PK</label>
-                    <input type="text" name="ba_pk" id="ba_pk">
-                </div>
-
-                <div>
-                    <label>Penerbitan PLO (Valid)</label>
-                    <input type="text" name="penerbitan_plo_valid" id="penerbitan_plo_valid">
-                </div>
-
-                <div>
-                    <label>Kendala</label>
-                    <input type="text" name="kendala" id="kendala">
-                </div>
-
-                <div>
-                    <label>Tindak Lanjut</label>
-                    <input type="text" name="tindak_lanjut" id="tindak_lanjut">
+                    <label>Realisasi Perwira</label>
+                    <input type="number" name="realisasi_perwira" id="realisasi_perwira">
                 </div>
 
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
+
         </div>
     </div>
 
     @push('scripts')
         <script src="https://unpkg.com/tabulator-tables@5.6.0/dist/js/tabulator.min.js"></script>
+
         <script>
-            const pengesahanInput = document.getElementById('tanggal_pengesahan');
-            const berlakuInput = document.getElementById('masa_berlaku');
-
-            function validateDates() {
-                const pengesahan = new Date(pengesahanInput.value);
-                const berlaku = new Date(berlakuInput.value);
-
-                if (berlaku <= pengesahan) {
-                    alert("Tanggal Masa Berlaku harus lebih dari Tanggal Pengesahan!");
-                    berlakuInput.value = '';
-                }
-            }
-
-            pengesahanInput.addEventListener('change', validateDates);
-            berlakuInput.addEventListener('change', validateDates);
-
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
-                    fetch(`status-plo-saka/${id}`, {
+                    fetch(`pelatihan-aims-tgi/${id}`, {
                             method: "DELETE",
                             headers: {
                                 "Accept": "application/json",
@@ -319,82 +243,17 @@
                             value: keyword
                         },
                         {
-                            field: "nomor_plo",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
                             field: "company",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "area",
+                            field: "judul_pelatihan",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "lokasi",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "nama_aset",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "tanggal_pengesahan",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "masa_berlaku",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "keterangan",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "belum_proses",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "pre_inspection",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "inspection",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "coi_peralatan",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "ba_pk",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "penerbitan_plo_valid",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "kendala",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "tindak_lanjut",
+                            field: "realisasi_perwira",
                             type: "like",
                             value: keyword
                         }
@@ -408,7 +267,7 @@
             }
 
             function loadData() {
-                fetch("/monev/shg/input-data/status-plo-saka/data", {
+                fetch("/monev/shg/input-data/pelatihan-aims-tgi/data", {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -419,9 +278,8 @@
             }
 
             document.addEventListener("DOMContentLoaded", function() {
-
                 const columnMap = {
-                    "status-plo-saka": [{
+                    "pelatihan-aims-tgi": [{
                             title: "No",
                             formatter: "rownum",
                             hozAlign: "center",
@@ -438,91 +296,21 @@
                             editor: "input"
                         },
                         {
-                            title: "Nomor PLO",
-                            field: "nomor_plo",
-                            editor: "input",
-                            width: 250
-                        },
-                        {
                             title: "Company",
                             field: "company",
                             editor: "input"
                         },
                         {
-                            title: "Area",
-                            field: "area",
-                            editor: "input"
-                        },
-                        {
-                            title: "Lokasi",
-                            field: "lokasi",
-                            editor: "input"
-                        },
-                        {
-                            title: "Nama Aset",
-                            field: "nama_aset",
-                            editor: "input"
-                        },
-                        {
-                            title: "Tanggal Pengesahan",
-                            field: "tanggal_pengesahan",
+                            title: "Judul Pelatihan",
+                            field: "judul_pelatihan",
+                            width: 400,
                             editor: "input",
-                            hozAlign: "center",
                         },
                         {
-                            title: "Masa Berlaku",
-                            field: "masa_berlaku",
-                            editor: "input",
-                            hozAlign: "center",
-                        },
-                        {
-                            title: "Keterangan",
-                            field: "keterangan",
-                            editor: "input"
-                        },
-                        {
-                            title: "Belum Proses",
-                            field: "belum_proses",
+                            title: "Realisasi Perwira",
+                            field: "realisasi_perwira",
                             editor: "number",
                             hozAlign: "center"
-                        },
-                        {
-                            title: "Pre-Inspection",
-                            field: "pre_inspection",
-                            editor: "number",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "Inspection",
-                            field: "inspection",
-                            editor: "number",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "COI Peralatan",
-                            field: "coi_peralatan",
-                            editor: "input"
-                        },
-                        {
-                            title: "BA PK",
-                            field: "ba_pk",
-                            editor: "input"
-                        },
-                        {
-                            title: "Penerbitan PLO (Valid)",
-                            field: "penerbitan_plo_valid",
-                            editor: "input",
-                            hozAlign: "center",
-                        },
-                        {
-                            title: "Kendala",
-                            field: "kendala",
-                            editor: "input"
-                        },
-                        {
-                            title: "Tindak Lanjut",
-                            field: "tindak_lanjut",
-                            editor: "input"
                         },
                         {
                             title: "Aksi",
@@ -540,7 +328,7 @@
                     layout: "fitDataTable",
                     responsiveLayout: "collapse",
                     autoResize: true,
-                    columns: columnMap["status-plo-saka"],
+                    columns: columnMap["pelatihan-aims-tgi"],
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -580,7 +368,7 @@
 
                     if (!id) return;
 
-                    fetch(`status-plo-saka/${id}`, {
+                    fetch(`pelatihan-aims-tgi/${id}`, {
                             method: "PUT",
                             headers: {
                                 "Content-Type": "application/json",
@@ -620,7 +408,7 @@
                     console.log("Baris yang berubah:", changedRows);
 
                     changedRows.forEach(rowData => {
-                        fetch(`status-plo-saka/${rowData.id}`, {
+                        fetch(`pelatihan-aims-tgi/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
                                     "Content-Type": "application/json",
@@ -645,7 +433,7 @@
             });
         </script>
 
-        {{-- create data and create  --}}
+        {{-- create data  --}}
         <script>
             function openModal() {
                 document.getElementById("createModal").style.display = "block";
@@ -662,32 +450,9 @@
 
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
-                console.log("Data submitted:", data);
 
-                const id = document.getElementById("form-id").value;
-                const periode = document.getElementById("periode").value;
-                const nomorPlo = document.getElementById("nomor_plo").value;
-                const company = document.getElementById("company").value;
-                const area = document.getElementById("area").value;
-                const lokasi = document.getElementById("lokasi").value;
-                const namaAset = document.getElementById("nama_aset").value;
-                const tanggalPengesahan = document.getElementById("tanggal_pengesahan").value;
-                const masaBerlaku = document.getElementById("masa_berlaku").value;
-                const keterangan = document.getElementById("keterangan").value;
-                const belumProses = document.getElementById("belum_proses").value;
-                const preInspection = document.getElementById("pre_inspection").value;
-                const inspection = document.getElementById("inspection").value;
-                const coiPeralatan = document.getElementById("coi_peralatan").value;
-                const baPk = document.getElementById("ba_pk").value;
-                const penerbitanPloValid = document.getElementById("penerbitan_plo_valid").value;
-                const kendala = document.getElementById("kendala").value;
-                const tindakLanjut = document.getElementById("tindak_lanjut").value;
-
-                const method = id ? "PUT" : "POST";
-                const url = id ? `status-plo-saka/${id}` : "status-plo-saka";
-
-                fetch(url, {
-                        method: method,
+                fetch("pelatihan-aims-tgi", {
+                        method: "POST",
                         headers: {
                             "Content-Type": "application/json",
                             "Accept": "application/json",
@@ -695,44 +460,26 @@
                                 "content")
                         },
                         body: JSON.stringify({
-                            id: id,
-                            periode: periode,
-                            nomor_plo: nomorPlo,
-                            company: company,
-                            area: area,
-                            lokasi: lokasi,
-                            nama_aset: namaAset,
-                            tanggal_pengesahan: tanggalPengesahan,
-                            masa_berlaku: masaBerlaku,
-                            keterangan: keterangan,
-                            belum_proses: belumProses,
-                            pre_inspection: preInspection,
-                            inspection: inspection,
-                            coi_peralatan: coiPeralatan,
-                            ba_pk: baPk,
-                            penerbitan_plo_valid: penerbitanPloValid,
-                            kendala: kendala,
-                            tindak_lanjut: tindakLanjut
+                            periode: data.periode,
+                            company: data.company,
+                            judul_pelatihan: data.judul_pelatihan,
+                            realisasi_perwira: data.realisasi_perwira
                         })
                     })
                     .then(response => response.json())
                     .then(result => {
                         if (result.success) {
-                            alert(result.message);
-                            // table.addRow([result.data]);
-                            table.setData("/monev/shg/input-data/status-plo-saka/data");
+                            alert(result.message || "Data berhasil disimpan");
+                            table.setData("/monev/shg/input-data/pelatihan-aims-tgi/data");
                             this.reset();
+                            closeModal();
                         } else {
-                            alert('Gagal menyimpan data');
+                            alert("Gagal menyimpan data");
                         }
                     })
                     .catch(error => {
-                        console.error("Error submitting data:", error);
-                        alert('Terjadi kesalahan saat mengirim data.');
-                    })
-                    .finally(() => {
-                        closeModal();
-                        this.reset();
+                        console.error("Error saat submit:", error);
+                        alert("Terjadi kesalahan saat mengirim data.");
                     });
             });
         </script>
@@ -772,6 +519,7 @@
                     });
                 });
 
+                // Ketika halaman reload setelah klik, cek dan scroll otomatis
                 if (sessionStorage.getItem('scrollToActiveTab') === 'yes') {
                     scrollToActiveTab();
                     sessionStorage.removeItem('scrollToActiveTab');
@@ -779,5 +527,4 @@
             });
         </script>
     @endpush
-
 </x-layouts.app>

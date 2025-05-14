@@ -121,7 +121,7 @@
     <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-                <h5 class="card-title mb-3 mb-md-0">Status PLO SAKA</h5>
+                <h5 class="card-title mb-3 mb-md-0">Status PLO TGI</h5>
                 <div class="d-flex">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
@@ -176,7 +176,7 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Tambah Target SAKA</h3>
+            <h3>Tambah Target TGI</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
 
@@ -291,7 +291,7 @@
 
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
-                    fetch(`status-plo-saka/${id}`, {
+                    fetch(`status-plo-tgi/${id}`, {
                             method: "DELETE",
                             headers: {
                                 "Accept": "application/json",
@@ -408,7 +408,7 @@
             }
 
             function loadData() {
-                fetch("/monev/shg/input-data/status-plo-saka/data", {
+                fetch("/monev/shg/input-data/status-plo-tgi/data", {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -421,7 +421,7 @@
             document.addEventListener("DOMContentLoaded", function() {
 
                 const columnMap = {
-                    "status-plo-saka": [{
+                    "status-plo-tgi": [{
                             title: "No",
                             formatter: "rownum",
                             hozAlign: "center",
@@ -540,7 +540,7 @@
                     layout: "fitDataTable",
                     responsiveLayout: "collapse",
                     autoResize: true,
-                    columns: columnMap["status-plo-saka"],
+                    columns: columnMap["status-plo-tgi"],
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -580,7 +580,7 @@
 
                     if (!id) return;
 
-                    fetch(`status-plo-saka/${id}`, {
+                    fetch(`status-plo-tgi/${id}`, {
                             method: "PUT",
                             headers: {
                                 "Content-Type": "application/json",
@@ -620,7 +620,7 @@
                     console.log("Baris yang berubah:", changedRows);
 
                     changedRows.forEach(rowData => {
-                        fetch(`status-plo-saka/${rowData.id}`, {
+                        fetch(`status-plo-tgi/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
                                     "Content-Type": "application/json",
@@ -684,7 +684,7 @@
                 const tindakLanjut = document.getElementById("tindak_lanjut").value;
 
                 const method = id ? "PUT" : "POST";
-                const url = id ? `status-plo-saka/${id}` : "status-plo-saka";
+                const url = id ? `status-plo-tgi/${id}` : "status-plo-tgi";
 
                 fetch(url, {
                         method: method,
@@ -720,7 +720,7 @@
                         if (result.success) {
                             alert(result.message);
                             // table.addRow([result.data]);
-                            table.setData("/monev/shg/input-data/status-plo-saka/data");
+                            table.setData("/monev/shg/input-data/status-plo-tgi/data");
                             this.reset();
                         } else {
                             alert('Gagal menyimpan data');

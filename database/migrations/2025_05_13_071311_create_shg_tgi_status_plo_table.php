@@ -4,14 +4,13 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::create('shg_pertamina_status_plo_ptg', function (Blueprint $table) {
+        Schema::create('shg_tgi_status_plo', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('periode');
             $table->string('nomor_plo')->nullable();
@@ -39,6 +38,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('shg_pertamina_status_plo_ptg');
+        Schema::dropIfExists('shg_tgi_status_plo');
     }
 };
