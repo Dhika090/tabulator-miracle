@@ -343,7 +343,7 @@
                             value: keyword
                         },
                         {
-                            field: "mitigasi_penanganan_sementara",
+                            field: "mitigasi",
                             type: "like",
                             value: keyword
                         },
@@ -457,7 +457,7 @@
                         },
                         {
                             title: "Mitigasi / Penanganan Sementara",
-                            field: "mitigasi_penanganan_sementara",
+                            field: "mitigasi",
                             editor: "input"
                         },
                         {
@@ -669,7 +669,7 @@
                             jenis_kerusakan: data.jenis_kerusakan,
                             penyebab_root_cause: data.penyebab_root_cause,
                             kendala_perbaikan: data.kendala_perbaikan,
-                            mitigasi_penanganan_sementara: data.mitigasi_penanganan_sementara,
+                            mitigasi: data.mitigasi,
                             perbaikan_permanen: data.perbaikan_permanen,
                             progres_perbaikan_permanen: data.progres_perbaikan_permanen,
                             tindak_lanjut: data.tindak_lanjut,

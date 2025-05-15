@@ -48,6 +48,7 @@ return new class extends Migration {
             $table->string('kode')->nullable();
             $table->string('kendala')->nullable();
             $table->string('tindak_lanjut')->nullable();
+            $table->timestamps();
         });
     }
 

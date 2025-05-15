@@ -108,6 +108,20 @@ use App\Http\Controllers\SHG\InputDataMonev\pgnLngIndonesia\RencanaPemeliharaanP
 use App\Http\Controllers\SHG\InputDataMonev\pgnLngIndonesia\SistemInformasiAimsPliController;
 use App\Http\Controllers\SHG\InputDataMonev\pgnlngindonesia\StatusAssetAIPLIController;
 use App\Http\Controllers\SHG\InputDataMonev\pgnLngIndonesia\StatusPloPliController;
+use App\Http\Controllers\SHG\InputDataMonev\PgnOmm\AirBudgetTaggingOmmController;
+use App\Http\Controllers\SHG\InputDataMonev\PgnOmm\AssetBreakdownOmmController;
+use App\Http\Controllers\SHG\InputDataMonev\PgnOmm\AvailabilityOmmController;
+use App\Http\Controllers\SHG\InputDataMonev\PgnOmm\KondisiVacantAimsOmmController;
+use App\Http\Controllers\SHG\InputDataMonev\PgnOmm\MandatoryCertificationOmmController;
+use App\Http\Controllers\SHG\InputDataMonev\PgnOmm\PelatihanAimsOmmController;
+use App\Http\Controllers\SHG\InputDataMonev\PgnOmm\RealisasiAnggaranAiOmmController;
+use App\Http\Controllers\SHG\InputDataMonev\PgnOmm\RealisasiProgressFisikAiOmmController;
+use App\Http\Controllers\SHG\InputDataMonev\PgnOmm\ReliabilityOmmController;
+use App\Http\Controllers\SHG\InputDataMonev\PgnOmm\RencanaPemeliharaanOmmController;
+use App\Http\Controllers\SHG\InputDataMonev\PgnOmm\SapAssetOmmController;
+use App\Http\Controllers\SHG\InputDataMonev\PgnOmm\SistemInformasiAimsOmmController;
+use App\Http\Controllers\SHG\InputDataMonev\PgnOmm\StatusAssetAiOmmController;
+use App\Http\Controllers\SHG\InputDataMonev\PgnOmm\StatusPloOmmController;
 use App\Http\Controllers\SHG\InputDataMonev\SakaEnergi\AirBudgetTaggingSakaController;
 use App\Http\Controllers\SHG\InputDataMonev\SakaEnergi\AssetBreakdownSakaController;
 use App\Http\Controllers\SHG\InputDataMonev\SakaEnergi\AvailabilitySakaController;
@@ -1374,6 +1388,112 @@ Route::prefix('monev/shg/input-data/realisasi-progress-fisik-ai-tgi')->middlewar
     Route::put('/{id}', [RealisasiProgressFisikAiTGIController::class, 'update'])->name('realisasi-progress-fisik-ai-tgi.update');
     Route::delete('/{id}', [RealisasiProgressFisikAiTGIController::class, 'destroy'])->name('realisasi-progress-fisik-ai-tgi.destroy');
 });
+
+
+// PGN OMM
+Route::prefix('monev/shg/input-data/pgn-omm')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [StatusAssetAiOmmController::class, 'index'])->name('pgn-omm');
+    Route::post('/', [StatusAssetAiOmmController::class, 'store'])->name('pgn-omm.store');
+    Route::get('/data', [StatusAssetAiOmmController::class, 'data'])->name('pgn-omm.data');
+    Route::put('/{id}', [StatusAssetAiOmmController::class, 'update'])->name('pgn-omm.update');
+    Route::delete('/{id}', [StatusAssetAiOmmController::class, 'destroy'])->name('pgn-omm.destroy');
+});
+Route::prefix('monev/shg/input-data/mandatory-certification-omm')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [MandatoryCertificationOmmController::class, 'index'])->name('mandatory-certification-omm');
+    Route::post('/', [MandatoryCertificationOmmController::class, 'store'])->name('mandatory-certification-omm.store');
+    Route::get('/data', [MandatoryCertificationOmmController::class, 'data'])->name('mandatory-certification-omm.data');
+    Route::put('/{id}', [MandatoryCertificationOmmController::class, 'update'])->name('mandatory-certification-omm.update');
+    Route::delete('/{id}', [MandatoryCertificationOmmController::class, 'destroy'])->name('mandatory-certification-omm.destroy');
+});
+Route::prefix('monev/shg/input-data/asset-breakdown-omm')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [AssetBreakdownOmmController::class, 'index'])->name('asset-breakdown-omm');
+    Route::post('/', [AssetBreakdownOmmController::class, 'store'])->name('asset-breakdown-omm.store');
+    Route::get('/data', [AssetBreakdownOmmController::class, 'data'])->name('asset-breakdown-omm.data');
+    Route::put('/{id}', [AssetBreakdownOmmController::class, 'update'])->name('asset-breakdown-omm.update');
+    Route::delete('/{id}', [AssetBreakdownOmmController::class, 'destroy'])->name('asset-breakdown-omm.destroy');
+});
+Route::prefix('monev/shg/input-data/status-plo-omm')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [StatusPloOmmController::class, 'index'])->name('status-plo-omm');
+    Route::post('/', [StatusPloOmmController::class, 'store'])->name('status-plo-omm.store');
+    Route::get('/data', [StatusPloOmmController::class, 'data'])->name('status-plo-omm.data');
+    Route::put('/{id}', [StatusPloOmmController::class, 'update'])->name('status-plo-omm.update');
+    Route::delete('/{id}', [StatusPloOmmController::class, 'destroy'])->name('status-plo-omm.destroy');
+});
+Route::prefix('monev/shg/input-data/kondisi-vacant-aims-omm')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [KondisiVacantAimsOmmController::class, 'index'])->name('kondisi-vacant-aims-omm');
+    Route::post('/', [KondisiVacantAimsOmmController::class, 'store'])->name('kondisi-vacant-aims-omm.store');
+    Route::get('/data', [KondisiVacantAimsOmmController::class, 'data'])->name('kondisi-vacant-aims-omm.data');
+    Route::put('/{id}', [KondisiVacantAimsOmmController::class, 'update'])->name('kondisi-vacant-aims-omm.update');
+    Route::delete('/{id}', [KondisiVacantAimsOmmController::class, 'destroy'])->name('kondisi-vacant-aims-omm.destroy');
+});
+Route::prefix('monev/shg/input-data/sap-asset-omm')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [SapAssetOmmController::class, 'index'])->name('sap-asset-omm');
+    Route::post('/', [SapAssetOmmController::class, 'store'])->name('sap-asset-omm.store');
+    Route::get('/data', [SapAssetOmmController::class, 'data'])->name('sap-asset-omm.data');
+    Route::put('/{id}', [SapAssetOmmController::class, 'update'])->name('sap-asset-omm.update');
+    Route::delete('/{id}', [SapAssetOmmController::class, 'destroy'])->name('sap-asset-omm.destroy');
+});
+Route::prefix('monev/shg/input-data/realisasi-anggaran-ai-omm')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [RealisasiAnggaranAiOmmController::class, 'index'])->name('realisasi-anggaran-ai-omm');
+    Route::post('/', [RealisasiAnggaranAiOmmController::class, 'store'])->name('realisasi-anggaran-ai-omm.store');
+    Route::get('/data', [RealisasiAnggaranAiOmmController::class, 'data'])->name('realisasi-anggaran-ai-omm.data');
+    Route::put('/{id}', [RealisasiAnggaranAiOmmController::class, 'update'])->name('realisasi-anggaran-ai-omm.update');
+    Route::delete('/{id}', [RealisasiAnggaranAiOmmController::class, 'destroy'])->name('realisasi-anggaran-ai-omm.destroy');
+});
+Route::prefix('monev/shg/input-data/realisasi-progress-fisik-ai-omm')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [RealisasiProgressFisikAiOMMController::class, 'index'])->name('realisasi-progress-fisik-ai-omm');
+    Route::post('/', [RealisasiProgressFisikAiOMMController::class, 'store'])->name('realisasi-progress-fisik-ai-omm.store');
+    Route::get('/data', [RealisasiProgressFisikAiOMMController::class, 'data'])->name('realisasi-progress-fisik-ai-omm.data');
+    Route::put('/{id}', [RealisasiProgressFisikAiOMMController::class, 'update'])->name('realisasi-progress-fisik-ai-omm.update');
+    Route::delete('/{id}', [RealisasiProgressFisikAiOmmController::class, 'destroy'])->name('realisasi-progress-fisik-ai-omm.destroy');
+});
+Route::prefix('monev/shg/input-data/pelatihan-aims-omm')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [PelatihanAimsOmmController::class, 'index'])->name('pelatihan-aims-omm');
+    Route::post('/', [PelatihanAimsOmmController::class, 'store'])->name('pelatihan-aims-omm.store');
+    Route::get('/data', [PelatihanAimsOmmController::class, 'data'])->name('pelatihan-aims-omm.data');
+    Route::put('/{id}', [PelatihanAimsOmmController::class, 'update'])->name('pelatihan-aims-omm.update');
+    Route::delete('/{id}', [PelatihanAimsOmmController::class, 'destroy'])->name('pelatihan-aims-omm.destroy');
+});
+Route::prefix('monev/shg/input-data/sistem-informasi-aims-omm')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [SistemInformasiAimsOmmController::class, 'index'])->name('sistem-informasi-aims-omm');
+    Route::post('/', [SistemInformasiAimsOmmController::class, 'store'])->name('sistem-informasi-aims-omm.store');
+    Route::get('/data', [SistemInformasiAimsOmmController::class, 'data'])->name('sistem-informasi-aims-omm.data');
+    Route::put('/{id}', [SistemInformasiAimsOmmController::class, 'update'])->name('sistem-informasi-aims-omm.update');
+    Route::delete('/{id}', [SistemInformasiAimsOmmController::class, 'destroy'])->name('sistem-informasi-aims-omm.destroy');
+});
+Route::prefix('monev/shg/input-data/rencana-pemeliharaan-omm')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [RencanaPemeliharaanOmmController::class, 'index'])->name('rencana-pemeliharaan-omm');
+    Route::post('/', [RencanaPemeliharaanOmmController::class, 'store'])->name('rencana-pemeliharaan-omm.store');
+    Route::get('/data', [RencanaPemeliharaanOmmController::class, 'data'])->name('rencana-pemeliharaan-omm.data');
+    Route::put('/{id}', [RencanaPemeliharaanOmmController::class, 'update'])->name('rencana-pemeliharaan-omm.update');
+    Route::delete('/{id}', [RencanaPemeliharaanOmmController::class, 'destroy'])->name('rencana-pemeliharaan-omm.destroy');
+});
+Route::prefix('monev/shg/input-data/reliability-omm')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [ReliabilityOmmController::class, 'index'])->name('reliability-omm');
+    Route::post('/', [ReliabilityOmmController::class, 'store'])->name('reliability-omm.store');
+    Route::get('/data', [ReliabilityOmmController::class, 'data'])->name('reliability-omm.data');
+    Route::put('/{id}', [ReliabilityOmmController::class, 'update'])->name('reliability-omm.update');
+    Route::delete('/{id}', [ReliabilityOmmController::class, 'destroy'])->name('reliability-omm.destroy');
+});
+Route::prefix('monev/shg/input-data/availability-omm')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [AvailabilityOmmController::class, 'index'])->name('availability-omm');
+    Route::post('/', [AvailabilityOmmController::class, 'store'])->name('availability-omm.store');
+    Route::get('/data', [AvailabilityOmmController::class, 'data'])->name('availability-omm.data');
+    Route::put('/{id}', [AvailabilityOmmController::class, 'update'])->name('availability-omm.update');
+    Route::delete('/{id}', [AvailabilityOmmController::class, 'destroy'])->name('availability-omm.destroy');
+});
+Route::prefix('monev/shg/input-data/air-budget-tagging-omm')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [AirBudgetTaggingOmmController::class, 'index'])->name('air-budget-tagging-omm');
+    Route::post('/', [AirBudgetTaggingOmmController::class, 'store'])->name('air-budget-tagging-omm.store');
+    Route::get('/data', [AirBudgetTaggingOmmController::class, 'data'])->name('air-budget-tagging-omm.data');
+    Route::put('/{id}', [AirBudgetTaggingOmmController::class, 'update'])->name('air-budget-tagging-omm.update');
+    Route::delete('/{id}', [AirBudgetTaggingOmmController::class, 'destroy'])->name('air-budget-tagging-omm.destroy');
+});
+
+
+
+
+
 
 
 
