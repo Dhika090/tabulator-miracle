@@ -13,10 +13,12 @@
                 border-radius: 8px;
                 box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             }
+
             .tabulator .tabulator-cell {
                 white-space: normal !important;
                 word-wrap: break-word;
             }
+
             .tabulator-cell {
                 font-size: 14px;
             }
@@ -451,12 +453,14 @@
                         {
                             title: "Kendala Perbaikan",
                             field: "kendala_perbaikan",
-                            editor: "input"
+                            editor: "input",
+                            width: 450
                         },
                         {
                             title: "Mitigasi / Penanganan Sementara",
                             field: "mitigasi",
-                            editor: "input"
+                            editor: "input",
+                            width: 450
                         },
                         {
                             title: "Perbaikan Permanen",
@@ -665,7 +669,7 @@
                             tag: data.tag,
                             deskripsi_peralatan: data.deskripsi_peralatan,
                             jenis_kerusakan: data.jenis_kerusakan,
-                            penyebab_root_cause: data.penyebab_root_cause,
+                            penyebab: data.penyebab,
                             kendala_perbaikan: data.kendala_perbaikan,
                             mitigasi: data.mitigasi,
                             perbaikan_permanen: data.perbaikan_permanen,

@@ -21,7 +21,7 @@ class AirBudgetTaggingOmmRequest extends FormRequest
      */
     public function rules(): array
     {
-         return [
+        return [
             'periode' => 'nullable|string|max:255',
             'satker' => 'nullable|string|max:255',
             'kategori' => 'nullable|string|max:255',

@@ -23,11 +23,6 @@
                 word-wrap: break-word;
             }
 
-            .tabulator .tabulator-cell {
-                white-space: normal !important;
-                word-wrap: break-word;
-            }
-
             .card {
                 margin-top: 20px;
             }

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ReliabilityOmm extends Model
 {
-     use HasFactory;
+    use HasFactory;
     public $incrementing = false;
     protected $keyType = 'string';
 

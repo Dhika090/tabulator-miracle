@@ -14,12 +14,6 @@
                 box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             }
 
-            .tabulator-cell {
-                font-size: 14px;
-                white-space: normal !important;
-                word-wrap: break-word;
-            }
-
             .card {
                 margin-top: 20px;
             }
@@ -27,6 +21,12 @@
             .tab-scroll-wrapper {
                 border-bottom: 1px solid #dee2e6;
                 padding-bottom: 5px;
+            }
+
+            .tabulator-cell {
+                font-size: 14px;
+                white-space: normal !important;
+                word-wrap: break-word;
             }
 
             .tab-scroll-wrapper {
@@ -40,7 +40,6 @@
                 white-space: nowrap;
                 position: relative;
             }
-
 
             #tabSwitcher .btn {
                 border-radius: 0;

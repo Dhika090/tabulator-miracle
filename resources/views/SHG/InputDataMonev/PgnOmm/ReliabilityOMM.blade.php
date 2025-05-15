@@ -434,9 +434,9 @@
                         if (rowData.target !== undefined && typeof rowData.target === "string") {
                             rowData.target = parseFloat(rowData.target.replace("%", "").trim());
                         }
-                        if (rowData.availability !== undefined && typeof rowData.availability ===
+                        if (rowData.reliability !== undefined && typeof rowData.reliability ===
                             "string") {
-                            rowData.availability = parseFloat(rowData.availability.replace("%", "")
+                            rowData.reliability = parseFloat(rowData.reliability.replace("%", "")
                                 .trim());
                         }
                         fetch(`reliability-omm/${rowData.id}`, {

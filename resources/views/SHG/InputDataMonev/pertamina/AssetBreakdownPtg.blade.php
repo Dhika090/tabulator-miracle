@@ -455,12 +455,14 @@
                         {
                             title: "Kendala Perbaikan",
                             field: "kendala_perbaikan",
-                            editor: "input"
+                            editor: "input",
+                            width: 450
                         },
                         {
                             title: "Mitigasi / Penanganan Sementara",
                             field: "mitigasi",
-                            editor: "input"
+                            editor: "input",
+                            width: 450
                         },
                         {
                             title: "Perbaikan Permanen",
@@ -649,7 +651,7 @@
                             tag: data.tag,
                             deskripsi_peralatan: data.deskripsi_peralatan,
                             jenis_kerusakan: data.jenis_kerusakan,
-                            penyebab_root_cause: data.penyebab_root_cause,
+                            penyebab: data.penyebab,
                             kendala_perbaikan: data.kendala_perbaikan,
                             mitigasi: data.mitigasi,
                             perbaikan_permanen: data.perbaikan_permanen,
