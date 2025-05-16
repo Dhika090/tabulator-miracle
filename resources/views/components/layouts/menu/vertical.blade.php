@@ -193,6 +193,11 @@
                                         <i class="fa fa-wrench me-2"></i>PGN SOR 3
                                     </a>
                                 </li>
+                                <li class="menu-item">
+                                    <a class="menu-link" href="{{ url('monev/shg/input-data/realisasi-anggaran-ai-glsm') }}">
+                                        <i class="fa fa-wrench me-2"></i>PGN GLSM
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                     </ul>

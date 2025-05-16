@@ -22,7 +22,7 @@ class AirBudgetTaggingPtgRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'periode' => 'required|string|max:255',
+            'periode' => 'nullable|string|max:255',
             'satker' => 'nullable|string|max:255',
             'kategori' => 'nullable|string|max:255',
             'ce' => 'nullable|string|max:255',

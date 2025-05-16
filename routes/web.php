@@ -96,6 +96,9 @@ use App\Http\Controllers\SHG\InputDataMonev\pertaSamtan\RencanaPemeliharaanPtsgC
 use App\Http\Controllers\SHG\InputDataMonev\pertaSamtan\SistemInformasiAimsPtsgController;
 use App\Http\Controllers\SHG\InputDataMonev\pertaSamtan\StatusPloPtsgController;
 use App\Http\Controllers\SHG\InputDataMonev\PertaSamtanGasController;
+use App\Http\Controllers\SHG\InputDataMonev\PgnGlsm\AirBudgetTaggingGlsmController;
+use App\Http\Controllers\SHG\InputDataMonev\PgnGlsm\RealisasiAnggaranAiGlsmController;
+use App\Http\Controllers\SHG\InputDataMonev\PgnGlsm\RealisasiProgressFisikAiGlsmController;
 use App\Http\Controllers\SHG\InputDataMonev\pgnLngIndonesia\AirBudgetTaggingPLIController;
 use App\Http\Controllers\SHG\InputDataMonev\pgnLngIndonesia\AssetBreakdownPliController;
 use App\Http\Controllers\SHG\InputDataMonev\pgnLngIndonesia\AvailabilityPLIController;
@@ -135,6 +138,31 @@ use App\Http\Controllers\SHG\InputDataMonev\PgnSor1\RencanaPemeliharaanSOR1Contr
 use App\Http\Controllers\SHG\InputDataMonev\PgnSor1\SistemInformasiAimsSOR1Controller;
 use App\Http\Controllers\SHG\InputDataMonev\PgnSor1\StatusAssetAiSOR1Controller;
 use App\Http\Controllers\SHG\InputDataMonev\PgnSor1\StatusPloSOR1Controller;
+use App\Http\Controllers\SHG\InputDataMonev\PgnSor2\AssetBreakdownSOR2Controller;
+use App\Http\Controllers\SHG\InputDataMonev\PgnSor2\KondisiVacantAimsSOR2Controller;
+use App\Http\Controllers\SHG\InputDataMonev\PgnSor2\MandatoryCertificationSOR2Controller;
+use App\Http\Controllers\SHG\InputDataMonev\PgnSor2\PelatihanAimsSOR2Controller;
+use App\Http\Controllers\SHG\InputDataMonev\PgnSor2\SistemInformasiAimsSOR2Controller;
+use App\Http\Controllers\SHG\InputDataMonev\PgnSor2\StatusAssetAiSOR2Controller;
+use App\Http\Controllers\SHG\InputDataMonev\PgnSor2\StatusPloSOR2Controller;
+use App\Http\Controllers\SHG\InputDataMonev\PgnSor2\RencanaPemeliharaanSOR2Controller;
+use App\Http\Controllers\SHG\InputDataMonev\PgnSor2\ReliabilitySOR2Controller;
+use App\Http\Controllers\SHG\InputDataMonev\PgnSor2\AvailabilitySOR2Controller;
+use App\Http\Controllers\SHG\InputDataMonev\PgnSor2\RealisasiAnggaranAiSOR2Controller;
+use App\Http\Controllers\SHG\InputDataMonev\PgnSor2\RealisasiProgressAiSOR2controller;
+use App\Http\Controllers\SHG\InputDataMonev\PgnSor2\AirBudgetTaggingSOR2controller;
+use App\Http\Controllers\SHG\InputDataMonev\PgnSor3\AirBudgetTaggingSOR3controller;
+use App\Http\Controllers\SHG\InputDataMonev\PgnSor3\AssetBreakdownSOR3controller;
+use App\Http\Controllers\SHG\InputDataMonev\PgnSor3\KondisiVacantAimsSOR3controller;
+use App\Http\Controllers\SHG\InputDataMonev\PgnSor3\MandatoryCertificationSOR3controller;
+use App\Http\Controllers\SHG\InputDataMonev\PgnSor3\PelatihanAimsSOR3controller;
+use App\Http\Controllers\SHG\InputDataMonev\PgnSor3\RealisasiAnggaranAimsSOR3controller;
+use App\Http\Controllers\SHG\InputDataMonev\PgnSor3\RealisasiProgressFisikAiSOR3controller;
+use App\Http\Controllers\SHG\InputDataMonev\PgnSor3\ReliabilitySOR3controller;
+use App\Http\Controllers\SHG\InputDataMonev\PgnSor3\RencanaPemeliharaanSOR3controller;
+use App\Http\Controllers\SHG\InputDataMonev\PgnSor3\SistemInformasiAimsSOR3controller;
+use App\Http\Controllers\SHG\InputDataMonev\PgnSor3\StatusAssetAiSOR3controller;
+use App\Http\Controllers\SHG\InputDataMonev\PgnSor3\StatusPloSOR3controller;
 use App\Http\Controllers\SHG\InputDataMonev\SakaEnergi\AirBudgetTaggingSakaController;
 use App\Http\Controllers\SHG\InputDataMonev\SakaEnergi\AssetBreakdownSakaController;
 use App\Http\Controllers\SHG\InputDataMonev\SakaEnergi\AvailabilitySakaController;
@@ -188,7 +216,7 @@ use Livewire\Volt\Volt;
 // })->name('login');
 
 Route::get('/', function () {
-    return view('dashboard'); 
+    return view('dashboard');
 });
 
 
@@ -1598,20 +1626,222 @@ Route::prefix('monev/shg/input-data/air-budget-tagging-sor1')->middleware(['auth
 });
 
 // PGN SOR 2
+Route::prefix('monev/shg/input-data/pgn-sor2')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [StatusAssetAiSOR2Controller::class, 'index'])->name('pgn-sor2');
+    Route::post('/', [StatusAssetAiSOR2Controller::class, 'store'])->name('pgn-sor2.store');
+    Route::get('/data', [StatusAssetAiSOR2Controller::class, 'data'])->name('pgn-sor2.data');
+    Route::put('/{id}', [StatusAssetAiSOR2Controller::class, 'update'])->name('pgn-sor2.update');
+    Route::delete('/{id}', [StatusAssetAiSOR2Controller::class, 'destroy'])->name('pgn-sor2.destroy');
+});
+Route::prefix('monev/shg/input-data/asset-breakdown-sor2')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [AssetBreakdownSOR2Controller::class, 'index'])->name('asset-breakdown-sor2');
+    Route::post('/', [AssetBreakdownSOR2Controller::class, 'store'])->name('asset-breakdown-sor2.store');
+    Route::get('/data', [AssetBreakdownSOR2Controller::class, 'data'])->name('asset-breakdown-sor2.data');
+    Route::put('/{id}', [AssetBreakdownSOR2Controller::class, 'update'])->name('asset-breakdown-sor2.update');
+    Route::delete('/{id}', [AssetBreakdownSOR2Controller::class, 'destroy'])->name('asset-breakdown-sor2.destroy');
+});
+Route::prefix('monev/shg/input-data/status-plo-sor2')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [StatusPloSOR2Controller::class, 'index'])->name('status-plo-sor2');
+    Route::post('/', [StatusPloSOR2Controller::class, 'store'])->name('status-plo-sor2.store');
+    Route::get('/data', [StatusPloSOR2Controller::class, 'data'])->name('status-plo-sor2.data');
+    Route::put('/{id}', [StatusPloSOR2Controller::class, 'update'])->name('status-plo-sor2.update');
+    Route::delete('/{id}', [StatusPloSOR2Controller::class, 'destroy'])->name('status-plo-sor2.destroy');
+});
+Route::prefix('monev/shg/input-data/pelatihan-aims-sor2')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [PelatihanAimsSOR2Controller::class, 'index'])->name('pelatihan-aims-sor2');
+    Route::post('/', [PelatihanAimsSOR2Controller::class, 'store'])->name('pelatihan-aims-sor2.store');
+    Route::get('/data', [PelatihanAimsSOR2Controller::class, 'data'])->name('pelatihan-aims-sor2.data');
+    Route::put('/{id}', [PelatihanAimsSOR2Controller::class, 'update'])->name('pelatihan-aims-sor2.update');
+    Route::delete('/{id}', [PelatihanAimsSOR2Controller::class, 'destroy'])->name('pelatihan-aims-sor2.destroy');
+});
+Route::prefix('monev/shg/input-data/mandatory-certification-sor2')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [MandatoryCertificationSOR2Controller::class, 'index'])->name('mandatory-certification-sor2');
+    Route::post('/', [MandatoryCertificationSOR2Controller::class, 'store'])->name('mandatory-certification-sor2.store');
+    Route::get('/data', [MandatoryCertificationSOR2Controller::class, 'data'])->name('mandatory-certification-sor2.data');
+    Route::put('/{id}', [MandatoryCertificationSOR2Controller::class, 'update'])->name('mandatory-certification-sor2.update');
+    Route::delete('/{id}', [MandatoryCertificationSOR2Controller::class, 'destroy'])->name('mandatory-certification-sor2.destroy');
+});
+Route::prefix('monev/shg/input-data/kondisi-vacant-aims-sor2')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [KondisiVacantAimsSOR2Controller::class, 'index'])->name('kondisi-vacant-aims-sor2');
+    Route::post('/', [KondisiVacantAimsSOR2Controller::class, 'store'])->name('kondisi-vacant-aims-sor2.store');
+    Route::get('/data', [KondisiVacantAimsSOR2Controller::class, 'data'])->name('kondisi-vacant-aims-sor2.data');
+    Route::put('/{id}', [KondisiVacantAimsSOR2Controller::class, 'update'])->name('kondisi-vacant-aims-sor2.update');
+    Route::delete('/{id}', [KondisiVacantAimsSOR2Controller::class, 'destroy'])->name('kondisi-vacant-aims-sor2.destroy');
+});
+Route::prefix('monev/shg/input-data/sistem-informasi-aims-sor2')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [SistemInformasiAimsSOR2Controller::class, 'index'])->name('sistem-informasi-aims-sor2');
+    Route::post('/', [SistemInformasiAimsSOR2Controller::class, 'store'])->name('sistem-informasi-aims-sor2.store');
+    Route::get('/data', [SistemInformasiAimsSOR2Controller::class, 'data'])->name('sistem-informasi-aims-sor2.data');
+    Route::put('/{id}', [SistemInformasiAimsSOR2Controller::class, 'update'])->name('sistem-informasi-aims-sor2.update');
+    Route::delete('/{id}', [SistemInformasiAimsSOR2Controller::class, 'destroy'])->name('sistem-informasi-aims-sor2.destroy');
+});
+Route::prefix('monev/shg/input-data/rencana-pemeliharaan-sor2')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [RencanaPemeliharaanSOR2Controller::class, 'index'])->name('rencana-pemeliharaan-sor2');
+    Route::post('/', [RencanaPemeliharaanSOR2Controller::class, 'store'])->name('rencana-pemeliharaan-sor2.store');
+    Route::get('/data', [RencanaPemeliharaanSOR2Controller::class, 'data'])->name('rencana-pemeliharaan-sor2.data');
+    Route::put('/{id}', [RencanaPemeliharaanSOR2Controller::class, 'update'])->name('rencana-pemeliharaan-sor2.update');
+    Route::delete('/{id}', [RencanaPemeliharaanSOR2Controller::class, 'destroy'])->name('rencana-pemeliharaan-sor2.destroy');
+});
+Route::prefix('monev/shg/input-data/reliability-sor2')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [ReliabilitySOR2Controller::class, 'index'])->name('reliability-sor2');
+    Route::post('/', [ReliabilitySOR2Controller::class, 'store'])->name('reliability-sor2.store');
+    Route::get('/data', [ReliabilitySOR2Controller::class, 'data'])->name('reliability-sor2.data');
+    Route::put('/{id}', [ReliabilitySOR2Controller::class, 'update'])->name('reliability-sor2.update');
+    Route::delete('/{id}', [ReliabilitySOR2Controller::class, 'destroy'])->name('reliability-sor2.destroy');
+});
+Route::prefix('monev/shg/input-data/availability-sor2')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [AvailabilitySOR2Controller::class, 'index'])->name('availability-sor2');
+    Route::post('/', [AvailabilitySOR2Controller::class, 'store'])->name('availability-sor2.store');
+    Route::get('/data', [AvailabilitySOR2Controller::class, 'data'])->name('availability-sor2.data');
+    Route::put('/{id}', [AvailabilitySOR2Controller::class, 'update'])->name('availability-sor2.update');
+    Route::delete('/{id}', [AvailabilitySOR2Controller::class, 'destroy'])->name('availability-sor2.destroy');
+});
+Route::prefix('monev/shg/input-data/realisasi-anggaran-ai-sor2')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [RealisasiAnggaranAiSOR2Controller::class, 'index'])->name('realisasi-anggaran-ai-sor2');
+    Route::post('/', [RealisasiAnggaranAiSOR2Controller::class, 'store'])->name('realisasi-anggaran-ai-sor2.store');
+    Route::get('/data', [RealisasiAnggaranAiSOR2Controller::class, 'data'])->name('realisasi-anggaran-ai-sor2.data');
+    Route::put('/{id}', [RealisasiAnggaranAiSOR2Controller::class, 'update'])->name('realisasi-anggaran-ai-sor2.update');
+    Route::delete('/{id}', [RealisasiAnggaranAiSOR2Controller::class, 'destroy'])->name('realisasi-anggaran-ai-sor2.destroy');
+});
+Route::prefix('monev/shg/input-data/realisasi-progress-fisik-ai-sor2')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [RealisasiProgressAiSOR2controller::class, 'index'])->name('realisasi-progress-fisik-ai-sor2');
+    Route::post('/', [RealisasiProgressAiSOR2controller::class, 'store'])->name('realisasi-progress-fisik-ai-sor2.store');
+    Route::get('/data', [RealisasiProgressAiSOR2controller::class, 'data'])->name('realisasi-progress-fisik-ai-sor2.data');
+    Route::put('/{id}', [RealisasiProgressAiSOR2controller::class, 'update'])->name('realisasi-progress-fisik-ai-sor2.update');
+    Route::delete('/{id}', [RealisasiProgressAiSOR2controller::class, 'destroy'])->name('realisasi-progress-fisik-ai-sor2.destroy');
+});
+Route::prefix('monev/shg/input-data/air-budget-tagging-sor2')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [AirBudgetTaggingSOR2Controller::class, 'index'])->name('air-budget-tagging-sor2');
+    Route::post('/', [AirBudgetTaggingSOR2Controller::class, 'store'])->name('air-budget-tagging-sor2.store');
+    Route::get('/data', [AirBudgetTaggingSOR2Controller::class, 'data'])->name('air-budget-tagging-sor2.data');
+    Route::put('/{id}', [AirBudgetTaggingSOR2Controller::class, 'update'])->name('air-budget-tagging-sor2.update');
+    Route::delete('/{id}', [AirBudgetTaggingSOR2Controller::class, 'destroy'])->name('air-budget-tagging-sor2.destroy');
+});
+
+
+// PGN SOR 3
+Route::prefix('monev/shg/input-data/pgn-sor3')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [StatusAssetAiSOR3Controller::class, 'index'])->name('pgn-sor3');
+    Route::post('/', [StatusAssetAiSOR3Controller::class, 'store'])->name('pgn-sor3.store');
+    Route::get('/data', [StatusAssetAiSOR3Controller::class, 'data'])->name('pgn-sor3.data');
+    Route::put('/{id}', [StatusAssetAiSOR3Controller::class, 'update'])->name('pgn-sor3.update');
+    Route::delete('/{id}', [StatusAssetAiSOR3controller::class, 'destroy'])->name('pgn-sor3.destroy');
+});
+
+Route::prefix('monev/shg/input-data/asset-breakdown-sor3')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [AssetBreakdownSOR3Controller::class, 'index'])->name('asset-breakdown-sor3');
+    Route::post('/', [AssetBreakdownSOR3Controller::class, 'store'])->name('asset-breakdown-sor3.store');
+    Route::get('/data', [AssetBreakdownSOR3Controller::class, 'data'])->name('asset-breakdown-sor3.data');
+    Route::put('/{id}', [AssetBreakdownSOR3Controller::class, 'update'])->name('asset-breakdown-sor3.update');
+    Route::delete('/{id}', [AssetBreakdownSOR3controller::class, 'destroy'])->name('asset-breakdown-sor3.destroy');
+});
+
+Route::prefix('monev/shg/input-data/status-plo-sor3')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [StatusPloSOR3Controller::class, 'index'])->name('status-plo-sor3');
+    Route::post('/', [StatusPloSOR3Controller::class, 'store'])->name('status-plo-sor3.store');
+    Route::get('/data', [StatusPloSOR3Controller::class, 'data'])->name('status-plo-sor3.data');
+    Route::put('/{id}', [StatusPloSOR3Controller::class, 'update'])->name('status-plo-sor3.update');
+    Route::delete('/{id}', [StatusPloSOR3controller::class, 'destroy'])->name('status-plo-sor3.destroy');
+});
+
+Route::prefix('monev/shg/input-data/pelatihan-aims-sor3')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [PelatihanAimsSOR3Controller::class, 'index'])->name('pelatihan-aims-sor3');
+    Route::post('/', [PelatihanAimsSOR3Controller::class, 'store'])->name('pelatihan-aims-sor3.store');
+    Route::get('/data', [PelatihanAimsSOR3Controller::class, 'data'])->name('pelatihan-aims-sor3.data');
+    Route::put('/{id}', [PelatihanAimsSOR3Controller::class, 'update'])->name('pelatihan-aims-sor3.update');
+    Route::delete('/{id}', [PelatihanAimsSOR3controller::class, 'destroy'])->name('pelatihan-aims-sor3.destroy');
+});
+
+Route::prefix('monev/shg/input-data/mandatory-certification-sor3')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [MandatoryCertificationSOR3Controller::class, 'index'])->name('mandatory-certification-sor3');
+    Route::post('/', [MandatoryCertificationSOR3Controller::class, 'store'])->name('mandatory-certification-sor3.store');
+    Route::get('/data', [MandatoryCertificationSOR3Controller::class, 'data'])->name('mandatory-certification-sor3.data');
+    Route::put('/{id}', [MandatoryCertificationSOR3Controller::class, 'update'])->name('mandatory-certification-sor3.update');
+    Route::delete('/{id}', [MandatoryCertificationSOR3controller::class, 'destroy'])->name('mandatory-certification-sor3.destroy');
+});
+
+Route::prefix('monev/shg/input-data/kondisi-vacant-aims-sor3')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [KondisiVacantAimsSOR3Controller::class, 'index'])->name('kondisi-vacant-aims-sor3');
+    Route::post('/', [KondisiVacantAimsSOR3Controller::class, 'store'])->name('kondisi-vacant-aims-sor3.store');
+    Route::get('/data', [KondisiVacantAimsSOR3Controller::class, 'data'])->name('kondisi-vacant-aims-sor3.data');
+    Route::put('/{id}', [KondisiVacantAimsSOR3Controller::class, 'update'])->name('kondisi-vacant-aims-sor3.update');
+    Route::delete('/{id}', [KondisiVacantAimsSOR3controller::class, 'destroy'])->name('kondisi-vacant-aims-sor3.destroy');
+});
+
+Route::prefix('monev/shg/input-data/sistem-informasi-aims-sor3')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [SistemInformasiAimsSOR3Controller::class, 'index'])->name('sistem-informasi-aims-sor3');
+    Route::post('/', [SistemInformasiAimsSOR3Controller::class, 'store'])->name('sistem-informasi-aims-sor3.store');
+    Route::get('/data', [SistemInformasiAimsSOR3Controller::class, 'data'])->name('sistem-informasi-aims-sor3.data');
+    Route::put('/{id}', [SistemInformasiAimsSOR3Controller::class, 'update'])->name('sistem-informasi-aims-sor3.update');
+    Route::delete('/{id}', [SistemInformasiAimsSOR3controller::class, 'destroy'])->name('sistem-informasi-aims-sor3.destroy');
+});
+
+Route::prefix('monev/shg/input-data/rencana-pemeliharaan-sor3')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [RencanaPemeliharaanSOR3Controller::class, 'index'])->name('rencana-pemeliharaan-sor3');
+    Route::post('/', [RencanaPemeliharaanSOR3Controller::class, 'store'])->name('rencana-pemeliharaan-sor3.store');
+    Route::get('/data', [RencanaPemeliharaanSOR3Controller::class, 'data'])->name('rencana-pemeliharaan-sor3.data');
+    Route::put('/{id}', [RencanaPemeliharaanSOR3Controller::class, 'update'])->name('rencana-pemeliharaan-sor3.update');
+    Route::delete('/{id}', [RencanaPemeliharaanSOR3controller::class, 'destroy'])->name('rencana-pemeliharaan-sor3.destroy');
+});
+
+Route::prefix('monev/shg/input-data/reliability-sor3')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [ReliabilitySOR3Controller::class, 'index'])->name('reliability-sor3');
+    Route::post('/', [ReliabilitySOR3Controller::class, 'store'])->name('reliability-sor3.store');
+    Route::get('/data', [ReliabilitySOR3Controller::class, 'data'])->name('reliability-sor3.data');
+    Route::put('/{id}', [ReliabilitySOR3Controller::class, 'update'])->name('reliability-sor3.update');
+    Route::delete('/{id}', [ReliabilitySOR3controller::class, 'destroy'])->name('reliability-sor3.destroy');
+});
+
+Route::prefix('monev/shg/input-data/realisasi-anggaran-ai-sor3')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [RealisasiAnggaranAimsSOR3controller::class, 'index'])->name('realisasi-anggaran-ai-sor3');
+    Route::post('/', [RealisasiAnggaranAimsSOR3controller::class, 'store'])->name('realisasi-anggaran-ai-sor3.store');
+    Route::get('/data', [RealisasiAnggaranAimsSOR3controller::class, 'data'])->name('realisasi-anggaran-ai-sor3.data');
+    Route::put('/{id}', [RealisasiAnggaranAimsSOR3controller::class, 'update'])->name('realisasi-anggaran-ai-sor3.update');
+    Route::delete('/{id}', [RealisasiAnggaranAimsSOR3controller::class, 'destroy'])->name('realisasi-anggaran-ai-sor3.destroy');
+});
+
+Route::prefix('monev/shg/input-data/realisasi-progress-fisik-ai-sor3')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [RealisasiProgressFisikAiSOR3Controller::class, 'index'])->name('realisasi-progress-fisik-ai-sor3');
+    Route::post('/', [RealisasiProgressFisikAiSOR3Controller::class, 'store'])->name('realisasi-progress-fisik-ai-sor3.store');
+    Route::get('/data', [RealisasiProgressFisikAiSOR3Controller::class, 'data'])->name('realisasi-progress-fisik-ai-sor3.data');
+    Route::put('/{id}', [RealisasiProgressFisikAiSOR3Controller::class, 'update'])->name('realisasi-progress-fisik-ai-sor3.update');
+    Route::delete('/{id}', [RealisasiProgressFisikAiSOR3controller::class, 'destroy'])->name('realisasi-progress-fisik-ai-sor3.destroy');
+});
+
+Route::prefix('monev/shg/input-data/air-budget-tagging-sor3')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [AirBudgetTaggingSOR3Controller::class, 'index'])->name('air-budget-tagging-sor3');
+    Route::post('/', [AirBudgetTaggingSOR3Controller::class, 'store'])->name('air-budget-tagging-sor3.store');
+    Route::get('/data', [AirBudgetTaggingSOR3Controller::class, 'data'])->name('air-budget-tagging-sor3.data');
+    Route::put('/{id}', [AirBudgetTaggingSOR3Controller::class, 'update'])->name('air-budget-tagging-sor3.update');
+    Route::delete('/{id}', [AirBudgetTaggingSOR3controller::class, 'destroy'])->name('air-budget-tagging-sor3.destroy');
+});
 
 
 
+// PGN GLSM
+Route::prefix('monev/shg/input-data/realisasi-anggaran-ai-glsm')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [RealisasiAnggaranAiGlsmController::class, 'index'])->name('realisasi-anggaran-ai-glsm');
+    Route::post('/', [RealisasiAnggaranAiGlsmController::class, 'store'])->name('realisasi-anggaran-ai-glsm.store');
+    Route::get('/data', [RealisasiAnggaranAiGlsmController::class, 'data'])->name('realisasi-anggaran-ai-glsm.data');
+    Route::put('/{id}', [RealisasiAnggaranAiGlsmController::class, 'update'])->name('realisasi-anggaran-ai-glsm.update');
+    Route::delete('/{id}', [RealisasiAnggaranAiGlsmController::class, 'destroy'])->name('realisasi-anggaran-ai-glsm.destroy');
+});
 
+Route::prefix('monev/shg/input-data/realisasi-progress-fisik-ai-glsm')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [RealisasiProgressFisikAiGlsmController::class, 'index'])->name('realisasi-progress-fisik-ai-glsm');
+    Route::post('/', [RealisasiProgressFisikAiGlsmController::class, 'store'])->name('realisasi-progress-fisik-ai-glsm.store');
+    Route::get('/data', [RealisasiProgressFisikAiGlsmController::class, 'data'])->name('realisasi-progress-fisik-ai-glsm.data');
+    Route::put('/{id}', [RealisasiProgressFisikAiGlsmController::class, 'update'])->name('realisasi-progress-fisik-ai-glsm.update');
+    Route::delete('/{id}', [RealisasiProgressFisikAiGlsmController::class, 'destroy'])->name('realisasi-progress-fisik-ai-glsm.destroy');
+});
 
-
-
-
-
-
-
-
-
-
+Route::prefix('monev/shg/input-data/air-budget-tagging-glsm')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [AirBudgetTaggingGlsmController::class, 'index'])->name('air-budget-tagging-glsm');
+    Route::post('/', [AirBudgetTaggingGlsmController::class, 'store'])->name('air-budget-tagging-glsm.store');
+    Route::get('/data', [AirBudgetTaggingGlsmController::class, 'data'])->name('air-budget-tagging-glsm.data');
+    Route::put('/{id}', [AirBudgetTaggingGlsmController::class, 'update'])->name('air-budget-tagging-glsm.update');
+    Route::delete('/{id}', [AirBudgetTaggingGlsmController::class, 'destroy'])->name('air-budget-tagging-glsm.destroy');
+});
 
 
 Route::middleware(['auth'])->group(function () {

@@ -190,7 +190,7 @@
                 <input type="hidden" name="id" id="form-id">
                 <div>
                     <label>Periode</label>
-                    <input type="month" name="periode" id="periode" required>
+                    <input type="month" name="periode" id="periode" >
                 </div>
                 <div>
                     <label>Satker</label>
@@ -284,7 +284,7 @@
 
                 <div>
                     <label>Aset Integrity (Yes/No)</label>
-                    <select name="aset_integrity" id="aset_integrity" required class="form-select">
+                    <select name="aset_integrity" id="aset_integrity"  class="form-select">
                         <option value="">Pilih</option>
                         <option value="Yes">Yes</option>
                         <option value="No">No</option>

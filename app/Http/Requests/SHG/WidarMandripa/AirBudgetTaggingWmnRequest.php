@@ -22,7 +22,7 @@ class AirBudgetTaggingWmnRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'periode' => 'required|string|max:255',
+            'periode' => 'nullable|string|max:255',
             'satker' => 'nullable|string|max:255',
             'kategori' => 'nullable|string|max:255',
             'ce' => 'nullable|string|max:255',
@@ -45,10 +45,10 @@ class AirBudgetTaggingWmnRequest extends FormRequest
             'airtagging' => 'nullable|string|max:255',
             'prioritas' => 'nullable|string|max:255',
             'status_integrity' => 'nullable|string|max:255',
-            'jumlah_aset_critical_sece' => 'nullable|integer',
-            'jumlah_aset_critical_pce' => 'nullable|integer',
-            'jumlah_aset_important' => 'nullable|integer',
-            'jumlah_aset_secondary' => 'nullable|integer',
+            'jumlah_aset_critical_sece' => 'nullable|string',
+            'jumlah_aset_critical_pce' => 'nullable|string',
+            'jumlah_aset_important' => 'nullable|string',
+            'jumlah_aset_secondary' => 'nullable|string',
         ];
     }
 }

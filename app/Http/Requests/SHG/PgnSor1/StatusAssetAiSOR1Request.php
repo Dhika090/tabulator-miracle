@@ -21,7 +21,7 @@ class StatusAssetAiSOR1Request extends FormRequest
      */
     public function rules(): array
     {
-          return [
+        return [
             'periode' => 'nullable|string',
             'subholding' => 'nullable|string',
             'company' => 'nullable|string',

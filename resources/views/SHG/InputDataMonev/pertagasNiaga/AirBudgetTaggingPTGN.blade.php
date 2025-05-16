@@ -189,7 +189,7 @@
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
                 <label for="periode">Periode (Tahun):</label>
-                <select name="periode" id="periode" required class="form-select">
+                <select name="periode" id="periode"  class="form-select">
                     <option value="" selected disabled>Pilih Periode</option>
                     @for ($year = 2000; $year <= date('Y') + 5; $year++)
                         <option value="{{ $year }}">{{ $year }}</option>
@@ -289,7 +289,7 @@
 
                 <div>
                     <label>Aset Integrity (Yes/No)</label>
-                    <select name="aset_integrity" id="aset_integrity" required class="form-select">
+                    <select name="aset_integrity" id="aset_integrity"  class="form-select">
                         <option value="">Pilih</option>
                         <option value="Yes">Yes</option>
                         <option value="No">No</option>
