@@ -12,8 +12,8 @@ return new class extends Migration {
     {
         Schema::create('shg_pertamina_kondisi_vacant_aims_ptg', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('periode');
-            $table->string('company');
+            $table->string('periode')->nullable();
+            $table->string('company')->nullable();
             $table->integer('total_personil_asset_integrity')->nullable();
             $table->integer('jumlah_personil_vacant')->nullable();
             $table->integer('jumlah_personil_pensiun')->nullable();

@@ -12,8 +12,8 @@ return new class extends Migration {
     {
         Schema::create('shg_pertamina_sistem_informasi_aims_ptg', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('periode');
-            $table->string('company');
+            $table->string('periode')->nullable();
+            $table->string('company')->nullable();
             $table->integer('jumlah_aset_operasi')->nullable();
             $table->integer('jumlah_aset_teregister')->nullable();
             $table->string('kendala_aset_register')->nullable();

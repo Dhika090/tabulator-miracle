@@ -21,7 +21,7 @@ class RealisasiProgressFisikAI2025Kjg extends Model
             }
         });
     }
-    protected $table = 'shg_pertsamtan_realisasi_progress_fisik_ai_ptsg';
+    protected $table = 'shg_kalimantan_realisasi_progress_fisik_ai_2025';
     protected $fillable = [
         'periode',
         'no',
@@ -61,30 +61,30 @@ class RealisasiProgressFisikAI2025Kjg extends Model
         'tindak_lanjut'
     ];
 
-    protected $casts = [
-        'plan_jan' => 'decimal:2',
-        'plan_feb' => 'decimal:2',
-        'plan_mar' => 'decimal:2',
-        'plan_apr' => 'decimal:2',
-        'plan_may' => 'decimal:2',
-        'plan_jun' => 'decimal:2',
-        'plan_jul' => 'decimal:2',
-        'plan_aug' => 'decimal:2',
-        'plan_sep' => 'decimal:2',
-        'plan_oct' => 'decimal:2',
-        'plan_nov' => 'decimal:2',
-        'plan_dec' => 'decimal:2',
-        'actual_jan' => 'decimal:2',
-        'actual_feb' => 'decimal:2',
-        'actual_mar' => 'decimal:2',
-        'actual_apr' => 'decimal:2',
-        'actual_may' => 'decimal:2',
-        'actual_jun' => 'decimal:2',
-        'actual_jul' => 'decimal:2',
-        'actual_aug' => 'decimal:2',
-        'actual_sep' => 'decimal:2',
-        'actual_oct' => 'decimal:2',
-        'actual_nov' => 'decimal:2',
-        'actual_dec' => 'decimal:2',
-    ];
+    // protected $casts = [
+    //     'plan_jan' => 'decimal:2',
+    //     'plan_feb' => 'decimal:2',
+    //     'plan_mar' => 'decimal:2',
+    //     'plan_apr' => 'decimal:2',
+    //     'plan_may' => 'decimal:2',
+    //     'plan_jun' => 'decimal:2',
+    //     'plan_jul' => 'decimal:2',
+    //     'plan_aug' => 'decimal:2',
+    //     'plan_sep' => 'decimal:2',
+    //     'plan_oct' => 'decimal:2',
+    //     'plan_nov' => 'decimal:2',
+    //     'plan_dec' => 'decimal:2',
+    //     'actual_jan' => 'decimal:2',
+    //     'actual_feb' => 'decimal:2',
+    //     'actual_mar' => 'decimal:2',
+    //     'actual_apr' => 'decimal:2',
+    //     'actual_may' => 'decimal:2',
+    //     'actual_jun' => 'decimal:2',
+    //     'actual_jul' => 'decimal:2',
+    //     'actual_aug' => 'decimal:2',
+    //     'actual_sep' => 'decimal:2',
+    //     'actual_oct' => 'decimal:2',
+    //     'actual_nov' => 'decimal:2',
+    //     'actual_dec' => 'decimal:2',
+    // ];
 }

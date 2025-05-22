@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\PertagasNiaga\AvailabilityPTGNRequest;
 use App\Models\SHG\PertagasNiaga\AvailabilityPTGN;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AvailabilityPTGNController extends Controller
 {
@@ -99,7 +100,15 @@ class AvailabilityPTGNController extends Controller
 
     public function data()
     {
-        $TargetPLO = AvailabilityPTGN::all();
+        // $TargetPLO = AvailabilityPTGN::all();
+        // return response()->json($TargetPLO);
+        $TargetPLO = AvailabilityPTGN::select('*')
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderBy('periode_date', 'asc')
+            ->get();
+
         return response()->json($TargetPLO);
     }
     public function update(AvailabilityPTGNRequest $request, $id)

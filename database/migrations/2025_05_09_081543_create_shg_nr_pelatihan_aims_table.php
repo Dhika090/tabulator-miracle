@@ -12,7 +12,7 @@ return new class extends Migration {
     {
         Schema::create('shg_nr_pelatihan_aims', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('periode');
+            $table->string('periode')->nullable();
             $table->string('company')->nullable();
             $table->string('judul_pelatihan')->nullable();
             $table->integer('realisasi_perwira')->nullable();

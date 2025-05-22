@@ -13,7 +13,7 @@ class RealisasiProgressFisikAiSOR3controller extends Controller
     public function index(Request $request)
     {
 
-        $tabs = [
+ $tabs = [
             [
                 'title' => 'Status Asset 2025 AI PGN SOR 3',
                 'route' => route('pgn-sor3'),
@@ -53,6 +53,11 @@ class RealisasiProgressFisikAiSOR3controller extends Controller
                 'title' => 'Rencana Pemeliharaan PGN SOR 3',
                 'route' => route('rencana-pemeliharaan-sor3'),
                 'active' => request()->routeIs('rencana-pemeliharaan-sor3'),
+            ],
+            [
+                'title' => 'Availability PGN SOR 3',
+                'route' => route('availability-sor3'),
+                'active' => request()->routeIs('availability-sor3'),
             ],
             [
                 'title' => 'Reliability PGN SOR 3',

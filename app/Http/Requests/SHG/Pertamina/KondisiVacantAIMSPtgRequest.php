@@ -22,8 +22,8 @@ class KondisiVacantAIMSPtgRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'periode' => 'required|string',
-            'company' => 'required|string',
+            'periode' => 'nullable|string',
+            'company' => 'nullable|string',
             'total_personil_asset_integrity' => 'nullable|integer',
             'jumlah_personil_vacant' => 'nullable|integer',
             'jumlah_personil_pensiun' => 'nullable|integer',

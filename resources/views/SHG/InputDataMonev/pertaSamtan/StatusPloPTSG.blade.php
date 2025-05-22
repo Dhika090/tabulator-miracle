@@ -1,4 +1,4 @@
-3@section('title', __(''))
+@section('title', __(''))
 <x-layouts.app :title="__('')">
     @push('styles')
         <link href="https://unpkg.com/tabulator-tables@5.6.0/dist/css/tabulator.min.css" rel="stylesheet">
@@ -181,42 +181,42 @@
 
                 <div>
                     <label>Periode</label>
-                    <input type="month" name="periode" id="periode" required>
+                    <input type="month" name="periode" id="periode"  >
                 </div>
 
                 <div>
                     <label>Nomor PLO</label>
-                    <input type="text" name="nomor_plo" id="nomor_plo" required>
+                    <input type="text" name="nomor_plo" id="nomor_plo"  >
                 </div>
 
                 <div>
                     <label>Company</label>
-                    <input type="text" name="company" id="company" required>
+                    <input type="text" name="company" id="company"  >
                 </div>
 
                 <div>
                     <label>Area</label>
-                    <input type="text" name="area" id="area" required>
+                    <input type="text" name="area" id="area"  >
                 </div>
 
                 <div>
                     <label>Lokasi</label>
-                    <input type="text" name="lokasi" id="lokasi" required>
+                    <input type="text" name="lokasi" id="lokasi"  >
                 </div>
 
                 <div>
                     <label>Nama Aset</label>
-                    <input type="text" name="nama_aset" id="nama_aset" required>
+                    <input type="text" name="nama_aset" id="nama_aset"  >
                 </div>
 
                 <div>
                     <label>Tanggal Pengesahan</label>
-                    <input type="date" name="tanggal_pengesahan" id="tanggal_pengesahan" required>
+                    <input type="date" name="tanggal_pengesahan" id="tanggal_pengesahan"  >
                 </div>
 
                 <div>
                     <label>Masa Berlaku</label>
-                    <input type="date" name="masa_berlaku" id="masa_berlaku" required>
+                    <input type="date" name="masa_berlaku" id="masa_berlaku"  >
                 </div>
 
                 <div>
@@ -415,10 +415,88 @@
                             field: "id",
                             visible: false
                         },
-                        {
+                       {
                             title: "Periode",
                             field: "periode",
-                            editor: "input"
+                            editor: "input",
+                            headerFilter: "select",
+                            headerFilterParams: {
+                                values: [{
+                                        value: "01",
+                                        label: "Januari"
+                                    },
+                                    {
+                                        value: "02",
+                                        label: "Februari"
+                                    },
+                                    {
+                                        value: "03",
+                                        label: "Maret"
+                                    },
+                                    {
+                                        value: "04",
+                                        label: "April"
+                                    },
+                                    {
+                                        value: "05",
+                                        label: "Mei"
+                                    },
+                                    {
+                                        value: "06",
+                                        label: "Juni"
+                                    },
+                                    {
+                                        value: "07",
+                                        label: "Juli"
+                                    },
+                                    {
+                                        value: "08",
+                                        label: "Agustus"
+                                    },
+                                    {
+                                        value: "09",
+                                        label: "September"
+                                    },
+                                    {
+                                        value: "10",
+                                        label: "Oktober"
+                                    },
+                                    {
+                                        value: "11",
+                                        label: "November"
+                                    },
+                                    {
+                                        value: "12",
+                                        label: "Desember"
+                                    }
+                                ]
+                            },
+                            headerFilterPlaceholder: "Pilih Bulan",
+                            headerFilterFunc: function(headerValue, rowValue) {
+                                if (!headerValue) return true;
+                                if (!rowValue) return false;
+
+                                const periode = rowValue.toLowerCase();
+
+                                const bulanTextMap = {
+                                    "01": ["jan", "january"],
+                                    "02": ["feb", "february"],
+                                    "03": ["mar", "march"],
+                                    "04": ["apr", "april"],
+                                    "05": ["may", "mei"],
+                                    "06": ["jun", "june"],
+                                    "07": ["jul", "july"],
+                                    "08": ["aug", "august"],
+                                    "09": ["sep", "september"],
+                                    "10": ["oct", "october"],
+                                    "11": ["nov", "november"],
+                                    "12": ["dec", "december"]
+                                };
+
+                                const keywords = bulanTextMap[headerValue];
+                                return keywords.some(keyword => periode.includes(keyword)) || periode
+                                    .includes(`-${headerValue}`);
+                            }
                         },
                         {
                             title: "Nomor PLO",

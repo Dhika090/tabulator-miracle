@@ -7,6 +7,7 @@ use App\Http\Requests\SHG\PertaArun\KondisiVacantAimsPAGRequest;
 use App\Http\Requests\SHG\PertaArun\KondisiVacantAimsRequest;
 use App\Models\SHG\PertaArun\KondisiVacantAimsPAG;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class KondisiVacantAimsPAGController extends Controller
 {
@@ -82,7 +83,14 @@ class KondisiVacantAimsPAGController extends Controller
 
     public function data()
     {
-        return response()->json(KondisiVacantAimsPAG::all());
+        $TargetPLO = KondisiVacantAimsPAG::select('*')
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderBy('periode_date', 'asc')
+            ->get();
+
+        return response()->json($TargetPLO);
     }
 
 

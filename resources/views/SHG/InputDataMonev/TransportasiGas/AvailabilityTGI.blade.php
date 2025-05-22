@@ -188,7 +188,7 @@
 
                 <div>
                     <label>Periode</label>
-                    <input type="month" name="periode" id="periode" required>
+                    <input type="month" name="periode" id="periode">
                 </div>
 
                 <div>
@@ -310,7 +310,6 @@
                 table.clearFilter();
             }
 
-
             function loadData() {
                 fetch("/monev/shg/input-data/availability-tgi/data", {
                         headers: {
@@ -335,10 +334,88 @@
                             field: "id",
                             visible: false
                         },
-                        {
+                       {
                             title: "Periode",
                             field: "periode",
-                            editor: "input"
+                            editor: "input",
+                            headerFilter: "select",
+                            headerFilterParams: {
+                                values: [{
+                                        value: "01",
+                                        label: "Januari"
+                                    },
+                                    {
+                                        value: "02",
+                                        label: "Februari"
+                                    },
+                                    {
+                                        value: "03",
+                                        label: "Maret"
+                                    },
+                                    {
+                                        value: "04",
+                                        label: "April"
+                                    },
+                                    {
+                                        value: "05",
+                                        label: "Mei"
+                                    },
+                                    {
+                                        value: "06",
+                                        label: "Juni"
+                                    },
+                                    {
+                                        value: "07",
+                                        label: "Juli"
+                                    },
+                                    {
+                                        value: "08",
+                                        label: "Agustus"
+                                    },
+                                    {
+                                        value: "09",
+                                        label: "September"
+                                    },
+                                    {
+                                        value: "10",
+                                        label: "Oktober"
+                                    },
+                                    {
+                                        value: "11",
+                                        label: "November"
+                                    },
+                                    {
+                                        value: "12",
+                                        label: "Desember"
+                                    }
+                                ]
+                            },
+                            headerFilterPlaceholder: "Pilih Bulan",
+                            headerFilterFunc: function(headerValue, rowValue) {
+                                if (!headerValue) return true;
+                                if (!rowValue) return false;
+
+                                const periode = rowValue.toLowerCase();
+
+                                const bulanTextMap = {
+                                    "01": ["jan", "january"],
+                                    "02": ["feb", "february"],
+                                    "03": ["mar", "march"],
+                                    "04": ["apr", "april"],
+                                    "05": ["may", "mei"],
+                                    "06": ["jun", "june"],
+                                    "07": ["jul", "july"],
+                                    "08": ["aug", "august"],
+                                    "09": ["sep", "september"],
+                                    "10": ["oct", "october"],
+                                    "11": ["nov", "november"],
+                                    "12": ["dec", "december"]
+                                };
+
+                                const keywords = bulanTextMap[headerValue];
+                                return keywords.some(keyword => periode.includes(keyword)) || periode
+                                    .includes(`-${headerValue}`);
+                            }
                         },
                         {
                             title: "Company",
@@ -404,7 +481,6 @@
                     responsiveLayout: "collapse",
                     autoResize: true,
                     columns: columnMap["availability-tgi"],
-
                     selectableRange: 1,
                     selectableRangeColumns: true,
                     selectableRangeRows: true,
@@ -413,7 +489,7 @@
 
                     pagination: "local",
                     paginationSize: 20,
-                    paginationSizeSelector: [40, 60, 80, 100],
+                    paginationSizeSelector: [40, 60, 80, 120],
                     paginationCounter: "rows",
 
                     movableColumns: true,
@@ -459,38 +535,36 @@
 
                 table.on("dataChanged", function(newData) {
                     const changedRows = getChangedRows(newData, previousData);
-                    console.log("Baris yang berubah:", changedRows);
 
-                    changedRows.forEach(rowData => {
-                        if (rowData.target !== undefined && typeof rowData.target === "string") {
-                            rowData.target = parseFloat(rowData.target.replace("%", "").trim());
-                        }
-                        if (rowData.availability !== undefined && typeof rowData.availability ===
-                            "string") {
-                            rowData.availability = parseFloat(rowData.availability.replace("%", "")
-                                .trim());
-                        }
-                        fetch(`availability-tgi/${rowData.id}`, {
-                                method: "PUT",
-                                headers: {
-                                    "Content-Type": "application/json",
-                                    "Accept": "application/json",
-                                    "X-CSRF-TOKEN": document.querySelector(
-                                        'meta[name="csrf-token"]').getAttribute("content")
-                                },
-                                body: JSON.stringify(rowData)
-                            })
-                            .then(res => res.json())
-                            .then(response => {
-                                console.log("Data berhasil disimpan:", response);
-                            })
-                            .catch(err => {
-                                console.error("Gagal menyimpan hasil paste:", err);
-                            });
-                    });
-
-                    previousData = JSON.parse(JSON.stringify(newData));
+                    changedRows.forEach(rowData => updateRow(rowData));
                 });
+
+                function updateRow(rowData) {
+                    const target = rowData.target;
+                    const availability = rowData.availability;
+
+                    if (target !== undefined && typeof target === "string") {
+                        rowData.target = parseFloat(target.replace("%", "").trim());
+                    }
+
+                    if (availability !== undefined && typeof availability === "string") {
+                        rowData.availability = parseFloat(availability.replace("%", "").trim());
+                    }
+
+                    fetch(`availability-tgi/${rowData.id}`, {
+                            method: "PUT",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector(
+                                    'meta[name="csrf-token"]').getAttribute("content")
+                            },
+                            body: JSON.stringify(rowData)
+                        })
+                        .then(res => res.json())
+                        .then(response => console.log("Data berhasil disimpan:", response))
+                        .catch(err => console.error("Gagal menyimpan hasil paste:", err));
+                }
 
                 table.on("cellEdited", function(cell) {
                     const updatedData = cell.getRow().getData();

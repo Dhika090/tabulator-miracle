@@ -22,14 +22,14 @@ class AvailabilityPtgRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'periode' => 'required|string|max:255',
-            'company' => 'required|string|max:255',
-            'kategori' => 'required|string|max:255',
-            'target' => 'nullable|numeric|between:0,100.0',
-            'availability' => 'nullable|numeric|between:0,100.0',
+            'periode' => 'nullable|string|max:255',
+            'company' => 'nullable|string|max:255',
+            'kategori' => 'nullable|string|max:500',
+            'target' => 'nullable|numeric',
+            'availability' => 'nullable|numeric',
             'isu' => 'nullable|string',
-            'kendala' => 'nullable|string',
-            'tindak_lanjut' => 'nullable|string',
+            'kendala' => 'nullable|string|max:550',
+            'tindak_lanjut' => 'nullable|string|max:550',
         ];
     }
 }

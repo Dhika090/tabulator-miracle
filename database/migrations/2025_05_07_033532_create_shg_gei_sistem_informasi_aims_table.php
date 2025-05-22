@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('shg_gei_sistem_informasi_aims', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('periode');
+            $table->string('periode')->nullable();
             $table->string('company')->nullable();
             $table->string('jumlah_aset_operasi')->nullable();
             $table->string('jumlah_aset_teregister')->nullable();

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\NusantaraRegas\StatusAssetAiNRRequest;
 use App\Models\SHG\NusantaraRegas\StatusAssetAiNR;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class StatusAssetAiNRController extends Controller
 {
@@ -84,7 +85,7 @@ class StatusAssetAiNRController extends Controller
                 'route' => route('air-budget-tagging-nr'),
                 'active' => request()->routeIs('air-budget-tagging-nr'),
             ],
-            
+
         ];
 
         return view('SHG.InputDataMonev.NusantaraRegas.StatusAssetAiNR', compact('tabs', 'companies'));
@@ -93,9 +94,15 @@ class StatusAssetAiNRController extends Controller
 
     public function data()
     {
-        return response()->json(StatusAssetAiNR::all());
-    }
+        $TargetPLO = StatusAssetAiNR::select('*')
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderBy('periode_date', 'asc')
+            ->get();
 
+        return response()->json($TargetPLO);
+    }
 
     public function store(StatusAssetAiNRRequest $request)
     {

@@ -12,7 +12,7 @@ return new class extends Migration {
     {
         Schema::create('shg_kalimantan_realisasi_anggaran_ai_kjg_2025', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('periode', 7);
+            $table->string('periode', 7)->nullable();
             $table->integer('no')->nullable();
             $table->string('program_kerja')->nullable();
             $table->string('kategori_aibt')->nullable();

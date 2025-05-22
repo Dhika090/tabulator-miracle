@@ -6,10 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\GagasEnergi\PelatihanAimsGEIRequest;
 use App\Models\SHG\GagasEnergi\PelatihanAimsGEI;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PelatihanAimsGEIController extends Controller
 {
-   
+
     public function index(Request $request)
     {
 
@@ -93,7 +94,13 @@ class PelatihanAimsGEIController extends Controller
 
     public function data()
     {
-        $TargetPLO = PelatihanAimsGEI::all();
+        $TargetPLO = PelatihanAimsGEI::select('*')
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderBy('periode_date', 'asc')
+            ->get();
+
         return response()->json($TargetPLO);
     }
     public function update(PelatihanAimsGEIRequest $request, $id)

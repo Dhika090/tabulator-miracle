@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\GagasEnergi\KondisiVacantAimsGEIRequest;
 use App\Models\SHG\GagasEnergi\KondisiVacantAimsGEI;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class KondisiVacantAimsGEIController extends Controller
 {
@@ -92,7 +93,13 @@ class KondisiVacantAimsGEIController extends Controller
 
     public function data()
     {
-        $TargetPLO = KondisiVacantAimsGEI::all();
+            $TargetPLO = KondisiVacantAimsGEI::select('*')
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderBy('periode_date', 'asc')
+            ->get();
+
         return response()->json($TargetPLO);
     }
     public function update(KondisiVacantAimsGEIRequest $request, $id)

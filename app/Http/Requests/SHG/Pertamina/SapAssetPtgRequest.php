@@ -22,11 +22,11 @@ class SapAssetPtgRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'periode' => 'required|string',
-            'subholding' => 'required|string',
-            'company' => 'required|string',
-            'unit' => 'required|string',
-            'nama_stasiun' => 'required|string',
+            'periode' => 'nullable|string',
+            'subholding' => 'nullable|string',
+            'company' => 'nullable|string',
+            'unit' => 'nullable|string',
+            'nama_stasiun' => 'nullable|string',
             'belum_mulai' => 'nullable|integer',
             'kickoff_meeting' => 'nullable|integer',
             'identifikasi_peralatan' => 'nullable|integer',

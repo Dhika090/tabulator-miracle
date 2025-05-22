@@ -12,7 +12,7 @@ return new class extends Migration {
     {
         Schema::create('shg_pertamina_status_plo_ptg', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('periode');
+            $table->string('periode')->nullable();
             $table->string('nomor_plo')->nullable();
             $table->string('company')->nullable();
             $table->string('area')->nullable();
@@ -32,6 +32,7 @@ return new class extends Migration {
             $table->timestamps();
         });
     }
+
 
     /**
      * Reverse the migrations.

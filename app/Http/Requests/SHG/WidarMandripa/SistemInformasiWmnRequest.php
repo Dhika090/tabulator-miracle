@@ -22,7 +22,7 @@ class SistemInformasiWmnRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'periode' => 'required|string',
+            'periode' => 'nullable|string',
             'company' => 'nullable|string',
             'jumlah_aset_operasi' => 'nullable|string',
             'jumlah_aset_teregister' => 'nullable|string',

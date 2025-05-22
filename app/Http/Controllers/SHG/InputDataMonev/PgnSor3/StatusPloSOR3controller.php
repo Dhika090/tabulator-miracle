@@ -54,6 +54,16 @@ class StatusPloSOR3controller extends Controller
                 'active' => request()->routeIs('rencana-pemeliharaan-sor3'),
             ],
             [
+                'title' => 'Availability PGN SOR 3',
+                'route' => route('availability-sor3'),
+                'active' => request()->routeIs('availability-sor3'),
+            ],
+            [
+                'title' => 'Reliability PGN SOR 3',
+                'route' => route('reliability-sor3'),
+                'active' => request()->routeIs('reliability-sor3'),
+            ],
+            [
                 'title' => 'Realisasi Anggaran AI PGN SOR 3',
                 'route' => route('realisasi-anggaran-ai-sor3'),
                 'active' => request()->routeIs('realisasi-anggaran-ai-sor3'),

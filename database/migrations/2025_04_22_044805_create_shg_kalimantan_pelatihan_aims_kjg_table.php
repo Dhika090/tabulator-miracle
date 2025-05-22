@@ -12,8 +12,8 @@ return new class extends Migration {
     {
         Schema::create('shg_kalimantan_pelatihan_aims_kjg', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('periode');
-            $table->string('company');
+            $table->string('periode')->nullable();
+            $table->string('company')->nullable();
             $table->string('judul_pelatihan')->nullable();
             $table->integer('realisasi_perwira')->nullable();
             $table->timestamps();

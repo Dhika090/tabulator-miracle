@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\Pertamina\AvailabilityPtgRequest;
 use App\Models\SHG\Pertamina\AvailabilityPtg;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AvailabilityPtgController extends Controller
 {
@@ -85,7 +86,15 @@ class AvailabilityPtgController extends Controller
 
     public function data()
     {
-        return response()->json(AvailabilityPtg::all());
+        // return response()->json(AvailabilityPtg::all());
+        $TargetPLO = AvailabilityPtg::select('*')
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderBy('periode_date', 'asc')
+            ->get();
+
+        return response()->json($TargetPLO);
     }
 
     public function store(AvailabilityPtgRequest $request)

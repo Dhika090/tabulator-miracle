@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\PertaArun\AssetBreakdownPAGRequest;
 use App\Models\SHG\PertaArun\AssetBreakdownPAG;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AssetBreakdownPAGController extends Controller
 {
@@ -78,13 +79,17 @@ class AssetBreakdownPAGController extends Controller
         return view('SHG.InputDataMonev.PertaArun.AssetBreakdownPAG', compact('tabs'));
     }
 
-
     public function data()
     {
-        return response()->json(AssetBreakdownPAG::all());
+        $TargetPLO = AssetBreakdownPAG::select('*')
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderBy('periode_date', 'asc')
+            ->get();
+
+        return response()->json($TargetPLO);
     }
-
-
     public function store(AssetBreakdownPAGRequest $request)
     {
         $data = $request->validated();

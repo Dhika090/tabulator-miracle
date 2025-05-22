@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\NusantaraRegas\AvailabilityNRReuqest;
 use App\Models\SHG\NusantaraRegas\AvailabilityNR;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AvailabilityNRController extends Controller
 {
@@ -83,7 +84,13 @@ class AvailabilityNRController extends Controller
 
     public function data()
     {
-        $TargetPLO = AvailabilityNR::all();
+        $TargetPLO = AvailabilityNR::select('*')
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderBy('periode_date', 'asc')
+            ->get();
+
         return response()->json($TargetPLO);
     }
     public function update(AvailabilityNRReuqest $request, $id)

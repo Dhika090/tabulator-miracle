@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\PgnOmm\AirBudgetTaggingOmmRequest;
 use App\Models\SHG\PgnOmm\AirBudgetTaggingOmm;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AirBudgetTaggingOmmController extends Controller
 {
@@ -103,7 +104,13 @@ class AirBudgetTaggingOmmController extends Controller
 
     public function data()
     {
-        $TargetPLO = AirBudgetTaggingOmm::all();
+        $TargetPLO = AirBudgetTaggingOmm::select('*')
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderBy('periode_date', 'asc')
+            ->get();
+
         return response()->json($TargetPLO);
     }
     public function update(AirBudgetTaggingOmmRequest $request, $id)

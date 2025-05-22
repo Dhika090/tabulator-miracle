@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\GagasEnergi\AssetBreakdownGEIRequest;
 use App\Models\SHG\GagasEnergi\AssetBreakdownGEI;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AssetBreakdownGEIController extends Controller
 {
@@ -93,7 +94,13 @@ class AssetBreakdownGEIController extends Controller
 
     public function data()
     {
-        $TargetPLO = AssetBreakdownGEI::all();
+        $TargetPLO = AssetBreakdownGEI::select('*')
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderBy('periode_date', 'asc')
+            ->get();
+
         return response()->json($TargetPLO);
     }
     public function update(AssetBreakdownGEIRequest $request, $id)

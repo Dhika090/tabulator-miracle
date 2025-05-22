@@ -22,8 +22,8 @@ class SistemInformasiAimsPtgRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'periode' => 'required|string',
-            'company' => 'required|string',
+            'periode' => 'nullable|string',
+            'company' => 'nullable|string',
             'jumlah_aset_operasi' => 'nullable|integer',
             'jumlah_aset_teregister' => 'nullable|integer',
             'kendala_aset_register' => 'nullable|string',

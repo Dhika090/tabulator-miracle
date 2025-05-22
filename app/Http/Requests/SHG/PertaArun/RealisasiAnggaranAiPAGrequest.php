@@ -22,7 +22,7 @@ class RealisasiAnggaranAiPAGrequest extends FormRequest
     public function rules(): array
     {
         return [
-            'periode' => ['required', 'digits:4', 'integer', 'min:1900'],
+            'periode' => ['nullable', 'digits:4', 'integer', 'min:1900'],
             'no' => ['nullable', 'integer'],
             'program_kerja' => ['nullable', 'string'],
             'kategori_aibt' => ['nullable', 'string'],

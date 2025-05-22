@@ -186,12 +186,12 @@
                 <input type="hidden" name="id" id="form-id">
                 <div>
                     <label for="periode">Periode</label>
-                    <input type="month" id="periode" name="periode" required>
+                    <input type="month" id="periode" name="periode">
                 </div>
 
                 <div>
                     <label for="company">Company</label>
-                    <input type="text" id="company" name="company" required>
+                    <input type="text" id="company" name="company">
                 </div>
 
                 <div>
@@ -380,10 +380,88 @@
                             field: "id",
                             visible: false
                         },
-                        {
+                       {
                             title: "Periode",
                             field: "periode",
-                            editor: "input"
+                            editor: "input",
+                            headerFilter: "select",
+                            headerFilterParams: {
+                                values: [{
+                                        value: "01",
+                                        label: "Januari"
+                                    },
+                                    {
+                                        value: "02",
+                                        label: "Februari"
+                                    },
+                                    {
+                                        value: "03",
+                                        label: "Maret"
+                                    },
+                                    {
+                                        value: "04",
+                                        label: "April"
+                                    },
+                                    {
+                                        value: "05",
+                                        label: "Mei"
+                                    },
+                                    {
+                                        value: "06",
+                                        label: "Juni"
+                                    },
+                                    {
+                                        value: "07",
+                                        label: "Juli"
+                                    },
+                                    {
+                                        value: "08",
+                                        label: "Agustus"
+                                    },
+                                    {
+                                        value: "09",
+                                        label: "September"
+                                    },
+                                    {
+                                        value: "10",
+                                        label: "Oktober"
+                                    },
+                                    {
+                                        value: "11",
+                                        label: "November"
+                                    },
+                                    {
+                                        value: "12",
+                                        label: "Desember"
+                                    }
+                                ]
+                            },
+                            headerFilterPlaceholder: "Pilih Bulan",
+                            headerFilterFunc: function(headerValue, rowValue) {
+                                if (!headerValue) return true;
+                                if (!rowValue) return false;
+
+                                const periode = rowValue.toLowerCase();
+
+                                const bulanTextMap = {
+                                    "01": ["jan", "january"],
+                                    "02": ["feb", "february"],
+                                    "03": ["mar", "march"],
+                                    "04": ["apr", "april"],
+                                    "05": ["may", "mei"],
+                                    "06": ["jun", "june"],
+                                    "07": ["jul", "july"],
+                                    "08": ["aug", "august"],
+                                    "09": ["sep", "september"],
+                                    "10": ["oct", "october"],
+                                    "11": ["nov", "november"],
+                                    "12": ["dec", "december"]
+                                };
+
+                                const keywords = bulanTextMap[headerValue];
+                                return keywords.some(keyword => periode.includes(keyword)) || periode
+                                    .includes(`-${headerValue}`);
+                            }
                         },
                         {
                             title: "Company",
@@ -421,25 +499,57 @@
                             title: "Total WO Comply",
                             field: "total_wo_comply",
                             editor: "number",
-                            hozAlign: "center"
+                            hozAlign: "center",
+                            mutator: function(value) {
+                                return value === null || value === "" ? null : parseInt(value);
+                            },
+                            formatter: function(cell) {
+                                let value = cell.getValue();
+                                if (value === null || value === '') return '';
+                                return parseInt(value); // tampilkan sebagai integer
+                            }
                         },
                         {
                             title: "Total WO Completed",
                             field: "total_wo_completed",
                             editor: "number",
-                            hozAlign: "center"
+                            hozAlign: "center",
+                            mutator: function(value) {
+                                return value === null || value === "" ? null : parseInt(value);
+                            },
+                            formatter: function(cell) {
+                                let value = cell.getValue();
+                                if (value === null || value === '') return '';
+                                return parseInt(value);
+                            }
                         },
                         {
                             title: "Total WO In Progress",
                             field: "total_wo_in_progress",
                             editor: "number",
-                            hozAlign: "center"
+                            hozAlign: "center",
+                            mutator: function(value) {
+                                return value === null || value === "" ? null : parseInt(value);
+                            },
+                            formatter: function(cell) {
+                                let value = cell.getValue();
+                                if (value === null || value === '') return '';
+                                return parseInt(value);
+                            }
                         },
                         {
                             title: "Total WO Backlog",
                             field: "total_wo_backlog",
                             editor: "number",
-                            hozAlign: "center"
+                            hozAlign: "center",
+                            mutator: function(value) {
+                                return value === null || value === "" ? null : parseInt(value);
+                            },
+                            formatter: function(cell) {
+                                let value = cell.getValue();
+                                if (value === null || value === '') return '';
+                                return parseInt(value);
+                            }
                         },
                         {
                             title: "Kendala",

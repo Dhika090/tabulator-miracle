@@ -13,10 +13,10 @@ return new class extends Migration {
         Schema::create('shg_tgi_status_asset_ai', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('periode');
-            $table->string('subholding');
-            $table->string('company');
-            $table->string('unit');
-            $table->string('asset_group');
+            $table->string('subholding')->nullable();
+            $table->string('company')->nullable();
+            $table->string('unit')->nullable();
+            $table->string('asset_group')->nullable();
             $table->string('jumlah')->nullable();
 
             // SECE

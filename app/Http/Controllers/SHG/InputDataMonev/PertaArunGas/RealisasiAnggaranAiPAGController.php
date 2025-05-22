@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\PertaArun\RealisasiAnggaranAiPAGrequest;
 use App\Models\SHG\PertaArun\RealisasiAnggaranAiPAG;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RealisasiAnggaranAiPAGController extends Controller
 {
@@ -81,9 +82,15 @@ class RealisasiAnggaranAiPAGController extends Controller
 
     public function data()
     {
-        return response()->json(RealisasiAnggaranAiPAG::all());
-    }
+        $TargetPLO = RealisasiAnggaranAiPAG::select('*')
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderBy('periode_date', 'asc')
+            ->get();
 
+        return response()->json($TargetPLO);
+    }
 
     public function store(RealisasiAnggaranAiPAGrequest $request)
     {

@@ -182,12 +182,12 @@
 
                 <div>
                     <label>Periode</label>
-                    <input type="month" name="periode" id="periode" required>
+                    <input type="month" name="periode" id="periode">
                 </div>
 
                 <div>
                     <label>Nomor PLO</label>
-                    <input type="text" name="nomor_plo" id="nomor_plo" required>
+                    <input type="text" name="nomor_plo" id="nomor_plo">
                 </div>
 
                 <div>
@@ -212,12 +212,12 @@
 
                 <div>
                     <label>Tanggal Pengesahan</label>
-                    <input type="date" name="tanggal_pengesahan" id="tanggal_pengesahan" required>
+                    <input type="date" name="tanggal_pengesahan" id="tanggal_pengesahan">
                 </div>
 
                 <div>
                     <label>Masa Berlaku</label>
-                    <input type="date" name="masa_berlaku" id="masa_berlaku" required>
+                    <input type="date" name="masa_berlaku" id="masa_berlaku">
                 </div>
 
                 <div>
@@ -272,23 +272,8 @@
 
     @push('scripts')
         <script src="https://unpkg.com/tabulator-tables@5.6.0/dist/js/tabulator.min.js"></script>
+
         <script>
-            const pengesahanInput = document.getElementById('tanggal_pengesahan');
-            const berlakuInput = document.getElementById('masa_berlaku');
-
-            function validateDates() {
-                const pengesahan = new Date(pengesahanInput.value);
-                const berlaku = new Date(berlakuInput.value);
-
-                if (berlaku <= pengesahan) {
-                    alert("Tanggal Masa Berlaku harus lebih dari Tanggal Pengesahan!");
-                    berlakuInput.value = '';
-                }
-            }
-
-            pengesahanInput.addEventListener('change', validateDates);
-            berlakuInput.addEventListener('change', validateDates);
-
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
                     fetch(`status-plo-ptg/${id}`, {
@@ -400,6 +385,7 @@
                         }
                     ]
                 ]);
+
             });
 
             function clearSearch() {
@@ -419,21 +405,19 @@
             }
 
             document.addEventListener("DOMContentLoaded", function() {
-
                 const columnMap = {
                     "status-plo-ptg": [{
                             title: "No",
-                            formatter: function(cell, formatterParams, onRendered) {
+                            formatter: function(cell) {
                                 const row = cell.getRow();
-                                const table = row.getTable();
-                                const page = table.getPage();
-                                const pageSize = table.getPageSize();
-                                const rowIndex = row.getPosition();
-                                return (page - 1) * pageSize + rowIndex + 1;
+                                const table = cell.getTable();
+                                const sortedData = table.getRows("active").map(r => r.getData());
+                                const index = sortedData.findIndex(data => data.id === row.getData().id);
+                                return index + 1;
                             },
                             hozAlign: "center",
                             width: 60,
-                            frozen: true
+                            headerSort: false,
                         },
                         {
                             title: "ID",
@@ -443,13 +427,90 @@
                         {
                             title: "Periode",
                             field: "periode",
-                            editor: "input"
+                            editor: "input",
+                            headerFilter: "select",
+                            headerFilterParams: {
+                                values: [{
+                                        value: "01",
+                                        label: "Januari"
+                                    },
+                                    {
+                                        value: "02",
+                                        label: "Februari"
+                                    },
+                                    {
+                                        value: "03",
+                                        label: "Maret"
+                                    },
+                                    {
+                                        value: "04",
+                                        label: "April"
+                                    },
+                                    {
+                                        value: "05",
+                                        label: "Mei"
+                                    },
+                                    {
+                                        value: "06",
+                                        label: "Juni"
+                                    },
+                                    {
+                                        value: "07",
+                                        label: "Juli"
+                                    },
+                                    {
+                                        value: "08",
+                                        label: "Agustus"
+                                    },
+                                    {
+                                        value: "09",
+                                        label: "September"
+                                    },
+                                    {
+                                        value: "10",
+                                        label: "Oktober"
+                                    },
+                                    {
+                                        value: "11",
+                                        label: "November"
+                                    },
+                                    {
+                                        value: "12",
+                                        label: "Desember"
+                                    }
+                                ]
+                            },
+                            headerFilterPlaceholder: "Pilih Bulan",
+                            headerFilterFunc: function(headerValue, rowValue) {
+                                if (!headerValue) return true;
+                                if (!rowValue) return false;
+
+                                const periode = rowValue.toLowerCase();
+
+                                const bulanTextMap = {
+                                    "01": ["jan", "january"],
+                                    "02": ["feb", "february"],
+                                    "03": ["mar", "march"],
+                                    "04": ["apr", "april"],
+                                    "05": ["may", "mei"],
+                                    "06": ["jun", "june"],
+                                    "07": ["jul", "july"],
+                                    "08": ["aug", "august"],
+                                    "09": ["sep", "september"],
+                                    "10": ["oct", "october"],
+                                    "11": ["nov", "november"],
+                                    "12": ["dec", "december"]
+                                };
+
+                                const keywords = bulanTextMap[headerValue];
+                                return keywords.some(keyword => periode.includes(keyword)) || periode
+                                    .includes(`-${headerValue}`);
+                            }
                         },
                         {
                             title: "Nomor PLO",
                             field: "nomor_plo",
-                            editor: "input",
-                            width: 250
+                            editor: "input"
                         },
                         {
                             title: "Company",
@@ -474,14 +535,12 @@
                         {
                             title: "Tanggal Pengesahan",
                             field: "tanggal_pengesahan",
-                            editor: "input",
-                            hozAlign: "center",
+                            editor: "input"
                         },
                         {
                             title: "Masa Berlaku",
                             field: "masa_berlaku",
-                            editor: "input",
-                            hozAlign: "center",
+                            editor: "input"
                         },
                         {
                             title: "Keterangan",
@@ -491,20 +550,17 @@
                         {
                             title: "Belum Proses",
                             field: "belum_proses",
-                            editor: "number",
-                            hozAlign: "center"
+                            editor: "input"
                         },
                         {
-                            title: "Pre-Inspection",
+                            title: "Pre Inspection",
                             field: "pre_inspection",
-                            editor: "number",
-                            hozAlign: "center"
+                            editor: "input"
                         },
                         {
                             title: "Inspection",
                             field: "inspection",
-                            editor: "number",
-                            hozAlign: "center"
+                            editor: "input"
                         },
                         {
                             title: "COI Peralatan",
@@ -517,10 +573,9 @@
                             editor: "input"
                         },
                         {
-                            title: "Penerbitan PLO (Valid)",
+                            title: "Penerbitan PLO Valid",
                             field: "penerbitan_plo_valid",
-                            editor: "input",
-                            hozAlign: "center",
+                            editor: "input"
                         },
                         {
                             title: "Kendala",
@@ -580,9 +635,6 @@
                         editor: "input",
                         resizable: "header",
                     },
-                    rowFormatter: function(row) {
-                        row.reformat();
-                    },
                 });
 
                 table.on("cellEdited", function(cell) {
@@ -605,7 +657,6 @@
                         .then(data => console.log("Update berhasil:", data))
                         .catch(err => console.error("Gagal update:", err));
                 });
-
                 let previousData = [];
                 table.on("dataLoaded", function(newData) {
                     previousData = JSON.parse(JSON.stringify(newData));
@@ -673,32 +724,9 @@
 
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
-                console.log("Data submitted:", data);
 
-                const id = document.getElementById("form-id").value;
-                const periode = document.getElementById("periode").value;
-                const nomorPlo = document.getElementById("nomor_plo").value;
-                const company = document.getElementById("company").value;
-                const area = document.getElementById("area").value;
-                const lokasi = document.getElementById("lokasi").value;
-                const namaAset = document.getElementById("nama_aset").value;
-                const tanggalPengesahan = document.getElementById("tanggal_pengesahan").value;
-                const masaBerlaku = document.getElementById("masa_berlaku").value;
-                const keterangan = document.getElementById("keterangan").value;
-                const belumProses = document.getElementById("belum_proses").value;
-                const preInspection = document.getElementById("pre_inspection").value;
-                const inspection = document.getElementById("inspection").value;
-                const coiPeralatan = document.getElementById("coi_peralatan").value;
-                const baPk = document.getElementById("ba_pk").value;
-                const penerbitanPloValid = document.getElementById("penerbitan_plo_valid").value;
-                const kendala = document.getElementById("kendala").value;
-                const tindakLanjut = document.getElementById("tindak_lanjut").value;
-
-                const method = id ? "PUT" : "POST";
-                const url = id ? `status-plo-ptg/${id}` : "status-plo-ptg";
-
-                fetch(url, {
-                        method: method,
+                fetch("status-plo-ptg", {
+                        method: "POST",
                         headers: {
                             "Content-Type": "application/json",
                             "Accept": "application/json",
@@ -706,44 +734,40 @@
                                 "content")
                         },
                         body: JSON.stringify({
-                            id: id,
-                            periode: periode,
-                            nomor_plo: nomorPlo,
-                            company: company,
-                            area: area,
-                            lokasi: lokasi,
-                            nama_aset: namaAset,
-                            tanggal_pengesahan: tanggalPengesahan,
-                            masa_berlaku: masaBerlaku,
-                            keterangan: keterangan,
-                            belum_proses: belumProses,
-                            pre_inspection: preInspection,
-                            inspection: inspection,
-                            coi_peralatan: coiPeralatan,
-                            ba_pk: baPk,
-                            penerbitan_plo_valid: penerbitanPloValid,
-                            kendala: kendala,
-                            tindak_lanjut: tindakLanjut
+                            periode: data.periode,
+                            nomor_plo: data.nomor_plo,
+                            company: data.company,
+                            area: data.area,
+                            lokasi: data.lokasi,
+                            nama_aset: data.nama_aset,
+                            tanggal_pengesahan: data.tanggal_pengesahan,
+                            masa_berlaku: data.masa_berlaku,
+                            keterangan: data.keterangan,
+                            belum_proses: data.belum_proses,
+                            pre_inspection: data.pre_inspection,
+                            inspection: data.inspection,
+                            coi_peralatan: data.coi_peralatan,
+                            ba_pk: data.ba_pk,
+                            penerbitan_plo_valid: data.penerbitan_plo_valid,
+                            kendala: data.kendala,
+                            tindak_lanjut: data.tindak_lanjut
                         })
+
                     })
                     .then(response => response.json())
                     .then(result => {
                         if (result.success) {
-                            alert(result.message);
-                            // table.addRow([result.data]);
+                            alert(result.message || "Data berhasil disimpan");
                             table.setData("/monev/shg/input-data/status-plo-ptg/data");
                             this.reset();
+                            closeModal();
                         } else {
-                            alert('Gagal menyimpan data');
+                            alert("Gagal menyimpan data");
                         }
                     })
                     .catch(error => {
-                        console.error("Error submitting data:", error);
-                        alert('Terjadi kesalahan saat mengirim data.');
-                    })
-                    .finally(() => {
-                        closeModal();
-                        this.reset();
+                        console.error("Error saat submit:", error);
+                        alert("Terjadi kesalahan saat mengirim data.");
                     });
             });
         </script>

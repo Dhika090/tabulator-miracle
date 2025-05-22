@@ -5,6 +5,7 @@ namespace App\Http\Controllers\SHG\InputDataMonev\kalimantan;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\Kalimantan\MandatoryCertificationKjgRequest;
 use App\Models\SHG\Kalimantan\MandatoryCertificationKjg;
+use Illuminate\Support\Facades\DB;
 
 class MandatoryCertificationKjgController extends Controller
 {
@@ -164,7 +165,14 @@ class MandatoryCertificationKjgController extends Controller
 
     public function data()
     {
-        return response()->json(MandatoryCertificationKjg::all());
+       $TargetPLO = MandatoryCertificationKjg::select('*')
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderBy('periode_date', 'asc')
+            ->get();
+
+        return response()->json($TargetPLO);
     }
 
     public function store(MandatoryCertificationKjgRequest $request)

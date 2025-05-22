@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\PertaArun\MandatoryCertificationPAGRequest;
 use App\Models\SHG\PertaArun\MandatoryCertificationPAG;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MandatoryCertificationPAGController extends Controller
 {
@@ -184,7 +185,13 @@ class MandatoryCertificationPAGController extends Controller
 
     public function data()
     {
-        $TargetPLO = MandatoryCertificationPAG::all();
+        $TargetPLO = MandatoryCertificationPAG::select('*')
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderBy('periode_date', 'asc')
+            ->get();
+
         return response()->json($TargetPLO);
     }
     public function update(MandatoryCertificationPAGRequest $request, $id)

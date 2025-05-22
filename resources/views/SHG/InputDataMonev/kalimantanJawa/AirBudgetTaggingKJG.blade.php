@@ -183,7 +183,7 @@
 
                 <div>
                     <label>Periode</label>
-                    <input type="month" name="periode" id="periode" required>
+                    <input type="month" name="periode" id="periode">
                 </div>
 
                 <div>
@@ -278,7 +278,7 @@
 
                 <div>
                     <label>Aset Integrity (Yes/No)</label>
-                    <select name="aset_integrity" id="aset_integrity" required>
+                    <select name="aset_integrity" id="aset_integrity">
                         <option value="">Pilih</option>
                         <option value="Yes">Yes</option>
                         <option value="No">No</option>
@@ -422,10 +422,88 @@
                             field: "id",
                             visible: false
                         },
-                        {
+                       {
                             title: "Periode",
                             field: "periode",
-                            editor: "input"
+                            editor: "input",
+                            headerFilter: "select",
+                            headerFilterParams: {
+                                values: [{
+                                        value: "01",
+                                        label: "Januari"
+                                    },
+                                    {
+                                        value: "02",
+                                        label: "Februari"
+                                    },
+                                    {
+                                        value: "03",
+                                        label: "Maret"
+                                    },
+                                    {
+                                        value: "04",
+                                        label: "April"
+                                    },
+                                    {
+                                        value: "05",
+                                        label: "Mei"
+                                    },
+                                    {
+                                        value: "06",
+                                        label: "Juni"
+                                    },
+                                    {
+                                        value: "07",
+                                        label: "Juli"
+                                    },
+                                    {
+                                        value: "08",
+                                        label: "Agustus"
+                                    },
+                                    {
+                                        value: "09",
+                                        label: "September"
+                                    },
+                                    {
+                                        value: "10",
+                                        label: "Oktober"
+                                    },
+                                    {
+                                        value: "11",
+                                        label: "November"
+                                    },
+                                    {
+                                        value: "12",
+                                        label: "Desember"
+                                    }
+                                ]
+                            },
+                            headerFilterPlaceholder: "Pilih Bulan",
+                            headerFilterFunc: function(headerValue, rowValue) {
+                                if (!headerValue) return true;
+                                if (!rowValue) return false;
+
+                                const periode = rowValue.toLowerCase();
+
+                                const bulanTextMap = {
+                                    "01": ["jan", "january"],
+                                    "02": ["feb", "february"],
+                                    "03": ["mar", "march"],
+                                    "04": ["apr", "april"],
+                                    "05": ["may", "mei"],
+                                    "06": ["jun", "june"],
+                                    "07": ["jul", "july"],
+                                    "08": ["aug", "august"],
+                                    "09": ["sep", "september"],
+                                    "10": ["oct", "october"],
+                                    "11": ["nov", "november"],
+                                    "12": ["dec", "december"]
+                                };
+
+                                const keywords = bulanTextMap[headerValue];
+                                return keywords.some(keyword => periode.includes(keyword)) || periode
+                                    .includes(`-${headerValue}`);
+                            }
                         },
                         {
                             title: "Satker",
@@ -553,26 +631,41 @@
                         {
                             title: "Jumlah Aset Critical SECE",
                             field: "jumlah_aset_critical_sece",
-                            editor: "number",
+                            editor: "input",
                             hozAlign: "center"
                         },
                         {
                             title: "Jumlah Aset Critical PCE",
                             field: "jumlah_aset_critical_pce",
-                            editor: "number",
-                            hozAlign: "center"
+                            editor: "input",
+                            hozAlign: "center",
+                            formatter: function(cell) {
+                                let value = cell.getValue();
+                                if (value === null || value === undefined || value === '') return '';
+                                return parseFloat(value).toFixed(2); 
+                            }
                         },
                         {
                             title: "Jumlah Aset Important",
                             field: "jumlah_aset_important",
-                            editor: "number",
-                            hozAlign: "center"
+                            editor: "input",
+                            hozAlign: "center",
+                            formatter: function(cell) {
+                                let value = cell.getValue();
+                                if (value === null || value === undefined || value === '') return '';
+                                return parseFloat(value).toFixed(2);
+                            }
                         },
                         {
                             title: "Jumlah Aset Secondary",
                             field: "jumlah_aset_secondary",
-                            editor: "number",
-                            hozAlign: "center"
+                            editor: "input",
+                            hozAlign: "center",
+                            formatter: function(cell) {
+                                let value = cell.getValue();
+                                if (value === null || value === undefined || value === '') return '';
+                                return parseFloat(value).toFixed(2);
+                            }
                         },
                         {
                             title: "Aksi",

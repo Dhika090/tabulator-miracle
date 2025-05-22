@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\PgnOmm\StatusPloOmmRequest;
 use App\Models\SHG\PgnOmm\StatusPloOmm;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class StatusPloOmmController extends Controller
 {
@@ -103,7 +104,15 @@ class StatusPloOmmController extends Controller
 
     public function data()
     {
-        $TargetPLO = StatusPloOmm::all();
+        // $TargetPLO = StatusPloOmm::all();
+        // return response()->json($TargetPLO);
+        $TargetPLO = StatusPloOmm::select('*')
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderBy('periode_date', 'asc')
+            ->get();
+
         return response()->json($TargetPLO);
     }
     public function update(StatusPloOmmRequest $request, $id)

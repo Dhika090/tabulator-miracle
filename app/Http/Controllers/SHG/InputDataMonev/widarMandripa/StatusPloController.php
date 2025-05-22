@@ -18,11 +18,6 @@ class StatusPloController extends Controller
                 'active' => request()->routeIs('widar-mandripa-nusantara'),
             ],
             [
-                'title' => 'Plan Mandatory Certification',
-                'route' => route('plan-mandatory-certification'),
-                'active' => request()->routeIs('plan-mandatory-certification'),
-            ],
-            [
                 'title' => 'Mandatory Certification WMN',
                 'route' => route('mandatory-certification-wmn'),
                 'active' => request()->routeIs('mandatory-certification-wmn'),
@@ -61,6 +56,11 @@ class StatusPloController extends Controller
                 'title' => 'Availability WMN',
                 'route' => route('availability-wmn'),
                 'active' => request()->routeIs('availability-wmn'),
+            ],
+            [
+                'title' => 'Air Budget Tagging WMN',
+                'route' => route('air-budget-tagging-wmn'),
+                'active' => request()->routeIs('air-budget-tagging-wmn'),
             ],
             [
                 'title' => 'Realisasi Anggaran AI WMN',

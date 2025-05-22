@@ -12,7 +12,7 @@ return new class extends Migration {
     {
         Schema::create('shg_pag_status_plo', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('periode');
+            $table->string('periode')->nullable();
             $table->string('nomor_plo')->nullable();
             $table->string('company')->nullable();
             $table->string('area')->nullable();
@@ -28,7 +28,7 @@ return new class extends Migration {
             $table->integer('ba_pk')->nullable();
             $table->integer('penerbitan_plo_valid')->nullable();
             $table->string('kendala')->nullable();
-            $table->string('tindak_lanjut')->nullable();
+            $table->string('tindak_lanjut', 500)->nullable();
             $table->timestamps();
         });
     }

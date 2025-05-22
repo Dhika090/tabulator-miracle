@@ -102,11 +102,27 @@ class AirBudgetTaggingPtgController extends Controller
 
     public function update(AirBudgetTaggingPtgRequest $request, $id)
     {
-        $progress = AirBudgetTaggingPtg::findOrFail($id);
-        $progress->update($request->validated());
+        $validated = [];
 
-        return response()->json(['success' => true, 'message' => 'Data berhasil diupdate']);
+        $validated['jumlah_aset_critical_pce'] = $request->filled('jumlah_aset_critical_pce')
+            ? (int) floatval($request->jumlah_aset_critical_pce)
+            : null;
+
+        $validated['jumlah_aset_critical_sece'] = $request->filled('jumlah_aset_critical_sece')
+            ? (int) floatval($request->jumlah_aset_critical_sece)
+            : null;
+
+        $validated['jumlah_aset_important'] = $request->filled('jumlah_aset_important')
+            ? (int) floatval($request->jumlah_aset_important)
+            : null;
+
+        $validated['jumlah_aset_secondary'] = $request->filled('jumlah_aset_secondary')
+            ? (int) floatval($request->jumlah_aset_secondary)
+            : null;
+
+        AirBudgetTaggingPtg::findOrFail($id)->update($validated);
     }
+
 
     public function destroy($id)
     {

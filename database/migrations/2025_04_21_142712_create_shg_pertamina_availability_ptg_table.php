@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('shg_pertamina_availability_ptg', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('periode');
-            $table->string('company');
-            $table->string('kategori');
-            $table->decimal('target', 5, 2);
-            $table->decimal('availability', 5, 2);
+            $table->string('periode')->nullable();
+            $table->string('company')->nullable();
+            $table->string('kategori')->nullable();
+            $table->decimal('target', 10, 2)->nullable();
+            $table->decimal('availability', 10, 2)->nullable();
             $table->string('isu')->nullable();
             $table->string('kendala')->nullable();
             $table->string('tindak_lanjut')->nullable();

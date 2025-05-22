@@ -14,6 +14,11 @@
                 box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             }
 
+            .tabulator .tabulator-cell {
+                white-space: normal !important;
+                word-wrap: break-word;
+            }
+
             .tabulator-cell {
                 font-size: 14px;
             }
@@ -181,13 +186,13 @@
                     <input type="hidden" name="id" id="form-id">
 
                     <label>Periode:</label>
-                    <input type="month" name="periode" id="periode" required>
+                    <input type="month" name="periode" id="periode">
 
                     <label>Subholding:</label>
-                    <input type="text" name="subholding" id="subholding" required>
+                    <input type="text" name="subholding" id="subholding">
 
                     <label for="company">Company:</label>
-                    <select name="company" id="company" required class="form-select">
+                    <select name="company" id="company" class="form-select">
                         <option value="">-- Pilih Company --</option>
                         @foreach ($companies as $company)
                             <option value="{{ $company }}">{{ $company }}</option>
@@ -195,13 +200,13 @@
                     </select>
 
                     <label>Unit:</label>
-                    <input type="text" name="unit" id="unit" required>
+                    <input type="text" name="unit" id="unit">
 
                     <label>Asset Group:</label>
-                    <input type="text" name="asset_group" id="asset_group" required>
+                    <input type="text" name="asset_group" id="asset_group">
 
                     <label>Jumlah:</label>
-                    <input type="number" name="jumlah" id="jumlah" required>
+                    <input type="number" name="jumlah" id="jumlah">
 
                     <label>SECE Low Integrity - Breakdown:</label>
                     <input type="number" name="sece_low_breakdown" id="sece_low_breakdown">
@@ -271,10 +276,10 @@
                     <input type="number" name="secondary_high" id="secondary_high">
 
                     <label>Kegiatan Penurunan Low:</label>
-                    <input type="text" name="kegiatan_penurunan_low" id="kegiatan_penurunan_low">
+                    <input type="number" name="kegiatan_penurunan_low" id="kegiatan_penurunan_low">
 
                     <label>Kegiatan Penurunan Med:</label>
-                    <input type="text" name="kegiatan_penurunan_med" id="kegiatan_penurunan_med">
+                    <input type="number" name="kegiatan_penurunan_med" id="kegiatan_penurunan_med">
 
                     <label>Informasi Penyebab Low Integrity:</label>
                     <input type="text" name="penyebab_low_integrity" id="penyebab_low_integrity">
@@ -398,9 +403,16 @@
                 const columnMap = {
                     "pertamina-gas": [{
                             title: "No",
-                            formatter: "rownum",
+                            formatter: function(cell) {
+                                const row = cell.getRow();
+                                const table = cell.getTable();
+                                const sortedData = table.getRows("active").map(r => r.getData());
+                                const index = sortedData.findIndex(data => data.id === row.getData().id);
+                                return index + 1;
+                            },
                             hozAlign: "center",
-                            width: 60
+                            width: 60,
+                            headerSort: false,
                         },
                         {
                             title: "ID",
@@ -410,7 +422,85 @@
                         {
                             title: "Periode",
                             field: "periode",
-                            editor: "input"
+                            editor: "input",
+                            headerFilter: "select",
+                            headerFilterParams: {
+                                values: [{
+                                        value: "01",
+                                        label: "Januari"
+                                    },
+                                    {
+                                        value: "02",
+                                        label: "Februari"
+                                    },
+                                    {
+                                        value: "03",
+                                        label: "Maret"
+                                    },
+                                    {
+                                        value: "04",
+                                        label: "April"
+                                    },
+                                    {
+                                        value: "05",
+                                        label: "Mei"
+                                    },
+                                    {
+                                        value: "06",
+                                        label: "Juni"
+                                    },
+                                    {
+                                        value: "07",
+                                        label: "Juli"
+                                    },
+                                    {
+                                        value: "08",
+                                        label: "Agustus"
+                                    },
+                                    {
+                                        value: "09",
+                                        label: "September"
+                                    },
+                                    {
+                                        value: "10",
+                                        label: "Oktober"
+                                    },
+                                    {
+                                        value: "11",
+                                        label: "November"
+                                    },
+                                    {
+                                        value: "12",
+                                        label: "Desember"
+                                    }
+                                ]
+                            },
+                            headerFilterPlaceholder: "Pilih Bulan",
+                            headerFilterFunc: function(headerValue, rowValue) {
+                                if (!headerValue) return true;
+                                if (!rowValue) return false;
+
+                                const periode = rowValue.toLowerCase();
+
+                                const bulanTextMap = {
+                                    "01": ["jan", "january"],
+                                    "02": ["feb", "february"],
+                                    "03": ["mar", "march"],
+                                    "04": ["apr", "april"],
+                                    "05": ["may", "mei"],
+                                    "06": ["jun", "june"],
+                                    "07": ["jul", "july"],
+                                    "08": ["aug", "august"],
+                                    "09": ["sep", "september"],
+                                    "10": ["oct", "october"],
+                                    "11": ["nov", "november"],
+                                    "12": ["dec", "december"]
+                                };
+
+                                const keywords = bulanTextMap[headerValue];
+                                return keywords.some(keyword => periode.includes(keyword)) || periode
+                                    .includes(`-${headerValue}`);
+                            }
                         },
                         {
                             title: "Subholding",
@@ -561,27 +651,32 @@
                         {
                             title: "Kegiatan Penurunan Low",
                             field: "kegiatan_penurunan_low",
-                            editor: "input"
+                            editor: "number"
                         },
                         {
                             title: "Kegiatan Penurunan Med",
                             field: "kegiatan_penurunan_med",
-                            editor: "input"
+                            editor: "number",
+                            formatter: function(cell) {
+                                let value = cell.getValue();
+                                if (value === null || value === undefined || value === '') return '';
+                                return parseFloat(value).toFixed(2);
+                            }
                         },
                         {
                             title: "Informasi Penyebab Low Integrity",
-                            field: "informasi_penyebab_low_integrity",
+                            field: "penyebab_low_integrity",
                             editor: "input",
                             width: 450
                         },
                         {
                             title: "Informasi Penambahan Jumlah Aset",
-                            field: "informasi_penambahan_jumlah_aset",
+                            field: "penambahan_jumlah_aset",
                             editor: "input"
                         },
                         {
                             title: "Informasi Naik Turun low Integrity",
-                            field: "informasi_naik_turun_low_integrity",
+                            field: "naik_turun_low_integrity",
                             editor: "input",
                             width: 450
                         },

@@ -22,7 +22,7 @@ class RealisasiProgressFisikAiPAGrequest extends FormRequest
     public function rules(): array
     {
         return [
-            'periode' => ['required', 'digits:4', 'integer', 'min:1900'],
+            'periode' => ['nullable', 'digits:4', 'integer', 'min:1900'],
             'no' => 'nullable|string|max:255',
             'program_kerja' => 'nullable|string|max:255',
             'kategori_aibt' => 'nullable|string|max:255',

@@ -23,7 +23,7 @@ class DataMonevPertaminaGas extends Model
         });
     }
 
-    protected $table = 'shg_pertamina_gas';
+    protected $table = 'shg_pertamina_status_asset_ai';
     protected $fillable = [
         'periode',
         'subholding',

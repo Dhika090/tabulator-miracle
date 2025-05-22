@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\Kalimantan\AvailabilityKjgRequest;
 use App\Models\SHG\Kalimantan\AvailabilityKjg;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AvailabilityKjgController extends Controller
 {
@@ -79,7 +80,15 @@ class AvailabilityKjgController extends Controller
 
     public function data()
     {
-        return response()->json(AvailabilityKjg::all());
+        // return response()->json(AvailabilityKjg::all());
+        $TargetPLO = AvailabilityKjg::select('*')
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderBy('periode_date', 'asc')
+            ->get();
+
+        return response()->json($TargetPLO);
     }
 
     public function store(AvailabilityKjgRequest $request)

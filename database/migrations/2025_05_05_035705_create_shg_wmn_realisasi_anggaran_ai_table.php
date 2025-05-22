@@ -12,7 +12,7 @@ return new class extends Migration {
     {
         Schema::create('shg_wmn_realisasi_anggaran_ai', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('periode');
+            $table->string('periode')->nullable();
             $table->integer('no')->nullable();
             $table->string('program_kerja')->nullable();
             $table->string('kategori_aibt')->nullable();

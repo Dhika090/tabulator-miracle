@@ -185,7 +185,7 @@
                 <input type="hidden" name="id" id="form-id">
                 <div>
                     <label>Periode</label>
-                    <input type="month" name="periode" id="periode" required>
+                    <input type="month" name="periode" id="periode"  >
                 </div>
 
                 <div>

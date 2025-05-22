@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\GagasEnergi\MandatoryCertificationGEIRequest;
 use App\Models\SHG\GagasEnergi\MandatoryCertificationGEI;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MandatoryCertificationGEIController extends Controller
 {
@@ -183,7 +184,13 @@ class MandatoryCertificationGEIController extends Controller
 
     public function data()
     {
-        $TargetPLO = MandatoryCertificationGEI::all();
+           $TargetPLO = MandatoryCertificationGEI::select('*')
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderBy('periode_date', 'asc')
+            ->get();
+
         return response()->json($TargetPLO);
     }
     public function update(MandatoryCertificationGEIRequest $request, $id)

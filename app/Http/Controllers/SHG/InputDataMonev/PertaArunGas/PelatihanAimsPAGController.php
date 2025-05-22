@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\PertaArun\PelatihanAimsPAGRequest;
 use App\Models\SHG\PertaArun\PelatihanAimsPAG;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PelatihanAimsPAGController extends Controller
 {
@@ -81,9 +82,15 @@ class PelatihanAimsPAGController extends Controller
 
     public function data()
     {
-        return response()->json(PelatihanAimsPAG::all());
-    }
+        $TargetPLO = PelatihanAimsPAG::select('*')
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderBy('periode_date', 'asc')
+            ->get();
 
+        return response()->json($TargetPLO);
+    }
 
     public function store(PelatihanAimsPAGRequest $request)
     {

@@ -22,11 +22,11 @@ class DataMonevPertaminaGasRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'periode' => 'required',
-            'subholding' => 'required',
-            'company' => 'required',
-            'unit' => 'required',
-            'asset_group' => 'required',
+            'periode' => 'nullable|string',
+            'subholding' => 'nullable|string',
+            'company' => 'nullable|string',
+            'unit' => 'nullable|string',
+            'asset_group' => 'nullable|string',
             'jumlah' => 'nullable|numeric',
 
             'sece_low_breakdown' => 'nullable|numeric',
@@ -55,9 +55,9 @@ class DataMonevPertaminaGasRequest extends FormRequest
 
             'kegiatan_penurunan_low' => 'nullable|numeric',
             'kegiatan_penurunan_med' => 'nullable|numeric',
-            'penyebab_low_integrity' => 'nullable|numeric',
-            'penambahan_jumlah_aset' => 'nullable|numeric',
-            'naik_turun_low_integrity' => 'nullable|numeric',
+            'penyebab_low_integrity' => 'nullable|string',
+            'penambahan_jumlah_aset' => 'nullable|string',
+            'naik_turun_low_integrity' => 'nullable|string',
         ];
     }
 }

@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\GagasEnergi\RencanaPemeliharaanGEIRequest;
 use App\Models\SHG\GagasEnergi\RencanaPemeliharaanGEI;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
 class RencanaPemeliharaanGEIController extends Controller
 {
 
@@ -93,7 +93,13 @@ class RencanaPemeliharaanGEIController extends Controller
 
     public function data()
     {
-        $TargetPLO = RencanaPemeliharaanGEI::all();
+            $TargetPLO = RencanaPemeliharaanGEI::select('*')
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderBy('periode_date', 'asc')
+            ->get();
+
         return response()->json($TargetPLO);
     }
     public function update(RencanaPemeliharaanGEIRequest $request, $id)

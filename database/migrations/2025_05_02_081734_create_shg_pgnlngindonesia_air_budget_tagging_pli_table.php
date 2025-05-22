@@ -12,7 +12,7 @@ return new class extends Migration {
     {
         Schema::create('shg_pgnlngindonesia_air_budget_tagging_pli', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('periode');
+            $table->string('periode')->nullable();
             $table->string('satker')->nullable();
             $table->string('kategori')->nullable();
             $table->string('ce')->nullable();
@@ -31,7 +31,7 @@ return new class extends Migration {
             $table->string('oct')->nullable();
             $table->string('nov')->nullable();
             $table->string('dec')->nullable();
-            $table->enum('aset_integrity', ['Yes', 'No']);
+            $table->enum('aset_integrity', ['Yes', 'No'])->nullable();
             $table->string('airtagging')->nullable();
             $table->string('prioritas')->nullable();
             $table->string('status_integrity')->nullable();

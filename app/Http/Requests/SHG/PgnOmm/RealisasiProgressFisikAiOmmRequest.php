@@ -22,7 +22,7 @@ class RealisasiProgressFisikAiOmmRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'periode' => 'required|string|max:7',
+            'periode' => 'nullable|string|max:7',
             'no' => 'nullable|string|max:255',
             'program_kerja' => 'nullable|string|max:255',
             'kategori_aibt' => 'nullable|string|max:255',

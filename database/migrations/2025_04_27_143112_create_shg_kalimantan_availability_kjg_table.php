@@ -12,7 +12,7 @@ return new class extends Migration {
     {
         Schema::create('shg_kalimantan_availability_kjg', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('periode');
+            $table->string('periode')->nullable();
             $table->string('company')->nullable();
             $table->string('kategori')->nullable();
             $table->decimal('target', 5, 2)->nullable();

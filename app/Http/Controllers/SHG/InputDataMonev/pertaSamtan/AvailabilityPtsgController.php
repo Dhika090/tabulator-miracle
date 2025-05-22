@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\PertaSamtan\AvailabilityPtsgRequest;
 use App\Models\SHG\PertaSamtan\AvailabilityPtsg;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AvailabilityPtsgController extends Controller
 {
@@ -74,7 +75,15 @@ class AvailabilityPtsgController extends Controller
 
     public function data()
     {
-        return response()->json(AvailabilityPtsg::all());
+        // return response()->json(AvailabilityPtsg::all());
+        $TargetPLO = AvailabilityPtsg::select('*')
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderBy('periode_date', 'asc')
+            ->get();
+
+        return response()->json($TargetPLO);
     }
 
     public function store(AvailabilityPtsgRequest $request)

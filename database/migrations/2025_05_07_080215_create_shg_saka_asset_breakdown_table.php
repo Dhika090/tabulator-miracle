@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('shg_saka_asset_breakdown', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('periode');
+            $table->string('periode')->nullable();
             $table->string('company')->nullable();
             $table->string('plant_segment')->nullable();
             $table->string('kategori_criticality')->nullable();
@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('jenis_kerusakan')->nullable();
             $table->string('penyebab')->nullable();
             $table->string('kendala_perbaikan')->nullable();
-            $table->string('mitigasi')->nullable();
+            $table->string('mitigasi', 500)->nullable();
             $table->string('perbaikan_permanen')->nullable();
             $table->string('progres_perbaikan_permanen')->nullable();
             $table->string('tindak_lanjut')->nullable();

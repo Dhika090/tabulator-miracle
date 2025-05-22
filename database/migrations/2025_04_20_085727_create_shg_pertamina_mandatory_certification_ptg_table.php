@@ -12,10 +12,10 @@ return new class extends Migration {
     {
         Schema::create('shg_pertamina_mandatory_certification_ptg', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('periode');
-            $table->string('subholding');
-            $table->string('company');
-            $table->string('unit');
+            $table->string('periode')->nullable();
+            $table->string('subholding')->nullable();
+            $table->string('company')->nullable();
+            $table->string('unit')->nullable();
             $table->string('nama_sertifikasi')->nullable();
             $table->string('lembaga_penerbit_sertifikat')->nullable();
             $table->integer('jumlah_sertifikasi_terbit')->nullable();

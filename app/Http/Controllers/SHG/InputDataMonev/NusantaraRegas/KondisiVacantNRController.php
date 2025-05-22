@@ -6,11 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\NusantaraRegas\KondisiVacantAimsNRReuqest;
 use App\Models\SHG\NusantaraRegas\KondisiVacantAimsNR;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class KondisiVacantNRController extends Controller
 {
-
-
     public function index(Request $request)
     {
 
@@ -84,7 +83,13 @@ class KondisiVacantNRController extends Controller
 
     public function data()
     {
-        $TargetPLO = KondisiVacantAimsNR::all();
+          $TargetPLO = KondisiVacantAimsNR::select('*')
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderBy('periode_date', 'asc')
+            ->get();
+
         return response()->json($TargetPLO);
     }
     public function update(KondisiVacantAimsNRReuqest $request, $id)

@@ -45,8 +45,8 @@ class AirBudgetTaggingPtgRequest extends FormRequest
             'airtagging' => 'nullable|string|max:255',
             'prioritas' => 'nullable|string|max:255',
             'status_integrity' => 'nullable|string|max:255',
-            'jumlah_aset_critical_sece' => 'nullable|integer',
             'jumlah_aset_critical_pce' => 'nullable|integer',
+            'jumlah_aset_critical_sece' => 'nullable|integer',
             'jumlah_aset_important' => 'nullable|integer',
             'jumlah_aset_secondary' => 'nullable|integer',
         ];

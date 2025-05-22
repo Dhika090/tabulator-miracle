@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('shg_pdg_realisasi_anggaran_ai_pdg', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->year('periode');
+            $table->year('periode')->nullable();
             $table->integer('no')->nullable();
             $table->string('program_kerja')->nullable();
             $table->string('kategori_aibt')->nullable();

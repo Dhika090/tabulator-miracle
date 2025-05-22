@@ -12,11 +12,11 @@ return new class extends Migration {
     {
         Schema::create('shg_widar_mandripa_nusantara_wmn', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('periode');
-            $table->string('subholding');
-            $table->string('company');
-            $table->string('unit');
-            $table->string('asset_group');
+            $table->string('periode')->nullable();
+            $table->string('subholding')->nullable();
+            $table->string('company')->nullable();
+            $table->string('unit')->nullable();
+            $table->string('asset_group')->nullable();
             $table->decimal('jumlah', 15, 2)->nullable();
 
             // SECE

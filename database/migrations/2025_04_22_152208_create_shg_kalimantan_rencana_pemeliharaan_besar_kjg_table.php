@@ -12,7 +12,7 @@ return new class extends Migration {
     {
         Schema::create('shg_kalimantan_rencana_pemeliharaan_besar_kjg', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('periode');
+            $table->string('periode')->nullable();
             $table->integer('no')->nullable();
             $table->string('company')->nullable();
             $table->string('lokasi')->nullable();

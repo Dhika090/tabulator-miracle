@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('shg_pertamina_asset_breakdown_ptg', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('periode');
-            $table->string('company');
+            $table->string('periode')->nullable();
+            $table->string('company')->nullable();
             $table->string('plant_segment')->nullable();
             $table->string('kategori_criticality')->nullable();
             $table->string('tag')->nullable();

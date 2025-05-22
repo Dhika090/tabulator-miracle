@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\WidarMandripa\AvailabilityWmnRequest;
 use App\Models\SHG\WidarMandripa\AvailabilityWmn;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AvailabilityWmnController extends Controller
 {
@@ -16,11 +17,6 @@ class AvailabilityWmnController extends Controller
                 'title' => 'Status Asset 2025 AI WMN',
                 'route' => route('widar-mandripa-nusantara'),
                 'active' => request()->routeIs('widar-mandripa-nusantara'),
-            ],
-            [
-                'title' => 'Plan Mandatory Certification',
-                'route' => route('plan-mandatory-certification'),
-                'active' => request()->routeIs('plan-mandatory-certification'),
             ],
             [
                 'title' => 'Mandatory Certification WMN',
@@ -84,7 +80,15 @@ class AvailabilityWmnController extends Controller
 
     public function data()
     {
-        return response()->json(AvailabilityWmn::all());
+        // return response()->json(AvailabilityWmn::all());
+        $TargetPLO = AvailabilityWmn::select('*')
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderBy('periode_date', 'asc')
+            ->get();
+
+        return response()->json($TargetPLO);
     }
 
     public function store(AvailabilityWmnRequest $request)

@@ -22,10 +22,10 @@ class MandatoryCertificationKjgRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'periode' => 'required|string|max:255',
-            'subholding' => 'required|string|max:255',
-            'company' => 'required|string|max:255',
-            'unit' => 'required|string|max:255',
+            'periode' => 'nullable|string|max:255',
+            'subholding' => 'nullable|string|max:255',
+            'company' => 'nullable|string|max:255',
+            'unit' => 'nullable|string|max:255',
             'nama_sertifikasi' => 'nullable|string|max:255',
             'lembaga_penerbit_sertifikat' => 'nullable|string|max:255',
             'jumlah_sertifikasi_terbit' => 'nullable|integer',

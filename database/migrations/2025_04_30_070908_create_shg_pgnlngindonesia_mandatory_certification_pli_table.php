@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('shg_pgnlngindonesia_mandatory_certification_pli', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('periode');
+            $table->string('periode')->nullable();
             $table->string('subholding')->nullable();
             $table->string('company')->nullable();
             $table->string('unit')->nullable();

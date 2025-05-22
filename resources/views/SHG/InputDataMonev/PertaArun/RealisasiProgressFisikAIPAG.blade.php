@@ -181,7 +181,7 @@
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
                 <label for="periode">Periode (Tahun):</label>
-                <select name="periode" id="periode" required class="form-select">
+                <select name="periode" id="periode"   class="form-select">
                     <option value="" selected disabled>Pilih Periode</option>
                     @for ($year = 2000; $year <= date('Y') + 5; $year++)
                         <option value="{{ $year }}">{{ $year }}</option>
@@ -190,7 +190,7 @@
 
                 <div>
                     <label>No</label>
-                    <input type="number" name="no" required>
+                    <input type="number" name="no"  >
                 </div>
 
                 <div>
@@ -375,24 +375,6 @@
                         type: "like",
                         value: keyword
                     },
-                    ...["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"].map(
-                        bulan => ({
-                            field: `plan_${bulan.toLowerCase()}`,
-                            type: "like",
-                            value: keyword
-                        })),
-                    ...["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"].map(
-                        bulan => ({
-                            field: `prognosa_${bulan.toLowerCase()}`,
-                            type: "like",
-                            value: keyword
-                        })),
-                    ...["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"].map(
-                        bulan => ({
-                            field: `actual_${bulan.toLowerCase()}`,
-                            type: "like",
-                            value: keyword
-                        })),
                     {
                         field: "kode",
                         type: "like",
@@ -441,10 +423,88 @@
                             field: "id",
                             visible: false
                         },
-                        {
+                       {
                             title: "Periode",
                             field: "periode",
-                            editor: "input"
+                            editor: "input",
+                            headerFilter: "select",
+                            headerFilterParams: {
+                                values: [{
+                                        value: "01",
+                                        label: "Januari"
+                                    },
+                                    {
+                                        value: "02",
+                                        label: "Februari"
+                                    },
+                                    {
+                                        value: "03",
+                                        label: "Maret"
+                                    },
+                                    {
+                                        value: "04",
+                                        label: "April"
+                                    },
+                                    {
+                                        value: "05",
+                                        label: "Mei"
+                                    },
+                                    {
+                                        value: "06",
+                                        label: "Juni"
+                                    },
+                                    {
+                                        value: "07",
+                                        label: "Juli"
+                                    },
+                                    {
+                                        value: "08",
+                                        label: "Agustus"
+                                    },
+                                    {
+                                        value: "09",
+                                        label: "September"
+                                    },
+                                    {
+                                        value: "10",
+                                        label: "Oktober"
+                                    },
+                                    {
+                                        value: "11",
+                                        label: "November"
+                                    },
+                                    {
+                                        value: "12",
+                                        label: "Desember"
+                                    }
+                                ]
+                            },
+                            headerFilterPlaceholder: "Pilih Bulan",
+                            headerFilterFunc: function(headerValue, rowValue) {
+                                if (!headerValue) return true;
+                                if (!rowValue) return false;
+
+                                const periode = rowValue.toLowerCase();
+
+                                const bulanTextMap = {
+                                    "01": ["jan", "january"],
+                                    "02": ["feb", "february"],
+                                    "03": ["mar", "march"],
+                                    "04": ["apr", "april"],
+                                    "05": ["may", "mei"],
+                                    "06": ["jun", "june"],
+                                    "07": ["jul", "july"],
+                                    "08": ["aug", "august"],
+                                    "09": ["sep", "september"],
+                                    "10": ["oct", "october"],
+                                    "11": ["nov", "november"],
+                                    "12": ["dec", "december"]
+                                };
+
+                                const keywords = bulanTextMap[headerValue];
+                                return keywords.some(keyword => periode.includes(keyword)) || periode
+                                    .includes(`-${headerValue}`);
+                            }
                         },
                         {
                             title: "No",

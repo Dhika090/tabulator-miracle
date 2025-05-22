@@ -22,7 +22,7 @@ class StatusAssetAIPTSGRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'periode' => 'required|string',
+            'periode' => 'nullable|string',
             'subholding' => 'nullable|string',
             'company' => 'nullable|string',
             'unit' => 'nullable|string',

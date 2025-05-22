@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\PertaArun\StatusAssetAiPAGRequest;
 use App\Models\SHG\pertaArun\StatusAssetAiPAG;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class StatusAssetAiPAGController extends Controller
 {
@@ -113,7 +114,13 @@ class StatusAssetAiPAGController extends Controller
 
     public function data()
     {
-        $TargetPLO = StatusAssetAiPAG::all();
+       $TargetPLO = StatusAssetAiPAG::select('*')
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderBy('periode_date', 'asc')
+            ->get();
+
         return response()->json($TargetPLO);
     }
     public function update(StatusAssetAiPAGRequest $request, $id)

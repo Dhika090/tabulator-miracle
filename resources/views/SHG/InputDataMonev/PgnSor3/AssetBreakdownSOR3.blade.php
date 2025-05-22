@@ -521,12 +521,14 @@
                         {
                             title: "Jenis Kerusakan",
                             field: "jenis_kerusakan",
-                            editor: "input"
+                            editor: "input",
+                            width: 400
                         },
                         {
                             title: "Penyebab/Root Cause",
                             field: "penyebab",
-                            editor: "input"
+                            editor: "input",
+                            width: 400
                         },
                         {
                             title: "Kendala Perbaikan",
@@ -543,7 +545,8 @@
                         {
                             title: "Perbaikan Permanen",
                             field: "perbaikan_permanen",
-                            editor: "input"
+                            editor: "input",
+                            width: 400
                         },
                         {
                             title: "Progres Perbaikan Permanen",

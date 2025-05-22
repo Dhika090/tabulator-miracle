@@ -189,7 +189,7 @@
 
                 <div>
                     <label>Periode</label>
-                    <input type="month" name="periode" id="periode" required>
+                    <input type="month" name="periode" id="periode">
                 </div>
 
                 <div>
@@ -334,10 +334,88 @@
                             field: "id",
                             visible: false
                         },
-                        {
+                       {
                             title: "Periode",
                             field: "periode",
-                            editor: "input"
+                            editor: "input",
+                            headerFilter: "select",
+                            headerFilterParams: {
+                                values: [{
+                                        value: "01",
+                                        label: "Januari"
+                                    },
+                                    {
+                                        value: "02",
+                                        label: "Februari"
+                                    },
+                                    {
+                                        value: "03",
+                                        label: "Maret"
+                                    },
+                                    {
+                                        value: "04",
+                                        label: "April"
+                                    },
+                                    {
+                                        value: "05",
+                                        label: "Mei"
+                                    },
+                                    {
+                                        value: "06",
+                                        label: "Juni"
+                                    },
+                                    {
+                                        value: "07",
+                                        label: "Juli"
+                                    },
+                                    {
+                                        value: "08",
+                                        label: "Agustus"
+                                    },
+                                    {
+                                        value: "09",
+                                        label: "September"
+                                    },
+                                    {
+                                        value: "10",
+                                        label: "Oktober"
+                                    },
+                                    {
+                                        value: "11",
+                                        label: "November"
+                                    },
+                                    {
+                                        value: "12",
+                                        label: "Desember"
+                                    }
+                                ]
+                            },
+                            headerFilterPlaceholder: "Pilih Bulan",
+                            headerFilterFunc: function(headerValue, rowValue) {
+                                if (!headerValue) return true;
+                                if (!rowValue) return false;
+
+                                const periode = rowValue.toLowerCase();
+
+                                const bulanTextMap = {
+                                    "01": ["jan", "january"],
+                                    "02": ["feb", "february"],
+                                    "03": ["mar", "march"],
+                                    "04": ["apr", "april"],
+                                    "05": ["may", "mei"],
+                                    "06": ["jun", "june"],
+                                    "07": ["jul", "july"],
+                                    "08": ["aug", "august"],
+                                    "09": ["sep", "september"],
+                                    "10": ["oct", "october"],
+                                    "11": ["nov", "november"],
+                                    "12": ["dec", "december"]
+                                };
+
+                                const keywords = bulanTextMap[headerValue];
+                                return keywords.some(keyword => periode.includes(keyword)) || periode
+                                    .includes(`-${headerValue}`);
+                            }
                         },
                         {
                             title: "Company",
@@ -353,13 +431,21 @@
                             title: "Target",
                             field: "target",
                             editor: "number",
-                            hozAlign: "center"
+                            hozAlign: "center",
+                            formatter: function(cell) {
+                                let value = parseFloat(cell.getValue());
+                                return isNaN(value) ? "-" : value.toFixed(2) + " %";
+                            }
                         },
                         {
                             title: "Availability",
                             field: "availability",
                             editor: "number",
-                            hozAlign: "center"
+                            hozAlign: "center",
+                            formatter: function(cell) {
+                                let value = parseFloat(cell.getValue());
+                                return isNaN(value) ? "-" : value.toFixed(2) + " %";
+                            }
                         },
                         {
                             title: "Isu / Problem / Bad Actor",
@@ -390,7 +476,7 @@
                 };
 
                 window.table = new Tabulator("#example-table", {
-                    layout: "fitColumns",
+                    layout: "fitDataTable",
                     responsiveLayout: "collapse",
                     autoResize: true,
                     columns: columnMap["availability-kjg"],
@@ -452,6 +538,14 @@
                     console.log("Baris yang berubah:", changedRows);
 
                     changedRows.forEach(rowData => {
+                        if (rowData.target !== undefined && typeof rowData.target === "string") {
+                            rowData.target = parseFloat(rowData.target.replace("%", "").trim());
+                        }
+                        if (rowData.availability !== undefined && typeof rowData.availability ===
+                            "string") {
+                            rowData.availability = parseFloat(rowData.availability.replace("%", "")
+                                .trim());
+                        }
                         fetch(`availability-kjg/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {

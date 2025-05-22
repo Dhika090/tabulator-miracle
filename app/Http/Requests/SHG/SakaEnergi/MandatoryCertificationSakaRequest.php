@@ -22,7 +22,7 @@ class MandatoryCertificationSakaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'periode' => 'required|string|max:255',
+            'periode' => 'nullable|string|max:255',
             'subholding' => 'nullable|string|max:255',
             'company' => 'nullable|string|max:255',
             'unit' => 'nullable|string|max:255',

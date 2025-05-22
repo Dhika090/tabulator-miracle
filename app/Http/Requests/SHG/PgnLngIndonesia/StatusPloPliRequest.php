@@ -22,7 +22,7 @@ class StatusPloPliRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'periode' => 'required|string|max:255',
+            'periode' => 'nullable|string|max:255',
             'nomor_plo' => 'nullable|string|max:255',
             'company' => 'nullable|string|max:255',
             'area' => 'nullable|string|max:255',

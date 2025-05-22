@@ -217,12 +217,12 @@
 
                 <div>
                     <label>Tanggal Pengesahan</label>
-                    <input type="date" name="tanggal_pengesahan" id="tanggal_pengesahan" required>
+                    <input type="date" name="tanggal_pengesahan" id="tanggal_pengesahan"  >
                 </div>
 
                 <div>
                     <label>Masa Berlaku</label>
-                    <input type="date" name="masa_berlaku" id="masa_berlaku" required>
+                    <input type="date" name="masa_berlaku" id="masa_berlaku"  >
                 </div>
 
                 <div>

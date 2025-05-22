@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('shg_pertmina_rencana_pemeliharaan_besar_ptg', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('periode');
-            $table->integer('no');
-            $table->string('company');
-            $table->string('lokasi');
-            $table->string('program_kerja');
-            $table->string('kategori_maintenance');
+            $table->string('periode')->nullable();
+            $table->integer('no')->nullable();
+            $table->string('company')->nullable();
+            $table->string('lokasi')->nullable();
+            $table->string('program_kerja')->nullable();
+            $table->string('kategori_maintenance')->nullable();
             $table->string('besar_phasing')->nullable();
             $table->string('remark')->nullable();
             $table->integer('jan')->nullable();

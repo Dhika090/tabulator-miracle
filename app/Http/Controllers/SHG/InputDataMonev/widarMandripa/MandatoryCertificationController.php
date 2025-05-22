@@ -109,11 +109,6 @@ class MandatoryCertificationController extends Controller
                 'active' => request()->routeIs('widar-mandripa-nusantara'),
             ],
             [
-                'title' => 'Plan Mandatory Certification',
-                'route' => route('plan-mandatory-certification'),
-                'active' => request()->routeIs('plan-mandatory-certification'),
-            ],
-            [
                 'title' => 'Mandatory Certification WMN',
                 'route' => route('mandatory-certification-wmn'),
                 'active' => request()->routeIs('mandatory-certification-wmn'),

@@ -186,12 +186,12 @@
 
                 <div>
                     <label>Periode</label>
-                    <input type="month" name="periode" id="periode" required>
+                    <input type="month" name="periode" id="periode">
                 </div>
 
                 <div>
                     <label>Company</label>
-                    <input type="text" name="company" id="company" required>
+                    <input type="text" name="company" id="company">
                 </div>
 
                 <div>
@@ -410,10 +410,88 @@
                             field: "id",
                             visible: false
                         },
-                        {
+                       {
                             title: "Periode",
                             field: "periode",
-                            editor: "input"
+                            editor: "input",
+                            headerFilter: "select",
+                            headerFilterParams: {
+                                values: [{
+                                        value: "01",
+                                        label: "Januari"
+                                    },
+                                    {
+                                        value: "02",
+                                        label: "Februari"
+                                    },
+                                    {
+                                        value: "03",
+                                        label: "Maret"
+                                    },
+                                    {
+                                        value: "04",
+                                        label: "April"
+                                    },
+                                    {
+                                        value: "05",
+                                        label: "Mei"
+                                    },
+                                    {
+                                        value: "06",
+                                        label: "Juni"
+                                    },
+                                    {
+                                        value: "07",
+                                        label: "Juli"
+                                    },
+                                    {
+                                        value: "08",
+                                        label: "Agustus"
+                                    },
+                                    {
+                                        value: "09",
+                                        label: "September"
+                                    },
+                                    {
+                                        value: "10",
+                                        label: "Oktober"
+                                    },
+                                    {
+                                        value: "11",
+                                        label: "November"
+                                    },
+                                    {
+                                        value: "12",
+                                        label: "Desember"
+                                    }
+                                ]
+                            },
+                            headerFilterPlaceholder: "Pilih Bulan",
+                            headerFilterFunc: function(headerValue, rowValue) {
+                                if (!headerValue) return true;
+                                if (!rowValue) return false;
+
+                                const periode = rowValue.toLowerCase();
+
+                                const bulanTextMap = {
+                                    "01": ["jan", "january"],
+                                    "02": ["feb", "february"],
+                                    "03": ["mar", "march"],
+                                    "04": ["apr", "april"],
+                                    "05": ["may", "mei"],
+                                    "06": ["jun", "june"],
+                                    "07": ["jul", "july"],
+                                    "08": ["aug", "august"],
+                                    "09": ["sep", "september"],
+                                    "10": ["oct", "october"],
+                                    "11": ["nov", "november"],
+                                    "12": ["dec", "december"]
+                                };
+
+                                const keywords = bulanTextMap[headerValue];
+                                return keywords.some(keyword => periode.includes(keyword)) || periode
+                                    .includes(`-${headerValue}`);
+                            }
                         },
                         {
                             title: "Company",
@@ -428,22 +506,26 @@
                         {
                             title: "Kategori Criticality",
                             field: "kategori_criticality",
-                            editor: "input"
+                            editor: "input",
+                            width: 400
                         },
                         {
                             title: "Tag",
                             field: "tag",
-                            editor: "input"
+                            editor: "input",
+                            width: 300
                         },
                         {
                             title: "Deskripsi Peralatan",
                             field: "deskripsi_peralatan",
-                            editor: "input"
+                            editor: "input",
+                            width: 400
                         },
                         {
                             title: "Jenis Kerusakan",
                             field: "jenis_kerusakan",
-                            editor: "input"
+                            editor: "input",
+                            hozAlign: "center",
                         },
                         {
                             title: "Penyebab/Root Cause",
@@ -465,24 +547,28 @@
                         {
                             title: "Perbaikan Permanen",
                             field: "perbaikan_permanen",
-                            editor: "input"
+                            editor: "input",
+                            width: 300
                         },
                         {
                             title: "Progres Perbaikan Permanen",
                             field: "progres_perbaikan_permanen",
-                            editor: "number",
-                            hozAlign: "center"
+                            editor: "input",
+                            hozAlign: "center",
+                            width: 300
                         },
                         {
                             title: "Tindak Lanjut",
                             field: "tindak_lanjut",
-                            editor: "input",
+                            editor: "textarea",
+                            formatter: "textarea",
                             width: 450
                         },
                         {
                             title: "Target Penyelesaian",
                             field: "target_penyelesaian",
-                            editor: "input"
+                            editor: "input",
+                            width: 450
                         },
                         {
                             title: "Estimasi Biaya Perbaikan",
@@ -525,6 +611,7 @@
                     ]
                 };
 
+
                 window.table = new Tabulator("#example-table", {
                     layout: "fitDataTable",
                     responsiveLayout: "collapse",
@@ -562,6 +649,7 @@
                         resizable: "header",
                     },
                 });
+
 
                 table.on("cellEdited", function(cell) {
                     const updatedData = cell.getRow().getData();

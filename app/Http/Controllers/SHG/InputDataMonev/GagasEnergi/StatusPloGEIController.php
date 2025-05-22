@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\GagasEnergi\StatusPloGEIRequest;
 use App\Models\SHG\GagasEnergi\StatusPloGEI;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class StatusPloGEIController extends Controller
 {
@@ -93,7 +94,13 @@ class StatusPloGEIController extends Controller
 
     public function data()
     {
-        $TargetPLO = StatusPloGEI::all();
+        $TargetPLO = StatusPloGEI::select('*')
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderBy('periode_date', 'asc')
+            ->get();
+
         return response()->json($TargetPLO);
     }
     public function update(StatusPloGEIRequest $request, $id)

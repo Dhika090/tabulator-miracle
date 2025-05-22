@@ -182,13 +182,13 @@
                 <input type="hidden" name="id" id="form-id">
                 <div>
                     <label>Periode</label>
-                    <input type="number" name="periode" id="periode" required pattern="^\d{4}$"
+                    <input type="number" name="periode" id="periode" pattern="^\d{4}$"
                         title="The periode field must match the format YYYY." placeholder="YYYY">
                 </div>
 
                 <div>
                     <label>No</label>
-                    <input type="number" name="no" required>
+                    <input type="number" name="no">
                 </div>
 
                 <div>
@@ -228,34 +228,58 @@
 
                 <fieldset>
                     <legend>Rencana (Plan)</legend>
-                    <label>Plan Jan</label><input type="text" name="plan_jan" pattern="^\d+(\.\d+)?$" inputmode="numeric">
-                    <label>Plan Feb</label><input type="text" name="plan_feb" pattern="^\d+(\.\d+)?$" inputmode="numeric">
-                    <label>Plan Mar</label><input type="text" name="plan_mar" pattern="^\d+(\.\d+)?$" inputmode="numeric">
-                    <label>Plan Apr</label><input type="text" name="plan_apr" pattern="^\d+(\.\d+)?$" inputmode="numeric">
-                    <label>Plan May</label><input type="text" name="plan_may" pattern="^\d+(\.\d+)?$" inputmode="numeric">
-                    <label>Plan Jun</label><input type="text" name="plan_jun" pattern="^\d+(\.\d+)?$" inputmode="numeric">
-                    <label>Plan Jul</label><input type="text" name="plan_jul" pattern="^\d+(\.\d+)?$" inputmode="numeric">
-                    <label>Plan Aug</label><input type="text" name="plan_aug" pattern="^\d+(\.\d+)?$" inputmode="numeric">
-                    <label>Plan Sep</label><input type="text" name="plan_sep" pattern="^\d+(\.\d+)?$" inputmode="numeric">
-                    <label>Plan Oct</label><input type="text" name="plan_oct" pattern="^\d+(\.\d+)?$" inputmode="numeric">
-                    <label>Plan Nov</label><input type="text" name="plan_nov" pattern="^\d+(\.\d+)?$" inputmode="numeric">
-                    <label>Plan Dec</label><input type="text" name="plan_dec" pattern="^\d+(\.\d+)?$" inputmode="numeric">
+                    <label>Plan Jan</label><input type="text" name="plan_jan" pattern="^\d+(\.\d+)?$"
+                        inputmode="numeric">
+                    <label>Plan Feb</label><input type="text" name="plan_feb" pattern="^\d+(\.\d+)?$"
+                        inputmode="numeric">
+                    <label>Plan Mar</label><input type="text" name="plan_mar" pattern="^\d+(\.\d+)?$"
+                        inputmode="numeric">
+                    <label>Plan Apr</label><input type="text" name="plan_apr" pattern="^\d+(\.\d+)?$"
+                        inputmode="numeric">
+                    <label>Plan May</label><input type="text" name="plan_may" pattern="^\d+(\.\d+)?$"
+                        inputmode="numeric">
+                    <label>Plan Jun</label><input type="text" name="plan_jun" pattern="^\d+(\.\d+)?$"
+                        inputmode="numeric">
+                    <label>Plan Jul</label><input type="text" name="plan_jul" pattern="^\d+(\.\d+)?$"
+                        inputmode="numeric">
+                    <label>Plan Aug</label><input type="text" name="plan_aug" pattern="^\d+(\.\d+)?$"
+                        inputmode="numeric">
+                    <label>Plan Sep</label><input type="text" name="plan_sep" pattern="^\d+(\.\d+)?$"
+                        inputmode="numeric">
+                    <label>Plan Oct</label><input type="text" name="plan_oct" pattern="^\d+(\.\d+)?$"
+                        inputmode="numeric">
+                    <label>Plan Nov</label><input type="text" name="plan_nov" pattern="^\d+(\.\d+)?$"
+                        inputmode="numeric">
+                    <label>Plan Dec</label><input type="text" name="plan_dec" pattern="^\d+(\.\d+)?$"
+                        inputmode="numeric">
                 </fieldset>
 
                 <fieldset>
                     <legend>Realisasi (Actual)</legend>
-                    <label>Actual Jan</label><input type="text" name="actual_jan" pattern="^\d+(\.\d+)?$" inputmode="numeric">
-                    <label>Actual Feb</label><input type="text" name="actual_feb" pattern="^\d+(\.\d+)?$" inputmode="numeric">
-                    <label>Actual Mar</label><input type="text" name="actual_mar" pattern="^\d+(\.\d+)?$" inputmode="numeric">
-                    <label>Actual Apr</label><input type="text" name="actual_apr" pattern="^\d+(\.\d+)?$" inputmode="numeric">
-                    <label>Actual May</label><input type="text" name="actual_may" pattern="^\d+(\.\d+)?$" inputmode="numeric">
-                    <label>Actual Jun</label><input type="text" name="actual_jun" pattern="^\d+(\.\d+)?$" inputmode="numeric">
-                    <label>Actual Jul</label><input type="text" name="actual_jul" pattern="^\d+(\.\d+)?$" inputmode="numeric">
-                    <label>Actual Aug</label><input type="text" name="actual_aug" pattern="^\d+(\.\d+)?$" inputmode="numeric">
-                    <label>Actual Sep</label><input type="text" name="actual_sep" pattern="^\d+(\.\d+)?$" inputmode="numeric">
-                    <label>Actual Oct</label><input type="text" name="actual_oct" pattern="^\d+(\.\d+)?$" inputmode="numeric">
-                    <label>Actual Nov</label><input type="text" name="actual_nov" pattern="^\d+(\.\d+)?$" inputmode="numeric">
-                    <label>Actual Dec</label><input type="text" name="actual_dec" pattern="^\d+(\.\d+)?$" inputmode="numeric">
+                    <label>Actual Jan</label><input type="text" name="actual_jan" pattern="^\d+(\.\d+)?$"
+                        inputmode="numeric">
+                    <label>Actual Feb</label><input type="text" name="actual_feb" pattern="^\d+(\.\d+)?$"
+                        inputmode="numeric">
+                    <label>Actual Mar</label><input type="text" name="actual_mar" pattern="^\d+(\.\d+)?$"
+                        inputmode="numeric">
+                    <label>Actual Apr</label><input type="text" name="actual_apr" pattern="^\d+(\.\d+)?$"
+                        inputmode="numeric">
+                    <label>Actual May</label><input type="text" name="actual_may" pattern="^\d+(\.\d+)?$"
+                        inputmode="numeric">
+                    <label>Actual Jun</label><input type="text" name="actual_jun" pattern="^\d+(\.\d+)?$"
+                        inputmode="numeric">
+                    <label>Actual Jul</label><input type="text" name="actual_jul" pattern="^\d+(\.\d+)?$"
+                        inputmode="numeric">
+                    <label>Actual Aug</label><input type="text" name="actual_aug" pattern="^\d+(\.\d+)?$"
+                        inputmode="numeric">
+                    <label>Actual Sep</label><input type="text" name="actual_sep" pattern="^\d+(\.\d+)?$"
+                        inputmode="numeric">
+                    <label>Actual Oct</label><input type="text" name="actual_oct" pattern="^\d+(\.\d+)?$"
+                        inputmode="numeric">
+                    <label>Actual Nov</label><input type="text" name="actual_nov" pattern="^\d+(\.\d+)?$"
+                        inputmode="numeric">
+                    <label>Actual Dec</label><input type="text" name="actual_dec" pattern="^\d+(\.\d+)?$"
+                        inputmode="numeric">
                 </fieldset>
 
                 <div>
@@ -349,24 +373,6 @@
                         type: "like",
                         value: keyword
                     },
-                    ...["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"].map(
-                        bulan => ({
-                            field: `plan_${bulan.toLowerCase()}`,
-                            type: "like",
-                            value: keyword
-                        })),
-                    ...["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"].map(
-                        bulan => ({
-                            field: `prognosa_${bulan.toLowerCase()}`,
-                            type: "like",
-                            value: keyword
-                        })),
-                    ...["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"].map(
-                        bulan => ({
-                            field: `actual_${bulan.toLowerCase()}`,
-                            type: "like",
-                            value: keyword
-                        })),
                     {
                         field: "kode",
                         type: "like",
@@ -415,10 +421,88 @@
                             field: "id",
                             visible: false
                         },
-                        {
+                       {
                             title: "Periode",
                             field: "periode",
-                            editor: "input"
+                            editor: "input",
+                            headerFilter: "select",
+                            headerFilterParams: {
+                                values: [{
+                                        value: "01",
+                                        label: "Januari"
+                                    },
+                                    {
+                                        value: "02",
+                                        label: "Februari"
+                                    },
+                                    {
+                                        value: "03",
+                                        label: "Maret"
+                                    },
+                                    {
+                                        value: "04",
+                                        label: "April"
+                                    },
+                                    {
+                                        value: "05",
+                                        label: "Mei"
+                                    },
+                                    {
+                                        value: "06",
+                                        label: "Juni"
+                                    },
+                                    {
+                                        value: "07",
+                                        label: "Juli"
+                                    },
+                                    {
+                                        value: "08",
+                                        label: "Agustus"
+                                    },
+                                    {
+                                        value: "09",
+                                        label: "September"
+                                    },
+                                    {
+                                        value: "10",
+                                        label: "Oktober"
+                                    },
+                                    {
+                                        value: "11",
+                                        label: "November"
+                                    },
+                                    {
+                                        value: "12",
+                                        label: "Desember"
+                                    }
+                                ]
+                            },
+                            headerFilterPlaceholder: "Pilih Bulan",
+                            headerFilterFunc: function(headerValue, rowValue) {
+                                if (!headerValue) return true;
+                                if (!rowValue) return false;
+
+                                const periode = rowValue.toLowerCase();
+
+                                const bulanTextMap = {
+                                    "01": ["jan", "january"],
+                                    "02": ["feb", "february"],
+                                    "03": ["mar", "march"],
+                                    "04": ["apr", "april"],
+                                    "05": ["may", "mei"],
+                                    "06": ["jun", "june"],
+                                    "07": ["jul", "july"],
+                                    "08": ["aug", "august"],
+                                    "09": ["sep", "september"],
+                                    "10": ["oct", "october"],
+                                    "11": ["nov", "november"],
+                                    "12": ["dec", "december"]
+                                };
+
+                                const keywords = bulanTextMap[headerValue];
+                                return keywords.some(keyword => periode.includes(keyword)) || periode
+                                    .includes(`-${headerValue}`);
+                            }
                         },
                         {
                             title: "No",

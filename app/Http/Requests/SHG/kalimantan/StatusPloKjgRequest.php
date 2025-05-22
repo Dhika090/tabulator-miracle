@@ -22,12 +22,12 @@ class StatusPloKjgRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'periode' => 'required|string|max:255',
-            'nomor_plo' => 'required|string|max:255',
-            'company' => 'required|string|max:255',
-            'area' => 'required|string|max:255',
-            'lokasi' => 'required|string|max:255',
-            'nama_aset' => 'required|string|max:255',
+            'periode' => 'nullable|string|max:255',
+            'nomor_plo' => 'nullable|string|max:255',
+            'company' => 'nullable|string|max:255',
+            'area' => 'nullable|string|max:255',
+            'lokasi' => 'nullable|string|max:255',
+            'nama_aset' => 'nullable|string|max:255',
             'tanggal_pengesahan' => 'nullable|string',
             'masa_berlaku' => 'nullable|string',
             'keterangan' => 'nullable|string',

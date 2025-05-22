@@ -22,8 +22,8 @@ class AssetBreakdownPliRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'periode' => 'required|string',
-            'company' => 'required|string',
+            'periode' => 'nullable|string',
+            'company' => 'nullable|string',
             'plant_segment' => 'nullable|string',
             'kategori_criticality' => 'nullable|string',
             'tag' => 'nullable|string',

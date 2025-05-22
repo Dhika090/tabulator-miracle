@@ -179,27 +179,27 @@
                 <input type="hidden" name="id" id="form-id">
                 <div>
                     <label>Periode</label>
-                    <input type="month" name="periode" id="periode" required>
+                    <input type="month" name="periode" id="periode">
                 </div>
 
                 <div>
                     <label>Subholding</label>
-                    <input type="text" name="subholding" id="subholding" required>
+                    <input type="text" name="subholding" id="subholding">
                 </div>
 
                 <div>
                     <label>Company</label>
-                    <input type="text" name="company" id="company" required>
+                    <input type="text" name="company" id="company">
                 </div>
 
                 <div>
                     <label>Unit</label>
-                    <input type="text" name="unit" id="unit" required>
+                    <input type="text" name="unit" id="unit">
                 </div>
 
                 <div>
                     <label>Nama Stasiun</label>
-                    <input type="text" name="nama_stasiun" id="nama_stasiun" required>
+                    <input type="text" name="nama_stasiun" id="nama_stasiun">
                 </div>
 
                 <div>
@@ -405,17 +405,27 @@
                         }
                     })
                     .then(res => res.json())
-                    .then(data => table.setData(data))
+                    .then(data => {
+                        table.setData(data);
+                    })
                     .catch(err => console.error("Gagal load data:", err));
             }
 
             document.addEventListener("DOMContentLoaded", function() {
                 const columnMap = {
-                    "sap-asset-ptg": [{
+                    "sap-asset-ptg": [
+                        {
                             title: "No",
-                            formatter: "rownum",
+                            formatter: function(cell) {
+                                const row = cell.getRow();
+                                const table = cell.getTable();
+                                const sortedData = table.getRows("active").map(r => r.getData());
+                                const index = sortedData.findIndex(data => data.id === row.getData().id);
+                                return index + 1;
+                            },
                             hozAlign: "center",
-                            width: 60
+                            width: 60,
+                            headerSort: false,
                         },
                         {
                             title: "ID",
@@ -425,7 +435,85 @@
                         {
                             title: "Periode",
                             field: "periode",
-                            editor: "input"
+                            editor: "input",
+                            headerFilter: "select",
+                            headerFilterParams: {
+                                values: [{
+                                        value: "01",
+                                        label: "Januari"
+                                    },
+                                    {
+                                        value: "02",
+                                        label: "Februari"
+                                    },
+                                    {
+                                        value: "03",
+                                        label: "Maret"
+                                    },
+                                    {
+                                        value: "04",
+                                        label: "April"
+                                    },
+                                    {
+                                        value: "05",
+                                        label: "Mei"
+                                    },
+                                    {
+                                        value: "06",
+                                        label: "Juni"
+                                    },
+                                    {
+                                        value: "07",
+                                        label: "Juli"
+                                    },
+                                    {
+                                        value: "08",
+                                        label: "Agustus"
+                                    },
+                                    {
+                                        value: "09",
+                                        label: "September"
+                                    },
+                                    {
+                                        value: "10",
+                                        label: "Oktober"
+                                    },
+                                    {
+                                        value: "11",
+                                        label: "November"
+                                    },
+                                    {
+                                        value: "12",
+                                        label: "Desember"
+                                    }
+                                ]
+                            },
+                            headerFilterPlaceholder: "Pilih Bulan",
+                            headerFilterFunc: function(headerValue, rowValue) {
+                                if (!headerValue) return true;
+                                if (!rowValue) return false;
+
+                                const periode = rowValue.toLowerCase();
+
+                                const bulanTextMap = {
+                                    "01": ["jan", "january"],
+                                    "02": ["feb", "february"],
+                                    "03": ["mar", "march"],
+                                    "04": ["apr", "april"],
+                                    "05": ["may", "mei"],
+                                    "06": ["jun", "june"],
+                                    "07": ["jul", "july"],
+                                    "08": ["aug", "august"],
+                                    "09": ["sep", "september"],
+                                    "10": ["oct", "october"],
+                                    "11": ["nov", "november"],
+                                    "12": ["dec", "december"]
+                                };
+
+                                const keywords = bulanTextMap[headerValue];
+                                return keywords.some(keyword => periode.includes(keyword)) || periode
+                                    .includes(`-${headerValue}`);
+                            }
                         },
                         {
                             title: "Subholding",
@@ -450,32 +538,38 @@
                         {
                             title: "Belum Mulai",
                             field: "belum_mulai",
-                            editor: "input"
+                            editor: "input",
+                            hozAlign: "center",
                         },
                         {
                             title: "Kickoff Meeting",
                             field: "kickoff_meeting",
-                            editor: "input"
+                            editor: "input",
+                            hozAlign: "center",
                         },
                         {
                             title: "Identifikasi Peralatan",
                             field: "identifikasi_peralatan",
-                            editor: "input"
+                            editor: "input",
+                            hozAlign: "center",
                         },
                         {
                             title: "Survey Lapangan",
                             field: "survey_lapangan",
-                            editor: "input"
+                            editor: "input",
+                            hozAlign: "center",
                         },
                         {
                             title: "Pembenahan Funloc",
                             field: "pembenahan_funloc",
-                            editor: "input"
+                            editor: "input",
+                            hozAlign: "center",
                         },
                         {
                             title: "Review Criticality",
                             field: "review_criticality",
-                            editor: "input"
+                            editor: "input",
+                            hozAlign: "center",
                         },
                         {
                             title: "Penyelarasan Dokumen dan Lapangan",
@@ -485,27 +579,32 @@
                         {
                             title: "Melengkapi Tag Fisik",
                             field: "melengkapi_tag_fisik",
-                            editor: "input"
+                            editor: "input",
+                            hozAlign: "center",
                         },
                         {
                             title: "Mempersiapkan Form Upload Data",
                             field: "mempersiapkan_form_upload_data",
-                            editor: "input"
+                            editor: "input",
+                            hozAlign: "center",
                         },
                         {
                             title: "Request ke Master Data",
                             field: "request_ke_master_data",
-                            editor: "input"
+                            editor: "input",
+                            hozAlign: "center",
                         },
                         {
                             title: "Update Di Master Data",
                             field: "update_di_master_data",
-                            editor: "input"
+                            editor: "input",
+                            hozAlign: "center",
                         },
                         {
                             title: "Kendala",
                             field: "kendala",
-                            editor: "input"
+                            editor: "input",
+                            hozAlign: "center",
                         },
                         {
                             title: "Tindak Lanjut",
@@ -529,20 +628,11 @@
                     responsiveLayout: "collapse",
                     autoResize: true,
                     columns: columnMap["sap-asset-ptg"],
-
-                    selectableRange: 1,
-                    selectableRangeColumns: true,
-                    selectableRangeRows: true,
-                    selectableRangeClearCells: true,
-                    editTriggerEvent: "dblclick",
-
                     pagination: "local",
                     paginationSize: 20,
                     paginationSizeSelector: [40, 60, 80, 100],
                     paginationCounter: "rows",
-
                     movableColumns: true,
-
                     clipboard: true,
                     clipboardCopyStyled: false,
                     clipboardCopyConfig: {
@@ -553,7 +643,6 @@
                     clipboardPasteParser: "range",
                     clipboardPasteAction: "range",
                     clipboardPasteRow: true,
-
                     columnDefaults: {
                         headerSort: true,
                         headerHozAlign: "center",
@@ -562,6 +651,7 @@
                     },
                 });
 
+                const table = window.table;
                 let previousData = [];
                 table.on("dataLoaded", function(newData) {
                     previousData = JSON.parse(JSON.stringify(newData));

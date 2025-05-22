@@ -12,7 +12,7 @@ return new class extends Migration {
     {
         Schema::create('shg_nr_availability', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('periode');
+            $table->string('periode')->nullable();
             $table->string('company')->nullable();
             $table->string('kategori')->nullable();
             $table->decimal('target', 8, 2)->nullable();

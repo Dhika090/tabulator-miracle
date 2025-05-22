@@ -22,12 +22,12 @@ class StatusAssetAiGEIRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'periode' => 'required|string',
+            'periode' => 'nullable|string',
             'subholding' => 'nullable|string',
             'company' => 'nullable|string',
             'unit' => 'nullable|string',
             'asset_group' => 'nullable|string',
-            'jumlah' => 'nullable|numeric',
+            'jumlah' => 'nullable|string',
 
             'sece_low_integrity_breakdown' => 'nullable|numeric',
             'sece_medium_due_date_inspection' => 'nullable|numeric',

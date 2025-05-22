@@ -6,10 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\Kalimantan\PelatihanAimsKjgRequest;
 use App\Models\SHG\Kalimantan\PelatihanAimsKjg;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PelatihanAimsKjgController extends Controller
 {
-    
+
     public function index()
     {
         $tabs = [
@@ -80,7 +81,14 @@ class PelatihanAimsKjgController extends Controller
 
     public function data()
     {
-        return response()->json(PelatihanAimsKjg::all());
+        $TargetPLO = PelatihanAimsKjg::select('*')
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderBy('periode_date', 'asc')
+            ->get();
+
+        return response()->json($TargetPLO);
     }
 
     public function store(PelatihanAimsKjgRequest $request)

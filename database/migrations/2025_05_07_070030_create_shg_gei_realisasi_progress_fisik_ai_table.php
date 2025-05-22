@@ -12,7 +12,7 @@ return new class extends Migration {
     {
         Schema::create('shg_gei_realisasi_progress_fisik_ai', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->year('periode');
+            $table->year('periode')->nullable();
             $table->string('no')->nullable();
             $table->string('program_kerja')->nullable();
             $table->string('kategori_aibt')->nullable();

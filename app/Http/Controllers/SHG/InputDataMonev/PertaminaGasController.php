@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\DataMonevPertaminaGasRequest;
 use App\Models\DataMonevPertaminaGas;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PertaminaGasController extends Controller
 {
@@ -100,7 +101,14 @@ class PertaminaGasController extends Controller
     public function data()
     {
 
-        return response()->json(DataMonevPertaminaGas::all());
+        $TargetPLO = DataMonevPertaminaGas::select('*')
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderBy('periode_date', 'asc')
+            ->get();
+
+        return response()->json($TargetPLO);
     }
 
     public function store(DataMonevPertaminaGasRequest $request)
@@ -119,11 +127,24 @@ class PertaminaGasController extends Controller
     public function update(DataMonevPertaminaGasRequest $request, $id)
     {
         $progress = DataMonevPertaminaGas::findOrFail($id);
-        $progress->update($request->validated());
+
+        $data = $request->validated();
+
+        // Convert semua field decimal yang harus disimpan sebagai int
+        if (isset($data['kegiatan_penurunan_low'])) {
+            $data['kegiatan_penurunan_low'] = intval($data['kegiatan_penurunan_low']);
+        }
+
+        if (isset($data['kegiatan_penurunan_med'])) {
+            $data['kegiatan_penurunan_med'] = intval($data['kegiatan_penurunan_med']);
+        }
+
+        // Tambahkan juga jika ada field serupa lainnya
+
+        $progress->update($data);
 
         return response()->json(['success' => true, 'message' => 'Data berhasil diupdate']);
     }
-
 
     public function destroy($id)
     {

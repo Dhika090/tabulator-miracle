@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\PgnLngIndonesia\AvailabilityPLIRequest;
 use App\Models\SHG\PgnLngIndonesia\AvailabilityPLI;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AvailabilityPLIController extends Controller
 {
@@ -79,7 +80,15 @@ class AvailabilityPLIController extends Controller
 
     public function data()
     {
-        return response()->json(AvailabilityPLI::all());
+        // return response()->json(AvailabilityPLI::all());
+        $TargetPLO = AvailabilityPLI::select('*')
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderBy('periode_date', 'asc')
+            ->get();
+
+        return response()->json($TargetPLO);
     }
 
     public function store(AvailabilityPLIRequest $request)

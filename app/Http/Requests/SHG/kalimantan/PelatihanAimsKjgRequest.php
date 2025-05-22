@@ -22,8 +22,8 @@ class PelatihanAimsKjgRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'periode' => 'required|string|max:255',
-            'company' => 'required|string|max:255',
+            'periode' => 'nullable|string|max:255',
+            'company' => 'nullable|string|max:255',
             'judul_pelatihan' => 'nullable|string|max:255',
             'realisasi_perwira' => 'nullable|integer|min:0',
         ];

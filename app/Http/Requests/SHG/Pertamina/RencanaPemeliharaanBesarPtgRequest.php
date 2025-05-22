@@ -22,7 +22,7 @@ class RencanaPemeliharaanBesarPtgRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'periode' => 'required|string',
+            'periode' => 'nullable|string',
             'no'=> 'nullable|integer',
             'company' => 'nullable|string',
             'lokasi' => 'nullable|string',

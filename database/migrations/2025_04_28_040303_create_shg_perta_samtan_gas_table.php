@@ -12,7 +12,7 @@ return new class extends Migration {
     {
         Schema::create('shg_perta_samtan_gas', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('periode');
+            $table->string('periode')->nullable();
             $table->string('subholding')->nullable();
             $table->string('company')->nullable();
             $table->string('unit')->nullable();

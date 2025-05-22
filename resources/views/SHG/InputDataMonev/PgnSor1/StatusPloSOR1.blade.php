@@ -217,12 +217,12 @@
 
                 <div>
                     <label>Tanggal Pengesahan</label>
-                    <input type="date" name="tanggal_pengesahan" id="tanggal_pengesahan" required>
+                    <input type="date" name="tanggal_pengesahan" id="tanggal_pengesahan"  >
                 </div>
 
                 <div>
                     <label>Masa Berlaku</label>
-                    <input type="date" name="masa_berlaku" id="masa_berlaku" required>
+                    <input type="date" name="masa_berlaku" id="masa_berlaku"  >
                 </div>
 
                 <div>
@@ -440,29 +440,35 @@
                         {
                             title: "Periode",
                             field: "periode",
-                            editor: "input"
+                            editor: "input",
+                            hozAlign: "center",
                         },
                         {
                             title: "Nomor PLO",
                             field: "nomor_plo",
                             editor: "input",
-                            width: 250
+                            width: 250,
+                            hozAlign: "center",
                         },
                         {
                             title: "Company",
                             field: "company",
-                            editor: "input"
+                            editor: "input",
+                            hozAlign: "center",
                         },
                         {
                             title: "Area",
                             field: "area",
-                            editor: "input"
+                            editor: "input",
+                            hozAlign: "center",
                         },
                         {
                             title: "Lokasi",
                             field: "lokasi",
                             editor: "input",
-                            width: 350
+                            width: 250,
+                            hozAlign: "center",
+
                         },
                         {
                             title: "Nama Aset",

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\NusantaraRegas\PelatihanAimsNRReuqest;
 use App\Models\SHG\NusantaraRegas\PelatihanAimsNR;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PelatihanAimsNRController extends Controller
 {
@@ -84,7 +85,13 @@ class PelatihanAimsNRController extends Controller
 
     public function data()
     {
-        $TargetPLO = PelatihanAimsNR::all();
+         $TargetPLO = PelatihanAimsNR::select('*')
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderBy('periode_date', 'asc')
+            ->get();
+
         return response()->json($TargetPLO);
     }
     public function update(PelatihanAimsNRReuqest $request, $id)

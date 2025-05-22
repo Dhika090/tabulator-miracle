@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\PertaArun\RencanaPemeliharaanPAGRequest;
 use App\Models\SHG\PertaArun\RencanaPemeliharaanPAG;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RencanaPemeliharaanPAGController extends Controller
 {
@@ -76,13 +77,17 @@ class RencanaPemeliharaanPAGController extends Controller
 
         return view('SHG.InputDataMonev.PertaArun.RencanaPemeliharaanPAG', compact('tabs'));
     }
-
-
     public function data()
     {
-        return response()->json(RencanaPemeliharaanPAG::all());
-    }
+         $TargetPLO = RencanaPemeliharaanPAG::select('*')
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderBy('periode_date', 'asc')
+            ->get();
 
+        return response()->json($TargetPLO);
+    }
 
     public function store(RencanaPemeliharaanPAGRequest $request)
     {

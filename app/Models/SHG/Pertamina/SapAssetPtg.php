@@ -22,7 +22,7 @@ class SapAssetPtg extends Model
         });
     }
 
-    protected $table = 'shg_pertamina_sap_asset_ptg';
+    protected $table = 'shg_pertamina_sap_asset';
 
     protected $fillable = [
         'periode',

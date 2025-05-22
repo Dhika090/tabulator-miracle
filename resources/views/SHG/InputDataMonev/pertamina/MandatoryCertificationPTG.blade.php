@@ -180,22 +180,22 @@
                 <input type="hidden" name="id" id="form-id">
                 <div>
                     <label>Periode</label>
-                    <input type="month" name="periode" id="periode" required>
+                    <input type="month" name="periode" id="periode">
                 </div>
 
                 <div>
                     <label>Subholding</label>
-                    <input type="text" name="subholding" id="subholding" required>
+                    <input type="text" name="subholding" id="subholding">
                 </div>
 
                 <div>
                     <label>Company</label>
-                    <input type="text" name="company" id="company" required>
+                    <input type="text" name="company" id="company">
                 </div>
 
                 <div>
                     <label>Unit</label>
-                    <input type="text" name="unit" id="unit" required>
+                    <input type="text" name="unit" id="unit">
                 </div>
 
                 <div>
@@ -316,9 +316,16 @@
                 const columnMap = {
                     "mandatory-certification-ptg": [{
                             title: "No",
-                            formatter: "rownum",
+                            formatter: function(cell) {
+                                const row = cell.getRow();
+                                const table = cell.getTable();
+                                const sortedData = table.getRows("active").map(r => r.getData());
+                                const index = sortedData.findIndex(data => data.id === row.getData().id);
+                                return index + 1;
+                            },
                             hozAlign: "center",
-                            width: 60
+                            width: 60,
+                            headerSort: false,
                         },
                         {
                             title: "ID",
@@ -328,7 +335,85 @@
                         {
                             title: "Periode",
                             field: "periode",
-                            editor: "input"
+                            editor: "input",
+                            headerFilter: "select",
+                            headerFilterParams: {
+                                values: [{
+                                        value: "01",
+                                        label: "Januari"
+                                    },
+                                    {
+                                        value: "02",
+                                        label: "Februari"
+                                    },
+                                    {
+                                        value: "03",
+                                        label: "Maret"
+                                    },
+                                    {
+                                        value: "04",
+                                        label: "April"
+                                    },
+                                    {
+                                        value: "05",
+                                        label: "Mei"
+                                    },
+                                    {
+                                        value: "06",
+                                        label: "Juni"
+                                    },
+                                    {
+                                        value: "07",
+                                        label: "Juli"
+                                    },
+                                    {
+                                        value: "08",
+                                        label: "Agustus"
+                                    },
+                                    {
+                                        value: "09",
+                                        label: "September"
+                                    },
+                                    {
+                                        value: "10",
+                                        label: "Oktober"
+                                    },
+                                    {
+                                        value: "11",
+                                        label: "November"
+                                    },
+                                    {
+                                        value: "12",
+                                        label: "Desember"
+                                    }
+                                ]
+                            },
+                            headerFilterPlaceholder: "Pilih Bulan",
+                            headerFilterFunc: function(headerValue, rowValue) {
+                                if (!headerValue) return true;
+                                if (!rowValue) return false;
+
+                                const periode = rowValue.toLowerCase();
+
+                                const bulanTextMap = {
+                                    "01": ["jan", "january"],
+                                    "02": ["feb", "february"],
+                                    "03": ["mar", "march"],
+                                    "04": ["apr", "april"],
+                                    "05": ["may", "mei"],
+                                    "06": ["jun", "june"],
+                                    "07": ["jul", "july"],
+                                    "08": ["aug", "august"],
+                                    "09": ["sep", "september"],
+                                    "10": ["oct", "october"],
+                                    "11": ["nov", "november"],
+                                    "12": ["dec", "december"]
+                                };
+
+                                const keywords = bulanTextMap[headerValue];
+                                return keywords.some(keyword => periode.includes(keyword)) || periode
+                                    .includes(`-${headerValue}`);
+                            }
                         },
                         {
                             title: "Subholding",
@@ -462,7 +547,7 @@
                     console.log("Baris yang berubah:", changedRows);
 
                     changedRows.forEach(rowData => {
-                        fetch(`pelatihan-aims-pli/${rowData.id}`, {
+                        fetch(`mandatory-certification-ptg/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
                                     "Content-Type": "application/json",
