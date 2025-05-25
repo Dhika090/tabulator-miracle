@@ -122,7 +122,7 @@
     <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-                <h5 class="card-title mb-3 mb-md-0">Realisasi Anggaran AI WMN</h5>
+                <h5 class="card-title mb-3 mb-md-0">Realisasi Progress Fisik AI PLI</h5>
                 <div class="d-flex">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
@@ -165,6 +165,7 @@
                     </div>
                 </div>
             </div>
+
             <div id="mainTable"></div>
 
             <div class="tabulator-wrapper mt-4">
@@ -176,231 +177,103 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Tambah Data Realisasi Anggaran AI 2025</h3>
+            <h3>Tambah Data Realisasi Progress Fisik AI 2025</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
                 <div>
                     <label>Periode</label>
-                    <input type="number" name="periode" id="periode"   pattern="^\d{4}$"
-                        title="The periode field must match the format YYYY."
-                        placeholder="YYYY">
+                    <input type="number" name="periode" id="periode" pattern="^\d{4}$"
+                        title="The periode field must match the format YYYY." placeholder="YYYY">
                 </div>
+
                 <div>
                     <label>No</label>
-                    <input type="number" name="no" id="no"  >
+                    <input type="number" name="no">
                 </div>
 
                 <div>
                     <label>Program Kerja</label>
-                    <input type="text" name="program_kerja" id="program_kerja">
+                    <input type="text" name="program_kerja">
                 </div>
 
                 <div>
                     <label>Kategori AIBT</label>
-                    <input type="text" name="kategori_aibt" id="kategori_aibt">
+                    <input type="text" name="kategori_aibt">
                 </div>
 
                 <div>
                     <label>Jenis Anggaran</label>
-                    <input type="text" name="jenis_anggaran" id="jenis_anggaran">
+                    <input type="text" name="jenis_anggaran">
                 </div>
 
                 <div>
                     <label>Besar RKAP</label>
-                    <input type="number" name="besar_rkap" id="besar_rkap" step="0.01">
+                    <input type="number" name="besar_rkap" id="besar_rkap" step="any">
                 </div>
 
                 <div>
                     <label>Entitas</label>
-                    <input type="text" name="entitas" id="entitas">
+                    <input type="text" name="entitas">
                 </div>
 
                 <div>
                     <label>Unit</label>
-                    <input type="text" name="unit" id="unit">
+                    <input type="text" name="unit">
                 </div>
 
                 <div>
                     <label>Nilai Kontrak</label>
-                    <input type="number" name="nilai_kontrak" id="nilai_kontrak" step="0.01">
+                    <input type="number" name="nilai_kontrak" step="0.01">
                 </div>
 
-                <!-- Plan Fields -->
                 <fieldset>
-                    <legend>Plan</legend>
-                    <div>
-                        <label>Plan Jan</label>
-                        <input type="text" name="plan_jan">
-                    </div>
-                    <div>
-                        <label>Plan Feb</label>
-                        <input type="text" name="plan_feb">
-                    </div>
-                    <div>
-                        <label>Plan Mar</label>
-                        <input type="text" name="plan_mar">
-                    </div>
-                    <div>
-                        <label>Plan Apr</label>
-                        <input type="text" name="plan_apr">
-                    </div>
-                    <div>
-                        <label>Plan May</label>
-                        <input type="text" name="plan_may">
-                    </div>
-                    <div>
-                        <label>Plan Jun</label>
-                        <input type="text" name="plan_jun">
-                    </div>
-                    <div>
-                        <label>Plan Jul</label>
-                        <input type="text" name="plan_jul">
-                    </div>
-                    <div>
-                        <label>Plan Aug</label>
-                        <input type="text" name="plan_aug">
-                    </div>
-                    <div>
-                        <label>Plan Sep</label>
-                        <input type="text" name="plan_sep">
-                    </div>
-                    <div>
-                        <label>Plan Oct</label>
-                        <input type="text" name="plan_oct">
-                    </div>
-                    <div>
-                        <label>Plan Nov</label>
-                        <input type="text" name="plan_nov">
-                    </div>
-                    <div>
-                        <label>Plan Dec</label>
-                        <input type="text" name="plan_dec">
-                    </div>
+                    <legend>Rencana (Plan)</legend>
+                    <label>Plan Jan</label><input type="number" name="plan_jan" step="0.01">
+                    <label>Plan Feb</label><input type="number" name="plan_feb" step="0.01">
+                    <label>Plan Mar</label><input type="number" name="plan_mar" step="0.01">
+                    <label>Plan Apr</label><input type="number" name="plan_apr" step="0.01">
+                    <label>Plan May</label><input type="number" name="plan_may" step="0.01">
+                    <label>Plan Jun</label><input type="number" name="plan_jun" step="0.01">
+                    <label>Plan Jul</label><input type="number" name="plan_jul" step="0.01">
+                    <label>Plan Aug</label><input type="number" name="plan_aug" step="0.01">
+                    <label>Plan Sep</label><input type="number" name="plan_sep" step="0.01">
+                    <label>Plan Oct</label><input type="number" name="plan_oct" step="0.01">
+                    <label>Plan Nov</label><input type="number" name="plan_nov" step="0.01">
+                    <label>Plan Dec</label><input type="number" name="plan_dec" step="0.01">
                 </fieldset>
 
-                <!-- Prognosa Fields -->
                 <fieldset>
-                    <legend>Prognosa</legend>
-                    <!-- Sama seperti Plan -->
-                    <div>
-                        <label>Prognosa Jan</label>
-                        <input type="text" name="prognosa_jan">
-                    </div>
-                    <div>
-                        <label>Prognosa Feb</label>
-                        <input type="text" name="prognosa_feb">
-                    </div>
-                    <div>
-                        <label>Prognosa Mar</label>
-                        <input type="text" name="prognosa_mar">
-                    </div>
-                    <div>
-                        <label>Prognosa Apr</label>
-                        <input type="text" name="prognosa_apr">
-                    </div>
-                    <div>
-                        <label>Prognosa May</label>
-                        <input type="text" name="prognosa_may">
-                    </div>
-                    <div>
-                        <label>Prognosa Jun</label>
-                        <input type="text" name="prognosa_jun">
-                    </div>
-                    <div>
-                        <label>Prognosa Jul</label>
-                        <input type="text" name="prognosa_jul">
-                    </div>
-                    <div>
-                        <label>Prognosa Aug</label>
-                        <input type="text" name="prognosa_aug">
-                    </div>
-                    <div>
-                        <label>Prognosa Sep</label>
-                        <input type="text" name="prognosa_sep">
-                    </div>
-                    <div>
-                        <label>Prognosa Oct</label>
-                        <input type="text" name="prognosa_oct">
-                    </div>
-                    <div>
-                        <label>Prognosa Nov</label>
-                        <input type="text" name="prognosa_nov">
-                    </div>
-                    <div>
-                        <label>Prognosa Dec</label>
-                        <input type="text" name="prognosa_dec">
-                    </div>
-                </fieldset>
-
-                <!-- Actual Fields -->
-                <fieldset>
-                    <legend>Actual</legend>
-                    <div>
-                        <label>Actual Jan</label>
-                        <input type="text" name="actual_jan">
-                    </div>
-                    <div>
-                        <label>Actual Feb</label>
-                        <input type="text" name="actual_feb">
-                    </div>
-                    <div>
-                        <label>Actual Mar</label>
-                        <input type="text" name="actual_mar">
-                    </div>
-                    <div>
-                        <label>Actual Apr</label>
-                        <input type="text" name="actual_apr">
-                    </div>
-                    <div>
-                        <label>Actual May</label>
-                        <input type="text" name="actual_may">
-                    </div>
-                    <div>
-                        <label>Actual Jun</label>
-                        <input type="text" name="actual_jun">
-                    </div>
-                    <div>
-                        <label>Actual Jul</label>
-                        <input type="text" name="actual_jul">
-                    </div>
-                    <div>
-                        <label>Actual Aug</label>
-                        <input type="text" name="actual_aug">
-                    </div>
-                    <div>
-                        <label>Actual Sep</label>
-                        <input type="text" name="actual_sep">
-                    </div>
-                    <div>
-                        <label>Actual Oct</label>
-                        <input type="text" name="actual_oct">
-                    </div>
-                    <div>
-                        <label>Actual Nov</label>
-                        <input type="text" name="actual_nov">
-                    </div>
-                    <div>
-                        <label>Actual Dec</label>
-                        <input type="text" name="actual_dec">
-                    </div>
+                    <legend>Realisasi (Actual)</legend>
+                    <label>Actual Jan</label><input type="number" name="actual_jan" step="0.01">
+                    <label>Actual Feb</label><input type="number" name="actual_feb" step="0.01">
+                    <label>Actual Mar</label><input type="number" name="actual_mar" step="0.01">
+                    <label>Actual Apr</label><input type="number" name="actual_apr" step="0.01">
+                    <label>Actual May</label><input type="number" name="actual_may" step="0.01">
+                    <label>Actual Jun</label><input type="number" name="actual_jun" step="0.01">
+                    <label>Actual Jul</label><input type="number" name="actual_jul" step="0.01">
+                    <label>Actual Aug</label><input type="number" name="actual_aug" step="0.01">
+                    <label>Actual Sep</label><input type="number" name="actual_sep" step="0.01">
+                    <label>Actual Oct</label><input type="number" name="actual_oct" step="0.01">
+                    <label>Actual Nov</label><input type="number" name="actual_nov" step="0.01">
+                    <label>Actual Dec</label><input type="number" name="actual_dec" step="0.01">
                 </fieldset>
 
                 <div>
                     <label>Kode</label>
-                    <input type="text" name="kode" id="kode">
+                    <input type="text" name="kode">
                 </div>
 
                 <div>
                     <label>Kendala</label>
-                    <input name="kendala" id="kendala"></input>
+                    <input type="text" name="kendala"></input>
                 </div>
 
                 <div>
                     <label>Tindak Lanjut</label>
-                    <input name="tindak_lanjut" id="tindak_lanjut"></input>
+                    <input type="text" name="tindak_lanjut"></input>
                 </div>
 
-                <button type="submit" class="btn btn-success">Submit</button>
+                <button class="btn btn-primary" type="submit">Simpan</button>
             </form>
         </div>
     </div>
@@ -410,7 +283,7 @@
         <script>
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
-                    fetch(`realisasi-anggaran-ai-wmn/${id}`, {
+                    fetch(`realisasi-progress-fisik-ai-wmn/${id}`, {
                             method: "DELETE",
                             headers: {
                                 "Accept": "application/json",
@@ -430,69 +303,13 @@
             }
 
             document.getElementById("search-input").addEventListener("input", function(e) {
-                const keyword = e.target.value;
+                const keyword = e.target.value.toLowerCase();
                 table.setFilter([
-                    [{
-                            field: "periode",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "no",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "program_kerja",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "kategori_aibt",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "jenis_anggaran",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "besar_rkap",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "entitas",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "unit",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "nilai_kontrak",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "kode",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "kendala",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "tindak_lanjut",
-                            type: "like",
-                            value: keyword
-                        }
-                    ]
+                    (row) => {
+                        return Object.values(row._data).some(val => {
+                            return val.toString().toLowerCase().includes(keyword);
+                        });
+                    }
                 ]);
             });
 
@@ -501,9 +318,8 @@
                 table.clearFilter();
             }
 
-
             function loadData() {
-                fetch("/monev/shg/input-data/realisasi-anggaran-ai-wmn/data", {
+                fetch("/monev/shg/input-data/realisasi-progress-fisik-ai-wmn/data", {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -515,7 +331,7 @@
 
             document.addEventListener("DOMContentLoaded", function() {
                 const columnMap = {
-                    "realisasi-anggaran-ai-wmn": [{
+                    "realisasi-progress-fisik-ai-wmn": [{
                             title: "No",
                             formatter: "rownum",
                             hozAlign: "center",
@@ -526,7 +342,7 @@
                             field: "id",
                             visible: false
                         },
-                       {
+                        {
                             title: "Periode",
                             field: "periode",
                             editor: "input",
@@ -633,7 +449,25 @@
                         {
                             title: "Besar RKAP",
                             field: "besar_rkap",
-                            editor: "input"
+                            editor: "input",
+                            formatter: function(cell) {
+                                let rawValue = cell.getValue();
+                                if (rawValue === null || rawValue === undefined || rawValue === "") {
+                                    return "0.00";
+                                }
+
+                                let cleanValue = rawValue.toString().replace(/[^0-9.-]+/g, '');
+                                let value = parseFloat(cleanValue);
+
+                                if (!isNaN(value)) {
+                                    return value.toLocaleString("en-US", {
+                                        minimumFractionDigits: 2,
+                                        maximumFractionDigits: 2
+                                    });
+                                }
+
+                                return "0.00";
+                            },
                         },
                         {
                             title: "Entitas",
@@ -655,21 +489,16 @@
                         .map(bulan => ({
                             title: `Plan ${bulan}`,
                             field: `plan_${bulan.toLowerCase()}`,
-                            editor: "input"
-                        })),
-                        // Prognosa Fields
-                        ...["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-                        .map(bulan => ({
-                            title: `Prognosa ${bulan}`,
-                            field: `prognosa_${bulan.toLowerCase()}`,
-                            editor: "input"
+                            editor: "input",
+
                         })),
                         // Actual Fields
                         ...["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
                         .map(bulan => ({
                             title: `Actual ${bulan}`,
                             field: `actual_${bulan.toLowerCase()}`,
-                            editor: "input"
+                            editor: "input",
+
                         })),
                         {
                             title: "Kode",
@@ -702,7 +531,7 @@
                     layout: "fitDataTable",
                     responsiveLayout: "collapse",
                     autoResize: true,
-                    columns: columnMap["realisasi-anggaran-ai-wmn"],
+                    columns: columnMap["realisasi-progress-fisik-ai-wmn"],
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -742,7 +571,7 @@
 
                     if (!id) return;
 
-                    fetch(`realisasi-anggaran-ai-wmn/${id}`, {
+                    fetch(`realisasi-progress-fisik-ai-wmn/${id}`, {
                             method: "PUT",
                             headers: {
                                 "Content-Type": "application/json",
@@ -756,7 +585,7 @@
                         .then(data => console.log("Update berhasil:", data))
                         .catch(err => console.error("Gagal update:", err));
                 });
-                
+
                 let previousData = [];
                 table.on("dataLoaded", function(newData) {
                     previousData = JSON.parse(JSON.stringify(newData));
@@ -782,7 +611,7 @@
                     console.log("Baris yang berubah:", changedRows);
 
                     changedRows.forEach(rowData => {
-                        fetch(`realisasi-anggaran-ai-wmn/${rowData.id}`, {
+                        fetch(`realisasi-progress-fisik-ai-wmn/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
                                     "Content-Type": "application/json",
@@ -803,6 +632,7 @@
 
                     previousData = JSON.parse(JSON.stringify(newData));
                 });
+
                 loadData();
             });
         </script>
@@ -825,7 +655,7 @@
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
 
-                fetch("realisasi-anggaran-ai-wmn", {
+                fetch("realisasi-progress-fisik-ai-wmn", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -834,18 +664,16 @@
                                 "content")
                         },
                         body: JSON.stringify({
-                            periode: data.periode || "",
-                            no: data.no || 0,
-                            program_kerja: data.program_kerja || "",
-                            kategori_aibt: data.kategori_aibt || "",
-                            jenis_anggaran: data.jenis_anggaran || "",
-                            besar_rkap: data.besar_rkap !== "" ? parseFloat(data.besar_rkap) : null,
-                            entitas: data.entitas || "",
-                            unit: data.unit || "",
-                            nilai_kontrak: data.nilai_kontrak !== "" ? parseFloat(data.nilai_kontrak) :
-                                null,
+                            periode: data.periode,
+                            no: data.no,
+                            program_kerja: data.program_kerja,
+                            kategori_aibt: data.kategori_aibt,
+                            jenis_anggaran: data.jenis_anggaran,
+                            besar_rkap: data.besar_rkap,
+                            entitas: data.entitas,
+                            unit: data.unit,
+                            nilai_kontrak: data.nilai_kontrak,
 
-                            // Plan
                             plan_jan: data.plan_jan,
                             plan_feb: data.plan_feb,
                             plan_mar: data.plan_mar,
@@ -859,21 +687,6 @@
                             plan_nov: data.plan_nov,
                             plan_dec: data.plan_dec,
 
-                            // Prognosa
-                            prognosa_jan: data.prognosa_jan,
-                            prognosa_feb: data.prognosa_feb,
-                            prognosa_mar: data.prognosa_mar,
-                            prognosa_apr: data.prognosa_apr,
-                            prognosa_may: data.prognosa_may,
-                            prognosa_jun: data.prognosa_jun,
-                            prognosa_jul: data.prognosa_jul,
-                            prognosa_aug: data.prognosa_aug,
-                            prognosa_sep: data.prognosa_sep,
-                            prognosa_oct: data.prognosa_oct,
-                            prognosa_nov: data.prognosa_nov,
-                            prognosa_dec: data.prognosa_dec,
-
-                            // Actual
                             actual_jan: data.actual_jan,
                             actual_feb: data.actual_feb,
                             actual_mar: data.actual_mar,
@@ -889,14 +702,14 @@
 
                             kode: data.kode,
                             kendala: data.kendala,
-                            tindak_lanjut: data.tindak_lanjut
+                            tindak_lanjut: data.tindak_lanjut,
                         })
                     })
                     .then(response => response.json())
                     .then(result => {
                         if (result.success) {
                             alert(result.message || "Data berhasil disimpan");
-                            table.setData("/monev/shg/input-data/realisasi-anggaran-ai-wmn/data");
+                            table.setData("/monev/shg/input-data/realisasi-progress-fisik-ai-wmn/data");
                             this.reset();
                             closeModal();
                         } else {
@@ -945,6 +758,7 @@
                     });
                 });
 
+                // Ketika halaman reload setelah klik, cek dan scroll otomatis
                 if (sessionStorage.getItem('scrollToActiveTab') === 'yes') {
                     scrollToActiveTab();
                     sessionStorage.removeItem('scrollToActiveTab');

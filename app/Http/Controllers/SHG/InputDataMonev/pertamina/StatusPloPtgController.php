@@ -97,7 +97,10 @@ class StatusPloPtgController extends Controller
 
     public function data()
     {
-        $TargetPLO = StatusPloPtg::all();
+        $TargetPLO = StatusPloPtg::select('*')
+            ->orderByRaw("STR_TO_DATE(CONCAT(periode, '-01'), '%Y-%m-%d') ASC")
+            ->get();
+
         return response()->json($TargetPLO);
     }
     public function update(StatusPloPtgRequest $request, $id)

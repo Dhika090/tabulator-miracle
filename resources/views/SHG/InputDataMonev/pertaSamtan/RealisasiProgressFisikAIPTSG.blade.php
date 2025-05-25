@@ -371,7 +371,6 @@
                 table.clearFilter();
             }
 
-
             function loadData() {
                 fetch("/monev/shg/input-data/realisasi-progress-fisik-ai-ptsg/data", {
                         headers: {

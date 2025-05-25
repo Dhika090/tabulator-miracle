@@ -15,6 +15,13 @@
             }
 
             .tabulator-cell {
+                font-size: 13px;
+                white-space: normal !important;
+                word-wrap: break-word;
+            }
+
+
+            .tabulator-cell {
                 font-size: 14px;
             }
 
@@ -405,7 +412,7 @@
                             field: "id",
                             visible: false
                         },
-                       {
+                        {
                             title: "Periode",
                             field: "periode",
                             editor: "input",

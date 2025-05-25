@@ -182,12 +182,12 @@
 
                 <div>
                     <label>Periode</label>
-                    <input type="month" name="periode" id="periode"  >
+                    <input type="month" name="periode" id="periode">
                 </div>
 
                 <div>
                     <label>No</label>
-                    <input type="number" name="no" id="no"  >
+                    <input type="number" name="no" id="no">
                 </div>
 
                 <div>
@@ -501,7 +501,6 @@
                 table.clearFilter();
             }
 
-
             function loadData() {
                 fetch("/monev/shg/input-data/realisasi-anggaran-ai-kjg/data", {
                         headers: {
@@ -526,7 +525,7 @@
                             field: "id",
                             visible: false
                         },
-                       {
+                        {
                             title: "Periode",
                             field: "periode",
                             editor: "input",
@@ -655,21 +654,21 @@
                         .map(bulan => ({
                             title: `Plan ${bulan}`,
                             field: `plan_${bulan.toLowerCase()}`,
-                            editor: "number"
+                            editor: "input"
                         })),
                         // Prognosa Fields
                         ...["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
                         .map(bulan => ({
                             title: `Prognosa ${bulan}`,
                             field: `prognosa_${bulan.toLowerCase()}`,
-                            editor: "number"
+                            editor: "input"
                         })),
                         // Actual Fields
                         ...["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
                         .map(bulan => ({
                             title: `Actual ${bulan}`,
                             field: `actual_${bulan.toLowerCase()}`,
-                            editor: "number"
+                            editor: "input"
                         })),
                         {
                             title: "Kode",
@@ -679,7 +678,8 @@
                         {
                             title: "Kendala",
                             field: "kendala",
-                            editor: "input"
+                            editor: "input",
+                            width: 400
                         },
                         {
                             title: "Tindak Lanjut",

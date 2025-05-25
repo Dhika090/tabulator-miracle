@@ -84,7 +84,11 @@ class RealisasiProgressFisikAI2025PtgController extends Controller
 
     public function data()
     {
-        return response()->json(RealisasiProgressFisikAI2025Ptg::all());
+        $TargetPLO = RealisasiProgressFisikAI2025Ptg::select('*')
+            ->orderByRaw("STR_TO_DATE(CONCAT(periode, '-01'), '%Y-%m-%d') ASC")
+            ->get();
+
+        return response()->json($TargetPLO);
     }
 
     public function store(RealisasiProgressFisikAI2025PtgRequest $request)

@@ -424,6 +424,7 @@
                             title: "Periode",
                             field: "periode",
                             editor: "input",
+                            hozAlign: "center",
                             headerFilter: "select",
                             headerFilterParams: {
                                 values: [{
@@ -507,12 +508,14 @@
                             title: "Nomor PLO",
                             field: "nomor_plo",
                             editor: "input",
-                            width: 400
+                            width: 400,
+                            hozAlign: "center",
                         },
                         {
                             title: "Company",
                             field: "company",
-                            editor: "input"
+                            editor: "input",
+                            hozAlign: "center",
                         },
                         {
                             title: "Area",

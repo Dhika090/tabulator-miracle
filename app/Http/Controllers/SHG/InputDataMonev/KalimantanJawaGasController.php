@@ -112,7 +112,10 @@ class KalimantanJawaGasController extends Controller
 
     public function data()
     {
-        $TargetPLO = DataMonevKalimantanJawaGas::all();
+        $TargetPLO = DataMonevKalimantanJawaGas::select('*')
+            ->orderByRaw("STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%y') ASC")
+            ->get();
+
         return response()->json($TargetPLO);
     }
     public function update(DataMonevKalimantanJawaGasRequest $request, $id)

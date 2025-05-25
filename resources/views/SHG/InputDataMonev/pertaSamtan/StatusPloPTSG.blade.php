@@ -14,6 +14,11 @@
                 box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             }
 
+            .tabulator .tabulator-cell {
+                white-space: normal !important;
+                word-wrap: break-word;
+            }
+
             .tabulator-cell {
                 font-size: 14px;
             }
@@ -181,42 +186,42 @@
 
                 <div>
                     <label>Periode</label>
-                    <input type="month" name="periode" id="periode"  >
+                    <input type="month" name="periode" id="periode">
                 </div>
 
                 <div>
                     <label>Nomor PLO</label>
-                    <input type="text" name="nomor_plo" id="nomor_plo"  >
+                    <input type="text" name="nomor_plo" id="nomor_plo">
                 </div>
 
                 <div>
                     <label>Company</label>
-                    <input type="text" name="company" id="company"  >
+                    <input type="text" name="company" id="company">
                 </div>
 
                 <div>
                     <label>Area</label>
-                    <input type="text" name="area" id="area"  >
+                    <input type="text" name="area" id="area">
                 </div>
 
                 <div>
                     <label>Lokasi</label>
-                    <input type="text" name="lokasi" id="lokasi"  >
+                    <input type="text" name="lokasi" id="lokasi">
                 </div>
 
                 <div>
                     <label>Nama Aset</label>
-                    <input type="text" name="nama_aset" id="nama_aset"  >
+                    <input type="text" name="nama_aset" id="nama_aset">
                 </div>
 
                 <div>
                     <label>Tanggal Pengesahan</label>
-                    <input type="date" name="tanggal_pengesahan" id="tanggal_pengesahan"  >
+                    <input type="date" name="tanggal_pengesahan" id="tanggal_pengesahan">
                 </div>
 
                 <div>
                     <label>Masa Berlaku</label>
-                    <input type="date" name="masa_berlaku" id="masa_berlaku"  >
+                    <input type="date" name="masa_berlaku" id="masa_berlaku">
                 </div>
 
                 <div>
@@ -296,7 +301,7 @@
 
             document.getElementById("search-input").addEventListener("input", function(e) {
                 const keyword = e.target.value;
-                table.setFilter(
+                table.setFilter([
                     [{
                             field: "periode",
                             type: "like",
@@ -383,13 +388,15 @@
                             value: keyword
                         }
                     ]
-                );
+                ]);
+
             });
 
             function clearSearch() {
                 document.getElementById("search-input").value = "";
                 table.clearFilter();
             }
+
 
             function loadData() {
                 fetch("/monev/shg/input-data/status-plo-ptsg/data", {
@@ -415,7 +422,7 @@
                             field: "id",
                             visible: false
                         },
-                       {
+                        {
                             title: "Periode",
                             field: "periode",
                             editor: "input",
@@ -521,7 +528,8 @@
                         {
                             title: "Nama Aset",
                             field: "nama_aset",
-                            editor: "input"
+                            editor: "input",
+                            width: 400
                         },
                         {
                             title: "Tanggal Pengesahan",

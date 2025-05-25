@@ -80,7 +80,7 @@ class StatusPloKjgController extends Controller
 
     public function data()
     {
-         $TargetPLO = StatusPloKjg::select('*')
+        $TargetPLO = StatusPloKjg::select('*')
             ->addSelect(DB::raw("
             STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
         "))

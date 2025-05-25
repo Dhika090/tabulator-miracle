@@ -82,7 +82,7 @@ class RealisasiProgressFisikAiPAGController extends Controller
 
     public function data()
     {
-        $TargetPLO = RealisasiAnggarRealisasiProgressFisikAiPAGanAiPAG::select('*')
+        $TargetPLO = RealisasiProgressFisikAiPAG::select('*')
             ->addSelect(DB::raw("
             STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
         "))

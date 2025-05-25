@@ -300,6 +300,7 @@
                             title: "Periode",
                             field: "periode",
                             editor: "input",
+                            hozAlign: "center",
                             headerFilter: "select",
                             headerFilterParams: {
                                 values: [{
@@ -382,7 +383,8 @@
                         {
                             title: "Company",
                             field: "company",
-                            editor: "input"
+                            editor: "input",
+                            hozAlign: "center",
                         },
                         {
                             title: "Judul Pelatihan",

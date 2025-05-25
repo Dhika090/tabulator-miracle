@@ -191,16 +191,16 @@
 
                 <div>
                     <label>Periode</label>
-                    <input type="month" name="periode" id="periode"  >
+                    <input type="month" name="periode" id="periode">
                 </div>
 
                 <div>
                     <label>Subholding</label>
-                    <input type="text" name="subholding" id="subholding"  >
+                    <input type="text" name="subholding" id="subholding">
                 </div>
 
                 <label for="company">Company:</label>
-                <select name="company" id="company"   class="form-select">
+                <select name="company" id="company" class="form-select">
                     <option value="">-- Pilih Company --</option>
                     @foreach ($companies as $company)
                         <option value="{{ $company }}">{{ $company }}</option>
@@ -209,12 +209,12 @@
 
                 <div>
                     <label>Unit</label>
-                    <input type="text" name="unit" id="unit"  >
+                    <input type="text" name="unit" id="unit">
                 </div>
 
                 <div>
                     <label>Asset Group</label>
-                    <input type="text" name="asset_group" id="asset_group"  >
+                    <input type="text" name="asset_group" id="asset_group">
                 </div>
 
                 <div>
@@ -336,6 +336,67 @@
                     .then(data => table.setData(data))
                     .catch(err => console.error("Gagal load data:", err));
             }
+            document.getElementById("search-input").addEventListener("input", function(e) {
+                const keyword = e.target.value;
+                table.setFilter([
+                    [{
+                            field: "periode",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "subholding",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "company",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "unit",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "asset_group",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "jumlah",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "kegiatan_penurunan_med",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "informasi_penyebab_low",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "informasi_penambahan_jumlah_aset",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "informasi_naik_turun_low",
+                            type: "like",
+                            value: keyword
+                        },
+                    ]
+                ]);
+            });
+
+            function clearSearch() {
+                document.getElementById("search-input").value = "";
+                table.clearFilter();
+            }
 
             document.addEventListener("DOMContentLoaded", function() {
                 const columnMap = {
@@ -350,7 +411,7 @@
                             field: "id",
                             visible: false
                         },
-                       {
+                        {
                             title: "Periode",
                             field: "periode",
                             editor: "input",

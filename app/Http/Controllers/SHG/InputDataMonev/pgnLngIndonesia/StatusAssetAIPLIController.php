@@ -7,6 +7,7 @@ use App\Http\Requests\DataMonevKalimantanJawaGasRequest;
 use App\Http\Requests\SHG\PgnLngIndonesia\StatusAssetAIPLIRequest;
 use App\Models\SHG\PgnLngIndonesia\StatusAssetAiPLI;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class StatusAssetAIPLIController extends Controller
 {
@@ -113,7 +114,10 @@ class StatusAssetAIPLIController extends Controller
 
     public function data()
     {
-        $TargetPLO = StatusAssetAiPLI::all();
+       $TargetPLO = StatusAssetAiPLI::select('*')
+            ->orderByRaw("STR_TO_DATE(CONCAT(periode, '-01'), '%Y-%m-%d') ASC")
+            ->get();
+
         return response()->json($TargetPLO);
     }
     public function update(StatusAssetAIPLIRequest $request, $id)

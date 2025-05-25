@@ -107,7 +107,10 @@ class PertaSamtanGasController extends Controller
 
     public function data()
     {
-        $TargetPLO = StatusAssetAIPTSG::all();
+        $TargetPLO = StatusAssetAIPTSG::select('*')
+            ->orderByRaw("STR_TO_DATE(CONCAT(periode, '-01'), '%Y-%m-%d') ASC")
+            ->get();
+
         return response()->json($TargetPLO);
     }
     public function update(StatusAssetAIPTSGRequest $request, $id)

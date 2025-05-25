@@ -85,7 +85,11 @@ class RealisasiAnggaranAIPtg2025Controller extends Controller
 
     public function data()
     {
-        return response()->json(RealisasiAnggaranAiPtg2025::all());
+        $TargetPLO = RealisasiAnggaranAiPtg2025::select('*')
+            ->orderByRaw("STR_TO_DATE(CONCAT(periode, '-01'), '%Y-%m-%d') ASC")
+            ->get();
+
+        return response()->json($TargetPLO);
     }
 
     public function store(RealisasiAnggaranAiPtg2025Request $request)

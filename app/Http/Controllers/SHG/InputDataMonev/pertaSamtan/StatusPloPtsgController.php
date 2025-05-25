@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\PertaSamtan\StatusPloPTsgRequest;
 use App\Models\SHG\PertaSamtan\StatusPloPTsg;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class StatusPloPtsgController extends Controller
 {
@@ -74,7 +75,11 @@ class StatusPloPtsgController extends Controller
 
     public function data()
     {
-        return response()->json(StatusPloPTsg::all());
+       $TargetPLO = StatusPloPTsg::select('*')
+            ->orderByRaw("STR_TO_DATE(CONCAT(periode, '-01'), '%Y-%m-%d') ASC")
+            ->get();
+
+        return response()->json($TargetPLO);
     }
 
     public function store(StatusPloPTsgRequest $request)

@@ -488,7 +488,7 @@
 
                     pagination: "local",
                     paginationSize: 20,
-                    paginationSizeSelector: [40, 60, 80, 120],
+                    paginationSizeSelector: [40, 60, 80, 100],
                     paginationCounter: "rows",
 
                     movableColumns: true,

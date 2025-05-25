@@ -79,7 +79,11 @@ class StatusPloPliController extends Controller
 
     public function data()
     {
-        return response()->json(StatusPloPli::all());
+        $TargetPLO = StatusPloPli::select('*')
+            ->orderByRaw("STR_TO_DATE(CONCAT(periode, '-01'), '%Y-%m-%d') ASC")
+            ->get();
+
+        return response()->json($TargetPLO);
     }
 
     public function store(StatusPloPliRequest $request)

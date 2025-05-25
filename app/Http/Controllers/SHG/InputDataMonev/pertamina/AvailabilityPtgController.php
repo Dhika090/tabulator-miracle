@@ -86,12 +86,8 @@ class AvailabilityPtgController extends Controller
 
     public function data()
     {
-        // return response()->json(AvailabilityPtg::all());
         $TargetPLO = AvailabilityPtg::select('*')
-            ->addSelect(DB::raw("
-            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
-        "))
-            ->orderBy('periode_date', 'asc')
+            ->orderByRaw("STR_TO_DATE(CONCAT(periode, '-01'), '%Y-%m-%d') ASC")
             ->get();
 
         return response()->json($TargetPLO);

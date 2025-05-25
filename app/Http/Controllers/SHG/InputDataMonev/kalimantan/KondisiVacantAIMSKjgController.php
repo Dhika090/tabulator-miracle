@@ -80,11 +80,8 @@ class KondisiVacantAIMSKjgController extends Controller
 
     public function data()
     {
-        $TargetPLO = KondisiVacantAIMSKjg::select('*')
-            ->addSelect(DB::raw("
-            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
-        "))
-            ->orderBy('periode_date', 'asc')
+         $TargetPLO = KondisiVacantAIMSKjg::select('*')
+            ->orderByRaw("STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%y') ASC")
             ->get();
 
         return response()->json($TargetPLO);

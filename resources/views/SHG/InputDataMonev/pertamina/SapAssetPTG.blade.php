@@ -299,7 +299,7 @@
 
             document.getElementById("search-input").addEventListener("input", function(e) {
                 const keyword = e.target.value;
-                table.setFilter(
+                table.setFilter([
                     [{
                             field: "periode",
                             type: "like",
@@ -356,7 +356,7 @@
                             value: keyword
                         },
                         {
-                            field: "penyelarasan_dokumen_dan_lapangan",
+                            field: "penyelarasan_dokumen",
                             type: "like",
                             value: keyword
                         },
@@ -366,17 +366,17 @@
                             value: keyword
                         },
                         {
-                            field: "mempersiapkan_form_upload_data",
+                            field: "form_upload_data",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "request_ke_master_data",
+                            field: "request_master_data",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "update_di_master_data",
+                            field: "update_master_data",
                             type: "like",
                             value: keyword
                         },
@@ -389,8 +389,9 @@
                             field: "tindak_lanjut",
                             type: "like",
                             value: keyword
-                        },
-                    ]);
+                        }
+                    ]
+                ]);
             });
 
             function clearSearch() {
@@ -413,8 +414,7 @@
 
             document.addEventListener("DOMContentLoaded", function() {
                 const columnMap = {
-                    "sap-asset-ptg": [
-                        {
+                    "sap-asset-ptg": [{
                             title: "No",
                             formatter: function(cell) {
                                 const row = cell.getRow();
@@ -628,11 +628,20 @@
                     responsiveLayout: "collapse",
                     autoResize: true,
                     columns: columnMap["sap-asset-ptg"],
+
+                    selectableRange: 1,
+                    selectableRangeColumns: true,
+                    selectableRangeRows: true,
+                    selectableRangeClearCells: true,
+                    editTriggerEvent: "dblclick",
+
                     pagination: "local",
                     paginationSize: 20,
                     paginationSizeSelector: [40, 60, 80, 100],
                     paginationCounter: "rows",
+
                     movableColumns: true,
+
                     clipboard: true,
                     clipboardCopyStyled: false,
                     clipboardCopyConfig: {
@@ -643,6 +652,7 @@
                     clipboardPasteParser: "range",
                     clipboardPasteAction: "range",
                     clipboardPasteRow: true,
+
                     columnDefaults: {
                         headerSort: true,
                         headerHozAlign: "center",

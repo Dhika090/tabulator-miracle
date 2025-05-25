@@ -85,7 +85,11 @@ class PelatihanAIMSPtgController extends Controller
 
     public function data()
     {
-        return response()->json(PelatihanAIMSPtg::all());
+        $TargetPLO = PelatihanAIMSPtg::select('*')
+            ->orderByRaw("STR_TO_DATE(CONCAT(periode, '-01'), '%Y-%m-%d') ASC")
+            ->get();
+
+        return response()->json($TargetPLO);
     }
 
     public function store(PelatihanAIMSPtgRequest $request)

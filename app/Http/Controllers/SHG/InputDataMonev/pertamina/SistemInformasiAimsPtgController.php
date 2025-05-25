@@ -11,7 +11,7 @@ class SistemInformasiAimsPtgController extends Controller
 {
     public function index()
     {
-        
+
         $tabs = [
             [
                 'title' => 'Status Asset 2025 AI 2025 PTG',
@@ -86,7 +86,11 @@ class SistemInformasiAimsPtgController extends Controller
 
     public function data()
     {
-        return response()->json(SistemInformasiAimsPtg::all());
+        $TargetPLO = SistemInformasiAimsPtg::select('*')
+            ->orderByRaw("STR_TO_DATE(CONCAT(periode, '-01'), '%Y-%m-%d') ASC")
+            ->get();
+
+        return response()->json($TargetPLO);
     }
 
     public function store(SistemInformasiAimsPtgRequest $request)

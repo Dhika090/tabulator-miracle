@@ -12,7 +12,6 @@ class SistemInformasiAimsKjgController extends Controller
 {
     public function index()
     {
-        // return view('SHG.InputDataMonev.kalimantanJawa.SistemInformasiAimsKjg');
         $tabs = [
             [
                 'title' => 'Status Asset 2025 AI 2025 KJG',
@@ -81,7 +80,7 @@ class SistemInformasiAimsKjgController extends Controller
 
     public function data()
     {
-         $TargetPLO = SistemInformasiAimsKjg::select('*')
+        $TargetPLO = SistemInformasiAimsKjg::select('*')
             ->addSelect(DB::raw("
             STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
         "))

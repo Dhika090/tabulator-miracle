@@ -181,7 +181,7 @@
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
                 <label for="periode">Periode (Tahun):</label>
-                <select name="periode" id="periode"   class="form-select">
+                <select name="periode" id="periode" class="form-select">
                     <option value="" selected disabled>Pilih Periode</option>
                     @for ($year = 2000; $year <= date('Y') + 5; $year++)
                         <option value="{{ $year }}">{{ $year }}</option>
@@ -190,7 +190,7 @@
 
                 <div>
                     <label>No</label>
-                    <input type="number" name="no"  >
+                    <input type="number" name="no">
                 </div>
 
                 <div>
@@ -330,66 +330,68 @@
 
             document.getElementById("search-input").addEventListener("input", function(e) {
                 const keyword = e.target.value;
-                table.setFilter([{
-                        field: "periode",
-                        type: "like",
-                        value: keyword
-                    },
-                    {
-                        field: "no",
-                        type: "like",
-                        value: keyword
-                    },
-                    {
-                        field: "program_kerja",
-                        type: "like",
-                        value: keyword
-                    },
-                    {
-                        field: "kategori_aibt",
-                        type: "like",
-                        value: keyword
-                    },
-                    {
-                        field: "jenis_anggaran",
-                        type: "like",
-                        value: keyword
-                    },
-                    {
-                        field: "besar_rkap",
-                        type: "like",
-                        value: keyword
-                    },
-                    {
-                        field: "entitas",
-                        type: "like",
-                        value: keyword
-                    },
-                    {
-                        field: "unit",
-                        type: "like",
-                        value: keyword
-                    },
-                    {
-                        field: "nilai_kontrak",
-                        type: "like",
-                        value: keyword
-                    },
-                    {
-                        field: "kode",
-                        type: "like",
-                        value: keyword
-                    },
-                    {
-                        field: "kendala",
-                        type: "like",
-                        value: keyword
-                    },
-                    {
-                        field: "tindak_lanjut",
-                        type: "like",
-                        value: keyword
-                    }
+                table.setFilter([
+                    [{
+                            field: "periode",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "no",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "program_kerja",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "kategori_aibt",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "jenis_anggaran",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "besar_rkap",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "entitas",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "unit",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "nilai_kontrak",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "kode",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "kendala",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "tindak_lanjut",
+                            type: "like",
+                            value: keyword
+                        }
+                    ]
                 ]);
             });
 
@@ -397,7 +399,6 @@
                 document.getElementById("search-input").value = "";
                 table.clearFilter();
             }
-
 
             function loadData() {
                 fetch("/monev/shg/input-data/realisasi-progress-fisik-ai-pag/data", {
@@ -423,7 +424,7 @@
                             field: "id",
                             visible: false
                         },
-                       {
+                        {
                             title: "Periode",
                             field: "periode",
                             editor: "input",

@@ -16,6 +16,12 @@
 
             .tabulator-cell {
                 font-size: 14px;
+                white-space: normal !important;
+                word-wrap: break-word;
+            }
+
+            .tabulator-cell {
+                font-size: 14px;
             }
 
             .card {
@@ -181,12 +187,12 @@
 
                 <div>
                     <label>Periode</label>
-                    <input type="month" name="periode" id="periode"  >
+                    <input type="month" name="periode" id="periode">
                 </div>
 
                 <div>
                     <label>Company</label>
-                    <input type="text" name="company" id="company"  >
+                    <input type="text" name="company" id="company">
                 </div>
 
                 <div>

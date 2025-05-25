@@ -165,7 +165,11 @@ class MandatoryCertificationPliController extends Controller
 
     public function data()
     {
-        return response()->json(MandatoryCertificationPLI::all());
+       $TargetPLO = MandatoryCertificationPLI::select('*')
+            ->orderByRaw("STR_TO_DATE(CONCAT(periode, '-01'), '%Y-%m-%d') ASC")
+            ->get();
+
+        return response()->json($TargetPLO);
     }
 
     public function store(MandatoryCertificationPliRequest $request)

@@ -2,6 +2,7 @@
 <x-layouts.app :title="__('')">
     @push('styles')
         <link href="https://unpkg.com/tabulator-tables@5.6.0/dist/css/tabulator.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <style>
             .tabulator-wrapper {
                 overflow-x: auto;
@@ -327,7 +328,7 @@
 
     @push('scripts')
         <script src="https://unpkg.com/tabulator-tables@5.6.0/dist/js/tabulator.min.js"></script>
-
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         <script>
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
@@ -340,7 +341,7 @@
                         })
                         .then(res => res.json())
                         .then(result => {
-                            alert(result.message || "Data berhasil dihapus");
+                            alert(result.message || "Data berhasil dihapus");                        
                             loadData();
                         })
                         .catch(err => {
@@ -852,7 +853,6 @@
                     });
             });
         </script>
-
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 const tabButtons = document.querySelectorAll('#tabSwitcher a');

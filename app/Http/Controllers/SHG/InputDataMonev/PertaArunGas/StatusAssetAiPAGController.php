@@ -114,11 +114,8 @@ class StatusAssetAiPAGController extends Controller
 
     public function data()
     {
-       $TargetPLO = StatusAssetAiPAG::select('*')
-            ->addSelect(DB::raw("
-            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
-        "))
-            ->orderBy('periode_date', 'asc')
+        $TargetPLO = StatusAssetAiPAG::select('*')
+            ->orderByRaw("STR_TO_DATE(CONCAT(periode, '-01'), '%Y-%m-%d') ASC")
             ->get();
 
         return response()->json($TargetPLO);

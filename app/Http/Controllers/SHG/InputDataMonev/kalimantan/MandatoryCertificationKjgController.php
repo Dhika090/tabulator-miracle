@@ -159,17 +159,14 @@ class MandatoryCertificationKjgController extends Controller
             ],
         ];
 
-        return view('SHG.InputDataMonev.kalimantanJawa.MandatoryCertificationKJG', compact('tabs','sertifikasiOptions'));
+        return view('SHG.InputDataMonev.kalimantanJawa.MandatoryCertificationKJG', compact('tabs', 'sertifikasiOptions'));
     }
 
 
     public function data()
     {
-       $TargetPLO = MandatoryCertificationKjg::select('*')
-            ->addSelect(DB::raw("
-            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
-        "))
-            ->orderBy('periode_date', 'asc')
+        $TargetPLO = MandatoryCertificationKjg::select('*')
+            ->orderByRaw("STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%y') ASC")
             ->get();
 
         return response()->json($TargetPLO);

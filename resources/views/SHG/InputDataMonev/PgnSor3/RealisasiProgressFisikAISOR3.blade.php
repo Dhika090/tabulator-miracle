@@ -375,24 +375,6 @@
                         type: "like",
                         value: keyword
                     },
-                    ...["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"].map(
-                        bulan => ({
-                            field: `plan_${bulan.toLowerCase()}`,
-                            type: "like",
-                            value: keyword
-                        })),
-                    ...["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"].map(
-                        bulan => ({
-                            field: `prognosa_${bulan.toLowerCase()}`,
-                            type: "like",
-                            value: keyword
-                        })),
-                    ...["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"].map(
-                        bulan => ({
-                            field: `actual_${bulan.toLowerCase()}`,
-                            type: "like",
-                            value: keyword
-                        })),
                     {
                         field: "kode",
                         type: "like",

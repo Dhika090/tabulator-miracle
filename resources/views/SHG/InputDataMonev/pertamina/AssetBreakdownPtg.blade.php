@@ -422,6 +422,7 @@
                             title: "Periode",
                             field: "periode",
                             editor: "input",
+                            hozAlign: "center",
                             headerFilter: "select",
                             headerFilterParams: {
                                 values: [{
@@ -504,27 +505,34 @@
                         {
                             title: "Company",
                             field: "company",
-                            editor: "input"
+                            editor: "input",
+                            hozAlign: "center",
+
                         },
                         {
                             title: "Plant/Segment",
                             field: "plant_segment",
-                            editor: "input"
+                            editor: "input",
+                            hozAlign: "center",
+
                         },
                         {
                             title: "Kategori Criticality",
                             field: "kategori_criticality",
-                            editor: "input"
+                            editor: "input",
+                            hozAlign: "center",
                         },
                         {
                             title: "Tag",
                             field: "tag",
-                            editor: "input"
+                            editor: "input",
+                            hozAlign: "center",
                         },
                         {
                             title: "Deskripsi Peralatan",
                             field: "deskripsi_peralatan",
-                            editor: "input"
+                            editor: "input",
+                            hozAlign: "center",
                         },
                         {
                             title: "Jenis Kerusakan",

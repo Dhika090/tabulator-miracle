@@ -409,6 +409,7 @@
                             title: "Periode",
                             field: "periode",
                             editor: "input",
+                            hozAlign: "center",
                             headerFilter: "select",
                             headerFilterParams: {
                                 values: [{
@@ -491,7 +492,8 @@
                         {
                             title: "Company",
                             field: "company",
-                            editor: "input"
+                            editor: "input",
+                            hozAlign: "center",
                         },
                         {
                             title: "Plant/Segment",
@@ -501,7 +503,8 @@
                         {
                             title: "Kategori Criticality",
                             field: "kategori_criticality",
-                            editor: "input"
+                            editor: "input",
+                            hozAlign: "center",
                         },
                         {
                             title: "Tag",

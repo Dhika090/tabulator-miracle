@@ -125,7 +125,7 @@
     <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-                <h5 class="card-title mb-3 mb-md-0">Realisasi Progress Fisik AI KJG</h5>
+                <h5 class="card-title mb-3 mb-md-0">Realisasi Progress Fisik AI PTG</h5>
                 <div class="d-flex">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
@@ -394,66 +394,68 @@
 
             document.getElementById("search-input").addEventListener("input", function(e) {
                 const keyword = e.target.value;
-                table.setFilter([{
-                        field: "periode",
-                        type: "like",
-                        value: keyword
-                    },
-                    {
-                        field: "no",
-                        type: "like",
-                        value: keyword
-                    },
-                    {
-                        field: "program_kerja",
-                        type: "like",
-                        value: keyword
-                    },
-                    {
-                        field: "kategori_aibt",
-                        type: "like",
-                        value: keyword
-                    },
-                    {
-                        field: "jenis_anggaran",
-                        type: "like",
-                        value: keyword
-                    },
-                    {
-                        field: "besar_rkap",
-                        type: "like",
-                        value: keyword
-                    },
-                    {
-                        field: "entitas",
-                        type: "like",
-                        value: keyword
-                    },
-                    {
-                        field: "unit",
-                        type: "like",
-                        value: keyword
-                    },
-                    {
-                        field: "nilai_kontrak",
-                        type: "like",
-                        value: keyword
-                    },
-                    {
-                        field: "kode",
-                        type: "like",
-                        value: keyword
-                    },
-                    {
-                        field: "kendala",
-                        type: "like",
-                        value: keyword
-                    },
-                    {
-                        field: "tindak_lanjut",
-                        type: "like",
-                        value: keyword
-                    }
+                table.setFilter([
+                    [{
+                            field: "periode",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "no",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "program_kerja",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "kategori_aibt",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "jenis_anggaran",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "besar_rkap",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "entitas",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "unit",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "nilai_kontrak",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "kode",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "kendala",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "tindak_lanjut",
+                            type: "like",
+                            value: keyword
+                        }
+                    ]
                 ]);
             });
 
@@ -461,7 +463,6 @@
                 document.getElementById("search-input").value = "";
                 table.clearFilter();
             }
-
 
             function loadData() {
                 fetch("/monev/shg/input-data/realisasi-progress-fisik-ai-ptg/data", {
@@ -645,7 +646,8 @@
                         {
                             title: "Tindak Lanjut",
                             field: "tindak_lanjut",
-                            editor: "input"
+                            editor: "input",
+                            width: 400
                         },
                         {
                             title: "Aksi",

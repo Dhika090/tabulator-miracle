@@ -83,7 +83,6 @@ class RealisasiProgressFisikAiWmnController extends Controller
         return response()->json(RealisasiProgressFisikAiWmn::all());
     }
 
-
     public function store(RealisasiProgresFisikAiAiWmnRequest $request)
     {
         $data = $request->validated();
@@ -95,7 +94,6 @@ class RealisasiProgressFisikAiWmnController extends Controller
             'data' => $data
         ]);
     }
-
 
     public function update(RealisasiProgresFisikAiAiWmnRequest $request, $id)
     {

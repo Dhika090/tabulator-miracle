@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\WidarMandripa\SistemInformasiWmnRequest;
 use App\Models\SHG\WidarMandripa\SistemInformasiWMN;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SisteminformasiAimsWmnController extends Controller
 {
@@ -80,7 +81,15 @@ class SisteminformasiAimsWmnController extends Controller
 
     public function data()
     {
-        return response()->json(SistemInformasiWMN::all());
+        $TargetPLO = SistemInformasiWMN::select('*')
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderBy('periode_date', 'asc')
+            ->get();
+
+        return response()->json($TargetPLO);
+
     }
 
 
