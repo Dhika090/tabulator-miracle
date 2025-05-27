@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\PgnSor1\StatusPloSOR1Request;
 use App\Models\SHG\PgnSor1\StatusPloSOR1;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class StatusPloSOR1Controller extends Controller
 {
@@ -98,7 +99,13 @@ class StatusPloSOR1Controller extends Controller
 
     public function data()
     {
-        $TargetPLO = StatusPloSOR1::all();
+        $TargetPLO = StatusPloSOR1::select('*')
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderBy('periode_date', 'asc')
+            ->get();
+
         return response()->json($TargetPLO);
     }
     public function update(StatusPloSOR1Request $request, $id)

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\PgnSor1\KondisiVacantAimsSOR1Request;
 use App\Models\SHG\PgnSor1\KondisiVacantAimsSOR1;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class KondisiVacantAimsSOR1Controller extends Controller
 {
@@ -99,7 +100,13 @@ class KondisiVacantAimsSOR1Controller extends Controller
 
     public function data()
     {
-        $TargetPLO = KondisiVacantAimsSOR1::all();
+        $TargetPLO = KondisiVacantAimsSOR1::select('*')
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderBy('periode_date', 'asc')
+            ->get();
+
         return response()->json($TargetPLO);
     }
     public function update(KondisiVacantAimsSOR1Request $request, $id)

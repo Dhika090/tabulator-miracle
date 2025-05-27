@@ -186,16 +186,16 @@
 
                 <div>
                     <label>Periode</label>
-                    <input type="month" name="periode" id="periode" >
+                    <input type="month" name="periode" id="periode">
                 </div>
 
                 <div>
                     <label>Subholding</label>
-                    <input type="text" name="subholding" id="subholding" >
+                    <input type="text" name="subholding" id="subholding">
                 </div>
 
                 <label for="company">Company:</label>
-                <select name="company" id="company"  class="form-select">
+                <select name="company" id="company" class="form-select">
                     <option value="">-- Pilih Company --</option>
                     @foreach ($companies as $company)
                         <option value="{{ $company }}">{{ $company }}</option>
@@ -204,12 +204,12 @@
 
                 <div>
                     <label>Unit</label>
-                    <input type="text" name="unit" id="unit" >
+                    <input type="text" name="unit" id="unit">
                 </div>
 
                 <div>
                     <label>Asset Group</label>
-                    <input type="text" name="asset_group" id="asset_group" >
+                    <input type="text" name="asset_group" id="asset_group">
                 </div>
 
                 <div>
@@ -422,7 +422,7 @@
                             field: "id",
                             visible: false
                         },
-                       {
+                        {
                             title: "Periode",
                             field: "periode",
                             editor: "input",

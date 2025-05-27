@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\PertagasNiaga\PelatihanAimsPTGNRequest;
 use App\Models\SHG\PertagasNiaga\PelatihanAimsPTGN;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PelatihanAimsPTGNController extends Controller
 {
@@ -99,7 +100,13 @@ class PelatihanAimsPTGNController extends Controller
 
     public function data()
     {
-        $TargetPLO = PelatihanAimsPTGN::all();
+        $TargetPLO = PelatihanAimsPTGN::select('*')
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderBy('periode_date', 'asc')
+            ->get();
+
         return response()->json($TargetPLO);
     }
     public function update(PelatihanAimsPTGNRequest $request, $id)

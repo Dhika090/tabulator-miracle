@@ -85,7 +85,6 @@ class AvailabilityPTGNController extends Controller
         return view('SHG.InputDataMonev.pertagasNiaga.AvailabilityPTGN', compact('tabs'));
     }
 
-
     public function store(AvailabilityPTGNRequest $request)
     {
         $validated = $request->validated();
@@ -100,8 +99,6 @@ class AvailabilityPTGNController extends Controller
 
     public function data()
     {
-        // $TargetPLO = AvailabilityPTGN::all();
-        // return response()->json($TargetPLO);
         $TargetPLO = AvailabilityPTGN::select('*')
             ->addSelect(DB::raw("
             STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date

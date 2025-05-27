@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\PgnSor2\AirBudgetTaggingSOR2Request;
 use App\Models\SHG\PgnSor2\AirBudgetTaggingAiSOR2;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AirBudgetTaggingSOR2controller extends Controller
 {
@@ -98,7 +99,13 @@ class AirBudgetTaggingSOR2controller extends Controller
 
     public function data()
     {
-        $TargetPLO = AirBudgetTaggingAiSOR2::all();
+        $TargetPLO = AirBudgetTaggingAiSOR2::select('*')
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderBy('periode_date', 'asc')
+            ->get();
+
         return response()->json($TargetPLO);
     }
     public function update(AirBudgetTaggingSOR2Request $request, $id)

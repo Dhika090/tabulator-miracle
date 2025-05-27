@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\TransportasiGas\AirBudgetTaggingTGIRequest;
 use App\Models\SHG\TransportasiGas\AirBudgetTaggingTGI;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AirBudgetTaggingTGIController extends Controller
 {
@@ -93,7 +94,13 @@ class AirBudgetTaggingTGIController extends Controller
 
     public function data()
     {
-        $TargetPLO = AirBudgetTaggingTGI::all();
+       $TargetPLO = AirBudgetTaggingTGI::select('*')
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderBy('periode_date', 'asc')
+            ->get();
+
         return response()->json($TargetPLO);
     }
     public function update(AirBudgetTaggingTGIRequest $request, $id)

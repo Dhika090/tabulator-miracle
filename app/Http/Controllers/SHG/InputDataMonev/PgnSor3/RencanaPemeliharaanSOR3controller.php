@@ -6,13 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\PgnSor3\RencanaPemeliharaanSOR3Request;
 use App\Models\SHG\PgnSor3\RencanaPemeliharaanSOR3;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RencanaPemeliharaanSOR3controller extends Controller
 {
     public function index(Request $request)
     {
-
-         $tabs = [
+        $tabs = [
             [
                 'title' => 'Status Asset 2025 AI PGN SOR 3',
                 'route' => route('pgn-sor3'),
@@ -97,7 +97,14 @@ class RencanaPemeliharaanSOR3controller extends Controller
 
     public function data()
     {
-        $TargetPLO = RencanaPemeliharaanSOR3::all();
+        $TargetPLO = RencanaPemeliharaanSOR3::select('*')
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderBy('periode_date', 'asc')
+            ->orderBy('no', 'asc')
+            ->get();
+
         return response()->json($TargetPLO);
     }
     public function update(RencanaPemeliharaanSOR3Request $request, $id)

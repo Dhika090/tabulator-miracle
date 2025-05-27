@@ -12,7 +12,6 @@ class RencanaPemeliharaanPTGNController extends Controller
 
     public function index(Request $request)
     {
-
         $tabs = [
             [
                 'title' => 'Status Asset 2025 AI PTGN',

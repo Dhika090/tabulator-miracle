@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\PgnOmm\ReliabilityOmmRequest;
 use App\Models\SHG\PgnOmm\ReliabilityOmm;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ReliabilityOmmController extends Controller
 {
@@ -104,7 +105,13 @@ class ReliabilityOmmController extends Controller
 
     public function data()
     {
-        $TargetPLO = ReliabilityOmm::all();
+        $TargetPLO = ReliabilityOmm::select('*')
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderBy('periode', 'asc')
+            ->get();
+
         return response()->json($TargetPLO);
     }
     public function update(ReliabilityOmmRequest $request, $id)

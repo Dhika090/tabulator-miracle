@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\SakaEnergi\SistemInformasiAimsSakaRequest;
 use App\Models\SHG\SakaEnergi\SistemInformasiAimsSAKA;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SistemInformasiAimsSakaController extends Controller
 {
@@ -92,7 +93,13 @@ class SistemInformasiAimsSakaController extends Controller
 
     public function data()
     {
-        $TargetPLO = SistemInformasiAimsSAKA::all();
+        $TargetPLO = SistemInformasiAimsSAKA::select('*')
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderBy('periode_date', 'asc')
+            ->get();
+
         return response()->json($TargetPLO);
     }
     public function update(SistemInformasiAimsSakaRequest $request, $id)

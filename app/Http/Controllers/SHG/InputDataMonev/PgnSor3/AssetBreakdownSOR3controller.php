@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\PgnSor3\AssetBreakDownSOR3Request;
 use App\Models\SHG\PgnSor3\AssetBreakdownSOR3;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AssetBreakdownSOR3controller extends Controller
 {
@@ -96,7 +97,13 @@ class AssetBreakdownSOR3controller extends Controller
 
     public function data()
     {
-        $TargetPLO = AssetBreakdownSOR3::all();
+        $TargetPLO = AssetBreakdownSOR3::select('*')
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderBy('periode_date', 'asc')
+            ->get();
+
         return response()->json($TargetPLO);
     }
     public function update(AssetBreakDownSOR3Request $request, $id)

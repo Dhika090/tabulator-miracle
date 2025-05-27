@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\PertagasNiaga\SistemInformasiAimsPTGNRequest;
 use App\Models\SHG\PertagasNiaga\SistemInformasiAimsPTGN;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SistemInformasiAimsPTGNController extends Controller
 {
@@ -99,7 +100,13 @@ class SistemInformasiAimsPTGNController extends Controller
 
     public function data()
     {
-        $TargetPLO = SistemInformasiAimsPTGN::all();
+        $TargetPLO = SistemInformasiAimsPTGN::select('*')
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderBy('periode_date', 'asc')
+            ->get();
+
         return response()->json($TargetPLO);
     }
     public function update(SistemInformasiAimsPTGNRequest $request, $id)

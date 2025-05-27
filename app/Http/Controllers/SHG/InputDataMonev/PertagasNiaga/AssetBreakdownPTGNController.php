@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\PertagasNiaga\AssetBreakdownPTGNRequest;
 use App\Models\SHG\PertagasNiaga\AssetBreakdownPTGN;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AssetBreakdownPTGNController extends Controller
 {
@@ -97,7 +98,13 @@ class AssetBreakdownPTGNController extends Controller
 
     public function data()
     {
-        $TargetPLO = AssetBreakdownPTGN::all();
+        $TargetPLO = AssetBreakdownPTGN::select('*')
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderBy('periode_date', 'asc')
+            ->get();
+
         return response()->json($TargetPLO);
     }
     public function update(AssetBreakdownPTGNRequest $request, $id)

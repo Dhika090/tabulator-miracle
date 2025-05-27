@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\SakaEnergi\PelatihanAimsSakaRequest;
 use App\Models\SHG\SakaEnergi\PelatihanimsSAKA;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PelatihanAimsSakaController extends Controller
 {
@@ -92,7 +93,13 @@ class PelatihanAimsSakaController extends Controller
 
     public function data()
     {
-        $TargetPLO = PelatihanimsSAKA::all();
+        $TargetPLO = PelatihanimsSAKA::select('*')
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderBy('periode_date', 'asc')
+            ->get();
+
         return response()->json($TargetPLO);
     }
     public function update(PelatihanAimsSakaRequest $request, $id)

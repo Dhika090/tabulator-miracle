@@ -186,12 +186,12 @@
                 <input type="hidden" name="id" id="form-id">
                 <div>
                     <label for="periode">Periode</label>
-                    <input type="month" id="periode" name="periode"  >
+                    <input type="month" id="periode" name="periode">
                 </div>
 
                 <div>
                     <label for="company">Company</label>
-                    <input type="text" id="company" name="company"  >
+                    <input type="text" id="company" name="company">
                 </div>
 
                 <div>
@@ -380,10 +380,11 @@
                             field: "id",
                             visible: false
                         },
-                       {
+                        {
                             title: "Periode",
                             field: "periode",
                             editor: "input",
+                            hozAlign: "center",
                             headerFilter: "select",
                             headerFilterParams: {
                                 values: [{
@@ -466,7 +467,8 @@
                         {
                             title: "Company",
                             field: "company",
-                            editor: "input"
+                            editor: "input",
+                            hozAlign: "center",
                         },
                         {
                             title: "Jumlah Aset Operasi",

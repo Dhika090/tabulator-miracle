@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\PgnSor1\AvailabilitySOR1Request;
 use App\Models\SHG\PgnSor1\AvailabilitySOR1;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AvailabilitySOR1Controller extends Controller
 {
@@ -97,7 +98,13 @@ class AvailabilitySOR1Controller extends Controller
 
     public function data()
     {
-        $TargetPLO = AvailabilitySOR1::all();
+        $TargetPLO = AvailabilitySOR1::select('*')
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderBy('periode_date', 'asc')
+            ->get();
+
         return response()->json($TargetPLO);
     }
     public function update(AvailabilitySOR1Request $request, $id)

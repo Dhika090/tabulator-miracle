@@ -63,7 +63,7 @@ class RencanaPemeliharaanSakaController extends Controller
                 'route' => route('air-budget-tagging-saka'),
                 'active' => request()->routeIs('air-budget-tagging-saka'),
             ],
-             [
+            [
                 'title' => 'Realisasi Anggaran AI Saka',
                 'route' => route('realisasi-anggaran-ai-saka'),
                 'active' => request()->routeIs('realisasi-anggaran-ai-saka'),
@@ -97,7 +97,10 @@ class RencanaPemeliharaanSakaController extends Controller
 
     public function data()
     {
-        $TargetPLO = RencanaPemeliharaanSAKA::all();
+        $TargetPLO = RencanaPemeliharaanSAKA::select('*')
+            ->orderBy('no', 'asc')
+            ->get();
+
         return response()->json($TargetPLO);
     }
     public function update(RencanaPemeliharaanSakaRequest $request, $id)

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\PgnOmm\MandatoryCertificationOmmRequest;
 use App\Models\SHG\PgnOmm\MandatoryCertificationOmm;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MandatoryCertificationOmmController extends Controller
 {
@@ -193,8 +194,15 @@ class MandatoryCertificationOmmController extends Controller
 
     public function data()
     {
-        $TargetPLO = MandatoryCertificationOmm::all();
+        $TargetPLO = MandatoryCertificationOmm::select('*')
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderBy('periode_date', 'asc')
+            ->get();
+
         return response()->json($TargetPLO);
+
     }
     public function update(MandatoryCertificationOmmRequest $request, $id)
     {

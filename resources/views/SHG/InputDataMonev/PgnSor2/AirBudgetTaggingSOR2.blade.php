@@ -422,7 +422,7 @@
                             field: "id",
                             visible: false
                         },
-                       {
+                        {
                             title: "Periode",
                             field: "periode",
                             editor: "input",
@@ -508,12 +508,15 @@
                         {
                             title: "Satker",
                             field: "satker",
-                            editor: "input"
+                            editor: "input",
+                            hozAlign: "center",
+
                         },
                         {
                             title: "Kategori",
                             field: "kategori",
-                            editor: "input"
+                            editor: "input",
+                            hozAlign: "center",
                         },
                         {
                             title: "CE",

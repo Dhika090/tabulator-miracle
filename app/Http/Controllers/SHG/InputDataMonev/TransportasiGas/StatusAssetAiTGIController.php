@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\TransportasiGas\StatusAssetAiTGIRequest;
 use App\Models\SHG\TransportasiGas\StatusAssetAiTGI;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class StatusAssetAiTGIController extends Controller
 {
@@ -102,7 +103,14 @@ class StatusAssetAiTGIController extends Controller
 
     public function data()
     {
-        return response()->json(StatusAssetAiTGI::all());
+        $TargetPLO = StatusAssetAiTGI::select('*')
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderBy('periode_date', 'asc')
+            ->get();
+
+        return response()->json($TargetPLO);
     }
 
 

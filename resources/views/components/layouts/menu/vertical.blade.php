@@ -80,13 +80,6 @@
             <a class="menu-link" href="{{ route('dashboard') }}" wire:navigate>{{ __('Dashboard') }}</a>
         </li>
 
-        {{-- <li class="menu-item {{ request()->is('monev/*') ? 'active open' : '' }}">
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-bar-chart-square"></i>
-                <div class="text-truncate">{{ __('Monev AIM') }}</div>
-            </a>
-            <ul class="menu-sub"> --}}
-        {{-- SHG --}}
         <li class="menu-item {{ request()->is('monev/shg/*') ? 'active open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-building-house"></i>
@@ -139,7 +132,7 @@
                     </a>
                     <ul class="menu-sub">
                         <li
-                            class="menu-item {{ request()->is('monev/shg/input-data/pertamina-gas') ? 'active' : '' }}">
+                            class="menu-item {{ request()->is('monev/shg/input-data/pertamina-gas*') ? 'active' : '' }}">
                             <a class="menu-link" href="{{ url('monev/shg/input-data/pertamina-gas') }}">
                                 <i class="fa fa-wrench me-2"></i>PT Pertamina Gas
                             </a>

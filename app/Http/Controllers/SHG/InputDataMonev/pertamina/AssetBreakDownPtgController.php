@@ -83,7 +83,6 @@ class AssetBreakDownPtgController extends Controller
         // return view('SHG.InputDataMonev.pertamina.AssetBreakdownPtg');
     }
 
-
     public function data()
     {
         $TargetPLO = AssetBreakdownPtg::select('*')

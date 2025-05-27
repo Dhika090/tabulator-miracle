@@ -410,10 +410,11 @@
                             field: "id",
                             visible: false
                         },
-                       {
+                        {
                             title: "Periode",
                             field: "periode",
                             editor: "input",
+                            hozAlign: "center",
                             headerFilter: "select",
                             headerFilterParams: {
                                 values: [{
@@ -496,18 +497,21 @@
                         {
                             title: "Company",
                             field: "company",
-                            editor: "input"
+                            editor: "input",
+                            hozAlign: "center",
                         },
                         {
                             title: "Plant/Segment",
                             field: "plant_segment",
-                            editor: "input"
+                            editor: "input",
+                            hozAlign: "center",
                         },
                         {
                             title: "Kategori Criticality",
                             field: "kategori_criticality",
                             editor: "input",
-                            width: 400
+                            width: 400,
+                            hozAlign: "center",
                         },
                         {
                             title: "Tag",
@@ -530,7 +534,8 @@
                         {
                             title: "Penyebab/Root Cause",
                             field: "penyebab",
-                            editor: "input"
+                            editor: "input",
+                            width: 400
                         },
                         {
                             title: "Kendala Perbaikan",

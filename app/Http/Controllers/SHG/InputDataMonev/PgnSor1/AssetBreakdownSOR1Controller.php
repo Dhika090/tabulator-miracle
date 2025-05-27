@@ -6,10 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\PgnSor1\AssetBreakdownSOR1Request;
 use App\Models\SHG\PgnSor1\AssetBreakdownSOR1;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AssetBreakdownSOR1Controller extends Controller
 {
-
     public function index(Request $request)
     {
 
@@ -98,9 +98,16 @@ class AssetBreakdownSOR1Controller extends Controller
 
     public function data()
     {
-        $TargetPLO = AssetBreakdownSOR1::all();
+        $TargetPLO = AssetBreakdownSOR1::select('*')
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderBy('periode', 'asc')
+            ->get();
+
         return response()->json($TargetPLO);
     }
+    
     public function update(AssetBreakdownSOR1Request $request, $id)
     {
         $progress = AssetBreakdownSOR1::findOrFail($id);

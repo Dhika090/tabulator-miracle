@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\PertagasNiaga\StatusPloPTGNRequest;
 use App\Models\SHG\PertagasNiaga\StatusPloPTGN;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class StatusPloPTGNController extends Controller
 {
@@ -98,7 +99,13 @@ class StatusPloPTGNController extends Controller
 
     public function data()
     {
-        $TargetPLO = StatusPloPTGN::all();
+         $TargetPLO = StatusPloPTGN::select('*')
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderBy('periode_date', 'asc')
+            ->get();
+
         return response()->json($TargetPLO);
     }
     public function update(StatusPloPTGNRequest $request, $id)

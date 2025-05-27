@@ -104,8 +104,6 @@ class AvailabilityOmmController extends Controller
 
     public function data()
     {
-        // $TargetPLO = AvailabilityOmm::all();
-        // return response()->json($TargetPLO);
         $TargetPLO = AvailabilityOmm::select('*')
             ->addSelect(DB::raw("
             STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date

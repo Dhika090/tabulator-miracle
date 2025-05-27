@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\TransportasiGas\RealisasiAnggaranAiTGIRequest;
 use App\Models\SHG\TransportasiGas\RealisasiAnggaranAiTGI;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RealisasiAnggaranAiTGIController extends Controller
 {
@@ -93,8 +94,16 @@ class RealisasiAnggaranAiTGIController extends Controller
 
     public function data()
     {
-        $TargetPLO = RealisasiAnggaranAiTGI::all();
+        $TargetPLO = RealisasiAnggaranAiTGI::select('*')
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderBy('periode_date', 'asc')
+            ->orderBy('no', 'asc')
+            ->get();
+
         return response()->json($TargetPLO);
+
     }
     public function update(RealisasiAnggaranAiTGIRequest $request, $id)
     {

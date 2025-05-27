@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\PgnSor3\StatusAssetAiSOR3Request;
 use App\Models\SHG\PgnSor3\StatusAssetAiSOR3;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class StatusAssetAiSOR3controller extends Controller
 {
@@ -104,12 +105,17 @@ class StatusAssetAiSOR3controller extends Controller
         return view('SHG.InputDataMonev.PgnSor3.StatusAssetAiSOR3', compact('tabs', 'companies'));
     }
 
-
     public function data()
     {
-        return response()->json(StatusAssetAiSOR3::all());
-    }
+        $TargetPLO = StatusAssetAiSOR3::select('*')
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderBy('periode', 'asc')
+            ->get();
 
+        return response()->json($TargetPLO);
+    }
 
     public function store(StatusAssetAiSOR3Request $request)
     {

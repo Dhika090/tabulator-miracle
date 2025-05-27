@@ -1,3 +1,4 @@
+@section('title', __(''))
 <x-layouts.app :title="__('')">
     @push('styles')
         <link href="https://unpkg.com/tabulator-tables@5.6.0/dist/css/tabulator.min.css" rel="stylesheet">
@@ -13,6 +14,12 @@
                 box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             }
 
+            .tabulator-cell {
+                font-size: 14px;
+                white-space: normal !important;
+                word-wrap: break-word;
+            }
+
             .card {
                 margin-top: 20px;
             }
@@ -20,12 +27,6 @@
             .tab-scroll-wrapper {
                 border-bottom: 1px solid #dee2e6;
                 padding-bottom: 5px;
-            }
-
-            .tabulator-cell {
-                font-size: 14px;
-                white-space: normal !important;
-                word-wrap: break-word;
             }
 
             .tab-scroll-wrapper {
@@ -39,6 +40,7 @@
                 white-space: nowrap;
                 position: relative;
             }
+
 
             #tabSwitcher .btn {
                 border-radius: 0;
@@ -120,7 +122,7 @@
     <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-                <h5 class="card-title mb-3 mb-md-0">Realisasi Progress Fisik AI SOR3</h5>
+                <h5 class="card-title mb-3 mb-md-0">Realisasi Progress Fisik AI KJG</h5>
                 <div class="d-flex">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
@@ -175,17 +177,12 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Tambah Data Realisasi Progress Fisik AI 2025</h3>
+            <h3>Tambah Data Realisasi Anggaran AI 2025</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
                 <div>
-                    <label for="periode">Periode (Tahun):</label>
-                    <select name="periode" id="periode" class="form-select">
-                        <option value="" selected disabled>Pilih Periode</option>
-                        @for ($year = 2000; $year <= date('Y') + 5; $year++)
-                            <option value="{{ $year }}">{{ $year }}</option>
-                        @endfor
-                    </select>
+                    <label>Periode</label>
+                    <input type="month" name="periode">
                 </div>
 
                 <div>
@@ -210,7 +207,7 @@
 
                 <div>
                     <label>Besar RKAP</label>
-                    <input type="number" name="besar_rkap" id="besar_rkap" step="any">
+                    <input type="number" name="besar_rkap" step="0.01">
                 </div>
 
                 <div>
@@ -230,58 +227,34 @@
 
                 <fieldset>
                     <legend>Rencana (Plan)</legend>
-                    <label>Plan Jan</label><input type="text" name="plan_jan" pattern="^\d+(\.\d+)?$"
-                        inputmode="numeric">
-                    <label>Plan Feb</label><input type="text" name="plan_feb" pattern="^\d+(\.\d+)?$"
-                        inputmode="numeric">
-                    <label>Plan Mar</label><input type="text" name="plan_mar" pattern="^\d+(\.\d+)?$"
-                        inputmode="numeric">
-                    <label>Plan Apr</label><input type="text" name="plan_apr" pattern="^\d+(\.\d+)?$"
-                        inputmode="numeric">
-                    <label>Plan May</label><input type="text" name="plan_may" pattern="^\d+(\.\d+)?$"
-                        inputmode="numeric">
-                    <label>Plan Jun</label><input type="text" name="plan_jun" pattern="^\d+(\.\d+)?$"
-                        inputmode="numeric">
-                    <label>Plan Jul</label><input type="text" name="plan_jul" pattern="^\d+(\.\d+)?$"
-                        inputmode="numeric">
-                    <label>Plan Aug</label><input type="text" name="plan_aug" pattern="^\d+(\.\d+)?$"
-                        inputmode="numeric">
-                    <label>Plan Sep</label><input type="text" name="plan_sep" pattern="^\d+(\.\d+)?$"
-                        inputmode="numeric">
-                    <label>Plan Oct</label><input type="text" name="plan_oct" pattern="^\d+(\.\d+)?$"
-                        inputmode="numeric">
-                    <label>Plan Nov</label><input type="text" name="plan_nov" pattern="^\d+(\.\d+)?$"
-                        inputmode="numeric">
-                    <label>Plan Dec</label><input type="text" name="plan_dec" pattern="^\d+(\.\d+)?$"
-                        inputmode="numeric">
+                    <label>Plan Jan</label><input type="number" name="plan_jan" step="0.01">
+                    <label>Plan Feb</label><input type="number" name="plan_feb" step="0.01">
+                    <label>Plan Mar</label><input type="number" name="plan_mar" step="0.01">
+                    <label>Plan Apr</label><input type="number" name="plan_apr" step="0.01">
+                    <label>Plan May</label><input type="number" name="plan_may" step="0.01">
+                    <label>Plan Jun</label><input type="number" name="plan_jun" step="0.01">
+                    <label>Plan Jul</label><input type="number" name="plan_jul" step="0.01">
+                    <label>Plan Aug</label><input type="number" name="plan_aug" step="0.01">
+                    <label>Plan Sep</label><input type="number" name="plan_sep" step="0.01">
+                    <label>Plan Oct</label><input type="number" name="plan_oct" step="0.01">
+                    <label>Plan Nov</label><input type="number" name="plan_nov" step="0.01">
+                    <label>Plan Dec</label><input type="number" name="plan_dec" step="0.01">
                 </fieldset>
 
                 <fieldset>
                     <legend>Realisasi (Actual)</legend>
-                    <label>Actual Jan</label><input type="text" name="actual_jan" pattern="^\d+(\.\d+)?$"
-                        inputmode="numeric">
-                    <label>Actual Feb</label><input type="text" name="actual_feb" pattern="^\d+(\.\d+)?$"
-                        inputmode="numeric">
-                    <label>Actual Mar</label><input type="text" name="actual_mar" pattern="^\d+(\.\d+)?$"
-                        inputmode="numeric">
-                    <label>Actual Apr</label><input type="text" name="actual_apr" pattern="^\d+(\.\d+)?$"
-                        inputmode="numeric">
-                    <label>Actual May</label><input type="text" name="actual_may" pattern="^\d+(\.\d+)?$"
-                        inputmode="numeric">
-                    <label>Actual Jun</label><input type="text" name="actual_jun" pattern="^\d+(\.\d+)?$"
-                        inputmode="numeric">
-                    <label>Actual Jul</label><input type="text" name="actual_jul" pattern="^\d+(\.\d+)?$"
-                        inputmode="numeric">
-                    <label>Actual Aug</label><input type="text" name="actual_aug" pattern="^\d+(\.\d+)?$"
-                        inputmode="numeric">
-                    <label>Actual Sep</label><input type="text" name="actual_sep" pattern="^\d+(\.\d+)?$"
-                        inputmode="numeric">
-                    <label>Actual Oct</label><input type="text" name="actual_oct" pattern="^\d+(\.\d+)?$"
-                        inputmode="numeric">
-                    <label>Actual Nov</label><input type="text" name="actual_nov" pattern="^\d+(\.\d+)?$"
-                        inputmode="numeric">
-                    <label>Actual Dec</label><input type="text" name="actual_dec" pattern="^\d+(\.\d+)?$"
-                        inputmode="numeric">
+                    <label>Actual Jan</label><input type="number" name="actual_jan" step="0.01">
+                    <label>Actual Feb</label><input type="number" name="actual_feb" step="0.01">
+                    <label>Actual Mar</label><input type="number" name="actual_mar" step="0.01">
+                    <label>Actual Apr</label><input type="number" name="actual_apr" step="0.01">
+                    <label>Actual May</label><input type="number" name="actual_may" step="0.01">
+                    <label>Actual Jun</label><input type="number" name="actual_jun" step="0.01">
+                    <label>Actual Jul</label><input type="number" name="actual_jul" step="0.01">
+                    <label>Actual Aug</label><input type="number" name="actual_aug" step="0.01">
+                    <label>Actual Sep</label><input type="number" name="actual_sep" step="0.01">
+                    <label>Actual Oct</label><input type="number" name="actual_oct" step="0.01">
+                    <label>Actual Nov</label><input type="number" name="actual_nov" step="0.01">
+                    <label>Actual Dec</label><input type="number" name="actual_dec" step="0.01">
                 </fieldset>
 
                 <div>
@@ -330,66 +303,68 @@
 
             document.getElementById("search-input").addEventListener("input", function(e) {
                 const keyword = e.target.value;
-                table.setFilter([{
-                        field: "periode",
-                        type: "like",
-                        value: keyword
-                    },
-                    {
-                        field: "no",
-                        type: "like",
-                        value: keyword
-                    },
-                    {
-                        field: "program_kerja",
-                        type: "like",
-                        value: keyword
-                    },
-                    {
-                        field: "kategori_aibt",
-                        type: "like",
-                        value: keyword
-                    },
-                    {
-                        field: "jenis_anggaran",
-                        type: "like",
-                        value: keyword
-                    },
-                    {
-                        field: "besar_rkap",
-                        type: "like",
-                        value: keyword
-                    },
-                    {
-                        field: "entitas",
-                        type: "like",
-                        value: keyword
-                    },
-                    {
-                        field: "unit",
-                        type: "like",
-                        value: keyword
-                    },
-                    {
-                        field: "nilai_kontrak",
-                        type: "like",
-                        value: keyword
-                    },
-                    {
-                        field: "kode",
-                        type: "like",
-                        value: keyword
-                    },
-                    {
-                        field: "kendala",
-                        type: "like",
-                        value: keyword
-                    },
-                    {
-                        field: "tindak_lanjut",
-                        type: "like",
-                        value: keyword
-                    }
+                table.setFilter([
+                    [{
+                            field: "periode",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "no",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "program_kerja",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "kategori_aibt",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "jenis_anggaran",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "besar_rkap",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "entitas",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "unit",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "nilai_kontrak",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "kode",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "kendala",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "tindak_lanjut",
+                            type: "like",
+                            value: keyword
+                        }
+                    ]
                 ]);
             });
 
@@ -508,8 +483,7 @@
                         {
                             title: "No",
                             field: "no",
-                            hozAlign: "center",
-                            editor: "number",
+                            editor: "number"
                         },
                         {
                             title: "Program Kerja",
@@ -520,78 +494,51 @@
                         {
                             title: "Kategori AIBT",
                             field: "kategori_aibt",
-                            editor: "input",
-                            hozAlign: "center",
+                            editor: "input"
                         },
                         {
                             title: "Jenis Anggaran",
                             field: "jenis_anggaran",
-                            editor: "input",
-                            hozAlign: "center",
+                            editor: "input"
                         },
                         {
                             title: "Besar RKAP",
                             field: "besar_rkap",
-                            editor: "input",
-                            hozAlign: "center",
-                            formatter: function(cell) {
-                                let rawValue = cell.getValue();
-                                if (rawValue === null || rawValue === undefined || rawValue === "") {
-                                    return "0.00";
-                                }
-
-                                let cleanValue = rawValue.toString().replace(/[^0-9.-]+/g, '');
-                                let value = parseFloat(cleanValue);
-
-                                if (!isNaN(value)) {
-                                    return value.toLocaleString("en-US", {
-                                        minimumFractionDigits: 2,
-                                        maximumFractionDigits: 2
-                                    });
-                                }
-
-                                return "0.00";
-                            },
+                            editor: "number"
                         },
                         {
                             title: "Entitas",
                             field: "entitas",
-                            editor: "input",
-                            hozAlign: "center",
+                            editor: "input"
                         },
                         {
                             title: "Unit",
                             field: "unit",
-                            editor: "input",
-                            hozAlign: "center",
+                            editor: "input"
                         },
                         {
                             title: "Nilai Kontrak",
                             field: "nilai_kontrak",
-                            editor: "number",
-                            whozAlign: "center",
+                            editor: "number"
                         },
                         // Plan Fields
                         ...["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
                         .map(bulan => ({
                             title: `Plan ${bulan}`,
                             field: `plan_${bulan.toLowerCase()}`,
-                            editor: "input",
-                            hozAlign: "center",
+                            editor: "number"
                         })),
                         // Actual Fields
                         ...["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
                         .map(bulan => ({
                             title: `Actual ${bulan}`,
                             field: `actual_${bulan.toLowerCase()}`,
-                            editor: "input",
-                            hozAlign: "center",
+                            editor: "number"
                         })),
                         {
                             title: "Kode",
                             field: "kode",
-                            editor: "input",
-                            hozAlign: "center",
+                            editor: "input"
                         },
                         {
                             title: "Kendala",
@@ -655,27 +602,6 @@
                     },
                 });
 
-                table.on("cellEdited", function(cell) {
-                    const updatedData = cell.getRow().getData();
-                    const id = updatedData.id;
-
-                    if (!id) return;
-
-                    fetch(`realisasi-progress-fisik-ai-sor3/${id}`, {
-                            method: "PUT",
-                            headers: {
-                                "Content-Type": "application/json",
-                                "Accept": "application/json",
-                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
-                                    .getAttribute("content")
-                            },
-                            body: JSON.stringify(updatedData)
-                        })
-                        .then(res => res.json())
-                        .then(data => console.log("Update berhasil:", data))
-                        .catch(err => console.error("Gagal update:", err));
-                });
-
                 let previousData = [];
                 table.on("dataLoaded", function(newData) {
                     previousData = JSON.parse(JSON.stringify(newData));
@@ -723,6 +649,26 @@
                     previousData = JSON.parse(JSON.stringify(newData));
                 });
 
+                table.on("cellEdited", function(cell) {
+                    const updatedData = cell.getRow().getData();
+                    const id = updatedData.id;
+
+                    if (!id) return;
+
+                    fetch(`realisasi-progress-fisik-ai-sor3/${id}`, {
+                            method: "PUT",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute("content")
+                            },
+                            body: JSON.stringify(updatedData)
+                        })
+                        .then(res => res.json())
+                        .then(data => console.log("Update berhasil:", data))
+                        .catch(err => console.error("Gagal update:", err));
+                });
                 loadData();
             });
         </script>

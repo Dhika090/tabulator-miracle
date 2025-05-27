@@ -375,24 +375,6 @@
                         type: "like",
                         value: keyword
                     },
-                    ...["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"].map(
-                        bulan => ({
-                            field: `plan_${bulan.toLowerCase()}`,
-                            type: "like",
-                            value: keyword
-                        })),
-                    ...["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"].map(
-                        bulan => ({
-                            field: `prognosa_${bulan.toLowerCase()}`,
-                            type: "like",
-                            value: keyword
-                        })),
-                    ...["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"].map(
-                        bulan => ({
-                            field: `actual_${bulan.toLowerCase()}`,
-                            type: "like",
-                            value: keyword
-                        })),
                     {
                         field: "kode",
                         type: "like",
@@ -538,11 +520,13 @@
                             title: "Kendala",
                             field: "kendala",
                             editor: "input",
+                            width: 400
                         },
                         {
                             title: "Tindak Lanjut",
                             field: "tindak_lanjut",
-                            editor: "input"
+                            editor: "input",
+                            width: 400
                         },
                         {
                             title: "Aksi",

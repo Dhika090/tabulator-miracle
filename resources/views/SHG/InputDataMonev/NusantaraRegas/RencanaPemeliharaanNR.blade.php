@@ -448,6 +448,7 @@
                             title: "Periode",
                             field: "periode",
                             editor: "input",
+                            hozAlign: "center",
                             headerFilter: "select",
                             headerFilterParams: {
                                 values: [{
@@ -531,28 +532,33 @@
                             title: "No",
                             field: "no",
                             editor: "number",
-                            hozAlign: "center"
+                            hozAlign: "center",
+                            hozAlign: "center",
                         },
                         {
                             title: "Company",
                             field: "company",
-                            editor: "input"
+                            editor: "input",
+                            hozAlign: "center"
                         },
                         {
                             title: "Lokasi",
                             field: "lokasi",
-                            editor: "input"
+                            editor: "input",
+                            hozAlign: "center",
                         },
                         {
                             title: "Program Kerja",
                             field: "program_kerja",
                             editor: "input",
-                            width: 450
+                            hozAlign: "center",
+                            width: 400
                         },
                         {
                             title: "Kategori Maintenance",
                             field: "kategori_maintenance",
-                            editor: "input"
+                            editor: "input",
+                            hozAlign: "center",
                         },
                         {
                             title: "Besar Phasing",
@@ -581,7 +587,8 @@
                         {
                             title: "Remark",
                             field: "remark",
-                            editor: "input"
+                            editor: "input",
+                            hozAlign: "center",
                         },
                         {
                             title: "Jan",

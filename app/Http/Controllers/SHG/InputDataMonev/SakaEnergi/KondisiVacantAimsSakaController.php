@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\SakaEnergi\KondisiVacantAimsRequest;
 use App\Models\SHG\SakaEnergi\KondisiVacantAimsSAKA;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class KondisiVacantAimsSakaController extends Controller
 {
@@ -93,7 +94,13 @@ class KondisiVacantAimsSakaController extends Controller
 
     public function data()
     {
-        $TargetPLO = KondisiVacantAimsSAKA::all();
+        $TargetPLO = KondisiVacantAimsSAKA::select('*')
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderBy('periode_date', 'asc')
+            ->get();
+
         return response()->json($TargetPLO);
     }
     public function update(KondisiVacantAimsRequest $request, $id)

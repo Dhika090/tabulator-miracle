@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\SakaEnergi\MandatoryCertificationSakaRequest;
 use App\Models\SHG\SakaEnergi\MandatoryCertificationSAKA;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MandatoryCertificationSakaController extends Controller
 {
@@ -183,7 +184,13 @@ class MandatoryCertificationSakaController extends Controller
 
     public function data()
     {
-        $TargetPLO = MandatoryCertificationSAKA::all();
+        $TargetPLO = MandatoryCertificationSAKA::select('*')
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderBy('periode_date', 'asc')
+            ->get();
+
         return response()->json($TargetPLO);
     }
     public function update(MandatoryCertificationSakaRequest $request, $id)

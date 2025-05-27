@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\PgnOmm\KondisiVacantAimsOmmRequest;
 use App\Models\SHG\PgnOmm\KondisiVacantAimsOmm;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class KondisiVacantAimsOmmController extends Controller
 {
@@ -103,7 +104,13 @@ class KondisiVacantAimsOmmController extends Controller
 
     public function data()
     {
-        $TargetPLO = KondisiVacantAimsOmm::all();
+        $TargetPLO = KondisiVacantAimsOmm::select('*')
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderBy('periode_date', 'asc')
+            ->get();
+
         return response()->json($TargetPLO);
     }
     public function update(KondisiVacantAimsOmmRequest $request, $id)

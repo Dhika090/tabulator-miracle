@@ -443,9 +443,10 @@
                             field: "id",
                             visible: false
                         },
-                       {
+                        {
                             title: "Periode",
                             field: "periode",
+                            hozAlign: "center",
                             editor: "input",
                             headerFilter: "select",
                             headerFilterParams: {

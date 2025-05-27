@@ -6,11 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\PgnSor1\RealisasiAnggaranAiSOR1Request;
 use App\Models\SHG\PgnSor1\RealisasiAnggaranAiSOR1;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RealisasiAnggaranAiSOR1Controller extends Controller
 {
-
-
     public function index(Request $request)
     {
 
@@ -99,7 +98,14 @@ class RealisasiAnggaranAiSOR1Controller extends Controller
 
     public function data()
     {
-        $TargetPLO = RealisasiAnggaranAiSOR1::all();
+        $TargetPLO = RealisasiAnggaranAiSOR1::select('*')
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderBy('periode_date', 'asc')
+            ->orderBy('no', 'asc')
+            ->get();
+
         return response()->json($TargetPLO);
     }
     public function update(RealisasiAnggaranAiSOR1Request $request, $id)

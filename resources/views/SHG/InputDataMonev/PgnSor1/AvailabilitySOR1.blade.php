@@ -188,7 +188,7 @@
 
                 <div>
                     <label>Periode</label>
-                    <input type="month" name="periode" id="periode" >
+                    <input type="month" name="periode" id="periode">
                 </div>
 
                 <div>
@@ -335,9 +335,10 @@
                             field: "id",
                             visible: false
                         },
-                       {
+                        {
                             title: "Periode",
                             field: "periode",
+                            hozAlign: "center",
                             editor: "input",
                             headerFilter: "select",
                             headerFilterParams: {

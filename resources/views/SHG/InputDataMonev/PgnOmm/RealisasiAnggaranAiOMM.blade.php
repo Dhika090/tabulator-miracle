@@ -181,7 +181,7 @@
                 <input type="hidden" name="id" id="form-id">
                 <div>
                     <label for="periode">Periode (Tahun):</label>
-                    <select name="periode" id="periode"   class="form-select">
+                    <select name="periode" id="periode" class="form-select">
                         <option value="" selected disabled>Pilih Periode</option>
                         @for ($year = 2000; $year <= date('Y') + 5; $year++)
                             <option value="{{ $year }}">{{ $year }}</option>
@@ -190,7 +190,7 @@
                 </div>
                 <div>
                     <label>No</label>
-                    <input type="number" name="no" id="no" >
+                    <input type="number" name="no" id="no">
                 </div>
 
                 <div>
@@ -529,10 +529,11 @@
                             field: "id",
                             visible: false
                         },
-                       {
+                        {
                             title: "Periode",
                             field: "periode",
                             editor: "input",
+                            hozAlign: "center",
                             headerFilter: "select",
                             headerFilterParams: {
                                 values: [{

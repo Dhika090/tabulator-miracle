@@ -75,7 +75,11 @@ class AssetBreakdownPDGController extends Controller
 
     public function data()
     {
-        return response()->json(AssetBreakdownPDG::all());
+        $TargetPLO = AssetBreakdownPDG::select('*')
+            ->orderByRaw("STR_TO_DATE(CONCAT(periode, '-01'), '%Y-%m-%d') ASC")
+            ->get();
+
+        return response()->json($TargetPLO);
     }
 
     public function store(AssetBreakdownPDGRequest $request)

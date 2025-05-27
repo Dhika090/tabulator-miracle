@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\PgnOmm\SistemInformasiAimsOmmRequest;
 use App\Models\SHG\PgnOmm\SistemInformasiAimsOmm;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SistemInformasiAimsOmmController extends Controller
 {
@@ -103,7 +104,13 @@ class SistemInformasiAimsOmmController extends Controller
 
     public function data()
     {
-        $TargetPLO = SistemInformasiAimsOmm::all();
+           $TargetPLO = SistemInformasiAimsOmm::select('*')
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderBy('periode_date', 'asc')
+            ->get();
+
         return response()->json($TargetPLO);
     }
     public function update(SistemInformasiAimsOmmRequest $request, $id)

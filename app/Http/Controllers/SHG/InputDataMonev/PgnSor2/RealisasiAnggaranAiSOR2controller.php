@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\PgnSor2\RealisasiAnggaranAiSOR2Request;
 use App\Models\SHG\PgnSor2\RealisasiAnggaranAiSOR2;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RealisasiAnggaranAiSOR2controller extends Controller
 {
@@ -98,7 +99,14 @@ class RealisasiAnggaranAiSOR2controller extends Controller
 
     public function data()
     {
-        $TargetPLO = RealisasiAnggaranAiSOR2::all();
+        $TargetPLO = RealisasiAnggaranAiSOR2::select('*')
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderBy('periode_date', 'asc')
+            ->orderBy('no', 'asc')
+            ->get();
+
         return response()->json($TargetPLO);
     }
     public function update(RealisasiAnggaranAiSOR2Request $request, $id)

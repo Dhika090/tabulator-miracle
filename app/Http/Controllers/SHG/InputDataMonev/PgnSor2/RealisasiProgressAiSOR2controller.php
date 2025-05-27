@@ -6,13 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\PgnSor2\RealisasiProgressAiSOR2Request;
 use App\Models\SHG\PgnSor2\RealisasiProgressAiSOR2;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RealisasiProgressAiSOR2controller extends Controller
 {
 
     public function index(Request $request)
     {
-
         $tabs = [
             [
                 'title' => 'Status Asset 2025 AI PGN SOR 2',
@@ -98,7 +98,13 @@ class RealisasiProgressAiSOR2controller extends Controller
 
     public function data()
     {
-        $TargetPLO = RealisasiProgressAiSOR2::all();
+        $TargetPLO = RealisasiProgressAiSOR2::select('*')
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderByRaw('CAST(no AS UNSIGNED)')
+            ->get();
+
         return response()->json($TargetPLO);
     }
     public function update(RealisasiProgressAiSOR2Request $request, $id)

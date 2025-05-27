@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\PgnSor1\PelatihanAimsSOR1Request;
 use App\Models\SHG\PgnSor1\PelatihanAimsSOR1;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PelatihanAimsSOR1Controller extends Controller
 {
@@ -98,7 +99,13 @@ class PelatihanAimsSOR1Controller extends Controller
 
     public function data()
     {
-        $TargetPLO = PelatihanAimsSOR1::all();
+        $TargetPLO = PelatihanAimsSOR1::select('*')
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderBy('periode_date', 'asc')
+            ->get();
+
         return response()->json($TargetPLO);
     }
     public function update(PelatihanAimsSOR1Request $request, $id)

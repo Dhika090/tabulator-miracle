@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\PgnSor3\MandatoryCertificationSOR3Request;
 use App\Models\SHG\PgnSor3\MandatoryCertificationSOR3;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MandatoryCertificationSOR3controller extends Controller
 {
@@ -162,7 +163,8 @@ class MandatoryCertificationSOR3controller extends Controller
                 'route' => route('air-budget-tagging-sor3'),
                 'active' => request()->routeIs('air-budget-tagging-sor3'),
             ],
-        ]; $tabs = [
+        ];
+        $tabs = [
             [
                 'title' => 'Status Asset 2025 AI PGN SOR 3',
                 'route' => route('pgn-sor3'),
@@ -247,7 +249,13 @@ class MandatoryCertificationSOR3controller extends Controller
 
     public function data()
     {
-        $TargetPLO = MandatoryCertificationSOR3::all();
+        $TargetPLO = MandatoryCertificationSOR3::select('*')
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderBy('periode_date', 'asc')
+            ->get();
+
         return response()->json($TargetPLO);
     }
     public function update(MandatoryCertificationSOR3Request $request, $id)

@@ -94,7 +94,7 @@ class AirBudgetTaggingGEIController extends Controller
 
     public function data()
     {
-           $TargetPLO = AirBudgetTaggingGEI::select('*')
+        $TargetPLO = AirBudgetTaggingGEI::select('*')
             ->addSelect(DB::raw("
             STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
         "))

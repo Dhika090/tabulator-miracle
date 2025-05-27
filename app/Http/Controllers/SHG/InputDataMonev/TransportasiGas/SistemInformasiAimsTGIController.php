@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\TransportasiGas\SistemInformasiAimsTGIRequest;
 use App\Models\SHG\TransportasiGas\SistemInformasiAimsTGI;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SistemInformasiAimsTGIController extends Controller
 {
@@ -93,7 +94,13 @@ class SistemInformasiAimsTGIController extends Controller
 
     public function data()
     {
-        $TargetPLO = SistemInformasiAimsTGI::all();
+        $TargetPLO = SistemInformasiAimsTGI::select('*')
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderBy('periode_date', 'asc')
+            ->get();
+
         return response()->json($TargetPLO);
     }
     public function update(SistemInformasiAimsTGIRequest $request, $id)

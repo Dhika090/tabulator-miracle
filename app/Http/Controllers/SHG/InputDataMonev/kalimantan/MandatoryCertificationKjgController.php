@@ -162,7 +162,6 @@ class MandatoryCertificationKjgController extends Controller
         return view('SHG.InputDataMonev.kalimantanJawa.MandatoryCertificationKJG', compact('tabs', 'sertifikasiOptions'));
     }
 
-
     public function data()
     {
         $TargetPLO = MandatoryCertificationKjg::select('*')

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\PgnOmm\PelatihanAimsOmmRequest;
 use App\Models\SHG\PgnOmm\PelatihanAimsOmm;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PelatihanAimsOmmController extends Controller
 {
@@ -102,7 +103,13 @@ class PelatihanAimsOmmController extends Controller
 
     public function data()
     {
-        $TargetPLO = PelatihanAimsOmm::all();
+        $TargetPLO = PelatihanAimsOmm::select('*')
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderBy('periode', 'asc')
+            ->get();
+
         return response()->json($TargetPLO);
     }
     public function update(PelatihanAimsOmmRequest $request, $id)

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\PgnOmm\AssetBreakdownOmmRequest;
 use App\Models\SHG\PgnOmm\AssetBreakdownOmm;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AssetBreakdownOmmController extends Controller
 {
@@ -102,7 +103,13 @@ class AssetBreakdownOmmController extends Controller
 
     public function data()
     {
-        $TargetPLO = AssetBreakdownOmm::all();
+        $TargetPLO = AssetBreakdownOmm::select('*')
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderBy('periode_date', 'asc')
+            ->get();
+
         return response()->json($TargetPLO);
     }
     public function update(AssetBreakdownOmmRequest $request, $id)

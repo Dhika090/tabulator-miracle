@@ -6,13 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\PgnSor3\AirBudgetTaggingSOR3Request;
 use App\Models\SHG\PgnSor3\AirBudgetTaggingSOR3;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AirBudgetTaggingSOR3controller extends Controller
 {
     public function index(Request $request)
     {
 
-      $tabs = [
+        $tabs = [
             [
                 'title' => 'Status Asset 2025 AI PGN SOR 3',
                 'route' => route('pgn-sor3'),
@@ -97,7 +98,13 @@ class AirBudgetTaggingSOR3controller extends Controller
 
     public function data()
     {
-        $TargetPLO = AirBudgetTaggingSOR3::all();
+        $TargetPLO = AirBudgetTaggingSOR3::select('*')
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderBy('periode_date', 'asc')
+            ->get();
+
         return response()->json($TargetPLO);
     }
     public function update(AirBudgetTaggingSOR3Request $request, $id)
