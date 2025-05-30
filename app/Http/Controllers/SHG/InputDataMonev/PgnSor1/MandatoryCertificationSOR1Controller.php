@@ -175,7 +175,6 @@ class MandatoryCertificationSOR1Controller extends Controller
         return view('SHG.InputDataMonev.PgnSor1.MandatoryCertificationSOR1', compact('tabs', 'sertifikasiOptions'));
     }
 
-
     public function store(MandatoryCertificationSOR1Request $request)
     {
         $validated = $request->validated();
@@ -194,7 +193,7 @@ class MandatoryCertificationSOR1Controller extends Controller
             ->addSelect(DB::raw("
             STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
         "))
-            ->orderBy('periode', 'asc')
+            ->orderBy('periode_date', 'asc')
             ->get();
 
         return response()->json($TargetPLO);

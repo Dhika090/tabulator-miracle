@@ -86,7 +86,7 @@ class AirBudgetTaggingPAGController extends Controller
             ->addSelect(DB::raw("
             STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
         "))
-            ->orderBy('periode_date', 'asc')
+            ->orderBy('periode', 'asc')
             ->get();
 
         return response()->json($TargetPLO);

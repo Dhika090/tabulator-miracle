@@ -80,7 +80,7 @@ class RealisasiAnggaranAIPtg2025Controller extends Controller
         ];
 
         return view('SHG.InputDataMonev.pertamina.RealisasiAnggaranAI2025Ptg', compact('tabs'));
-        // return view('SHG.InputDataMonev.pertamina.RealisasiAnggaranAI2025Ptg');
+        
     }
 
     public function data()

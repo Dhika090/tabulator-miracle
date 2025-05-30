@@ -74,7 +74,7 @@ class RealisasiProgressFisikAiPAGController extends Controller
                 'route' => route('air-budget-tagging-pag'),
                 'active' => request()->routeIs('air-budget-tagging-pag'),
             ],
-            
+
         ];
 
         return view('SHG.InputDataMonev.PertaArun.RealisasiProgressFisikAIPAG', compact('tabs'));
@@ -87,6 +87,7 @@ class RealisasiProgressFisikAiPAGController extends Controller
             STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
         "))
             ->orderBy('periode_date', 'asc')
+            ->orderBy('no', 'asc')
             ->get();
 
         return response()->json($TargetPLO);

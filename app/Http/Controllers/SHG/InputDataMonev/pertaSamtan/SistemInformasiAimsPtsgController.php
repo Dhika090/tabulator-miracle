@@ -44,7 +44,7 @@ class SistemInformasiAimsPtsgController extends Controller
                 'active' => request()->routeIs('pelatihan-aims-ptsg'),
             ],
             [
-                'title' => 'Sistem Informasi AIMS ptsg',
+                'title' => 'Sistem Informasi AIMS PTSG',
                 'route' => route('sistem-informasi-aims-ptsg'),
                 'active' => request()->routeIs('sistem-informasi-aims-ptsg'),
             ],

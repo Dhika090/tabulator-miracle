@@ -25,7 +25,6 @@
                 word-wrap: break-word;
             }
 
-
             .card {
                 margin-top: 20px;
             }

@@ -102,12 +102,12 @@ class AssetBreakdownSOR1Controller extends Controller
             ->addSelect(DB::raw("
             STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
         "))
-            ->orderBy('periode', 'asc')
+            ->orderBy('periode_date', 'asc')
             ->get();
 
         return response()->json($TargetPLO);
     }
-    
+
     public function update(AssetBreakdownSOR1Request $request, $id)
     {
         $progress = AssetBreakdownSOR1::findOrFail($id);

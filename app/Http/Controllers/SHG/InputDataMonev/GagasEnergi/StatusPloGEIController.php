@@ -95,7 +95,10 @@ class StatusPloGEIController extends Controller
     public function data()
     {
         $TargetPLO = StatusPloGEI::select('*')
-            ->orderByRaw("STR_TO_DATE(CONCAT(periode, '-01'), '%Y-%m-%d') ASC")
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderBy('periode', 'asc')
             ->get();
 
         return response()->json($TargetPLO);

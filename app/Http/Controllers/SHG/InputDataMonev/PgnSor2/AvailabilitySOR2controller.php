@@ -99,7 +99,10 @@ class AvailabilitySOR2controller extends Controller
 
     public function data()
     {
-        $TargetPLO = AvailabilitySOR2::all();
+        $TargetPLO = AvailabilitySOR2::select('*')
+            ->orderByRaw("STR_TO_DATE(CONCAT(periode, '-01'), '%Y-%m-%d') ASC")
+            ->get();
+
         return response()->json($TargetPLO);
     }
     public function update(AvailabilitySOR2Request $request, $id)

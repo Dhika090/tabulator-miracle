@@ -18,10 +18,10 @@
                 font-size: 14px;
             }
 
-            /* .tabulator .tabulator-cell {
+            .tabulator .tabulator-cell {
                 white-space: normal !important;
                 word-wrap: break-word;
-            } */
+            }
 
             .card {
                 margin-top: 20px;
@@ -186,12 +186,12 @@
 
                 <div>
                     <label>Periode</label>
-                    <input type="month" name="periode" id="periode"  >
+                    <input type="month" name="periode" id="periode">
                 </div>
 
                 <div>
                     <label>Nomor PLO</label>
-                    <input type="text" name="nomor_plo" id="nomor_plo"  >
+                    <input type="text" name="nomor_plo" id="nomor_plo">
                 </div>
 
                 <div>
@@ -216,12 +216,12 @@
 
                 <div>
                     <label>Tanggal Pengesahan</label>
-                    <input type="date" name="tanggal_pengesahan" id="tanggal_pengesahan"  >
+                    <input type="date" name="tanggal_pengesahan" id="tanggal_pengesahan">
                 </div>
 
                 <div>
                     <label>Masa Berlaku</label>
-                    <input type="date" name="masa_berlaku" id="masa_berlaku"  >
+                    <input type="date" name="masa_berlaku" id="masa_berlaku">
                 </div>
 
                 <div>
@@ -420,7 +420,7 @@
                             field: "id",
                             visible: false
                         },
-                       {
+                        {
                             title: "Periode",
                             field: "periode",
                             editor: "input",
@@ -507,6 +507,7 @@
                             title: "Nomor PLO",
                             field: "nomor_plo",
                             editor: "input",
+                            width: 350
                         },
                         {
                             title: "Company",

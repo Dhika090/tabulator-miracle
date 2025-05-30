@@ -415,7 +415,8 @@
                             title: "No",
                             formatter: "rownum",
                             hozAlign: "center",
-                            width: 60
+                            width: 60,
+                            download: false
                         },
                         {
                             title: "ID",
@@ -705,6 +706,29 @@
                         editor: "input",
                         resizable: "header",
                     },
+                });
+
+                 document.getElementById("download-xlsx").addEventListener("click", function() {
+                        window.table.download("xlsx", "air-budget-tagging.xlsx", {
+                            sheetName: "Data Pelatihan",
+                            columnHeaders: true,
+                            downloadDataFormatter: function(data) {
+                                return data.map(row => {
+                                const cleanedRow = {};
+                                for (const [key, value] of Object.entries(row)) {
+                                    const valStr = String(value).trim().toLowerCase();
+                                    cleanedRow[key] = (
+                                        value === null ||
+                                        value === undefined ||
+                                        value === "" ||
+                                        valStr === "null" ||
+                                        valStr === "undefined"
+                                    ) ? "" : value;
+                                }
+                                return cleanedRow;
+                            });
+                        }
+                    });
                 });
 
                 table.on("cellEdited", function(cell) {

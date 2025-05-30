@@ -540,7 +540,8 @@
                         {
                             title: "Tindak Lanjut",
                             field: "tindak_lanjut",
-                            editor: "input"
+                            editor: "input",
+                            width: 350
                         },
                         {
                             title: "Aksi",

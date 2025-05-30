@@ -564,7 +564,7 @@
                             title: "Keterangan",
                             field: "keterangan",
                             editor: "input",
-                            width: 450
+                            width: 400
                         },
                         {
                             title: "Belum Proses",

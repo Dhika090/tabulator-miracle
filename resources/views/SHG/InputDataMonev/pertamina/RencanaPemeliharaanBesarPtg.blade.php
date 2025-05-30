@@ -465,7 +465,7 @@
                         {
                             field: "kategori_maintenance",
                             type: "like",
-                            value: keyword
+                            value: keyword,
                         },
                         {
                             field: "besar_phasing",
@@ -705,7 +705,7 @@
                             title: "Kategori Maintenance",
                             field: "kategori_maintenance",
                             editor: "input",
-                            width: 450
+                            width: 200
                         },
                         {
                             title: "Besar Phasing",

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\Pertadaya\StatusAssetAiPDGRequest;
 use App\Models\SHG\PertaDaya\StatusAssetAiPDG;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class StatusAssetAiPDGController extends Controller
 {
@@ -89,13 +90,20 @@ class StatusAssetAiPDGController extends Controller
             ],
         ];
 
-        return view('SHG.InputDataMonev.PertaDayaGas', compact('tabs','companies'));
+        return view('SHG.InputDataMonev.PertaDayaGas', compact('tabs', 'companies'));
     }
 
 
     public function data()
     {
-        return response()->json(StatusAssetAiPDG::all());
+        $TargetPLO = StatusAssetAiPDG::select('*')
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderBy('periode', 'asc')
+            ->get();
+
+        return response()->json($TargetPLO);
     }
 
 

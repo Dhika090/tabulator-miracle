@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\SakaEnergi\RencanaPemeliharaanSakaRequest;
 use App\Models\SHG\SakaEnergi\RencanaPemeliharaanSAKA;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RencanaPemeliharaanSakaController extends Controller
 {
@@ -98,6 +99,10 @@ class RencanaPemeliharaanSakaController extends Controller
     public function data()
     {
         $TargetPLO = RencanaPemeliharaanSAKA::select('*')
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderBy('periode', 'asc')
             ->orderBy('no', 'asc')
             ->get();
 

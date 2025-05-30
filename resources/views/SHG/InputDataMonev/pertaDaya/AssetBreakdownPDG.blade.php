@@ -521,7 +521,8 @@
                         {
                             title: "Jenis Kerusakan",
                             field: "jenis_kerusakan",
-                            editor: "input"
+                            editor: "input",
+                            width: 400
                         },
                         {
                             title: "Penyebab/Root Cause",
