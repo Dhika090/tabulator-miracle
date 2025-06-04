@@ -606,6 +606,7 @@
                         },
                         {
                             title: "Aksi",
+                            download: false,
                             formatter: (cell) => {
                                 const row = cell.getData();
                                 return `<button onclick='deleteData("${row.id}")'>Hapus</button>`;

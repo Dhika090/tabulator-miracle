@@ -306,6 +306,8 @@
 
     @push('scripts')
         <script src="https://unpkg.com/tabulator-tables@5.6.0/dist/js/tabulator.min.js"></script>
+        <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+
         <script>
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
@@ -407,9 +409,26 @@
                         }
                     })
                     .then(res => res.json())
-                    .then(data => table.setData(data))
+                    .then(data => {
+                        const cleaned = data.map(row => {
+                            const cleanedRow = {};
+                            for (const [key, value] of Object.entries(row)) {
+                                const valStr = String(value).trim().toLowerCase();
+                                cleanedRow[key] = (
+                                    value === null ||
+                                    value === undefined ||
+                                    valStr === "null" ||
+                                    valStr === "undefined"
+                                ) ? "" : value;
+                            }
+                            return cleanedRow;
+                        });
+
+                        table.setData(cleaned);
+                    })
                     .catch(err => console.error("Gagal load data:", err));
             }
+
 
             document.addEventListener("DOMContentLoaded", function() {
                 const columnMap = {
@@ -417,7 +436,8 @@
                             title: "No",
                             formatter: "rownum",
                             hozAlign: "center",
-                            width: 60
+                            width: 60,
+                            download: false
                         },
                         {
                             title: "ID",
@@ -430,81 +450,21 @@
                             editor: "input",
                             headerFilter: "select",
                             headerFilterParams: {
-                                values: [{
-                                        value: "01",
-                                        label: "Januari"
-                                    },
-                                    {
-                                        value: "02",
-                                        label: "Februari"
-                                    },
-                                    {
-                                        value: "03",
-                                        label: "Maret"
-                                    },
-                                    {
-                                        value: "04",
-                                        label: "April"
-                                    },
-                                    {
-                                        value: "05",
-                                        label: "Mei"
-                                    },
-                                    {
-                                        value: "06",
-                                        label: "Juni"
-                                    },
-                                    {
-                                        value: "07",
-                                        label: "Juli"
-                                    },
-                                    {
-                                        value: "08",
-                                        label: "Agustus"
-                                    },
-                                    {
-                                        value: "09",
-                                        label: "September"
-                                    },
-                                    {
-                                        value: "10",
-                                        label: "Oktober"
-                                    },
-                                    {
-                                        value: "11",
-                                        label: "November"
-                                    },
-                                    {
-                                        value: "12",
-                                        label: "Desember"
+                                values: (() => {
+                                    const years = [];
+                                    years.push({
+                                        value: "",
+                                        label: "Pilih Tahun"
+                                    });
+                                    for (let year = 2020; year <= new Date().getFullYear() +
+                                        5; year++) {
+                                        years.push({
+                                            value: String(year),
+                                            label: String(year)
+                                        });
                                     }
-                                ]
-                            },
-                            headerFilterPlaceholder: "Pilih Bulan",
-                            headerFilterFunc: function(headerValue, rowValue) {
-                                if (!headerValue) return true;
-                                if (!rowValue) return false;
-
-                                const periode = rowValue.toLowerCase();
-
-                                const bulanTextMap = {
-                                    "01": ["jan", "january"],
-                                    "02": ["feb", "february"],
-                                    "03": ["mar", "march"],
-                                    "04": ["apr", "april"],
-                                    "05": ["may", "mei"],
-                                    "06": ["jun", "june"],
-                                    "07": ["jul", "july"],
-                                    "08": ["aug", "august"],
-                                    "09": ["sep", "september"],
-                                    "10": ["oct", "october"],
-                                    "11": ["nov", "november"],
-                                    "12": ["dec", "december"]
-                                };
-
-                                const keywords = bulanTextMap[headerValue];
-                                return keywords.some(keyword => periode.includes(keyword)) || periode
-                                    .includes(`-${headerValue}`);
+                                    return years;
+                                })()
                             }
                         },
                         {
@@ -602,7 +562,8 @@
                                 return `<button onclick='deleteData("${row.id}")'>Hapus</button>`;
                             },
                             hozAlign: "center",
-                            width: 150
+                            width: 150,
+                            download: false
                         }
                     ]
                 };
@@ -643,6 +604,29 @@
                         editor: "input",
                         resizable: "header",
                     },
+                });
+
+                   document.getElementById("download-xlsx").addEventListener("click", function() {
+                    window.table.download("xlsx", "realisasi-progress-fisik-ai.xlsx", {
+                        sheetName: "realisasi-progress-fisik-ai",
+                        columnHeaders: true,
+                        downloadDataFormatter: function(data) {
+                            return data.map(row => {
+                                const cleanedRow = {};
+                                for (const [key, value] of Object.entries(row)) {
+                                    const valStr = String(value).trim().toLowerCase();
+                                    cleanedRow[key] = (
+                                        value === null ||
+                                        value === undefined ||
+                                        value === "" ||
+                                        valStr === "null" ||
+                                        valStr === "undefined"
+                                    ) ? "" : value;
+                                }
+                                return cleanedRow;
+                            });
+                        }
+                    });
                 });
 
                 table.on("cellEdited", function(cell) {

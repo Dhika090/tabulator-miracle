@@ -20,11 +20,6 @@ class StatusPloPTGNController extends Controller
                 'active' => request()->routeIs('pertagas-niaga'),
             ],
             [
-                'title' => 'PLAN Mandatory Certification PTGN',
-                'route' => route('plan-mandatory-certification-ptgn'),
-                'active' => request()->routeIs('plan-mandatory-certification-ptgn'),
-            ],
-            [
                 'title' => 'Mandatory Certification PTGN',
                 'route' => route('mandatory-certification-ptgn'),
                 'active' => request()->routeIs('mandatory-certification-ptgn'),

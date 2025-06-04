@@ -126,11 +126,14 @@
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
                 <h5 class="card-title mb-3 mb-md-0">Status Asset 2025 AI KJG</h5>
-                <div class="d-flex">
+                <div class="d-flex flex-column flex-md-row align-items-center gap-3">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
-                    <button class="btn btn-outline-secondary ms-2 h-100 mt-1" type="button"
+                    <button class="btn btn-outline-secondary ms-2 h-100 mt-1 d" type="button"
                         onclick="clearSearch()">Clear</button>
+                    <button class="btn btn-primary px-4 py-2" id="download-xlsx" style="white-space: nowrap;">
+                        Export Excel
+                    </button>
                 </div>
             </div>
 
@@ -186,16 +189,16 @@
 
                 <div>
                     <label>Periode</label>
-                    <input type="month" name="periode" id="periode"  >
+                    <input type="month" name="periode" id="periode">
                 </div>
 
                 <div>
                     <label>Subholding</label>
-                    <input type="text" name="subholding" id="subholding"  >
+                    <input type="text" name="subholding" id="subholding">
                 </div>
 
                 <label for="company">Company:</label>
-                <select name="company" id="company"   class="form-select">
+                <select name="company" id="company" class="form-select">
                     <option value="">-- Pilih Company --</option>
                     @foreach ($companies as $company)
                         <option value="{{ $company }}">{{ $company }}</option>
@@ -204,12 +207,12 @@
 
                 <div>
                     <label>Unit</label>
-                    <input type="text" name="unit" id="unit"  >
+                    <input type="text" name="unit" id="unit">
                 </div>
 
                 <div>
                     <label>Asset Group</label>
-                    <input type="text" name="asset_group" id="asset_group"  >
+                    <input type="text" name="asset_group" id="asset_group">
                 </div>
 
                 <div>
@@ -298,6 +301,7 @@
 
     @push('scripts')
         <script src="https://unpkg.com/tabulator-tables@5.6.0/dist/js/tabulator.min.js"></script>
+        <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
 
         <script>
             function deleteData(id) {
@@ -395,7 +399,23 @@
                         }
                     })
                     .then(res => res.json())
-                    .then(data => table.setData(data))
+                    .then(data => {
+                        const cleaned = data.map(row => {
+                            const cleanedRow = {};
+                            for (const [key, value] of Object.entries(row)) {
+                                const valStr = String(value).trim().toLowerCase();
+                                cleanedRow[key] = (
+                                    value === null ||
+                                    value === undefined ||
+                                    valStr === "null" ||
+                                    valStr === "undefined"
+                                ) ? "" : value;
+                            }
+                            return cleanedRow;
+                        });
+
+                        table.setData(cleaned);
+                    })
                     .catch(err => console.error("Gagal load data:", err));
             }
 
@@ -405,14 +425,15 @@
                             title: "No",
                             formatter: "rownum",
                             hozAlign: "center",
-                            width: 60
+                            width: 60,
+                            download: false
                         },
                         {
                             title: "ID",
                             field: "id",
                             visible: false
                         },
-                       {
+                        {
                             title: "Periode",
                             field: "periode",
                             editor: "input",
@@ -523,7 +544,7 @@
                         },
                         {
                             title: "SECE Low Integrity - Breakdown",
-                            field: "sece_low_integrity_breakdown",
+                            field: "sece_low_breakdown",
                             editor: "number",
                             hozAlign: "center"
                         },
@@ -547,13 +568,13 @@
                         },
                         {
                             title: "SECE High Integrity",
-                            field: "sece_high_integrity",
+                            field: "sece_high",
                             editor: "number",
                             hozAlign: "center"
                         },
                         {
                             title: "PCE Low Integrity - Breakdown",
-                            field: "pce_low_integrity_breakdown",
+                            field: "pce_low_breakdown",
                             editor: "number",
                             hozAlign: "center"
                         },
@@ -577,13 +598,13 @@
                         },
                         {
                             title: "PCE High Integrity",
-                            field: "pce_high_integrity",
+                            field: "pce_high",
                             editor: "number",
                             hozAlign: "center"
                         },
                         {
                             title: "IMPORTANT Low Integrity - Breakdown",
-                            field: "important_low_integrity_breakdown",
+                            field: "important_low_breakdown",
                             editor: "number",
                             hozAlign: "center"
                         },
@@ -607,13 +628,13 @@
                         },
                         {
                             title: "IMPORTANT High Integrity",
-                            field: "important_high_integrity",
+                            field: "important_high",
                             editor: "number",
                             hozAlign: "center"
                         },
                         {
                             title: "SECONDARY Low Integrity - Breakdown",
-                            field: "secondary_low_integrity_breakdown",
+                            field: "secondary_low_breakdown",
                             editor: "number",
                             hozAlign: "center"
                         },
@@ -637,7 +658,7 @@
                         },
                         {
                             title: "SECONDARY High Integrity",
-                            field: "secondary_high_integrity",
+                            field: "secondary_high",
                             editor: "number",
                             hozAlign: "center"
                         },
@@ -653,18 +674,13 @@
                         },
                         {
                             title: "Informasi Penyebab Low Integrity",
-                            field: "informasi_penyebab_low_integrity",
+                            field: "penyebab_low_integrity",
                             editor: "input",
                             width: 450
                         },
                         {
-                            title: "Informasi Penambahan Jumlah Aset",
-                            field: "informasi_penambahan_jumlah_aset",
-                            editor: "input"
-                        },
-                        {
                             title: "Informasi Naik Turun low Integrity",
-                            field: "informasi_naik_turun_low_integrity",
+                            field: "naik_turun_low_integrity",
                             editor: "input",
                             width: 450
                         },
@@ -675,7 +691,8 @@
                                 return `<button onclick='deleteData("${row.id}")'>Hapus</button>`;
                             },
                             hozAlign: "center",
-                            width: 150
+                            width: 150,
+                            download: false
                         }
                     ]
                 };
@@ -718,6 +735,29 @@
                     },
                 });
 
+                document.getElementById("download-xlsx").addEventListener("click", function() {
+                    window.table.download("xlsx", "kalimantan-jawa-gas.xlsx", {
+                        sheetName: "status-asset-ai",
+                        columnHeaders: true,
+                        downloadDataFormatter: function(data) {
+                            return data.map(row => {
+                                const cleanedRow = {};
+                                for (const [key, value] of Object.entries(row)) {
+                                    const valStr = String(value).trim().toLowerCase();
+                                    cleanedRow[key] = (
+                                        value === null ||
+                                        value === undefined ||
+                                        value === "" ||
+                                        valStr === "null" ||
+                                        valStr === "undefined"
+                                    ) ? "" : value;
+                                }
+                                return cleanedRow;
+                            });
+                        }
+                    });
+                });
+
                 let previousData = [];
                 table.on("dataLoaded", function(newData) {
                     previousData = JSON.parse(JSON.stringify(newData));
@@ -738,7 +778,7 @@
                     return changes;
                 }
 
-                table.on("dataChanged", function(newData) {
+               table.on("dataChanged", function(newData) {
                     const changedRows = getChangedRows(newData, previousData);
                     console.log("Baris yang berubah:", changedRows);
 

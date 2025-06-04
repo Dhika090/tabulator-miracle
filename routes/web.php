@@ -64,8 +64,7 @@ use App\Http\Controllers\SHG\InputDataMonev\PertagasNiaga\AssetBreakdownPTGNCont
 use App\Http\Controllers\SHG\InputDataMonev\PertagasNiaga\AvailabilityPTGNController;
 use App\Http\Controllers\SHG\InputDataMonev\PertagasNiaga\KondisiVacantAimsPTGNController;
 use App\Http\Controllers\SHG\InputDataMonev\PertagasNiaga\MandatoryCertificationPTGNController;
-use App\Http\Controllers\SHG\InputDataMonev\PertagasNiaga\PelatihanAimsPTGNController;
-use App\Http\Controllers\SHG\InputDataMonev\PertagasNiaga\PlanMandatoryCertificationPTGNController;
+use App\Http\Controllers\SHG\InputDataMonev\PertagasNiaga\PelatihanAimsPTGNController;  
 use App\Http\Controllers\SHG\InputDataMonev\PertagasNiaga\RealisasiAnggaranAiPTGNController;
 use App\Http\Controllers\SHG\InputDataMonev\PertagasNiaga\RealisasiProgressFisikAiPTGNController;
 use App\Http\Controllers\SHG\InputDataMonev\PertagasNiaga\RencanaPemeliharaanPTGNController;
@@ -1002,13 +1001,6 @@ Route::prefix('monev/shg/input-data/pertagas-niaga')->group(function () {
     Route::get('/data', [StatusAssetAiPTGNController::class, 'data'])->name('pertagas-niaga.data');
     Route::put('/{id}', [StatusAssetAiPTGNController::class, 'update'])->name('pertagas-niaga.update');
     Route::delete('/{id}', [StatusAssetAiPTGNController::class, 'destroy'])->name('pertagas-niaga.destroy');
-});
-Route::prefix('monev/shg/input-data/plan-mandatory-certification-ptgn')->group(function () {
-    Route::get('/', [PlanMandatoryCertificationPTGNController::class, 'index'])->name('plan-mandatory-certification-ptgn');
-    Route::post('/', [PlanMandatoryCertificationPtgnController::class, 'store'])->name('plan-mandatory-certification-ptgn.store');
-    Route::get('/data', [PlanMandatoryCertificationPtgnController::class, 'data'])->name('plan-mandatory-certification-ptgn.data');
-    Route::put('/{id}', [PlanMandatoryCertificationPtgnController::class, 'update'])->name('plan-mandatory-certification-ptgn.update');
-    Route::delete('/{id}', [PlanMandatoryCertificationPtgnController::class, 'destroy'])->name('plan-mandatory-certification-ptgn.destroy');
 });
 
 Route::prefix('monev/shg/input-data/mandatory-certification-ptgn')->group(function () {

@@ -101,17 +101,11 @@ class MandatoryCertificationPTGNController extends Controller
             "Turn Around Management Academy (T/A Brick) - Execution"
         ];
 
-
         $tabs = [
             [
                 'title' => 'Status Asset 2025 AI PTGN',
                 'route' => route('pertagas-niaga'),
                 'active' => request()->routeIs('pertagas-niaga'),
-            ],
-            [
-                'title' => 'PLAN Mandatory Certification PTGN',
-                'route' => route('plan-mandatory-certification-ptgn'),
-                'active' => request()->routeIs('plan-mandatory-certification-ptgn'),
             ],
             [
                 'title' => 'Mandatory Certification PTGN',

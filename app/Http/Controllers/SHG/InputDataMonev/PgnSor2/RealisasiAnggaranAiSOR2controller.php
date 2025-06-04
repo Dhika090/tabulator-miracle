@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\DB;
 
 class RealisasiAnggaranAiSOR2controller extends Controller
 {
-
     public function index(Request $request)
     {
 

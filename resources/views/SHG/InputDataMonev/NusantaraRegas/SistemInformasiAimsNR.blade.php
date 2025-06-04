@@ -186,12 +186,12 @@
                 <input type="hidden" name="id" id="form-id">
                 <div>
                     <label for="periode">Periode</label>
-                    <input type="month" id="periode" name="periode"  >
+                    <input type="month" id="periode" name="periode">
                 </div>
 
                 <div>
                     <label for="company">Company</label>
-                    <input type="text" id="company" name="company"  >
+                    <input type="text" id="company" name="company">
                 </div>
 
                 <div>
@@ -256,6 +256,8 @@
 
     @push('scripts')
         <script src="https://unpkg.com/tabulator-tables@5.6.0/dist/js/tabulator.min.js"></script>
+        <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+
         <script>
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
@@ -355,7 +357,6 @@
                 table.clearFilter();
             }
 
-
             function loadData() {
                 fetch("/monev/shg/input-data/sistem-informasi-aims-nr/data", {
                         headers: {
@@ -363,7 +364,23 @@
                         }
                     })
                     .then(res => res.json())
-                    .then(data => table.setData(data))
+                    .then(data => {
+                        const cleaned = data.map(row => {
+                            const cleanedRow = {};
+                            for (const [key, value] of Object.entries(row)) {
+                                const valStr = String(value).trim().toLowerCase();
+                                cleanedRow[key] = (
+                                    value === null ||
+                                    value === undefined ||
+                                    valStr === "null" ||
+                                    valStr === "undefined"
+                                ) ? "" : value;
+                            }
+                            return cleanedRow;
+                        });
+
+                        table.setData(cleaned);
+                    })
                     .catch(err => console.error("Gagal load data:", err));
             }
 
@@ -373,14 +390,15 @@
                             title: "No",
                             formatter: "rownum",
                             hozAlign: "center",
-                            width: 60
+                            width: 60,
+                            download: false
                         },
                         {
                             title: "ID",
                             field: "id",
                             visible: false
                         },
-                       {
+                        {
                             title: "Periode",
                             field: "periode",
                             editor: "input",
@@ -540,7 +558,8 @@
                                 return `<button onclick='deleteData("${row.id}")'>Hapus</button>`;
                             },
                             hozAlign: "center",
-                            width: 150
+                            width: 150,
+                            download: false
                         }
                     ]
                 };
@@ -583,6 +602,28 @@
                     },
                 });
 
+                document.getElementById("download-xlsx").addEventListener("click", function() {
+                    window.table.download("xlsx", "sistem-informasi-aims-nr.xlsx", {
+                        sheetName: "sistem-informasi-aims-nr",
+                        columnHeaders: true,
+                        downloadDataFormatter: function(data) {
+                            return data.map(row => {
+                                const cleanedRow = {};
+                                for (const [key, value] of Object.entries(row)) {
+                                    const valStr = String(value).trim().toLowerCase();
+                                    cleanedRow[key] = (
+                                        value === null ||
+                                        value === undefined ||
+                                        value === "" ||
+                                        valStr === "null" ||
+                                        valStr === "undefined"
+                                    ) ? "" : value;
+                                }
+                                return cleanedRow;
+                            });
+                        }
+                    });
+                });
 
                 table.on("cellEdited", function(cell) {
                     const updatedData = cell.getRow().getData();

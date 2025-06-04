@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\Pertadaya\StatusPloPDGRequest;
 use App\Models\SHG\PertaDaya\StatusPloPDG;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class StatusPloPDGController extends Controller
 {
@@ -70,12 +71,19 @@ class StatusPloPDGController extends Controller
             ],
         ];
 
-        return view('SHG.InputDataMonev.WidarMandripaNusantara.StatusPLOWMN', compact('tabs'));
+        return view('SHG.InputDataMonev.PertaDaya.StatusPloPDG', compact('tabs'));
     }
 
     public function data()
     {
-        return response()->json(StatusPloPDG::all());
+        $TargetPLO = StatusPloPDG::select('*')
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderBy('periode', 'asc')
+            ->get();
+
+        return response()->json($TargetPLO);
     }
 
     public function store(StatusPloPDGRequest $request)

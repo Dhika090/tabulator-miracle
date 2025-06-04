@@ -402,14 +402,30 @@
                 table.clearFilter();
             }
 
-            function loadData() {
+           function loadData() {
                 fetch("/monev/shg/input-data/pgn-sor3/data", {
                         headers: {
                             "Accept": "application/json"
                         }
                     })
                     .then(res => res.json())
-                    .then(data => table.setData(data))
+                    .then(data => {
+                        const cleaned = data.map(row => {
+                            const cleanedRow = {};
+                            for (const [key, value] of Object.entries(row)) {
+                                const valStr = String(value).trim().toLowerCase();
+                                cleanedRow[key] = (
+                                    value === null ||
+                                    value === undefined ||
+                                    valStr === "null" ||
+                                    valStr === "undefined"
+                                ) ? "" : value;
+                            }
+                            return cleanedRow;
+                        });
+
+                        table.setData(cleaned);
+                    })
                     .catch(err => console.error("Gagal load data:", err));
             }
 
@@ -685,6 +701,7 @@
                         },
                         {
                             title: "Aksi",
+                            download: false,
                             formatter: (cell) => {
                                 const row = cell.getData();
                                 return `<button onclick='deleteData("${row.id}")'>Hapus</button>`;
@@ -734,12 +751,9 @@
                 });
 
                 document.getElementById("download-xlsx").addEventListener("click", function() {
-                    const filteredData = window.table.getData("active");
-                    const fileName = "Status-asset-ai-sor3-aims.xlsx";
-                    new Tabulator("body").download("xlsx", fileName, {
+                    window.table.download("xlsx", "status-asset-sor3.xlsx", {
                         sheetName: "Data Pelatihan",
                         columnHeaders: true,
-                        data: filteredData,
                         downloadDataFormatter: function(data) {
                             return data.map(row => {
                                 const cleanedRow = {};

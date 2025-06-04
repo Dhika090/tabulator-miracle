@@ -297,7 +297,6 @@
                     .catch(err => console.error("Gagal load data:", err));
             }
 
-
             document.addEventListener("DOMContentLoaded", function() {
                 const columnMap = {
                     "pelatihan-aims-sor3": [{
@@ -414,6 +413,7 @@
                         },
                         {
                             title: "Aksi",
+                            download: false,
                             formatter: (cell) => {
                                 const row = cell.getData();
                                 return `<button onclick='deleteData("${row.id}")'>Hapus</button>`;
@@ -463,12 +463,9 @@
                 });
 
                 document.getElementById("download-xlsx").addEventListener("click", function() {
-                    const filteredData = window.table.getData("active");
-                    const fileName = "pelatihan-aims-filtered.xlsx";
-                    new Tabulator("body").download("xlsx", fileName, {
-                        sheetName: "Data Pelatihan",
+                    window.table.download("xlsx", "pelatihan-aims-sor3.xlsx", {
+                        sheetName: "pelatihan-aims-sor3",
                         columnHeaders: true,
-                        data: filteredData,
                         downloadDataFormatter: function(data) {
                             return data.map(row => {
                                 const cleanedRow = {};
