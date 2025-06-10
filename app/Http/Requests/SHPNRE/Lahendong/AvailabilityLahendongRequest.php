@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\SHPNRE\LumutBalai;
+namespace App\Http\Requests\SHPNRE\Lahendong;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AvailabilityLbRequest extends FormRequest
+class AvailabilityLahendongRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

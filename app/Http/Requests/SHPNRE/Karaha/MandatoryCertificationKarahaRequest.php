@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\SHPNRE\LumutBalai;
+namespace App\Http\Requests\SHPNRE\Karaha;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AvailabilityLbRequest extends FormRequest
+class MandatoryCertificationKarahaRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,13 +23,13 @@ class AvailabilityLbRequest extends FormRequest
     {
         return [
             'periode' => 'nullable|string|max:255',
+            'subholding' => 'nullable|string|max:255',
             'company' => 'nullable|string|max:255',
-            'kategori' => 'nullable|string|max:500',
-            'target' => 'nullable|numeric',
-            'availability' => 'nullable|numeric',
-            'isu' => 'nullable|string',
-            'kendala' => 'nullable|string|max:550',
-            'tindak_lanjut' => 'nullable|string|max:550',
+            'unit' => 'nullable|string|max:255',
+            'nama_sertifikasi' => 'nullable|string|max:255',
+            'lembaga_penerbit_sertifikat' => 'nullable|string|max:255',
+            'jumlah_sertifikasi_terbit' => 'nullable|string',
+            'jumlah_learning_hours' => 'nullable|string',
         ];
     }
 }

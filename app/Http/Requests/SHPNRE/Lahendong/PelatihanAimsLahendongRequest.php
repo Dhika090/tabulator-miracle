@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\SHPNRE\LumutBalai;
+namespace App\Http\Requests\SHPNRE\Lahendong;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class KondisiVacantAimsLbRequest extends FormRequest
+class PelatihanAimsLahendongRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,12 +22,10 @@ class KondisiVacantAimsLbRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'periode' => 'nullable|string',
-            'company' => 'nullable|string',
-            'total_personil_asset_integrity' => 'nullable|integer',
-            'jumlah_personil_vacant' => 'nullable|integer',
-            'jumlah_personil_pensiun' => 'nullable|integer',
-            'keterangan' => 'nullable|string',
+            'periode' => 'nullable|string|max:255',
+            'company' => 'nullable|string|max:255',
+            'judul_pelatihan' => 'nullable|string|max:255',
+            'realisasi_perwira' => 'nullable|integer',
         ];
     }
 }

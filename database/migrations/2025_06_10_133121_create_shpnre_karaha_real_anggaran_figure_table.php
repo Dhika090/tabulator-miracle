@@ -10,7 +10,7 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('shpnre_lahendong_real_anggaran_figure', function (Blueprint $table) {
+        Schema::create('shpnre_karaha_real_anggaran_figure', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('periode')->nullable();
             $table->integer('no')->nullable();
@@ -68,6 +68,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('shpnre_lahendong_real_anggaran_figure');
+        Schema::dropIfExists('shpnre_karaha_real_anggaran_figure');
     }
 };

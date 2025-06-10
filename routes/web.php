@@ -64,7 +64,7 @@ use App\Http\Controllers\SHG\InputDataMonev\PertagasNiaga\AssetBreakdownPTGNCont
 use App\Http\Controllers\SHG\InputDataMonev\PertagasNiaga\AvailabilityPTGNController;
 use App\Http\Controllers\SHG\InputDataMonev\PertagasNiaga\KondisiVacantAimsPTGNController;
 use App\Http\Controllers\SHG\InputDataMonev\PertagasNiaga\MandatoryCertificationPTGNController;
-use App\Http\Controllers\SHG\InputDataMonev\PertagasNiaga\PelatihanAimsPTGNController;  
+use App\Http\Controllers\SHG\InputDataMonev\PertagasNiaga\PelatihanAimsPTGNController;
 use App\Http\Controllers\SHG\InputDataMonev\PertagasNiaga\RealisasiAnggaranAiPTGNController;
 use App\Http\Controllers\SHG\InputDataMonev\PertagasNiaga\RealisasiProgressFisikAiPTGNController;
 use App\Http\Controllers\SHG\InputDataMonev\PertagasNiaga\RencanaPemeliharaanPTGNController;
@@ -220,6 +220,30 @@ use App\Http\Controllers\SHPNRE\InputDataMonev\LumutBalai\RealAnggaranFigureLbCo
 use App\Http\Controllers\SHPNRE\InputDataMonev\LumutBalai\RealProgFisikAiLbController;
 use App\Http\Controllers\SHPNRE\InputDataMonev\LumutBalai\SistemInformasiLbController;
 use App\Http\Controllers\SHPNRE\InputDataMonev\LumutBalai\AvailabilityLbController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Lahendong\SummaryPloLahendongController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Lahendong\StatusAssetAiLahendongController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Lahendong\SistemInformasiAimsLahendongController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Lahendong\RencanaPemeliharaanLahendongController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Lahendong\RealProgFisikAiLahendongController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Lahendong\RealAnggaranFigureLahendongController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Lahendong\RealAnggaranAiLahendongController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Lahendong\PelatihanAimsLahendongController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Lahendong\MandatoryCertificationLahendongController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Lahendong\KondisiVacantAimsLahendongController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Lahendong\AvailabilityLahendongController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Lahendong\AssetBreakdownLahendongController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Karaha\AssetBreakDownKarahaController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Karaha\AvailabilityKarahaController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Karaha\MandatoryCertificationKarahaController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Karaha\PelatihanAimsKarahaController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Karaha\RealAnggaranAiKarahaController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Karaha\RealAnggaranFigureKarahaController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Karaha\RealProgFisikAiKarahaController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Karaha\RencanaPemeliharaanKarahaController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Karaha\SistemInformasiAimsKarahaController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Karaha\StatusAssetAiKarahaController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Karaha\SummaryPloKarahaController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Karaha\KondisiVacantAimsKarahaController;
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
@@ -1932,6 +1956,223 @@ Route::prefix('monev/shpnre/input-data/availability-lb')->group(function () {
     Route::get('/data', [AvailabilityLbController::class, 'data'])->name('availability-lb.data');
     Route::put('/{id}', [AvailabilityLbController::class, 'update'])->name('availability-lb.update');
     Route::delete('/{id}', [AvailabilityLbController::class, 'destroy'])->name('availability-lb.destroy');
+});
+
+// Lahendong
+// SummaryPloLahendong
+Route::prefix('monev/shpnre/input-data/summary-plo-lahendong')->group(function () {
+    Route::get('/', [SummaryPloLahendongController::class, 'index'])->name('summary-plo-lahendong');
+    Route::post('/', [SummaryPloLahendongController::class, 'store'])->name('summary-plo-lahendong.store');
+    Route::get('/data', [SummaryPloLahendongController::class, 'data'])->name('summary-plo-lahendong.data');
+    Route::put('/{id}', [SummaryPloLahendongController::class, 'update'])->name('summary-plo-lahendong.update');
+    Route::delete('/{id}', [SummaryPloLahendongController::class, 'destroy'])->name('summary-plo-lahendong.destroy');
+});
+
+// StatusAssetAiLahendong
+Route::prefix('monev/shpnre/input-data/lahendong')->group(function () {
+    Route::get('/', [StatusAssetAiLahendongController::class, 'index'])->name('lahendong');
+    Route::post('/', [StatusAssetAiLahendongController::class, 'store'])->name('lahendong.store');
+    Route::get('/data', [StatusAssetAiLahendongController::class, 'data'])->name('lahendong.data');
+    Route::put('/{id}', [StatusAssetAiLahendongController::class, 'update'])->name('lahendong.update');
+    Route::delete('/{id}', [StatusAssetAiLahendongController::class, 'destroy'])->name('lahendong.destroy');
+});
+
+// SistemInformasiAimsLahendong
+Route::prefix('monev/shpnre/input-data/sistem-informasi-aims-lahendong')->group(function () {
+    Route::get('/', [SistemInformasiAimsLahendongController::class, 'index'])->name('sistem-informasi-aims-lahendong');
+    Route::post('/', [SistemInformasiAimsLahendongController::class, 'store'])->name('sistem-informasi-aims-lahendong.store');
+    Route::get('/data', [SistemInformasiAimsLahendongController::class, 'data'])->name('sistem-informasi-aims-lahendong.data');
+    Route::put('/{id}', [SistemInformasiAimsLahendongController::class, 'update'])->name('sistem-informasi-aims-lahendong.update');
+    Route::delete('/{id}', [SistemInformasiAimsLahendongController::class, 'destroy'])->name('sistem-informasi-aims-lahendong.destroy');
+});
+
+// RencanaPemeliharaanLahendong
+Route::prefix('monev/shpnre/input-data/rencana-pemeliharaan-lahendong')->group(function () {
+    Route::get('/', [RencanaPemeliharaanLahendongController::class, 'index'])->name('rencana-pemeliharaan-lahendong');
+    Route::post('/', [RencanaPemeliharaanLahendongController::class, 'store'])->name('rencana-pemeliharaan-lahendong.store');
+    Route::get('/data', [RencanaPemeliharaanLahendongController::class, 'data'])->name('rencana-pemeliharaan-lahendong.data');
+    Route::put('/{id}', [RencanaPemeliharaanLahendongController::class, 'update'])->name('rencana-pemeliharaan-lahendong.update');
+    Route::delete('/{id}', [RencanaPemeliharaanLahendongController::class, 'destroy'])->name('rencana-pemeliharaan-lahendong.destroy');
+});
+
+// RealProgFisikAiLahendong
+Route::prefix('monev/shpnre/input-data/realisasi-prog-fisik-lahendong')->group(function () {
+    Route::get('/', [RealProgFisikAiLahendongController::class, 'index'])->name('realisasi-prog-fisik-lahendong');
+    Route::post('/', [RealProgFisikAiLahendongController::class, 'store'])->name('realisasi-prog-fisik-lahendong.store');
+    Route::get('/data', [RealProgFisikAiLahendongController::class, 'data'])->name('realisasi-prog-fisik-lahendong.data');
+    Route::put('/{id}', [RealProgFisikAiLahendongController::class, 'update'])->name('realisasi-prog-fisik-lahendong.update');
+    Route::delete('/{id}', [RealProgFisikAiLahendongController::class, 'destroy'])->name('realisasi-prog-fisik-lahendong.destroy');
+});
+
+// RealAnggaranFigureLahendong
+Route::prefix('monev/shpnre/input-data/real-anggaran-figure-lahendong')->group(function () {
+    Route::get('/', [RealAnggaranFigureLahendongController::class, 'index'])->name('real-anggaran-figure-lahendong');
+    Route::post('/', [RealAnggaranFigureLahendongController::class, 'store'])->name('real-anggaran-figure-lahendong.store');
+    Route::get('/data', [RealAnggaranFigureLahendongController::class, 'data'])->name('real-anggaran-figure-lahendong.data');
+    Route::put('/{id}', [RealAnggaranFigureLahendongController::class, 'update'])->name('real-anggaran-figure-lahendong.update');
+    Route::delete('/{id}', [RealAnggaranFigureLahendongController::class, 'destroy'])->name('real-anggaran-figure-lahendong.destroy');
+});
+
+// RealAnggaranAiLahendong
+Route::prefix('monev/shpnre/input-data/real-anggaran-ai-lahendong')->group(function () {
+    Route::get('/', [RealAnggaranAiLahendongController::class, 'index'])->name('real-anggaran-ai-lahendong');
+    Route::post('/', [RealAnggaranAiLahendongController::class, 'store'])->name('real-anggaran-ai-lahendong.store');
+    Route::get('/data', [RealAnggaranAiLahendongController::class, 'data'])->name('real-anggaran-ai-lahendong.data');
+    Route::put('/{id}', [RealAnggaranAiLahendongController::class, 'update'])->name('real-anggaran-ai-lahendong.update');
+    Route::delete('/{id}', [RealAnggaranAiLahendongController::class, 'destroy'])->name('real-anggaran-ai-lahendong.destroy');
+});
+
+// PelatihanAimsLahendong
+Route::prefix('monev/shpnre/input-data/pelatihan-aims-lahendong')->group(function () {
+    Route::get('/', [PelatihanAimsLahendongController::class, 'index'])->name('pelatihan-aims-lahendong');
+    Route::post('/', [PelatihanAimsLahendongController::class, 'store'])->name('pelatihan-aims-lahendong.store');
+    Route::get('/data', [PelatihanAimsLahendongController::class, 'data'])->name('pelatihan-aims-lahendong.data');
+    Route::put('/{id}', [PelatihanAimsLahendongController::class, 'update'])->name('pelatihan-aims-lahendong.update');
+    Route::delete('/{id}', [PelatihanAimsLahendongController::class, 'destroy'])->name('pelatihan-aims-lahendong.destroy');
+});
+
+// MandatoryCertificationLahendong
+Route::prefix('monev/shpnre/input-data/mandatory-certification-lahendong')->group(function () {
+    Route::get('/', [MandatoryCertificationLahendongController::class, 'index'])->name('mandatory-certification-lahendong');
+    Route::post('/', [MandatoryCertificationLahendongController::class, 'store'])->name('mandatory-certification-lahendong.store');
+    Route::get('/data', [MandatoryCertificationLahendongController::class, 'data'])->name('mandatory-certification-lahendong.data');
+    Route::put('/{id}', [MandatoryCertificationLahendongController::class, 'update'])->name('mandatory-certification-lahendong.update');
+    Route::delete('/{id}', [MandatoryCertificationLahendongController::class, 'destroy'])->name('mandatory-certification-lahendong.destroy');
+});
+
+// KondisiVacantAimsLahendong
+Route::prefix('monev/shpnre/input-data/kondisi-vacant-aims-lahendong')->group(function () {
+    Route::get('/', [KondisiVacantAimsLahendongController::class, 'index'])->name('kondisi-vacant-aims-lahendong');
+    Route::post('/', [KondisiVacantAimsLahendongController::class, 'store'])->name('kondisi-vacant-aims-lahendong.store');
+    Route::get('/data', [KondisiVacantAimsLahendongController::class, 'data'])->name('kondisi-vacant-aims-lahendong.data');
+    Route::put('/{id}', [KondisiVacantAimsLahendongController::class, 'update'])->name('kondisi-vacant-aims-lahendong.update');
+    Route::delete('/{id}', [KondisiVacantAimsLahendongController::class, 'destroy'])->name('kondisi-vacant-aims-lahendong.destroy');
+});
+
+// AvailabilityLahendong
+Route::prefix('monev/shpnre/input-data/availability-lahendong')->group(function () {
+    Route::get('/', [AvailabilityLahendongController::class, 'index'])->name('availability-lahendong');
+    Route::post('/', [AvailabilityLahendongController::class, 'store'])->name('availability-lahendong.store');
+    Route::get('/data', [AvailabilityLahendongController::class, 'data'])->name('availability-lahendong.data');
+    Route::put('/{id}', [AvailabilityLahendongController::class, 'update'])->name('availability-lahendong.update');
+    Route::delete('/{id}', [AvailabilityLahendongController::class, 'destroy'])->name('availability-lahendong.destroy');
+});
+
+// AssetBreakdownLahendong
+Route::prefix('monev/shpnre/input-data/asset-breakdown-lahendong')->group(function () {
+    Route::get('/', [AssetBreakdownLahendongController::class, 'index'])->name('asset-breakdown-lahendong');
+    Route::post('/', [AssetBreakdownLahendongController::class, 'store'])->name('asset-breakdown-lahendong.store');
+    Route::get('/data', [AssetBreakdownLahendongController::class, 'data'])->name('asset-breakdown-lahendong.data');
+    Route::put('/{id}', [AssetBreakdownLahendongController::class, 'update'])->name('asset-breakdown-lahendong.update');
+    Route::delete('/{id}', [AssetBreakdownLahendongController::class, 'destroy'])->name('asset-breakdown-lahendong.destroy');
+});
+
+// Karaha
+// AssetBreakDownKaraha
+Route::prefix('monev/shpnre/input-data/asset-breakdown-karaha')->group(function () {
+    Route::get('/', [AssetBreakDownKarahaController::class, 'index'])->name('asset-breakdown-karaha');
+    Route::post('/', [AssetBreakDownKarahaController::class, 'store'])->name('asset-breakdown-karaha.store');
+    Route::get('/data', [AssetBreakDownKarahaController::class, 'data'])->name('asset-breakdown-karaha.data');
+    Route::put('/{id}', [AssetBreakDownKarahaController::class, 'update'])->name('asset-breakdown-karaha.update');
+    Route::delete('/{id}', [AssetBreakDownKarahaController::class, 'destroy'])->name('asset-breakdown-karaha.destroy');
+});
+
+// AvailabilityKaraha
+Route::prefix('monev/shpnre/input-data/availability-karaha')->group(function () {
+    Route::get('/', [AvailabilityKarahaController::class, 'index'])->name('availability-karaha');
+    Route::post('/', [AvailabilityKarahaController::class, 'store'])->name('availability-karaha.store');
+    Route::get('/data', [AvailabilityKarahaController::class, 'data'])->name('availability-karaha.data');
+    Route::put('/{id}', [AvailabilityKarahaController::class, 'update'])->name('availability-karaha.update');
+    Route::delete('/{id}', [AvailabilityKarahaController::class, 'destroy'])->name('availability-karaha.destroy');
+});
+
+// MandatoryCertificationKaraha
+Route::prefix('monev/shpnre/input-data/mandatory-certification-karaha')->group(function () {
+    Route::get('/', [MandatoryCertificationKarahaController::class, 'index'])->name('mandatory-certification-karaha');
+    Route::post('/', [MandatoryCertificationKarahaController::class, 'store'])->name('mandatory-certification-karaha.store');
+    Route::get('/data', [MandatoryCertificationKarahaController::class, 'data'])->name('mandatory-certification-karaha.data');
+    Route::put('/{id}', [MandatoryCertificationKarahaController::class, 'update'])->name('mandatory-certification-karaha.update');
+    Route::delete('/{id}', [MandatoryCertificationKarahaController::class, 'destroy'])->name('mandatory-certification-karaha.destroy');
+});
+
+// PelatihanAimsKaraha
+Route::prefix('monev/shpnre/input-data/pelatihan-aims-karaha')->group(function () {
+    Route::get('/', [PelatihanAimsKarahaController::class, 'index'])->name('pelatihan-aims-karaha');
+    Route::post('/', [PelatihanAimsKarahaController::class, 'store'])->name('pelatihan-aims-karaha.store');
+    Route::get('/data', [PelatihanAimsKarahaController::class, 'data'])->name('pelatihan-aims-karaha.data');
+    Route::put('/{id}', [PelatihanAimsKarahaController::class, 'update'])->name('pelatihan-aims-karaha.update');
+    Route::delete('/{id}', [PelatihanAimsKarahaController::class, 'destroy'])->name('pelatihan-aims-karaha.destroy');
+});
+
+// RealAnggaranAiKaraha
+Route::prefix('monev/shpnre/input-data/real-anggaran-ai-karaha')->group(function () {
+    Route::get('/', [RealAnggaranAiKarahaController::class, 'index'])->name('real-anggaran-ai-karaha');
+    Route::post('/', [RealAnggaranAiKarahaController::class, 'store'])->name('real-anggaran-ai-karaha.store');
+    Route::get('/data', [RealAnggaranAiKarahaController::class, 'data'])->name('real-anggaran-ai-karaha.data');
+    Route::put('/{id}', [RealAnggaranAiKarahaController::class, 'update'])->name('real-anggaran-ai-karaha.update');
+    Route::delete('/{id}', [RealAnggaranAiKarahaController::class, 'destroy'])->name('real-anggaran-ai-karaha.destroy');
+});
+
+// RealAnggaranFigureKaraha
+Route::prefix('monev/shpnre/input-data/real-anggaran-figure-karaha')->group(function () {
+    Route::get('/', [RealAnggaranFigureKarahaController::class, 'index'])->name('real-anggaran-figure-karaha');
+    Route::post('/', [RealAnggaranFigureKarahaController::class, 'store'])->name('real-anggaran-figure-karaha.store');
+    Route::get('/data', [RealAnggaranFigureKarahaController::class, 'data'])->name('real-anggaran-figure-karaha.data');
+    Route::put('/{id}', [RealAnggaranFigureKarahaController::class, 'update'])->name('real-anggaran-figure-karaha.update');
+    Route::delete('/{id}', [RealAnggaranFigureKarahaController::class, 'destroy'])->name('real-anggaran-figure-karaha.destroy');
+});
+
+// RealProgFisikAiKaraha
+Route::prefix('monev/shpnre/input-data/real-prog-fisik-karaha')->group(function () {
+    Route::get('/', [RealProgFisikAiKarahaController::class, 'index'])->name('real-prog-fisik-karaha');
+    Route::post('/', [RealProgFisikAiKarahaController::class, 'store'])->name('real-prog-fisik-karaha.store');
+    Route::get('/data', [RealProgFisikAiKarahaController::class, 'data'])->name('real-prog-fisik-karaha.data');
+    Route::put('/{id}', [RealProgFisikAiKarahaController::class, 'update'])->name('real-prog-fisik-karaha.update');
+    Route::delete('/{id}', [RealProgFisikAiKarahaController::class, 'destroy'])->name('real-prog-fisik-karaha.destroy');
+});
+
+// RencanaPemeliharaanKaraha
+Route::prefix('monev/shpnre/input-data/rencana-pemeliharaan-karaha')->group(function () {
+    Route::get('/', [RencanaPemeliharaanKarahaController::class, 'index'])->name('rencana-pemeliharaan-karaha');
+    Route::post('/', [RencanaPemeliharaanKarahaController::class, 'store'])->name('rencana-pemeliharaan-karaha.store');
+    Route::get('/data', [RencanaPemeliharaanKarahaController::class, 'data'])->name('rencana-pemeliharaan-karaha.data');
+    Route::put('/{id}', [RencanaPemeliharaanKarahaController::class, 'update'])->name('rencana-pemeliharaan-karaha.update');
+    Route::delete('/{id}', [RencanaPemeliharaanKarahaController::class, 'destroy'])->name('rencana-pemeliharaan-karaha.destroy');
+});
+
+// SistemInformasiAimsKaraha
+Route::prefix('monev/shpnre/input-data/sistem-informasi-aims-karaha')->group(function () {
+    Route::get('/', [SistemInformasiAimsKarahaController::class, 'index'])->name('sistem-informasi-aims-karaha');
+    Route::post('/', [SistemInformasiAimsKarahaController::class, 'store'])->name('sistem-informasi-aims-karaha.store');
+    Route::get('/data', [SistemInformasiAimsKarahaController::class, 'data'])->name('sistem-informasi-aims-karaha.data');
+    Route::put('/{id}', [SistemInformasiAimsKarahaController::class, 'update'])->name('sistem-informasi-aims-karaha.update');
+    Route::delete('/{id}', [SistemInformasiAimsKarahaController::class, 'destroy'])->name('sistem-informasi-aims-karaha.destroy');
+});
+
+// StatusAssetAiKaraha
+Route::prefix('monev/shpnre/input-data/karaha')->group(function () {
+    Route::get('/', [StatusAssetAiKarahaController::class, 'index'])->name('karaha');
+    Route::post('/', [StatusAssetAiKarahaController::class, 'store'])->name('karaha.store');
+    Route::get('/data', [StatusAssetAiKarahaController::class, 'data'])->name('karaha.data');
+    Route::put('/{id}', [StatusAssetAiKarahaController::class, 'update'])->name('karaha.update');
+    Route::delete('/{id}', [StatusAssetAiKarahaController::class, 'destroy'])->name('karaha.destroy');
+});
+
+// SummaryPloKaraha
+Route::prefix('monev/shpnre/input-data/summary-plo-karaha')->group(function () {
+    Route::get('/', [SummaryPloKarahaController::class, 'index'])->name('summary-plo-karaha');
+    Route::post('/', [SummaryPloKarahaController::class, 'store'])->name('summary-plo-karaha.store');
+    Route::get('/data', [SummaryPloKarahaController::class, 'data'])->name('summary-plo-karaha.data');
+    Route::put('/{id}', [SummaryPloKarahaController::class, 'update'])->name('summary-plo-karaha.update');
+    Route::delete('/{id}', [SummaryPloKarahaController::class, 'destroy'])->name('summary-plo-karaha.destroy');
+});
+// KondisiVacantAimsKaraha
+Route::prefix('monev/shpnre/input-data/kondisi-vacant-aims-karaha')->group(function () {
+    Route::get('/', [KondisiVacantAimsKarahaController::class, 'index'])->name('kondisi-vacant-aims-karaha');
+    Route::post('/', [KondisiVacantAimsKarahaController::class, 'store'])->name('kondisi-vacant-aims-karaha.store');
+    Route::get('/data', [KondisiVacantAimsKarahaController::class, 'data'])->name('kondisi-vacant-aims-karaha.data');
+    Route::put('/{id}', [KondisiVacantAimsKarahaController::class, 'update'])->name('kondisi-vacant-aims-karaha.update');
+    Route::delete('/{id}', [KondisiVacantAimsKarahaController::class, 'destroy'])->name('kondisi-vacant-aims-karaha.destroy');
 });
 
 
