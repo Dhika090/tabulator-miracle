@@ -719,6 +719,8 @@
                     responsiveLayout: "collapse",
                     autoResize: true,
                     columns: columnMap["perta-arun-gas"],
+                    virtualDom: true,
+                    height: "700px",
 
                     selectableRange: 1,
                     selectableRangeColumns: true,

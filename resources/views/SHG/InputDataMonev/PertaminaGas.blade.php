@@ -424,16 +424,9 @@
                 const columnMap = {
                     "pertamina-gas": [{
                             title: "No",
-                            formatter: function(cell) {
-                                const row = cell.getRow();
-                                const table = cell.getTable();
-                                const sortedData = table.getRows("active").map(r => r.getData());
-                                const index = sortedData.findIndex(data => data.id === row.getData().id);
-                                return index + 1;
-                            },
+                            formatter: "rownum",
                             hozAlign: "center",
                             width: 60,
-                            headerSort: false,
                             download: false
                         },
                         {
@@ -720,6 +713,8 @@
                     responsiveLayout: "collapse",
                     autoResize: true,
                     columns: columnMap["pertamina-gas"],
+                    virtualDom: true,
+                    height: "700px",
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -753,7 +748,7 @@
                     },
                 });
 
-                 document.getElementById("download-xlsx").addEventListener("click", function() {
+                document.getElementById("download-xlsx").addEventListener("click", function() {
                     window.table.download("xlsx", "pertamina-gas.xlsx", {
                         sheetName: "status-asset-ai",
                         columnHeaders: true,

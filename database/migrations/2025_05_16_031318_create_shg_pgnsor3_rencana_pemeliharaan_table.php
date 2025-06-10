@@ -4,15 +4,14 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
     public function up(): void
     {
         Schema::create('shg_pgnsor3_rencana_pemeliharaan', function (Blueprint $table) {
-             $table->uuid('id')->primary();
+            $table->uuid('id')->primary();
             $table->year('periode')->nullable();
             $table->integer('no')->nullable();
             $table->string('company')->nullable();

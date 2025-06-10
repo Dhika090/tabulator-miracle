@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\PgnLngIndonesia\RealisasiAnggaranAiPlIRequest;
 use App\Models\SHG\PgnLngIndonesia\RealisasiAnggaranAiPli;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RealisasiAnggaranAiPLIController extends Controller
 {
@@ -80,7 +81,15 @@ class RealisasiAnggaranAiPLIController extends Controller
 
     public function data()
     {
-        return response()->json(RealisasiAnggaranAiPli::all());
+        $TargetPLO = RealisasiAnggaranAiPli::select('*')
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderBy('periode_date', 'asc')
+            ->orderBy('no', 'asc')
+            ->get();
+
+        return response()->json($TargetPLO);
     }
 
     public function store(RealisasiAnggaranAiPlIRequest $request)

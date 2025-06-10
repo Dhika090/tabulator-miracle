@@ -717,6 +717,8 @@
                     responsiveLayout: "collapse",
                     autoResize: true,
                     columns: columnMap["pgn-lng-indonesia"],
+                    virtualDom: true,
+                    height: "700px",
 
                     selectableRange: 1,
                     selectableRangeColumns: true,

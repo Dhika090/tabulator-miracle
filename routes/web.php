@@ -208,6 +208,18 @@ use App\Http\Controllers\SHG\KpiAssetIntegrityController;
 use App\Http\Controllers\SHG\TargetMandatoryCertificationController;
 use App\Http\Controllers\SHG\TargetSapAssetController;
 use App\Http\Controllers\SHG\TargetStatusPLOController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\LumutBalai\AssetBreakdownLbController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\LumutBalai\StatusAssetAiController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\LumutBalai\SummaryPloLbController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\LumutBalai\KondisiVacantAimsLbController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\LumutBalai\PelatihanAimsLbController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\LumutBalai\RencanaPemeliharaanLbController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\LumutBalai\MandatoryCertificationLbController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\LumutBalai\RealAnggaranAiLbController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\LumutBalai\RealAnggaranFigureLbController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\LumutBalai\RealProgFisikAiLbController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\LumutBalai\SistemInformasiLbController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\LumutBalai\AvailabilityLbController;
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
@@ -218,7 +230,6 @@ use Livewire\Volt\Volt;
 Route::get('/', function () {
     return view('dashboard');
 });
-
 
 Route::view('dashboard', 'dashboard')->name('dashboard');
 
@@ -1811,7 +1822,6 @@ Route::prefix('monev/shg/input-data/air-budget-tagging-sor3')->group(function ()
 });
 
 
-
 // PGN GLSM
 Route::prefix('monev/shg/input-data/realisasi-anggaran-ai-glsm')->group(function () {
     Route::get('/', [RealisasiAnggaranAiGlsmController::class, 'index'])->name('realisasi-anggaran-ai-glsm');
@@ -1836,6 +1846,119 @@ Route::prefix('monev/shg/input-data/air-budget-tagging-glsm')->group(function ()
     Route::put('/{id}', [AirBudgetTaggingGlsmController::class, 'update'])->name('air-budget-tagging-glsm.update');
     Route::delete('/{id}', [AirBudgetTaggingGlsmController::class, 'destroy'])->name('air-budget-tagging-glsm.destroy');
 });
+
+// SHPNRE
+// LUMUT BALAI
+Route::prefix('monev/shpnre/input-data/lumut-balai')->group(function () {
+    Route::get('/', [StatusAssetAiController::class, 'index'])->name('lumut-balai');
+    Route::post('/', [StatusAssetAiController::class, 'store'])->name('lumut-balai.store');
+    Route::get('/data', [StatusAssetAiController::class, 'data'])->name('lumut-balai.data');
+    Route::put('/{id}', [StatusAssetAiController::class, 'update'])->name('lumut-balai.update');
+    Route::delete('/{id}', [StatusAssetAiController::class, 'destroy'])->name('lumut-balai.destroy');
+});
+Route::prefix('monev/shpnre/input-data/asset-breakdown-lb')->group(function () {
+    Route::get('/', [AssetBreakdownLbController::class, 'index'])->name('asset-breakdown-lb');
+    Route::post('/', [AssetBreakdownLbController::class, 'store'])->name('asset-breakdown-lb.store');
+    Route::get('/data', [AssetBreakdownLbController::class, 'data'])->name('asset-breakdown-lb.data');
+    Route::put('/{id}', [AssetBreakdownLbController::class, 'update'])->name('asset-breakdown-lb.update');
+    Route::delete('/{id}', [AssetBreakdownLbController::class, 'destroy'])->name('asset-breakdown-lb.destroy');
+});
+Route::prefix('monev/shpnre/input-data/summary-plo-lb')->group(function () {
+    Route::get('/', [SummaryPloLbController::class, 'index'])->name('summary-plo-lb');
+    Route::post('/', [SummaryPloLbController::class, 'store'])->name('summary-plo-lb.store');
+    Route::get('/data', [SummaryPloLbController::class, 'data'])->name('summary-plo-lb.data');
+    Route::put('/{id}', [SummaryPloLbController::class, 'update'])->name('summary-plo-lb.update');
+    Route::delete('/{id}', [SummaryPloLbController::class, 'destroy'])->name('summary-plo-lb.destroy');
+});
+Route::prefix('monev/shpnre/input-data/kondisi-vacant-aims-lb')->group(function () {
+    Route::get('/', [KondisiVacantAimsLbController::class, 'index'])->name('kondisi-vacant-aims-lb');
+    Route::post('/', [KondisiVacantAimsLbController::class, 'store'])->name('kondisi-vacant-aims-lb.store');
+    Route::get('/data', [KondisiVacantAimsLbController::class, 'data'])->name('kondisi-vacant-aims-lb.data');
+    Route::put('/{id}', [KondisiVacantAimsLbController::class, 'update'])->name('kondisi-vacant-aims-lb.update');
+    Route::delete('/{id}', [KondisiVacantAimsLbController::class, 'destroy'])->name('kondisi-vacant-aims-lb.destroy');
+});
+Route::prefix('monev/shpnre/input-data/pelatihan-aims-lb')->group(function () {
+    Route::get('/', [PelatihanAimsLbController::class, 'index'])->name('pelatihan-aims-lb');
+    Route::post('/', [PelatihanAimsLbController::class, 'store'])->name('pelatihan-aims-lb.store');
+    Route::get('/data', [PelatihanAimsLbController::class, 'data'])->name('pelatihan-aims-lb.data');
+    Route::put('/{id}', [PelatihanAimsLbController::class, 'update'])->name('pelatihan-aims-lb.update');
+    Route::delete('/{id}', [PelatihanAimsLbController::class, 'destroy'])->name('pelatihan-aims-lb.destroy');
+});
+Route::prefix('monev/shpnre/input-data/rencana-pemeliharaan-lb')->group(function () {
+    Route::get('/', [RencanaPemeliharaanLbController::class, 'index'])->name('rencana-pemeliharaan-lb');
+    Route::post('/', [RencanaPemeliharaanLbController::class, 'store'])->name('rencana-pemeliharaan-lb.store');
+    Route::get('/data', [RencanaPemeliharaanLbController::class, 'data'])->name('rencana-pemeliharaan-lb.data');
+    Route::put('/{id}', [RencanaPemeliharaanLbController::class, 'update'])->name('rencana-pemeliharaan-lb.update');
+    Route::delete('/{id}', [RencanaPemeliharaanLbController::class, 'destroy'])->name('rencana-pemeliharaan-lb.destroy');
+});
+Route::prefix('monev/shpnre/input-data/mandatory-certification-lb')->group(function () {
+    Route::get('/', [MandatoryCertificationLbController::class, 'index'])->name('mandatory-certification-lb');
+    Route::post('/', [MandatoryCertificationLbController::class, 'store'])->name('mandatory-certification-lb.store');
+    Route::get('/data', [MandatoryCertificationLbController::class, 'data'])->name('mandatory-certification-lb.data');
+    Route::put('/{id}', [MandatoryCertificationLbController::class, 'update'])->name('mandatory-certification-lb.update');
+    Route::delete('/{id}', [MandatoryCertificationLbController::class, 'destroy'])->name('mandatory-certification-lb.destroy');
+});
+Route::prefix('monev/shpnre/input-data/real-anggaran-ai-lb')->group(function () {
+    Route::get('/', [RealAnggaranAiLbController::class, 'index'])->name('real-anggaran-ai-lb');
+    Route::post('/', [RealAnggaranAiLbController::class, 'store'])->name('real-anggaran-ai-lb.store');
+    Route::get('/data', [RealAnggaranAiLbController::class, 'data'])->name('real-anggaran-ai-lb.data');
+    Route::put('/{id}', [RealAnggaranAiLbController::class, 'update'])->name('real-anggaran-ai-lb.update');
+    Route::delete('/{id}', [RealAnggaranAiLbController::class, 'destroy'])->name('real-anggaran-ai-lb.destroy');
+});
+Route::prefix('monev/shpnre/input-data/real-anggaran-figure-lb')->group(function () {
+    Route::get('/', [RealAnggaranFigureLbController::class, 'index'])->name('real-anggaran-figure-lb');
+    Route::post('/', [RealAnggaranFigureLbController::class, 'store'])->name('real-anggaran-figure-lb.store');
+    Route::get('/data', [RealAnggaranFigureLbController::class, 'data'])->name('real-anggaran-figure-lb.data');
+    Route::put('/{id}', [RealAnggaranFigureLbController::class, 'update'])->name('real-anggaran-figure-lb.update');
+    Route::delete('/{id}', [RealAnggaranFigureLbController::class, 'destroy'])->name('real-anggaran-figure-lb.destroy');
+});
+Route::prefix('monev/shpnre/input-data/real-prog-fisik-ai-lb')->group(function () {
+    Route::get('/', [RealProgFisikAiLbController::class, 'index'])->name('real-prog-fisik-ai-lb');
+    Route::post('/', [RealProgFisikAiLbController::class, 'store'])->name('real-prog-fisik-ai-lb.store');
+    Route::get('/data', [RealProgFisikAiLbController::class, 'data'])->name('real-prog-fisik-ai-lb.data');
+    Route::put('/{id}', [RealProgFisikAiLbController::class, 'update'])->name('real-prog-fisik-ai-lb.update');
+    Route::delete('/{id}', [RealProgFisikAiLbController::class, 'destroy'])->name('real-prog-fisik-ai-lb.destroy');
+});
+Route::prefix('monev/shpnre/input-data/sistem-informasi-aims-lb')->group(function () {
+    Route::get('/', [SistemInformasiLbController::class, 'index'])->name('sistem-informasi-aims-lb');
+    Route::post('/', [SistemInformasiLbController::class, 'store'])->name('sistem-informasi-aims-lb.store');
+    Route::get('/data', [SistemInformasiLbController::class, 'data'])->name('sistem-informasi-aims-lb.data');
+    Route::put('/{id}', [SistemInformasiLbController::class, 'update'])->name('sistem-informasi-aims-lb.update');
+    Route::delete('/{id}', [SistemInformasiLbController::class, 'destroy'])->name('sistem-informasi-aims-lb.destroy');
+});
+Route::prefix('monev/shpnre/input-data/availability-lb')->group(function () {
+    Route::get('/', [AvailabilityLbController::class, 'index'])->name('availability-lb');
+    Route::post('/', [AvailabilityLbController::class, 'store'])->name('availability-lb.store');
+    Route::get('/data', [AvailabilityLbController::class, 'data'])->name('availability-lb.data');
+    Route::put('/{id}', [AvailabilityLbController::class, 'update'])->name('availability-lb.update');
+    Route::delete('/{id}', [AvailabilityLbController::class, 'destroy'])->name('availability-lb.destroy');
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 Route::middleware(['auth'])->group(function () {

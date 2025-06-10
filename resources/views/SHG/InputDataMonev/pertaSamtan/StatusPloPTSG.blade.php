@@ -34,7 +34,6 @@
 
             .tab-scroll-wrapper {
                 display: inline-block;
-                /* display: flex; */
                 align-items: center;
                 overflow-x: hidden;
                 max-width: 100%;
@@ -126,11 +125,14 @@
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
                 <h5 class="card-title mb-3 mb-md-0">Status PLO PTSG</h5>
-                <div class="d-flex">
+                <div class="d-flex flex-column flex-md-row align-items-center gap-3">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
-                    <button class="btn btn-outline-secondary ms-2 h-100 mt-1" type="button"
+                    <button class="btn btn-outline-secondary ms-2 h-100 mt-1 d" type="button"
                         onclick="clearSearch()">Clear</button>
+                    <button class="btn btn-primary px-4 py-2" id="download-xlsx" style="white-space: nowrap;">
+                        Export Excel
+                    </button>
                 </div>
             </div>
 
@@ -276,6 +278,7 @@
 
     @push('scripts')
         <script src="https://unpkg.com/tabulator-tables@5.6.0/dist/js/tabulator.min.js"></script>
+        <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
 
         <script>
             function deleteData(id) {
@@ -397,7 +400,6 @@
                 table.clearFilter();
             }
 
-
             function loadData() {
                 fetch("/monev/shg/input-data/status-plo-ptsg/data", {
                         headers: {
@@ -405,7 +407,23 @@
                         }
                     })
                     .then(res => res.json())
-                    .then(data => table.setData(data))
+                    .then(data => {
+                        const cleaned = data.map(row => {
+                            const cleanedRow = {};
+                            for (const [key, value] of Object.entries(row)) {
+                                const valStr = String(value).trim().toLowerCase();
+                                cleanedRow[key] = (
+                                    value === null ||
+                                    value === undefined ||
+                                    valStr === "null" ||
+                                    valStr === "undefined"
+                                ) ? "" : value;
+                            }
+                            return cleanedRow;
+                        });
+
+                        table.setData(cleaned);
+                    })
                     .catch(err => console.error("Gagal load data:", err));
             }
 
@@ -415,7 +433,8 @@
                             title: "No",
                             formatter: "rownum",
                             hozAlign: "center",
-                            width: 60
+                            width: 60,
+                            download: false
                         },
                         {
                             title: "ID",
@@ -596,7 +615,8 @@
                                 return `<button onclick='deleteData("${row.id}")'>Hapus</button>`;
                             },
                             hozAlign: "center",
-                            width: 150
+                            width: 150,
+                            download: false
                         }
                     ]
                 };
@@ -606,6 +626,8 @@
                     responsiveLayout: "collapse",
                     autoResize: true,
                     columns: columnMap["status-plo-ptsg"],
+                    virtualDom: true,
+                    height: "700px",
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -639,6 +661,28 @@
                     },
                 });
 
+                document.getElementById("download-xlsx").addEventListener("click", function() {
+                    window.table.download("xlsx", "status-plo-ptsg.xlsx", {
+                        sheetName: "status-plo-ptsg",
+                        columnHeaders: true,
+                        downloadDataFormatter: function(data) {
+                            return data.map(row => {
+                                const cleanedRow = {};
+                                for (const [key, value] of Object.entries(row)) {
+                                    const valStr = String(value).trim().toLowerCase();
+                                    cleanedRow[key] = (
+                                        value === null ||
+                                        value === undefined ||
+                                        value === "" ||
+                                        valStr === "null" ||
+                                        valStr === "undefined"
+                                    ) ? "" : value;
+                                }
+                                return cleanedRow;
+                            });
+                        }
+                    });
+                });
                 let previousData = [];
                 table.on("dataLoaded", function(newData) {
                     previousData = JSON.parse(JSON.stringify(newData));

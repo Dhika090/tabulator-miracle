@@ -244,6 +244,58 @@
                 <i class="menu-icon tf-icons bx bx-building-house"></i>
                 <div>SHPNRE</div>
             </a>
+            <ul class="menu-sub">
+                <li class="menu-item {{ request()->is('monev/shpnre/input-data*') ? 'active open' : '' }}">
+                    <a href="javascript:void(0);" class="menu-link menu-toggle">
+                        Input Data Monev
+                    </a>
+                    <ul class="menu-sub">
+                        <li
+                            class="menu-item {{ request()->is('monev/shpnre/input-data/lumut-balai*') ? 'active' : '' }}">
+                            <a class="menu-link" href="{{ url('monev/shpnre/input-data/lumut-balai') }}">
+                                <i class="fa fa-wrench me-2"></i>Lumut Balai
+                            </a>
+                        </li>
+                        <li class="menu-item {{ request()->is('monev/shpnre/input-data/lahendong') ? 'active' : '' }}">
+                            <a class="menu-link" href="{{ url('monev/shpnre/input-data/lahendong') }}">
+                                <i class="fa fa-wrench me-2"></i>Lahendong
+                            </a>
+                        </li>
+                        <li class="menu-item {{ request()->is('monev/shpnre/input-data/karaha') ? 'active' : '' }}">
+                            <a class="menu-link" href="{{ url('monev/shpnre/input-data/karaha') }}">
+                                <i class="fa fa-wrench me-2"></i>Karaha
+                            </a>
+                        </li>
+                        <li class="menu-item {{ request()->is('monev/shpnre/input-data/Kamojang') ? 'active' : '' }}">
+                            <a class="menu-link" href="{{ url('monev/shpnre/input-data/Kamojang') }}">
+                                <i class="fa fa-wrench me-2"></i>Kamojang
+                            </a>
+                        </li>
+                        <li class="menu-item {{ request()->is('monev/shpnre/input-data/Ulubelu') ? 'active' : '' }}">
+                            <a class="menu-link" href="{{ url('monev/shpnre/input-data/Ulubelu') }}">
+                                <i class="fa fa-wrench me-2"></i>Ulubelu
+                            </a>
+                        </li>
+                        <li class="menu-item {{ request()->is('monev/shpnre/input-data/ppi') ? 'active' : '' }}">
+                            <a class="menu-link" href="{{ url('monev/shpnre/input-data/ppi') }}">
+                                <i class="fa fa-wrench me-2"></i>PPI
+                            </a>
+                        </li>
+                        <li
+                            class="menu-item {{ request()->is('monev/shpnre/input-data/jawa-1-regas') ? 'active' : '' }}">
+                            <a class="menu-link" href="{{ url('monev/shpnre/input-data/jawa-1-regas') }}">
+                                <i class="fa fa-wrench me-2"></i>Jawa 1 Regas
+                            </a>
+                        </li>
+                        <li
+                            class="menu-item {{ request()->is('monev/shpnre/input-data/jawa-1-power') ? 'active' : '' }}">
+                            <a class="menu-link" href="{{ url('monev/shpnre/input-data/jawa-1-power') }}">
+                                <i class="fa fa-wrench me-2"></i>Jawa 1 Power
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
         </li>
         <li class="menu-item {{ request()->is('monev/shct/*') ? 'active open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -286,9 +338,6 @@
             </ul>
         </li> --}}
     </ul>
-
-
-
 
 </aside>
 

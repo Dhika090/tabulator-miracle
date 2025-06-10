@@ -707,6 +707,8 @@
                     responsiveLayout: "collapse",
                     autoResize: true,
                     columns: columnMap["perta-samtan-gas"],
+                    virtualDom: true,
+                    height: "700px",
 
                     selectableRange: 1,
                     selectableRangeColumns: true,

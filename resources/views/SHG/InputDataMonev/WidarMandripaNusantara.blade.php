@@ -718,6 +718,8 @@
                     responsiveLayout: "collapse",
                     autoResize: true,
                     columns: columnMap["widar-mandripa-nusantara"],
+                    virtualDom: true,
+                    height: "700px",
 
                     selectableRange: 1,
                     selectableRangeColumns: true,

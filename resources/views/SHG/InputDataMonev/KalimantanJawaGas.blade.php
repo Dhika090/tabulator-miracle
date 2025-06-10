@@ -702,6 +702,8 @@
                     responsiveLayout: "collapse",
                     autoResize: true,
                     columns: columnMap["kalimantan-jawa-gas"],
+                    virtualDom: true,
+                    height: "700px",
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -778,7 +780,7 @@
                     return changes;
                 }
 
-               table.on("dataChanged", function(newData) {
+                table.on("dataChanged", function(newData) {
                     const changedRows = getChangedRows(newData, previousData);
                     console.log("Baris yang berubah:", changedRows);
 

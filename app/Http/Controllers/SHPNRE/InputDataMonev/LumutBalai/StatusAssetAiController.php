@@ -1,0 +1,141 @@
+<?php
+
+namespace App\Http\Controllers\SHPNRE\InputDataMonev\LumutBalai;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\SHPNRE\LumutBalai\StatusAssetAiLbRequest;
+use App\Models\SHPNRE\LumutBalai\StatusAssetAiLB;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
+class StatusAssetAiController extends Controller
+{
+    public function index(Request $request)
+    {
+        if ($request->wantsJson()) {
+            $TargetPLO = StatusAssetAiLB::all();
+            return response()->json($TargetPLO);
+        }
+
+        $companies = [
+            'PGN',
+            'PTG',
+            'PTGN',
+            'PTSG',
+            'PGN, PAG, SAKA, WMP',
+            'GEI',
+            'TGI',
+            'WMN',
+            'PLI',
+            'PDG',
+            'KJG',
+            'PAG',
+            'NR'
+        ];
+
+        $tabs = [
+            [
+                'title' => 'Status Asset 2025 AI Lumut Balai',
+                'route' => route('lumut-balai'),
+                'active' => request()->routeIs('lumut-balai'),
+            ],
+            [
+                'title' => 'Asset Breakdown Lumut Balai',
+                'route' => route('asset-breakdown-lb'),
+                'active' => request()->routeIs('asset-breakdown-lb'),
+            ],
+            [
+                'title' => 'Summary PLO Lumut Balai',
+                'route' => route('summary-plo-lb'),
+                'active' => request()->routeIs('summary-plo-lb'),
+            ],
+            [
+                'title' => 'Kondisi Vacant Funsgi Aims Lumut Balai',
+                'route' => route('kondisi-vacant-aims-lb'),
+                'active' => request()->routeIs('kondisi-vacant-aims-lb'),
+            ],
+            [
+                'title' => 'Pelatihan Aims Lumut Balai',
+                'route' => route('pelatihan-aims-lb'),
+                'active' => request()->routeIs('pelatihan-aims-lb'),
+            ],
+            [
+                'title' => 'Rencana Pemeliharaan LB',
+                'route' => route('rencana-pemeliharaan-lb'),
+                'active' => request()->routeIs('rencana-pemeliharaan-lb'),
+            ],
+            [
+                'title' => 'Availability Lumut Balai',
+                'route' => route('availability-lb'),
+                'active' => request()->routeIs('availability-lb'),
+            ],
+            [
+                'title' => 'Mandatory Certification Aims Lumut Balai',
+                'route' => route('mandatory-certification-lb'),
+                'active' => request()->routeIs('mandatory-certification-lb'),
+            ],
+            [
+                'title' => 'Real Anggaran AI Lumut Balai',
+                'route' => route('real-anggaran-ai-lb'),
+                'active' => request()->routeIs('real-anggaran-ai-lb'),
+            ],
+            [
+                'title' => 'Real Anggaran Figure Lumut Balai',
+                'route' => route('real-anggaran-figure-lb'),
+                'active' => request()->routeIs('real-anggaran-figure-lb'),
+            ],
+            [
+                'title' => 'Real Prog Fisik AI LB',
+                'route' => route('real-prog-fisik-ai-lb'),
+                'active' => request()->routeIs('real-prog-fisik-ai-lb'),
+            ],
+            [
+                'title' => 'Sistem Informasi Aims Lumut Balai',
+                'route' => route('sistem-informasi-aims-lb'),
+                'active' => request()->routeIs('sistem-informasi-aims-lb'),
+            ]
+        ];
+
+        return view('SHPNRE.InputDataMonev.LumutBalai.StatusAssetAiLB', compact('tabs', 'companies'));
+    }
+
+    public function data()
+    {
+        $TargetPLO = StatusAssetAiLB::select('*')
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderBy('periode_date', 'asc')
+            ->get();
+
+        return response()->json($TargetPLO);
+    }
+
+    public function store(StatusAssetAiLbRequest $request)
+    {
+        $data = $request->validated();
+        $data = StatusAssetAiLB::create($data);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Data berhasil disimpan',
+            'data' => $data
+        ]);
+    }
+
+    public function update(StatusAssetAiLbRequest $request, $id)
+    {
+        $progress = StatusAssetAiLB::findOrFail($id);
+        $progress->update($request->validated());
+
+        return response()->json(['success' => true, 'message' => 'Data berhasil diupdate']);
+    }
+
+    public function destroy($id)
+    {
+        $target = StatusAssetAiLB::findOrFail($id);
+        $target->delete();
+
+        return response()->json(['success' => true, 'message' => 'Data berhasil dihapus']);
+    }
+}

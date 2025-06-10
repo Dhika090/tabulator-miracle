@@ -126,11 +126,14 @@
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
                 <h5 class="card-title mb-3 mb-md-0">Realisasi Anggaran AI PTG</h5>
-                <div class="d-flex">
+                <div class="d-flex flex-column flex-md-row align-items-center gap-3">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
-                    <button class="btn btn-outline-secondary ms-2 h-100 mt-1" type="button"
+                    <button class="btn btn-outline-secondary ms-2 h-100 mt-1 d" type="button"
                         onclick="clearSearch()">Clear</button>
+                    <button class="btn btn-primary px-4 py-2" id="download-xlsx" style="white-space: nowrap;">
+                        Export Excel
+                    </button>
                 </div>
             </div>
 
@@ -262,6 +265,7 @@
 
     @push('scripts')
         <script src="https://unpkg.com/tabulator-tables@5.6.0/dist/js/tabulator.min.js"></script>
+        <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
 
         <script>
             function deleteData(id) {
@@ -357,7 +361,6 @@
                 table.clearFilter();
             }
 
-
             function loadData() {
                 fetch("/monev/shg/input-data/realisasi-anggaran-ai-ptg/data", {
                         headers: {
@@ -365,7 +368,23 @@
                         }
                     })
                     .then(res => res.json())
-                    .then(data => table.setData(data))
+                    .then(data => {
+                        const cleaned = data.map(row => {
+                            const cleanedRow = {};
+                            for (const [key, value] of Object.entries(row)) {
+                                const valStr = String(value).trim().toLowerCase();
+                                cleanedRow[key] = (
+                                    value === null ||
+                                    value === undefined ||
+                                    valStr === "null" ||
+                                    valStr === "undefined"
+                                ) ? "" : value;
+                            }
+                            return cleanedRow;
+                        });
+
+                        table.setData(cleaned);
+                    })
                     .catch(err => console.error("Gagal load data:", err));
             }
 
@@ -375,7 +394,8 @@
                             title: "No",
                             formatter: "rownum",
                             hozAlign: "center",
-                            width: 60
+                            width: 60,
+                            donwload: false
                         },
                         {
                             title: "ID",
@@ -388,81 +408,21 @@
                             editor: "input",
                             headerFilter: "select",
                             headerFilterParams: {
-                                values: [{
-                                        value: "01",
-                                        label: "Januari"
-                                    },
-                                    {
-                                        value: "02",
-                                        label: "Februari"
-                                    },
-                                    {
-                                        value: "03",
-                                        label: "Maret"
-                                    },
-                                    {
-                                        value: "04",
-                                        label: "April"
-                                    },
-                                    {
-                                        value: "05",
-                                        label: "Mei"
-                                    },
-                                    {
-                                        value: "06",
-                                        label: "Juni"
-                                    },
-                                    {
-                                        value: "07",
-                                        label: "Juli"
-                                    },
-                                    {
-                                        value: "08",
-                                        label: "Agustus"
-                                    },
-                                    {
-                                        value: "09",
-                                        label: "September"
-                                    },
-                                    {
-                                        value: "10",
-                                        label: "Oktober"
-                                    },
-                                    {
-                                        value: "11",
-                                        label: "November"
-                                    },
-                                    {
-                                        value: "12",
-                                        label: "Desember"
+                                values: (() => {
+                                    const years = [];
+                                    years.push({
+                                        value: "",
+                                        label: "Pilih Tahun"
+                                    });
+                                    for (let year = 2020; year <= new Date().getFullYear() +
+                                        5; year++) {
+                                        years.push({
+                                            value: String(year),
+                                            label: String(year)
+                                        });
                                     }
-                                ]
-                            },
-                            headerFilterPlaceholder: "Pilih Bulan",
-                            headerFilterFunc: function(headerValue, rowValue) {
-                                if (!headerValue) return true;
-                                if (!rowValue) return false;
-
-                                const periode = rowValue.toLowerCase();
-
-                                const bulanTextMap = {
-                                    "01": ["jan", "january"],
-                                    "02": ["feb", "february"],
-                                    "03": ["mar", "march"],
-                                    "04": ["apr", "april"],
-                                    "05": ["may", "mei"],
-                                    "06": ["jun", "june"],
-                                    "07": ["jul", "july"],
-                                    "08": ["aug", "august"],
-                                    "09": ["sep", "september"],
-                                    "10": ["oct", "october"],
-                                    "11": ["nov", "november"],
-                                    "12": ["dec", "december"]
-                                };
-
-                                const keywords = bulanTextMap[headerValue];
-                                return keywords.some(keyword => periode.includes(keyword)) || periode
-                                    .includes(`-${headerValue}`);
+                                    return years;
+                                })()
                             }
                         },
                         {
@@ -550,7 +510,8 @@
                                 return `<button onclick='deleteData("${row.id}")'>Hapus</button>`;
                             },
                             hozAlign: "center",
-                            width: 150
+                            width: 150,
+                            download: false
                         }
                     ]
                 };
@@ -560,6 +521,8 @@
                     responsiveLayout: "collapse",
                     autoResize: true,
                     columns: columnMap["realisasi-anggaran-ai-ptg"],
+                    virtualDom: true,
+                    height: "700px",
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -591,6 +554,29 @@
                         editor: "input",
                         resizable: "header",
                     },
+                });
+
+                  document.getElementById("download-xlsx").addEventListener("click", function() {
+                    window.table.download("xlsx", "realisasi-anggaran-ai-ptg.xlsx", {
+                        sheetName: "realisasi-anggaran-ai-ptg",
+                        columnHeaders: true,
+                        downloadDataFormatter: function(data) {
+                            return data.map(row => {
+                                const cleanedRow = {};
+                                for (const [key, value] of Object.entries(row)) {
+                                    const valStr = String(value).trim().toLowerCase();
+                                    cleanedRow[key] = (
+                                        value === null ||
+                                        value === undefined ||
+                                        value === "" ||
+                                        valStr === "null" ||
+                                        valStr === "undefined"
+                                    ) ? "" : value;
+                                }
+                                return cleanedRow;
+                            });
+                        }
+                    });
                 });
 
                 let previousData = [];
