@@ -18,17 +18,16 @@
             <!--/ Layout Content -->
 
             <!-- Layout container -->
+
             <div class="layout-page">
                 <button id="sidebarToggle" class="btn btn-sm btn-primary"
-                    style="position: fixed; margin-left: 25px; top: 8px;  z-index: 9999;">
+                    style="position: relative; width: 40px; margin-left: 25px; top: 8px;  z-index: 9999;">
                     ☰
                 </button>
-
-
                 <!-- Content wrapper -->
                 <div class="content-wrapper">
                     <!-- Content -->
-                    <div class="container-fluid  flex-grow-1 container-p-y">
+                    <div class="container-fluid  flex-grow-1 container-y">
                         {{ $slot }}
                     </div>
                     <!-- / Content -->
@@ -43,11 +42,8 @@
             <!-- / Layout page -->
         </div>
     </div>
-
-    <!-- Include Scripts -->
     @include('partials.scripts')
     @stack('scripts')
-    <!-- / Include Scripts -->
 </body>
 
 </html>

@@ -244,6 +244,32 @@ use App\Http\Controllers\SHPNRE\InputDataMonev\Karaha\SistemInformasiAimsKarahaC
 use App\Http\Controllers\SHPNRE\InputDataMonev\Karaha\StatusAssetAiKarahaController;
 use App\Http\Controllers\SHPNRE\InputDataMonev\Karaha\SummaryPloKarahaController;
 use App\Http\Controllers\SHPNRE\InputDataMonev\Karaha\KondisiVacantAimsKarahaController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Kamojang\AssetBreakdownKamojangController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Kamojang\AvailabilityKamojangController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Kamojang\KondisiVacantAimsKamojangController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Kamojang\MandatoryCertificationKamojangController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Kamojang\RealAnggaranAiKamojangController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Kamojang\RealAnggaranFigureKamojangController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Kamojang\RealProgFisikAiKamojangController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Kamojang\RencanaPemeliharaanKamojangController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Kamojang\SistemInformasiAimsKamojangController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Kamojang\StatusAssetAiKamojangController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Kamojang\SummaryploKamojangController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Kamojang\PelatihanAimsKamojangController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Kamojang\SapAssetKamojangController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Ulubelu\AssetBreakdownUlubeluController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Ulubelu\AvailabilityUlubeluController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Ulubelu\KondisiVacantAimsUlubeluController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Ulubelu\MandatoryCertificationUlubeluController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Ulubelu\PelatihanAimsUlubeluController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Ulubelu\RealAnggaranAiUlubeluController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Ulubelu\RealAnggaranFigureUlubeluController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Ulubelu\RealProgFisikAiUlubeluController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Ulubelu\RencanaPemeliharaanUlubeluController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Ulubelu\SapAssetUlubeluController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Ulubelu\SistemInformasiAimsUlubeluController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Ulubelu\StatusAssetAiUlubeluController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Ulubelu\SummaryPloUlubeluController;
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
@@ -2175,12 +2201,239 @@ Route::prefix('monev/shpnre/input-data/kondisi-vacant-aims-karaha')->group(funct
     Route::delete('/{id}', [KondisiVacantAimsKarahaController::class, 'destroy'])->name('kondisi-vacant-aims-karaha.destroy');
 });
 
+// Kamojang
+// AssetBreakdownKamojang
+Route::prefix('monev/shpnre/input-data/asset-breakdown-kamojang')->group(function () {
+    Route::get('/', [AssetBreakdownKamojangController::class, 'index'])->name('asset-breakdown-kamojang');
+    Route::post('/', [AssetBreakdownKamojangController::class, 'store'])->name('asset-breakdown-kamojang.store');
+    Route::get('/data', [AssetBreakdownKamojangController::class, 'data'])->name('asset-breakdown-kamojang.data');
+    Route::put('/{id}', [AssetBreakdownKamojangController::class, 'update'])->name('asset-breakdown-kamojang.update');
+    Route::delete('/{id}', [AssetBreakdownKamojangController::class, 'destroy'])->name('asset-breakdown-kamojang.destroy');
+});
 
+// AvailabilityKamojang
+Route::prefix('monev/shpnre/input-data/availability-kamojang')->group(function () {
+    Route::get('/', [AvailabilityKamojangController::class, 'index'])->name('availability-kamojang');
+    Route::post('/', [AvailabilityKamojangController::class, 'store'])->name('availability-kamojang.store');
+    Route::get('/data', [AvailabilityKamojangController::class, 'data'])->name('availability-kamojang.data');
+    Route::put('/{id}', [AvailabilityKamojangController::class, 'update'])->name('availability-kamojang.update');
+    Route::delete('/{id}', [AvailabilityKamojangController::class, 'destroy'])->name('availability-kamojang.destroy');
+});
 
+// KondisiVacantAimsKamojang
+Route::prefix('monev/shpnre/input-data/kondisi-vacant-aims-kamojang')->group(function () {
+    Route::get('/', [KondisiVacantAimsKamojangController::class, 'index'])->name('kondisi-vacant-aims-kamojang');
+    Route::post('/', [KondisiVacantAimsKamojangController::class, 'store'])->name('kondisi-vacant-aims-kamojang.store');
+    Route::get('/data', [KondisiVacantAimsKamojangController::class, 'data'])->name('kondisi-vacant-aims-kamojang.data');
+    Route::put('/{id}', [KondisiVacantAimsKamojangController::class, 'update'])->name('kondisi-vacant-aims-kamojang.update');
+    Route::delete('/{id}', [KondisiVacantAimsKamojangController::class, 'destroy'])->name('kondisi-vacant-aims-kamojang.destroy');
+});
 
+// MandatoryCertificationKamojang
+Route::prefix('monev/shpnre/input-data/mandatory-certification-kamojang')->group(function () {
+    Route::get('/', [MandatoryCertificationKamojangController::class, 'index'])->name('mandatory-certification-kamojang');
+    Route::post('/', [MandatoryCertificationKamojangController::class, 'store'])->name('mandatory-certification-kamojang.store');
+    Route::get('/data', [MandatoryCertificationKamojangController::class, 'data'])->name('mandatory-certification-kamojang.data');
+    Route::put('/{id}', [MandatoryCertificationKamojangController::class, 'update'])->name('mandatory-certification-kamojang.update');
+    Route::delete('/{id}', [MandatoryCertificationKamojangController::class, 'destroy'])->name('mandatory-certification-kamojang.destroy');
+});
 
+// RealAnggaranAiKamojang
+Route::prefix('monev/shpnre/input-data/real-anggaran-ai-kamojang')->group(function () {
+    Route::get('/', [RealAnggaranAiKamojangController::class, 'index'])->name('real-anggaran-ai-kamojang');
+    Route::post('/', [RealAnggaranAiKamojangController::class, 'store'])->name('real-anggaran-ai-kamojang.store');
+    Route::get('/data', [RealAnggaranAiKamojangController::class, 'data'])->name('real-anggaran-ai-kamojang.data');
+    Route::put('/{id}', [RealAnggaranAiKamojangController::class, 'update'])->name('real-anggaran-ai-kamojang.update');
+    Route::delete('/{id}', [RealAnggaranAiKamojangController::class, 'destroy'])->name('real-anggaran-ai-kamojang.destroy');
+});
 
+// RealAnggaranFigureKamojang
+Route::prefix('monev/shpnre/input-data/real-anggaran-figure-kamojang')->group(function () {
+    Route::get('/', [RealAnggaranFigureKamojangController::class, 'index'])->name('real-anggaran-figure-kamojang');
+    Route::post('/', [RealAnggaranFigureKamojangController::class, 'store'])->name('real-anggaran-figure-kamojang.store');
+    Route::get('/data', [RealAnggaranFigureKamojangController::class, 'data'])->name('real-anggaran-figure-kamojang.data');
+    Route::put('/{id}', [RealAnggaranFigureKamojangController::class, 'update'])->name('real-anggaran-figure-kamojang.update');
+    Route::delete('/{id}', [RealAnggaranFigureKamojangController::class, 'destroy'])->name('real-anggaran-figure-kamojang.destroy');
+});
 
+// RealProgFisikAiKamojang
+Route::prefix('monev/shpnre/input-data/real-prog-fisik-kamojang')->group(function () {
+    Route::get('/', [RealProgFisikAiKamojangController::class, 'index'])->name('real-prog-fisik-kamojang');
+    Route::post('/', [RealProgFisikAiKamojangController::class, 'store'])->name('real-prog-fisik-kamojang.store');
+    Route::get('/data', [RealProgFisikAiKamojangController::class, 'data'])->name('real-prog-fisik-kamojang.data');
+    Route::put('/{id}', [RealProgFisikAiKamojangController::class, 'update'])->name('real-prog-fisik-kamojang.update');
+    Route::delete('/{id}', [RealProgFisikAiKamojangController::class, 'destroy'])->name('real-prog-fisik-kamojang.destroy');
+});
+
+// RencanaPemeliharaanKamojang
+Route::prefix('monev/shpnre/input-data/rencana-pemeliharaan-kamojang')->group(function () {
+    Route::get('/', [RencanaPemeliharaanKamojangController::class, 'index'])->name('rencana-pemeliharaan-kamojang');
+    Route::post('/', [RencanaPemeliharaanKamojangController::class, 'store'])->name('rencana-pemeliharaan-kamojang.store');
+    Route::get('/data', [RencanaPemeliharaanKamojangController::class, 'data'])->name('rencana-pemeliharaan-kamojang.data');
+    Route::put('/{id}', [RencanaPemeliharaanKamojangController::class, 'update'])->name('rencana-pemeliharaan-kamojang.update');
+    Route::delete('/{id}', [RencanaPemeliharaanKamojangController::class, 'destroy'])->name('rencana-pemeliharaan-kamojang.destroy');
+});
+
+// SistemInformasiAimsKamojang
+Route::prefix('monev/shpnre/input-data/sistem-informasi-aims-kamojang')->group(function () {
+    Route::get('/', [SistemInformasiAimsKamojangController::class, 'index'])->name('sistem-informasi-aims-kamojang');
+    Route::post('/', [SistemInformasiAimsKamojangController::class, 'store'])->name('sistem-informasi-aims-kamojang.store');
+    Route::get('/data', [SistemInformasiAimsKamojangController::class, 'data'])->name('sistem-informasi-aims-kamojang.data');
+    Route::put('/{id}', [SistemInformasiAimsKamojangController::class, 'update'])->name('sistem-informasi-aims-kamojang.update');
+    Route::delete('/{id}', [SistemInformasiAimsKamojangController::class, 'destroy'])->name('sistem-informasi-aims-kamojang.destroy');
+});
+
+// StatusAssetAiKamojang
+Route::prefix('monev/shpnre/input-data/kamojang')->group(function () {
+    Route::get('/', [StatusAssetAiKamojangController::class, 'index'])->name('kamojang');
+    Route::post('/', [StatusAssetAiKamojangController::class, 'store'])->name('kamojang.store');
+    Route::get('/data', [StatusAssetAiKamojangController::class, 'data'])->name('kamojang.data');
+    Route::put('/{id}', [StatusAssetAiKamojangController::class, 'update'])->name('kamojang.update');
+    Route::delete('/{id}', [StatusAssetAiKamojangController::class, 'destroy'])->name('kamojang.destroy');
+});
+
+// SummaryploKamojang
+Route::prefix('monev/shpnre/input-data/summary-plo-kamojang')->group(function () {
+    Route::get('/', [SummaryploKamojangController::class, 'index'])->name('summary-plo-kamojang');
+    Route::post('/', [SummaryploKamojangController::class, 'store'])->name('summary-plo-kamojang.store');
+    Route::get('/data', [SummaryploKamojangController::class, 'data'])->name('summary-plo-kamojang.data');
+    Route::put('/{id}', [SummaryploKamojangController::class, 'update'])->name('summary-plo-kamojang.update');
+    Route::delete('/{id}', [SummaryploKamojangController::class, 'destroy'])->name('summary-plo-kamojang.destroy');
+});
+
+// PelatihanAimsKamojang
+Route::prefix('monev/shpnre/input-data/pelatihan-aims-kamojang')->group(function () {
+    Route::get('/', [PelatihanAimsKamojangController::class, 'index'])->name('pelatihan-aims-kamojang');
+    Route::post('/', [PelatihanAimsKamojangController::class, 'store'])->name('pelatihan-aims-kamojang.store');
+    Route::get('/data', [PelatihanAimsKamojangController::class, 'data'])->name('pelatihan-aims-kamojang.data');
+    Route::put('/{id}', [PelatihanAimsKamojangController::class, 'update'])->name('pelatihan-aims-kamojang.update');
+    Route::delete('/{id}', [PelatihanAimsKamojangController::class, 'destroy'])->name('pelatihan-aims-kamojang.destroy');
+});
+// SapAssetKamojang
+Route::prefix('monev/shpnre/input-data/sap-asset-kamojang')->group(function () {
+    Route::get('/', [SapAssetKamojangController::class, 'index'])->name('sap-asset-kamojang');
+    Route::post('/', [SapAssetKamojangController::class, 'store'])->name('sap-asset-kamojang.store');
+    Route::get('/data', [SapAssetKamojangController::class, 'data'])->name('sap-asset-kamojang.data');
+    Route::put('/{id}', [SapAssetKamojangController::class, 'update'])->name('sap-asset-kamojang.update');
+    Route::delete('/{id}', [SapAssetKamojangController::class, 'destroy'])->name('sap-asset-kamojang.destroy');
+});
+
+// AssetBreakdownUlubelu
+Route::prefix('monev/shpnre/input-data/asset-breakdown-ulubelu')->group(function () {
+    Route::get('/', [AssetBreakdownUlubeluController::class, 'index'])->name('asset-breakdown-ulubelu');
+    Route::post('/', [AssetBreakdownUlubeluController::class, 'store'])->name('asset-breakdown-ulubelu.store');
+    Route::get('/data', [AssetBreakdownUlubeluController::class, 'data'])->name('asset-breakdown-ulubelu.data');
+    Route::put('/{id}', [AssetBreakdownUlubeluController::class, 'update'])->name('asset-breakdown-ulubelu.update');
+    Route::delete('/{id}', [AssetBreakdownUlubeluController::class, 'destroy'])->name('asset-breakdown-ulubelu.destroy');
+});
+
+// AvailabilityUlubelu
+Route::prefix('monev/shpnre/input-data/availability-ulubelu')->group(function () {
+    Route::get('/', [AvailabilityUlubeluController::class, 'index'])->name('availability-ulubelu');
+    Route::post('/', [AvailabilityUlubeluController::class, 'store'])->name('availability-ulubelu.store');
+    Route::get('/data', [AvailabilityUlubeluController::class, 'data'])->name('availability-ulubelu.data');
+    Route::put('/{id}', [AvailabilityUlubeluController::class, 'update'])->name('availability-ulubelu.update');
+    Route::delete('/{id}', [AvailabilityUlubeluController::class, 'destroy'])->name('availability-ulubelu.destroy');
+});
+
+// KondisiVacantaimsUlubelu
+Route::prefix('monev/shpnre/input-data/kondisi-vacant-aims-ulubelu')->group(function () {
+    Route::get('/', [KondisiVacantaimsUlubeluController::class, 'index'])->name('kondisi-vacant-aims-ulubelu');
+    Route::post('/', [KondisiVacantaimsUlubeluController::class, 'store'])->name('kondisi-vacant-aims-ulubelu.store');
+    Route::get('/data', [KondisiVacantaimsUlubeluController::class, 'data'])->name('kondisi-vacant-aims-ulubelu.data');
+    Route::put('/{id}', [KondisiVacantaimsUlubeluController::class, 'update'])->name('kondisi-vacant-aims-ulubelu.update');
+    Route::delete('/{id}', [KondisiVacantaimsUlubeluController::class, 'destroy'])->name('kondisi-vacant-aims-ulubelu.destroy');
+});
+
+// MandatoryCertificationUlubelu
+Route::prefix('monev/shpnre/input-data/mandatory-certification-ulubelu')->group(function () {
+    Route::get('/', [MandatoryCertificationUlubeluController::class, 'index'])->name('mandatory-certification-ulubelu');
+    Route::post('/', [MandatoryCertificationUlubeluController::class, 'store'])->name('mandatory-certification-ulubelu.store');
+    Route::get('/data', [MandatoryCertificationUlubeluController::class, 'data'])->name('mandatory-certification-ulubelu.data');
+    Route::put('/{id}', [MandatoryCertificationUlubeluController::class, 'update'])->name('mandatory-certification-ulubelu.update');
+    Route::delete('/{id}', [MandatoryCertificationUlubeluController::class, 'destroy'])->name('mandatory-certification-ulubelu.destroy');
+});
+
+// PelatihanAimsUlubelu
+Route::prefix('monev/shpnre/input-data/pelatihan-aims-ulubelu')->group(function () {
+    Route::get('/', [PelatihanAimsUlubeluController::class, 'index'])->name('pelatihan-aims-ulubelu');
+    Route::post('/', [PelatihanAimsUlubeluController::class, 'store'])->name('pelatihan-aims-ulubelu.store');
+    Route::get('/data', [PelatihanAimsUlubeluController::class, 'data'])->name('pelatihan-aims-ulubelu.data');
+    Route::put('/{id}', [PelatihanAimsUlubeluController::class, 'update'])->name('pelatihan-aims-ulubelu.update');
+    Route::delete('/{id}', [PelatihanAimsUlubeluController::class, 'destroy'])->name('pelatihan-aims-ulubelu.destroy');
+});
+
+// RealAnggaranAiUlubelu
+Route::prefix('monev/shpnre/input-data/real-anggaran-ai-ulubelu')->group(function () {
+    Route::get('/', [RealAnggaranAiUlubeluController::class, 'index'])->name('real-anggaran-ai-ulubelu');
+    Route::post('/', [RealAnggaranAiUlubeluController::class, 'store'])->name('real-anggaran-ai-ulubelu.store');
+    Route::get('/data', [RealAnggaranAiUlubeluController::class, 'data'])->name('real-anggaran-ai-ulubelu.data');
+    Route::put('/{id}', [RealAnggaranAiUlubeluController::class, 'update'])->name('real-anggaran-ai-ulubelu.update');
+    Route::delete('/{id}', [RealAnggaranAiUlubeluController::class, 'destroy'])->name('real-anggaran-ai-ulubelu.destroy');
+});
+
+// RealAnggaranFigureUlubelu
+Route::prefix('monev/shpnre/input-data/real-anggaran-figure-ulubelu')->group(function () {
+    Route::get('/', [RealAnggaranFigureUlubeluController::class, 'index'])->name('real-anggaran-figure-ulubelu');
+    Route::post('/', [RealAnggaranFigureUlubeluController::class, 'store'])->name('real-anggaran-figure-ulubelu.store');
+    Route::get('/data', [RealAnggaranFigureUlubeluController::class, 'data'])->name('real-anggaran-figure-ulubelu.data');
+    Route::put('/{id}', [RealAnggaranFigureUlubeluController::class, 'update'])->name('real-anggaran-figure-ulubelu.update');
+    Route::delete('/{id}', [RealAnggaranFigureUlubeluController::class, 'destroy'])->name('real-anggaran-figure-ulubelu.destroy');
+});
+
+// RealProgFisikAiUlubelu
+Route::prefix('monev/shpnre/input-data/real-prog-fisik-ulubelu')->group(function () {
+    Route::get('/', [RealProgFisikAiUlubeluController::class, 'index'])->name('real-prog-fisik-ulubelu');
+    Route::post('/', [RealProgFisikAiUlubeluController::class, 'store'])->name('real-prog-fisik-ulubelu.store');
+    Route::get('/data', [RealProgFisikAiUlubeluController::class, 'data'])->name('real-prog-fisik-ulubelu.data');
+    Route::put('/{id}', [RealProgFisikAiUlubeluController::class, 'update'])->name('real-prog-fisik-ulubelu.update');
+    Route::delete('/{id}', [RealProgFisikAiUlubeluController::class, 'destroy'])->name('real-prog-fisik-ulubelu.destroy');
+});
+
+// RencanaPemeliharaanUlubelu
+Route::prefix('monev/shpnre/input-data/rencana-pemeliharaan-ulubelu')->group(function () {
+    Route::get('/', [RencanaPemeliharaanUlubeluController::class, 'index'])->name('rencana-pemeliharaan-ulubelu');
+    Route::post('/', [RencanaPemeliharaanUlubeluController::class, 'store'])->name('rencana-pemeliharaan-ulubelu.store');
+    Route::get('/data', [RencanaPemeliharaanUlubeluController::class, 'data'])->name('rencana-pemeliharaan-ulubelu.data');
+    Route::put('/{id}', [RencanaPemeliharaanUlubeluController::class, 'update'])->name('rencana-pemeliharaan-ulubelu.update');
+    Route::delete('/{id}', [RencanaPemeliharaanUlubeluController::class, 'destroy'])->name('rencana-pemeliharaan-ulubelu.destroy');
+});
+
+// SapAssetUlubelu
+Route::prefix('monev/shpnre/input-data/sap-asset-ulubelu')->group(function () {
+    Route::get('/', [SapAssetUlubeluController::class, 'index'])->name('sap-asset-ulubelu');
+    Route::post('/', [SapAssetUlubeluController::class, 'store'])->name('sap-asset-ulubelu.store');
+    Route::get('/data', [SapAssetUlubeluController::class, 'data'])->name('sap-asset-ulubelu.data');
+    Route::put('/{id}', [SapAssetUlubeluController::class, 'update'])->name('sap-asset-ulubelu.update');
+    Route::delete('/{id}', [SapAssetUlubeluController::class, 'destroy'])->name('sap-asset-ulubelu.destroy');
+});
+
+// SistemInformasiAimsUlubelu
+Route::prefix('monev/shpnre/input-data/sistem-informasi-aims-ulubelu')->group(function () {
+    Route::get('/', [SistemInformasiAimsUlubeluController::class, 'index'])->name('sistem-informasi-aims-ulubelu');
+    Route::post('/', [SistemInformasiAimsUlubeluController::class, 'store'])->name('sistem-informasi-aims-ulubelu.store');
+    Route::get('/data', [SistemInformasiAimsUlubeluController::class, 'data'])->name('sistem-informasi-aims-ulubelu.data');
+    Route::put('/{id}', [SistemInformasiAimsUlubeluController::class, 'update'])->name('sistem-informasi-aims-ulubelu.update');
+    Route::delete('/{id}', [SistemInformasiAimsUlubeluController::class, 'destroy'])->name('sistem-informasi-aims-ulubelu.destroy');
+});
+
+// StatusAssetAiUlubelu
+Route::prefix('monev/shpnre/input-data/ulubelu')->group(function () {
+    Route::get('/', [StatusAssetAiUlubeluController::class, 'index'])->name('ulubelu');
+    Route::post('/', [StatusAssetAiUlubeluController::class, 'store'])->name('ulubelu.store');
+    Route::get('/data', [StatusAssetAiUlubeluController::class, 'data'])->name('ulubelu.data');
+    Route::put('/{id}', [StatusAssetAiUlubeluController::class, 'update'])->name('ulubelu.update');
+    Route::delete('/{id}', [StatusAssetAiUlubeluController::class, 'destroy'])->name('ulubelu.destroy');
+});
+
+// SummaryPloUlubelu
+Route::prefix('monev/shpnre/input-data/summary-plo-ulubelu')->group(function () {
+    Route::get('/', [SummaryPloUlubeluController::class, 'index'])->name('summary-plo-ulubelu');
+    Route::post('/', [SummaryPloUlubeluController::class, 'store'])->name('summary-plo-ulubelu.store');
+    Route::get('/data', [SummaryPloUlubeluController::class, 'data'])->name('summary-plo-ulubelu.data');
+    Route::put('/{id}', [SummaryPloUlubeluController::class, 'update'])->name('summary-plo-ulubelu.update');
+    Route::delete('/{id}', [SummaryPloUlubeluController::class, 'destroy'])->name('summary-plo-ulubelu.destroy');
+});
 
 
 

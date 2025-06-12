@@ -21,7 +21,7 @@ class RealProgFisikAiKarahaRequest extends FormRequest
      */
     public function rules(): array
     {
-         return [
+        return [
             'periode' => ['nullable', 'string'],
             'no' => ['nullable', 'string'],
             'program_kerja' => ['nullable', 'string'],

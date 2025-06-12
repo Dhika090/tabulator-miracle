@@ -266,13 +266,13 @@
                                 <i class="fa fa-wrench me-2"></i>Karaha
                             </a>
                         </li>
-                        <li class="menu-item {{ request()->is('monev/shpnre/input-data/Kamojang') ? 'active' : '' }}">
-                            <a class="menu-link" href="{{ url('monev/shpnre/input-data/Kamojang') }}">
+                        <li class="menu-item {{ request()->is('monev/shpnre/input-data/kamojang') ? 'active' : '' }}">
+                            <a class="menu-link" href="{{ url('monev/shpnre/input-data/kamojang') }}">
                                 <i class="fa fa-wrench me-2"></i>Kamojang
                             </a>
                         </li>
-                        <li class="menu-item {{ request()->is('monev/shpnre/input-data/Ulubelu') ? 'active' : '' }}">
-                            <a class="menu-link" href="{{ url('monev/shpnre/input-data/Ulubelu') }}">
+                        <li class="menu-item {{ request()->is('monev/shpnre/input-data/ulubelu') ? 'active' : '' }}">
+                            <a class="menu-link" href="{{ url('monev/shpnre/input-data/ulubelu') }}">
                                 <i class="fa fa-wrench me-2"></i>Ulubelu
                             </a>
                         </li>

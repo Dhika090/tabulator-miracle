@@ -33,6 +33,7 @@ class StatusAssetAiKarahaController extends Controller
             'PAG',
             'NR'
         ];
+        
         $tabs = [
             [
                 'title' => 'Status Asset 2025 AI Karaha',

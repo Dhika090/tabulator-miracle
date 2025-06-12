@@ -26,11 +26,19 @@ class AssetBreakdownLB extends Model
     protected $fillable = [
         'periode',
         'company',
-        'kategori',
-        'target',
-        'availability',
-        'isu',
-        'kendala',
-        'tindak_lanjut'
+        'plant_segment',
+        'kategori_criticality',
+        'tag',
+        'deskripsi_peralatan',
+        'jenis_kerusakan',
+        'penyebab',
+        'kendala_perbaikan',
+        'mitigasi',
+        'perbaikan_permanen',
+        'progres_perbaikan_permanen',
+        'tindak_lanjut',
+        'target_penyelesaian',
+        'estimasi_biaya_perbaikan',
+        'link_foto_video'
     ];
 }

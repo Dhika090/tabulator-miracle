@@ -21,7 +21,7 @@ class SistemInformasiAimsKarahaRequest extends FormRequest
      */
     public function rules(): array
     {
-         return [
+        return [
             'periode' => 'nullable|string',
             'company' => 'nullable|string',
             'jumlah_aset_operasi' => 'nullable|string',

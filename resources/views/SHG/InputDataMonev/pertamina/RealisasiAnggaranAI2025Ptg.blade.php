@@ -464,28 +464,28 @@
                         {
                             title: "Nilai Kontrak",
                             field: "nilai_kontrak",
-                            editor: "number"
+                            editor: "input"
                         },
                         // Plan Fields
                         ...["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
                         .map(bulan => ({
                             title: `Plan ${bulan}`,
                             field: `plan_${bulan.toLowerCase()}`,
-                            editor: "number"
+                            editor: "input"
                         })),
                         // Prognosa Fields
                         ...["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
                         .map(bulan => ({
                             title: `Prognosa ${bulan}`,
                             field: `prognosa_${bulan.toLowerCase()}`,
-                            editor: "number"
+                            editor: "input"
                         })),
                         // Actual Fields
                         ...["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
                         .map(bulan => ({
                             title: `Actual ${bulan}`,
                             field: `actual_${bulan.toLowerCase()}`,
-                            editor: "number"
+                            editor: "input"
                         })),
                         {
                             title: "Kode",

@@ -559,6 +559,27 @@
                     });
                 });
 
+                table.on("cellEdited", function(cell) {
+                    const updatedData = cell.getRow().getData();
+                    const id = updatedData.id;
+
+                    if (!id) return;
+
+                    fetch(`availability-karaha/${id}`, {
+                            method: "PUT",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute("content")
+                            },
+                            body: JSON.stringify(updatedData)
+                        })
+                        .then(res => res.json())
+                        .then(data => console.log("Update berhasil:", data))
+                        .catch(err => console.error("Gagal update:", err));
+                });
+
                 let previousData = [];
                 table.on("dataLoaded", function(newData) {
                     previousData = JSON.parse(JSON.stringify(newData));
@@ -612,27 +633,6 @@
                     });
 
                     previousData = JSON.parse(JSON.stringify(newData));
-                });
-
-                table.on("cellEdited", function(cell) {
-                    const updatedData = cell.getRow().getData();
-                    const id = updatedData.id;
-
-                    if (!id) return;
-
-                    fetch(`availability-karaha/${id}`, {
-                            method: "PUT",
-                            headers: {
-                                "Content-Type": "application/json",
-                                "Accept": "application/json",
-                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
-                                    .getAttribute("content")
-                            },
-                            body: JSON.stringify(updatedData)
-                        })
-                        .then(res => res.json())
-                        .then(data => console.log("Update berhasil:", data))
-                        .catch(err => console.error("Gagal update:", err));
                 });
                 loadData();
             });

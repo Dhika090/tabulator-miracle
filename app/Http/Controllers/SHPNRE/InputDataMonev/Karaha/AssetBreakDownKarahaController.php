@@ -20,7 +20,7 @@ class AssetBreakDownKarahaController extends Controller
                 'active' => request()->routeIs('karaha'),
             ],
             [
-                'title' => 'Asset Breakdown Lumut Balai',
+                'title' => 'Asset Breakdown Karaha',
                 'route' => route('asset-breakdown-karaha'),
                 'active' => request()->routeIs('asset-breakdown-karaha'),
             ],
