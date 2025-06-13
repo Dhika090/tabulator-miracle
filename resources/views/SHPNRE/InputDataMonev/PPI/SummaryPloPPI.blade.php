@@ -125,7 +125,7 @@
     <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-                <h5 class="card-title mb-3 mb-md-0">Real Anggaran AI Karaha</h5>
+                <h5 class="card-title mb-3 mb-md-0">Summary PloPPI</h5>
                 <div class="d-flex flex-column flex-md-row align-items-center gap-3">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
@@ -183,7 +183,7 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Real Anggaran AI Karaha</h3>
+            <h3>Summary Plo PPI</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
                 <div>
@@ -192,228 +192,115 @@
                 </div>
 
                 <div>
-                    <label>No</label>
-                    <input type="number" name="no" id="no">
+                    <label>Company</label>
+                    <input type="text" name="company" id="company">
                 </div>
 
                 <div>
-                    <label>Program Kerja</label>
-                    <input type="text" name="program_kerja" id="program_kerja">
+                    <label>Total PLO Exp</label>
+                    <input type="number" name="total_plo_exp" id="total_plo_exp">
                 </div>
 
                 <div>
-                    <label>Kategori AIBT</label>
-                    <input type="text" name="kategori_aibt" id="kategori_aibt">
+                    <label>Total PLO Exp &lt;6</label>
+                    <input type="number" name="total_plo_exp_lt6" id="total_plo_exp_lt6">
                 </div>
 
                 <div>
-                    <label>Jenis Anggaran</label>
-                    <input type="text" name="jenis_anggaran" id="jenis_anggaran">
+                    <label>Total PLO Valid</label>
+                    <input type="number" name="total_plo_valid" id="total_plo_valid">
                 </div>
 
                 <div>
-                    <label>Besar RKAP</label>
-                    <input type="number" name="besar_rkap" id="besar_rkap">
+                    <label>Total PLO Exp Belum Proses</label>
+                    <input type="number" name="total_plo_exp_belum_proses" id="total_plo_exp_belum_proses">
                 </div>
 
                 <div>
-                    <label>Entitas</label>
-                    <input type="text" name="entitas" id="entitas">
+                    <label>Total PLO Exp Pre-Inspection</label>
+                    <input type="number" name="total_plo_exp_pre_inspection" id="total_plo_exp_pre_inspection">
                 </div>
 
                 <div>
-                    <label>Unit</label>
-                    <input type="text" name="unit" id="unit">
+                    <label>Total PLO Exp Inspection</label>
+                    <input type="number" name="total_plo_exp_inspection" id="total_plo_exp_inspection">
                 </div>
 
                 <div>
-                    <label>Nilai Kontrak</label>
-                    <input type="number" name="nilai_kontrak" id="nilai_kontrak">
+                    <label>Total PLO Exp BA PK</label>
+                    <input type="number" name="total_plo_exp_ba_pk" id="total_plo_exp_ba_pk">
                 </div>
 
                 <div>
-                    <label>Plan Jan</label>
-                    <input type="number" name="plan_jan" id="plan_jan">
+                    <label>Total PLO Exp COI Peralatan</label>
+                    <input type="number" name="total_plo_exp_coi_peralatan" id="total_plo_exp_coi_peralatan">
                 </div>
 
                 <div>
-                    <label>Plan Feb</label>
-                    <input type="number" name="plan_feb" id="plan_feb">
+                    <label>Total PLO Exp Penerbitan PLO</label>
+                    <input type="number" name="total_plo_exp_penerbitan_plo" id="total_plo_exp_penerbitan_plo">
                 </div>
 
                 <div>
-                    <label>Plan Mar</label>
-                    <input type="number" name="plan_mar" id="plan_mar">
+                    <label>Total PLO Exp &lt;6 Belum Proses</label>
+                    <input type="number" name="total_plo_exp_lt6_belum_proses" id="total_plo_exp_lt6_belum_proses">
                 </div>
 
                 <div>
-                    <label>Plan Apr</label>
-                    <input type="number" name="plan_apr" id="plan_apr">
+                    <label>Total PLO Exp &lt;6 Pre-Inspection</label>
+                    <input type="number" name="total_plo_exp_lt6_pre_inspection" id="total_plo_exp_lt6_pre_inspection">
                 </div>
 
                 <div>
-                    <label>Plan May</label>
-                    <input type="number" name="plan_may" id="plan_may">
+                    <label>Total PLO Exp &lt;6 Inspection</label>
+                    <input type="number" name="total_plo_exp_lt6_inspection" id="total_plo_exp_lt6_inspection">
                 </div>
 
                 <div>
-                    <label>Plan Jun</label>
-                    <input type="number" name="plan_jun" id="plan_jun">
+                    <label>Total PLO Exp &lt;6 BA PK</label>
+                    <input type="number" name="total_plo_exp_lt6_ba_pk" id="total_plo_exp_lt6_ba_pk">
                 </div>
 
                 <div>
-                    <label>Plan Jul</label>
-                    <input type="number" name="plan_jul" id="plan_jul">
+                    <label>Total PLO Exp &lt;6 COI Peralatan</label>
+                    <input type="number" name="total_plo_exp_lt6_coi_peralatan"
+                        id="total_plo_exp_lt6_coi_peralatan">
                 </div>
 
                 <div>
-                    <label>Plan Aug</label>
-                    <input type="number" name="plan_aug" id="plan_aug">
+                    <label>Total PLO Exp &lt;6 Penerbitan PLO</label>
+                    <input type="number" name="total_plo_exp_lt6_penerbitan_plo"
+                        id="total_plo_exp_lt6_penerbitan_plo">
                 </div>
 
                 <div>
-                    <label>Plan Sep</label>
-                    <input type="number" name="plan_sep" id="plan_sep">
+                    <label>Total PLO Valid Belum Proses</label>
+                    <input type="number" name="total_plo_valid_belum_proses" id="total_plo_valid_belum_proses">
                 </div>
 
                 <div>
-                    <label>Plan Oct</label>
-                    <input type="number" name="plan_oct" id="plan_oct">
+                    <label>Total PLO Valid Pre-Inspection</label>
+                    <input type="number" name="total_plo_valid_pre_inspection" id="total_plo_valid_pre_inspection">
                 </div>
 
                 <div>
-                    <label>Plan Nov</label>
-                    <input type="number" name="plan_nov" id="plan_nov">
+                    <label>Total PLO Valid Inspection</label>
+                    <input type="number" name="total_plo_valid_inspection" id="total_plo_valid_inspection">
                 </div>
 
                 <div>
-                    <label>Plan Dec</label>
-                    <input type="number" name="plan_dec" id="plan_dec">
+                    <label>Total PLO Valid BA PK</label>
+                    <input type="number" name="total_plo_valid_ba_pk" id="total_plo_valid_ba_pk">
                 </div>
 
                 <div>
-                    <label>Prognosa Jan</label>
-                    <input type="number" name="prognosa_jan" id="prognosa_jan">
+                    <label>Total PLO Valid COI Peralatan</label>
+                    <input type="number" name="total_plo_valid_coi_peralatan" id="total_plo_valid_coi_peralatan">
                 </div>
 
                 <div>
-                    <label>Prognosa Feb</label>
-                    <input type="number" name="prognosa_feb" id="prognosa_feb">
-                </div>
-
-                <div>
-                    <label>Prognosa Mar</label>
-                    <input type="number" name="prognosa_mar" id="prognosa_mar">
-                </div>
-
-                <div>
-                    <label>Prognosa Apr</label>
-                    <input type="number" name="prognosa_apr" id="prognosa_apr">
-                </div>
-
-                <div>
-                    <label>Prognosa May</label>
-                    <input type="number" name="prognosa_may" id="prognosa_may">
-                </div>
-
-                <div>
-                    <label>Prognosa Jun</label>
-                    <input type="number" name="prognosa_jun" id="prognosa_jun">
-                </div>
-
-                <div>
-                    <label>Prognosa Jul</label>
-                    <input type="number" name="prognosa_jul" id="prognosa_jul">
-                </div>
-
-                <div>
-                    <label>Prognosa Aug</label>
-                    <input type="number" name="prognosa_aug" id="prognosa_aug">
-                </div>
-
-                <div>
-                    <label>Prognosa Sep</label>
-                    <input type="number" name="prognosa_sep" id="prognosa_sep">
-                </div>
-
-                <div>
-                    <label>Prognosa Oct</label>
-                    <input type="number" name="prognosa_oct" id="prognosa_oct">
-                </div>
-
-                <div>
-                    <label>Prognosa Nov</label>
-                    <input type="number" name="prognosa_nov" id="prognosa_nov">
-                </div>
-
-                <div>
-                    <label>Prognosa Dec</label>
-                    <input type="number" name="prognosa_dec" id="prognosa_dec">
-                </div>
-
-                <div>
-                    <label>Actual Jan</label>
-                    <input type="number" name="actual_jan" id="actual_jan">
-                </div>
-
-                <div>
-                    <label>Actual Feb</label>
-                    <input type="number" name="actual_feb" id="actual_feb">
-                </div>
-
-                <div>
-                    <label>Actual Mar</label>
-                    <input type="number" name="actual_mar" id="actual_mar">
-                </div>
-
-                <div>
-                    <label>Actual Apr</label>
-                    <input type="number" name="actual_apr" id="actual_apr">
-                </div>
-
-                <div>
-                    <label>Actual May</label>
-                    <input type="number" name="actual_may" id="actual_may">
-                </div>
-
-                <div>
-                    <label>Actual Jun</label>
-                    <input type="number" name="actual_jun" id="actual_jun">
-                </div>
-
-                <div>
-                    <label>Actual Jul</label>
-                    <input type="number" name="actual_jul" id="actual_jul">
-                </div>
-
-                <div>
-                    <label>Actual Aug</label>
-                    <input type="number" name="actual_aug" id="actual_aug">
-                </div>
-
-                <div>
-                    <label>Actual Sep</label>
-                    <input type="number" name="actual_sep" id="actual_sep">
-                </div>
-
-                <div>
-                    <label>Actual Oct</label>
-                    <input type="number" name="actual_oct" id="actual_oct">
-                </div>
-
-                <div>
-                    <label>Actual Nov</label>
-                    <input type="number" name="actual_nov" id="actual_nov">
-                </div>
-
-                <div>
-                    <label>Actual Dec</label>
-                    <input type="number" name="actual_dec" id="actual_dec">
-                </div>
-
-                <div>
-                    <label>Kode</label>
-                    <input type="text" name="kode" id="kode">
+                    <label>Total PLO Valid Penerbitan PLO</label>
+                    <input type="number" name="total_plo_valid_penerbitan_plo" id="total_plo_valid_penerbitan_plo">
                 </div>
 
                 <div>
@@ -439,7 +326,7 @@
         <script>
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
-                    fetch(`real-anggaran-ai-karaha/${id}`, {
+                    fetch(`summary-plo-ppi/${id}`, {
                             method: "DELETE",
                             headers: {
                                 "Accept": "application/json",
@@ -467,42 +354,7 @@
                             value: keyword
                         },
                         {
-                            field: "no",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "program_kerja",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "kategori_aibt",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "jenis_anggaran",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "besar_rkap",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "entitas",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "unit",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "nilai_kontrak",
+                            field: "company",
                             type: "like",
                             value: keyword
                         },
@@ -516,7 +368,7 @@
             }
 
             function loadData() {
-                fetch("/monev/shpnre/input-data/real-anggaran-ai-karaha/data", {
+                fetch("/monev/shpnre/input-data/summary-plo-ppi/data", {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -544,7 +396,7 @@
 
             document.addEventListener("DOMContentLoaded", function() {
                 const columnMap = {
-                    "real-anggaran-ai-karaha": [{
+                    "summary-plo-ppi": [{
                             title: "No",
                             formatter: "rownum",
                             hozAlign: "center",
@@ -640,230 +492,135 @@
                             }
                         },
                         {
-                            title: "No",
-                            field: "no",
+                            title: "Company",
+                            field: "company",
                             editor: "input"
                         },
                         {
-                            title: "Program Kerja",
-                            field: "program_kerja",
-                            editor: "input",
-                            width: 400
+                            title: "Total PLO Exp",
+                            field: "total_plo_exp",
+                            editor: "number",
+                            hozAlign: "center"
                         },
                         {
-                            title: "Kategori AIBT",
-                            field: "kategori_aibt",
-                            editor: "input"
+                            title: "Total PLO Exp <6",
+                            field: "total_plo_exp_lt6",
+                            editor: "number",
+                            hozAlign: "center"
                         },
                         {
-                            title: "Jenis Anggaran",
-                            field: "jenis_anggaran",
-                            editor: "input"
+                            title: "Total PLO Valid",
+                            field: "total_plo_valid",
+                            editor: "number",
+                            hozAlign: "center"
                         },
                         {
-                            title: "Besar RKAP",
-                            field: "besar_rkap",
-                            editor: "number"
+                            title: "Total PLO Exp Belum Proses",
+                            field: "total_plo_exp_belum_proses",
+                            editor: "number",
+                            hozAlign: "center"
                         },
                         {
-                            title: "Entitas",
-                            field: "entitas",
-                            editor: "input"
+                            title: "Total PLO Exp Pre-Inspection",
+                            field: "total_plo_exp_pre_inspection",
+                            editor: "number",
+                            hozAlign: "center"
                         },
                         {
-                            title: "Unit",
-                            field: "unit",
-                            editor: "input"
+                            title: "Total PLO Exp Inspection",
+                            field: "total_plo_exp_inspection",
+                            editor: "number",
+                            hozAlign: "center"
                         },
                         {
-                            title: "Nilai Kontrak",
-                            field: "nilai_kontrak",
-                            editor: "number"
+                            title: "Total PLO Exp BA PK",
+                            field: "total_plo_exp_ba_pk",
+                            editor: "number",
+                            hozAlign: "center"
                         },
                         {
-                            title: "Plan Jan",
-                            field: "plan_jan",
-                            editor: "number"
+                            title: "Total PLO Exp COI Peralatan",
+                            field: "total_plo_exp_coi_peralatan",
+                            editor: "number",
+                            hozAlign: "center"
                         },
                         {
-                            title: "Plan Feb",
-                            field: "plan_feb",
-                            editor: "number"
+                            title: "Total PLO Exp Penerbitan PLO",
+                            field: "total_plo_exp_penerbitan_plo",
+                            editor: "number",
+                            hozAlign: "center"
                         },
                         {
-                            title: "Plan Mar",
-                            field: "plan_mar",
-                            editor: "number"
+                            title: "Total PLO Exp <6 Belum Proses",
+                            field: "total_plo_exp_lt_6_belum_proses",
+                            editor: "number",
+                            hozAlign: "center"
                         },
                         {
-                            title: "Plan Apr",
-                            field: "plan_apr",
-                            editor: "number"
+                            title: "Total PLO Exp <6 Pre-Inspection",
+                            field: "total_plo_exp_lt_6_pre_inspection",
+                            editor: "number",
+                            hozAlign: "center"
                         },
                         {
-                            title: "Plan May",
-                            field: "plan_may",
-                            editor: "number"
+                            title: "Total PLO Exp <6 Inspection",
+                            field: "total_plo_exp_lt_6_inspection",
+                            editor: "number",
+                            hozAlign: "center"
                         },
                         {
-                            title: "Plan Jun",
-                            field: "plan_jun",
-                            editor: "number"
+                            title: "Total PLO Exp <6 BA PK",
+                            field: "total_plo_exp_lt_6_ba_pk",
+                            editor: "number",
+                            hozAlign: "center"
                         },
                         {
-                            title: "Plan Jul",
-                            field: "plan_jul",
-                            editor: "number"
+                            title: "Total PLO Exp <6 COI Peralatan",
+                            field: "total_plo_exp_lt_6_coi_peralatan",
+                            editor: "number",
+                            hozAlign: "center"
                         },
                         {
-                            title: "Plan Aug",
-                            field: "plan_aug",
-                            editor: "number"
+                            title: "Total PLO Exp <6 Penerbitan PLO",
+                            field: "total_plo_exp_lt_6_penerbitan_plo",
+                            editor: "number",
+                            hozAlign: "center"
                         },
                         {
-                            title: "Plan Sep",
-                            field: "plan_sep",
-                            editor: "number"
+                            title: "Total PLO Valid Belum Proses",
+                            field: "total_plo_valid_belum_proses",
+                            editor: "number",
+                            hozAlign: "center"
                         },
                         {
-                            title: "Plan Oct",
-                            field: "plan_oct",
-                            editor: "number"
+                            title: "Total PLO Valid Pre-Inspection",
+                            field: "total_plo_valid_pre_inspection",
+                            editor: "number",
+                            hozAlign: "center"
                         },
                         {
-                            title: "Plan Nov",
-                            field: "plan_nov",
-                            editor: "number"
+                            title: "Total PLO Valid Inspection",
+                            field: "total_plo_valid_inspection",
+                            editor: "number",
+                            hozAlign: "center"
                         },
                         {
-                            title: "Plan Dec",
-                            field: "plan_dec",
-                            editor: "number"
+                            title: "Total PLO Valid BA PK",
+                            field: "total_plo_valid_ba_pk",
+                            editor: "number",
+                            hozAlign: "center"
                         },
                         {
-                            title: "Prognosa Jan",
-                            field: "prognosa_jan",
-                            editor: "number"
+                            title: "Total PLO Valid COI Peralatan",
+                            field: "total_plo_valid_coi_peralatan",
+                            editor: "number",
+                            hozAlign: "center"
                         },
                         {
-                            title: "Prognosa Feb",
-                            field: "prognosa_feb",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Mar",
-                            field: "prognosa_mar",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Apr",
-                            field: "prognosa_apr",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa May",
-                            field: "prognosa_may",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Jun",
-                            field: "prognosa_jun",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Jul",
-                            field: "prognosa_jul",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Aug",
-                            field: "prognosa_aug",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Sep",
-                            field: "prognosa_sep",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Oct",
-                            field: "prognosa_oct",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Nov",
-                            field: "prognosa_nov",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Dec",
-                            field: "prognosa_dec",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Jan",
-                            field: "actual_jan",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Feb",
-                            field: "actual_feb",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Mar",
-                            field: "actual_mar",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Apr",
-                            field: "actual_apr",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual May",
-                            field: "actual_may",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Jun",
-                            field: "actual_jun",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Jul",
-                            field: "actual_jul",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Aug",
-                            field: "actual_aug",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Sep",
-                            field: "actual_sep",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Oct",
-                            field: "actual_oct",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Nov",
-                            field: "actual_nov",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Dec",
-                            field: "actual_dec",
-                            editor: "number"
-                        },
-                        {
-                            title: "Kode",
-                            field: "kode",
-                            editor: "input"
+                            title: "Total PLO Valid Penerbitan PLO",
+                            field: "total_plo_valid_penerbitan_plo",
+                            editor: "number",
+                            hozAlign: "center"
                         },
                         {
                             title: "Kendala",
@@ -892,13 +649,14 @@
                     layout: "fitDataTable",
                     responsiveLayout: "collapse",
                     autoResize: true,
-                    columns: columnMap["real-anggaran-ai-karaha"],
+                    columns: columnMap["summary-plo-ppi"],
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
                     selectableRangeRows: true,
                     selectableRangeClearCells: true,
                     editTriggerEvent: "dblclick",
+                    virtualDom: true,
 
                     pagination: "local",
                     paginationSize: 20,
@@ -927,8 +685,8 @@
                 });
 
                 document.getElementById("download-xlsx").addEventListener("click", function() {
-                    window.table.download("xlsx", "real-anggaran-ai-karaha.xlsx", {
-                        sheetName: "real-anggaran-ai-karaha",
+                    window.table.download("xlsx", "summary-plo-ppi.xlsx", {
+                        sheetName: "summary-plo-ppi",
                         columnHeaders: true,
                         downloadDataFormatter: function(data) {
                             return data.map(row => {
@@ -955,7 +713,7 @@
 
                     if (!id) return;
 
-                    fetch(`real-anggaran-ai-karaha/${id}`, {
+                    fetch(`summary-plo-ppi/${id}`, {
                             method: "PUT",
                             headers: {
                                 "Content-Type": "application/json",
@@ -995,7 +753,7 @@
                     console.log("Baris yang berubah:", changedRows);
 
                     changedRows.forEach(rowData => {
-                        fetch(`real-anggaran-ai-karaha/${rowData.id}`, {
+                        fetch(`summary-plo-ppi/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
                                     "Content-Type": "application/json",
@@ -1038,7 +796,7 @@
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
 
-                fetch("real-anggaran-ai-karaha", {
+                fetch("summary-plo-ppi", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -1049,15 +807,36 @@
                         body: JSON.stringify({
                             periode: data.periode,
                             company: data.company,
-                            judul_pelatihan: data.judul_pelatihan,
-                            realisasi_perwira: data.realisasi_perwira
+                            total_plo_exp: data.total_plo_exp,
+                            total_plo_exp_lt6: data.total_plo_exp_lt6,
+                            total_plo_valid: data.total_plo_valid,
+                            total_plo_exp_belum_proses: data.total_plo_exp_belum_proses,
+                            total_plo_exp_pre_inspection: data.total_plo_exp_pre_inspection,
+                            total_plo_exp_inspection: data.total_plo_exp_inspection,
+                            total_plo_exp_ba_pk: data.total_plo_exp_ba_pk,
+                            total_plo_exp_coi_peralatan: data.total_plo_exp_coi_peralatan,
+                            total_plo_exp_penerbitan_plo: data.total_plo_exp_penerbitan_plo,
+                            total_plo_exp_lt6_belum_proses: data.total_plo_exp_lt6_belum_proses,
+                            total_plo_exp_lt6_pre_inspection: data.total_plo_exp_lt6_pre_inspection,
+                            total_plo_exp_lt6_inspection: data.total_plo_exp_lt6_inspection,
+                            total_plo_exp_lt6_ba_pk: data.total_plo_exp_lt6_ba_pk,
+                            total_plo_exp_lt6_coi_peralatan: data.total_plo_exp_lt6_coi_peralatan,
+                            total_plo_exp_lt6_penerbitan_plo: data.total_plo_exp_lt6_penerbitan_plo,
+                            total_plo_valid_belum_proses: data.total_plo_valid_belum_proses,
+                            total_plo_valid_pre_inspection: data.total_plo_valid_pre_inspection,
+                            total_plo_valid_inspection: data.total_plo_valid_inspection,
+                            total_plo_valid_ba_pk: data.total_plo_valid_ba_pk,
+                            total_plo_valid_coi_peralatan: data.total_plo_valid_coi_peralatan,
+                            total_plo_valid_penerbitan_plo: data.total_plo_valid_penerbitan_plo,
+                            kendala: data.kendala,
+                            tindak_lanjut: data.tindak_lanjut
                         })
                     })
                     .then(response => response.json())
                     .then(result => {
                         if (result.success) {
                             alert(result.message || "Data berhasil disimpan");
-                            table.setData("/monev/shpnre/input-data/real-anggaran-ai-karaha/data");
+                            table.setData("/monev/shpnre/input-data/summary-plo-ppi/data");
                             this.reset();
                             closeModal();
                         } else {

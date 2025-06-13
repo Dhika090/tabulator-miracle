@@ -125,7 +125,7 @@
     <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-                <h5 class="card-title mb-3 mb-md-0">Real Anggaran AI Karaha</h5>
+                <h5 class="card-title mb-3 mb-md-0">Real Prog Fisik AI PPI</h5>
                 <div class="d-flex flex-column flex-md-row align-items-center gap-3">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
@@ -183,7 +183,7 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Real Anggaran AI Karaha</h3>
+            <h3>Real Prog Fisik AI PPI</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
                 <div>
@@ -292,66 +292,6 @@
                 </div>
 
                 <div>
-                    <label>Prognosa Jan</label>
-                    <input type="number" name="prognosa_jan" id="prognosa_jan">
-                </div>
-
-                <div>
-                    <label>Prognosa Feb</label>
-                    <input type="number" name="prognosa_feb" id="prognosa_feb">
-                </div>
-
-                <div>
-                    <label>Prognosa Mar</label>
-                    <input type="number" name="prognosa_mar" id="prognosa_mar">
-                </div>
-
-                <div>
-                    <label>Prognosa Apr</label>
-                    <input type="number" name="prognosa_apr" id="prognosa_apr">
-                </div>
-
-                <div>
-                    <label>Prognosa May</label>
-                    <input type="number" name="prognosa_may" id="prognosa_may">
-                </div>
-
-                <div>
-                    <label>Prognosa Jun</label>
-                    <input type="number" name="prognosa_jun" id="prognosa_jun">
-                </div>
-
-                <div>
-                    <label>Prognosa Jul</label>
-                    <input type="number" name="prognosa_jul" id="prognosa_jul">
-                </div>
-
-                <div>
-                    <label>Prognosa Aug</label>
-                    <input type="number" name="prognosa_aug" id="prognosa_aug">
-                </div>
-
-                <div>
-                    <label>Prognosa Sep</label>
-                    <input type="number" name="prognosa_sep" id="prognosa_sep">
-                </div>
-
-                <div>
-                    <label>Prognosa Oct</label>
-                    <input type="number" name="prognosa_oct" id="prognosa_oct">
-                </div>
-
-                <div>
-                    <label>Prognosa Nov</label>
-                    <input type="number" name="prognosa_nov" id="prognosa_nov">
-                </div>
-
-                <div>
-                    <label>Prognosa Dec</label>
-                    <input type="number" name="prognosa_dec" id="prognosa_dec">
-                </div>
-
-                <div>
                     <label>Actual Jan</label>
                     <input type="number" name="actual_jan" id="actual_jan">
                 </div>
@@ -439,7 +379,7 @@
         <script>
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
-                    fetch(`real-anggaran-ai-karaha/${id}`, {
+                    fetch(`real-prog-fisik-ppi/${id}`, {
                             method: "DELETE",
                             headers: {
                                 "Accept": "application/json",
@@ -516,7 +456,7 @@
             }
 
             function loadData() {
-                fetch("/monev/shpnre/input-data/real-anggaran-ai-karaha/data", {
+                fetch("/monev/shpnre/input-data/real-prog-fisik-ppi/data", {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -544,7 +484,7 @@
 
             document.addEventListener("DOMContentLoaded", function() {
                 const columnMap = {
-                    "real-anggaran-ai-karaha": [{
+                    "real-prog-fisik-ppi": [{
                             title: "No",
                             formatter: "rownum",
                             hozAlign: "center",
@@ -560,6 +500,7 @@
                             title: "Periode",
                             field: "periode",
                             editor: "input",
+                            hozAlign: "center",
                             headerFilter: "select",
                             headerFilterParams: {
                                 values: [{
@@ -642,238 +583,239 @@
                         {
                             title: "No",
                             field: "no",
-                            editor: "input"
+                            editor: "input",
+                            hozAlign: "center",
                         },
                         {
                             title: "Program Kerja",
                             field: "program_kerja",
                             editor: "input",
-                            width: 400
+                            width: 200
                         },
                         {
                             title: "Kategori AIBT",
                             field: "kategori_aibt",
-                            editor: "input"
+                            editor: "input",
+                            width: 150
                         },
                         {
                             title: "Jenis Anggaran",
                             field: "jenis_anggaran",
-                            editor: "input"
+                            hozAlign: "center",
+                            editor: "input",
+                            width: 150
                         },
                         {
                             title: "Besar RKAP",
                             field: "besar_rkap",
-                            editor: "number"
+                            editor: "number",
+                            width: 150,
+                            hozAlign: "right"
                         },
                         {
                             title: "Entitas",
                             field: "entitas",
-                            editor: "input"
+                            editor: "input",
+                            width: 150
                         },
                         {
                             title: "Unit",
                             field: "unit",
-                            editor: "input"
+                            editor: "input",
+                            width: 150
                         },
                         {
                             title: "Nilai Kontrak",
                             field: "nilai_kontrak",
-                            editor: "number"
+                            editor: "number",
+                            width: 150,
+                            hozAlign: "right"
                         },
                         {
                             title: "Plan Jan",
                             field: "plan_jan",
-                            editor: "number"
+                            editor: "number",
+                            width: 100,
+                            hozAlign: "right"
                         },
                         {
                             title: "Plan Feb",
                             field: "plan_feb",
-                            editor: "number"
+                            editor: "number",
+                            width: 100,
+                            hozAlign: "right"
                         },
                         {
                             title: "Plan Mar",
                             field: "plan_mar",
-                            editor: "number"
+                            editor: "number",
+                            width: 100,
+                            hozAlign: "right"
                         },
                         {
                             title: "Plan Apr",
                             field: "plan_apr",
-                            editor: "number"
+                            editor: "number",
+                            width: 100,
+                            hozAlign: "right"
                         },
                         {
-                            title: "Plan May",
+                            title: "Plan Mei",
                             field: "plan_may",
-                            editor: "number"
+                            editor: "number",
+                            width: 100,
+                            hozAlign: "right"
                         },
                         {
                             title: "Plan Jun",
                             field: "plan_jun",
-                            editor: "number"
+                            editor: "number",
+                            width: 100,
+                            hozAlign: "right"
                         },
                         {
                             title: "Plan Jul",
                             field: "plan_jul",
-                            editor: "number"
+                            editor: "number",
+                            width: 100,
+                            hozAlign: "right"
                         },
                         {
-                            title: "Plan Aug",
+                            title: "Plan Ags",
                             field: "plan_aug",
-                            editor: "number"
+                            editor: "number",
+                            width: 100,
+                            hozAlign: "right"
                         },
                         {
                             title: "Plan Sep",
                             field: "plan_sep",
-                            editor: "number"
+                            editor: "number",
+                            width: 100,
+                            hozAlign: "right"
                         },
                         {
-                            title: "Plan Oct",
+                            title: "Plan Okt",
                             field: "plan_oct",
-                            editor: "number"
+                            editor: "number",
+                            width: 100,
+                            hozAlign: "right"
                         },
                         {
                             title: "Plan Nov",
                             field: "plan_nov",
-                            editor: "number"
+                            editor: "number",
+                            width: 100,
+                            hozAlign: "right"
                         },
                         {
-                            title: "Plan Dec",
+                            title: "Plan Des",
                             field: "plan_dec",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Jan",
-                            field: "prognosa_jan",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Feb",
-                            field: "prognosa_feb",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Mar",
-                            field: "prognosa_mar",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Apr",
-                            field: "prognosa_apr",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa May",
-                            field: "prognosa_may",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Jun",
-                            field: "prognosa_jun",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Jul",
-                            field: "prognosa_jul",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Aug",
-                            field: "prognosa_aug",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Sep",
-                            field: "prognosa_sep",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Oct",
-                            field: "prognosa_oct",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Nov",
-                            field: "prognosa_nov",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Dec",
-                            field: "prognosa_dec",
-                            editor: "number"
+                            editor: "number",
+                            width: 100,
+                            hozAlign: "right"
                         },
                         {
                             title: "Actual Jan",
                             field: "actual_jan",
-                            editor: "number"
+                            editor: "number",
+                            width: 100,
+                            hozAlign: "right"
                         },
                         {
                             title: "Actual Feb",
                             field: "actual_feb",
-                            editor: "number"
+                            editor: "number",
+                            width: 100,
+                            hozAlign: "right"
                         },
                         {
                             title: "Actual Mar",
                             field: "actual_mar",
-                            editor: "number"
+                            editor: "number",
+                            width: 100,
+                            hozAlign: "right"
                         },
                         {
                             title: "Actual Apr",
                             field: "actual_apr",
-                            editor: "number"
+                            editor: "number",
+                            width: 100,
+                            hozAlign: "right"
                         },
                         {
-                            title: "Actual May",
+                            title: "Actual Mei",
                             field: "actual_may",
-                            editor: "number"
+                            editor: "number",
+                            width: 100,
+                            hozAlign: "right"
                         },
                         {
                             title: "Actual Jun",
                             field: "actual_jun",
-                            editor: "number"
+                            editor: "number",
+                            width: 100,
+                            hozAlign: "right"
                         },
                         {
                             title: "Actual Jul",
                             field: "actual_jul",
-                            editor: "number"
+                            editor: "number",
+                            width: 100,
+                            hozAlign: "right"
                         },
                         {
-                            title: "Actual Aug",
+                            title: "Actual Ags",
                             field: "actual_aug",
-                            editor: "number"
+                            editor: "number",
+                            width: 100,
+                            hozAlign: "right"
                         },
                         {
                             title: "Actual Sep",
                             field: "actual_sep",
-                            editor: "number"
+                            editor: "number",
+                            width: 100,
+                            hozAlign: "right"
                         },
                         {
-                            title: "Actual Oct",
+                            title: "Actual Okt",
                             field: "actual_oct",
-                            editor: "number"
+                            editor: "number",
+                            width: 100,
+                            hozAlign: "right"
                         },
                         {
                             title: "Actual Nov",
                             field: "actual_nov",
-                            editor: "number"
+                            editor: "number",
+                            width: 100,
+                            hozAlign: "right"
                         },
                         {
-                            title: "Actual Dec",
+                            title: "Actual Des",
                             field: "actual_dec",
-                            editor: "number"
+                            editor: "number",
+                            width: 100,
+                            hozAlign: "right"
                         },
                         {
                             title: "Kode",
                             field: "kode",
-                            editor: "input"
+                            editor: "input",
+                            width: 100
                         },
                         {
                             title: "Kendala",
                             field: "kendala",
-                            editor: "input"
+                            editor: "input",
+                            width: 200
                         },
                         {
                             title: "Tindak Lanjut",
                             field: "tindak_lanjut",
-                            editor: "input"
+                            editor: "input",
+                            width: 200
                         },
                         {
                             title: "Aksi",
@@ -892,7 +834,7 @@
                     layout: "fitDataTable",
                     responsiveLayout: "collapse",
                     autoResize: true,
-                    columns: columnMap["real-anggaran-ai-karaha"],
+                    columns: columnMap["real-prog-fisik-ppi"],
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -927,8 +869,8 @@
                 });
 
                 document.getElementById("download-xlsx").addEventListener("click", function() {
-                    window.table.download("xlsx", "real-anggaran-ai-karaha.xlsx", {
-                        sheetName: "real-anggaran-ai-karaha",
+                    window.table.download("xlsx", "real-prog-fisik-ppi.xlsx", {
+                        sheetName: "real-prog-fisik-ppi",
                         columnHeaders: true,
                         downloadDataFormatter: function(data) {
                             return data.map(row => {
@@ -955,7 +897,7 @@
 
                     if (!id) return;
 
-                    fetch(`real-anggaran-ai-karaha/${id}`, {
+                    fetch(`real-prog-fisik-ppi/${id}`, {
                             method: "PUT",
                             headers: {
                                 "Content-Type": "application/json",
@@ -995,7 +937,7 @@
                     console.log("Baris yang berubah:", changedRows);
 
                     changedRows.forEach(rowData => {
-                        fetch(`real-anggaran-ai-karaha/${rowData.id}`, {
+                        fetch(`real-prog-fisik-ppi/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
                                     "Content-Type": "application/json",
@@ -1038,7 +980,7 @@
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
 
-                fetch("real-anggaran-ai-karaha", {
+                fetch("real-prog-fisik-ppi", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -1057,7 +999,7 @@
                     .then(result => {
                         if (result.success) {
                             alert(result.message || "Data berhasil disimpan");
-                            table.setData("/monev/shpnre/input-data/real-anggaran-ai-karaha/data");
+                            table.setData("/monev/shpnre/input-data/real-prog-fisik-ppi/data");
                             this.reset();
                             closeModal();
                         } else {

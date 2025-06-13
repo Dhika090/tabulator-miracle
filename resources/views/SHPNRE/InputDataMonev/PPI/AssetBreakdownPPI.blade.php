@@ -125,7 +125,7 @@
     <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-                <h5 class="card-title mb-3 mb-md-0">Real Anggaran AI Karaha</h5>
+                <h5 class="card-title mb-3 mb-md-0">Asset Breakdown PPI</h5>
                 <div class="d-flex flex-column flex-md-row align-items-center gap-3">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
@@ -183,242 +183,68 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Real Anggaran AI Karaha</h3>
+            <h3>Tambah Target Asset Breakdown PPI</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
+
                 <div>
                     <label>Periode</label>
                     <input type="month" name="periode" id="periode">
                 </div>
 
                 <div>
-                    <label>No</label>
-                    <input type="number" name="no" id="no">
+                    <label>Company</label>
+                    <input type="text" name="company" id="company">
                 </div>
 
                 <div>
-                    <label>Program Kerja</label>
-                    <input type="text" name="program_kerja" id="program_kerja">
+                    <label>Plant/Segment</label>
+                    <input type="text" name="plant_segment" id="plant_segment">
                 </div>
 
                 <div>
-                    <label>Kategori AIBT</label>
-                    <input type="text" name="kategori_aibt" id="kategori_aibt">
+                    <label>Kategori Criticality</label>
+                    <input type="text" name="kategori_criticality" id="kategori_criticality">
                 </div>
 
                 <div>
-                    <label>Jenis Anggaran</label>
-                    <input type="text" name="jenis_anggaran" id="jenis_anggaran">
+                    <label>Tag</label>
+                    <input type="text" name="tag" id="tag">
                 </div>
 
                 <div>
-                    <label>Besar RKAP</label>
-                    <input type="number" name="besar_rkap" id="besar_rkap">
+                    <label>Deskripsi Peralatan</label>
+                    <input type="text" name="deskripsi_peralatan" id="deskripsi_peralatan">
                 </div>
 
                 <div>
-                    <label>Entitas</label>
-                    <input type="text" name="entitas" id="entitas">
+                    <label>Jenis Kerusakan</label>
+                    <input type="text" name="jenis_kerusakan" id="jenis_kerusakan">
                 </div>
 
                 <div>
-                    <label>Unit</label>
-                    <input type="text" name="unit" id="unit">
+                    <label>Penyebab / Root Cause</label>
+                    <input type="text" name="penyebab" id="penyebab">
                 </div>
 
                 <div>
-                    <label>Nilai Kontrak</label>
-                    <input type="number" name="nilai_kontrak" id="nilai_kontrak">
+                    <label>Kendala Perbaikan</label>
+                    <input type="text" name="kendala_perbaikan" id="kendala_perbaikan">
                 </div>
 
                 <div>
-                    <label>Plan Jan</label>
-                    <input type="number" name="plan_jan" id="plan_jan">
+                    <label>Mitigasi / Penanganan Sementara</label>
+                    <input type="text" name="mitigasi" id="mitigasi">
                 </div>
 
                 <div>
-                    <label>Plan Feb</label>
-                    <input type="number" name="plan_feb" id="plan_feb">
+                    <label>Perbaikan Permanen</label>
+                    <input type="text" name="perbaikan_permanen" id="perbaikan_permanen">
                 </div>
 
                 <div>
-                    <label>Plan Mar</label>
-                    <input type="number" name="plan_mar" id="plan_mar">
-                </div>
-
-                <div>
-                    <label>Plan Apr</label>
-                    <input type="number" name="plan_apr" id="plan_apr">
-                </div>
-
-                <div>
-                    <label>Plan May</label>
-                    <input type="number" name="plan_may" id="plan_may">
-                </div>
-
-                <div>
-                    <label>Plan Jun</label>
-                    <input type="number" name="plan_jun" id="plan_jun">
-                </div>
-
-                <div>
-                    <label>Plan Jul</label>
-                    <input type="number" name="plan_jul" id="plan_jul">
-                </div>
-
-                <div>
-                    <label>Plan Aug</label>
-                    <input type="number" name="plan_aug" id="plan_aug">
-                </div>
-
-                <div>
-                    <label>Plan Sep</label>
-                    <input type="number" name="plan_sep" id="plan_sep">
-                </div>
-
-                <div>
-                    <label>Plan Oct</label>
-                    <input type="number" name="plan_oct" id="plan_oct">
-                </div>
-
-                <div>
-                    <label>Plan Nov</label>
-                    <input type="number" name="plan_nov" id="plan_nov">
-                </div>
-
-                <div>
-                    <label>Plan Dec</label>
-                    <input type="number" name="plan_dec" id="plan_dec">
-                </div>
-
-                <div>
-                    <label>Prognosa Jan</label>
-                    <input type="number" name="prognosa_jan" id="prognosa_jan">
-                </div>
-
-                <div>
-                    <label>Prognosa Feb</label>
-                    <input type="number" name="prognosa_feb" id="prognosa_feb">
-                </div>
-
-                <div>
-                    <label>Prognosa Mar</label>
-                    <input type="number" name="prognosa_mar" id="prognosa_mar">
-                </div>
-
-                <div>
-                    <label>Prognosa Apr</label>
-                    <input type="number" name="prognosa_apr" id="prognosa_apr">
-                </div>
-
-                <div>
-                    <label>Prognosa May</label>
-                    <input type="number" name="prognosa_may" id="prognosa_may">
-                </div>
-
-                <div>
-                    <label>Prognosa Jun</label>
-                    <input type="number" name="prognosa_jun" id="prognosa_jun">
-                </div>
-
-                <div>
-                    <label>Prognosa Jul</label>
-                    <input type="number" name="prognosa_jul" id="prognosa_jul">
-                </div>
-
-                <div>
-                    <label>Prognosa Aug</label>
-                    <input type="number" name="prognosa_aug" id="prognosa_aug">
-                </div>
-
-                <div>
-                    <label>Prognosa Sep</label>
-                    <input type="number" name="prognosa_sep" id="prognosa_sep">
-                </div>
-
-                <div>
-                    <label>Prognosa Oct</label>
-                    <input type="number" name="prognosa_oct" id="prognosa_oct">
-                </div>
-
-                <div>
-                    <label>Prognosa Nov</label>
-                    <input type="number" name="prognosa_nov" id="prognosa_nov">
-                </div>
-
-                <div>
-                    <label>Prognosa Dec</label>
-                    <input type="number" name="prognosa_dec" id="prognosa_dec">
-                </div>
-
-                <div>
-                    <label>Actual Jan</label>
-                    <input type="number" name="actual_jan" id="actual_jan">
-                </div>
-
-                <div>
-                    <label>Actual Feb</label>
-                    <input type="number" name="actual_feb" id="actual_feb">
-                </div>
-
-                <div>
-                    <label>Actual Mar</label>
-                    <input type="number" name="actual_mar" id="actual_mar">
-                </div>
-
-                <div>
-                    <label>Actual Apr</label>
-                    <input type="number" name="actual_apr" id="actual_apr">
-                </div>
-
-                <div>
-                    <label>Actual May</label>
-                    <input type="number" name="actual_may" id="actual_may">
-                </div>
-
-                <div>
-                    <label>Actual Jun</label>
-                    <input type="number" name="actual_jun" id="actual_jun">
-                </div>
-
-                <div>
-                    <label>Actual Jul</label>
-                    <input type="number" name="actual_jul" id="actual_jul">
-                </div>
-
-                <div>
-                    <label>Actual Aug</label>
-                    <input type="number" name="actual_aug" id="actual_aug">
-                </div>
-
-                <div>
-                    <label>Actual Sep</label>
-                    <input type="number" name="actual_sep" id="actual_sep">
-                </div>
-
-                <div>
-                    <label>Actual Oct</label>
-                    <input type="number" name="actual_oct" id="actual_oct">
-                </div>
-
-                <div>
-                    <label>Actual Nov</label>
-                    <input type="number" name="actual_nov" id="actual_nov">
-                </div>
-
-                <div>
-                    <label>Actual Dec</label>
-                    <input type="number" name="actual_dec" id="actual_dec">
-                </div>
-
-                <div>
-                    <label>Kode</label>
-                    <input type="text" name="kode" id="kode">
-                </div>
-
-                <div>
-                    <label>Kendala</label>
-                    <input type="text" name="kendala" id="kendala">
+                    <label>Progres Perbaikan Permanen</label>
+                    <input type="text" name="progres_perbaikan_permanen" id="progres_perbaikan_permanen">
                 </div>
 
                 <div>
@@ -426,20 +252,33 @@
                     <input type="text" name="tindak_lanjut" id="tindak_lanjut">
                 </div>
 
+                <div>
+                    <label>Target Penyelesaian</label>
+                    <input type="month" name="target_penyelesaian" id="target_penyelesaian">
+                </div>
+
+                <div>
+                    <label>Estimasi Biaya Perbaikan</label>
+                    <input type="number" name="estimasi_biaya_perbaikan" id="estimasi_biaya_perbaikan">
+                </div>
+
+                <div>
+                    <label>Link Foto/Video</label>
+                    <input type="url" name="link_foto_video" id="link_foto_video">
+                </div>
+
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
-
         </div>
     </div>
 
     @push('scripts')
         <script src="https://unpkg.com/tabulator-tables@5.6.0/dist/js/tabulator.min.js"></script>
         <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
-
         <script>
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
-                    fetch(`real-anggaran-ai-karaha/${id}`, {
+                    fetch(`asset-breakdown-ppi/${id}`, {
                             method: "DELETE",
                             headers: {
                                 "Accept": "application/json",
@@ -467,45 +306,80 @@
                             value: keyword
                         },
                         {
-                            field: "no",
+                            field: "company",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "program_kerja",
+                            field: "plant_segment",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "kategori_aibt",
+                            field: "kategori_criticality",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "jenis_anggaran",
+                            field: "tag",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "besar_rkap",
+                            field: "deskripsi_peralatan",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "entitas",
+                            field: "jenis_kerusakan",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "unit",
+                            field: "penyebab",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "nilai_kontrak",
+                            field: "kendala_perbaikan",
                             type: "like",
                             value: keyword
                         },
+                        {
+                            field: "mitigasi",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "perbaikan_permanen",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "progres_perbaikan_permanen",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "tindak_lanjut",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "target_penyelesaian",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "estimasi_biaya_perbaikan",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "link_foto_video",
+                            type: "like",
+                            value: keyword
+                        }
                     ]
                 ]);
             });
@@ -516,40 +390,24 @@
             }
 
             function loadData() {
-                fetch("/monev/shpnre/input-data/real-anggaran-ai-karaha/data", {
+                fetch("/monev/shpnre/input-data/asset-breakdown-ppi/data", {
                         headers: {
                             "Accept": "application/json"
                         }
                     })
                     .then(res => res.json())
-                    .then(data => {
-                        const cleaned = data.map(row => {
-                            const cleanedRow = {};
-                            for (const [key, value] of Object.entries(row)) {
-                                const valStr = String(value).trim().toLowerCase();
-                                cleanedRow[key] = (
-                                    value === null ||
-                                    value === undefined ||
-                                    valStr === "null" ||
-                                    valStr === "undefined"
-                                ) ? "" : value;
-                            }
-                            return cleanedRow;
-                        });
-
-                        table.setData(cleaned);
-                    })
+                    .then(data => table.setData(data))
                     .catch(err => console.error("Gagal load data:", err));
             }
 
             document.addEventListener("DOMContentLoaded", function() {
                 const columnMap = {
-                    "real-anggaran-ai-karaha": [{
+                    "asset-breakdown-ppi": [{
                             title: "No",
                             formatter: "rownum",
                             hozAlign: "center",
                             width: 60,
-                            download: false,
+                            download: false
                         },
                         {
                             title: "ID",
@@ -640,240 +498,111 @@
                             }
                         },
                         {
-                            title: "No",
-                            field: "no",
+                            title: "Company",
+                            field: "company",
                             editor: "input"
                         },
                         {
-                            title: "Program Kerja",
-                            field: "program_kerja",
+                            title: "Plant/Segment",
+                            field: "plant_segment",
+                            editor: "input"
+                        },
+                        {
+                            title: "Kategori Criticality",
+                            field: "kategori_criticality",
+                            editor: "input"
+                        },
+                        {
+                            title: "Tag",
+                            field: "tag",
+                            editor: "input"
+                        },
+                        {
+                            title: "Deskripsi Peralatan",
+                            field: "deskripsi_peralatan",
+                            editor: "input"
+                        },
+                        {
+                            title: "Jenis Kerusakan",
+                            field: "jenis_kerusakan",
                             editor: "input",
                             width: 400
                         },
                         {
-                            title: "Kategori AIBT",
-                            field: "kategori_aibt",
-                            editor: "input"
+                            title: "Penyebab/Root Cause",
+                            field: "penyebab",
+                            editor: "input",
+                            width: 400
                         },
                         {
-                            title: "Jenis Anggaran",
-                            field: "jenis_anggaran",
-                            editor: "input"
+                            title: "Kendala Perbaikan",
+                            field: "kendala_perbaikan",
+                            editor: "input",
+                            width: 450
                         },
                         {
-                            title: "Besar RKAP",
-                            field: "besar_rkap",
-                            editor: "number"
+                            title: "Mitigasi / Penanganan Sementara",
+                            field: "mitigasi",
+                            editor: "input",
+                            width: 450
                         },
                         {
-                            title: "Entitas",
-                            field: "entitas",
-                            editor: "input"
+                            title: "Perbaikan Permanen",
+                            field: "perbaikan_permanen",
+                            editor: "input",
+                            width: 400
                         },
                         {
-                            title: "Unit",
-                            field: "unit",
-                            editor: "input"
-                        },
-                        {
-                            title: "Nilai Kontrak",
-                            field: "nilai_kontrak",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Jan",
-                            field: "plan_jan",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Feb",
-                            field: "plan_feb",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Mar",
-                            field: "plan_mar",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Apr",
-                            field: "plan_apr",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan May",
-                            field: "plan_may",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Jun",
-                            field: "plan_jun",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Jul",
-                            field: "plan_jul",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Aug",
-                            field: "plan_aug",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Sep",
-                            field: "plan_sep",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Oct",
-                            field: "plan_oct",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Nov",
-                            field: "plan_nov",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Dec",
-                            field: "plan_dec",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Jan",
-                            field: "prognosa_jan",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Feb",
-                            field: "prognosa_feb",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Mar",
-                            field: "prognosa_mar",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Apr",
-                            field: "prognosa_apr",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa May",
-                            field: "prognosa_may",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Jun",
-                            field: "prognosa_jun",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Jul",
-                            field: "prognosa_jul",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Aug",
-                            field: "prognosa_aug",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Sep",
-                            field: "prognosa_sep",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Oct",
-                            field: "prognosa_oct",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Nov",
-                            field: "prognosa_nov",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Dec",
-                            field: "prognosa_dec",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Jan",
-                            field: "actual_jan",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Feb",
-                            field: "actual_feb",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Mar",
-                            field: "actual_mar",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Apr",
-                            field: "actual_apr",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual May",
-                            field: "actual_may",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Jun",
-                            field: "actual_jun",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Jul",
-                            field: "actual_jul",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Aug",
-                            field: "actual_aug",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Sep",
-                            field: "actual_sep",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Oct",
-                            field: "actual_oct",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Nov",
-                            field: "actual_nov",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Dec",
-                            field: "actual_dec",
-                            editor: "number"
-                        },
-                        {
-                            title: "Kode",
-                            field: "kode",
-                            editor: "input"
-                        },
-                        {
-                            title: "Kendala",
-                            field: "kendala",
-                            editor: "input"
+                            title: "Progres Perbaikan Permanen",
+                            field: "progres_perbaikan_permanen",
+                            editor: "number",
+                            hozAlign: "center"
                         },
                         {
                             title: "Tindak Lanjut",
                             field: "tindak_lanjut",
+                            editor: "input",
+                            width: 450
+                        },
+                        {
+                            title: "Target Penyelesaian",
+                            field: "target_penyelesaian",
                             editor: "input"
+                        },
+                        {
+                            title: "Estimasi Biaya Perbaikan",
+                            field: "estimasi_biaya_perbaikan",
+                            hozAlign: "center",
+                            formatter: function(cell) {
+                                let rawValue = cell.getValue();
+                                if (rawValue === null || rawValue === undefined || rawValue === "") {
+                                    return "0.00";
+                                }
+
+                                let cleanValue = rawValue.toString().replace(/[^0-9.-]+/g, '');
+                                let value = parseFloat(cleanValue);
+
+                                if (!isNaN(value)) {
+                                    return value.toLocaleString("en-US", {
+                                        minimumFractionDigits: 2,
+                                        maximumFractionDigits: 2
+                                    });
+                                }
+
+                                return "0.00";
+                            },
+                            editor: "input"
+                        },
+                        {
+                            title: "Link Foto/Video",
+                            field: "link_foto_video",
+                            editor: "input",
+                            width: 400,
+                            formatter: "link",
+                            formatterParams: {
+                                labelField: "link_foto_video",
+                                target: "_blank"
+                            }
                         },
                         {
                             title: "Aksi",
@@ -892,13 +621,15 @@
                     layout: "fitDataTable",
                     responsiveLayout: "collapse",
                     autoResize: true,
-                    columns: columnMap["real-anggaran-ai-karaha"],
+                    columns: columnMap["asset-breakdown-ppi"],
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
                     selectableRangeRows: true,
                     selectableRangeClearCells: true,
                     editTriggerEvent: "dblclick",
+                    virtualDom: true,
+                    height: "700px",
 
                     pagination: "local",
                     paginationSize: 20,
@@ -927,8 +658,8 @@
                 });
 
                 document.getElementById("download-xlsx").addEventListener("click", function() {
-                    window.table.download("xlsx", "real-anggaran-ai-karaha.xlsx", {
-                        sheetName: "real-anggaran-ai-karaha",
+                    window.table.download("xlsx", "asset-breakdown-ppi.xlsx", {
+                        sheetName: "Data Pelatihan",
                         columnHeaders: true,
                         downloadDataFormatter: function(data) {
                             return data.map(row => {
@@ -949,13 +680,14 @@
                     });
                 });
 
+
                 table.on("cellEdited", function(cell) {
                     const updatedData = cell.getRow().getData();
                     const id = updatedData.id;
 
                     if (!id) return;
 
-                    fetch(`real-anggaran-ai-karaha/${id}`, {
+                    fetch(`asset-breakdown-ppi/${id}`, {
                             method: "PUT",
                             headers: {
                                 "Content-Type": "application/json",
@@ -995,7 +727,7 @@
                     console.log("Baris yang berubah:", changedRows);
 
                     changedRows.forEach(rowData => {
-                        fetch(`real-anggaran-ai-karaha/${rowData.id}`, {
+                        fetch(`asset-breakdown-ppi/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
                                     "Content-Type": "application/json",
@@ -1016,6 +748,7 @@
 
                     previousData = JSON.parse(JSON.stringify(newData));
                 });
+
                 loadData();
             });
         </script>
@@ -1038,7 +771,7 @@
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
 
-                fetch("real-anggaran-ai-karaha", {
+                fetch("asset-breakdown-ppi", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -1049,15 +782,27 @@
                         body: JSON.stringify({
                             periode: data.periode,
                             company: data.company,
-                            judul_pelatihan: data.judul_pelatihan,
-                            realisasi_perwira: data.realisasi_perwira
+                            plant_segment: data.plant_segment,
+                            kategori_criticality: data.kategori_criticality,
+                            tag: data.tag,
+                            deskripsi_peralatan: data.deskripsi_peralatan,
+                            jenis_kerusakan: data.jenis_kerusakan,
+                            penyebab: data.penyebab,
+                            kendala_perbaikan: data.kendala_perbaikan,
+                            mitigasi: data.mitigasi,
+                            perbaikan_permanen: data.perbaikan_permanen,
+                            progres_perbaikan_permanen: data.progres_perbaikan_permanen,
+                            tindak_lanjut: data.tindak_lanjut,
+                            target_penyelesaian: data.target_penyelesaian,
+                            estimasi_biaya_perbaikan: data.estimasi_biaya_perbaikan,
+                            link_foto_video: data.link_foto_video
                         })
                     })
                     .then(response => response.json())
                     .then(result => {
                         if (result.success) {
                             alert(result.message || "Data berhasil disimpan");
-                            table.setData("/monev/shpnre/input-data/real-anggaran-ai-karaha/data");
+                            table.setData("/monev/shpnre/input-data/asset-breakdown-ppi/data");
                             this.reset();
                             closeModal();
                         } else {
@@ -1106,7 +851,6 @@
                     });
                 });
 
-                // Ketika halaman reload setelah klik, cek dan scroll otomatis
                 if (sessionStorage.getItem('scrollToActiveTab') === 'yes') {
                     scrollToActiveTab();
                     sessionStorage.removeItem('scrollToActiveTab');

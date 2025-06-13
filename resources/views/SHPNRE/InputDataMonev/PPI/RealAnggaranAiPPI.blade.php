@@ -125,7 +125,7 @@
     <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-                <h5 class="card-title mb-3 mb-md-0">Real Anggaran AI Karaha</h5>
+                <h5 class="card-title mb-3 mb-md-0">Real Anggaran AI PPI</h5>
                 <div class="d-flex flex-column flex-md-row align-items-center gap-3">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
@@ -183,7 +183,7 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Real Anggaran AI Karaha</h3>
+            <h3>Real Anggaran AI PPI</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
                 <div>
@@ -439,7 +439,7 @@
         <script>
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
-                    fetch(`real-anggaran-ai-karaha/${id}`, {
+                    fetch(`real-anggaran-ai-ppi/${id}`, {
                             method: "DELETE",
                             headers: {
                                 "Accept": "application/json",
@@ -516,7 +516,7 @@
             }
 
             function loadData() {
-                fetch("/monev/shpnre/input-data/real-anggaran-ai-karaha/data", {
+                fetch("/monev/shpnre/input-data/real-anggaran-ai-ppi/data", {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -544,7 +544,7 @@
 
             document.addEventListener("DOMContentLoaded", function() {
                 const columnMap = {
-                    "real-anggaran-ai-karaha": [{
+                    "real-anggaran-ai-ppi": [{
                             title: "No",
                             formatter: "rownum",
                             hozAlign: "center",
@@ -560,87 +560,29 @@
                             title: "Periode",
                             field: "periode",
                             editor: "input",
+                            hozAlign: "center",
                             headerFilter: "select",
                             headerFilterParams: {
-                                values: [{
-                                        value: "01",
-                                        label: "Januari"
-                                    },
-                                    {
-                                        value: "02",
-                                        label: "Februari"
-                                    },
-                                    {
-                                        value: "03",
-                                        label: "Maret"
-                                    },
-                                    {
-                                        value: "04",
-                                        label: "April"
-                                    },
-                                    {
-                                        value: "05",
-                                        label: "Mei"
-                                    },
-                                    {
-                                        value: "06",
-                                        label: "Juni"
-                                    },
-                                    {
-                                        value: "07",
-                                        label: "Juli"
-                                    },
-                                    {
-                                        value: "08",
-                                        label: "Agustus"
-                                    },
-                                    {
-                                        value: "09",
-                                        label: "September"
-                                    },
-                                    {
-                                        value: "10",
-                                        label: "Oktober"
-                                    },
-                                    {
-                                        value: "11",
-                                        label: "November"
-                                    },
-                                    {
-                                        value: "12",
-                                        label: "Desember"
+                                values: (() => {
+                                    const years = [];
+                                    years.push({
+                                        value: "",
+                                        label: "Pilih Tahun"
+                                    });
+                                    for (let year = 2020; year <= new Date().getFullYear() +
+                                        5; year++) {
+                                        years.push({
+                                            value: String(year),
+                                            label: String(year)
+                                        });
                                     }
-                                ]
-                            },
-                            headerFilterPlaceholder: "Pilih Bulan",
-                            headerFilterFunc: function(headerValue, rowValue) {
-                                if (!headerValue) return true;
-                                if (!rowValue) return false;
-
-                                const periode = rowValue.toLowerCase();
-
-                                const bulanTextMap = {
-                                    "01": ["jan", "january"],
-                                    "02": ["feb", "february"],
-                                    "03": ["mar", "march"],
-                                    "04": ["apr", "april"],
-                                    "05": ["may", "mei"],
-                                    "06": ["jun", "june"],
-                                    "07": ["jul", "july"],
-                                    "08": ["aug", "august"],
-                                    "09": ["sep", "september"],
-                                    "10": ["oct", "october"],
-                                    "11": ["nov", "november"],
-                                    "12": ["dec", "december"]
-                                };
-
-                                const keywords = bulanTextMap[headerValue];
-                                return keywords.some(keyword => periode.includes(keyword)) || periode
-                                    .includes(`-${headerValue}`);
+                                    return years;
+                                })()
                             }
                         },
                         {
                             title: "No",
+                            hozAlign: "center",
                             field: "no",
                             editor: "input"
                         },
@@ -648,7 +590,6 @@
                             title: "Program Kerja",
                             field: "program_kerja",
                             editor: "input",
-                            width: 400
                         },
                         {
                             title: "Kategori AIBT",
@@ -892,7 +833,7 @@
                     layout: "fitDataTable",
                     responsiveLayout: "collapse",
                     autoResize: true,
-                    columns: columnMap["real-anggaran-ai-karaha"],
+                    columns: columnMap["real-anggaran-ai-ppi"],
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -927,8 +868,8 @@
                 });
 
                 document.getElementById("download-xlsx").addEventListener("click", function() {
-                    window.table.download("xlsx", "real-anggaran-ai-karaha.xlsx", {
-                        sheetName: "real-anggaran-ai-karaha",
+                    window.table.download("xlsx", "real-anggaran-ai-ppi.xlsx", {
+                        sheetName: "real-anggaran-ai-ppi",
                         columnHeaders: true,
                         downloadDataFormatter: function(data) {
                             return data.map(row => {
@@ -955,7 +896,7 @@
 
                     if (!id) return;
 
-                    fetch(`real-anggaran-ai-karaha/${id}`, {
+                    fetch(`real-anggaran-ai-ppi/${id}`, {
                             method: "PUT",
                             headers: {
                                 "Content-Type": "application/json",
@@ -995,7 +936,7 @@
                     console.log("Baris yang berubah:", changedRows);
 
                     changedRows.forEach(rowData => {
-                        fetch(`real-anggaran-ai-karaha/${rowData.id}`, {
+                        fetch(`real-anggaran-ai-ppi/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
                                     "Content-Type": "application/json",
@@ -1038,7 +979,7 @@
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
 
-                fetch("real-anggaran-ai-karaha", {
+                fetch("real-anggaran-ai-ppi", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -1057,7 +998,7 @@
                     .then(result => {
                         if (result.success) {
                             alert(result.message || "Data berhasil disimpan");
-                            table.setData("/monev/shpnre/input-data/real-anggaran-ai-karaha/data");
+                            table.setData("/monev/shpnre/input-data/real-anggaran-ai-ppi/data");
                             this.reset();
                             closeModal();
                         } else {

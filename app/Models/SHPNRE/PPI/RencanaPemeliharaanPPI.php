@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Models\SHPNRE\Ulubelu;
+namespace App\Models\SHPNRE\PPI;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 
-class SistemInformasiAimsUlubelu extends Model
+class RencanaPemeliharaanPPI extends Model
 {
     use HasFactory;
     public $incrementing = false;
@@ -21,21 +21,32 @@ class SistemInformasiAimsUlubelu extends Model
             }
         });
     }
-
-    protected $table = 'shpnre_ulubelu_sistem_informasi_aims';
+    protected $table = 'shpnre_ppi_rencana_pemeliharaan';
 
     protected $fillable = [
         'periode',
+        'no',
         'company',
-        'jumlah_aset_operasi',
-        'jumlah_aset_teregister',
-        'kendala_aset_register',
-        'tindak_lanjut_aset_register',
-        'sistem_informasi_aim',
-        'total_wo_comply',
-        'total_wo_completed',
-        'total_wo_in_progress',
-        'total_wo_backlog',
+        'lokasi',
+        'program_kerja',
+        'kategori_maintenance',
+        'besar_phasing',
+        'remark',
+        'jan',
+        'feb',
+        'mar',
+        'apr',
+        'may',
+        'jun',
+        'jul',
+        'aug',
+        'sep',
+        'oct',
+        'nov',
+        'dec',
+        'biaya_kerugian',
+        'keterangan_kerugian',
+        'penyebab',
         'kendala',
         'tindak_lanjut',
     ];

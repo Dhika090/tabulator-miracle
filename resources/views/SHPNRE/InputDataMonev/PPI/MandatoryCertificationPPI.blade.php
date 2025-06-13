@@ -2,6 +2,12 @@
 <x-layouts.app :title="__('')">
     @push('styles')
         <link href="https://unpkg.com/tabulator-tables@5.6.0/dist/css/tabulator.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
         <style>
             .tabulator-wrapper {
                 overflow-x: auto;
@@ -125,7 +131,7 @@
     <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-                <h5 class="card-title mb-3 mb-md-0">Real Anggaran AI Karaha</h5>
+                <h5 class="card-title mb-3 mb-md-0">Mandatory Certification PPI</h5>
                 <div class="d-flex flex-column flex-md-row align-items-center gap-3">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
@@ -171,7 +177,6 @@
                     </div>
                 </div>
             </div>
-
             <div id="mainTable"></div>
 
             <div class="tabulator-wrapper mt-4">
@@ -183,7 +188,7 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Real Anggaran AI Karaha</h3>
+            <h3>Tambah Target Mandatory Certification PPI</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
                 <div>
@@ -192,33 +197,13 @@
                 </div>
 
                 <div>
-                    <label>No</label>
-                    <input type="number" name="no" id="no">
+                    <label>Subholding</label>
+                    <input type="text" name="subholding" id="subholding">
                 </div>
 
                 <div>
-                    <label>Program Kerja</label>
-                    <input type="text" name="program_kerja" id="program_kerja">
-                </div>
-
-                <div>
-                    <label>Kategori AIBT</label>
-                    <input type="text" name="kategori_aibt" id="kategori_aibt">
-                </div>
-
-                <div>
-                    <label>Jenis Anggaran</label>
-                    <input type="text" name="jenis_anggaran" id="jenis_anggaran">
-                </div>
-
-                <div>
-                    <label>Besar RKAP</label>
-                    <input type="number" name="besar_rkap" id="besar_rkap">
-                </div>
-
-                <div>
-                    <label>Entitas</label>
-                    <input type="text" name="entitas" id="entitas">
+                    <label>Company</label>
+                    <input type="text" name="company" id="company">
                 </div>
 
                 <div>
@@ -226,220 +211,44 @@
                     <input type="text" name="unit" id="unit">
                 </div>
 
+                {{-- dropdown nama Sertifikasi --}}
                 <div>
-                    <label>Nilai Kontrak</label>
-                    <input type="number" name="nilai_kontrak" id="nilai_kontrak">
+                    <label>Nama Sertifikasi</label>
+                    <select name="nama_sertifikasi" id="nama_sertifikasi" class="form-control">
+                        <option value="">-- Pilih Sertifikasi --</option>
+                        @foreach ($sertifikasiOptions as $option)
+                            <option value="{{ $option }}">{{ $option }}</option>
+                        @endforeach
+                    </select>
                 </div>
 
                 <div>
-                    <label>Plan Jan</label>
-                    <input type="number" name="plan_jan" id="plan_jan">
+                    <label>Lembaga Penerbit Sertifikat</label>
+                    <input type="text" name="lembaga_penerbit_sertifikat" id="lembaga_penerbit_sertifikat">
                 </div>
 
                 <div>
-                    <label>Plan Feb</label>
-                    <input type="number" name="plan_feb" id="plan_feb">
+                    <label>Jumlah Sertifikasi yang Sudah Terbit</label>
+                    <input type="number" name="jumlah_sertifikasi_terbit" id="jumlah_sertifikasi_terbit">
                 </div>
 
                 <div>
-                    <label>Plan Mar</label>
-                    <input type="number" name="plan_mar" id="plan_mar">
-                </div>
-
-                <div>
-                    <label>Plan Apr</label>
-                    <input type="number" name="plan_apr" id="plan_apr">
-                </div>
-
-                <div>
-                    <label>Plan May</label>
-                    <input type="number" name="plan_may" id="plan_may">
-                </div>
-
-                <div>
-                    <label>Plan Jun</label>
-                    <input type="number" name="plan_jun" id="plan_jun">
-                </div>
-
-                <div>
-                    <label>Plan Jul</label>
-                    <input type="number" name="plan_jul" id="plan_jul">
-                </div>
-
-                <div>
-                    <label>Plan Aug</label>
-                    <input type="number" name="plan_aug" id="plan_aug">
-                </div>
-
-                <div>
-                    <label>Plan Sep</label>
-                    <input type="number" name="plan_sep" id="plan_sep">
-                </div>
-
-                <div>
-                    <label>Plan Oct</label>
-                    <input type="number" name="plan_oct" id="plan_oct">
-                </div>
-
-                <div>
-                    <label>Plan Nov</label>
-                    <input type="number" name="plan_nov" id="plan_nov">
-                </div>
-
-                <div>
-                    <label>Plan Dec</label>
-                    <input type="number" name="plan_dec" id="plan_dec">
-                </div>
-
-                <div>
-                    <label>Prognosa Jan</label>
-                    <input type="number" name="prognosa_jan" id="prognosa_jan">
-                </div>
-
-                <div>
-                    <label>Prognosa Feb</label>
-                    <input type="number" name="prognosa_feb" id="prognosa_feb">
-                </div>
-
-                <div>
-                    <label>Prognosa Mar</label>
-                    <input type="number" name="prognosa_mar" id="prognosa_mar">
-                </div>
-
-                <div>
-                    <label>Prognosa Apr</label>
-                    <input type="number" name="prognosa_apr" id="prognosa_apr">
-                </div>
-
-                <div>
-                    <label>Prognosa May</label>
-                    <input type="number" name="prognosa_may" id="prognosa_may">
-                </div>
-
-                <div>
-                    <label>Prognosa Jun</label>
-                    <input type="number" name="prognosa_jun" id="prognosa_jun">
-                </div>
-
-                <div>
-                    <label>Prognosa Jul</label>
-                    <input type="number" name="prognosa_jul" id="prognosa_jul">
-                </div>
-
-                <div>
-                    <label>Prognosa Aug</label>
-                    <input type="number" name="prognosa_aug" id="prognosa_aug">
-                </div>
-
-                <div>
-                    <label>Prognosa Sep</label>
-                    <input type="number" name="prognosa_sep" id="prognosa_sep">
-                </div>
-
-                <div>
-                    <label>Prognosa Oct</label>
-                    <input type="number" name="prognosa_oct" id="prognosa_oct">
-                </div>
-
-                <div>
-                    <label>Prognosa Nov</label>
-                    <input type="number" name="prognosa_nov" id="prognosa_nov">
-                </div>
-
-                <div>
-                    <label>Prognosa Dec</label>
-                    <input type="number" name="prognosa_dec" id="prognosa_dec">
-                </div>
-
-                <div>
-                    <label>Actual Jan</label>
-                    <input type="number" name="actual_jan" id="actual_jan">
-                </div>
-
-                <div>
-                    <label>Actual Feb</label>
-                    <input type="number" name="actual_feb" id="actual_feb">
-                </div>
-
-                <div>
-                    <label>Actual Mar</label>
-                    <input type="number" name="actual_mar" id="actual_mar">
-                </div>
-
-                <div>
-                    <label>Actual Apr</label>
-                    <input type="number" name="actual_apr" id="actual_apr">
-                </div>
-
-                <div>
-                    <label>Actual May</label>
-                    <input type="number" name="actual_may" id="actual_may">
-                </div>
-
-                <div>
-                    <label>Actual Jun</label>
-                    <input type="number" name="actual_jun" id="actual_jun">
-                </div>
-
-                <div>
-                    <label>Actual Jul</label>
-                    <input type="number" name="actual_jul" id="actual_jul">
-                </div>
-
-                <div>
-                    <label>Actual Aug</label>
-                    <input type="number" name="actual_aug" id="actual_aug">
-                </div>
-
-                <div>
-                    <label>Actual Sep</label>
-                    <input type="number" name="actual_sep" id="actual_sep">
-                </div>
-
-                <div>
-                    <label>Actual Oct</label>
-                    <input type="number" name="actual_oct" id="actual_oct">
-                </div>
-
-                <div>
-                    <label>Actual Nov</label>
-                    <input type="number" name="actual_nov" id="actual_nov">
-                </div>
-
-                <div>
-                    <label>Actual Dec</label>
-                    <input type="number" name="actual_dec" id="actual_dec">
-                </div>
-
-                <div>
-                    <label>Kode</label>
-                    <input type="text" name="kode" id="kode">
-                </div>
-
-                <div>
-                    <label>Kendala</label>
-                    <input type="text" name="kendala" id="kendala">
-                </div>
-
-                <div>
-                    <label>Tindak Lanjut</label>
-                    <input type="text" name="tindak_lanjut" id="tindak_lanjut">
+                    <label>Jumlah Learning Hours</label>
+                    <input type="number" name="jumlah_learning_hours" id="jumlah_learning_hours">
                 </div>
 
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
-
         </div>
     </div>
 
     @push('scripts')
         <script src="https://unpkg.com/tabulator-tables@5.6.0/dist/js/tabulator.min.js"></script>
         <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
-
         <script>
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
-                    fetch(`real-anggaran-ai-karaha/${id}`, {
+                    fetch(`mandatory-certification-ppi/${id}`, {
                             method: "DELETE",
                             headers: {
                                 "Accept": "application/json",
@@ -458,65 +267,13 @@
                 }
             }
 
-            document.getElementById("search-input").addEventListener("input", function(e) {
-                const keyword = e.target.value;
-                table.setFilter([
-                    [{
-                            field: "periode",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "no",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "program_kerja",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "kategori_aibt",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "jenis_anggaran",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "besar_rkap",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "entitas",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "unit",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "nilai_kontrak",
-                            type: "like",
-                            value: keyword
-                        },
-                    ]
-                ]);
-            });
-
             function clearSearch() {
                 document.getElementById("search-input").value = "";
                 table.clearFilter();
             }
 
             function loadData() {
-                fetch("/monev/shpnre/input-data/real-anggaran-ai-karaha/data", {
+                fetch("/monev/shpnre/input-data/mandatory-certification-ppi/data", {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -542,14 +299,62 @@
                     .catch(err => console.error("Gagal load data:", err));
             }
 
+            document.getElementById("search-input").addEventListener("input", function(e) {
+                const keyword = e.target.value;
+                table.setFilter([
+                    [{
+                            field: "periode",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "subholding",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "company",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "unit",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "nama_sertifikasi",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "lembaga_penerbit_sertifikat",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "jumlah_sertifikasi_sudah_terbit",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "jumlah_learning_hours",
+                            type: "like",
+                            value: keyword
+                        }
+                    ]
+                ]);
+
+            });
+
             document.addEventListener("DOMContentLoaded", function() {
                 const columnMap = {
-                    "real-anggaran-ai-karaha": [{
+                    "mandatory-certification-ppi": [{
                             title: "No",
                             formatter: "rownum",
                             hozAlign: "center",
                             width: 60,
-                            download: false,
+                            download: false
                         },
                         {
                             title: "ID",
@@ -640,34 +445,13 @@
                             }
                         },
                         {
-                            title: "No",
-                            field: "no",
+                            title: "Subholding",
+                            field: "subholding",
                             editor: "input"
                         },
                         {
-                            title: "Program Kerja",
-                            field: "program_kerja",
-                            editor: "input",
-                            width: 400
-                        },
-                        {
-                            title: "Kategori AIBT",
-                            field: "kategori_aibt",
-                            editor: "input"
-                        },
-                        {
-                            title: "Jenis Anggaran",
-                            field: "jenis_anggaran",
-                            editor: "input"
-                        },
-                        {
-                            title: "Besar RKAP",
-                            field: "besar_rkap",
-                            editor: "number"
-                        },
-                        {
-                            title: "Entitas",
-                            field: "entitas",
+                            title: "Company",
+                            field: "company",
                             editor: "input"
                         },
                         {
@@ -676,204 +460,27 @@
                             editor: "input"
                         },
                         {
-                            title: "Nilai Kontrak",
-                            field: "nilai_kontrak",
-                            editor: "number"
+                            title: "Nama Sertifikasi",
+                            field: "nama_sertifikasi",
+                            editor: "input",
+                            width: 450
                         },
                         {
-                            title: "Plan Jan",
-                            field: "plan_jan",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Feb",
-                            field: "plan_feb",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Mar",
-                            field: "plan_mar",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Apr",
-                            field: "plan_apr",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan May",
-                            field: "plan_may",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Jun",
-                            field: "plan_jun",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Jul",
-                            field: "plan_jul",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Aug",
-                            field: "plan_aug",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Sep",
-                            field: "plan_sep",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Oct",
-                            field: "plan_oct",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Nov",
-                            field: "plan_nov",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Dec",
-                            field: "plan_dec",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Jan",
-                            field: "prognosa_jan",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Feb",
-                            field: "prognosa_feb",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Mar",
-                            field: "prognosa_mar",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Apr",
-                            field: "prognosa_apr",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa May",
-                            field: "prognosa_may",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Jun",
-                            field: "prognosa_jun",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Jul",
-                            field: "prognosa_jul",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Aug",
-                            field: "prognosa_aug",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Sep",
-                            field: "prognosa_sep",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Oct",
-                            field: "prognosa_oct",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Nov",
-                            field: "prognosa_nov",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Dec",
-                            field: "prognosa_dec",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Jan",
-                            field: "actual_jan",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Feb",
-                            field: "actual_feb",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Mar",
-                            field: "actual_mar",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Apr",
-                            field: "actual_apr",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual May",
-                            field: "actual_may",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Jun",
-                            field: "actual_jun",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Jul",
-                            field: "actual_jul",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Aug",
-                            field: "actual_aug",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Sep",
-                            field: "actual_sep",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Oct",
-                            field: "actual_oct",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Nov",
-                            field: "actual_nov",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Dec",
-                            field: "actual_dec",
-                            editor: "number"
-                        },
-                        {
-                            title: "Kode",
-                            field: "kode",
+                            title: "Lembaga Penerbit Sertifikat",
+                            field: "lembaga_penerbit_sertifikat",
                             editor: "input"
                         },
                         {
-                            title: "Kendala",
-                            field: "kendala",
-                            editor: "input"
+                            title: "Jumlah Sertifikasi yang Sudah Terbit",
+                            field: "jumlah_sertifikasi_terbit",
+                            editor: "input",
+                            hozAlign: "center"
                         },
                         {
-                            title: "Tindak Lanjut",
-                            field: "tindak_lanjut",
-                            editor: "input"
+                            title: "Jumlah Learning Hours",
+                            field: "jumlah_learning_hours",
+                            editor: "input",
+                            hozAlign: "center"
                         },
                         {
                             title: "Aksi",
@@ -892,7 +499,7 @@
                     layout: "fitDataTable",
                     responsiveLayout: "collapse",
                     autoResize: true,
-                    columns: columnMap["real-anggaran-ai-karaha"],
+                    columns: columnMap["mandatory-certification-ppi"],
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -927,8 +534,8 @@
                 });
 
                 document.getElementById("download-xlsx").addEventListener("click", function() {
-                    window.table.download("xlsx", "real-anggaran-ai-karaha.xlsx", {
-                        sheetName: "real-anggaran-ai-karaha",
+                    window.table.download("xlsx", "pelatihan-aims-ppi.xlsx", {
+                        sheetName: "pelatihan-aims-ppi",
                         columnHeaders: true,
                         downloadDataFormatter: function(data) {
                             return data.map(row => {
@@ -955,7 +562,7 @@
 
                     if (!id) return;
 
-                    fetch(`real-anggaran-ai-karaha/${id}`, {
+                    fetch(`mandatory-certification-ppi/${id}`, {
                             method: "PUT",
                             headers: {
                                 "Content-Type": "application/json",
@@ -969,7 +576,6 @@
                         .then(data => console.log("Update berhasil:", data))
                         .catch(err => console.error("Gagal update:", err));
                 });
-
                 let previousData = [];
                 table.on("dataLoaded", function(newData) {
                     previousData = JSON.parse(JSON.stringify(newData));
@@ -995,7 +601,7 @@
                     console.log("Baris yang berubah:", changedRows);
 
                     changedRows.forEach(rowData => {
-                        fetch(`real-anggaran-ai-karaha/${rowData.id}`, {
+                        fetch(`mandatory-certification-ppi/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
                                     "Content-Type": "application/json",
@@ -1038,7 +644,7 @@
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
 
-                fetch("real-anggaran-ai-karaha", {
+                fetch("mandatory-certification-ppi", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -1048,16 +654,21 @@
                         },
                         body: JSON.stringify({
                             periode: data.periode,
+                            subholding: data.subholding,
                             company: data.company,
-                            judul_pelatihan: data.judul_pelatihan,
-                            realisasi_perwira: data.realisasi_perwira
+                            unit: data.unit,
+                            nama_sertifikasi: data.nama_sertifikasi,
+                            lembaga_penerbit_sertifikat: data.lembaga_penerbit_sertifikat,
+                            jumlah_sertifikasi_terbit: data.jumlah_sertifikasi_terbit,
+                            jumlah_learning_hours: data.jumlah_learning_hours
                         })
+
                     })
                     .then(response => response.json())
                     .then(result => {
                         if (result.success) {
                             alert(result.message || "Data berhasil disimpan");
-                            table.setData("/monev/shpnre/input-data/real-anggaran-ai-karaha/data");
+                            table.setData("/monev/shpnre/input-data/mandatory-certification-ppi/data");
                             this.reset();
                             closeModal();
                         } else {

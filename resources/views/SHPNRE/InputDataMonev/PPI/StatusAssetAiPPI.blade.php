@@ -125,7 +125,7 @@
     <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-                <h5 class="card-title mb-3 mb-md-0">Real Anggaran AI Karaha</h5>
+                <h5 class="card-title mb-3 mb-md-0">Status Asset 2025 AI PPI</h5>
                 <div class="d-flex flex-column flex-md-row align-items-center gap-3">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
@@ -183,43 +183,27 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Real Anggaran AI Karaha</h3>
+            <h3>Create New Data Status Asset 2025 AI PPI</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
+
                 <div>
                     <label>Periode</label>
                     <input type="month" name="periode" id="periode">
                 </div>
 
                 <div>
-                    <label>No</label>
-                    <input type="number" name="no" id="no">
+                    <label>Subholding</label>
+                    <input type="text" name="subholding" id="subholding">
                 </div>
 
-                <div>
-                    <label>Program Kerja</label>
-                    <input type="text" name="program_kerja" id="program_kerja">
-                </div>
-
-                <div>
-                    <label>Kategori AIBT</label>
-                    <input type="text" name="kategori_aibt" id="kategori_aibt">
-                </div>
-
-                <div>
-                    <label>Jenis Anggaran</label>
-                    <input type="text" name="jenis_anggaran" id="jenis_anggaran">
-                </div>
-
-                <div>
-                    <label>Besar RKAP</label>
-                    <input type="number" name="besar_rkap" id="besar_rkap">
-                </div>
-
-                <div>
-                    <label>Entitas</label>
-                    <input type="text" name="entitas" id="entitas">
-                </div>
+                <label for="company">Company:</label>
+                <select name="company" id="company" class="form-select">
+                    <option value="">-- Pilih Company --</option>
+                    @foreach ($companies as $company)
+                        <option value="{{ $company }}">{{ $company }}</option>
+                    @endforeach
+                </select>
 
                 <div>
                     <label>Unit</label>
@@ -227,203 +211,96 @@
                 </div>
 
                 <div>
-                    <label>Nilai Kontrak</label>
-                    <input type="number" name="nilai_kontrak" id="nilai_kontrak">
+                    <label>Asset Group</label>
+                    <input type="text" name="asset_group" id="asset_group">
                 </div>
 
                 <div>
-                    <label>Plan Jan</label>
-                    <input type="number" name="plan_jan" id="plan_jan">
+                    <label>Jumlah</label>
+                    <input type="number" name="jumlah" id="jumlah" step="0.01">
+                </div>
+
+                <!-- SECE -->
+                <h4>SECE</h4>
+                <div><label>Low Integrity - Breakdown</label><input type="number" id="sece_low_integrity_breakdown"
+                        step="0.01">
+                </div>
+                <div><label>Medium - Due Date Inspection</label><input type="number"
+                        id="sece_medium_due_date_inspection" step="0.01"></div>
+                <div><label>Medium - Low Condition</label><input type="number" id="sece_medium_low_condition"
+                        step="0.01"></div>
+                <div><label>Medium - Low Performance</label><input type="number" id="sece_medium_low_performance"
+                        step="0.01">
+                </div>
+                <div><label>High Integrity</label><input type="number" id="sece_high_integrity" step="0.01"></div>
+
+                <!-- PCE -->
+                <h4>PCE</h4>
+                <div><label>Low Integrity - Breakdown</label><input type="number" id="pce_low_integrity_breakdown"
+                        step="0.01">
+                </div>
+                <div><label>Medium - Due Date Inspection</label><input type="number"
+                        id="pce_medium_due_date_inspection" step="0.01"></div>
+                <div><label>Medium - Low Condition</label><input type="number" id="pce_medium_low_condition"
+                        step="0.01"></div>
+                <div><label>Medium - Low Performance</label><input type="number" id="pce_medium_low_performance"
+                        step="0.01"></div>
+                <div><label>High Integrity</label><input type="number" id="pce_high_integrity" step="0.01"></div>
+
+                <!-- IMPORTANT -->
+                <h4>IMPORTANT</h4>
+                <div><label>Low Integrity - Breakdown</label><input type="number"
+                        id="important_low_integrity_breakdown" step="0.01"></div>
+                <div><label>Medium - Due Date Inspection</label><input type="number"
+                        id="important_medium_due_date_inspection" step="0.01"></div>
+                <div><label>Medium - Low Condition</label><input type="number" id="important_medium_low_condition"
+                        step="0.01">
+                </div>
+                <div><label>Medium - Low Performance</label><input type="number"
+                        id="important_medium_low_performance" step="0.01">
+                </div>
+                <div><label>High Integrity</label><input type="number" id="important_high_integrity" step="0.01">
+                </div>
+
+                <!-- SECONDARY -->
+                <h4>SECONDARY</h4>
+                <div><label>Low Integrity - Breakdown</label><input type="number"
+                        id="secondary_low_integrity_breakdown" step="0.01"></div>
+                <div><label>Medium - Due Date Inspection</label><input type="number"
+                        id="secondary_medium_due_date_inspection" step="0.01"></div>
+                <div><label>Medium - Low Condition</label><input type="number" id="secondary_medium_low_condition"
+                        step="0.01">
+                </div>
+                <div><label>Medium - Low Performance</label><input type="number"
+                        id="secondary_medium_low_performance" step="0.01">
+                </div>
+                <div><label>High Integrity</label><input type="number" id="secondary_high_integrity" step="0.01">
+                </div>
+
+                <!-- Tambahan Informasi -->
+                <div>
+                    <label>Kegiatan Penurunan Low</label>
+                    <input type="text" id="kegiatan_penurunan_low">
                 </div>
 
                 <div>
-                    <label>Plan Feb</label>
-                    <input type="number" name="plan_feb" id="plan_feb">
+                    <label>Kegiatan Penurunan Med</label>
+                    <input type="text" id="kegiatan_penurunan_med">
                 </div>
 
                 <div>
-                    <label>Plan Mar</label>
-                    <input type="number" name="plan_mar" id="plan_mar">
+                    <label>Informasi Penyebab Low Integrity</label>
+                    <input id="informasi_penyebab_low_integrity"></input>
                 </div>
 
                 <div>
-                    <label>Plan Apr</label>
-                    <input type="number" name="plan_apr" id="plan_apr">
+                    <label>Informasi Penambahan Jumlah Aset</label>
+                    <input id="informasi_penambahan_jumlah_aset"></input>
                 </div>
 
                 <div>
-                    <label>Plan May</label>
-                    <input type="number" name="plan_may" id="plan_may">
-                </div>
-
-                <div>
-                    <label>Plan Jun</label>
-                    <input type="number" name="plan_jun" id="plan_jun">
-                </div>
-
-                <div>
-                    <label>Plan Jul</label>
-                    <input type="number" name="plan_jul" id="plan_jul">
-                </div>
-
-                <div>
-                    <label>Plan Aug</label>
-                    <input type="number" name="plan_aug" id="plan_aug">
-                </div>
-
-                <div>
-                    <label>Plan Sep</label>
-                    <input type="number" name="plan_sep" id="plan_sep">
-                </div>
-
-                <div>
-                    <label>Plan Oct</label>
-                    <input type="number" name="plan_oct" id="plan_oct">
-                </div>
-
-                <div>
-                    <label>Plan Nov</label>
-                    <input type="number" name="plan_nov" id="plan_nov">
-                </div>
-
-                <div>
-                    <label>Plan Dec</label>
-                    <input type="number" name="plan_dec" id="plan_dec">
-                </div>
-
-                <div>
-                    <label>Prognosa Jan</label>
-                    <input type="number" name="prognosa_jan" id="prognosa_jan">
-                </div>
-
-                <div>
-                    <label>Prognosa Feb</label>
-                    <input type="number" name="prognosa_feb" id="prognosa_feb">
-                </div>
-
-                <div>
-                    <label>Prognosa Mar</label>
-                    <input type="number" name="prognosa_mar" id="prognosa_mar">
-                </div>
-
-                <div>
-                    <label>Prognosa Apr</label>
-                    <input type="number" name="prognosa_apr" id="prognosa_apr">
-                </div>
-
-                <div>
-                    <label>Prognosa May</label>
-                    <input type="number" name="prognosa_may" id="prognosa_may">
-                </div>
-
-                <div>
-                    <label>Prognosa Jun</label>
-                    <input type="number" name="prognosa_jun" id="prognosa_jun">
-                </div>
-
-                <div>
-                    <label>Prognosa Jul</label>
-                    <input type="number" name="prognosa_jul" id="prognosa_jul">
-                </div>
-
-                <div>
-                    <label>Prognosa Aug</label>
-                    <input type="number" name="prognosa_aug" id="prognosa_aug">
-                </div>
-
-                <div>
-                    <label>Prognosa Sep</label>
-                    <input type="number" name="prognosa_sep" id="prognosa_sep">
-                </div>
-
-                <div>
-                    <label>Prognosa Oct</label>
-                    <input type="number" name="prognosa_oct" id="prognosa_oct">
-                </div>
-
-                <div>
-                    <label>Prognosa Nov</label>
-                    <input type="number" name="prognosa_nov" id="prognosa_nov">
-                </div>
-
-                <div>
-                    <label>Prognosa Dec</label>
-                    <input type="number" name="prognosa_dec" id="prognosa_dec">
-                </div>
-
-                <div>
-                    <label>Actual Jan</label>
-                    <input type="number" name="actual_jan" id="actual_jan">
-                </div>
-
-                <div>
-                    <label>Actual Feb</label>
-                    <input type="number" name="actual_feb" id="actual_feb">
-                </div>
-
-                <div>
-                    <label>Actual Mar</label>
-                    <input type="number" name="actual_mar" id="actual_mar">
-                </div>
-
-                <div>
-                    <label>Actual Apr</label>
-                    <input type="number" name="actual_apr" id="actual_apr">
-                </div>
-
-                <div>
-                    <label>Actual May</label>
-                    <input type="number" name="actual_may" id="actual_may">
-                </div>
-
-                <div>
-                    <label>Actual Jun</label>
-                    <input type="number" name="actual_jun" id="actual_jun">
-                </div>
-
-                <div>
-                    <label>Actual Jul</label>
-                    <input type="number" name="actual_jul" id="actual_jul">
-                </div>
-
-                <div>
-                    <label>Actual Aug</label>
-                    <input type="number" name="actual_aug" id="actual_aug">
-                </div>
-
-                <div>
-                    <label>Actual Sep</label>
-                    <input type="number" name="actual_sep" id="actual_sep">
-                </div>
-
-                <div>
-                    <label>Actual Oct</label>
-                    <input type="number" name="actual_oct" id="actual_oct">
-                </div>
-
-                <div>
-                    <label>Actual Nov</label>
-                    <input type="number" name="actual_nov" id="actual_nov">
-                </div>
-
-                <div>
-                    <label>Actual Dec</label>
-                    <input type="number" name="actual_dec" id="actual_dec">
-                </div>
-
-                <div>
-                    <label>Kode</label>
-                    <input type="text" name="kode" id="kode">
-                </div>
-
-                <div>
-                    <label>Kendala</label>
-                    <input type="text" name="kendala" id="kendala">
-                </div>
-
-                <div>
-                    <label>Tindak Lanjut</label>
-                    <input type="text" name="tindak_lanjut" id="tindak_lanjut">
+                    <label>Informasi Naik Turun Low Integrity</label>
+                    <input id="informasi_naik_turun_low_integrity"></input>
                 </div>
 
                 <button type="submit" class="btn btn-success">Submit</button>
@@ -439,7 +316,7 @@
         <script>
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
-                    fetch(`real-anggaran-ai-karaha/${id}`, {
+                    fetch(`ppi/${id}`, {
                             method: "DELETE",
                             headers: {
                                 "Accept": "application/json",
@@ -467,32 +344,12 @@
                             value: keyword
                         },
                         {
-                            field: "no",
+                            field: "subholding",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "program_kerja",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "kategori_aibt",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "jenis_anggaran",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "besar_rkap",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "entitas",
+                            field: "company",
                             type: "like",
                             value: keyword
                         },
@@ -502,7 +359,37 @@
                             value: keyword
                         },
                         {
-                            field: "nilai_kontrak",
+                            field: "asset_group",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "jumlah",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "kegiatan_penurunan_low",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "kegiatan_penurunan_med",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "informasi_penyebab_low",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "informasi_penambahan_jumlah_aset",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "informasi_naik_turun_low",
                             type: "like",
                             value: keyword
                         },
@@ -516,7 +403,7 @@
             }
 
             function loadData() {
-                fetch("/monev/shpnre/input-data/real-anggaran-ai-karaha/data", {
+                fetch("/monev/shpnre/input-data/ppi/data", {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -544,12 +431,12 @@
 
             document.addEventListener("DOMContentLoaded", function() {
                 const columnMap = {
-                    "real-anggaran-ai-karaha": [{
+                    "ppi": [{
                             title: "No",
                             formatter: "rownum",
                             hozAlign: "center",
                             width: 60,
-                            download: false,
+                            download: false
                         },
                         {
                             title: "ID",
@@ -640,34 +527,13 @@
                             }
                         },
                         {
-                            title: "No",
-                            field: "no",
+                            title: "Subholding",
+                            field: "subholding",
                             editor: "input"
                         },
                         {
-                            title: "Program Kerja",
-                            field: "program_kerja",
-                            editor: "input",
-                            width: 400
-                        },
-                        {
-                            title: "Kategori AIBT",
-                            field: "kategori_aibt",
-                            editor: "input"
-                        },
-                        {
-                            title: "Jenis Anggaran",
-                            field: "jenis_anggaran",
-                            editor: "input"
-                        },
-                        {
-                            title: "Besar RKAP",
-                            field: "besar_rkap",
-                            editor: "number"
-                        },
-                        {
-                            title: "Entitas",
-                            field: "entitas",
+                            title: "Company",
+                            field: "company",
                             editor: "input"
                         },
                         {
@@ -676,204 +542,162 @@
                             editor: "input"
                         },
                         {
-                            title: "Nilai Kontrak",
-                            field: "nilai_kontrak",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Jan",
-                            field: "plan_jan",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Feb",
-                            field: "plan_feb",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Mar",
-                            field: "plan_mar",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Apr",
-                            field: "plan_apr",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan May",
-                            field: "plan_may",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Jun",
-                            field: "plan_jun",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Jul",
-                            field: "plan_jul",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Aug",
-                            field: "plan_aug",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Sep",
-                            field: "plan_sep",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Oct",
-                            field: "plan_oct",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Nov",
-                            field: "plan_nov",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Dec",
-                            field: "plan_dec",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Jan",
-                            field: "prognosa_jan",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Feb",
-                            field: "prognosa_feb",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Mar",
-                            field: "prognosa_mar",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Apr",
-                            field: "prognosa_apr",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa May",
-                            field: "prognosa_may",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Jun",
-                            field: "prognosa_jun",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Jul",
-                            field: "prognosa_jul",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Aug",
-                            field: "prognosa_aug",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Sep",
-                            field: "prognosa_sep",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Oct",
-                            field: "prognosa_oct",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Nov",
-                            field: "prognosa_nov",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Dec",
-                            field: "prognosa_dec",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Jan",
-                            field: "actual_jan",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Feb",
-                            field: "actual_feb",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Mar",
-                            field: "actual_mar",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Apr",
-                            field: "actual_apr",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual May",
-                            field: "actual_may",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Jun",
-                            field: "actual_jun",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Jul",
-                            field: "actual_jul",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Aug",
-                            field: "actual_aug",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Sep",
-                            field: "actual_sep",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Oct",
-                            field: "actual_oct",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Nov",
-                            field: "actual_nov",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Dec",
-                            field: "actual_dec",
-                            editor: "number"
-                        },
-                        {
-                            title: "Kode",
-                            field: "kode",
+                            title: "Asset Group",
+                            field: "asset_group",
                             editor: "input"
                         },
                         {
-                            title: "Kendala",
-                            field: "kendala",
+                            title: "Jumlah",
+                            field: "jumlah",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "SECE Low Integrity - Breakdown",
+                            field: "sece_low_integrity_breakdown",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "SECE Medium Integrity - Due Date Inspection",
+                            field: "sece_medium_due_date_inspection",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "SECE Medium Integrity - Low Condition",
+                            field: "sece_medium_low_condition",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "SECE Medium Integrity - Low Performance",
+                            field: "sece_medium_low_performance",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "SECE High Integrity",
+                            field: "sece_high_integrity",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "PCE Low Integrity - Breakdown",
+                            field: "pce_low_integrity_breakdown",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "PCE Medium Integrity - Due Date Inspection",
+                            field: "pce_medium_due_date_inspection",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "PCE Medium Integrity - Low Condition",
+                            field: "pce_medium_low_condition",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "PCE Medium Integrity - Low Performance",
+                            field: "pce_medium_low_performance",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "PCE High Integrity",
+                            field: "pce_high_integrity",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "IMPORTANT Low Integrity - Breakdown",
+                            field: "important_low_integrity_breakdown",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "IMPORTANT Medium Integrity - Due Date Inspection",
+                            field: "important_medium_due_date_inspection",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "IMPORTANT Medium Integrity - Low Condition",
+                            field: "important_medium_low_condition",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "IMPORTANT Medium Integrity - Low Performance",
+                            field: "important_medium_low_performance",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "IMPORTANT High Integrity",
+                            field: "important_high_integrity",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "SECONDARY Low Integrity - Breakdown",
+                            field: "secondary_low_integrity_breakdown",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "SECONDARY Medium Integrity - Due Date Inspection",
+                            field: "secondary_medium_due_date_inspection",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "SECONDARY Medium Integrity - Low Condition",
+                            field: "secondary_medium_low_condition",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "SECONDARY Medium Integrity - Low Performance",
+                            field: "secondary_medium_low_performance",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "SECONDARY High Integrity",
+                            field: "secondary_high_integrity",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Kegiatan Penurunan Low",
+                            field: "kegiatan_penurunan_low",
                             editor: "input"
                         },
                         {
-                            title: "Tindak Lanjut",
-                            field: "tindak_lanjut",
+                            title: "Kegiatan Penurunan Med",
+                            field: "kegiatan_penurunan_med",
                             editor: "input"
+                        },
+                        {
+                            title: "Informasi Penyebab Low Integrity",
+                            field: "informasi_penyebab_low_integrity",
+                            editor: "input",
+                            width: 450
+                        },
+                        {
+                            title: "Informasi Penambahan Jumlah Aset",
+                            field: "informasi_penambahan_jumlah_aset",
+                            editor: "input"
+                        },
+                        {
+                            title: "Informasi Naik Turun low Integrity",
+                            field: "informasi_naik_turun_low_integrity",
+                            editor: "input",
+                            width: 450
                         },
                         {
                             title: "Aksi",
@@ -892,7 +716,9 @@
                     layout: "fitDataTable",
                     responsiveLayout: "collapse",
                     autoResize: true,
-                    columns: columnMap["real-anggaran-ai-karaha"],
+                    columns: columnMap["ppi"],
+                    virtualDom: true,
+                    height: "700px",
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -927,8 +753,8 @@
                 });
 
                 document.getElementById("download-xlsx").addEventListener("click", function() {
-                    window.table.download("xlsx", "real-anggaran-ai-karaha.xlsx", {
-                        sheetName: "real-anggaran-ai-karaha",
+                    window.table.download("xlsx", "status-asset-sor3.xlsx", {
+                        sheetName: "Data Pelatihan",
                         columnHeaders: true,
                         downloadDataFormatter: function(data) {
                             return data.map(row => {
@@ -955,7 +781,7 @@
 
                     if (!id) return;
 
-                    fetch(`real-anggaran-ai-karaha/${id}`, {
+                    fetch(`ppi/${id}`, {
                             method: "PUT",
                             headers: {
                                 "Content-Type": "application/json",
@@ -995,7 +821,7 @@
                     console.log("Baris yang berubah:", changedRows);
 
                     changedRows.forEach(rowData => {
-                        fetch(`real-anggaran-ai-karaha/${rowData.id}`, {
+                        fetch(`ppi/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
                                     "Content-Type": "application/json",
@@ -1020,7 +846,7 @@
             });
         </script>
 
-        {{-- create data  --}}
+        {{-- create and update data --}}
         <script>
             function openModal() {
                 document.getElementById("createModal").style.display = "block";
@@ -1038,7 +864,7 @@
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
 
-                fetch("real-anggaran-ai-karaha", {
+                fetch("ppi", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -1048,16 +874,43 @@
                         },
                         body: JSON.stringify({
                             periode: data.periode,
+                            subholding: data.subholding,
                             company: data.company,
-                            judul_pelatihan: data.judul_pelatihan,
-                            realisasi_perwira: data.realisasi_perwira
+                            unit: data.unit,
+                            asset_group: data.asset_group,
+                            jumlah: data.jumlah,
+                            sece_low_breakdown: data.sece_low_breakdown,
+                            sece_medium_due_date_inspection: data.sece_medium_due_date_inspection,
+                            sece_medium_low_condition: data.sece_medium_low_condition,
+                            sece_medium_low_performance: data.sece_medium_low_performance,
+                            sece_high: data.sece_high,
+                            pce_low_breakdown: data.pce_low_breakdown,
+                            pce_medium_due_date_inspection: data.pce_medium_due_date_inspection,
+                            pce_medium_low_condition: data.pce_medium_low_condition,
+                            pce_medium_low_performance: data.pce_medium_low_performance,
+                            pce_high: data.pce_high,
+                            important_low_breakdown: data.important_low_breakdown,
+                            important_medium_due_date_inspection: data.important_medium_due_date_inspection,
+                            important_medium_low_condition: data.important_medium_low_condition,
+                            important_medium_low_performance: data.important_medium_low_performance,
+                            important_high: data.important_high,
+                            secondary_low_breakdown: data.secondary_low_breakdown,
+                            secondary_medium_due_date_inspection: data.secondary_medium_due_date_inspection,
+                            secondary_medium_low_condition: data.secondary_medium_low_condition,
+                            secondary_medium_low_performance: data.secondary_medium_low_performance,
+                            secondary_high: data.secondary_high,
+                            kegiatan_penurunan_low: data.kegiatan_penurunan_low,
+                            kegiatan_penurunan_med: data.kegiatan_penurunan_med,
+                            informasi_penyebab_low: data.informasi_penyebab_low,
+                            informasi_penambahan_jumlah_aset: data.informasi_penambahan_jumlah_aset,
+                            informasi_naik_turun_low: data.informasi_naik_turun_low
                         })
                     })
                     .then(response => response.json())
                     .then(result => {
                         if (result.success) {
                             alert(result.message || "Data berhasil disimpan");
-                            table.setData("/monev/shpnre/input-data/real-anggaran-ai-karaha/data");
+                            table.setData("/monev/shpnre/input-data/ppi/data");
                             this.reset();
                             closeModal();
                         } else {
@@ -1106,7 +959,6 @@
                     });
                 });
 
-                // Ketika halaman reload setelah klik, cek dan scroll otomatis
                 if (sessionStorage.getItem('scrollToActiveTab') === 'yes') {
                     scrollToActiveTab();
                     sessionStorage.removeItem('scrollToActiveTab');

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Models\SHPNRE\Ulubelu;
+namespace App\Models\SHPNRE\PPI;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 
-class SistemInformasiAimsUlubelu extends Model
+class AssetBreakdownPPI extends Model
 {
     use HasFactory;
     public $incrementing = false;
@@ -22,21 +22,23 @@ class SistemInformasiAimsUlubelu extends Model
         });
     }
 
-    protected $table = 'shpnre_ulubelu_sistem_informasi_aims';
-
+    protected $table = 'shpnre_ppi_asset_breakdown';
     protected $fillable = [
         'periode',
         'company',
-        'jumlah_aset_operasi',
-        'jumlah_aset_teregister',
-        'kendala_aset_register',
-        'tindak_lanjut_aset_register',
-        'sistem_informasi_aim',
-        'total_wo_comply',
-        'total_wo_completed',
-        'total_wo_in_progress',
-        'total_wo_backlog',
-        'kendala',
+        'plant_segment',
+        'kategori_criticality',
+        'tag',
+        'deskripsi_peralatan',
+        'jenis_kerusakan',
+        'penyebab',
+        'kendala_perbaikan',
+        'mitigasi',
+        'perbaikan_permanen',
+        'progres_perbaikan_permanen',
         'tindak_lanjut',
+        'target_penyelesaian',
+        'estimasi_biaya_perbaikan',
+        'link_foto_video'
     ];
 }

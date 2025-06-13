@@ -125,7 +125,7 @@
     <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-                <h5 class="card-title mb-3 mb-md-0">Real Anggaran AI Karaha</h5>
+                <h5 class="card-title mb-3 mb-md-0">Rencana Pemeliharaan Besar PPI</h5>
                 <div class="d-flex flex-column flex-md-row align-items-center gap-3">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
@@ -183,247 +183,136 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Real Anggaran AI Karaha</h3>
+            <h3>Tambah Rencana Pemeliharaan Besar PPI</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
+                <label for="periode">Periode (Tahun):</label>
+                <select name="periode" id="periode" class="form-select">
+                    <option value="" selected disabled>Pilih Periode</option>
+                    @for ($year = 2000; $year <= date('Y') + 5; $year++)
+                        <option value="{{ $year }}">{{ $year }}</option>
+                    @endfor
+                </select>
+
                 <div>
-                    <label>Periode</label>
-                    <input type="month" name="periode" id="periode">
+                    <label for="no">No</label>
+                    <input type="number" id="no" name="no">
                 </div>
 
                 <div>
-                    <label>No</label>
-                    <input type="number" name="no" id="no">
+                    <label for="company">Company</label>
+                    <input type="text" id="company" name="company">
                 </div>
 
                 <div>
-                    <label>Program Kerja</label>
-                    <input type="text" name="program_kerja" id="program_kerja">
+                    <label for="lokasi">Lokasi</label>
+                    <input type="text" id="lokasi" name="lokasi">
                 </div>
 
                 <div>
-                    <label>Kategori AIBT</label>
-                    <input type="text" name="kategori_aibt" id="kategori_aibt">
+                    <label for="program_kerja">Program Kerja</label>
+                    <input type="text" id="program_kerja" name="program_kerja">
                 </div>
 
                 <div>
-                    <label>Jenis Anggaran</label>
-                    <input type="text" name="jenis_anggaran" id="jenis_anggaran">
+                    <label for="kategori_maintenance">Kategori Maintenance</label>
+                    <input type="text" id="kategori_maintenance" name="kategori_maintenance">
                 </div>
 
                 <div>
-                    <label>Besar RKAP</label>
-                    <input type="number" name="besar_rkap" id="besar_rkap">
+                    <label for="besar_phasing">Besar Phasing</label>
+                    <input type="number" id="besar_phasing" name="besar_phasing" step="any">
                 </div>
 
                 <div>
-                    <label>Entitas</label>
-                    <input type="text" name="entitas" id="entitas">
+                    <label for="remark">Remark</label>
+                    <input type="text" id="remark" name="remark">
+                </div>
+
+                <!-- Bulan -->
+                <div>
+                    <label for="jan">Jan</label>
+                    <input type="number" id="jan" name="jan">
                 </div>
 
                 <div>
-                    <label>Unit</label>
-                    <input type="text" name="unit" id="unit">
+                    <label for="feb">Feb</label>
+                    <input type="number" id="feb" name="feb">
                 </div>
 
                 <div>
-                    <label>Nilai Kontrak</label>
-                    <input type="number" name="nilai_kontrak" id="nilai_kontrak">
+                    <label for="mar">Mar</label>
+                    <input type="number" id="mar" name="mar">
                 </div>
 
                 <div>
-                    <label>Plan Jan</label>
-                    <input type="number" name="plan_jan" id="plan_jan">
+                    <label for="apr">Apr</label>
+                    <input type="number" id="apr" name="apr">
                 </div>
 
                 <div>
-                    <label>Plan Feb</label>
-                    <input type="number" name="plan_feb" id="plan_feb">
+                    <label for="may">May</label>
+                    <input type="number" id="may" name="may">
                 </div>
 
                 <div>
-                    <label>Plan Mar</label>
-                    <input type="number" name="plan_mar" id="plan_mar">
+                    <label for="jun">Jun</label>
+                    <input type="number" id="jun" name="jun">
                 </div>
 
                 <div>
-                    <label>Plan Apr</label>
-                    <input type="number" name="plan_apr" id="plan_apr">
+                    <label for="jul">Jul</label>
+                    <input type="number" id="jul" name="jul">
                 </div>
 
                 <div>
-                    <label>Plan May</label>
-                    <input type="number" name="plan_may" id="plan_may">
+                    <label for="aug">Aug</label>
+                    <input type="number" id="aug" name="aug">
                 </div>
 
                 <div>
-                    <label>Plan Jun</label>
-                    <input type="number" name="plan_jun" id="plan_jun">
+                    <label for="sep">Sep</label>
+                    <input type="number" id="sep" name="sep">
                 </div>
 
                 <div>
-                    <label>Plan Jul</label>
-                    <input type="number" name="plan_jul" id="plan_jul">
+                    <label for="oct">Oct</label>
+                    <input type="number" id="oct" name="oct">
                 </div>
 
                 <div>
-                    <label>Plan Aug</label>
-                    <input type="number" name="plan_aug" id="plan_aug">
+                    <label for="nov">Nov</label>
+                    <input type="number" id="nov" name="nov">
                 </div>
 
                 <div>
-                    <label>Plan Sep</label>
-                    <input type="number" name="plan_sep" id="plan_sep">
+                    <label for="dec">Dec</label>
+                    <input type="number" id="dec" name="dec">
                 </div>
 
                 <div>
-                    <label>Plan Oct</label>
-                    <input type="number" name="plan_oct" id="plan_oct">
+                    <label for="biaya_kerugian">Biaya Kerugian (USD)</label>
+                    <input type="number" id="biaya_kerugian" name="biaya_kerugian" step="0.01">
                 </div>
 
                 <div>
-                    <label>Plan Nov</label>
-                    <input type="number" name="plan_nov" id="plan_nov">
+                    <label for="keterangan_kerugian">Keterangan Kerugian</label>
+                    <input type="text" id="keterangan_kerugian" name="keterangan_kerugian">
                 </div>
 
                 <div>
-                    <label>Plan Dec</label>
-                    <input type="number" name="plan_dec" id="plan_dec">
+                    <label for="penyebab">Penyebab</label>
+                    <input type="text" id="penyebab" name="penyebab">
                 </div>
 
                 <div>
-                    <label>Prognosa Jan</label>
-                    <input type="number" name="prognosa_jan" id="prognosa_jan">
+                    <label for="kendala">Kendala</label>
+                    <input type="text" id="kendala" name="kendala">
                 </div>
 
                 <div>
-                    <label>Prognosa Feb</label>
-                    <input type="number" name="prognosa_feb" id="prognosa_feb">
-                </div>
-
-                <div>
-                    <label>Prognosa Mar</label>
-                    <input type="number" name="prognosa_mar" id="prognosa_mar">
-                </div>
-
-                <div>
-                    <label>Prognosa Apr</label>
-                    <input type="number" name="prognosa_apr" id="prognosa_apr">
-                </div>
-
-                <div>
-                    <label>Prognosa May</label>
-                    <input type="number" name="prognosa_may" id="prognosa_may">
-                </div>
-
-                <div>
-                    <label>Prognosa Jun</label>
-                    <input type="number" name="prognosa_jun" id="prognosa_jun">
-                </div>
-
-                <div>
-                    <label>Prognosa Jul</label>
-                    <input type="number" name="prognosa_jul" id="prognosa_jul">
-                </div>
-
-                <div>
-                    <label>Prognosa Aug</label>
-                    <input type="number" name="prognosa_aug" id="prognosa_aug">
-                </div>
-
-                <div>
-                    <label>Prognosa Sep</label>
-                    <input type="number" name="prognosa_sep" id="prognosa_sep">
-                </div>
-
-                <div>
-                    <label>Prognosa Oct</label>
-                    <input type="number" name="prognosa_oct" id="prognosa_oct">
-                </div>
-
-                <div>
-                    <label>Prognosa Nov</label>
-                    <input type="number" name="prognosa_nov" id="prognosa_nov">
-                </div>
-
-                <div>
-                    <label>Prognosa Dec</label>
-                    <input type="number" name="prognosa_dec" id="prognosa_dec">
-                </div>
-
-                <div>
-                    <label>Actual Jan</label>
-                    <input type="number" name="actual_jan" id="actual_jan">
-                </div>
-
-                <div>
-                    <label>Actual Feb</label>
-                    <input type="number" name="actual_feb" id="actual_feb">
-                </div>
-
-                <div>
-                    <label>Actual Mar</label>
-                    <input type="number" name="actual_mar" id="actual_mar">
-                </div>
-
-                <div>
-                    <label>Actual Apr</label>
-                    <input type="number" name="actual_apr" id="actual_apr">
-                </div>
-
-                <div>
-                    <label>Actual May</label>
-                    <input type="number" name="actual_may" id="actual_may">
-                </div>
-
-                <div>
-                    <label>Actual Jun</label>
-                    <input type="number" name="actual_jun" id="actual_jun">
-                </div>
-
-                <div>
-                    <label>Actual Jul</label>
-                    <input type="number" name="actual_jul" id="actual_jul">
-                </div>
-
-                <div>
-                    <label>Actual Aug</label>
-                    <input type="number" name="actual_aug" id="actual_aug">
-                </div>
-
-                <div>
-                    <label>Actual Sep</label>
-                    <input type="number" name="actual_sep" id="actual_sep">
-                </div>
-
-                <div>
-                    <label>Actual Oct</label>
-                    <input type="number" name="actual_oct" id="actual_oct">
-                </div>
-
-                <div>
-                    <label>Actual Nov</label>
-                    <input type="number" name="actual_nov" id="actual_nov">
-                </div>
-
-                <div>
-                    <label>Actual Dec</label>
-                    <input type="number" name="actual_dec" id="actual_dec">
-                </div>
-
-                <div>
-                    <label>Kode</label>
-                    <input type="text" name="kode" id="kode">
-                </div>
-
-                <div>
-                    <label>Kendala</label>
-                    <input type="text" name="kendala" id="kendala">
-                </div>
-
-                <div>
-                    <label>Tindak Lanjut</label>
-                    <input type="text" name="tindak_lanjut" id="tindak_lanjut">
+                    <label for="tindak_lanjut">Tindak Lanjut</label>
+                    <input type="text" id="tindak_lanjut" name="tindak_lanjut">
                 </div>
 
                 <button type="submit" class="btn btn-success">Submit</button>
@@ -433,13 +322,12 @@
     </div>
 
     @push('scripts')
-        <script src="https://unpkg.com/tabulator-tables@5.6.0/dist/js/tabulator.min.js"></script>
         <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
-
+        <script src="https://unpkg.com/tabulator-tables@5.6.0/dist/js/tabulator.min.js"></script>
         <script>
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
-                    fetch(`real-anggaran-ai-karaha/${id}`, {
+                    fetch(`rencana-pemeliharaan-ppi/${id}`, {
                             method: "DELETE",
                             headers: {
                                 "Accept": "application/json",
@@ -458,6 +346,11 @@
                 }
             }
 
+            function clearSearch() {
+                document.getElementById("search-input").value = "";
+                table.clearFilter();
+            }
+
             document.getElementById("search-input").addEventListener("input", function(e) {
                 const keyword = e.target.value;
                 table.setFilter([
@@ -472,51 +365,66 @@
                             value: keyword
                         },
                         {
+                            field: "company",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "lokasi",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
                             field: "program_kerja",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "kategori_aibt",
+                            field: "kategori_maintenance",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "jenis_anggaran",
+                            field: "besar_phasing",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "besar_rkap",
+                            field: "remark",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "entitas",
+                            field: "biaya_kerugian",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "unit",
+                            field: "keterangan_kerugian",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "nilai_kontrak",
+                            field: "penyebab",
                             type: "like",
                             value: keyword
                         },
+                        {
+                            field: "kendala",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "tindak_lanjut",
+                            type: "like",
+                            value: keyword
+                        }
                     ]
                 ]);
             });
 
-            function clearSearch() {
-                document.getElementById("search-input").value = "";
-                table.clearFilter();
-            }
-
             function loadData() {
-                fetch("/monev/shpnre/input-data/real-anggaran-ai-karaha/data", {
+                fetch("/monev/shpnre/input-data/rencana-pemeliharaan-ppi/data", {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -544,12 +452,12 @@
 
             document.addEventListener("DOMContentLoaded", function() {
                 const columnMap = {
-                    "real-anggaran-ai-karaha": [{
+                    "rencana-pemeliharaan-ppi": [{
                             title: "No",
                             formatter: "rownum",
                             hozAlign: "center",
                             width: 60,
-                            download: false,
+                            download: false
                         },
                         {
                             title: "ID",
@@ -562,318 +470,179 @@
                             editor: "input",
                             headerFilter: "select",
                             headerFilterParams: {
-                                values: [{
-                                        value: "01",
-                                        label: "Januari"
-                                    },
-                                    {
-                                        value: "02",
-                                        label: "Februari"
-                                    },
-                                    {
-                                        value: "03",
-                                        label: "Maret"
-                                    },
-                                    {
-                                        value: "04",
-                                        label: "April"
-                                    },
-                                    {
-                                        value: "05",
-                                        label: "Mei"
-                                    },
-                                    {
-                                        value: "06",
-                                        label: "Juni"
-                                    },
-                                    {
-                                        value: "07",
-                                        label: "Juli"
-                                    },
-                                    {
-                                        value: "08",
-                                        label: "Agustus"
-                                    },
-                                    {
-                                        value: "09",
-                                        label: "September"
-                                    },
-                                    {
-                                        value: "10",
-                                        label: "Oktober"
-                                    },
-                                    {
-                                        value: "11",
-                                        label: "November"
-                                    },
-                                    {
-                                        value: "12",
-                                        label: "Desember"
+                                values: (() => {
+                                    const years = [];
+                                    years.push({
+                                        value: "",
+                                        label: "Pilih Tahun"
+                                    });
+                                    for (let year = 2020; year <= new Date().getFullYear() +
+                                        5; year++) {
+                                        years.push({
+                                            value: String(year),
+                                            label: String(year)
+                                        });
                                     }
-                                ]
-                            },
-                            headerFilterPlaceholder: "Pilih Bulan",
-                            headerFilterFunc: function(headerValue, rowValue) {
-                                if (!headerValue) return true;
-                                if (!rowValue) return false;
-
-                                const periode = rowValue.toLowerCase();
-
-                                const bulanTextMap = {
-                                    "01": ["jan", "january"],
-                                    "02": ["feb", "february"],
-                                    "03": ["mar", "march"],
-                                    "04": ["apr", "april"],
-                                    "05": ["may", "mei"],
-                                    "06": ["jun", "june"],
-                                    "07": ["jul", "july"],
-                                    "08": ["aug", "august"],
-                                    "09": ["sep", "september"],
-                                    "10": ["oct", "october"],
-                                    "11": ["nov", "november"],
-                                    "12": ["dec", "december"]
-                                };
-
-                                const keywords = bulanTextMap[headerValue];
-                                return keywords.some(keyword => periode.includes(keyword)) || periode
-                                    .includes(`-${headerValue}`);
+                                    return years;
+                                })()
                             }
                         },
                         {
                             title: "No",
                             field: "no",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Company",
+                            field: "company",
+                            editor: "input"
+                        },
+                        {
+                            title: "Lokasi",
+                            field: "lokasi",
                             editor: "input"
                         },
                         {
                             title: "Program Kerja",
                             field: "program_kerja",
                             editor: "input",
-                            width: 400
+                            width: 450
                         },
                         {
-                            title: "Kategori AIBT",
-                            field: "kategori_aibt",
+                            title: "Kategori Maintenance",
+                            field: "kategori_maintenance",
                             editor: "input"
                         },
                         {
-                            title: "Jenis Anggaran",
-                            field: "jenis_anggaran",
+                            title: "Besar Phasing",
+                            field: "besar_phasing",
+                            hozAlign: "right",
+                            formatter: function(cell) {
+                                let rawValue = cell.getValue();
+                                if (rawValue === null || rawValue === undefined || rawValue === "") {
+                                    return "0.00";
+                                }
+
+                                let cleanValue = rawValue.toString().replace(/[^0-9.-]+/g, '');
+                                let value = parseFloat(cleanValue);
+
+                                if (!isNaN(value)) {
+                                    return value.toLocaleString("en-US", {
+                                        minimumFractionDigits: 2,
+                                        maximumFractionDigits: 2
+                                    });
+                                }
+
+                                return "0.00";
+                            },
                             editor: "input"
                         },
                         {
-                            title: "Besar RKAP",
-                            field: "besar_rkap",
-                            editor: "number"
-                        },
-                        {
-                            title: "Entitas",
-                            field: "entitas",
+                            title: "Remark",
+                            field: "remark",
                             editor: "input"
                         },
                         {
-                            title: "Unit",
-                            field: "unit",
+                            title: "Jan",
+                            field: "jan",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Feb",
+                            field: "feb",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Mar",
+                            field: "mar",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Apr",
+                            field: "apr",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "May",
+                            field: "may",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Jun",
+                            field: "jun",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Jul",
+                            field: "jul",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Aug",
+                            field: "aug",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Sep",
+                            field: "sep",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Oct",
+                            field: "oct",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Nov",
+                            field: "nov",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Dec",
+                            field: "dec",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Biaya Kerugian (USD)",
+                            field: "biaya_kerugian",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Keterangan Kerugian",
+                            field: "keterangan_kerugian",
                             editor: "input"
                         },
                         {
-                            title: "Nilai Kontrak",
-                            field: "nilai_kontrak",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Jan",
-                            field: "plan_jan",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Feb",
-                            field: "plan_feb",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Mar",
-                            field: "plan_mar",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Apr",
-                            field: "plan_apr",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan May",
-                            field: "plan_may",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Jun",
-                            field: "plan_jun",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Jul",
-                            field: "plan_jul",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Aug",
-                            field: "plan_aug",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Sep",
-                            field: "plan_sep",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Oct",
-                            field: "plan_oct",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Nov",
-                            field: "plan_nov",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Dec",
-                            field: "plan_dec",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Jan",
-                            field: "prognosa_jan",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Feb",
-                            field: "prognosa_feb",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Mar",
-                            field: "prognosa_mar",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Apr",
-                            field: "prognosa_apr",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa May",
-                            field: "prognosa_may",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Jun",
-                            field: "prognosa_jun",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Jul",
-                            field: "prognosa_jul",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Aug",
-                            field: "prognosa_aug",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Sep",
-                            field: "prognosa_sep",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Oct",
-                            field: "prognosa_oct",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Nov",
-                            field: "prognosa_nov",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Dec",
-                            field: "prognosa_dec",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Jan",
-                            field: "actual_jan",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Feb",
-                            field: "actual_feb",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Mar",
-                            field: "actual_mar",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Apr",
-                            field: "actual_apr",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual May",
-                            field: "actual_may",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Jun",
-                            field: "actual_jun",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Jul",
-                            field: "actual_jul",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Aug",
-                            field: "actual_aug",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Sep",
-                            field: "actual_sep",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Oct",
-                            field: "actual_oct",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Nov",
-                            field: "actual_nov",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Dec",
-                            field: "actual_dec",
-                            editor: "number"
-                        },
-                        {
-                            title: "Kode",
-                            field: "kode",
-                            editor: "input"
+                            title: "Penyebab",
+                            field: "penyebab",
+                            editor: "input",
+                            width: 450
                         },
                         {
                             title: "Kendala",
                             field: "kendala",
-                            editor: "input"
+                            editor: "input",
+                            width: 450
                         },
                         {
                             title: "Tindak Lanjut",
                             field: "tindak_lanjut",
-                            editor: "input"
+                            editor: "input",
+                            width: 450
                         },
                         {
                             title: "Aksi",
@@ -892,7 +661,7 @@
                     layout: "fitDataTable",
                     responsiveLayout: "collapse",
                     autoResize: true,
-                    columns: columnMap["real-anggaran-ai-karaha"],
+                    columns: columnMap["rencana-pemeliharaan-ppi"],
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -927,8 +696,8 @@
                 });
 
                 document.getElementById("download-xlsx").addEventListener("click", function() {
-                    window.table.download("xlsx", "real-anggaran-ai-karaha.xlsx", {
-                        sheetName: "real-anggaran-ai-karaha",
+                    window.table.download("xlsx", "rencana-pemeliharaan-ppi.xlsx", {
+                        sheetName: "rencana-pemeliharaan-ppi",
                         columnHeaders: true,
                         downloadDataFormatter: function(data) {
                             return data.map(row => {
@@ -955,7 +724,7 @@
 
                     if (!id) return;
 
-                    fetch(`real-anggaran-ai-karaha/${id}`, {
+                    fetch(`rencana-pemeliharaan-ppi/${id}`, {
                             method: "PUT",
                             headers: {
                                 "Content-Type": "application/json",
@@ -966,7 +735,7 @@
                             body: JSON.stringify(updatedData)
                         })
                         .then(res => res.json())
-                        .then(data => console.log("Update berhasil:", data))
+                        .then(data => console.log("Berhasil update:", data))
                         .catch(err => console.error("Gagal update:", err));
                 });
 
@@ -995,7 +764,7 @@
                     console.log("Baris yang berubah:", changedRows);
 
                     changedRows.forEach(rowData => {
-                        fetch(`real-anggaran-ai-karaha/${rowData.id}`, {
+                        fetch(`rencana-pemeliharaan-ppi/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
                                     "Content-Type": "application/json",
@@ -1016,6 +785,7 @@
 
                     previousData = JSON.parse(JSON.stringify(newData));
                 });
+
                 loadData();
             });
         </script>
@@ -1038,7 +808,7 @@
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
 
-                fetch("real-anggaran-ai-karaha", {
+                fetch("rencana-pemeliharaan-ppi", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -1048,16 +818,37 @@
                         },
                         body: JSON.stringify({
                             periode: data.periode,
+                            no: data.no,
                             company: data.company,
-                            judul_pelatihan: data.judul_pelatihan,
-                            realisasi_perwira: data.realisasi_perwira
+                            lokasi: data.lokasi,
+                            program_kerja: data.program_kerja,
+                            kategori_maintenance: data.kategori_maintenance,
+                            besar_phasing: data.besar_phasing,
+                            remark: data.remark,
+                            jan: data.jan,
+                            feb: data.feb,
+                            mar: data.mar,
+                            apr: data.apr,
+                            may: data.may,
+                            jun: data.jun,
+                            jul: data.jul,
+                            aug: data.aug,
+                            sep: data.sep,
+                            oct: data.oct,
+                            nov: data.nov,
+                            dec: data.dec,
+                            biaya_kerugian: data.biaya_kerugian,
+                            keterangan_kerugian: data.keterangan_kerugian,
+                            penyebab: data.penyebab,
+                            kendala: data.kendala,
+                            tindak_lanjut: data.tindak_lanjut
                         })
                     })
                     .then(response => response.json())
                     .then(result => {
                         if (result.success) {
                             alert(result.message || "Data berhasil disimpan");
-                            table.setData("/monev/shpnre/input-data/real-anggaran-ai-karaha/data");
+                            table.setData("/monev/shpnre/input-data/rencana-pemeliharaan-ppi/data");
                             this.reset();
                             closeModal();
                         } else {
@@ -1106,7 +897,6 @@
                     });
                 });
 
-                // Ketika halaman reload setelah klik, cek dan scroll otomatis
                 if (sessionStorage.getItem('scrollToActiveTab') === 'yes') {
                     scrollToActiveTab();
                     sessionStorage.removeItem('scrollToActiveTab');

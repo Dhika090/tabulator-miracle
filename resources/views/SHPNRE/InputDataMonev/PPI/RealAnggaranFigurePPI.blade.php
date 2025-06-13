@@ -125,7 +125,7 @@
     <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-                <h5 class="card-title mb-3 mb-md-0">Real Anggaran AI Karaha</h5>
+                <h5 class="card-title mb-3 mb-md-0">Real Anggaran Figure PPI</h5>
                 <div class="d-flex flex-column flex-md-row align-items-center gap-3">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
@@ -183,7 +183,7 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Real Anggaran AI Karaha</h3>
+            <h3>Real Anggaran Figure PPI</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
                 <div>
@@ -194,11 +194,6 @@
                 <div>
                     <label>No</label>
                     <input type="number" name="no" id="no">
-                </div>
-
-                <div>
-                    <label>Program Kerja</label>
-                    <input type="text" name="program_kerja" id="program_kerja">
                 </div>
 
                 <div>
@@ -252,8 +247,8 @@
                 </div>
 
                 <div>
-                    <label>Plan May</label>
-                    <input type="number" name="plan_may" id="plan_may">
+                    <label>Plan Mei</label>
+                    <input type="number" name="plan_mei" id="plan_mei">
                 </div>
 
                 <div>
@@ -267,8 +262,8 @@
                 </div>
 
                 <div>
-                    <label>Plan Aug</label>
-                    <input type="number" name="plan_aug" id="plan_aug">
+                    <label>Plan Agu</label>
+                    <input type="number" name="plan_agu" id="plan_agu">
                 </div>
 
                 <div>
@@ -277,8 +272,8 @@
                 </div>
 
                 <div>
-                    <label>Plan Oct</label>
-                    <input type="number" name="plan_oct" id="plan_oct">
+                    <label>Plan Okt</label>
+                    <input type="number" name="plan_okt" id="plan_okt">
                 </div>
 
                 <div>
@@ -287,8 +282,8 @@
                 </div>
 
                 <div>
-                    <label>Plan Dec</label>
-                    <input type="number" name="plan_dec" id="plan_dec">
+                    <label>Plan Des</label>
+                    <input type="number" name="plan_des" id="plan_des">
                 </div>
 
                 <div>
@@ -312,8 +307,8 @@
                 </div>
 
                 <div>
-                    <label>Prognosa May</label>
-                    <input type="number" name="prognosa_may" id="prognosa_may">
+                    <label>Prognosa Mei</label>
+                    <input type="number" name="prognosa_mei" id="prognosa_mei">
                 </div>
 
                 <div>
@@ -327,8 +322,8 @@
                 </div>
 
                 <div>
-                    <label>Prognosa Aug</label>
-                    <input type="number" name="prognosa_aug" id="prognosa_aug">
+                    <label>Prognosa Agu</label>
+                    <input type="number" name="prognosa_agu" id="prognosa_agu">
                 </div>
 
                 <div>
@@ -337,8 +332,8 @@
                 </div>
 
                 <div>
-                    <label>Prognosa Oct</label>
-                    <input type="number" name="prognosa_oct" id="prognosa_oct">
+                    <label>Prognosa Okt</label>
+                    <input type="number" name="prognosa_okt" id="prognosa_okt">
                 </div>
 
                 <div>
@@ -347,8 +342,8 @@
                 </div>
 
                 <div>
-                    <label>Prognosa Dec</label>
-                    <input type="number" name="prognosa_dec" id="prognosa_dec">
+                    <label>Prognosa Des</label>
+                    <input type="number" name="prognosa_des" id="prognosa_des">
                 </div>
 
                 <div>
@@ -372,8 +367,8 @@
                 </div>
 
                 <div>
-                    <label>Actual May</label>
-                    <input type="number" name="actual_may" id="actual_may">
+                    <label>Actual Mei</label>
+                    <input type="number" name="actual_mei" id="actual_mei">
                 </div>
 
                 <div>
@@ -387,8 +382,8 @@
                 </div>
 
                 <div>
-                    <label>Actual Aug</label>
-                    <input type="number" name="actual_aug" id="actual_aug">
+                    <label>Actual Agu</label>
+                    <input type="number" name="actual_agu" id="actual_agu">
                 </div>
 
                 <div>
@@ -397,8 +392,8 @@
                 </div>
 
                 <div>
-                    <label>Actual Oct</label>
-                    <input type="number" name="actual_oct" id="actual_oct">
+                    <label>Actual Okt</label>
+                    <input type="number" name="actual_okt" id="actual_okt">
                 </div>
 
                 <div>
@@ -407,8 +402,8 @@
                 </div>
 
                 <div>
-                    <label>Actual Dec</label>
-                    <input type="number" name="actual_dec" id="actual_dec">
+                    <label>Actual Des</label>
+                    <input type="number" name="actual_des" id="actual_des">
                 </div>
 
                 <div>
@@ -428,7 +423,6 @@
 
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
-
         </div>
     </div>
 
@@ -439,7 +433,7 @@
         <script>
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
-                    fetch(`real-anggaran-ai-karaha/${id}`, {
+                    fetch(`real-anggaran-figure-ppi/${id}`, {
                             method: "DELETE",
                             headers: {
                                 "Accept": "application/json",
@@ -472,11 +466,6 @@
                             value: keyword
                         },
                         {
-                            field: "program_kerja",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
                             field: "kategori_aibt",
                             type: "like",
                             value: keyword
@@ -505,7 +494,7 @@
                             field: "nilai_kontrak",
                             type: "like",
                             value: keyword
-                        },
+                        }
                     ]
                 ]);
             });
@@ -516,7 +505,7 @@
             }
 
             function loadData() {
-                fetch("/monev/shpnre/input-data/real-anggaran-ai-karaha/data", {
+                fetch("/monev/shpnre/input-data/real-anggaran-figure-ppi/data", {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -544,7 +533,7 @@
 
             document.addEventListener("DOMContentLoaded", function() {
                 const columnMap = {
-                    "real-anggaran-ai-karaha": [{
+                    "real-anggaran-figure-ppi": [{
                             title: "No",
                             formatter: "rownum",
                             hozAlign: "center",
@@ -562,93 +551,28 @@
                             editor: "input",
                             headerFilter: "select",
                             headerFilterParams: {
-                                values: [{
-                                        value: "01",
-                                        label: "Januari"
-                                    },
-                                    {
-                                        value: "02",
-                                        label: "Februari"
-                                    },
-                                    {
-                                        value: "03",
-                                        label: "Maret"
-                                    },
-                                    {
-                                        value: "04",
-                                        label: "April"
-                                    },
-                                    {
-                                        value: "05",
-                                        label: "Mei"
-                                    },
-                                    {
-                                        value: "06",
-                                        label: "Juni"
-                                    },
-                                    {
-                                        value: "07",
-                                        label: "Juli"
-                                    },
-                                    {
-                                        value: "08",
-                                        label: "Agustus"
-                                    },
-                                    {
-                                        value: "09",
-                                        label: "September"
-                                    },
-                                    {
-                                        value: "10",
-                                        label: "Oktober"
-                                    },
-                                    {
-                                        value: "11",
-                                        label: "November"
-                                    },
-                                    {
-                                        value: "12",
-                                        label: "Desember"
+                                values: (() => {
+                                    const years = [];
+                                    years.push({
+                                        value: "",
+                                        label: "Pilih Tahun"
+                                    });
+                                    for (let year = 2020; year <= new Date().getFullYear() +
+                                        5; year++) {
+                                        years.push({
+                                            value: String(year),
+                                            label: String(year)
+                                        });
                                     }
-                                ]
-                            },
-                            headerFilterPlaceholder: "Pilih Bulan",
-                            headerFilterFunc: function(headerValue, rowValue) {
-                                if (!headerValue) return true;
-                                if (!rowValue) return false;
-
-                                const periode = rowValue.toLowerCase();
-
-                                const bulanTextMap = {
-                                    "01": ["jan", "january"],
-                                    "02": ["feb", "february"],
-                                    "03": ["mar", "march"],
-                                    "04": ["apr", "april"],
-                                    "05": ["may", "mei"],
-                                    "06": ["jun", "june"],
-                                    "07": ["jul", "july"],
-                                    "08": ["aug", "august"],
-                                    "09": ["sep", "september"],
-                                    "10": ["oct", "october"],
-                                    "11": ["nov", "november"],
-                                    "12": ["dec", "december"]
-                                };
-
-                                const keywords = bulanTextMap[headerValue];
-                                return keywords.some(keyword => periode.includes(keyword)) || periode
-                                    .includes(`-${headerValue}`);
+                                    return years;
+                                })()
                             }
                         },
                         {
                             title: "No",
                             field: "no",
-                            editor: "input"
-                        },
-                        {
-                            title: "Program Kerja",
-                            field: "program_kerja",
-                            editor: "input",
-                            width: 400
+                            hozAlign: "center",
+                            editor: "number"
                         },
                         {
                             title: "Kategori AIBT",
@@ -701,8 +625,8 @@
                             editor: "number"
                         },
                         {
-                            title: "Plan May",
-                            field: "plan_may",
+                            title: "Plan Mei",
+                            field: "plan_mei",
                             editor: "number"
                         },
                         {
@@ -716,8 +640,8 @@
                             editor: "number"
                         },
                         {
-                            title: "Plan Aug",
-                            field: "plan_aug",
+                            title: "Plan Agu",
+                            field: "plan_agu",
                             editor: "number"
                         },
                         {
@@ -726,8 +650,8 @@
                             editor: "number"
                         },
                         {
-                            title: "Plan Oct",
-                            field: "plan_oct",
+                            title: "Plan Okt",
+                            field: "plan_okt",
                             editor: "number"
                         },
                         {
@@ -736,8 +660,8 @@
                             editor: "number"
                         },
                         {
-                            title: "Plan Dec",
-                            field: "plan_dec",
+                            title: "Plan Des",
+                            field: "plan_des",
                             editor: "number"
                         },
                         {
@@ -761,8 +685,8 @@
                             editor: "number"
                         },
                         {
-                            title: "Prognosa May",
-                            field: "prognosa_may",
+                            title: "Prognosa Mei",
+                            field: "prognosa_mei",
                             editor: "number"
                         },
                         {
@@ -776,8 +700,8 @@
                             editor: "number"
                         },
                         {
-                            title: "Prognosa Aug",
-                            field: "prognosa_aug",
+                            title: "Prognosa Agu",
+                            field: "prognosa_agu",
                             editor: "number"
                         },
                         {
@@ -786,8 +710,8 @@
                             editor: "number"
                         },
                         {
-                            title: "Prognosa Oct",
-                            field: "prognosa_oct",
+                            title: "Prognosa Okt",
+                            field: "prognosa_okt",
                             editor: "number"
                         },
                         {
@@ -796,8 +720,8 @@
                             editor: "number"
                         },
                         {
-                            title: "Prognosa Dec",
-                            field: "prognosa_dec",
+                            title: "Prognosa Des",
+                            field: "prognosa_des",
                             editor: "number"
                         },
                         {
@@ -821,8 +745,8 @@
                             editor: "number"
                         },
                         {
-                            title: "Actual May",
-                            field: "actual_may",
+                            title: "Actual Mei",
+                            field: "actual_mei",
                             editor: "number"
                         },
                         {
@@ -836,8 +760,8 @@
                             editor: "number"
                         },
                         {
-                            title: "Actual Aug",
-                            field: "actual_aug",
+                            title: "Actual Agu",
+                            field: "actual_agu",
                             editor: "number"
                         },
                         {
@@ -846,8 +770,8 @@
                             editor: "number"
                         },
                         {
-                            title: "Actual Oct",
-                            field: "actual_oct",
+                            title: "Actual Okt",
+                            field: "actual_okt",
                             editor: "number"
                         },
                         {
@@ -856,8 +780,8 @@
                             editor: "number"
                         },
                         {
-                            title: "Actual Dec",
-                            field: "actual_dec",
+                            title: "Actual Des",
+                            field: "actual_des",
                             editor: "number"
                         },
                         {
@@ -892,7 +816,7 @@
                     layout: "fitDataTable",
                     responsiveLayout: "collapse",
                     autoResize: true,
-                    columns: columnMap["real-anggaran-ai-karaha"],
+                    columns: columnMap["real-anggaran-figure-ppi"],
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -927,8 +851,8 @@
                 });
 
                 document.getElementById("download-xlsx").addEventListener("click", function() {
-                    window.table.download("xlsx", "real-anggaran-ai-karaha.xlsx", {
-                        sheetName: "real-anggaran-ai-karaha",
+                    window.table.download("xlsx", "real-anggaran-figure-ppi.xlsx", {
+                        sheetName: "real-anggaran-figure-ppi",
                         columnHeaders: true,
                         downloadDataFormatter: function(data) {
                             return data.map(row => {
@@ -955,7 +879,7 @@
 
                     if (!id) return;
 
-                    fetch(`real-anggaran-ai-karaha/${id}`, {
+                    fetch(`real-anggaran-figure-ppi/${id}`, {
                             method: "PUT",
                             headers: {
                                 "Content-Type": "application/json",
@@ -995,7 +919,7 @@
                     console.log("Baris yang berubah:", changedRows);
 
                     changedRows.forEach(rowData => {
-                        fetch(`real-anggaran-ai-karaha/${rowData.id}`, {
+                        fetch(`real-anggaran-figure-ppi/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
                                     "Content-Type": "application/json",
@@ -1038,7 +962,7 @@
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
 
-                fetch("real-anggaran-ai-karaha", {
+                fetch("real-anggaran-figure-ppi", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -1057,7 +981,7 @@
                     .then(result => {
                         if (result.success) {
                             alert(result.message || "Data berhasil disimpan");
-                            table.setData("/monev/shpnre/input-data/real-anggaran-ai-karaha/data");
+                            table.setData("/monev/shpnre/input-data/real-anggaran-figure-ppi/data");
                             this.reset();
                             closeModal();
                         } else {
@@ -1106,7 +1030,6 @@
                     });
                 });
 
-                // Ketika halaman reload setelah klik, cek dan scroll otomatis
                 if (sessionStorage.getItem('scrollToActiveTab') === 'yes') {
                     scrollToActiveTab();
                     sessionStorage.removeItem('scrollToActiveTab');

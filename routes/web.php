@@ -270,6 +270,18 @@ use App\Http\Controllers\SHPNRE\InputDataMonev\Ulubelu\SapAssetUlubeluController
 use App\Http\Controllers\SHPNRE\InputDataMonev\Ulubelu\SistemInformasiAimsUlubeluController;
 use App\Http\Controllers\SHPNRE\InputDataMonev\Ulubelu\StatusAssetAiUlubeluController;
 use App\Http\Controllers\SHPNRE\InputDataMonev\Ulubelu\SummaryPloUlubeluController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\PPI\AssetBreakdownPPIController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\PPI\AvailabilityPPIController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\PPI\KondisiVacantAimsPPIController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\PPI\MandatoryCertificationPPIController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\PPI\PelatihanAimsPPIController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\PPI\RealAnggaranAiPPIController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\PPI\RealAnggaranFigurePPIController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\PPI\RealProgFisikAiPPIController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\PPI\RencanaPemeliharaanPPIController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\PPI\SistemInformasiAimsPPIController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\PPI\StatusAssetAiPPIController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\PPI\SummaryPloPPIController;
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
@@ -2435,9 +2447,114 @@ Route::prefix('monev/shpnre/input-data/summary-plo-ulubelu')->group(function () 
     Route::delete('/{id}', [SummaryPloUlubeluController::class, 'destroy'])->name('summary-plo-ulubelu.destroy');
 });
 
+// PPI
+// AssetBreakdownPPIController
+Route::prefix('monev/shpnre/input-data/asset-breakdown-ppi')->group(function () {
+    Route::get('/', [AssetBreakdownPPIController::class, 'index'])->name('asset-breakdown-ppi');
+    Route::post('/', [AssetBreakdownPPIController::class, 'store'])->name('asset-breakdown-ppi.store');
+    Route::get('/data', [AssetBreakdownPPIController::class, 'data'])->name('asset-breakdown-ppi.data');
+    Route::put('/{id}', [AssetBreakdownPPIController::class, 'update'])->name('asset-breakdown-ppi.update');
+    Route::delete('/{id}', [AssetBreakdownPPIController::class, 'destroy'])->name('asset-breakdown-ppi.destroy');
+});
 
+// AvailabilityPPIController
+Route::prefix('monev/shpnre/input-data/availability-ppi')->group(function () {
+    Route::get('/', [AvailabilityPPIController::class, 'index'])->name('availability-ppi');
+    Route::post('/', [AvailabilityPPIController::class, 'store'])->name('availability-ppi.store');
+    Route::get('/data', [AvailabilityPPIController::class, 'data'])->name('availability-ppi.data');
+    Route::put('/{id}', [AvailabilityPPIController::class, 'update'])->name('availability-ppi.update');
+    Route::delete('/{id}', [AvailabilityPPIController::class, 'destroy'])->name('availability-ppi.destroy');
+});
 
+// KondisiVacantAimsPPIController
+Route::prefix('monev/shpnre/input-data/kondisi-vacant-aims-ppi')->group(function () {
+    Route::get('/', [KondisiVacantAimsPPIController::class, 'index'])->name('kondisi-vacant-aims-ppi');
+    Route::post('/', [KondisiVacantAimsPPIController::class, 'store'])->name('kondisi-vacant-aims-ppi.store');
+    Route::get('/data', [KondisiVacantAimsPPIController::class, 'data'])->name('kondisi-vacant-aims-ppi.data');
+    Route::put('/{id}', [KondisiVacantAimsPPIController::class, 'update'])->name('kondisi-vacant-aims-ppi.update');
+    Route::delete('/{id}', [KondisiVacantAimsPPIController::class, 'destroy'])->name('kondisi-vacant-aims-ppi.destroy');
+});
 
+// MandatoryCertificationPPIController
+Route::prefix('monev/shpnre/input-data/mandatory-certification-ppi')->group(function () {
+    Route::get('/', [MandatoryCertificationPPIController::class, 'index'])->name('mandatory-certification-ppi');
+    Route::post('/', [MandatoryCertificationPPIController::class, 'store'])->name('mandatory-certification-ppi.store');
+    Route::get('/data', [MandatoryCertificationPPIController::class, 'data'])->name('mandatory-certification-ppi.data');
+    Route::put('/{id}', [MandatoryCertificationPPIController::class, 'update'])->name('mandatory-certification-ppi.update');
+    Route::delete('/{id}', [MandatoryCertificationPPIController::class, 'destroy'])->name('mandatory-certification-ppi.destroy');
+});
+
+// PelatihanAimsPPIController
+Route::prefix('monev/shpnre/input-data/pelatihan-aims-ppi')->group(function () {
+    Route::get('/', [PelatihanAimsPPIController::class, 'index'])->name('pelatihan-aims-ppi');
+    Route::post('/', [PelatihanAimsPPIController::class, 'store'])->name('pelatihan-aims-ppi.store');
+    Route::get('/data', [PelatihanAimsPPIController::class, 'data'])->name('pelatihan-aims-ppi.data');
+    Route::put('/{id}', [PelatihanAimsPPIController::class, 'update'])->name('pelatihan-aims-ppi.update');
+    Route::delete('/{id}', [PelatihanAimsPPIController::class, 'destroy'])->name('pelatihan-aims-ppi.destroy');
+});
+
+// RealAnggaranAiPPIController
+Route::prefix('monev/shpnre/input-data/real-anggaran-ai-ppi')->group(function () {
+    Route::get('/', [RealAnggaranAiPPIController::class, 'index'])->name('real-anggaran-ai-ppi');
+    Route::post('/', [RealAnggaranAiPPIController::class, 'store'])->name('real-anggaran-ai-ppi.store');
+    Route::get('/data', [RealAnggaranAiPPIController::class, 'data'])->name('real-anggaran-ai-ppi.data');
+    Route::put('/{id}', [RealAnggaranAiPPIController::class, 'update'])->name('real-anggaran-ai-ppi.update');
+    Route::delete('/{id}', [RealAnggaranAiPPIController::class, 'destroy'])->name('real-anggaran-ai-ppi.destroy');
+});
+
+// RealAnggaranFigurePPIController
+Route::prefix('monev/shpnre/input-data/real-anggaran-figure-ppi')->group(function () {
+    Route::get('/', [RealAnggaranFigurePPIController::class, 'index'])->name('real-anggaran-figure-ppi');
+    Route::post('/', [RealAnggaranFigurePPIController::class, 'store'])->name('real-anggaran-figure-ppi.store');
+    Route::get('/data', [RealAnggaranFigurePPIController::class, 'data'])->name('real-anggaran-figure-ppi.data');
+    Route::put('/{id}', [RealAnggaranFigurePPIController::class, 'update'])->name('real-anggaran-figure-ppi.update');
+    Route::delete('/{id}', [RealAnggaranFigurePPIController::class, 'destroy'])->name('real-anggaran-figure-ppi.destroy');
+});
+
+// RealProgFisikAiPPIController
+Route::prefix('monev/shpnre/input-data/real-prog-fisik-ppi')->group(function () {
+    Route::get('/', [RealProgFisikAiPPIController::class, 'index'])->name('real-prog-fisik-ppi');
+    Route::post('/', [RealProgFisikAiPPIController::class, 'store'])->name('real-prog-fisik-ppi.store');
+    Route::get('/data', [RealProgFisikAiPPIController::class, 'data'])->name('real-prog-fisik-ppi.data');
+    Route::put('/{id}', [RealProgFisikAiPPIController::class, 'update'])->name('real-prog-fisik-ppi.update');
+    Route::delete('/{id}', [RealProgFisikAiPPIController::class, 'destroy'])->name('real-prog-fisik-ppi.destroy');
+});
+
+// RencanaPemeliharaanPPIController
+Route::prefix('monev/shpnre/input-data/rencana-pemeliharaan-ppi')->group(function () {
+    Route::get('/', [RencanaPemeliharaanPPIController::class, 'index'])->name('rencana-pemeliharaan-ppi');
+    Route::post('/', [RencanaPemeliharaanPPIController::class, 'store'])->name('rencana-pemeliharaan-ppi.store');
+    Route::get('/data', [RencanaPemeliharaanPPIController::class, 'data'])->name('rencana-pemeliharaan-ppi.data');
+    Route::put('/{id}', [RencanaPemeliharaanPPIController::class, 'update'])->name('rencana-pemeliharaan-ppi.update');
+    Route::delete('/{id}', [RencanaPemeliharaanPPIController::class, 'destroy'])->name('rencana-pemeliharaan-ppi.destroy');
+});
+
+// StatusAssetAiPPIController
+Route::prefix('monev/shpnre/input-data/ppi')->group(function () {
+    Route::get('/', [StatusAssetAiPPIController::class, 'index'])->name('ppi');
+    Route::post('/', [StatusAssetAiPPIController::class, 'store'])->name('ppi.store');
+    Route::get('/data', [StatusAssetAiPPIController::class, 'data'])->name('ppi.data');
+    Route::put('/{id}', [StatusAssetAiPPIController::class, 'update'])->name('ppi.update');
+    Route::delete('/{id}', [StatusAssetAiPPIController::class, 'destroy'])->name('ppi.destroy');
+});
+
+// SummaryPloPPIController
+Route::prefix('monev/shpnre/input-data/summary-plo-ppi')->group(function () {
+    Route::get('/', [SummaryPloPPIController::class, 'index'])->name('summary-plo-ppi');
+    Route::post('/', [SummaryPloPPIController::class, 'store'])->name('summary-plo-ppi.store');
+    Route::get('/data', [SummaryPloPPIController::class, 'data'])->name('summary-plo-ppi.data');
+    Route::put('/{id}', [SummaryPloPPIController::class, 'update'])->name('summary-plo-ppi.update');
+    Route::delete('/{id}', [SummaryPloPPIController::class, 'destroy'])->name('summary-plo-ppi.destroy');
+});
+
+// SistemInformasiAimsPPIController
+Route::prefix('monev/shpnre/input-data/sistem-informasi-aims-ppi')->group(function () {
+    Route::get('/', [SistemInformasiAimsPPIController::class, 'index'])->name('sistem-informasi-aims-ppi');
+    Route::post('/', [SistemInformasiAimsPPIController::class, 'store'])->name('sistem-informasi-aims-ppi.store');
+    Route::get('/data', [SistemInformasiAimsPPIController::class, 'data'])->name('sistem-informasi-aims-ppi.data');
+    Route::put('/{id}', [SistemInformasiAimsPPIController::class, 'update'])->name('sistem-informasi-aims-ppi.update');
+    Route::delete('/{id}', [SistemInformasiAimsPPIController::class, 'destroy'])->name('sistem-informasi-aims-ppi.destroy');
+});
 
 
 

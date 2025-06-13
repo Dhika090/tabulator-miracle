@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Models\SHPNRE\Ulubelu;
+namespace App\Models\SHPNRE\PPI;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 
-class SistemInformasiAimsUlubelu extends Model
+class SistemInformasiAimsPPI extends Model
 {
-    use HasFactory;
+
     public $incrementing = false;
     protected $keyType = 'string';
 
@@ -22,7 +22,7 @@ class SistemInformasiAimsUlubelu extends Model
         });
     }
 
-    protected $table = 'shpnre_ulubelu_sistem_informasi_aims';
+    protected $table = 'shpnre_ppi_sistem_informasi_aims';
 
     protected $fillable = [
         'periode',

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Models\SHPNRE\Ulubelu;
+namespace App\Models\SHPNRE\PPI;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 
-class SistemInformasiAimsUlubelu extends Model
+class AvailabilityPPI extends Model
 {
     use HasFactory;
     public $incrementing = false;
@@ -22,21 +22,15 @@ class SistemInformasiAimsUlubelu extends Model
         });
     }
 
-    protected $table = 'shpnre_ulubelu_sistem_informasi_aims';
-
+    protected $table = 'shpnre_ppi_availability';
     protected $fillable = [
         'periode',
         'company',
-        'jumlah_aset_operasi',
-        'jumlah_aset_teregister',
-        'kendala_aset_register',
-        'tindak_lanjut_aset_register',
-        'sistem_informasi_aim',
-        'total_wo_comply',
-        'total_wo_completed',
-        'total_wo_in_progress',
-        'total_wo_backlog',
+        'kategori',
+        'target',
+        'availability',
+        'isu',
         'kendala',
-        'tindak_lanjut',
+        'tindak_lanjut'
     ];
 }
