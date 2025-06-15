@@ -1,0 +1,142 @@
+<?php
+
+namespace App\Http\Controllers\SHPNRE\InputDataMonev\Jawa1Regas;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\SHPNRE\Jawa1Regas\StatusAssetAiJawa1RegasRequest;
+use App\Models\SHPNRE\Jawa1Regas\StatusAssetAiJawa1Regas;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
+class StatusAssetAiJawa1RegasController extends Controller
+{
+
+    public function index(Request $request)
+    {
+        if ($request->wantsJson()) {
+            $TargetPLO = StatusAssetAiJawa1Regas::all();
+            return response()->json(data: $TargetPLO);
+        }
+
+        $companies = [
+            'PGN',
+            'PTG',
+            'PTGN',
+            'PTSG',
+            'PGN, PAG, SAKA, WMP',
+            'GEI',
+            'TGI',
+            'WMN',
+            'PLI',
+            'PDG',
+            'KJG',
+            'PAG',
+            'NR'
+        ];
+
+        $tabs = [
+            [
+                'title' => 'Status Asset 2025 AI Jawa 1 Regas',
+                'route' => route('jawa1regas'),
+                'active' => request()->routeIs('jawa1regas'),
+            ],
+            [
+                'title' => 'Asset Breakdown Jawa 1 Regas',
+                'route' => route('asset-breakdown-jawa1regas'),
+                'active' => request()->routeIs('asset-breakdown-jawa1regas'),
+            ],
+            [
+                'title' => 'Availability Jawa 1 Regas',
+                'route' => route('availability-jawa1regas'),
+                'active' => request()->routeIs('availability-jawa1regas'),
+            ],
+            [
+                'title' => 'Kondisi Vacant Funsgi Aims Jawa 1 Regas',
+                'route' => route('kondisi-vacant-aims-jawa1regas'),
+                'active' => request()->routeIs('kondisi-vacant-aims-jawa1regas'),
+            ],
+            [
+                'title' => 'Mandatory Certification Jawa 1 Regas',
+                'route' => route('mandatory-certification-jawa1regas'),
+                'active' => request()->routeIs('mandatory-certification-jawa1regas'),
+            ],
+            [
+                'title' => 'Pelatihan Aims Jawa 1 Regas',
+                'route' => route('pelatihan-aims-jawa1regas'),
+                'active' => request()->routeIs('pelatihan-aims-jawa1regas'),
+            ],
+            [
+                'title' => 'Rencana Pemeliharaan Jawa 1 Regas',
+                'route' => route('rencana-pemeliharaan-jawa1regas'),
+                'active' => request()->routeIs('rencana-pemeliharaan-jawa1regas'),
+            ],
+            [
+                'title' => 'Real Anggaran AI Jawa 1 Regas',
+                'route' => route('real-anggaran-ai-jawa1regas'),
+                'active' => request()->routeIs('real-anggaran-ai-jawa1regas'),
+            ],
+            [
+                'title' => 'Real Anggaran Figure Jawa 1 Regas',
+                'route' => route('real-anggaran-figure-jawa1regas'),
+                'active' => request()->routeIs('real-anggaran-figure-jawa1regas'),
+            ],
+            [
+                'title' => 'Real Prog Fisik Jawa 1 Regas',
+                'route' => route('real-prog-fisik-jawa1regas'),
+                'active' => request()->routeIs('real-prog-fisik-jawa1regas'),
+            ],
+            [
+                'title' => 'Sistem Informasi Aims Jawa 1 Regas',
+                'route' => route('sistem-informasi-aims-jawa1regas'),
+                'active' => request()->routeIs('sistem-informasi-aims-jawa1regas'),
+            ],
+            [
+                'title' => 'Summary PLO Jawa 1 Regas',
+                'route' => route('summary-plo-jawa1regas'),
+                'active' => request()->routeIs('summary-plo-jawa1regas'),
+            ],
+
+        ];
+        return view('SHPNRE.InputDataMonev.Jawa1Regas.StatusAssetAiJawa1Regas', compact('tabs', 'companies'));
+    }
+
+    public function store(StatusAssetAiJawa1Regas $request)
+    {
+        $validated = $request->validated();
+        $TargetPLO = StatusAssetAiJawa1Regas::create($validated);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Data berhasil disimpan',
+            'data' => $TargetPLO,
+        ]);
+    }
+
+    public function data()
+    {
+        $TargetPLO = StatusAssetAiJawa1Regas::select('*')
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderBy('periode_date', 'asc')
+            ->get();
+
+        return response()->json($TargetPLO);
+    }
+    public function update(StatusAssetAiJawa1RegasRequest $request, $id)
+    {
+        $progress = StatusAssetAiJawa1Regas::findOrFail($id);
+        $progress->update($request->validated());
+
+        return response()->json(['success' => true, 'message' => 'Data berhasil diupdate']);
+    }
+
+
+    public function destroy($id)
+    {
+        $target = StatusAssetAiJawa1Regas::findOrFail($id);
+        $target->delete();
+
+        return response()->json(['success' => true, 'message' => 'Data berhasil dihapus']);
+    }
+}

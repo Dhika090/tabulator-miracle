@@ -282,14 +282,14 @@
                             </a>
                         </li>
                         <li
-                            class="menu-item {{ request()->is('monev/shpnre/input-data/jawa-1-regas') ? 'active' : '' }}">
-                            <a class="menu-link" href="{{ url('monev/shpnre/input-data/jawa-1-regas') }}">
+                            class="menu-item {{ request()->is('monev/shpnre/input-data/jawa1regas') ? 'active' : '' }}">
+                            <a class="menu-link" href="{{ url('monev/shpnre/input-data/jawa1regas') }}">
                                 <i class="fa fa-wrench me-2"></i>Jawa 1 Regas
                             </a>
                         </li>
                         <li
-                            class="menu-item {{ request()->is('monev/shpnre/input-data/jawa-1-power') ? 'active' : '' }}">
-                            <a class="menu-link" href="{{ url('monev/shpnre/input-data/jawa-1-power') }}">
+                            class="menu-item {{ request()->is('monev/shpnre/input-data/jawa1power') ? 'active' : '' }}">
+                            <a class="menu-link" href="{{ url('monev/shpnre/input-data/jawa1power') }}">
                                 <i class="fa fa-wrench me-2"></i>Jawa 1 Power
                             </a>
                         </li>

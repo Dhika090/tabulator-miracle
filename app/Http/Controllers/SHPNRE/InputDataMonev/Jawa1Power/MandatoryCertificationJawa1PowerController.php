@@ -1,19 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\SHPNRE\InputDataMonev\PPI;
+namespace App\Http\Controllers\SHPNRE\InputDataMonev\Jawa1Power;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\SHPNRE\PPI\MandatoryCertificationPPIRequest;
-use App\Models\SHPNRE\PPI\MandatoryCertificationPPI;
+use App\Http\Requests\SHPNRE\Jawa1Power\MandatoryCertificationJawa1PowerRequest;
+use App\Models\SHPNRE\Jawa1Power\MandatoryCertificationJawa1Power;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class MandatoryCertificationPPIController extends Controller
+class MandatoryCertificationJawa1PowerController extends Controller
 {
 
     public function index(Request $request)
     {
-
         $sertifikasiOptions = [
             "(Maintenance) Planner Academy",
             "Advanced Corrosion & Material Technology",
@@ -100,74 +99,74 @@ class MandatoryCertificationPPIController extends Controller
         ];
         $tabs = [
             [
-                'title' => 'Status Asset 2025 AI PPI',
-                'route' => route('ppi'),
-                'active' => request()->routeIs('ppi'),
+                'title' => 'Status Asset 2025 AI Jawa 1 Power',
+                'route' => route('jawa1power'),
+                'active' => request()->routeIs('jawa1power'),
             ],
             [
-                'title' => 'Asset Breakdown PPI',
-                'route' => route('asset-breakdown-ppi'),
-                'active' => request()->routeIs('asset-breakdown-ppi'),
+                'title' => 'Asset Breakdown Jawa 1 Power',
+                'route' => route('asset-breakdown-jawa1power'),
+                'active' => request()->routeIs('asset-breakdown-jawa1power'),
             ],
             [
-                'title' => 'Availability PPI',
-                'route' => route('availability-ppi'),
-                'active' => request()->routeIs('availability-ppi'),
+                'title' => 'Availability Jawa 1 Power',
+                'route' => route('availability-jawa1power'),
+                'active' => request()->routeIs('availability-jawa1power'),
             ],
             [
-                'title' => 'Kondisi Vacant Funsgi Aims PPI',
-                'route' => route('kondisi-vacant-aims-ppi'),
-                'active' => request()->routeIs('kondisi-vacant-aims-ppi'),
+                'title' => 'Kondisi Vacant Funsgi Aims Jawa 1 Power',
+                'route' => route('kondisi-vacant-aims-jawa1power'),
+                'active' => request()->routeIs('kondisi-vacant-aims-jawa1power'),
             ],
             [
-                'title' => 'Mandatory Certification PPI',
-                'route' => route('mandatory-certification-ppi'),
-                'active' => request()->routeIs('mandatory-certification-ppi'),
+                'title' => 'Mandatory Certification Jawa 1 Power',
+                'route' => route('mandatory-certification-jawa1power'),
+                'active' => request()->routeIs('mandatory-certification-jawa1power'),
             ],
             [
-                'title' => 'Pelatihan Aims PPI',
-                'route' => route('pelatihan-aims-ppi'),
-                'active' => request()->routeIs('pelatihan-aims-ppi'),
+                'title' => 'Pelatihan Aims Jawa 1 Power',
+                'route' => route('pelatihan-aims-jawa1power'),
+                'active' => request()->routeIs('pelatihan-aims-jawa1power'),
             ],
             [
-                'title' => 'Rencana Pemeliharaan PPI',
-                'route' => route('rencana-pemeliharaan-ppi'),
-                'active' => request()->routeIs('rencana-pemeliharaan-ppi'),
+                'title' => 'Rencana Pemeliharaan Jawa 1 Power',
+                'route' => route('rencana-pemeliharaan-jawa1power'),
+                'active' => request()->routeIs('rencana-pemeliharaan-jawa1power'),
             ],
             [
-                'title' => 'Real Anggaran AI PPI',
-                'route' => route('real-anggaran-ai-ppi'),
-                'active' => request()->routeIs('real-anggaran-ai-ppi'),
+                'title' => 'Real Anggaran AI Jawa 1 Power',
+                'route' => route('real-anggaran-ai-jawa1power'),
+                'active' => request()->routeIs('real-anggaran-ai-jawa1power'),
             ],
             [
-                'title' => 'Real Anggaran Figure PPI',
-                'route' => route('real-anggaran-figure-ppi'),
-                'active' => request()->routeIs('real-anggaran-figure-ppi'),
+                'title' => 'Real Anggaran Figure Jawa 1 Power',
+                'route' => route('real-anggaran-figure-jawa1power'),
+                'active' => request()->routeIs('real-anggaran-figure-jawa1power'),
             ],
             [
-                'title' => 'Realisasi Prog Fisik PPI',
-                'route' => route('real-prog-fisik-ppi'),
-                'active' => request()->routeIs('real-prog-fisik-ppi'),
+                'title' => 'Real Prog Fisik Jawa 1 Power',
+                'route' => route('real-prog-fisik-jawa1power'),
+                'active' => request()->routeIs('real-prog-fisik-jawa1power'),
             ],
             [
-                'title' => 'Sistem Informasi Aims PPI',
-                'route' => route('sistem-informasi-aims-ppi'),
-                'active' => request()->routeIs('sistem-informasi-aims-ppi'),
+                'title' => 'Sistem Informasi Aims Jawa 1 Power',
+                'route' => route('sistem-informasi-aims-jawa1power'),
+                'active' => request()->routeIs('sistem-informasi-aims-jawa1power'),
             ],
             [
-                'title' => 'Summary PLO PPI',
-                'route' => route('summary-plo-ppi'),
-                'active' => request()->routeIs('summary-plo-ppi'),
+                'title' => 'Summary PLO Jawa 1 Power',
+                'route' => route('summary-plo-jawa1power'),
+                'active' => request()->routeIs('summary-plo-jawa1power'),
             ],
 
         ];
-        return view('SHPNRE.InputDataMonev.PPI.MandatoryCertificationPPI', compact('tabs', 'sertifikasiOptions'));
+        return view('SHPNRE.InputDataMonev.Jawa1Power.MandatoryCertificationJawa1Power', compact('tabs','sertifikasiOptions'));
     }
 
-    public function store(MandatoryCertificationPPIRequest $request)
+    public function store(MandatoryCertificationJawa1PowerRequest $request)
     {
         $validated = $request->validated();
-        $TargetPLO = MandatoryCertificationPPI::create($validated);
+        $TargetPLO = MandatoryCertificationJawa1Power::create($validated);
 
         return response()->json([
             'success' => true,
@@ -178,7 +177,7 @@ class MandatoryCertificationPPIController extends Controller
 
     public function data()
     {
-        $TargetPLO = MandatoryCertificationPPI::select('*')
+        $TargetPLO = MandatoryCertificationJawa1Power::select('*')
             ->addSelect(DB::raw("
             STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
         "))
@@ -187,9 +186,9 @@ class MandatoryCertificationPPIController extends Controller
 
         return response()->json($TargetPLO);
     }
-    public function update(MandatoryCertificationPPIRequest $request, $id)
+    public function update(MandatoryCertificationJawa1PowerRequest $request, $id)
     {
-        $progress = MandatoryCertificationPPI::findOrFail($id);
+        $progress = MandatoryCertificationJawa1Power::findOrFail($id);
         $progress->update($request->validated());
 
         return response()->json(['success' => true, 'message' => 'Data berhasil diupdate']);
@@ -198,7 +197,7 @@ class MandatoryCertificationPPIController extends Controller
 
     public function destroy($id)
     {
-        $target = MandatoryCertificationPPI::findOrFail($id);
+        $target = MandatoryCertificationJawa1Power::findOrFail($id);
         $target->delete();
 
         return response()->json(['success' => true, 'message' => 'Data berhasil dihapus']);

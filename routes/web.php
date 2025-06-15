@@ -282,6 +282,32 @@ use App\Http\Controllers\SHPNRE\InputDataMonev\PPI\RencanaPemeliharaanPPIControl
 use App\Http\Controllers\SHPNRE\InputDataMonev\PPI\SistemInformasiAimsPPIController;
 use App\Http\Controllers\SHPNRE\InputDataMonev\PPI\StatusAssetAiPPIController;
 use App\Http\Controllers\SHPNRE\InputDataMonev\PPI\SummaryPloPPIController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Jawa1Regas\AssetBreakdownJawa1RegasController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Jawa1Regas\AvailabilityJawa1RegasController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Jawa1Regas\KondisiVacantAimsJawa1RegasController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Jawa1Regas\MandatoryCertificationJawa1RegasController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Jawa1Regas\PelatihanAimsJawa1RegasController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Jawa1Regas\RealAnggaranAiJawa1RegasController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Jawa1Regas\RealAnggaranFigureJawa1RegasController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Jawa1Regas\RealProgFisikAiJawa1RegasController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Jawa1Regas\RencanaPemeliharaanJawa1RegasController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Jawa1Regas\SistemInformasiAimsJawa1RegasController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Jawa1Regas\StatusAssetAiJawa1RegasController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Jawa1Regas\SummaryPloJawa1RegasController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Jawa1Power\AssetBreakdownJawa1PowerController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Jawa1Power\AvailabilityJawa1PowerController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Jawa1Power\KondisiVacantAimsJawa1PowerController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Jawa1Power\MandatoryCertificationJawa1PowerController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Jawa1Power\PelatihanAimsJawa1PowerController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Jawa1Power\RealAnggaranAiJawa1PowerController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Jawa1Power\RealAnggaranFigureJawa1PowerController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Jawa1Power\RealProgFisikAiJawa1PowerController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Jawa1Power\RencanaPemeliharaanJawa1PowerController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Jawa1Power\SistemInformasiAimsJawa1PowerController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Jawa1Power\StatusAssetAiJawa1PowerController;
+use App\Http\Controllers\SHPNRE\InputDataMonev\Jawa1Power\SummaryPloJawa1PowerController;
+
+
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
@@ -2556,8 +2582,223 @@ Route::prefix('monev/shpnre/input-data/sistem-informasi-aims-ppi')->group(functi
     Route::delete('/{id}', [SistemInformasiAimsPPIController::class, 'destroy'])->name('sistem-informasi-aims-ppi.destroy');
 });
 
+// Jawa 1 Regas
+// AssetBreakdownJawa1RegasController
+Route::prefix('monev/shpnre/input-data/asset-breakdown-jawa1regas')->group(function () {
+    Route::get('/', [AssetBreakdownJawa1RegasController::class, 'index'])->name('asset-breakdown-jawa1regas');
+    Route::post('/', [AssetBreakdownJawa1RegasController::class, 'store'])->name('asset-breakdown-jawa1regas.store');
+    Route::get('/data', [AssetBreakdownJawa1RegasController::class, 'data'])->name('asset-breakdown-jawa1regas.data');
+    Route::put('/{id}', [AssetBreakdownJawa1RegasController::class, 'update'])->name('asset-breakdown-jawa1regas.update');
+    Route::delete('/{id}', [AssetBreakdownJawa1RegasController::class, 'destroy'])->name('asset-breakdown-jawa1regas.destroy');
+});
 
+// AvailabilityJawa1RegasController
+Route::prefix('monev/shpnre/input-data/availability-jawa1regas')->group(function () {
+    Route::get('/', [AvailabilityJawa1RegasController::class, 'index'])->name('availability-jawa1regas');
+    Route::post('/', [AvailabilityJawa1RegasController::class, 'store'])->name('availability-jawa1regas.store');
+    Route::get('/data', [AvailabilityJawa1RegasController::class, 'data'])->name('availability-jawa1regas.data');
+    Route::put('/{id}', [AvailabilityJawa1RegasController::class, 'update'])->name('availability-jawa1regas.update');
+    Route::delete('/{id}', [AvailabilityJawa1RegasController::class, 'destroy'])->name('availability-jawa1regas.destroy');
+});
 
+// KondisiVacantAimsJawa1RegasController
+Route::prefix('monev/shpnre/input-data/kondisi-vacant-aims-jawa1regas')->group(function () {
+    Route::get('/', [KondisiVacantAimsJawa1RegasController::class, 'index'])->name('kondisi-vacant-aims-jawa1regas');
+    Route::post('/', [KondisiVacantAimsJawa1RegasController::class, 'store'])->name('kondisi-vacant-aims-jawa1regas.store');
+    Route::get('/data', [KondisiVacantAimsJawa1RegasController::class, 'data'])->name('kondisi-vacant-aims-jawa1regas.data');
+    Route::put('/{id}', [KondisiVacantAimsJawa1RegasController::class, 'update'])->name('kondisi-vacant-aims-jawa1regas.update');
+    Route::delete('/{id}', [KondisiVacantAimsJawa1RegasController::class, 'destroy'])->name('kondisi-vacant-aims-jawa1regas.destroy');
+});
+
+// MandatoryCertificationJawa1RegasController
+Route::prefix('monev/shpnre/input-data/mandatory-certification-jawa1regas')->group(function () {
+    Route::get('/', [MandatoryCertificationJawa1RegasController::class, 'index'])->name('mandatory-certification-jawa1regas');
+    Route::post('/', [MandatoryCertificationJawa1RegasController::class, 'store'])->name('mandatory-certification-jawa1regas.store');
+    Route::get('/data', [MandatoryCertificationJawa1RegasController::class, 'data'])->name('mandatory-certification-jawa1regas.data');
+    Route::put('/{id}', [MandatoryCertificationJawa1RegasController::class, 'update'])->name('mandatory-certification-jawa1regas.update');
+    Route::delete('/{id}', [MandatoryCertificationJawa1RegasController::class, 'destroy'])->name('mandatory-certification-jawa1regas.destroy');
+});
+
+// PelatihanAimsJawa1RegasController
+Route::prefix('monev/shpnre/input-data/pelatihan-aims-jawa1regas')->group(function () {
+    Route::get('/', [PelatihanAimsJawa1RegasController::class, 'index'])->name('pelatihan-aims-jawa1regas');
+    Route::post('/', [PelatihanAimsJawa1RegasController::class, 'store'])->name('pelatihan-aims-jawa1regas.store');
+    Route::get('/data', [PelatihanAimsJawa1RegasController::class, 'data'])->name('pelatihan-aims-jawa1regas.data');
+    Route::put('/{id}', [PelatihanAimsJawa1RegasController::class, 'update'])->name('pelatihan-aims-jawa1regas.update');
+    Route::delete('/{id}', [PelatihanAimsJawa1RegasController::class, 'destroy'])->name('pelatihan-aims-jawa1regas.destroy');
+});
+
+// RealAnggaranAiJawa1RegasController
+Route::prefix('monev/shpnre/input-data/real-anggaran-ai-jawa1regas')->group(function () {
+    Route::get('/', [RealAnggaranAiJawa1RegasController::class, 'index'])->name('real-anggaran-ai-jawa1regas');
+    Route::post('/', [RealAnggaranAiJawa1RegasController::class, 'store'])->name('real-anggaran-ai-jawa1regas.store');
+    Route::get('/data', [RealAnggaranAiJawa1RegasController::class, 'data'])->name('real-anggaran-ai-jawa1regas.data');
+    Route::put('/{id}', [RealAnggaranAiJawa1RegasController::class, 'update'])->name('real-anggaran-ai-jawa1regas.update');
+    Route::delete('/{id}', [RealAnggaranAiJawa1RegasController::class, 'destroy'])->name('real-anggaran-ai-jawa1regas.destroy');
+});
+
+// RealAnggaranFigureJawa1RegasController
+Route::prefix('monev/shpnre/input-data/real-anggaran-figure-jawa1regas')->group(function () {
+    Route::get('/', [RealAnggaranFigureJawa1RegasController::class, 'index'])->name('real-anggaran-figure-jawa1regas');
+    Route::post('/', [RealAnggaranFigureJawa1RegasController::class, 'store'])->name('real-anggaran-figure-jawa1regas.store');
+    Route::get('/data', [RealAnggaranFigureJawa1RegasController::class, 'data'])->name('real-anggaran-figure-jawa1regas.data');
+    Route::put('/{id}', [RealAnggaranFigureJawa1RegasController::class, 'update'])->name('real-anggaran-figure-jawa1regas.update');
+    Route::delete('/{id}', [RealAnggaranFigureJawa1RegasController::class, 'destroy'])->name('real-anggaran-figure-jawa1regas.destroy');
+});
+
+// RealProgFisikAiJawa1RegasController
+Route::prefix('monev/shpnre/input-data/real-prog-fisik-jawa1regas')->group(function () {
+    Route::get('/', [RealProgFisikAiJawa1RegasController::class, 'index'])->name('real-prog-fisik-jawa1regas');
+    Route::post('/', [RealProgFisikAiJawa1RegasController::class, 'store'])->name('real-prog-fisik-jawa1regas.store');
+    Route::get('/data', [RealProgFisikAiJawa1RegasController::class, 'data'])->name('real-prog-fisik-jawa1regas.data');
+    Route::put('/{id}', [RealProgFisikAiJawa1RegasController::class, 'update'])->name('real-prog-fisik-jawa1regas.update');
+    Route::delete('/{id}', [RealProgFisikAiJawa1RegasController::class, 'destroy'])->name('real-prog-fisik-jawa1regas.destroy');
+});
+
+// RencanaPemeliharaanJawa1RegasController
+Route::prefix('monev/shpnre/input-data/rencana-pemeliharaan-jawa1regas')->group(function () {
+    Route::get('/', [RencanaPemeliharaanJawa1RegasController::class, 'index'])->name('rencana-pemeliharaan-jawa1regas');
+    Route::post('/', [RencanaPemeliharaanJawa1RegasController::class, 'store'])->name('rencana-pemeliharaan-jawa1regas.store');
+    Route::get('/data', [RencanaPemeliharaanJawa1RegasController::class, 'data'])->name('rencana-pemeliharaan-jawa1regas.data');
+    Route::put('/{id}', [RencanaPemeliharaanJawa1RegasController::class, 'update'])->name('rencana-pemeliharaan-jawa1regas.update');
+    Route::delete('/{id}', [RencanaPemeliharaanJawa1RegasController::class, 'destroy'])->name('rencana-pemeliharaan-jawa1regas.destroy');
+});
+
+// SistemInformasiAimsJawa1RegasController
+Route::prefix('monev/shpnre/input-data/sistem-informasi-aims-jawa1regas')->group(function () {
+    Route::get('/', [SistemInformasiAimsJawa1RegasController::class, 'index'])->name('sistem-informasi-aims-jawa1regas');
+    Route::post('/', [SistemInformasiAimsJawa1RegasController::class, 'store'])->name('sistem-informasi-aims-jawa1regas.store');
+    Route::get('/data', [SistemInformasiAimsJawa1RegasController::class, 'data'])->name('sistem-informasi-aims-jawa1regas.data');
+    Route::put('/{id}', [SistemInformasiAimsJawa1RegasController::class, 'update'])->name('sistem-informasi-aims-jawa1regas.update');
+    Route::delete('/{id}', [SistemInformasiAimsJawa1RegasController::class, 'destroy'])->name('sistem-informasi-aims-jawa1regas.destroy');
+});
+
+// StatusAssetAiJawa1RegasController
+Route::prefix('monev/shpnre/input-data/jawa1regas')->group(function () {
+    Route::get('/', [StatusAssetAiJawa1RegasController::class, 'index'])->name('jawa1regas');
+    Route::post('/', [StatusAssetAiJawa1RegasController::class, 'store'])->name('jawa1regas.store');
+    Route::get('/data', [StatusAssetAiJawa1RegasController::class, 'data'])->name('jawa1regas.data');
+    Route::put('/{id}', [StatusAssetAiJawa1RegasController::class, 'update'])->name('jawa1regas.update');
+    Route::delete('/{id}', [StatusAssetAiJawa1RegasController::class, 'destroy'])->name('jawa1regas.destroy');
+});
+
+// SummaryPloJawa1RegasController
+Route::prefix('monev/shpnre/input-data/summary-plo-jawa1regas')->group(function () {
+    Route::get('/', [SummaryPloJawa1RegasController::class, 'index'])->name('summary-plo-jawa1regas');
+    Route::post('/', [SummaryPloJawa1RegasController::class, 'store'])->name('summary-plo-jawa1regas.store');
+    Route::get('/data', [SummaryPloJawa1RegasController::class, 'data'])->name('summary-plo-jawa1regas.data');
+    Route::put('/{id}', [SummaryPloJawa1RegasController::class, 'update'])->name('summary-plo-jawa1regas.update');
+    Route::delete('/{id}', [SummaryPloJawa1RegasController::class, 'destroy'])->name('summary-plo-jawa1regas.destroy');
+});
+
+// Jawa 1 Power
+// AssetBreakdownJawa1PowerController
+Route::prefix('monev/shpnre/input-data/asset-breakdown-jawa1power')->group(function () {
+    Route::get('/', [AssetBreakdownJawa1PowerController::class, 'index'])->name('asset-breakdown-jawa1power');
+    Route::post('/', [AssetBreakdownJawa1PowerController::class, 'store'])->name('asset-breakdown-jawa1power.store');
+    Route::get('/data', [AssetBreakdownJawa1PowerController::class, 'data'])->name('asset-breakdown-jawa1power.data');
+    Route::put('/{id}', [AssetBreakdownJawa1PowerController::class, 'update'])->name('asset-breakdown-jawa1power.update');
+    Route::delete('/{id}', [AssetBreakdownJawa1PowerController::class, 'destroy'])->name('asset-breakdown-jawa1power.destroy');
+});
+
+// AvailabilityJawa1PowerController
+Route::prefix('monev/shpnre/input-data/availability-jawa1power')->group(function () {
+    Route::get('/', [AvailabilityJawa1PowerController::class, 'index'])->name('availability-jawa1power');
+    Route::post('/', [AvailabilityJawa1PowerController::class, 'store'])->name('availability-jawa1power.store');
+    Route::get('/data', [AvailabilityJawa1PowerController::class, 'data'])->name('availability-jawa1power.data');
+    Route::put('/{id}', [AvailabilityJawa1PowerController::class, 'update'])->name('availability-jawa1power.update');
+    Route::delete('/{id}', [AvailabilityJawa1PowerController::class, 'destroy'])->name('availability-jawa1power.destroy');
+});
+
+// KondisiVacantAimsJawa1PowerController
+Route::prefix('monev/shpnre/input-data/kondisi-vacant-aims-jawa1power')->group(function () {
+    Route::get('/', [KondisiVacantAimsJawa1PowerController::class, 'index'])->name('kondisi-vacant-aims-jawa1power');
+    Route::post('/', [KondisiVacantAimsJawa1PowerController::class, 'store'])->name('kondisi-vacant-aims-jawa1power.store');
+    Route::get('/data', [KondisiVacantAimsJawa1PowerController::class, 'data'])->name('kondisi-vacant-aims-jawa1power.data');
+    Route::put('/{id}', [KondisiVacantAimsJawa1PowerController::class, 'update'])->name('kondisi-vacant-aims-jawa1power.update');
+    Route::delete('/{id}', [KondisiVacantAimsJawa1PowerController::class, 'destroy'])->name('kondisi-vacant-aims-jawa1power.destroy');
+});
+
+// MandatoryCertificationJawa1PowerController
+Route::prefix('monev/shpnre/input-data/mandatory-certification-jawa1power')->group(function () {
+    Route::get('/', [MandatoryCertificationJawa1PowerController::class, 'index'])->name('mandatory-certification-jawa1power');
+    Route::post('/', [MandatoryCertificationJawa1PowerController::class, 'store'])->name('mandatory-certification-jawa1power.store');
+    Route::get('/data', [MandatoryCertificationJawa1PowerController::class, 'data'])->name('mandatory-certification-jawa1power.data');
+    Route::put('/{id}', [MandatoryCertificationJawa1PowerController::class, 'update'])->name('mandatory-certification-jawa1power.update');
+    Route::delete('/{id}', [MandatoryCertificationJawa1PowerController::class, 'destroy'])->name('mandatory-certification-jawa1power.destroy');
+});
+
+// PelatihanAimsJawa1PowerController
+Route::prefix('monev/shpnre/input-data/pelatihan-aims-jawa1power')->group(function () {
+    Route::get('/', [PelatihanAimsJawa1PowerController::class, 'index'])->name('pelatihan-aims-jawa1power');
+    Route::post('/', [PelatihanAimsJawa1PowerController::class, 'store'])->name('pelatihan-aims-jawa1power.store');
+    Route::get('/data', [PelatihanAimsJawa1PowerController::class, 'data'])->name('pelatihan-aims-jawa1power.data');
+    Route::put('/{id}', [PelatihanAimsJawa1PowerController::class, 'update'])->name('pelatihan-aims-jawa1power.update');
+    Route::delete('/{id}', [PelatihanAimsJawa1PowerController::class, 'destroy'])->name('pelatihan-aims-jawa1power.destroy');
+});
+
+// RealAnggaranAiJawa1PowerController
+Route::prefix('monev/shpnre/input-data/real-anggaran-ai-jawa1power')->group(function () {
+    Route::get('/', [RealAnggaranAiJawa1PowerController::class, 'index'])->name('real-anggaran-ai-jawa1power');
+    Route::post('/', [RealAnggaranAiJawa1PowerController::class, 'store'])->name('real-anggaran-ai-jawa1power.store');
+    Route::get('/data', [RealAnggaranAiJawa1PowerController::class, 'data'])->name('real-anggaran-ai-jawa1power.data');
+    Route::put('/{id}', [RealAnggaranAiJawa1PowerController::class, 'update'])->name('real-anggaran-ai-jawa1power.update');
+    Route::delete('/{id}', [RealAnggaranAiJawa1PowerController::class, 'destroy'])->name('real-anggaran-ai-jawa1power.destroy');
+});
+
+// RealAnggaranFigureJawa1PowerController
+Route::prefix('monev/shpnre/input-data/real-anggaran-figure-jawa1power')->group(function () {
+    Route::get('/', [RealAnggaranFigureJawa1PowerController::class, 'index'])->name('real-anggaran-figure-jawa1power');
+    Route::post('/', [RealAnggaranFigureJawa1PowerController::class, 'store'])->name('real-anggaran-figure-jawa1power.store');
+    Route::get('/data', [RealAnggaranFigureJawa1PowerController::class, 'data'])->name('real-anggaran-figure-jawa1power.data');
+    Route::put('/{id}', [RealAnggaranFigureJawa1PowerController::class, 'update'])->name('real-anggaran-figure-jawa1power.update');
+    Route::delete('/{id}', [RealAnggaranFigureJawa1PowerController::class, 'destroy'])->name('real-anggaran-figure-jawa1power.destroy');
+});
+
+// RealProgFisikAiJawa1PowerController
+Route::prefix('monev/shpnre/input-data/real-prog-fisik-jawa1power')->group(function () {
+    Route::get('/', [RealProgFisikAiJawa1PowerController::class, 'index'])->name('real-prog-fisik-jawa1power');
+    Route::post('/', [RealProgFisikAiJawa1PowerController::class, 'store'])->name('real-prog-fisik-jawa1power.store');
+    Route::get('/data', [RealProgFisikAiJawa1PowerController::class, 'data'])->name('real-prog-fisik-jawa1power.data');
+    Route::put('/{id}', [RealProgFisikAiJawa1PowerController::class, 'update'])->name('real-prog-fisik-jawa1power.update');
+    Route::delete('/{id}', [RealProgFisikAiJawa1PowerController::class, 'destroy'])->name('real-prog-fisik-jawa1power.destroy');
+});
+
+// RencanaPemeliharaanJawa1PowerController
+Route::prefix('monev/shpnre/input-data/rencana-pemeliharaan-jawa1power')->group(function () {
+    Route::get('/', [RencanaPemeliharaanJawa1PowerController::class, 'index'])->name('rencana-pemeliharaan-jawa1power');
+    Route::post('/', [RencanaPemeliharaanJawa1PowerController::class, 'store'])->name('rencana-pemeliharaan-jawa1power.store');
+    Route::get('/data', [RencanaPemeliharaanJawa1PowerController::class, 'data'])->name('rencana-pemeliharaan-jawa1power.data');
+    Route::put('/{id}', [RencanaPemeliharaanJawa1PowerController::class, 'update'])->name('rencana-pemeliharaan-jawa1power.update');
+    Route::delete('/{id}', [RencanaPemeliharaanJawa1PowerController::class, 'destroy'])->name('rencana-pemeliharaan-jawa1power.destroy');
+});
+
+// SistemInformasiAimsJawa1PowerController
+Route::prefix('monev/shpnre/input-data/sistem-informasi-aims-jawa1power')->group(function () {
+    Route::get('/', [SistemInformasiAimsJawa1PowerController::class, 'index'])->name('sistem-informasi-aims-jawa1power');
+    Route::post('/', [SistemInformasiAimsJawa1PowerController::class, 'store'])->name('sistem-informasi-aims-jawa1power.store');
+    Route::get('/data', [SistemInformasiAimsJawa1PowerController::class, 'data'])->name('sistem-informasi-aims-jawa1power.data');
+    Route::put('/{id}', [SistemInformasiAimsJawa1PowerController::class, 'update'])->name('sistem-informasi-aims-jawa1power.update');
+    Route::delete('/{id}', [SistemInformasiAimsJawa1PowerController::class, 'destroy'])->name('sistem-informasi-aims-jawa1power.destroy');
+});
+
+// StatusAssetAiJawa1PowerController
+Route::prefix('monev/shpnre/input-data/jawa1power')->group(function () {
+    Route::get('/', [StatusAssetAiJawa1PowerController::class, 'index'])->name('jawa1power');
+    Route::post('/', [StatusAssetAiJawa1PowerController::class, 'store'])->name('jawa1power.store');
+    Route::get('/data', [StatusAssetAiJawa1PowerController::class, 'data'])->name('jawa1power.data');
+    Route::put('/{id}', [StatusAssetAiJawa1PowerController::class, 'update'])->name('jawa1power.update');
+    Route::delete('/{id}', [StatusAssetAiJawa1PowerController::class, 'destroy'])->name('jawa1power.destroy');
+});
+
+// SummaryPloJawa1PowerController
+Route::prefix('monev/shpnre/input-data/summary-plo-jawa1power')->group(function () {
+    Route::get('/', [SummaryPloJawa1PowerController::class, 'index'])->name('summary-plo-jawa1power');
+    Route::post('/', [SummaryPloJawa1PowerController::class, 'store'])->name('summary-plo-jawa1power.store');
+    Route::get('/data', [SummaryPloJawa1PowerController::class, 'data'])->name('summary-plo-jawa1power.data');
+    Route::put('/{id}', [SummaryPloJawa1PowerController::class, 'update'])->name('summary-plo-jawa1power.update');
+    Route::delete('/{id}', [SummaryPloJawa1PowerController::class, 'destroy'])->name('summary-plo-jawa1power.destroy');
+});
 
 
 
