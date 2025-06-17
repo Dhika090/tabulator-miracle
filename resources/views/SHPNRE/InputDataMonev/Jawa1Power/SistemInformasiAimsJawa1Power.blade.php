@@ -268,7 +268,7 @@
         <script>
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
-                    fetch(`sistem-informasi-aims-jawa1regas/${id}`, {
+                    fetch(`sistem-informasi-aims-jawa1power/${id}`, {
                             method: "DELETE",
                             headers: {
                                 "Accept": "application/json",
@@ -365,7 +365,7 @@
             }
 
             function loadData() {
-                fetch("/monev/shpnre/input-data/sistem-informasi-aims-jawa1regas/data", {
+                fetch("/monev/shpnre/input-data/sistem-informasi-aims-jawa1power/data", {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -393,7 +393,7 @@
 
             document.addEventListener("DOMContentLoaded", function() {
                 const columnMap = {
-                    "sistem-informasi-aims-jawa1regas": [{
+                    "sistem-informasi-aims-jawa1power": [{
                             title: "No",
                             formatter: "rownum",
                             hozAlign: "center",
@@ -574,7 +574,7 @@
                     layout: "fitDataTable",
                     responsiveLayout: "collapse",
                     autoResize: true,
-                    columns: columnMap["sistem-informasi-aims-jawa1regas"],
+                    columns: columnMap["sistem-informasi-aims-jawa1power"],
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -609,8 +609,8 @@
                 });
 
                 document.getElementById("download-xlsx").addEventListener("click", function() {
-                    window.table.download("xlsx", "sistem-informasi-aims-jawa1regas.xlsx", {
-                        sheetName: "sistem-informasi-aims-jawa1regas",
+                    window.table.download("xlsx", "sistem-informasi-aims-jawa1power.xlsx", {
+                        sheetName: "sistem-informasi-aims-jawa1power",
                         columnHeaders: true,
                         downloadDataFormatter: function(data) {
                             return data.map(row => {
@@ -637,7 +637,7 @@
 
                     if (!id) return;
 
-                    fetch(`sistem-informasi-aims-jawa1regas/${id}`, {
+                    fetch(`sistem-informasi-aims-jawa1power/${id}`, {
                             method: "PUT",
                             headers: {
                                 "Content-Type": "application/json",
@@ -677,7 +677,7 @@
                     console.log("Baris yang berubah:", changedRows);
 
                     changedRows.forEach(rowData => {
-                        fetch(`sistem-informasi-aims-jawa1regas/${rowData.id}`, {
+                        fetch(`sistem-informasi-aims-jawa1power/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
                                     "Content-Type": "application/json",
@@ -720,7 +720,7 @@
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
 
-                fetch("sistem-informasi-aims-jawa1regas", {
+                fetch("sistem-informasi-aims-jawa1power", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -748,7 +748,7 @@
                     .then(result => {
                         if (result.success) {
                             alert(result.message || "Data berhasil disimpan");
-                            table.setData("/monev/shpnre/input-data/sistem-informasi-aims-jawa1regas/data");
+                            table.setData("/monev/shpnre/input-data/sistem-informasi-aims-jawa1power/data");
                             this.reset();
                             closeModal();
                         } else {

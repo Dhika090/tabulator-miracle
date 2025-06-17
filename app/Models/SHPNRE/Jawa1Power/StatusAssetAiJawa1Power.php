@@ -26,17 +26,40 @@ class StatusAssetAiJawa1Power extends Model
 
     protected $fillable = [
         'periode',
+        'subholding',
         'company',
-        'jumlah_aset_operasi',
-        'jumlah_aset_teregister',
-        'kendala_aset_register',
-        'tindak_lanjut_aset_register',
-        'sistem_informasi_aim',
-        'total_wo_comply',
-        'total_wo_completed',
-        'total_wo_in_progress',
-        'total_wo_backlog',
-        'kendala',
-        'tindak_lanjut',
+        'unit',
+        'asset_group',
+        'jumlah',
+
+        'sece_low_integrity_breakdown',
+        'sece_medium_due_date_inspection',
+        'sece_medium_low_condition',
+        'sece_medium_low_performance',
+        'sece_high_integrity',
+
+        'pce_low_integrity_breakdown',
+        'pce_medium_due_date_inspection',
+        'pce_medium_low_condition',
+        'pce_medium_low_performance',
+        'pce_high_integrity',
+
+        'important_low_integrity_breakdown',
+        'important_medium_due_date_inspection',
+        'important_medium_low_condition',
+        'important_medium_low_performance',
+        'important_high_integrity',
+
+        'secondary_low_integrity_breakdown',
+        'secondary_medium_due_date_inspection',
+        'secondary_medium_low_condition',
+        'secondary_medium_low_performance',
+        'secondary_high_integrity',
+
+        'kegiatan_penurunan_low',
+        'kegiatan_penurunan_med',
+        'informasi_penyebab_low_integrity',
+        'informasi_penambahan_jumlah_aset',
+        'informasi_naik_turun_low_integrity',
     ];
 }

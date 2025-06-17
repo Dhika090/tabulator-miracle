@@ -125,7 +125,7 @@
     <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-                <h5 class="card-title mb-3 mb-md-0">Sistem Informasi AIMS Jawa 1 Power</h5>
+                <h5 class="card-title mb-3 mb-md-0">Sistem Informasi AIMS Jawa 1 Regas</h5>
                 <div class="d-flex flex-column flex-md-row align-items-center gap-3">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
@@ -183,7 +183,7 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Tambah Sistem Informasi AIMS Jawa 1 Power</h3>
+            <h3>Tambah Sistem Informasi AIMS Jawa 1 Regas</h3>
             <form id="createForm">
 
                 <input type="hidden" name="id" id="form-id">
@@ -268,7 +268,7 @@
         <script>
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
-                    fetch(`sistem-informasi-aims-jawa1power/${id}`, {
+                    fetch(`sistem-informasi-aims-jawa1regas/${id}`, {
                             method: "DELETE",
                             headers: {
                                 "Accept": "application/json",
@@ -365,7 +365,7 @@
             }
 
             function loadData() {
-                fetch("/monev/shpnre/input-data/sistem-informasi-aims-jawa1power/data", {
+                fetch("/monev/shpnre/input-data/sistem-informasi-aims-jawa1regas/data", {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -393,7 +393,7 @@
 
             document.addEventListener("DOMContentLoaded", function() {
                 const columnMap = {
-                    "sistem-informasi-aims-jawa1power": [{
+                    "sistem-informasi-aims-jawa1regas": [{
                             title: "No",
                             formatter: "rownum",
                             hozAlign: "center",
@@ -574,7 +574,7 @@
                     layout: "fitDataTable",
                     responsiveLayout: "collapse",
                     autoResize: true,
-                    columns: columnMap["sistem-informasi-aims-jawa1power"],
+                    columns: columnMap["sistem-informasi-aims-jawa1regas"],
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -609,8 +609,8 @@
                 });
 
                 document.getElementById("download-xlsx").addEventListener("click", function() {
-                    window.table.download("xlsx", "sistem-informasi-aims-jawa1power.xlsx", {
-                        sheetName: "sistem-informasi-aims-jawa1power",
+                    window.table.download("xlsx", "sistem-informasi-aims-jawa1regas.xlsx", {
+                        sheetName: "sistem-informasi-aims-jawa1regas",
                         columnHeaders: true,
                         downloadDataFormatter: function(data) {
                             return data.map(row => {
@@ -637,7 +637,7 @@
 
                     if (!id) return;
 
-                    fetch(`sistem-informasi-aims-jawa1power/${id}`, {
+                    fetch(`sistem-informasi-aims-jawa1regas/${id}`, {
                             method: "PUT",
                             headers: {
                                 "Content-Type": "application/json",
@@ -677,7 +677,7 @@
                     console.log("Baris yang berubah:", changedRows);
 
                     changedRows.forEach(rowData => {
-                        fetch(`sistem-informasi-aims-jawa1power/${rowData.id}`, {
+                        fetch(`sistem-informasi-aims-jawa1regas/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
                                     "Content-Type": "application/json",
@@ -720,7 +720,7 @@
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
 
-                fetch("sistem-informasi-aims-jawa1power", {
+                fetch("sistem-informasi-aims-jawa1regas", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -748,7 +748,7 @@
                     .then(result => {
                         if (result.success) {
                             alert(result.message || "Data berhasil disimpan");
-                            table.setData("/monev/shpnre/input-data/sistem-informasi-aims-jawa1power/data");
+                            table.setData("/monev/shpnre/input-data/sistem-informasi-aims-jawa1regas/data");
                             this.reset();
                             closeModal();
                         } else {

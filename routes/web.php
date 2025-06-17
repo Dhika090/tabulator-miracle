@@ -306,7 +306,45 @@ use App\Http\Controllers\SHPNRE\InputDataMonev\Jawa1Power\RencanaPemeliharaanJaw
 use App\Http\Controllers\SHPNRE\InputDataMonev\Jawa1Power\SistemInformasiAimsJawa1PowerController;
 use App\Http\Controllers\SHPNRE\InputDataMonev\Jawa1Power\StatusAssetAiJawa1PowerController;
 use App\Http\Controllers\SHPNRE\InputDataMonev\Jawa1Power\SummaryPloJawa1PowerController;
-
+use App\Http\Controllers\SHIML\InputDataMonev\Pis\AssetBreakdownPisController;
+use App\Http\Controllers\SHIML\InputDataMonev\Pis\AvailabilityPisController;
+use App\Http\Controllers\SHIML\InputDataMonev\Pis\KondisiVacantAimsPisController;
+use App\Http\Controllers\SHIML\InputDataMonev\Pis\MandatoryCertificationPisController;
+use App\Http\Controllers\SHIML\InputDataMonev\Pis\PelatihanAimsPisController;
+use App\Http\Controllers\SHIML\InputDataMonev\Pis\RealAnggaranAiPisController;
+use App\Http\Controllers\SHIML\InputDataMonev\Pis\RealAnggaranFigurePisController;
+use App\Http\Controllers\SHIML\InputDataMonev\Pis\RealProgFisikAiPisController;
+use App\Http\Controllers\SHIML\InputDataMonev\Pis\RencanaPemeliharaanPisController;
+use App\Http\Controllers\SHIML\InputDataMonev\Pis\SapAssetPisController;
+use App\Http\Controllers\SHIML\InputDataMonev\Pis\SistemInformasiAimsPisController;
+use App\Http\Controllers\SHIML\InputDataMonev\Pis\StatusAssetAiPisController;
+use App\Http\Controllers\SHIML\InputDataMonev\Pis\StatusPloPisController;
+use App\Http\Controllers\SHIML\InputDataMonev\Pet\AssetBreakdownPetController;
+use App\Http\Controllers\SHIML\InputDataMonev\Pet\AvailabilityPetController;
+use App\Http\Controllers\SHIML\InputDataMonev\Pet\KondisiVacantAimsPetController;
+use App\Http\Controllers\SHIML\InputDataMonev\Pet\MandatoryCertificationPetController;
+use App\Http\Controllers\SHIML\InputDataMonev\Pet\PelatihanAimsPetController;
+use App\Http\Controllers\SHIML\InputDataMonev\Pet\RealAnggaranAiPetController;
+use App\Http\Controllers\SHIML\InputDataMonev\Pet\RealAnggaranFigurePetController;
+use App\Http\Controllers\SHIML\InputDataMonev\Pet\RealProgFisikAiPetController;
+use App\Http\Controllers\SHIML\InputDataMonev\Pet\RencanaPemeliharaanPetController;
+use App\Http\Controllers\SHIML\InputDataMonev\Pet\SapAssetPetController;
+use App\Http\Controllers\SHIML\InputDataMonev\Pet\SistemInformasiAimsPetController;
+use App\Http\Controllers\SHIML\InputDataMonev\Pet\StatusAsseAiPetController;
+use App\Http\Controllers\SHIML\InputDataMonev\Pet\StatusPloPetController;
+use App\Http\Controllers\SHIML\InputDataMonev\PTK\AssetBreakdownPtkController;
+use App\Http\Controllers\SHIML\InputDataMonev\PTK\AvailabilityPtkController;
+use App\Http\Controllers\SHIML\InputDataMonev\PTK\KondisiVacantAimsPtkController;
+use App\Http\Controllers\SHIML\InputDataMonev\PTK\MandatoryCertificationPtkController;
+use App\Http\Controllers\SHIML\InputDataMonev\PTK\PelatihanAimsPtkController;
+use App\Http\Controllers\SHIML\InputDataMonev\PTK\RealAnggaranAiPtkController;
+use App\Http\Controllers\SHIML\InputDataMonev\PTK\RealAnggaranFigurePtkController;
+use App\Http\Controllers\SHIML\InputDataMonev\PTK\RealProgFisikAiPtkController;
+use App\Http\Controllers\SHIML\InputDataMonev\PTK\RencanaPemeliharaanPtkController;
+use App\Http\Controllers\SHIML\InputDataMonev\PTK\SapAssetPtkController;
+use App\Http\Controllers\SHIML\InputDataMonev\PTK\SistemInformasiAimsPtkController;
+use App\Http\Controllers\SHIML\InputDataMonev\PTK\StatusAssetAiPtkController;
+use App\Http\Controllers\SHIML\InputDataMonev\PTK\StatusPloPtkController;
 
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
@@ -2800,8 +2838,358 @@ Route::prefix('monev/shpnre/input-data/summary-plo-jawa1power')->group(function 
     Route::delete('/{id}', [SummaryPloJawa1PowerController::class, 'destroy'])->name('summary-plo-jawa1power.destroy');
 });
 
+// SHIML
+// AssetBreakdownPisController
+Route::prefix('monev/shiml/input-data/asset-breakdown-pis')->group(function () {
+    Route::get('/', [AssetBreakdownPisController::class, 'index'])->name('asset-breakdown-pis');
+    Route::post('/', [AssetBreakdownPisController::class, 'store'])->name('asset-breakdown-pis.store');
+    Route::get('/data', [AssetBreakdownPisController::class, 'data'])->name('asset-breakdown-pis.data');
+    Route::put('/{id}', [AssetBreakdownPisController::class, 'update'])->name('asset-breakdown-pis.update');
+    Route::delete('/{id}', [AssetBreakdownPisController::class, 'destroy'])->name('asset-breakdown-pis.destroy');
+});
 
+// AvailabilityPisController
+Route::prefix('monev/shiml/input-data/availability-pis')->group(function () {
+    Route::get('/', [AvailabilityPisController::class, 'index'])->name('availability-pis');
+    Route::post('/', [AvailabilityPisController::class, 'store'])->name('availability-pis.store');
+    Route::get('/data', [AvailabilityPisController::class, 'data'])->name('availability-pis.data');
+    Route::put('/{id}', [AvailabilityPisController::class, 'update'])->name('availability-pis.update');
+    Route::delete('/{id}', [AvailabilityPisController::class, 'destroy'])->name('availability-pis.destroy');
+});
 
+// KondisiVacantAimsPisController
+Route::prefix('monev/shiml/input-data/kondisi-vacant-aims-pis')->group(function () {
+    Route::get('/', [KondisiVacantAimsPisController::class, 'index'])->name('kondisi-vacant-aims-pis');
+    Route::post('/', [KondisiVacantAimsPisController::class, 'store'])->name('kondisi-vacant-aims-pis.store');
+    Route::get('/data', [KondisiVacantAimsPisController::class, 'data'])->name('kondisi-vacant-aims-pis.data');
+    Route::put('/{id}', [KondisiVacantAimsPisController::class, 'update'])->name('kondisi-vacant-aims-pis.update');
+    Route::delete('/{id}', [KondisiVacantAimsPisController::class, 'destroy'])->name('kondisi-vacant-aims-pis.destroy');
+});
+
+// MandatoryCertificationPisController
+Route::prefix('monev/shiml/input-data/mandatory-certification-pis')->group(function () {
+    Route::get('/', [MandatoryCertificationPisController::class, 'index'])->name('mandatory-certification-pis');
+    Route::post('/', [MandatoryCertificationPisController::class, 'store'])->name('mandatory-certification-pis.store');
+    Route::get('/data', [MandatoryCertificationPisController::class, 'data'])->name('mandatory-certification-pis.data');
+    Route::put('/{id}', [MandatoryCertificationPisController::class, 'update'])->name('mandatory-certification-pis.update');
+    Route::delete('/{id}', [MandatoryCertificationPisController::class, 'destroy'])->name('mandatory-certification-pis.destroy');
+});
+
+// PelatihanAimsPisController
+Route::prefix('monev/shiml/input-data/pelatihan-aims-pis')->group(function () {
+    Route::get('/', [PelatihanAimsPisController::class, 'index'])->name('pelatihan-aims-pis');
+    Route::post('/', [PelatihanAimsPisController::class, 'store'])->name('pelatihan-aims-pis.store');
+    Route::get('/data', [PelatihanAimsPisController::class, 'data'])->name('pelatihan-aims-pis.data');
+    Route::put('/{id}', [PelatihanAimsPisController::class, 'update'])->name('pelatihan-aims-pis.update');
+    Route::delete('/{id}', [PelatihanAimsPisController::class, 'destroy'])->name('pelatihan-aims-pis.destroy');
+});
+
+// RealAnggaranAiPisController
+Route::prefix('monev/shiml/input-data/real-anggaran-ai-pis')->group(function () {
+    Route::get('/', [RealAnggaranAiPisController::class, 'index'])->name('real-anggaran-ai-pis');
+    Route::post('/', [RealAnggaranAiPisController::class, 'store'])->name('real-anggaran-ai-pis.store');
+    Route::get('/data', [RealAnggaranAiPisController::class, 'data'])->name('real-anggaran-ai-pis.data');
+    Route::put('/{id}', [RealAnggaranAiPisController::class, 'update'])->name('real-anggaran-ai-pis.update');
+    Route::delete('/{id}', [RealAnggaranAiPisController::class, 'destroy'])->name('real-anggaran-ai-pis.destroy');
+});
+
+// RealAnggaranFigurePisController
+Route::prefix('monev/shiml/input-data/real-anggaran-figure-pis')->group(function () {
+    Route::get('/', [RealAnggaranFigurePisController::class, 'index'])->name('real-anggaran-figure-pis');
+    Route::post('/', [RealAnggaranFigurePisController::class, 'store'])->name('real-anggaran-figure-pis.store');
+    Route::get('/data', [RealAnggaranFigurePisController::class, 'data'])->name('real-anggaran-figure-pis.data');
+    Route::put('/{id}', [RealAnggaranFigurePisController::class, 'update'])->name('real-anggaran-figure-pis.update');
+    Route::delete('/{id}', [RealAnggaranFigurePisController::class, 'destroy'])->name('real-anggaran-figure-pis.destroy');
+});
+
+// RealProgFisikAiPisController
+Route::prefix('monev/shiml/input-data/real-prog-fisik-pis')->group(function () {
+    Route::get('/', [RealProgFisikAiPisController::class, 'index'])->name('real-prog-fisik-pis');
+    Route::post('/', [RealProgFisikAiPisController::class, 'store'])->name('real-prog-fisik-pis.store');
+    Route::get('/data', [RealProgFisikAiPisController::class, 'data'])->name('real-prog-fisik-pis.data');
+    Route::put('/{id}', [RealProgFisikAiPisController::class, 'update'])->name('real-prog-fisik-pis.update');
+    Route::delete('/{id}', [RealProgFisikAiPisController::class, 'destroy'])->name('real-prog-fisik-pis.destroy');
+});
+
+// RencanaPemeliharaanPisController
+Route::prefix('monev/shiml/input-data/rencana-pemeliharaan-pis')->group(function () {
+    Route::get('/', [RencanaPemeliharaanPisController::class, 'index'])->name('rencana-pemeliharaan-pis');
+    Route::post('/', [RencanaPemeliharaanPisController::class, 'store'])->name('rencana-pemeliharaan-pis.store');
+    Route::get('/data', [RencanaPemeliharaanPisController::class, 'data'])->name('rencana-pemeliharaan-pis.data');
+    Route::put('/{id}', [RencanaPemeliharaanPisController::class, 'update'])->name('rencana-pemeliharaan-pis.update');
+    Route::delete('/{id}', [RencanaPemeliharaanPisController::class, 'destroy'])->name('rencana-pemeliharaan-pis.destroy');
+});
+
+// SapAssetPisController
+Route::prefix('monev/shiml/input-data/sap-asset-pis')->group(function () {
+    Route::get('/', [SapAssetPisController::class, 'index'])->name('sap-asset-pis');
+    Route::post('/', [SapAssetPisController::class, 'store'])->name('sap-asset-pis.store');
+    Route::get('/data', [SapAssetPisController::class, 'data'])->name('sap-asset-pis.data');
+    Route::put('/{id}', [SapAssetPisController::class, 'update'])->name('sap-asset-pis.update');
+    Route::delete('/{id}', [SapAssetPisController::class, 'destroy'])->name('sap-asset-pis.destroy');
+});
+
+// SistemInformasiAimsPisController
+Route::prefix('monev/shiml/input-data/sistem-informasi-aims-pis')->group(function () {
+    Route::get('/', [SistemInformasiAimsPisController::class, 'index'])->name('sistem-informasi-aims-pis');
+    Route::post('/', [SistemInformasiAimsPisController::class, 'store'])->name('sistem-informasi-aims-pis.store');
+    Route::get('/data', [SistemInformasiAimsPisController::class, 'data'])->name('sistem-informasi-aims-pis.data');
+    Route::put('/{id}', [SistemInformasiAimsPisController::class, 'update'])->name('sistem-informasi-aims-pis.update');
+    Route::delete('/{id}', [SistemInformasiAimsPisController::class, 'destroy'])->name('sistem-informasi-aims-pis.destroy');
+});
+
+// StatusAssetAiPisController
+Route::prefix('monev/shiml/input-data/pis')->group(function () {
+    Route::get('/', [StatusAssetAiPisController::class, 'index'])->name('pis');
+    Route::post('/', [StatusAssetAiPisController::class, 'store'])->name('pis.store');
+    Route::get('/data', [StatusAssetAiPisController::class, 'data'])->name('pis.data');
+    Route::put('/{id}', [StatusAssetAiPisController::class, 'update'])->name('pis.update');
+    Route::delete('/{id}', [StatusAssetAiPisController::class, 'destroy'])->name('pis.destroy');
+});
+
+// StatusPloPisController
+Route::prefix('monev/shiml/input-data/status-plo-pis')->group(function () {
+    Route::get('/', [StatusPloPisController::class, 'index'])->name('status-plo-pis');
+    Route::post('/', [StatusPloPisController::class, 'store'])->name('status-plo-pis.store');
+    Route::get('/data', [StatusPloPisController::class, 'data'])->name('status-plo-pis.data');
+    Route::put('/{id}', [StatusPloPisController::class, 'update'])->name('status-plo-pis.update');
+    Route::delete('/{id}', [StatusPloPisController::class, 'destroy'])->name('status-plo-pis.destroy');
+});
+
+// AssetBreakdownPetController
+Route::prefix('monev/shiml/input-data/asset-breakdown-pet')->group(function () {
+    Route::get('/', [AssetBreakdownPetController::class, 'index'])->name('asset-breakdown-pet');
+    Route::post('/', [AssetBreakdownPetController::class, 'store'])->name('asset-breakdown-pet.store');
+    Route::get('/data', [AssetBreakdownPetController::class, 'data'])->name('asset-breakdown-pet.data');
+    Route::put('/{id}', [AssetBreakdownPetController::class, 'update'])->name('asset-breakdown-pet.update');
+    Route::delete('/{id}', [AssetBreakdownPetController::class, 'destroy'])->name('asset-breakdown-pet.destroy');
+});
+
+// AvailabilityPetController
+Route::prefix('monev/shiml/input-data/availability-pet')->group(function () {
+    Route::get('/', [AvailabilityPetController::class, 'index'])->name('availability-pet');
+    Route::post('/', [AvailabilityPetController::class, 'store'])->name('availability-pet.store');
+    Route::get('/data', [AvailabilityPetController::class, 'data'])->name('availability-pet.data');
+    Route::put('/{id}', [AvailabilityPetController::class, 'update'])->name('availability-pet.update');
+    Route::delete('/{id}', [AvailabilityPetController::class, 'destroy'])->name('availability-pet.destroy');
+});
+
+// KondisiVacantAimsPetController
+Route::prefix('monev/shiml/input-data/kondisi-vacant-aims-pet')->group(function () {
+    Route::get('/', [KondisiVacantAimsPetController::class, 'index'])->name('kondisi-vacant-aims-pet');
+    Route::post('/', [KondisiVacantAimsPetController::class, 'store'])->name('kondisi-vacant-aims-pet.store');
+    Route::get('/data', [KondisiVacantAimsPetController::class, 'data'])->name('kondisi-vacant-aims-pet.data');
+    Route::put('/{id}', [KondisiVacantAimsPetController::class, 'update'])->name('kondisi-vacant-aims-pet.update');
+    Route::delete('/{id}', [KondisiVacantAimsPetController::class, 'destroy'])->name('kondisi-vacant-aims-pet.destroy');
+});
+
+// MandatoryCertificationPetController
+Route::prefix('monev/shiml/input-data/mandatory-certification-pet')->group(function () {
+    Route::get('/', [MandatoryCertificationPetController::class, 'index'])->name('mandatory-certification-pet');
+    Route::post('/', [MandatoryCertificationPetController::class, 'store'])->name('mandatory-certification-pet.store');
+    Route::get('/data', [MandatoryCertificationPetController::class, 'data'])->name('mandatory-certification-pet.data');
+    Route::put('/{id}', [MandatoryCertificationPetController::class, 'update'])->name('mandatory-certification-pet.update');
+    Route::delete('/{id}', [MandatoryCertificationPetController::class, 'destroy'])->name('mandatory-certification-pet.destroy');
+});
+
+// PelatihanAimsPetController
+Route::prefix('monev/shiml/input-data/pelatihan-aims-pet')->group(function () {
+    Route::get('/', [PelatihanAimsPetController::class, 'index'])->name('pelatihan-aims-pet');
+    Route::post('/', [PelatihanAimsPetController::class, 'store'])->name('pelatihan-aims-pet.store');
+    Route::get('/data', [PelatihanAimsPetController::class, 'data'])->name('pelatihan-aims-pet.data');
+    Route::put('/{id}', [PelatihanAimsPetController::class, 'update'])->name('pelatihan-aims-pet.update');
+    Route::delete('/{id}', [PelatihanAimsPetController::class, 'destroy'])->name('pelatihan-aims-pet.destroy');
+});
+
+// RealAnggaranAiPetController
+Route::prefix('monev/shiml/input-data/real-anggaran-ai-pet')->group(function () {
+    Route::get('/', [RealAnggaranAiPetController::class, 'index'])->name('real-anggaran-ai-pet');
+    Route::post('/', [RealAnggaranAiPetController::class, 'store'])->name('real-anggaran-ai-pet.store');
+    Route::get('/data', [RealAnggaranAiPetController::class, 'data'])->name('real-anggaran-ai-pet.data');
+    Route::put('/{id}', [RealAnggaranAiPetController::class, 'update'])->name('real-anggaran-ai-pet.update');
+    Route::delete('/{id}', [RealAnggaranAiPetController::class, 'destroy'])->name('real-anggaran-ai-pet.destroy');
+});
+
+// RealAnggaranFigurePetController
+Route::prefix('monev/shiml/input-data/real-anggaran-figure-pet')->group(function () {
+    Route::get('/', [RealAnggaranFigurePetController::class, 'index'])->name('real-anggaran-figure-pet');
+    Route::post('/', [RealAnggaranFigurePetController::class, 'store'])->name('real-anggaran-figure-pet.store');
+    Route::get('/data', [RealAnggaranFigurePetController::class, 'data'])->name('real-anggaran-figure-pet.data');
+    Route::put('/{id}', [RealAnggaranFigurePetController::class, 'update'])->name('real-anggaran-figure-pet.update');
+    Route::delete('/{id}', [RealAnggaranFigurePetController::class, 'destroy'])->name('real-anggaran-figure-pet.destroy');
+});
+
+// RealProgFisikAiPetController
+Route::prefix('monev/shiml/input-data/real-prog-fisik-pet')->group(function () {
+    Route::get('/', [RealProgFisikAiPetController::class, 'index'])->name('real-prog-fisik-pet');
+    Route::post('/', [RealProgFisikAiPetController::class, 'store'])->name('real-prog-fisik-pet.store');
+    Route::get('/data', [RealProgFisikAiPetController::class, 'data'])->name('real-prog-fisik-pet.data');
+    Route::put('/{id}', [RealProgFisikAiPetController::class, 'update'])->name('real-prog-fisik-pet.update');
+    Route::delete('/{id}', [RealProgFisikAiPetController::class, 'destroy'])->name('real-prog-fisik-pet.destroy');
+});
+
+// RencanaPemeliharaanPetController
+Route::prefix('monev/shiml/input-data/rencana-pemeliharaan-pet')->group(function () {
+    Route::get('/', [RencanaPemeliharaanPetController::class, 'index'])->name('rencana-pemeliharaan-pet');
+    Route::post('/', [RencanaPemeliharaanPetController::class, 'store'])->name('rencana-pemeliharaan-pet.store');
+    Route::get('/data', [RencanaPemeliharaanPetController::class, 'data'])->name('rencana-pemeliharaan-pet.data');
+    Route::put('/{id}', [RencanaPemeliharaanPetController::class, 'update'])->name('rencana-pemeliharaan-pet.update');
+    Route::delete('/{id}', [RencanaPemeliharaanPetController::class, 'destroy'])->name('rencana-pemeliharaan-pet.destroy');
+});
+
+// SapAssetPetController
+Route::prefix('monev/shiml/input-data/sap-asset-pet')->group(function () {
+    Route::get('/', [SapAssetPetController::class, 'index'])->name('sap-asset-pet');
+    Route::post('/', [SapAssetPetController::class, 'store'])->name('sap-asset-pet.store');
+    Route::get('/data', [SapAssetPetController::class, 'data'])->name('sap-asset-pet.data');
+    Route::put('/{id}', [SapAssetPetController::class, 'update'])->name('sap-asset-pet.update');
+    Route::delete('/{id}', [SapAssetPetController::class, 'destroy'])->name('sap-asset-pet.destroy');
+});
+
+// SistemInformasiAimsPetController
+Route::prefix('monev/shiml/input-data/sistem-informasi-aims-pet')->group(function () {
+    Route::get('/', [SistemInformasiAimsPetController::class, 'index'])->name('sistem-informasi-aims-pet');
+    Route::post('/', [SistemInformasiAimsPetController::class, 'store'])->name('sistem-informasi-aims-pet.store');
+    Route::get('/data', [SistemInformasiAimsPetController::class, 'data'])->name('sistem-informasi-aims-pet.data');
+    Route::put('/{id}', [SistemInformasiAimsPetController::class, 'update'])->name('sistem-informasi-aims-pet.update');
+    Route::delete('/{id}', [SistemInformasiAimsPetController::class, 'destroy'])->name('sistem-informasi-aims-pet.destroy');
+});
+
+// StatusAsseAiPetController
+Route::prefix('monev/shiml/input-data/pet')->group(function () {
+    Route::get('/', [StatusAsseAiPetController::class, 'index'])->name('pet');
+    Route::post('/', [StatusAsseAiPetController::class, 'store'])->name('pet.store');
+    Route::get('/data', [StatusAsseAiPetController::class, 'data'])->name('pet.data');
+    Route::put('/{id}', [StatusAsseAiPetController::class, 'update'])->name('pet.update');
+    Route::delete('/{id}', [StatusAsseAiPetController::class, 'destroy'])->name('pet.destroy');
+});
+
+// StatusPloPetController
+Route::prefix('monev/shiml/input-data/status-plo-pet')->group(function () {
+    Route::get('/', [StatusPloPetController::class, 'index'])->name('status-plo-pet');
+    Route::post('/', [StatusPloPetController::class, 'store'])->name('status-plo-pet.store');
+    Route::get('/data', [StatusPloPetController::class, 'data'])->name('status-plo-pet.data');
+    Route::put('/{id}', [StatusPloPetController::class, 'update'])->name('status-plo-pet.update');
+    Route::delete('/{id}', [StatusPloPetController::class, 'destroy'])->name('status-plo-pet.destroy');
+});
+
+// PTK 
+// AssetBreakdownPtkController
+Route::prefix('monev/shiml/input-data/asset-breakdown-ptk')->group(function () {
+    Route::get('/', [AssetBreakdownPtkController::class, 'index'])->name('asset-breakdown-ptk');
+    Route::post('/', [AssetBreakdownPtkController::class, 'store'])->name('asset-breakdown-ptk.store');
+    Route::get('/data', [AssetBreakdownPtkController::class, 'data'])->name('asset-breakdown-ptk.data');
+    Route::put('/{id}', [AssetBreakdownPtkController::class, 'update'])->name('asset-breakdown-ptk.update');
+    Route::delete('/{id}', [AssetBreakdownPtkController::class, 'destroy'])->name('asset-breakdown-ptk.destroy');
+});
+
+// AvailabilityPtkController
+Route::prefix('monev/shiml/input-data/availability-ptk')->group(function () {
+    Route::get('/', [AvailabilityPtkController::class, 'index'])->name('availability-ptk');
+    Route::post('/', [AvailabilityPtkController::class, 'store'])->name('availability-ptk.store');
+    Route::get('/data', [AvailabilityPtkController::class, 'data'])->name('availability-ptk.data');
+    Route::put('/{id}', [AvailabilityPtkController::class, 'update'])->name('availability-ptk.update');
+    Route::delete('/{id}', [AvailabilityPtkController::class, 'destroy'])->name('availability-ptk.destroy');
+});
+
+// KondisiVacantAimsPtkController
+Route::prefix('monev/shiml/input-data/kondisi-vacant-aims-ptk')->group(function () {
+    Route::get('/', [KondisiVacantAimsPtkController::class, 'index'])->name('kondisi-vacant-aims-ptk');
+    Route::post('/', [KondisiVacantAimsPtkController::class, 'store'])->name('kondisi-vacant-aims-ptk.store');
+    Route::get('/data', [KondisiVacantAimsPtkController::class, 'data'])->name('kondisi-vacant-aims-ptk.data');
+    Route::put('/{id}', [KondisiVacantAimsPtkController::class, 'update'])->name('kondisi-vacant-aims-ptk.update');
+    Route::delete('/{id}', [KondisiVacantAimsPtkController::class, 'destroy'])->name('kondisi-vacant-aims-ptk.destroy');
+});
+
+// MandatoryCertificationPtkController
+Route::prefix('monev/shiml/input-data/mandatory-certification-ptk')->group(function () {
+    Route::get('/', [MandatoryCertificationPtkController::class, 'index'])->name('mandatory-certification-ptk');
+    Route::post('/', [MandatoryCertificationPtkController::class, 'store'])->name('mandatory-certification-ptk.store');
+    Route::get('/data', [MandatoryCertificationPtkController::class, 'data'])->name('mandatory-certification-ptk.data');
+    Route::put('/{id}', [MandatoryCertificationPtkController::class, 'update'])->name('mandatory-certification-ptk.update');
+    Route::delete('/{id}', [MandatoryCertificationPtkController::class, 'destroy'])->name('mandatory-certification-ptk.destroy');
+});
+
+// PelatihanAimsPtkController
+Route::prefix('monev/shiml/input-data/pelatihan-aims-ptk')->group(function () {
+    Route::get('/', [PelatihanAimsPtkController::class, 'index'])->name('pelatihan-aims-ptk');
+    Route::post('/', [PelatihanAimsPtkController::class, 'store'])->name('pelatihan-aims-ptk.store');
+    Route::get('/data', [PelatihanAimsPtkController::class, 'data'])->name('pelatihan-aims-ptk.data');
+    Route::put('/{id}', [PelatihanAimsPtkController::class, 'update'])->name('pelatihan-aims-ptk.update');
+    Route::delete('/{id}', [PelatihanAimsPtkController::class, 'destroy'])->name('pelatihan-aims-ptk.destroy');
+});
+
+// RealAnggaranAiPtkController
+Route::prefix('monev/shiml/input-data/real-anggaran-ai-ptk')->group(function () {
+    Route::get('/', [RealAnggaranAiPtkController::class, 'index'])->name('real-anggaran-ai-ptk');
+    Route::post('/', [RealAnggaranAiPtkController::class, 'store'])->name('real-anggaran-ai-ptk.store');
+    Route::get('/data', [RealAnggaranAiPtkController::class, 'data'])->name('real-anggaran-ai-ptk.data');
+    Route::put('/{id}', [RealAnggaranAiPtkController::class, 'update'])->name('real-anggaran-ai-ptk.update');
+    Route::delete('/{id}', [RealAnggaranAiPtkController::class, 'destroy'])->name('real-anggaran-ai-ptk.destroy');
+});
+
+// RealAnggaranFigurePtkController
+Route::prefix('monev/shiml/input-data/real-anggaran-figure-ptk')->group(function () {
+    Route::get('/', [RealAnggaranFigurePtkController::class, 'index'])->name('real-anggaran-figure-ptk');
+    Route::post('/', [RealAnggaranFigurePtkController::class, 'store'])->name('real-anggaran-figure-ptk.store');
+    Route::get('/data', [RealAnggaranFigurePtkController::class, 'data'])->name('real-anggaran-figure-ptk.data');
+    Route::put('/{id}', [RealAnggaranFigurePtkController::class, 'update'])->name('real-anggaran-figure-ptk.update');
+    Route::delete('/{id}', [RealAnggaranFigurePtkController::class, 'destroy'])->name('real-anggaran-figure-ptk.destroy');
+});
+
+// RealProgFisikAiPtkController
+Route::prefix('monev/shiml/input-data/real-prog-fisik-ptk')->group(function () {
+    Route::get('/', [RealProgFisikAiPtkController::class, 'index'])->name('real-prog-fisik-ptk');
+    Route::post('/', [RealProgFisikAiPtkController::class, 'store'])->name('real-prog-fisik-ptk.store');
+    Route::get('/data', [RealProgFisikAiPtkController::class, 'data'])->name('real-prog-fisik-ptk.data');
+    Route::put('/{id}', [RealProgFisikAiPtkController::class, 'update'])->name('real-prog-fisik-ptk.update');
+    Route::delete('/{id}', [RealProgFisikAiPtkController::class, 'destroy'])->name('real-prog-fisik-ptk.destroy');
+});
+
+// RencanaPemeliharaanPtkController
+Route::prefix('monev/shiml/input-data/rencana-pemeliharaan-ptk')->group(function () {
+    Route::get('/', [RencanaPemeliharaanPtkController::class, 'index'])->name('rencana-pemeliharaan-ptk');
+    Route::post('/', [RencanaPemeliharaanPtkController::class, 'store'])->name('rencana-pemeliharaan-ptk.store');
+    Route::get('/data', [RencanaPemeliharaanPtkController::class, 'data'])->name('rencana-pemeliharaan-ptk.data');
+    Route::put('/{id}', [RencanaPemeliharaanPtkController::class, 'update'])->name('rencana-pemeliharaan-ptk.update');
+    Route::delete('/{id}', [RencanaPemeliharaanPtkController::class, 'destroy'])->name('rencana-pemeliharaan-ptk.destroy');
+});
+
+// SapAssetPtkController
+Route::prefix('monev/shiml/input-data/sap-asset-ptk')->group(function () {
+    Route::get('/', [SapAssetPtkController::class, 'index'])->name('sap-asset-ptk');
+    Route::post('/', [SapAssetPtkController::class, 'store'])->name('sap-asset-ptk.store');
+    Route::get('/data', [SapAssetPtkController::class, 'data'])->name('sap-asset-ptk.data');
+    Route::put('/{id}', [SapAssetPtkController::class, 'update'])->name('sap-asset-ptk.update');
+    Route::delete('/{id}', [SapAssetPtkController::class, 'destroy'])->name('sap-asset-ptk.destroy');
+});
+
+// SistemInformasiAimsPtkController
+Route::prefix('monev/shiml/input-data/sistem-informasi-aims-ptk')->group(function () {
+    Route::get('/', [SistemInformasiAimsPtkController::class, 'index'])->name('sistem-informasi-aims-ptk');
+    Route::post('/', [SistemInformasiAimsPtkController::class, 'store'])->name('sistem-informasi-aims-ptk.store');
+    Route::get('/data', [SistemInformasiAimsPtkController::class, 'data'])->name('sistem-informasi-aims-ptk.data');
+    Route::put('/{id}', [SistemInformasiAimsPtkController::class, 'update'])->name('sistem-informasi-aims-ptk.update');
+    Route::delete('/{id}', [SistemInformasiAimsPtkController::class, 'destroy'])->name('sistem-informasi-aims-ptk.destroy');
+});
+
+// StatusAssetAiPtkController
+Route::prefix('monev/shiml/input-data/ptk')->group(function () {
+    Route::get('/', [StatusAssetAiPtkController::class, 'index'])->name('ptk');
+    Route::post('/', [StatusAssetAiPtkController::class, 'store'])->name('ptk.store');
+    Route::get('/data', [StatusAssetAiPtkController::class, 'data'])->name('ptk.data');
+    Route::put('/{id}', [StatusAssetAiPtkController::class, 'update'])->name('ptk.update');
+    Route::delete('/{id}', [StatusAssetAiPtkController::class, 'destroy'])->name('ptk.destroy');
+});
+
+// StatusPloPtkController
+Route::prefix('monev/shiml/input-data/status-plo-ptk')->group(function () {
+    Route::get('/', [StatusPloPtkController::class, 'index'])->name('status-plo-ptk');
+    Route::post('/', [StatusPloPtkController::class, 'store'])->name('status-plo-ptk.store');
+    Route::get('/data', [StatusPloPtkController::class, 'data'])->name('status-plo-ptk.data');
+    Route::put('/{id}', [StatusPloPtkController::class, 'update'])->name('status-plo-ptk.update');
+    Route::delete('/{id}', [StatusPloPtkController::class, 'destroy'])->name('status-plo-ptk.destroy');
+});
 
 
 

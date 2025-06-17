@@ -256,7 +256,8 @@
                                 <i class="fa fa-wrench me-2"></i>Lumut Balai
                             </a>
                         </li>
-                        <li class="menu-item {{ request()->is('monev/shpnre/input-data/lahendong') ? 'active' : '' }}">
+                        <li
+                            class="menu-item {{ request()->is('monev/shpnre/input-data/lahendong') ? 'active' : '' }}">
                             <a class="menu-link" href="{{ url('monev/shpnre/input-data/lahendong') }}">
                                 <i class="fa fa-wrench me-2"></i>Lahendong
                             </a>
@@ -314,6 +315,32 @@
                 <i class="menu-icon tf-icons bx bx-building-house"></i>
                 <div>SH IML</div>
             </a>
+            <ul class="menu-sub">
+                <li class="menu-item {{ request()->is('monev/shiml/input-data*') ? 'active open' : '' }}">
+                    <a href="javascript:void(0);" class="menu-link menu-toggle">
+                        Input Data Monev
+                    </a>
+                    <ul class="menu-sub">
+                        <li
+                            class="menu-item {{ request()->is('monev/shiml/input-data/pis*') ? 'active' : '' }}">
+                            <a class="menu-link" href="{{ url('monev/shiml/input-data/pis') }}">
+                                <i class="fa fa-wrench me-2"></i>PIS
+                            </a>
+                        </li>
+                        <li
+                            class="menu-item {{ request()->is('monev/shiml/input-data/pet') ? 'active' : '' }}">
+                            <a class="menu-link" href="{{ url('monev/shiml/input-data/pet') }}">
+                                <i class="fa fa-wrench me-2"></i>PET
+                            </a>
+                        </li>
+                        <li class="menu-item {{ request()->is('monev/shiml/input-data/ptk') ? 'active' : '' }}">
+                            <a class="menu-link" href="{{ url('monev/shiml/input-data/ptk') }}">
+                                <i class="fa fa-wrench me-2"></i>PTK
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
         </li>
 
         {{-- </ul>
