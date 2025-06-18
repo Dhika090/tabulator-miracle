@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\SHIML\PTK;
+namespace App\Http\Requests\SHRNP\RuDumai;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AssetBreakdownPtkRequest extends FormRequest
+class AssetBreakdownRuDumaiRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

@@ -345,6 +345,19 @@ use App\Http\Controllers\SHIML\InputDataMonev\PTK\SapAssetPtkController;
 use App\Http\Controllers\SHIML\InputDataMonev\PTK\SistemInformasiAimsPtkController;
 use App\Http\Controllers\SHIML\InputDataMonev\PTK\StatusAssetAiPtkController;
 use App\Http\Controllers\SHIML\InputDataMonev\PTK\StatusPloPtkController;
+use App\Http\Controllers\SHRNP\InputDataMonev\RuDumai\AssetBreakdownRuDumaiController;
+use App\Http\Controllers\SHRNP\InputDataMonev\RuDumai\AvailabilityRuDumaiController;
+use App\Http\Controllers\SHRNP\InputDataMonev\RuDumai\KondisiVacantAimsRuDumaiController;
+use App\Http\Controllers\SHRNP\InputDataMonev\RuDumai\MandatoryCertificationRuDumaiController;
+use App\Http\Controllers\SHRNP\InputDataMonev\RuDumai\PelatihanAimsRuDumaiController;
+use App\Http\Controllers\SHRNP\InputDataMonev\RuDumai\RealAnggaranAiRuDumaiController;
+use App\Http\Controllers\SHRNP\InputDataMonev\RuDumai\RealAnggaranFigureRuDumaiController;
+use App\Http\Controllers\SHRNP\InputDataMonev\RuDumai\RealProgFisikAiRuDumaiController;
+use App\Http\Controllers\SHRNP\InputDataMonev\RuDumai\RencanaPemeliharaanRuDumaiController;
+use App\Http\Controllers\SHRNP\InputDataMonev\RuDumai\SistemInformasiAimsRuDumaiController;
+use App\Http\Controllers\SHRNP\InputDataMonev\RuDumai\StatusAssetAiRuDumaiController;
+use App\Http\Controllers\SHRNP\InputDataMonev\RuDumai\StatusPloRuDumaiController;
+use App\Http\Controllers\SHRNP\InputDataMonev\RuDumai\SapAssetRuDumaiController;
 
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
@@ -3191,9 +3204,123 @@ Route::prefix('monev/shiml/input-data/status-plo-ptk')->group(function () {
     Route::delete('/{id}', [StatusPloPtkController::class, 'destroy'])->name('status-plo-ptk.destroy');
 });
 
+// SHRNP
+// AssetBreakdownRuDumaiController
+Route::prefix('monev/shrnp/input-data/asset-breakdown-ru-dumai')->group(function () {
+    Route::get('/', [AssetBreakdownRuDumaiController::class, 'index'])->name('asset-breakdown-ru-dumai');
+    Route::post('/', [AssetBreakdownRuDumaiController::class, 'store'])->name('asset-breakdown-ru-dumai.store');
+    Route::get('/data', [AssetBreakdownRuDumaiController::class, 'data'])->name('asset-breakdown-ru-dumai.data');
+    Route::put('/{id}', [AssetBreakdownRuDumaiController::class, 'update'])->name('asset-breakdown-ru-dumai.update');
+    Route::delete('/{id}', [AssetBreakdownRuDumaiController::class, 'destroy'])->name('asset-breakdown-ru-dumai.destroy');
+});
 
+// AvailabilityRuDumaiController
+Route::prefix('monev/shrnp/input-data/availability-ru-dumai')->group(function () {
+    Route::get('/', [AvailabilityRuDumaiController::class, 'index'])->name('availability-ru-dumai');
+    Route::post('/', [AvailabilityRuDumaiController::class, 'store'])->name('availability-ru-dumai.store');
+    Route::get('/data', [AvailabilityRuDumaiController::class, 'data'])->name('availability-ru-dumai.data');
+    Route::put('/{id}', [AvailabilityRuDumaiController::class, 'update'])->name('availability-ru-dumai.update');
+    Route::delete('/{id}', [AvailabilityRuDumaiController::class, 'destroy'])->name('availability-ru-dumai.destroy');
+});
 
+// KondisiVacantAimsRuDumaiController
+Route::prefix('monev/shrnp/input-data/kondisi-vacant-aims-ru-dumai')->group(function () {
+    Route::get('/', [KondisiVacantAimsRuDumaiController::class, 'index'])->name('kondisi-vacant-aims-ru-dumai');
+    Route::post('/', [KondisiVacantAimsRuDumaiController::class, 'store'])->name('kondisi-vacant-aims-ru-dumai.store');
+    Route::get('/data', [KondisiVacantAimsRuDumaiController::class, 'data'])->name('kondisi-vacant-aims-ru-dumai.data');
+    Route::put('/{id}', [KondisiVacantAimsRuDumaiController::class, 'update'])->name('kondisi-vacant-aims-ru-dumai.update');
+    Route::delete('/{id}', [KondisiVacantAimsRuDumaiController::class, 'destroy'])->name('kondisi-vacant-aims-ru-dumai.destroy');
+});
 
+// MandatoryCertificationRuDumaiController
+Route::prefix('monev/shrnp/input-data/mandatory-certification-ru-dumai')->group(function () {
+    Route::get('/', [MandatoryCertificationRuDumaiController::class, 'index'])->name('mandatory-certification-ru-dumai');
+    Route::post('/', [MandatoryCertificationRuDumaiController::class, 'store'])->name('mandatory-certification-ru-dumai.store');
+    Route::get('/data', [MandatoryCertificationRuDumaiController::class, 'data'])->name('mandatory-certification-ru-dumai.data');
+    Route::put('/{id}', [MandatoryCertificationRuDumaiController::class, 'update'])->name('mandatory-certification-ru-dumai.update');
+    Route::delete('/{id}', [MandatoryCertificationRuDumaiController::class, 'destroy'])->name('mandatory-certification-ru-dumai.destroy');
+});
+
+// PelatihanAimsRuDumaiController
+Route::prefix('monev/shrnp/input-data/pelatihan-aims-ru-dumai')->group(function () {
+    Route::get('/', [PelatihanAimsRuDumaiController::class, 'index'])->name('pelatihan-aims-ru-dumai');
+    Route::post('/', [PelatihanAimsRuDumaiController::class, 'store'])->name('pelatihan-aims-ru-dumai.store');
+    Route::get('/data', [PelatihanAimsRuDumaiController::class, 'data'])->name('pelatihan-aims-ru-dumai.data');
+    Route::put('/{id}', [PelatihanAimsRuDumaiController::class, 'update'])->name('pelatihan-aims-ru-dumai.update');
+    Route::delete('/{id}', [PelatihanAimsRuDumaiController::class, 'destroy'])->name('pelatihan-aims-ru-dumai.destroy');
+});
+
+// RealAnggaranAiRuDumaiController
+Route::prefix('monev/shrnp/input-data/real-anggaran-ai-ru-dumai')->group(function () {
+    Route::get('/', [RealAnggaranAiRuDumaiController::class, 'index'])->name('real-anggaran-ai-ru-dumai');
+    Route::post('/', [RealAnggaranAiRuDumaiController::class, 'store'])->name('real-anggaran-ai-ru-dumai.store');
+    Route::get('/data', [RealAnggaranAiRuDumaiController::class, 'data'])->name('real-anggaran-ai-ru-dumai.data');
+    Route::put('/{id}', [RealAnggaranAiRuDumaiController::class, 'update'])->name('real-anggaran-ai-ru-dumai.update');
+    Route::delete('/{id}', [RealAnggaranAiRuDumaiController::class, 'destroy'])->name('real-anggaran-ai-ru-dumai.destroy');
+});
+
+// RealAnggaranFigureRuDumaiController
+Route::prefix('monev/shrnp/input-data/real-anggaran-figure-ru-dumai')->group(function () {
+    Route::get('/', [RealAnggaranFigureRuDumaiController::class, 'index'])->name('real-anggaran-figure-ru-dumai');
+    Route::post('/', [RealAnggaranFigureRuDumaiController::class, 'store'])->name('real-anggaran-figure-ru-dumai.store');
+    Route::get('/data', [RealAnggaranFigureRuDumaiController::class, 'data'])->name('real-anggaran-figure-ru-dumai.data');
+    Route::put('/{id}', [RealAnggaranFigureRuDumaiController::class, 'update'])->name('real-anggaran-figure-ru-dumai.update');
+    Route::delete('/{id}', [RealAnggaranFigureRuDumaiController::class, 'destroy'])->name('real-anggaran-figure-ru-dumai.destroy');
+});
+
+// RealProgFisikAiRuDumaiController
+Route::prefix('monev/shrnp/input-data/real-prog-fisik-ru-dumai')->group(function () {
+    Route::get('/', [RealProgFisikAiRuDumaiController::class, 'index'])->name('real-prog-fisik-ru-dumai');
+    Route::post('/', [RealProgFisikAiRuDumaiController::class, 'store'])->name('real-prog-fisik-ru-dumai.store');
+    Route::get('/data', [RealProgFisikAiRuDumaiController::class, 'data'])->name('real-prog-fisik-ru-dumai.data');
+    Route::put('/{id}', [RealProgFisikAiRuDumaiController::class, 'update'])->name('real-prog-fisik-ru-dumai.update');
+    Route::delete('/{id}', [RealProgFisikAiRuDumaiController::class, 'destroy'])->name('real-prog-fisik-ru-dumai.destroy');
+});
+
+// RencanaPemeliharaanRuDumaiController
+Route::prefix('monev/shrnp/input-data/rencana-pemeliharaan-ru-dumai')->group(function () {
+    Route::get('/', [RencanaPemeliharaanRuDumaiController::class, 'index'])->name('rencana-pemeliharaan-ru-dumai');
+    Route::post('/', [RencanaPemeliharaanRuDumaiController::class, 'store'])->name('rencana-pemeliharaan-ru-dumai.store');
+    Route::get('/data', [RencanaPemeliharaanRuDumaiController::class, 'data'])->name('rencana-pemeliharaan-ru-dumai.data');
+    Route::put('/{id}', [RencanaPemeliharaanRuDumaiController::class, 'update'])->name('rencana-pemeliharaan-ru-dumai.update');
+    Route::delete('/{id}', [RencanaPemeliharaanRuDumaiController::class, 'destroy'])->name('rencana-pemeliharaan-ru-dumai.destroy');
+});
+
+// SistemInformasiAimsRuDumaiController
+Route::prefix('monev/shrnp/input-data/sistem-informasi-aims-ru-dumai')->group(function () {
+    Route::get('/', [SistemInformasiAimsRuDumaiController::class, 'index'])->name('sistem-informasi-aims-ru-dumai');
+    Route::post('/', [SistemInformasiAimsRuDumaiController::class, 'store'])->name('sistem-informasi-aims-ru-dumai.store');
+    Route::get('/data', [SistemInformasiAimsRuDumaiController::class, 'data'])->name('sistem-informasi-aims-ru-dumai.data');
+    Route::put('/{id}', [SistemInformasiAimsRuDumaiController::class, 'update'])->name('sistem-informasi-aims-ru-dumai.update');
+    Route::delete('/{id}', [SistemInformasiAimsRuDumaiController::class, 'destroy'])->name('sistem-informasi-aims-ru-dumai.destroy');
+});
+
+// StatusAssetAiRuDumaiController
+Route::prefix('monev/shrnp/input-data/ru-dumai')->group(function () {
+    Route::get('/', [StatusAssetAiRuDumaiController::class, 'index'])->name('ru-dumai');
+    Route::post('/', [StatusAssetAiRuDumaiController::class, 'store'])->name('ru-dumai.store');
+    Route::get('/data', [StatusAssetAiRuDumaiController::class, 'data'])->name('ru-dumai.data');
+    Route::put('/{id}', [StatusAssetAiRuDumaiController::class, 'update'])->name('ru-dumai.update');
+    Route::delete('/{id}', [StatusAssetAiRuDumaiController::class, 'destroy'])->name('ru-dumai.destroy');
+});
+
+// StatusPloRuDumaiController
+Route::prefix('monev/shrnp/input-data/status-plo-ru-dumai')->group(function () {
+    Route::get('/', [StatusPloRuDumaiController::class, 'index'])->name('status-plo-ru-dumai');
+    Route::post('/', [StatusPloRuDumaiController::class, 'store'])->name('status-plo-ru-dumai.store');
+    Route::get('/data', [StatusPloRuDumaiController::class, 'data'])->name('status-plo-ru-dumai.data');
+    Route::put('/{id}', [StatusPloRuDumaiController::class, 'update'])->name('status-plo-ru-dumai.update');
+    Route::delete('/{id}', [StatusPloRuDumaiController::class, 'destroy'])->name('status-plo-ru-dumai.destroy');
+});
+
+// SapAssetRuDumaiController
+Route::prefix('monev/shrnp/input-data/sap-asset-ru-dumai')->group(function () {
+    Route::get('/', [SapAssetRuDumaiController::class, 'index'])->name('sap-asset-ru-dumai');
+    Route::post('/', [SapAssetRuDumaiController::class, 'store'])->name('sap-asset-ru-dumai.store');
+    Route::get('/data', [SapAssetRuDumaiController::class, 'data'])->name('sap-asset-ru-dumai.data');
+    Route::put('/{id}', [SapAssetRuDumaiController::class, 'update'])->name('sap-asset-ru-dumai.update');
+    Route::delete('/{id}', [SapAssetRuDumaiController::class, 'destroy'])->name('sap-asset-ru-dumai.destroy');
+});
 
 
 

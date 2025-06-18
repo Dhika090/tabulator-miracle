@@ -304,11 +304,54 @@
                 <div>SH C&T</div>
             </a>
         </li>
-        <li class="menu-item {{ request()->is('monev/shrp/*') ? 'active open' : '' }}">
+        <li class="menu-item {{ request()->is('monev/shrnp/*') ? 'active open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-building-house"></i>
                 <div>SH R&P</div>
             </a>
+            <ul class="menu-sub">
+                <li class="menu-item {{ request()->is('monev/shrnp/input-data*') ? 'active open' : '' }}">
+                    <a href="javascript:void(0);" class="menu-link menu-toggle">
+                        Input Data Monev
+                    </a>
+                    <ul class="menu-sub">
+                        <li class="menu-item {{ request()->is('monev/shrnp/input-data/ru-dumai*') ? 'active' : '' }}">
+                            <a class="menu-link" href="{{ url('monev/shrnp/input-data/ru-dumai') }}">
+                                <i class="fa fa-wrench me-2"></i>RU II Dumai
+                            </a>
+                        </li>
+                        <li class="menu-item {{ request()->is('monev/shrnp/input-data/ru-plaju') ? 'active' : '' }}">
+                            <a class="menu-link" href="{{ url('monev/shrnp/input-data/ru-plaju') }}">
+                                <i class="fa fa-wrench me-2"></i>RU III Plaju
+                            </a>
+                        </li>
+                        <li
+                            class="menu-item {{ request()->is('monev/shrnp/input-data/ru-cilacap') ? 'active' : '' }}">
+                            <a class="menu-link" href="{{ url('monev/shrnp/input-data/ru-cilacap') }}">
+                                <i class="fa fa-wrench me-2"></i>RU IV Cilacap
+                            </a>
+                        </li>
+                        <li
+                            class="menu-item {{ request()->is('monev/shrnp/input-data/ru-balikpapan') ? 'active' : '' }}">
+                            <a class="menu-link" href="{{ url('monev/shrnp/input-data/ru-balikpapan') }}">
+                                <i class="fa fa-wrench me-2"></i>RU V Balikpapan
+                            </a>
+                        </li>
+                        <li
+                            class="menu-item {{ request()->is('monev/shrnp/input-data/ru-balongan') ? 'active' : '' }}">
+                            <a class="menu-link" href="{{ url('monev/shrnp/input-data/ru-balongan') }}">
+                                <i class="fa fa-wrench me-2"></i>RU VI Balongan
+                            </a>
+                        </li>
+                        <li
+                            class="menu-item {{ request()->is('monev/shrnp/input-data/ru-kasim') ? 'active' : '' }}">
+                            <a class="menu-link" href="{{ url('monev/shrnp/input-data/ru-kasim') }}">
+                                <i class="fa fa-wrench me-2"></i>RU VII Kasim
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
         </li>
         <li class="menu-item {{ request()->is('monev/shiml/*') ? 'active open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -321,14 +364,12 @@
                         Input Data Monev
                     </a>
                     <ul class="menu-sub">
-                        <li
-                            class="menu-item {{ request()->is('monev/shiml/input-data/pis*') ? 'active' : '' }}">
+                        <li class="menu-item {{ request()->is('monev/shiml/input-data/pis*') ? 'active' : '' }}">
                             <a class="menu-link" href="{{ url('monev/shiml/input-data/pis') }}">
                                 <i class="fa fa-wrench me-2"></i>PIS
                             </a>
                         </li>
-                        <li
-                            class="menu-item {{ request()->is('monev/shiml/input-data/pet') ? 'active' : '' }}">
+                        <li class="menu-item {{ request()->is('monev/shiml/input-data/pet') ? 'active' : '' }}">
                             <a class="menu-link" href="{{ url('monev/shiml/input-data/pet') }}">
                                 <i class="fa fa-wrench me-2"></i>PET
                             </a>

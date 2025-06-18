@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\SHIML\PTK;
+namespace App\Http\Requests\SHRNP\RuDumai;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AvailabilityPtkRequest extends FormRequest
+class PelatihanAimstRuDumaiRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,12 +24,8 @@ class AvailabilityPtkRequest extends FormRequest
         return [
             'periode' => 'nullable|string|max:255',
             'company' => 'nullable|string|max:255',
-            'kategori' => 'nullable|string|max:500',
-            'target' => 'nullable|numeric',
-            'availability' => 'nullable|numeric',
-            'isu' => 'nullable|string',
-            'kendala' => 'nullable|string|max:550',
-            'tindak_lanjut' => 'nullable|string|max:550',
+            'judul_pelatihan' => 'nullable|string|max:255',
+            'realisasi_perwira' => 'nullable|integer',
         ];
     }
 }
