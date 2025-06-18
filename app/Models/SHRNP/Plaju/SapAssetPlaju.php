@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Models\SHRNP\RuDumai;
+namespace App\Models\SHRNP\Plaju;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 
-class SapAssetRuDumai extends Model
+class SapAssetPlaju extends Model
 {
     use HasFactory;
     public $incrementing = false;
@@ -22,7 +22,7 @@ class SapAssetRuDumai extends Model
         });
     }
 
-    protected $table = 'shrnp_ruu_dumai_sap_asset';
+    protected $table = 'shrnp_plaju_sap_asset';
     protected $fillable = [
         'periode',
         'subholding',

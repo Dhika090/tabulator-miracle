@@ -18,6 +18,11 @@
                 font-size: 14px;
             }
 
+            .tabulator .tabulator-cell {
+                white-space: normal !important;
+                word-wrap: break-word;
+            }
+
             .card {
                 margin-top: 20px;
             }
@@ -25,11 +30,6 @@
             .tab-scroll-wrapper {
                 border-bottom: 1px solid #dee2e6;
                 padding-bottom: 5px;
-            }
-
-            .tabulator .tabulator-cell {
-                white-space: normal !important;
-                word-wrap: break-word;
             }
 
             .tab-scroll-wrapper {
@@ -125,7 +125,7 @@
     <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-                <h5 class="card-title mb-3 mb-md-0">Kondisi Vacant Fungsi AIMS Ru Dumai</h5>
+                <h5 class="card-title mb-3 mb-md-0">Asset Breakdown Plaju</h5>
                 <div class="d-flex flex-column flex-md-row align-items-center gap-3">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
@@ -183,9 +183,10 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Tambah Kondisi Vacant Ru Dumai</h3>
+            <h3>Tambah Target Asset Breakdown Plaju</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
+
                 <div>
                     <label>Periode</label>
                     <input type="month" name="periode" id="periode">
@@ -197,38 +198,87 @@
                 </div>
 
                 <div>
-                    <label>Total Personil Asset Integrity</label>
-                    <input type="number" name="total_personil_asset_integrity" id="total_personil_asset_integrity">
+                    <label>Plant/Segment</label>
+                    <input type="text" name="plant_segment" id="plant_segment">
                 </div>
 
                 <div>
-                    <label>Jumlah Personil Vacant</label>
-                    <input type="number" name="jumlah_personil_vacant" id="jumlah_personil_vacant">
+                    <label>Kategori Criticality</label>
+                    <input type="text" name="kategori_criticality" id="kategori_criticality">
                 </div>
 
                 <div>
-                    <label>Jumlah Personil Pensiun &lt; 1 Thn</label>
-                    <input type="number" name="jumlah_personil_pensiun" id="jumlah_personil_pensiun">
+                    <label>Tag</label>
+                    <input type="text" name="tag" id="tag">
                 </div>
 
                 <div>
-                    <label>Keterangan</label>
-                    <input type="text" name="keterangan" id="keterangan" rows="3"></input>
+                    <label>Deskripsi Peralatan</label>
+                    <input type="text" name="deskripsi_peralatan" id="deskripsi_peralatan">
                 </div>
+
+                <div>
+                    <label>Jenis Kerusakan</label>
+                    <input type="text" name="jenis_kerusakan" id="jenis_kerusakan">
+                </div>
+
+                <div>
+                    <label>Penyebab / Root Cause</label>
+                    <input type="text" name="penyebab" id="penyebab">
+                </div>
+
+                <div>
+                    <label>Kendala Perbaikan</label>
+                    <input type="text" name="kendala_perbaikan" id="kendala_perbaikan">
+                </div>
+
+                <div>
+                    <label>Mitigasi / Penanganan Sementara</label>
+                    <input type="text" name="mitigasi" id="mitigasi">
+                </div>
+
+                <div>
+                    <label>Perbaikan Permanen</label>
+                    <input type="text" name="perbaikan_permanen" id="perbaikan_permanen">
+                </div>
+
+                <div>
+                    <label>Progres Perbaikan Permanen</label>
+                    <input type="text" name="progres_perbaikan_permanen" id="progres_perbaikan_permanen">
+                </div>
+
+                <div>
+                    <label>Tindak Lanjut</label>
+                    <input type="text" name="tindak_lanjut" id="tindak_lanjut">
+                </div>
+
+                <div>
+                    <label>Target Penyelesaian</label>
+                    <input type="month" name="target_penyelesaian" id="target_penyelesaian">
+                </div>
+
+                <div>
+                    <label>Estimasi Biaya Perbaikan</label>
+                    <input type="number" name="estimasi_biaya_perbaikan" id="estimasi_biaya_perbaikan">
+                </div>
+
+                <div>
+                    <label>Link Foto/Video</label>
+                    <input type="url" name="link_foto_video" id="link_foto_video">
+                </div>
+
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
-
         </div>
     </div>
 
     @push('scripts')
         <script src="https://unpkg.com/tabulator-tables@5.6.0/dist/js/tabulator.min.js"></script>
         <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
-
         <script>
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
-                    fetch(`kondisi-vacant-aims-ru-dumai/${id}`, {
+                    fetch(`asset-breakdown-plaju/${id}`, {
                             method: "DELETE",
                             headers: {
                                 "Accept": "application/json",
@@ -261,22 +311,72 @@
                             value: keyword
                         },
                         {
-                            field: "total_personil_asset_integrity",
+                            field: "plant_segment",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "jumlah_personil_vacant",
+                            field: "kategori_criticality",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "jumlah_personil_pensiun",
+                            field: "tag",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "keterangan",
+                            field: "deskripsi_peralatan",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "jenis_kerusakan",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "penyebab",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "kendala_perbaikan",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "mitigasi",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "perbaikan_permanen",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "progres_perbaikan_permanen",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "tindak_lanjut",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "target_penyelesaian",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "estimasi_biaya_perbaikan",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "link_foto_video",
                             type: "like",
                             value: keyword
                         }
@@ -290,35 +390,19 @@
             }
 
             function loadData() {
-                fetch("/monev/shrnp/input-data/kondisi-vacant-aims-ru-dumai/data", {
+                fetch("/monev/shrnp/input-data/asset-breakdown-plaju/data", {
                         headers: {
                             "Accept": "application/json"
                         }
                     })
                     .then(res => res.json())
-                    .then(data => {
-                        const cleaned = data.map(row => {
-                            const cleanedRow = {};
-                            for (const [key, value] of Object.entries(row)) {
-                                const valStr = String(value).trim().toLowerCase();
-                                cleanedRow[key] = (
-                                    value === null ||
-                                    value === undefined ||
-                                    valStr === "null" ||
-                                    valStr === "undefined"
-                                ) ? "" : value;
-                            }
-                            return cleanedRow;
-                        });
-
-                        table.setData(cleaned);
-                    })
+                    .then(data => table.setData(data))
                     .catch(err => console.error("Gagal load data:", err));
             }
 
             document.addEventListener("DOMContentLoaded", function() {
                 const columnMap = {
-                    "kondisi-vacant-aims-ru-dumai": [{
+                    "asset-breakdown-plaju": [{
                             title: "No",
                             formatter: "rownum",
                             hozAlign: "center",
@@ -416,34 +500,111 @@
                         {
                             title: "Company",
                             field: "company",
-                            editor: "input",
-                        },
-                        {
-                            title: "Total Personil Asset Integrity",
-                            field: "total_personil_asset_integrity",
-                            editor: "number",
                             hozAlign: "center",
-                            width: 250
-                        },
-                        {
-                            title: "Jumlah Personil Vacant",
-                            field: "jumlah_personil_vacant",
-                            editor: "number",
-                            hozAlign: "center",
-                            width: 200
-                        },
-                        {
-                            title: "Jumlah Personil Pensiun <1 Thn",
-                            field: "jumlah_personil_pensiun",
-                            editor: "number",
-                            hozAlign: "center",
-                            width: 250
-                        },
-                        {
-                            title: "Keterangan",
-                            field: "keterangan",
-                            width: 350,
                             editor: "input"
+                        },
+                        {
+                            title: "Plant/Segment",
+                            field: "plant_segment",
+                            editor: "input"
+                        },
+                        {
+                            title: "Kategori Criticality",
+                            field: "kategori_criticality",
+                            hozAlign: "center",
+                            editor: "input"
+                        },
+                        {
+                            title: "Tag",
+                            field: "tag",
+                            editor: "input"
+                        },
+                        {
+                            title: "Deskripsi Peralatan",
+                            field: "deskripsi_peralatan",
+                            editor: "input"
+                        },
+                        {
+                            title: "Jenis Kerusakan",
+                            field: "jenis_kerusakan",
+                            editor: "textarea",
+                            width:300,
+                        },
+                        {
+                            title: "Penyebab/Root Cause",
+                            field: "penyebab",
+                            editor: "input",
+                            width: 400
+                        },
+                        {
+                            title: "Kendala Perbaikan",
+                            field: "kendala_perbaikan",
+                            editor: "input",
+                            width: 450
+                        },
+                        {
+                            title: "Mitigasi / Penanganan Sementara",
+                            field: "mitigasi",
+                            editor: "input",
+                            width: 450
+                        },
+                        {
+                            title: "Perbaikan Permanen",
+                            field: "perbaikan_permanen",
+                            editor: "input",
+                            width: 400
+                        },
+                        {
+                            title: "Progres Perbaikan Permanen",
+                            field: "progres_perbaikan_permanen",
+                            editor: "input",
+                            width: 350
+                        },
+                        {
+                            title: "Tindak Lanjut",
+                            field: "tindak_lanjut",
+                            editor: "input",
+                            width: 450
+                        },
+                        {
+                            title: "Target Penyelesaian",
+                            field: "target_penyelesaian",
+                            editor: "input"
+                        },
+                        {
+                            title: "Estimasi Biaya Perbaikan",
+                            field: "estimasi_biaya_perbaikan",
+                            hozAlign: "center",
+                            // formatter: function(cell) {
+                            //     let rawValue = cell.getValue();
+                            //     if (rawValue === null || rawValue === undefined || rawValue === "") {
+                            //         return "0.00";
+                            //     }
+
+                            //     let cleanValue = rawValue.toString().replace(/[^0-9.-]+/g, '');
+                            //     let value = parseFloat(cleanValue);
+
+                            //     if (!isNaN(value)) {
+                            //         return value.toLocaleString("en-US", {
+                            //             minimumFractionDigits: 2,
+                            //             maximumFractionDigits: 2
+                            //         });
+                            //     }
+
+                            //     return "0.00";
+                            // },
+                            editor: "input"
+                        },
+                        {
+                            title: "Link Foto/Video",
+                            field: "link_foto_video",
+                            editor: "input",
+                            width: 400,
+                            formatter: "link",
+                            formatterParams: {
+                                labelField: "link_foto_video",
+                                target: "_blank"
+                            }
                         },
                         {
                             title: "Aksi",
@@ -453,6 +614,7 @@
                                 return `<button onclick='deleteData("${row.id}")'>Hapus</button>`;
                             },
                             hozAlign: "center",
+                            width: 150
                         }
                     ]
                 };
@@ -461,13 +623,14 @@
                     layout: "fitDataTable",
                     responsiveLayout: "collapse",
                     autoResize: true,
-                    columns: columnMap["kondisi-vacant-aims-ru-dumai"],
+                    columns: columnMap["asset-breakdown-plaju"],
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
                     selectableRangeRows: true,
                     selectableRangeClearCells: true,
                     editTriggerEvent: "dblclick",
+                    virtualDom: true,
 
                     pagination: "local",
                     paginationSize: 20,
@@ -485,6 +648,7 @@
                     clipboardCopyRowRange: "range",
                     clipboardPasteParser: "range",
                     clipboardPasteAction: "range",
+
                     clipboardPasteRow: true,
 
                     columnDefaults: {
@@ -496,8 +660,8 @@
                 });
 
                 document.getElementById("download-xlsx").addEventListener("click", function() {
-                    window.table.download("xlsx", "kondisi-vacant-aims-ru-dumai.xlsx", {
-                        sheetName: "kondisi-vacant-aims",
+                    window.table.download("xlsx", "asset-breakdown-plaju.xlsx", {
+                        sheetName: "Data Pelatihan",
                         columnHeaders: true,
                         downloadDataFormatter: function(data) {
                             return data.map(row => {
@@ -509,7 +673,7 @@
                                         value === undefined ||
                                         value === "" ||
                                         valStr === "null" ||
-                                        valStr === "null"
+                                        valStr === "undefined"
                                     ) ? "" : value;
                                 }
                                 return cleanedRow;
@@ -524,7 +688,7 @@
 
                     if (!id) return;
 
-                    fetch(`kondisi-vacant-aims-ru-dumai/${id}`, {
+                    fetch(`asset-breakdown-plaju/${id}`, {
                             method: "PUT",
                             headers: {
                                 "Content-Type": "application/json",
@@ -564,7 +728,7 @@
                     console.log("Baris yang berubah:", changedRows);
 
                     changedRows.forEach(rowData => {
-                        fetch(`kondisi-vacant-aims-ru-dumai/${rowData.id}`, {
+                        fetch(`asset-breakdown-plaju/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
                                     "Content-Type": "application/json",
@@ -590,7 +754,7 @@
             });
         </script>
 
-        {{-- create data --}}
+        {{-- create data  --}}
         <script>
             function openModal() {
                 document.getElementById("createModal").style.display = "block";
@@ -608,7 +772,7 @@
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
 
-                fetch("kondisi-vacant-aims-ru-dumai", {
+                fetch("asset-breakdown-plaju", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -619,17 +783,27 @@
                         body: JSON.stringify({
                             periode: data.periode,
                             company: data.company,
-                            total_personil_asset_integrity: data.total_personil_asset_integrity,
-                            jumlah_personil_vacant: data.jumlah_personil_vacant,
-                            jumlah_personil_pensiun_1_thn: data.jumlah_personil_pensiun,
-                            keterangan: data.keterangan
+                            plant_segment: data.plant_segment,
+                            kategori_criticality: data.kategori_criticality,
+                            tag: data.tag,
+                            deskripsi_peralatan: data.deskripsi_peralatan,
+                            jenis_kerusakan: data.jenis_kerusakan,
+                            penyebab: data.penyebab,
+                            kendala_perbaikan: data.kendala_perbaikan,
+                            mitigasi: data.mitigasi,
+                            perbaikan_permanen: data.perbaikan_permanen,
+                            progres_perbaikan_permanen: data.progres_perbaikan_permanen,
+                            tindak_lanjut: data.tindak_lanjut,
+                            target_penyelesaian: data.target_penyelesaian,
+                            estimasi_biaya_perbaikan: data.estimasi_biaya_perbaikan,
+                            link_foto_video: data.link_foto_video
                         })
                     })
                     .then(response => response.json())
                     .then(result => {
                         if (result.success) {
                             alert(result.message || "Data berhasil disimpan");
-                            table.setData("/monev/shrnp/input-data/kondisi-vacant-aims-ru-dumai/data");
+                            table.setData("/monev/shrnp/input-data/asset-breakdown-plaju/data");
                             this.reset();
                             closeModal();
                         } else {
@@ -678,7 +852,6 @@
                     });
                 });
 
-                // Ketika halaman reload setelah klik, cek dan scroll otomatis
                 if (sessionStorage.getItem('scrollToActiveTab') === 'yes') {
                     scrollToActiveTab();
                     sessionStorage.removeItem('scrollToActiveTab');

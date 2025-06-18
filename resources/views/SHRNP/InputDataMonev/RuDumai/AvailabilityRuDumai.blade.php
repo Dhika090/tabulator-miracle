@@ -127,7 +127,7 @@
     <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-                <h5 class="card-title mb-3 mb-md-0">Availability RUDumai</h5>
+                <h5 class="card-title mb-3 mb-md-0">Availability Ru Dumai</h5>
                 <div class="d-flex flex-column flex-md-row align-items-center gap-3">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
@@ -185,7 +185,7 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Tambah Data Availability RUDumai</h3>
+            <h3>Tambah Data Availability Ru Dumai</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
 

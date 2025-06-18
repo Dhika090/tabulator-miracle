@@ -18,6 +18,11 @@
                 font-size: 14px;
             }
 
+            .tabulator .tabulator-cell {
+                white-space: normal !important;
+                word-wrap: break-word;
+            }
+
             .card {
                 margin-top: 20px;
             }
@@ -25,11 +30,6 @@
             .tab-scroll-wrapper {
                 border-bottom: 1px solid #dee2e6;
                 padding-bottom: 5px;
-            }
-
-            .tabulator .tabulator-cell {
-                white-space: normal !important;
-                word-wrap: break-word;
             }
 
             .tab-scroll-wrapper {
@@ -125,7 +125,7 @@
     <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-                <h5 class="card-title mb-3 mb-md-0">Kondisi Vacant Fungsi AIMS Ru Dumai</h5>
+                <h5 class="card-title mb-3 mb-md-0">Status Asset 2025 AI Plaju</h5>
                 <div class="d-flex flex-column flex-md-row align-items-center gap-3">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
@@ -183,38 +183,126 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Tambah Kondisi Vacant Ru Dumai</h3>
+            <h3>Create New Data Status Asset 2025 AI Plaju</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
+
                 <div>
                     <label>Periode</label>
                     <input type="month" name="periode" id="periode">
                 </div>
 
                 <div>
-                    <label>Company</label>
-                    <input type="text" name="company" id="company">
+                    <label>Subholding</label>
+                    <input type="text" name="subholding" id="subholding">
+                </div>
+
+                <label for="company">Company:</label>
+                <select name="company" id="company" class="form-select">
+                    <option value="">-- Pilih Company --</option>
+                    @foreach ($companies as $company)
+                        <option value="{{ $company }}">{{ $company }}</option>
+                    @endforeach
+                </select>
+
+                <div>
+                    <label>Unit</label>
+                    <input type="text" name="unit" id="unit">
                 </div>
 
                 <div>
-                    <label>Total Personil Asset Integrity</label>
-                    <input type="number" name="total_personil_asset_integrity" id="total_personil_asset_integrity">
+                    <label>Asset Group</label>
+                    <input type="text" name="asset_group" id="asset_group">
                 </div>
 
                 <div>
-                    <label>Jumlah Personil Vacant</label>
-                    <input type="number" name="jumlah_personil_vacant" id="jumlah_personil_vacant">
+                    <label>Jumlah</label>
+                    <input type="number" name="jumlah" id="jumlah" step="0.01">
+                </div>
+
+                <!-- SECE -->
+                <h4>SECE</h4>
+                <div><label>Low Integrity - Breakdown</label><input type="number" id="sece_low_integrity_breakdown"
+                        step="0.01">
+                </div>
+                <div><label>Medium - Due Date Inspection</label><input type="number"
+                        id="sece_medium_due_date_inspection" step="0.01"></div>
+                <div><label>Medium - Low Condition</label><input type="number" id="sece_medium_low_condition"
+                        step="0.01"></div>
+                <div><label>Medium - Low Performance</label><input type="number" id="sece_medium_low_performance"
+                        step="0.01">
+                </div>
+                <div><label>High Integrity</label><input type="number" id="sece_high_integrity" step="0.01"></div>
+
+                <!-- PCE -->
+                <h4>PCE</h4>
+                <div><label>Low Integrity - Breakdown</label><input type="number" id="pce_low_integrity_breakdown"
+                        step="0.01">
+                </div>
+                <div><label>Medium - Due Date Inspection</label><input type="number"
+                        id="pce_medium_due_date_inspection" step="0.01"></div>
+                <div><label>Medium - Low Condition</label><input type="number" id="pce_medium_low_condition"
+                        step="0.01"></div>
+                <div><label>Medium - Low Performance</label><input type="number" id="pce_medium_low_performance"
+                        step="0.01"></div>
+                <div><label>High Integrity</label><input type="number" id="pce_high_integrity" step="0.01"></div>
+
+                <!-- IMPORTANT -->
+                <h4>IMPORTANT</h4>
+                <div><label>Low Integrity - Breakdown</label><input type="number"
+                        id="important_low_integrity_breakdown" step="0.01"></div>
+                <div><label>Medium - Due Date Inspection</label><input type="number"
+                        id="important_medium_due_date_inspection" step="0.01"></div>
+                <div><label>Medium - Low Condition</label><input type="number" id="important_medium_low_condition"
+                        step="0.01">
+                </div>
+                <div><label>Medium - Low Performance</label><input type="number"
+                        id="important_medium_low_performance" step="0.01">
+                </div>
+                <div><label>High Integrity</label><input type="number" id="important_high_integrity" step="0.01">
+                </div>
+
+                <!-- SECONDARY -->
+                <h4>SECONDARY</h4>
+                <div><label>Low Integrity - Breakdown</label><input type="number"
+                        id="secondary_low_integrity_breakdown" step="0.01"></div>
+                <div><label>Medium - Due Date Inspection</label><input type="number"
+                        id="secondary_medium_due_date_inspection" step="0.01"></div>
+                <div><label>Medium - Low Condition</label><input type="number" id="secondary_medium_low_condition"
+                        step="0.01">
+                </div>
+                <div><label>Medium - Low Performance</label><input type="number"
+                        id="secondary_medium_low_performance" step="0.01">
+                </div>
+                <div><label>High Integrity</label><input type="number" id="secondary_high_integrity" step="0.01">
+                </div>
+
+                <!-- Tambahan Informasi -->
+                <div>
+                    <label>Kegiatan Penurunan Low</label>
+                    <input type="text" id="kegiatan_penurunan_low">
                 </div>
 
                 <div>
-                    <label>Jumlah Personil Pensiun &lt; 1 Thn</label>
-                    <input type="number" name="jumlah_personil_pensiun" id="jumlah_personil_pensiun">
+                    <label>Kegiatan Penurunan Med</label>
+                    <input type="text" id="kegiatan_penurunan_med">
                 </div>
 
                 <div>
-                    <label>Keterangan</label>
-                    <input type="text" name="keterangan" id="keterangan" rows="3"></input>
+                    <label>Informasi Penyebab Low Integrity</label>
+                    <input id="informasi_penyebab_low_integrity"></input>
                 </div>
+
+                <div>
+                    <label>Informasi Penambahan Jumlah Aset</label>
+                    <input id="informasi_penambahan_jumlah_aset"></input>
+                </div>
+
+                <div>
+                    <label>Informasi Naik Turun Low Integrity</label>
+                    <input id="informasi_naik_turun_low_integrity"></input>
+                </div>
+
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
 
@@ -228,7 +316,7 @@
         <script>
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
-                    fetch(`kondisi-vacant-aims-ru-dumai/${id}`, {
+                    fetch(`plaju/${id}`, {
                             method: "DELETE",
                             headers: {
                                 "Accept": "application/json",
@@ -256,30 +344,55 @@
                             value: keyword
                         },
                         {
+                            field: "subholding",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
                             field: "company",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "total_personil_asset_integrity",
+                            field: "unit",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "jumlah_personil_vacant",
+                            field: "asset_group",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "jumlah_personil_pensiun",
+                            field: "jumlah",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "keterangan",
+                            field: "kegiatan_penurunan_low",
                             type: "like",
                             value: keyword
-                        }
+                        },
+                        {
+                            field: "kegiatan_penurunan_med",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "informasi_penyebab_low",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "informasi_penambahan_jumlah_aset",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "informasi_naik_turun_low",
+                            type: "like",
+                            value: keyword
+                        },
                     ]
                 ]);
             });
@@ -290,7 +403,7 @@
             }
 
             function loadData() {
-                fetch("/monev/shrnp/input-data/kondisi-vacant-aims-ru-dumai/data", {
+                fetch("/monev/shrnp/input-data/plaju/data", {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -318,7 +431,7 @@
 
             document.addEventListener("DOMContentLoaded", function() {
                 const columnMap = {
-                    "kondisi-vacant-aims-ru-dumai": [{
+                    "plaju": [{
                             title: "No",
                             formatter: "rownum",
                             hozAlign: "center",
@@ -414,36 +527,179 @@
                             }
                         },
                         {
+                            title: "Subholding",
+                            field: "subholding",
+                            hozAlign: "center",
+                            editor: "input"
+                        },
+                        {
                             title: "Company",
                             field: "company",
-                            editor: "input",
-                        },
-                        {
-                            title: "Total Personil Asset Integrity",
-                            field: "total_personil_asset_integrity",
-                            editor: "number",
                             hozAlign: "center",
-                            width: 250
-                        },
-                        {
-                            title: "Jumlah Personil Vacant",
-                            field: "jumlah_personil_vacant",
-                            editor: "number",
-                            hozAlign: "center",
-                            width: 200
-                        },
-                        {
-                            title: "Jumlah Personil Pensiun <1 Thn",
-                            field: "jumlah_personil_pensiun",
-                            editor: "number",
-                            hozAlign: "center",
-                            width: 250
-                        },
-                        {
-                            title: "Keterangan",
-                            field: "keterangan",
-                            width: 350,
                             editor: "input"
+                        },
+                        {
+                            title: "Unit",
+                            field: "unit",
+                            editor: "input"
+                        },
+                        {
+                            title: "Asset Group",
+                            field: "asset_group",
+                            editor: "input"
+                        },
+                        {
+                            title: "Jumlah",
+                            field: "jumlah",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "SECE Low Integrity - Breakdown",
+                            field: "sece_low_integrity_breakdown",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "SECE Medium Integrity - Due Date Inspection",
+                            field: "sece_medium_due_date_inspection",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "SECE Medium Integrity - Low Condition",
+                            field: "sece_medium_low_condition",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "SECE Medium Integrity - Low Performance",
+                            field: "sece_medium_low_performance",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "SECE High Integrity",
+                            field: "sece_high_integrity",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "PCE Low Integrity - Breakdown",
+                            field: "pce_low_integrity_breakdown",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "PCE Medium Integrity - Due Date Inspection",
+                            field: "pce_medium_due_date_inspection",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "PCE Medium Integrity - Low Condition",
+                            field: "pce_medium_low_condition",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "PCE Medium Integrity - Low Performance",
+                            field: "pce_medium_low_performance",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "PCE High Integrity",
+                            field: "pce_high_integrity",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "IMPORTANT Low Integrity - Breakdown",
+                            field: "important_low_integrity_breakdown",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "IMPORTANT Medium Integrity - Due Date Inspection",
+                            field: "important_medium_due_date_inspection",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "IMPORTANT Medium Integrity - Low Condition",
+                            field: "important_medium_low_condition",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "IMPORTANT Medium Integrity - Low Performance",
+                            field: "important_medium_low_performance",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "IMPORTANT High Integrity",
+                            field: "important_high_integrity",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "SECONDARY Low Integrity - Breakdown",
+                            field: "secondary_low_integrity_breakdown",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "SECONDARY Medium Integrity - Due Date Inspection",
+                            field: "secondary_medium_due_date_inspection",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "SECONDARY Medium Integrity - Low Condition",
+                            field: "secondary_medium_low_condition",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "SECONDARY Medium Integrity - Low Performance",
+                            field: "secondary_medium_low_performance",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "SECONDARY High Integrity",
+                            field: "secondary_high_integrity",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Kegiatan Penurunan Low",
+                            field: "kegiatan_penurunan_low",
+                            editor: "input"
+                        },
+                        {
+                            title: "Kegiatan Penurunan Med",
+                            field: "kegiatan_penurunan_med",
+                            editor: "input"
+                        },
+                        {
+                            title: "Informasi Penyebab Low Integrity",
+                            field: "informasi_penyebab_low_integrity",
+                            editor: "input",
+                            width: 450
+                        },
+                        {
+                            title: "Informasi Penambahan Jumlah Aset",
+                            field: "informasi_penambahan_jumlah_aset",
+                            editor: "input"
+                        },
+                        {
+                            title: "Informasi Naik Turun low Integrity",
+                            field: "informasi_naik_turun_low_integrity",
+                            editor: "input",
+                            width: 450
                         },
                         {
                             title: "Aksi",
@@ -453,6 +709,7 @@
                                 return `<button onclick='deleteData("${row.id}")'>Hapus</button>`;
                             },
                             hozAlign: "center",
+                            width: 150
                         }
                     ]
                 };
@@ -461,7 +718,8 @@
                     layout: "fitDataTable",
                     responsiveLayout: "collapse",
                     autoResize: true,
-                    columns: columnMap["kondisi-vacant-aims-ru-dumai"],
+                    columns: columnMap["plaju"],
+                    virtualDom: true,
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -496,8 +754,8 @@
                 });
 
                 document.getElementById("download-xlsx").addEventListener("click", function() {
-                    window.table.download("xlsx", "kondisi-vacant-aims-ru-dumai.xlsx", {
-                        sheetName: "kondisi-vacant-aims",
+                    window.table.download("xlsx", "status-asset-sor3.xlsx", {
+                        sheetName: "Data Pelatihan",
                         columnHeaders: true,
                         downloadDataFormatter: function(data) {
                             return data.map(row => {
@@ -509,7 +767,7 @@
                                         value === undefined ||
                                         value === "" ||
                                         valStr === "null" ||
-                                        valStr === "null"
+                                        valStr === "undefined"
                                     ) ? "" : value;
                                 }
                                 return cleanedRow;
@@ -524,7 +782,7 @@
 
                     if (!id) return;
 
-                    fetch(`kondisi-vacant-aims-ru-dumai/${id}`, {
+                    fetch(`plaju/${id}`, {
                             method: "PUT",
                             headers: {
                                 "Content-Type": "application/json",
@@ -564,7 +822,7 @@
                     console.log("Baris yang berubah:", changedRows);
 
                     changedRows.forEach(rowData => {
-                        fetch(`kondisi-vacant-aims-ru-dumai/${rowData.id}`, {
+                        fetch(`plaju/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
                                     "Content-Type": "application/json",
@@ -585,12 +843,11 @@
 
                     previousData = JSON.parse(JSON.stringify(newData));
                 });
-
                 loadData();
             });
         </script>
 
-        {{-- create data --}}
+        {{-- create and update data --}}
         <script>
             function openModal() {
                 document.getElementById("createModal").style.display = "block";
@@ -608,7 +865,7 @@
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
 
-                fetch("kondisi-vacant-aims-ru-dumai", {
+                fetch("plaju", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -618,18 +875,43 @@
                         },
                         body: JSON.stringify({
                             periode: data.periode,
+                            subholding: data.subholding,
                             company: data.company,
-                            total_personil_asset_integrity: data.total_personil_asset_integrity,
-                            jumlah_personil_vacant: data.jumlah_personil_vacant,
-                            jumlah_personil_pensiun_1_thn: data.jumlah_personil_pensiun,
-                            keterangan: data.keterangan
+                            unit: data.unit,
+                            asset_group: data.asset_group,
+                            jumlah: data.jumlah,
+                            sece_low_breakdown: data.sece_low_breakdown,
+                            sece_medium_due_date_inspection: data.sece_medium_due_date_inspection,
+                            sece_medium_low_condition: data.sece_medium_low_condition,
+                            sece_medium_low_performance: data.sece_medium_low_performance,
+                            sece_high: data.sece_high,
+                            pce_low_breakdown: data.pce_low_breakdown,
+                            pce_medium_due_date_inspection: data.pce_medium_due_date_inspection,
+                            pce_medium_low_condition: data.pce_medium_low_condition,
+                            pce_medium_low_performance: data.pce_medium_low_performance,
+                            pce_high: data.pce_high,
+                            important_low_breakdown: data.important_low_breakdown,
+                            important_medium_due_date_inspection: data.important_medium_due_date_inspection,
+                            important_medium_low_condition: data.important_medium_low_condition,
+                            important_medium_low_performance: data.important_medium_low_performance,
+                            important_high: data.important_high,
+                            secondary_low_breakdown: data.secondary_low_breakdown,
+                            secondary_medium_due_date_inspection: data.secondary_medium_due_date_inspection,
+                            secondary_medium_low_condition: data.secondary_medium_low_condition,
+                            secondary_medium_low_performance: data.secondary_medium_low_performance,
+                            secondary_high: data.secondary_high,
+                            kegiatan_penurunan_low: data.kegiatan_penurunan_low,
+                            kegiatan_penurunan_med: data.kegiatan_penurunan_med,
+                            informasi_penyebab_low: data.informasi_penyebab_low,
+                            informasi_penambahan_jumlah_aset: data.informasi_penambahan_jumlah_aset,
+                            informasi_naik_turun_low: data.informasi_naik_turun_low
                         })
                     })
                     .then(response => response.json())
                     .then(result => {
                         if (result.success) {
                             alert(result.message || "Data berhasil disimpan");
-                            table.setData("/monev/shrnp/input-data/kondisi-vacant-aims-ru-dumai/data");
+                            table.setData("/monev/shrnp/input-data/plaju/data");
                             this.reset();
                             closeModal();
                         } else {
@@ -678,7 +960,6 @@
                     });
                 });
 
-                // Ketika halaman reload setelah klik, cek dan scroll otomatis
                 if (sessionStorage.getItem('scrollToActiveTab') === 'yes') {
                     scrollToActiveTab();
                     sessionStorage.removeItem('scrollToActiveTab');

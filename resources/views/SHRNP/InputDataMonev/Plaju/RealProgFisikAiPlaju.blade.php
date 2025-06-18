@@ -18,6 +18,11 @@
                 font-size: 14px;
             }
 
+            .tabulator .tabulator-cell {
+                white-space: normal !important;
+                word-wrap: break-word;
+            }
+
             .card {
                 margin-top: 20px;
             }
@@ -25,11 +30,6 @@
             .tab-scroll-wrapper {
                 border-bottom: 1px solid #dee2e6;
                 padding-bottom: 5px;
-            }
-
-            .tabulator .tabulator-cell {
-                white-space: normal !important;
-                word-wrap: break-word;
             }
 
             .tab-scroll-wrapper {
@@ -125,7 +125,7 @@
     <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-                <h5 class="card-title mb-3 mb-md-0">Kondisi Vacant Fungsi AIMS Ru Dumai</h5>
+                <h5 class="card-title mb-3 mb-md-0">Real Prog Fisik AI Plaju</h5>
                 <div class="d-flex flex-column flex-md-row align-items-center gap-3">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
@@ -183,7 +183,7 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Tambah Kondisi Vacant Ru Dumai</h3>
+            <h3>Real Prog Fisik AI Plaju</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
                 <div>
@@ -192,29 +192,180 @@
                 </div>
 
                 <div>
-                    <label>Company</label>
-                    <input type="text" name="company" id="company">
+                    <label>No</label>
+                    <input type="number" name="no" id="no">
                 </div>
 
                 <div>
-                    <label>Total Personil Asset Integrity</label>
-                    <input type="number" name="total_personil_asset_integrity" id="total_personil_asset_integrity">
+                    <label>Program Kerja</label>
+                    <input type="text" name="program_kerja" id="program_kerja">
                 </div>
 
                 <div>
-                    <label>Jumlah Personil Vacant</label>
-                    <input type="number" name="jumlah_personil_vacant" id="jumlah_personil_vacant">
+                    <label>Kategori AIBT</label>
+                    <input type="text" name="kategori_aibt" id="kategori_aibt">
                 </div>
 
                 <div>
-                    <label>Jumlah Personil Pensiun &lt; 1 Thn</label>
-                    <input type="number" name="jumlah_personil_pensiun" id="jumlah_personil_pensiun">
+                    <label>Jenis Anggaran</label>
+                    <input type="text" name="jenis_anggaran" id="jenis_anggaran">
                 </div>
 
                 <div>
-                    <label>Keterangan</label>
-                    <input type="text" name="keterangan" id="keterangan" rows="3"></input>
+                    <label>Besar RKAP</label>
+                    <input type="number" name="besar_rkap" id="besar_rkap">
                 </div>
+
+                <div>
+                    <label>Entitas</label>
+                    <input type="text" name="entitas" id="entitas">
+                </div>
+
+                <div>
+                    <label>Unit</label>
+                    <input type="text" name="unit" id="unit">
+                </div>
+
+                <div>
+                    <label>Nilai Kontrak</label>
+                    <input type="number" name="nilai_kontrak" id="nilai_kontrak">
+                </div>
+
+                <div>
+                    <label>Plan Jan</label>
+                    <input type="number" name="plan_jan" id="plan_jan">
+                </div>
+
+                <div>
+                    <label>Plan Feb</label>
+                    <input type="number" name="plan_feb" id="plan_feb">
+                </div>
+
+                <div>
+                    <label>Plan Mar</label>
+                    <input type="number" name="plan_mar" id="plan_mar">
+                </div>
+
+                <div>
+                    <label>Plan Apr</label>
+                    <input type="number" name="plan_apr" id="plan_apr">
+                </div>
+
+                <div>
+                    <label>Plan May</label>
+                    <input type="number" name="plan_may" id="plan_may">
+                </div>
+
+                <div>
+                    <label>Plan Jun</label>
+                    <input type="number" name="plan_jun" id="plan_jun">
+                </div>
+
+                <div>
+                    <label>Plan Jul</label>
+                    <input type="number" name="plan_jul" id="plan_jul">
+                </div>
+
+                <div>
+                    <label>Plan Aug</label>
+                    <input type="number" name="plan_aug" id="plan_aug">
+                </div>
+
+                <div>
+                    <label>Plan Sep</label>
+                    <input type="number" name="plan_sep" id="plan_sep">
+                </div>
+
+                <div>
+                    <label>Plan Oct</label>
+                    <input type="number" name="plan_oct" id="plan_oct">
+                </div>
+
+                <div>
+                    <label>Plan Nov</label>
+                    <input type="number" name="plan_nov" id="plan_nov">
+                </div>
+
+                <div>
+                    <label>Plan Dec</label>
+                    <input type="number" name="plan_dec" id="plan_dec">
+                </div>
+
+                <div>
+                    <label>Actual Jan</label>
+                    <input type="number" name="actual_jan" id="actual_jan">
+                </div>
+
+                <div>
+                    <label>Actual Feb</label>
+                    <input type="number" name="actual_feb" id="actual_feb">
+                </div>
+
+                <div>
+                    <label>Actual Mar</label>
+                    <input type="number" name="actual_mar" id="actual_mar">
+                </div>
+
+                <div>
+                    <label>Actual Apr</label>
+                    <input type="number" name="actual_apr" id="actual_apr">
+                </div>
+
+                <div>
+                    <label>Actual May</label>
+                    <input type="number" name="actual_may" id="actual_may">
+                </div>
+
+                <div>
+                    <label>Actual Jun</label>
+                    <input type="number" name="actual_jun" id="actual_jun">
+                </div>
+
+                <div>
+                    <label>Actual Jul</label>
+                    <input type="number" name="actual_jul" id="actual_jul">
+                </div>
+
+                <div>
+                    <label>Actual Aug</label>
+                    <input type="number" name="actual_aug" id="actual_aug">
+                </div>
+
+                <div>
+                    <label>Actual Sep</label>
+                    <input type="number" name="actual_sep" id="actual_sep">
+                </div>
+
+                <div>
+                    <label>Actual Oct</label>
+                    <input type="number" name="actual_oct" id="actual_oct">
+                </div>
+
+                <div>
+                    <label>Actual Nov</label>
+                    <input type="number" name="actual_nov" id="actual_nov">
+                </div>
+
+                <div>
+                    <label>Actual Dec</label>
+                    <input type="number" name="actual_dec" id="actual_dec">
+                </div>
+
+                <div>
+                    <label>Kode</label>
+                    <input type="text" name="kode" id="kode">
+                </div>
+
+                <div>
+                    <label>Kendala</label>
+                    <input type="text" name="kendala" id="kendala">
+                </div>
+
+                <div>
+                    <label>Tindak Lanjut</label>
+                    <input type="text" name="tindak_lanjut" id="tindak_lanjut">
+                </div>
+
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
 
@@ -228,7 +379,7 @@
         <script>
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
-                    fetch(`kondisi-vacant-aims-ru-dumai/${id}`, {
+                    fetch(`real-prog-fisik-plaju/${id}`, {
                             method: "DELETE",
                             headers: {
                                 "Accept": "application/json",
@@ -256,30 +407,45 @@
                             value: keyword
                         },
                         {
-                            field: "company",
+                            field: "no",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "total_personil_asset_integrity",
+                            field: "program_kerja",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "jumlah_personil_vacant",
+                            field: "kategori_aibt",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "jumlah_personil_pensiun",
+                            field: "jenis_anggaran",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "keterangan",
+                            field: "besar_rkap",
                             type: "like",
                             value: keyword
-                        }
+                        },
+                        {
+                            field: "entitas",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "unit",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "nilai_kontrak",
+                            type: "like",
+                            value: keyword
+                        },
                     ]
                 ]);
             });
@@ -290,7 +456,7 @@
             }
 
             function loadData() {
-                fetch("/monev/shrnp/input-data/kondisi-vacant-aims-ru-dumai/data", {
+                fetch("/monev/shrnp/input-data/real-prog-fisik-plaju/data", {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -318,12 +484,12 @@
 
             document.addEventListener("DOMContentLoaded", function() {
                 const columnMap = {
-                    "kondisi-vacant-aims-ru-dumai": [{
+                    "real-prog-fisik-plaju": [{
                             title: "No",
                             formatter: "rownum",
                             hozAlign: "center",
                             width: 60,
-                            download: false
+                            download: false,
                         },
                         {
                             title: "ID",
@@ -332,118 +498,265 @@
                         },
                         {
                             title: "Periode",
+                            hozAlign: "center",
                             field: "periode",
                             editor: "input",
                             headerFilter: "select",
                             headerFilterParams: {
-                                values: [{
-                                        value: "01",
-                                        label: "Januari"
-                                    },
-                                    {
-                                        value: "02",
-                                        label: "Februari"
-                                    },
-                                    {
-                                        value: "03",
-                                        label: "Maret"
-                                    },
-                                    {
-                                        value: "04",
-                                        label: "April"
-                                    },
-                                    {
-                                        value: "05",
-                                        label: "Mei"
-                                    },
-                                    {
-                                        value: "06",
-                                        label: "Juni"
-                                    },
-                                    {
-                                        value: "07",
-                                        label: "Juli"
-                                    },
-                                    {
-                                        value: "08",
-                                        label: "Agustus"
-                                    },
-                                    {
-                                        value: "09",
-                                        label: "September"
-                                    },
-                                    {
-                                        value: "10",
-                                        label: "Oktober"
-                                    },
-                                    {
-                                        value: "11",
-                                        label: "November"
-                                    },
-                                    {
-                                        value: "12",
-                                        label: "Desember"
+                                values: (() => {
+                                    const years = [];
+                                    years.push({
+                                        value: "",
+                                        label: "Pilih Tahun"
+                                    });
+                                    for (let year = 2020; year <= new Date().getFullYear() +
+                                        5; year++) {
+                                        years.push({
+                                            value: String(year),
+                                            label: String(year)
+                                        });
                                     }
-                                ]
-                            },
-                            headerFilterPlaceholder: "Pilih Bulan",
-                            headerFilterFunc: function(headerValue, rowValue) {
-                                if (!headerValue) return true;
-                                if (!rowValue) return false;
-
-                                const periode = rowValue.toLowerCase();
-
-                                const bulanTextMap = {
-                                    "01": ["jan", "january"],
-                                    "02": ["feb", "february"],
-                                    "03": ["mar", "march"],
-                                    "04": ["apr", "april"],
-                                    "05": ["may", "mei"],
-                                    "06": ["jun", "june"],
-                                    "07": ["jul", "july"],
-                                    "08": ["aug", "august"],
-                                    "09": ["sep", "september"],
-                                    "10": ["oct", "october"],
-                                    "11": ["nov", "november"],
-                                    "12": ["dec", "december"]
-                                };
-
-                                const keywords = bulanTextMap[headerValue];
-                                return keywords.some(keyword => periode.includes(keyword)) || periode
-                                    .includes(`-${headerValue}`);
+                                    return years;
+                                })()
                             }
                         },
                         {
-                            title: "Company",
-                            field: "company",
+                            title: "No",
+                            field: "no",
                             editor: "input",
+                            hozAlign: "center",
                         },
                         {
-                            title: "Total Personil Asset Integrity",
-                            field: "total_personil_asset_integrity",
-                            editor: "number",
-                            hozAlign: "center",
-                            width: 250
-                        },
-                        {
-                            title: "Jumlah Personil Vacant",
-                            field: "jumlah_personil_vacant",
-                            editor: "number",
-                            hozAlign: "center",
+                            title: "Program Kerja",
+                            field: "program_kerja",
+                            editor: "input",
                             width: 200
                         },
                         {
-                            title: "Jumlah Personil Pensiun <1 Thn",
-                            field: "jumlah_personil_pensiun",
-                            editor: "number",
-                            hozAlign: "center",
-                            width: 250
+                            title: "Kategori AIBT",
+                            field: "kategori_aibt",
+                            editor: "input",
+                            width: 150
                         },
                         {
-                            title: "Keterangan",
-                            field: "keterangan",
-                            width: 350,
-                            editor: "input"
+                            title: "Jenis Anggaran",
+                            field: "jenis_anggaran",
+                            hozAlign: "center",
+                            editor: "input",
+                            width: 150
+                        },
+                        {
+                            title: "Besar RKAP",
+                            field: "besar_rkap",
+                            editor: "number",
+                            width: 150,
+                            hozAlign: "right"
+                        },
+                        {
+                            title: "Entitas",
+                            field: "entitas",
+                            hozAlign: "center",
+                            editor: "input",
+                            width: 150
+                        },
+                        {
+                            title: "Unit",
+                            field: "unit",
+                            editor: "input",
+                            width: 150
+                        },
+                        {
+                            title: "Nilai Kontrak",
+                            field: "nilai_kontrak",
+                            editor: "number",
+                            width: 150,
+                            hozAlign: "right"
+                        },
+                        {
+                            title: "Plan Jan",
+                            field: "plan_jan",
+                            editor: "number",
+                            width: 100,
+                            hozAlign: "right"
+                        },
+                        {
+                            title: "Plan Feb",
+                            field: "plan_feb",
+                            editor: "number",
+                            width: 100,
+                            hozAlign: "right"
+                        },
+                        {
+                            title: "Plan Mar",
+                            field: "plan_mar",
+                            editor: "number",
+                            width: 100,
+                            hozAlign: "right"
+                        },
+                        {
+                            title: "Plan Apr",
+                            field: "plan_apr",
+                            editor: "number",
+                            width: 100,
+                            hozAlign: "right"
+                        },
+                        {
+                            title: "Plan Mei",
+                            field: "plan_may",
+                            editor: "number",
+                            width: 100,
+                            hozAlign: "right"
+                        },
+                        {
+                            title: "Plan Jun",
+                            field: "plan_jun",
+                            editor: "number",
+                            width: 100,
+                            hozAlign: "right"
+                        },
+                        {
+                            title: "Plan Jul",
+                            field: "plan_jul",
+                            editor: "number",
+                            width: 100,
+                            hozAlign: "right"
+                        },
+                        {
+                            title: "Plan Ags",
+                            field: "plan_aug",
+                            editor: "number",
+                            width: 100,
+                            hozAlign: "right"
+                        },
+                        {
+                            title: "Plan Sep",
+                            field: "plan_sep",
+                            editor: "number",
+                            width: 100,
+                            hozAlign: "right"
+                        },
+                        {
+                            title: "Plan Okt",
+                            field: "plan_oct",
+                            editor: "number",
+                            width: 100,
+                            hozAlign: "right"
+                        },
+                        {
+                            title: "Plan Nov",
+                            field: "plan_nov",
+                            editor: "number",
+                            width: 100,
+                            hozAlign: "right"
+                        },
+                        {
+                            title: "Plan Des",
+                            field: "plan_dec",
+                            editor: "number",
+                            width: 100,
+                            hozAlign: "right"
+                        },
+                        {
+                            title: "Actual Jan",
+                            field: "actual_jan",
+                            editor: "number",
+                            width: 100,
+                            hozAlign: "right"
+                        },
+                        {
+                            title: "Actual Feb",
+                            field: "actual_feb",
+                            editor: "number",
+                            width: 100,
+                            hozAlign: "right"
+                        },
+                        {
+                            title: "Actual Mar",
+                            field: "actual_mar",
+                            editor: "number",
+                            width: 100,
+                            hozAlign: "right"
+                        },
+                        {
+                            title: "Actual Apr",
+                            field: "actual_apr",
+                            editor: "number",
+                            width: 100,
+                            hozAlign: "right"
+                        },
+                        {
+                            title: "Actual Mei",
+                            field: "actual_may",
+                            editor: "number",
+                            width: 100,
+                            hozAlign: "right"
+                        },
+                        {
+                            title: "Actual Jun",
+                            field: "actual_jun",
+                            editor: "number",
+                            width: 100,
+                            hozAlign: "right"
+                        },
+                        {
+                            title: "Actual Jul",
+                            field: "actual_jul",
+                            editor: "number",
+                            width: 100,
+                            hozAlign: "right"
+                        },
+                        {
+                            title: "Actual Ags",
+                            field: "actual_aug",
+                            editor: "number",
+                            width: 100,
+                            hozAlign: "right"
+                        },
+                        {
+                            title: "Actual Sep",
+                            field: "actual_sep",
+                            editor: "number",
+                            width: 100,
+                            hozAlign: "right"
+                        },
+                        {
+                            title: "Actual Okt",
+                            field: "actual_oct",
+                            editor: "number",
+                            width: 100,
+                            hozAlign: "right"
+                        },
+                        {
+                            title: "Actual Nov",
+                            field: "actual_nov",
+                            editor: "number",
+                            width: 100,
+                            hozAlign: "right"
+                        },
+                        {
+                            title: "Actual Des",
+                            field: "actual_dec",
+                            editor: "number",
+                            width: 100,
+                            hozAlign: "right"
+                        },
+                        {
+                            title: "Kode",
+                            field: "kode",
+                            editor: "input",
+                            width: 100
+                        },
+                        {
+                            title: "Kendala",
+                            field: "kendala",
+                            editor: "input",
+                            width: 200
+                        },
+                        {
+                            title: "Tindak Lanjut",
+                            field: "tindak_lanjut",
+                            editor: "input",
+                            width: 200
                         },
                         {
                             title: "Aksi",
@@ -453,6 +766,7 @@
                                 return `<button onclick='deleteData("${row.id}")'>Hapus</button>`;
                             },
                             hozAlign: "center",
+                            width: 150
                         }
                     ]
                 };
@@ -461,7 +775,7 @@
                     layout: "fitDataTable",
                     responsiveLayout: "collapse",
                     autoResize: true,
-                    columns: columnMap["kondisi-vacant-aims-ru-dumai"],
+                    columns: columnMap["real-prog-fisik-plaju"],
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -496,8 +810,8 @@
                 });
 
                 document.getElementById("download-xlsx").addEventListener("click", function() {
-                    window.table.download("xlsx", "kondisi-vacant-aims-ru-dumai.xlsx", {
-                        sheetName: "kondisi-vacant-aims",
+                    window.table.download("xlsx", "real-prog-fisik-plaju.xlsx", {
+                        sheetName: "real-prog-fisik-plaju",
                         columnHeaders: true,
                         downloadDataFormatter: function(data) {
                             return data.map(row => {
@@ -509,7 +823,7 @@
                                         value === undefined ||
                                         value === "" ||
                                         valStr === "null" ||
-                                        valStr === "null"
+                                        valStr === "undefined"
                                     ) ? "" : value;
                                 }
                                 return cleanedRow;
@@ -524,7 +838,7 @@
 
                     if (!id) return;
 
-                    fetch(`kondisi-vacant-aims-ru-dumai/${id}`, {
+                    fetch(`real-prog-fisik-plaju/${id}`, {
                             method: "PUT",
                             headers: {
                                 "Content-Type": "application/json",
@@ -564,7 +878,7 @@
                     console.log("Baris yang berubah:", changedRows);
 
                     changedRows.forEach(rowData => {
-                        fetch(`kondisi-vacant-aims-ru-dumai/${rowData.id}`, {
+                        fetch(`real-prog-fisik-plaju/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
                                     "Content-Type": "application/json",
@@ -585,12 +899,11 @@
 
                     previousData = JSON.parse(JSON.stringify(newData));
                 });
-
                 loadData();
             });
         </script>
 
-        {{-- create data --}}
+        {{-- create data  --}}
         <script>
             function openModal() {
                 document.getElementById("createModal").style.display = "block";
@@ -608,7 +921,7 @@
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
 
-                fetch("kondisi-vacant-aims-ru-dumai", {
+                fetch("real-prog-fisik-plaju", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -619,17 +932,15 @@
                         body: JSON.stringify({
                             periode: data.periode,
                             company: data.company,
-                            total_personil_asset_integrity: data.total_personil_asset_integrity,
-                            jumlah_personil_vacant: data.jumlah_personil_vacant,
-                            jumlah_personil_pensiun_1_thn: data.jumlah_personil_pensiun,
-                            keterangan: data.keterangan
+                            judul_pelatihan: data.judul_pelatihan,
+                            realisasi_perwira: data.realisasi_perwira
                         })
                     })
                     .then(response => response.json())
                     .then(result => {
                         if (result.success) {
                             alert(result.message || "Data berhasil disimpan");
-                            table.setData("/monev/shrnp/input-data/kondisi-vacant-aims-ru-dumai/data");
+                            table.setData("/monev/shrnp/input-data/real-prog-fisik-plaju/data");
                             this.reset();
                             closeModal();
                         } else {

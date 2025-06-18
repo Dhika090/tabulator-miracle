@@ -27,11 +27,6 @@
                 padding-bottom: 5px;
             }
 
-            .tabulator .tabulator-cell {
-                white-space: normal !important;
-                word-wrap: break-word;
-            }
-
             .tab-scroll-wrapper {
                 display: inline-block;
                 /* display: flex; */
@@ -125,7 +120,7 @@
     <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-                <h5 class="card-title mb-3 mb-md-0">Kondisi Vacant Fungsi AIMS Ru Dumai</h5>
+                <h5 class="card-title mb-3 mb-md-0">Sap Asset Plaju</h5>
                 <div class="d-flex flex-column flex-md-row align-items-center gap-3">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
@@ -141,7 +136,6 @@
                 <button onclick="openModal()" class="btn btn-primary px-4 py-2" style="white-space: nowrap;">
                     Create Data
                 </button>
-
                 <div class="dropdown me-2 position-relative" style="z-index: 1050;">
                     <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="tabDropdown"
                         data-bs-toggle="dropdown" aria-expanded="false">
@@ -183,7 +177,7 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Tambah Kondisi Vacant Ru Dumai</h3>
+            <h3>Tambah Target Plaju</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
                 <div>
@@ -192,32 +186,92 @@
                 </div>
 
                 <div>
+                    <label>Subholding</label>
+                    <input type="text" name="subholding" id="subholding">
+                </div>
+
+                <div>
                     <label>Company</label>
                     <input type="text" name="company" id="company">
                 </div>
 
                 <div>
-                    <label>Total Personil Asset Integrity</label>
-                    <input type="number" name="total_personil_asset_integrity" id="total_personil_asset_integrity">
+                    <label>Unit</label>
+                    <input type="text" name="unit" id="unit">
                 </div>
 
                 <div>
-                    <label>Jumlah Personil Vacant</label>
-                    <input type="number" name="jumlah_personil_vacant" id="jumlah_personil_vacant">
+                    <label>Nama Stasiun</label>
+                    <input type="text" name="nama_stasiun" id="nama_stasiun">
                 </div>
 
                 <div>
-                    <label>Jumlah Personil Pensiun &lt; 1 Thn</label>
-                    <input type="number" name="jumlah_personil_pensiun" id="jumlah_personil_pensiun">
+                    <label>Belum Mulai</label>
+                    <input type="number" name="belum_mulai" id="belum_mulai">
                 </div>
 
                 <div>
-                    <label>Keterangan</label>
-                    <input type="text" name="keterangan" id="keterangan" rows="3"></input>
+                    <label>Kickoff Meeting</label>
+                    <input type="number" name="kickoff_meeting" id="kickoff_meeting">
                 </div>
+
+                <div>
+                    <label>Identifikasi Peralatan</label>
+                    <input type="number" name="identifikasi_peralatan" id="identifikasi_peralatan">
+                </div>
+
+                <div>
+                    <label>Survey Lapangan</label>
+                    <input type="number" name="survey_lapangan" id="survey_lapangan">
+                </div>
+
+                <div>
+                    <label>Pembenahan Funloc</label>
+                    <input type="number" name="pembenahan_funloc" id="pembenahan_funloc">
+                </div>
+
+                <div>
+                    <label>Review Criticality</label>
+                    <input type="number" name="review_criticality" id="review_criticality">
+                </div>
+
+                <div>
+                    <label>Penyelarasan Dokumen dan Lapangan</label>
+                    <input type="number" name="penyelarasan_dokumen" id="penyelarasan_dokumen">
+                </div>
+
+                <div>
+                    <label>Melengkapi Tag Fisik</label>
+                    <input type="number" name="melengkapi_tag_fisik" id="melengkapi_tag_fisik">
+                </div>
+
+                <div>
+                    <label>Mempersiapkan Form Upload Data</label>
+                    <input type="number" name="form_upload_data" id="form_upload_data">
+                </div>
+
+                <div>
+                    <label>Request ke Master Data</label>
+                    <input type="number" name="request_master_data" id="request_master_data">
+                </div>
+
+                <div>
+                    <label>Update Di Master Data</label>
+                    <input type="number" name="update_master_data" id="update_master_data">
+                </div>
+
+                <div>
+                    <label>Kendala</label>
+                    <input type="text" name="kendala" id="kendala" rows="3"></input>
+                </div>
+
+                <div>
+                    <label>Tindak Lanjut</label>
+                    <input type="text" name="tindak_lanjut" id="tindak_lanjut" rows="3"></input>
+                </div>
+
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
-
         </div>
     </div>
 
@@ -228,7 +282,7 @@
         <script>
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
-                    fetch(`kondisi-vacant-aims-ru-dumai/${id}`, {
+                    fetch(`sap-asset-plaju/${id}`, {
                             method: "DELETE",
                             headers: {
                                 "Accept": "application/json",
@@ -256,27 +310,87 @@
                             value: keyword
                         },
                         {
+                            field: "subholding",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
                             field: "company",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "total_personil_asset_integrity",
+                            field: "unit",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "jumlah_personil_vacant",
+                            field: "nama_stasiun",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "jumlah_personil_pensiun",
+                            field: "belum_mulai",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "keterangan",
+                            field: "kickoff_meeting",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "identifikasi_peralatan",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "survey_lapangan",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "pembenahan_funloc",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "review_criticality",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "penyelarasan_dokumen",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "melengkapi_tag_fisik",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "form_upload_data",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "request_master_data",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "update_master_data",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "kendala",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "tindak_lanjut",
                             type: "like",
                             value: keyword
                         }
@@ -290,7 +404,7 @@
             }
 
             function loadData() {
-                fetch("/monev/shrnp/input-data/kondisi-vacant-aims-ru-dumai/data", {
+                fetch("/monev/shrnp/input-data/sap-asset-plaju/data", {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -318,11 +432,18 @@
 
             document.addEventListener("DOMContentLoaded", function() {
                 const columnMap = {
-                    "kondisi-vacant-aims-ru-dumai": [{
+                    "sap-asset-plaju": [{
                             title: "No",
-                            formatter: "rownum",
+                            formatter: function(cell) {
+                                const row = cell.getRow();
+                                const table = cell.getTable();
+                                const sortedData = table.getRows("active").map(r => r.getData());
+                                const index = sortedData.findIndex(data => data.id === row.getData().id);
+                                return index + 1;
+                            },
                             hozAlign: "center",
                             width: 60,
+                            headerSort: false,
                             download: false
                         },
                         {
@@ -414,45 +535,110 @@
                             }
                         },
                         {
+                            title: "Subholding",
+                            field: "subholding",
+                            editor: "input"
+                        },
+                        {
                             title: "Company",
                             field: "company",
+                            editor: "input"
+                        },
+                        {
+                            title: "Unit",
+                            field: "unit",
+                            editor: "input"
+                        },
+                        {
+                            title: "Nama Stasiun",
+                            field: "nama_stasiun",
+                            editor: "input"
+                        },
+                        {
+                            title: "Belum Mulai",
+                            field: "belum_mulai",
                             editor: "input",
-                        },
-                        {
-                            title: "Total Personil Asset Integrity",
-                            field: "total_personil_asset_integrity",
-                            editor: "number",
                             hozAlign: "center",
-                            width: 250
                         },
                         {
-                            title: "Jumlah Personil Vacant",
-                            field: "jumlah_personil_vacant",
-                            editor: "number",
+                            title: "Kickoff Meeting",
+                            field: "kickoff_meeting",
+                            editor: "input",
                             hozAlign: "center",
-                            width: 200
                         },
                         {
-                            title: "Jumlah Personil Pensiun <1 Thn",
-                            field: "jumlah_personil_pensiun",
-                            editor: "number",
+                            title: "Identifikasi Peralatan",
+                            field: "identifikasi_peralatan",
+                            editor: "input",
                             hozAlign: "center",
-                            width: 250
                         },
                         {
-                            title: "Keterangan",
-                            field: "keterangan",
-                            width: 350,
+                            title: "Survey Lapangan",
+                            field: "survey_lapangan",
+                            editor: "input",
+                            hozAlign: "center",
+                        },
+                        {
+                            title: "Pembenahan Funloc",
+                            field: "pembenahan_funloc",
+                            editor: "input",
+                            hozAlign: "center",
+                        },
+                        {
+                            title: "Review Criticality",
+                            field: "review_criticality",
+                            editor: "input",
+                            hozAlign: "center",
+                        },
+                        {
+                            title: "Penyelarasan Dokumen dan Lapangan",
+                            field: "penyelarasan_dokumen_dan_lapangan",
+                            editor: "input"
+                        },
+                        {
+                            title: "Melengkapi Tag Fisik",
+                            field: "melengkapi_tag_fisik",
+                            editor: "input",
+                            hozAlign: "center",
+                        },
+                        {
+                            title: "Mempersiapkan Form Upload Data",
+                            field: "mempersiapkan_form_upload_data",
+                            editor: "input",
+                            hozAlign: "center",
+                        },
+                        {
+                            title: "Request ke Master Data",
+                            field: "request_ke_master_data",
+                            editor: "input",
+                            hozAlign: "center",
+                        },
+                        {
+                            title: "Update Di Master Data",
+                            field: "update_di_master_data",
+                            editor: "input",
+                            hozAlign: "center",
+                        },
+                        {
+                            title: "Kendala",
+                            field: "kendala",
+                            editor: "input",
+                            hozAlign: "center",
+                        },
+                        {
+                            title: "Tindak Lanjut",
+                            field: "tindak_lanjut",
                             editor: "input"
                         },
                         {
                             title: "Aksi",
-                            download: false,
                             formatter: (cell) => {
                                 const row = cell.getData();
                                 return `<button onclick='deleteData("${row.id}")'>Hapus</button>`;
                             },
                             hozAlign: "center",
+                            width: 150,
+                            download: false
                         }
                     ]
                 };
@@ -461,7 +647,8 @@
                     layout: "fitDataTable",
                     responsiveLayout: "collapse",
                     autoResize: true,
-                    columns: columnMap["kondisi-vacant-aims-ru-dumai"],
+                    columns: columnMap["sap-asset-plaju"],
+                    virtualDom: true,
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -496,8 +683,8 @@
                 });
 
                 document.getElementById("download-xlsx").addEventListener("click", function() {
-                    window.table.download("xlsx", "kondisi-vacant-aims-ru-dumai.xlsx", {
-                        sheetName: "kondisi-vacant-aims",
+                    window.table.download("xlsx", "sap-asset-plaju.xlsx", {
+                        sheetName: "sap-asset-plaju",
                         columnHeaders: true,
                         downloadDataFormatter: function(data) {
                             return data.map(row => {
@@ -509,7 +696,7 @@
                                         value === undefined ||
                                         value === "" ||
                                         valStr === "null" ||
-                                        valStr === "null"
+                                        valStr === "undefined"
                                     ) ? "" : value;
                                 }
                                 return cleanedRow;
@@ -518,27 +705,7 @@
                     });
                 });
 
-                table.on("cellEdited", function(cell) {
-                    const updatedData = cell.getRow().getData();
-                    const id = updatedData.id;
-
-                    if (!id) return;
-
-                    fetch(`kondisi-vacant-aims-ru-dumai/${id}`, {
-                            method: "PUT",
-                            headers: {
-                                "Content-Type": "application/json",
-                                "Accept": "application/json",
-                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
-                                    .getAttribute("content")
-                            },
-                            body: JSON.stringify(updatedData)
-                        })
-                        .then(res => res.json())
-                        .then(data => console.log("Update berhasil:", data))
-                        .catch(err => console.error("Gagal update:", err));
-                });
-
+                const table = window.table;
                 let previousData = [];
                 table.on("dataLoaded", function(newData) {
                     previousData = JSON.parse(JSON.stringify(newData));
@@ -564,7 +731,7 @@
                     console.log("Baris yang berubah:", changedRows);
 
                     changedRows.forEach(rowData => {
-                        fetch(`kondisi-vacant-aims-ru-dumai/${rowData.id}`, {
+                        fetch(`sap-asset-plaju/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
                                     "Content-Type": "application/json",
@@ -586,11 +753,31 @@
                     previousData = JSON.parse(JSON.stringify(newData));
                 });
 
+                table.on("cellEdited", function(cell) {
+                    const updatedData = cell.getRow().getData();
+                    const id = updatedData.id;
+
+                    if (!id) return;
+
+                    fetch(`sap-asset-plaju/${id}`, {
+                            method: "PUT",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute("content")
+                            },
+                            body: JSON.stringify(updatedData)
+                        })
+                        .then(res => res.json())
+                        .then(data => console.log("Update berhasil:", data))
+                        .catch(err => console.error("Gagal update:", err));
+                });
                 loadData();
             });
         </script>
 
-        {{-- create data --}}
+        {{-- create data  --}}
         <script>
             function openModal() {
                 document.getElementById("createModal").style.display = "block";
@@ -608,7 +795,7 @@
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
 
-                fetch("kondisi-vacant-aims-ru-dumai", {
+                fetch("sap-asset-plaju", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -618,18 +805,31 @@
                         },
                         body: JSON.stringify({
                             periode: data.periode,
+                            subholding: data.subholding,
                             company: data.company,
-                            total_personil_asset_integrity: data.total_personil_asset_integrity,
-                            jumlah_personil_vacant: data.jumlah_personil_vacant,
-                            jumlah_personil_pensiun_1_thn: data.jumlah_personil_pensiun,
-                            keterangan: data.keterangan
+                            unit: data.unit,
+                            nama_stasiun: data.nama_stasiun,
+                            belum_mulai: data.belum_mulai,
+                            kickoff_meeting: data.kickoff_meeting,
+                            identifikasi_peralatan: data.identifikasi_peralatan,
+                            survey_lapangan: data.survey_lapangan,
+                            pembenahan_funloc: data.pembenahan_funloc,
+                            review_criticality: data.review_criticality,
+                            penyelarasan_dokumen_dan_lapangan: data.penyelarasan_dokumen_dan_lapangan,
+                            melengkapi_tag_fisik: data.melengkapi_tag_fisik,
+                            mempersiapkan_form_upload_data: data.mempersiapkan_form_upload_data,
+                            request_ke_master_data: data.request_ke_master_data,
+                            update_di_master_data: data.update_di_master_data,
+                            kendala: data.kendala,
+                            tindak_lanjut: data.tindak_lanjut
                         })
+
                     })
                     .then(response => response.json())
                     .then(result => {
                         if (result.success) {
                             alert(result.message || "Data berhasil disimpan");
-                            table.setData("/monev/shrnp/input-data/kondisi-vacant-aims-ru-dumai/data");
+                            table.setData("/monev/shrnp/input-data/sap-asset-plaju/data");
                             this.reset();
                             closeModal();
                         } else {

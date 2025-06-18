@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Models\SHRNP\RuDumai;
+namespace App\Models\SHRNP\Plaju;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 
-class SapAssetRuDumai extends Model
+class SistemInformasiAimsPlaju extends Model
 {
     use HasFactory;
     public $incrementing = false;
@@ -22,25 +22,21 @@ class SapAssetRuDumai extends Model
         });
     }
 
-    protected $table = 'shrnp_ruu_dumai_sap_asset';
+    protected $table = 'shrnp_plaju_sistem_informasi_aims';
+
     protected $fillable = [
         'periode',
-        'subholding',
         'company',
-        'unit',
-        'nama_stasiun',
-        'belum_mulai',
-        'kickoff_meeting',
-        'identifikasi_peralatan',
-        'survey_lapangan',
-        'pembenahan_funloc',
-        'review_criticality',
-        'penyelarasan_dokumen_dan_lapangan',
-        'melengkapi_tag_fisik',
-        'mempersiapkan_form_upload_data',
-        'request_ke_master_data',
-        'update_di_master_data',
+        'jumlah_aset_operasi',
+        'jumlah_aset_teregister',
+        'kendala_aset_register',
+        'tindak_lanjut_aset_register',
+        'sistem_informasi_aim',
+        'total_wo_comply',
+        'total_wo_completed',
+        'total_wo_in_progress',
+        'total_wo_backlog',
         'kendala',
-        'tindak_lanjut'
+        'tindak_lanjut',
     ];
 }

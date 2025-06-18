@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Models\SHRNP\RuDumai;
+namespace App\Models\SHRNP\Plaju;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 
-class SapAssetRuDumai extends Model
+class MandatoryCertificationPlaju extends Model
 {
     use HasFactory;
     public $incrementing = false;
@@ -22,25 +22,16 @@ class SapAssetRuDumai extends Model
         });
     }
 
-    protected $table = 'shrnp_ruu_dumai_sap_asset';
+    protected $table = 'shrnp_plaju_mandatory_certification';
+
     protected $fillable = [
         'periode',
         'subholding',
         'company',
         'unit',
-        'nama_stasiun',
-        'belum_mulai',
-        'kickoff_meeting',
-        'identifikasi_peralatan',
-        'survey_lapangan',
-        'pembenahan_funloc',
-        'review_criticality',
-        'penyelarasan_dokumen_dan_lapangan',
-        'melengkapi_tag_fisik',
-        'mempersiapkan_form_upload_data',
-        'request_ke_master_data',
-        'update_di_master_data',
-        'kendala',
-        'tindak_lanjut'
+        'nama_sertifikasi',
+        'lembaga_penerbit_sertifikat',
+        'jumlah_sertifikasi_terbit',
+        'jumlah_learning_hours',
     ];
 }

@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Models\SHRNP\RuDumai;
+namespace App\Models\SHRNP\Plaju;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 
-class SapAssetRuDumai extends Model
+class RencanaPemeliharaanPlaju extends Model
 {
+
     use HasFactory;
     public $incrementing = false;
     protected $keyType = 'string';
@@ -21,26 +22,33 @@ class SapAssetRuDumai extends Model
             }
         });
     }
+    protected $table = 'shrnp_plaju_rencana_pemeliharaan';
 
-    protected $table = 'shrnp_ruu_dumai_sap_asset';
     protected $fillable = [
         'periode',
-        'subholding',
+        'no',
         'company',
-        'unit',
-        'nama_stasiun',
-        'belum_mulai',
-        'kickoff_meeting',
-        'identifikasi_peralatan',
-        'survey_lapangan',
-        'pembenahan_funloc',
-        'review_criticality',
-        'penyelarasan_dokumen_dan_lapangan',
-        'melengkapi_tag_fisik',
-        'mempersiapkan_form_upload_data',
-        'request_ke_master_data',
-        'update_di_master_data',
+        'lokasi',
+        'program_kerja',
+        'kategori_maintenance',
+        'besar_phasing',
+        'remark',
+        'jan',
+        'feb',
+        'mar',
+        'apr',
+        'may',
+        'jun',
+        'jul',
+        'aug',
+        'sep',
+        'oct',
+        'nov',
+        'dec',
+        'biaya_kerugian',
+        'keterangan_kerugian',
+        'penyebab',
         'kendala',
-        'tindak_lanjut'
+        'tindak_lanjut',
     ];
 }

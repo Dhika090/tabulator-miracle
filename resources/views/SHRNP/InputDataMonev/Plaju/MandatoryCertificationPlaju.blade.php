@@ -2,6 +2,12 @@
 <x-layouts.app :title="__('')">
     @push('styles')
         <link href="https://unpkg.com/tabulator-tables@5.6.0/dist/css/tabulator.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
         <style>
             .tabulator-wrapper {
                 overflow-x: auto;
@@ -18,6 +24,11 @@
                 font-size: 14px;
             }
 
+            .tabulator .tabulator-cell {
+                white-space: normal !important;
+                word-wrap: break-word;
+            }
+
             .card {
                 margin-top: 20px;
             }
@@ -25,11 +36,6 @@
             .tab-scroll-wrapper {
                 border-bottom: 1px solid #dee2e6;
                 padding-bottom: 5px;
-            }
-
-            .tabulator .tabulator-cell {
-                white-space: normal !important;
-                word-wrap: break-word;
             }
 
             .tab-scroll-wrapper {
@@ -125,7 +131,7 @@
     <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-                <h5 class="card-title mb-3 mb-md-0">Kondisi Vacant Fungsi AIMS Ru Dumai</h5>
+                <h5 class="card-title mb-3 mb-md-0">Mandatory Certification Plaju</h5>
                 <div class="d-flex flex-column flex-md-row align-items-center gap-3">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
@@ -171,7 +177,6 @@
                     </div>
                 </div>
             </div>
-
             <div id="mainTable"></div>
 
             <div class="tabulator-wrapper mt-4">
@@ -183,7 +188,7 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Tambah Kondisi Vacant Ru Dumai</h3>
+            <h3>Tambah Target Mandatory Certification Plaju</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
                 <div>
@@ -192,43 +197,58 @@
                 </div>
 
                 <div>
+                    <label>Subholding</label>
+                    <input type="text" name="subholding" id="subholding">
+                </div>
+
+                <div>
                     <label>Company</label>
                     <input type="text" name="company" id="company">
                 </div>
 
                 <div>
-                    <label>Total Personil Asset Integrity</label>
-                    <input type="number" name="total_personil_asset_integrity" id="total_personil_asset_integrity">
+                    <label>Unit</label>
+                    <input type="text" name="unit" id="unit">
+                </div>
+
+                {{-- dropdown nama Sertifikasi --}}
+                <div>
+                    <label>Nama Sertifikasi</label>
+                    <select name="nama_sertifikasi" id="nama_sertifikasi" class="form-control">
+                        <option value="">-- Pilih Sertifikasi --</option>
+                        @foreach ($sertifikasiOptions as $option)
+                            <option value="{{ $option }}">{{ $option }}</option>
+                        @endforeach
+                    </select>
                 </div>
 
                 <div>
-                    <label>Jumlah Personil Vacant</label>
-                    <input type="number" name="jumlah_personil_vacant" id="jumlah_personil_vacant">
+                    <label>Lembaga Penerbit Sertifikat</label>
+                    <input type="text" name="lembaga_penerbit_sertifikat" id="lembaga_penerbit_sertifikat">
                 </div>
 
                 <div>
-                    <label>Jumlah Personil Pensiun &lt; 1 Thn</label>
-                    <input type="number" name="jumlah_personil_pensiun" id="jumlah_personil_pensiun">
+                    <label>Jumlah Sertifikasi yang Sudah Terbit</label>
+                    <input type="number" name="jumlah_sertifikasi_terbit" id="jumlah_sertifikasi_terbit">
                 </div>
 
                 <div>
-                    <label>Keterangan</label>
-                    <input type="text" name="keterangan" id="keterangan" rows="3"></input>
+                    <label>Jumlah Learning Hours</label>
+                    <input type="number" name="jumlah_learning_hours" id="jumlah_learning_hours">
                 </div>
+
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
-
         </div>
     </div>
 
     @push('scripts')
         <script src="https://unpkg.com/tabulator-tables@5.6.0/dist/js/tabulator.min.js"></script>
         <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
-
         <script>
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
-                    fetch(`kondisi-vacant-aims-ru-dumai/${id}`, {
+                    fetch(`mandatory-certification-plaju/${id}`, {
                             method: "DELETE",
                             headers: {
                                 "Accept": "application/json",
@@ -247,50 +267,13 @@
                 }
             }
 
-            document.getElementById("search-input").addEventListener("input", function(e) {
-                const keyword = e.target.value;
-                table.setFilter([
-                    [{
-                            field: "periode",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "company",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "total_personil_asset_integrity",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "jumlah_personil_vacant",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "jumlah_personil_pensiun",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "keterangan",
-                            type: "like",
-                            value: keyword
-                        }
-                    ]
-                ]);
-            });
-
             function clearSearch() {
                 document.getElementById("search-input").value = "";
                 table.clearFilter();
             }
 
             function loadData() {
-                fetch("/monev/shrnp/input-data/kondisi-vacant-aims-ru-dumai/data", {
+                fetch("/monev/shrnp/input-data/mandatory-certification-plaju/data", {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -316,9 +299,57 @@
                     .catch(err => console.error("Gagal load data:", err));
             }
 
+            document.getElementById("search-input").addEventListener("input", function(e) {
+                const keyword = e.target.value;
+                table.setFilter([
+                    [{
+                            field: "periode",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "subholding",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "company",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "unit",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "nama_sertifikasi",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "lembaga_penerbit_sertifikat",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "jumlah_sertifikasi_sudah_terbit",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "jumlah_learning_hours",
+                            type: "like",
+                            value: keyword
+                        }
+                    ]
+                ]);
+
+            });
+
             document.addEventListener("DOMContentLoaded", function() {
                 const columnMap = {
-                    "kondisi-vacant-aims-ru-dumai": [{
+                    "mandatory-certification-plaju": [{
                             title: "No",
                             formatter: "rownum",
                             hozAlign: "center",
@@ -414,36 +445,45 @@
                             }
                         },
                         {
+                            title: "Subholding",
+                            field: "subholding",
+                            hozAlign: "center",
+                            editor: "input"
+                        },
+                        {
                             title: "Company",
                             field: "company",
+                            hozAlign: "center",
+                            editor: "input"
+                        },
+                        {
+                            title: "Unit",
+                            field: "unit",
                             editor: "input",
-                        },
-                        {
-                            title: "Total Personil Asset Integrity",
-                            field: "total_personil_asset_integrity",
-                            editor: "number",
-                            hozAlign: "center",
-                            width: 250
-                        },
-                        {
-                            title: "Jumlah Personil Vacant",
-                            field: "jumlah_personil_vacant",
-                            editor: "number",
-                            hozAlign: "center",
                             width: 200
                         },
                         {
-                            title: "Jumlah Personil Pensiun <1 Thn",
-                            field: "jumlah_personil_pensiun",
-                            editor: "number",
-                            hozAlign: "center",
-                            width: 250
+                            title: "Nama Sertifikasi",
+                            field: "nama_sertifikasi",
+                            editor: "input",
+                            width: 450
                         },
                         {
-                            title: "Keterangan",
-                            field: "keterangan",
-                            width: 350,
+                            title: "Lembaga Penerbit Sertifikat",
+                            field: "lembaga_penerbit_sertifikat",
                             editor: "input"
+                        },
+                        {
+                            title: "Jumlah Sertifikasi yang Sudah Terbit",
+                            field: "jumlah_sertifikasi_terbit",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Jumlah Learning Hours",
+                            field: "jumlah_learning_hours",
+                            editor: "input",
+                            hozAlign: "center"
                         },
                         {
                             title: "Aksi",
@@ -453,6 +493,7 @@
                                 return `<button onclick='deleteData("${row.id}")'>Hapus</button>`;
                             },
                             hozAlign: "center",
+                            width: 150
                         }
                     ]
                 };
@@ -461,7 +502,7 @@
                     layout: "fitDataTable",
                     responsiveLayout: "collapse",
                     autoResize: true,
-                    columns: columnMap["kondisi-vacant-aims-ru-dumai"],
+                    columns: columnMap["mandatory-certification-plaju"],
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -496,8 +537,8 @@
                 });
 
                 document.getElementById("download-xlsx").addEventListener("click", function() {
-                    window.table.download("xlsx", "kondisi-vacant-aims-ru-dumai.xlsx", {
-                        sheetName: "kondisi-vacant-aims",
+                    window.table.download("xlsx", "pelatihan-aims-plaju.xlsx", {
+                        sheetName: "pelatihan-aims-plaju",
                         columnHeaders: true,
                         downloadDataFormatter: function(data) {
                             return data.map(row => {
@@ -509,7 +550,7 @@
                                         value === undefined ||
                                         value === "" ||
                                         valStr === "null" ||
-                                        valStr === "null"
+                                        valStr === "undefined"
                                     ) ? "" : value;
                                 }
                                 return cleanedRow;
@@ -524,7 +565,7 @@
 
                     if (!id) return;
 
-                    fetch(`kondisi-vacant-aims-ru-dumai/${id}`, {
+                    fetch(`mandatory-certification-plaju/${id}`, {
                             method: "PUT",
                             headers: {
                                 "Content-Type": "application/json",
@@ -538,7 +579,6 @@
                         .then(data => console.log("Update berhasil:", data))
                         .catch(err => console.error("Gagal update:", err));
                 });
-
                 let previousData = [];
                 table.on("dataLoaded", function(newData) {
                     previousData = JSON.parse(JSON.stringify(newData));
@@ -564,7 +604,7 @@
                     console.log("Baris yang berubah:", changedRows);
 
                     changedRows.forEach(rowData => {
-                        fetch(`kondisi-vacant-aims-ru-dumai/${rowData.id}`, {
+                        fetch(`mandatory-certification-plaju/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
                                     "Content-Type": "application/json",
@@ -585,12 +625,11 @@
 
                     previousData = JSON.parse(JSON.stringify(newData));
                 });
-
                 loadData();
             });
         </script>
 
-        {{-- create data --}}
+        {{-- create data  --}}
         <script>
             function openModal() {
                 document.getElementById("createModal").style.display = "block";
@@ -608,7 +647,7 @@
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
 
-                fetch("kondisi-vacant-aims-ru-dumai", {
+                fetch("mandatory-certification-plaju", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -618,18 +657,21 @@
                         },
                         body: JSON.stringify({
                             periode: data.periode,
+                            subholding: data.subholding,
                             company: data.company,
-                            total_personil_asset_integrity: data.total_personil_asset_integrity,
-                            jumlah_personil_vacant: data.jumlah_personil_vacant,
-                            jumlah_personil_pensiun_1_thn: data.jumlah_personil_pensiun,
-                            keterangan: data.keterangan
+                            unit: data.unit,
+                            nama_sertifikasi: data.nama_sertifikasi,
+                            lembaga_penerbit_sertifikat: data.lembaga_penerbit_sertifikat,
+                            jumlah_sertifikasi_terbit: data.jumlah_sertifikasi_terbit,
+                            jumlah_learning_hours: data.jumlah_learning_hours
                         })
+
                     })
                     .then(response => response.json())
                     .then(result => {
                         if (result.success) {
                             alert(result.message || "Data berhasil disimpan");
-                            table.setData("/monev/shrnp/input-data/kondisi-vacant-aims-ru-dumai/data");
+                            table.setData("/monev/shrnp/input-data/mandatory-certification-plaju/data");
                             this.reset();
                             closeModal();
                         } else {

@@ -18,6 +18,11 @@
                 font-size: 14px;
             }
 
+            .tabulator .tabulator-cell {
+                white-space: normal !important;
+                word-wrap: break-word;
+            }
+
             .card {
                 margin-top: 20px;
             }
@@ -25,11 +30,6 @@
             .tab-scroll-wrapper {
                 border-bottom: 1px solid #dee2e6;
                 padding-bottom: 5px;
-            }
-
-            .tabulator .tabulator-cell {
-                white-space: normal !important;
-                word-wrap: break-word;
             }
 
             .tab-scroll-wrapper {
@@ -125,7 +125,7 @@
     <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-                <h5 class="card-title mb-3 mb-md-0">Kondisi Vacant Fungsi AIMS Ru Dumai</h5>
+                <h5 class="card-title mb-3 mb-md-0">Pelatihan AIMS Plaju</h5>
                 <div class="d-flex flex-column flex-md-row align-items-center gap-3">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
@@ -183,7 +183,7 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Tambah Kondisi Vacant Ru Dumai</h3>
+            <h3>Pelatihan AIMS Plaju</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
                 <div>
@@ -197,24 +197,15 @@
                 </div>
 
                 <div>
-                    <label>Total Personil Asset Integrity</label>
-                    <input type="number" name="total_personil_asset_integrity" id="total_personil_asset_integrity">
+                    <label>Judul Pelatihan/Training/Forum</label>
+                    <input type="text" name="judul_pelatihan" id="judul_pelatihan">
                 </div>
 
                 <div>
-                    <label>Jumlah Personil Vacant</label>
-                    <input type="number" name="jumlah_personil_vacant" id="jumlah_personil_vacant">
+                    <label>Realisasi Perwira</label>
+                    <input type="number" name="realisasi_perwira" id="realisasi_perwira">
                 </div>
 
-                <div>
-                    <label>Jumlah Personil Pensiun &lt; 1 Thn</label>
-                    <input type="number" name="jumlah_personil_pensiun" id="jumlah_personil_pensiun">
-                </div>
-
-                <div>
-                    <label>Keterangan</label>
-                    <input type="text" name="keterangan" id="keterangan" rows="3"></input>
-                </div>
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
 
@@ -228,7 +219,7 @@
         <script>
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
-                    fetch(`kondisi-vacant-aims-ru-dumai/${id}`, {
+                    fetch(`pelatihan-aims-plaju/${id}`, {
                             method: "DELETE",
                             headers: {
                                 "Accept": "application/json",
@@ -261,22 +252,12 @@
                             value: keyword
                         },
                         {
-                            field: "total_personil_asset_integrity",
+                            field: "judul_pelatihan",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "jumlah_personil_vacant",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "jumlah_personil_pensiun",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "keterangan",
+                            field: "realisasi_perwira",
                             type: "like",
                             value: keyword
                         }
@@ -290,7 +271,7 @@
             }
 
             function loadData() {
-                fetch("/monev/shrnp/input-data/kondisi-vacant-aims-ru-dumai/data", {
+                fetch("/monev/shrnp/input-data/pelatihan-aims-plaju/data", {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -318,12 +299,12 @@
 
             document.addEventListener("DOMContentLoaded", function() {
                 const columnMap = {
-                    "kondisi-vacant-aims-ru-dumai": [{
+                    "pelatihan-aims-plaju": [{
                             title: "No",
                             formatter: "rownum",
                             hozAlign: "center",
                             width: 60,
-                            download: false
+                            download: false,
                         },
                         {
                             title: "ID",
@@ -416,34 +397,19 @@
                         {
                             title: "Company",
                             field: "company",
+                            editor: "input"
+                        },
+                        {
+                            title: "Judul Pelatihan",
+                            field: "judul_pelatihan",
+                            width: 400,
                             editor: "input",
                         },
                         {
-                            title: "Total Personil Asset Integrity",
-                            field: "total_personil_asset_integrity",
+                            title: "Realisasi Perwira",
+                            field: "realisasi_perwira",
                             editor: "number",
-                            hozAlign: "center",
-                            width: 250
-                        },
-                        {
-                            title: "Jumlah Personil Vacant",
-                            field: "jumlah_personil_vacant",
-                            editor: "number",
-                            hozAlign: "center",
-                            width: 200
-                        },
-                        {
-                            title: "Jumlah Personil Pensiun <1 Thn",
-                            field: "jumlah_personil_pensiun",
-                            editor: "number",
-                            hozAlign: "center",
-                            width: 250
-                        },
-                        {
-                            title: "Keterangan",
-                            field: "keterangan",
-                            width: 350,
-                            editor: "input"
+                            hozAlign: "center"
                         },
                         {
                             title: "Aksi",
@@ -453,6 +419,7 @@
                                 return `<button onclick='deleteData("${row.id}")'>Hapus</button>`;
                             },
                             hozAlign: "center",
+                            width: 150
                         }
                     ]
                 };
@@ -461,7 +428,7 @@
                     layout: "fitDataTable",
                     responsiveLayout: "collapse",
                     autoResize: true,
-                    columns: columnMap["kondisi-vacant-aims-ru-dumai"],
+                    columns: columnMap["pelatihan-aims-plaju"],
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -496,8 +463,8 @@
                 });
 
                 document.getElementById("download-xlsx").addEventListener("click", function() {
-                    window.table.download("xlsx", "kondisi-vacant-aims-ru-dumai.xlsx", {
-                        sheetName: "kondisi-vacant-aims",
+                    window.table.download("xlsx", "pelatihan-aims-plaju.xlsx", {
+                        sheetName: "pelatihan-aims-plaju",
                         columnHeaders: true,
                         downloadDataFormatter: function(data) {
                             return data.map(row => {
@@ -509,7 +476,7 @@
                                         value === undefined ||
                                         value === "" ||
                                         valStr === "null" ||
-                                        valStr === "null"
+                                        valStr === "undefined"
                                     ) ? "" : value;
                                 }
                                 return cleanedRow;
@@ -524,7 +491,7 @@
 
                     if (!id) return;
 
-                    fetch(`kondisi-vacant-aims-ru-dumai/${id}`, {
+                    fetch(`pelatihan-aims-plaju/${id}`, {
                             method: "PUT",
                             headers: {
                                 "Content-Type": "application/json",
@@ -564,7 +531,7 @@
                     console.log("Baris yang berubah:", changedRows);
 
                     changedRows.forEach(rowData => {
-                        fetch(`kondisi-vacant-aims-ru-dumai/${rowData.id}`, {
+                        fetch(`pelatihan-aims-plaju/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
                                     "Content-Type": "application/json",
@@ -585,12 +552,11 @@
 
                     previousData = JSON.parse(JSON.stringify(newData));
                 });
-
                 loadData();
             });
         </script>
 
-        {{-- create data --}}
+        {{-- create data  --}}
         <script>
             function openModal() {
                 document.getElementById("createModal").style.display = "block";
@@ -608,7 +574,7 @@
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
 
-                fetch("kondisi-vacant-aims-ru-dumai", {
+                fetch("pelatihan-aims-plaju", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -619,17 +585,15 @@
                         body: JSON.stringify({
                             periode: data.periode,
                             company: data.company,
-                            total_personil_asset_integrity: data.total_personil_asset_integrity,
-                            jumlah_personil_vacant: data.jumlah_personil_vacant,
-                            jumlah_personil_pensiun_1_thn: data.jumlah_personil_pensiun,
-                            keterangan: data.keterangan
+                            judul_pelatihan: data.judul_pelatihan,
+                            realisasi_perwira: data.realisasi_perwira
                         })
                     })
                     .then(response => response.json())
                     .then(result => {
                         if (result.success) {
                             alert(result.message || "Data berhasil disimpan");
-                            table.setData("/monev/shrnp/input-data/kondisi-vacant-aims-ru-dumai/data");
+                            table.setData("/monev/shrnp/input-data/pelatihan-aims-plaju/data");
                             this.reset();
                             closeModal();
                         } else {

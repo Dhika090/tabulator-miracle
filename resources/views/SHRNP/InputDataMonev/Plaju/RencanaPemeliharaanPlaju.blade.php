@@ -18,6 +18,11 @@
                 font-size: 14px;
             }
 
+            .tabulator .tabulator-cell {
+                white-space: normal !important;
+                word-wrap: break-word;
+            }
+
             .card {
                 margin-top: 20px;
             }
@@ -25,11 +30,6 @@
             .tab-scroll-wrapper {
                 border-bottom: 1px solid #dee2e6;
                 padding-bottom: 5px;
-            }
-
-            .tabulator .tabulator-cell {
-                white-space: normal !important;
-                word-wrap: break-word;
             }
 
             .tab-scroll-wrapper {
@@ -125,7 +125,7 @@
     <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-                <h5 class="card-title mb-3 mb-md-0">Kondisi Vacant Fungsi AIMS Ru Dumai</h5>
+                <h5 class="card-title mb-3 mb-md-0">Rencana Pemeliharaan Besar Plaju</h5>
                 <div class="d-flex flex-column flex-md-row align-items-center gap-3">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
@@ -183,38 +183,138 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Tambah Kondisi Vacant Ru Dumai</h3>
+            <h3>Tambah Rencana Pemeliharaan Besar Plaju</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
+                <label for="periode">Periode (Tahun):</label>
+                <select name="periode" id="periode" class="form-select">
+                    <option value="" selected disabled>Pilih Periode</option>
+                    @for ($year = 2000; $year <= date('Y') + 5; $year++)
+                        <option value="{{ $year }}">{{ $year }}</option>
+                    @endfor
+                </select>
+
                 <div>
-                    <label>Periode</label>
-                    <input type="month" name="periode" id="periode">
+                    <label for="no">No</label>
+                    <input type="number" id="no" name="no">
                 </div>
 
                 <div>
-                    <label>Company</label>
-                    <input type="text" name="company" id="company">
+                    <label for="company">Company</label>
+                    <input type="text" id="company" name="company">
                 </div>
 
                 <div>
-                    <label>Total Personil Asset Integrity</label>
-                    <input type="number" name="total_personil_asset_integrity" id="total_personil_asset_integrity">
+                    <label for="lokasi">Lokasi</label>
+                    <input type="text" id="lokasi" name="lokasi">
                 </div>
 
                 <div>
-                    <label>Jumlah Personil Vacant</label>
-                    <input type="number" name="jumlah_personil_vacant" id="jumlah_personil_vacant">
+                    <label for="program_kerja">Program Kerja</label>
+                    <input type="text" id="program_kerja" name="program_kerja">
                 </div>
 
                 <div>
-                    <label>Jumlah Personil Pensiun &lt; 1 Thn</label>
-                    <input type="number" name="jumlah_personil_pensiun" id="jumlah_personil_pensiun">
+                    <label for="kategori_maintenance">Kategori Maintenance</label>
+                    <input type="text" id="kategori_maintenance" name="kategori_maintenance">
                 </div>
 
                 <div>
-                    <label>Keterangan</label>
-                    <input type="text" name="keterangan" id="keterangan" rows="3"></input>
+                    <label for="besar_phasing">Besar Phasing</label>
+                    <input type="number" id="besar_phasing" name="besar_phasing" step="any">
                 </div>
+
+                <div>
+                    <label for="remark">Remark</label>
+                    <input type="text" id="remark" name="remark">
+                </div>
+
+                <!-- Bulan -->
+                <div>
+                    <label for="jan">Jan</label>
+                    <input type="number" id="jan" name="jan">
+                </div>
+
+                <div>
+                    <label for="feb">Feb</label>
+                    <input type="number" id="feb" name="feb">
+                </div>
+
+                <div>
+                    <label for="mar">Mar</label>
+                    <input type="number" id="mar" name="mar">
+                </div>
+
+                <div>
+                    <label for="apr">Apr</label>
+                    <input type="number" id="apr" name="apr">
+                </div>
+
+                <div>
+                    <label for="may">May</label>
+                    <input type="number" id="may" name="may">
+                </div>
+
+                <div>
+                    <label for="jun">Jun</label>
+                    <input type="number" id="jun" name="jun">
+                </div>
+
+                <div>
+                    <label for="jul">Jul</label>
+                    <input type="number" id="jul" name="jul">
+                </div>
+
+                <div>
+                    <label for="aug">Aug</label>
+                    <input type="number" id="aug" name="aug">
+                </div>
+
+                <div>
+                    <label for="sep">Sep</label>
+                    <input type="number" id="sep" name="sep">
+                </div>
+
+                <div>
+                    <label for="oct">Oct</label>
+                    <input type="number" id="oct" name="oct">
+                </div>
+
+                <div>
+                    <label for="nov">Nov</label>
+                    <input type="number" id="nov" name="nov">
+                </div>
+
+                <div>
+                    <label for="dec">Dec</label>
+                    <input type="number" id="dec" name="dec">
+                </div>
+
+                <div>
+                    <label for="biaya_kerugian">Biaya Kerugian (USD)</label>
+                    <input type="number" id="biaya_kerugian" name="biaya_kerugian" step="0.01">
+                </div>
+
+                <div>
+                    <label for="keterangan_kerugian">Keterangan Kerugian</label>
+                    <input type="text" id="keterangan_kerugian" name="keterangan_kerugian">
+                </div>
+
+                <div>
+                    <label for="penyebab">Penyebab</label>
+                    <input type="text" id="penyebab" name="penyebab">
+                </div>
+
+                <div>
+                    <label for="kendala">Kendala</label>
+                    <input type="text" id="kendala" name="kendala">
+                </div>
+
+                <div>
+                    <label for="tindak_lanjut">Tindak Lanjut</label>
+                    <input type="text" id="tindak_lanjut" name="tindak_lanjut">
+                </div>
+
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
 
@@ -222,13 +322,12 @@
     </div>
 
     @push('scripts')
-        <script src="https://unpkg.com/tabulator-tables@5.6.0/dist/js/tabulator.min.js"></script>
         <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
-
+        <script src="https://unpkg.com/tabulator-tables@5.6.0/dist/js/tabulator.min.js"></script>
         <script>
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
-                    fetch(`kondisi-vacant-aims-ru-dumai/${id}`, {
+                    fetch(`rencana-pemeliharaan-plaju/${id}`, {
                             method: "DELETE",
                             headers: {
                                 "Accept": "application/json",
@@ -247,6 +346,11 @@
                 }
             }
 
+            function clearSearch() {
+                document.getElementById("search-input").value = "";
+                table.clearFilter();
+            }
+
             document.getElementById("search-input").addEventListener("input", function(e) {
                 const keyword = e.target.value;
                 table.setFilter([
@@ -256,27 +360,62 @@
                             value: keyword
                         },
                         {
+                            field: "no",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
                             field: "company",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "total_personil_asset_integrity",
+                            field: "lokasi",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "jumlah_personil_vacant",
+                            field: "program_kerja",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "jumlah_personil_pensiun",
+                            field: "kategori_maintenance",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "keterangan",
+                            field: "besar_phasing",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "remark",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "biaya_kerugian",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "keterangan_kerugian",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "penyebab",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "kendala",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "tindak_lanjut",
                             type: "like",
                             value: keyword
                         }
@@ -284,13 +423,8 @@
                 ]);
             });
 
-            function clearSearch() {
-                document.getElementById("search-input").value = "";
-                table.clearFilter();
-            }
-
             function loadData() {
-                fetch("/monev/shrnp/input-data/kondisi-vacant-aims-ru-dumai/data", {
+                fetch("/monev/shrnp/input-data/rencana-pemeliharaan-plaju/data", {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -318,7 +452,7 @@
 
             document.addEventListener("DOMContentLoaded", function() {
                 const columnMap = {
-                    "kondisi-vacant-aims-ru-dumai": [{
+                    "rencana-pemeliharaan-plaju": [{
                             title: "No",
                             formatter: "rownum",
                             hozAlign: "center",
@@ -332,118 +466,185 @@
                         },
                         {
                             title: "Periode",
+                            hozAlign: "center",
                             field: "periode",
                             editor: "input",
                             headerFilter: "select",
                             headerFilterParams: {
-                                values: [{
-                                        value: "01",
-                                        label: "Januari"
-                                    },
-                                    {
-                                        value: "02",
-                                        label: "Februari"
-                                    },
-                                    {
-                                        value: "03",
-                                        label: "Maret"
-                                    },
-                                    {
-                                        value: "04",
-                                        label: "April"
-                                    },
-                                    {
-                                        value: "05",
-                                        label: "Mei"
-                                    },
-                                    {
-                                        value: "06",
-                                        label: "Juni"
-                                    },
-                                    {
-                                        value: "07",
-                                        label: "Juli"
-                                    },
-                                    {
-                                        value: "08",
-                                        label: "Agustus"
-                                    },
-                                    {
-                                        value: "09",
-                                        label: "September"
-                                    },
-                                    {
-                                        value: "10",
-                                        label: "Oktober"
-                                    },
-                                    {
-                                        value: "11",
-                                        label: "November"
-                                    },
-                                    {
-                                        value: "12",
-                                        label: "Desember"
+                                values: (() => {
+                                    const years = [];
+                                    years.push({
+                                        value: "",
+                                        label: "Pilih Tahun"
+                                    });
+                                    for (let year = 2020; year <= new Date().getFullYear() +
+                                        5; year++) {
+                                        years.push({
+                                            value: String(year),
+                                            label: String(year)
+                                        });
                                     }
-                                ]
-                            },
-                            headerFilterPlaceholder: "Pilih Bulan",
-                            headerFilterFunc: function(headerValue, rowValue) {
-                                if (!headerValue) return true;
-                                if (!rowValue) return false;
-
-                                const periode = rowValue.toLowerCase();
-
-                                const bulanTextMap = {
-                                    "01": ["jan", "january"],
-                                    "02": ["feb", "february"],
-                                    "03": ["mar", "march"],
-                                    "04": ["apr", "april"],
-                                    "05": ["may", "mei"],
-                                    "06": ["jun", "june"],
-                                    "07": ["jul", "july"],
-                                    "08": ["aug", "august"],
-                                    "09": ["sep", "september"],
-                                    "10": ["oct", "october"],
-                                    "11": ["nov", "november"],
-                                    "12": ["dec", "december"]
-                                };
-
-                                const keywords = bulanTextMap[headerValue];
-                                return keywords.some(keyword => periode.includes(keyword)) || periode
-                                    .includes(`-${headerValue}`);
+                                    return years;
+                                })()
                             }
+                        },
+                        {
+                            title: "No",
+                            field: "no",
+                            editor: "number",
+                            hozAlign: "center"
                         },
                         {
                             title: "Company",
                             field: "company",
-                            editor: "input",
-                        },
-                        {
-                            title: "Total Personil Asset Integrity",
-                            field: "total_personil_asset_integrity",
-                            editor: "number",
-                            hozAlign: "center",
-                            width: 250
-                        },
-                        {
-                            title: "Jumlah Personil Vacant",
-                            field: "jumlah_personil_vacant",
-                            editor: "number",
-                            hozAlign: "center",
-                            width: 200
-                        },
-                        {
-                            title: "Jumlah Personil Pensiun <1 Thn",
-                            field: "jumlah_personil_pensiun",
-                            editor: "number",
-                            hozAlign: "center",
-                            width: 250
-                        },
-                        {
-                            title: "Keterangan",
-                            field: "keterangan",
-                            width: 350,
                             editor: "input"
+                        },
+                        {
+                            title: "Lokasi",
+                            field: "lokasi",
+                            editor: "input"
+                        },
+                        {
+                            title: "Program Kerja",
+                            field: "program_kerja",
+                            editor: "input",
+                            width: 450
+                        },
+                        {
+                            title: "Kategori Maintenance",
+                            field: "kategori_maintenance",
+                            hozAlign: "center",
+                            editor: "input"
+                        },
+                        {
+                            title: "Besar Phasing",
+                            field: "besar_phasing",
+                            hozAlign: "right",
+                            formatter: function(cell) {
+                                let rawValue = cell.getValue();
+                                if (rawValue === null || rawValue === undefined || rawValue === "") {
+                                    return "0.00";
+                                }
+
+                                let cleanValue = rawValue.toString().replace(/[^0-9.-]+/g, '');
+                                let value = parseFloat(cleanValue);
+
+                                if (!isNaN(value)) {
+                                    return value.toLocaleString("en-US", {
+                                        minimumFractionDigits: 2,
+                                        maximumFractionDigits: 2
+                                    });
+                                }
+
+                                return "0.00";
+                            },
+                            editor: "input"
+                        },
+                        {
+                            title: "Remark",
+                            field: "remark",
+                            editor: "input"
+                        },
+                        {
+                            title: "Jan",
+                            field: "jan",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Feb",
+                            field: "feb",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Mar",
+                            field: "mar",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Apr",
+                            field: "apr",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "May",
+                            field: "may",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Jun",
+                            field: "jun",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Jul",
+                            field: "jul",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Aug",
+                            field: "aug",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Sep",
+                            field: "sep",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Oct",
+                            field: "oct",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Nov",
+                            field: "nov",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Dec",
+                            field: "dec",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Biaya Kerugian (USD)",
+                            field: "biaya_kerugian",
+                            editor: "number",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Keterangan Kerugian",
+                            field: "keterangan_kerugian",
+                            editor: "input"
+                        },
+                        {
+                            title: "Penyebab",
+                            field: "penyebab",
+                            editor: "input",
+                            width: 450
+                        },
+                        {
+                            title: "Kendala",
+                            field: "kendala",
+                            editor: "input",
+                            width: 450
+                        },
+                        {
+                            title: "Tindak Lanjut",
+                            field: "tindak_lanjut",
+                            editor: "input",
+                            width: 450
                         },
                         {
                             title: "Aksi",
@@ -453,6 +654,7 @@
                                 return `<button onclick='deleteData("${row.id}")'>Hapus</button>`;
                             },
                             hozAlign: "center",
+                            width: 150
                         }
                     ]
                 };
@@ -461,7 +663,7 @@
                     layout: "fitDataTable",
                     responsiveLayout: "collapse",
                     autoResize: true,
-                    columns: columnMap["kondisi-vacant-aims-ru-dumai"],
+                    columns: columnMap["rencana-pemeliharaan-plaju"],
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -496,8 +698,8 @@
                 });
 
                 document.getElementById("download-xlsx").addEventListener("click", function() {
-                    window.table.download("xlsx", "kondisi-vacant-aims-ru-dumai.xlsx", {
-                        sheetName: "kondisi-vacant-aims",
+                    window.table.download("xlsx", "rencana-pemeliharaan-plaju.xlsx", {
+                        sheetName: "rencana-pemeliharaan-plaju",
                         columnHeaders: true,
                         downloadDataFormatter: function(data) {
                             return data.map(row => {
@@ -509,7 +711,7 @@
                                         value === undefined ||
                                         value === "" ||
                                         valStr === "null" ||
-                                        valStr === "null"
+                                        valStr === "undefined"
                                     ) ? "" : value;
                                 }
                                 return cleanedRow;
@@ -524,7 +726,7 @@
 
                     if (!id) return;
 
-                    fetch(`kondisi-vacant-aims-ru-dumai/${id}`, {
+                    fetch(`rencana-pemeliharaan-plaju/${id}`, {
                             method: "PUT",
                             headers: {
                                 "Content-Type": "application/json",
@@ -535,7 +737,7 @@
                             body: JSON.stringify(updatedData)
                         })
                         .then(res => res.json())
-                        .then(data => console.log("Update berhasil:", data))
+                        .then(data => console.log("Berhasil update:", data))
                         .catch(err => console.error("Gagal update:", err));
                 });
 
@@ -564,7 +766,7 @@
                     console.log("Baris yang berubah:", changedRows);
 
                     changedRows.forEach(rowData => {
-                        fetch(`kondisi-vacant-aims-ru-dumai/${rowData.id}`, {
+                        fetch(`rencana-pemeliharaan-plaju/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
                                     "Content-Type": "application/json",
@@ -590,7 +792,7 @@
             });
         </script>
 
-        {{-- create data --}}
+        {{-- create data  --}}
         <script>
             function openModal() {
                 document.getElementById("createModal").style.display = "block";
@@ -608,7 +810,7 @@
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
 
-                fetch("kondisi-vacant-aims-ru-dumai", {
+                fetch("rencana-pemeliharaan-plaju", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -618,18 +820,37 @@
                         },
                         body: JSON.stringify({
                             periode: data.periode,
+                            no: data.no,
                             company: data.company,
-                            total_personil_asset_integrity: data.total_personil_asset_integrity,
-                            jumlah_personil_vacant: data.jumlah_personil_vacant,
-                            jumlah_personil_pensiun_1_thn: data.jumlah_personil_pensiun,
-                            keterangan: data.keterangan
+                            lokasi: data.lokasi,
+                            program_kerja: data.program_kerja,
+                            kategori_maintenance: data.kategori_maintenance,
+                            besar_phasing: data.besar_phasing,
+                            remark: data.remark,
+                            jan: data.jan,
+                            feb: data.feb,
+                            mar: data.mar,
+                            apr: data.apr,
+                            may: data.may,
+                            jun: data.jun,
+                            jul: data.jul,
+                            aug: data.aug,
+                            sep: data.sep,
+                            oct: data.oct,
+                            nov: data.nov,
+                            dec: data.dec,
+                            biaya_kerugian: data.biaya_kerugian,
+                            keterangan_kerugian: data.keterangan_kerugian,
+                            penyebab: data.penyebab,
+                            kendala: data.kendala,
+                            tindak_lanjut: data.tindak_lanjut
                         })
                     })
                     .then(response => response.json())
                     .then(result => {
                         if (result.success) {
                             alert(result.message || "Data berhasil disimpan");
-                            table.setData("/monev/shrnp/input-data/kondisi-vacant-aims-ru-dumai/data");
+                            table.setData("/monev/shrnp/input-data/rencana-pemeliharaan-plaju/data");
                             this.reset();
                             closeModal();
                         } else {
@@ -678,7 +899,6 @@
                     });
                 });
 
-                // Ketika halaman reload setelah klik, cek dan scroll otomatis
                 if (sessionStorage.getItem('scrollToActiveTab') === 'yes') {
                     scrollToActiveTab();
                     sessionStorage.removeItem('scrollToActiveTab');

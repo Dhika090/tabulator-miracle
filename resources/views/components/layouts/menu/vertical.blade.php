@@ -320,8 +320,8 @@
                                 <i class="fa fa-wrench me-2"></i>RU II Dumai
                             </a>
                         </li>
-                        <li class="menu-item {{ request()->is('monev/shrnp/input-data/ru-plaju') ? 'active' : '' }}">
-                            <a class="menu-link" href="{{ url('monev/shrnp/input-data/ru-plaju') }}">
+                        <li class="menu-item {{ request()->is('monev/shrnp/input-data/plaju') ? 'active' : '' }}">
+                            <a class="menu-link" href="{{ url('monev/shrnp/input-data/plaju') }}">
                                 <i class="fa fa-wrench me-2"></i>RU III Plaju
                             </a>
                         </li>

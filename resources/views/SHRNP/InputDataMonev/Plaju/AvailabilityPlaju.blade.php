@@ -16,6 +16,13 @@
 
             .tabulator-cell {
                 font-size: 14px;
+                white-space: normal !important;
+                word-wrap: break-word;
+            }
+
+            .tabulator .tabulator-cell {
+                white-space: normal !important;
+                word-wrap: break-word;
             }
 
             .card {
@@ -25,11 +32,6 @@
             .tab-scroll-wrapper {
                 border-bottom: 1px solid #dee2e6;
                 padding-bottom: 5px;
-            }
-
-            .tabulator .tabulator-cell {
-                white-space: normal !important;
-                word-wrap: break-word;
             }
 
             .tab-scroll-wrapper {
@@ -125,7 +127,7 @@
     <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-                <h5 class="card-title mb-3 mb-md-0">Kondisi Vacant Fungsi AIMS Ru Dumai</h5>
+                <h5 class="card-title mb-3 mb-md-0">Availability Plaju</h5>
                 <div class="d-flex flex-column flex-md-row align-items-center gap-3">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
@@ -183,9 +185,10 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Tambah Kondisi Vacant Ru Dumai</h3>
+            <h3>Tambah Data Availability Plaju</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
+
                 <div>
                     <label>Periode</label>
                     <input type="month" name="periode" id="periode">
@@ -197,27 +200,39 @@
                 </div>
 
                 <div>
-                    <label>Total Personil Asset Integrity</label>
-                    <input type="number" name="total_personil_asset_integrity" id="total_personil_asset_integrity">
+                    <label>Kategori</label>
+                    <input type="text" name="kategori" id="kategori">
                 </div>
 
                 <div>
-                    <label>Jumlah Personil Vacant</label>
-                    <input type="number" name="jumlah_personil_vacant" id="jumlah_personil_vacant">
+                    <label>Target</label>
+                    <input type="number" name="target" id="target" step="0.01" min="0" max="100">
+
                 </div>
 
                 <div>
-                    <label>Jumlah Personil Pensiun &lt; 1 Thn</label>
-                    <input type="number" name="jumlah_personil_pensiun" id="jumlah_personil_pensiun">
+                    <label>Availability</label>
+                    <input type="number" name="availability" id="availability" step="0.01" min="0"
+                        max="100">
                 </div>
 
                 <div>
-                    <label>Keterangan</label>
-                    <input type="text" name="keterangan" id="keterangan" rows="3"></input>
+                    <label>Isu / Problem / Bad Actor</label>
+                    <input type="text" name="isu" id="isu"></input>
                 </div>
+
+                <div>
+                    <label>Kendala</label>
+                    <input type="text" name="kendala" id="kendala"></input>
+                </div>
+
+                <div>
+                    <label>Tindak Lanjut</label>
+                    <input type="text" name="tindak_lanjut" id="tindak_lanjut"></input>
+                </div>
+
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
-
         </div>
     </div>
 
@@ -228,7 +243,7 @@
         <script>
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
-                    fetch(`kondisi-vacant-aims-ru-dumai/${id}`, {
+                    fetch(`availability-plaju/${id}`, {
                             method: "DELETE",
                             headers: {
                                 "Accept": "application/json",
@@ -247,6 +262,11 @@
                 }
             }
 
+            function clearSearch() {
+                document.getElementById("search-input").value = "";
+                table.clearFilter();
+            }
+
             document.getElementById("search-input").addEventListener("input", function(e) {
                 const keyword = e.target.value;
                 table.setFilter([
@@ -261,22 +281,32 @@
                             value: keyword
                         },
                         {
-                            field: "total_personil_asset_integrity",
+                            field: "kategori",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "jumlah_personil_vacant",
+                            field: "target",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "jumlah_personil_pensiun",
+                            field: "availability",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "keterangan",
+                            field: "isu",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "kendala",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "tindak_lanjut",
                             type: "like",
                             value: keyword
                         }
@@ -284,13 +314,8 @@
                 ]);
             });
 
-            function clearSearch() {
-                document.getElementById("search-input").value = "";
-                table.clearFilter();
-            }
-
             function loadData() {
-                fetch("/monev/shrnp/input-data/kondisi-vacant-aims-ru-dumai/data", {
+                fetch("/monev/shrnp/input-data/availability-plaju/data", {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -317,8 +342,27 @@
             }
 
             document.addEventListener("DOMContentLoaded", function() {
+                const CSRF_TOKEN = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
+
+                const cleanRow = (row) => {
+                    const cleaned = {};
+                    for (const [key, value] of Object.entries(row)) {
+                        const valStr = String(value).trim().toLowerCase();
+                        cleaned[key] = (
+                            value === null || value === undefined ||
+                            valStr === "null" || valStr === "undefined"
+                        ) ? "" : value;
+                    }
+                    return cleaned;
+                };
+
+                const formatPercent = (cell) => {
+                    let value = parseFloat(cell.getValue());
+                    return isNaN(value) ? "-" : value.toFixed(2) + " %";
+                };
+
                 const columnMap = {
-                    "kondisi-vacant-aims-ru-dumai": [{
+                    "availability-plaju": [{
                             title: "No",
                             formatter: "rownum",
                             hozAlign: "center",
@@ -416,52 +460,66 @@
                         {
                             title: "Company",
                             field: "company",
+                            hozAlign: "center",
+                            editor: "input"
+                        },
+                        {
+                            title: "Kategori",
+                            field: "kategori",
+                            editor: "input"
+                        },
+                        {
+                            title: "Target",
+                            field: "target",
+                            editor: "number",
+                            hozAlign: "center",
+                            formatter: formatPercent
+                        },
+                        {
+                            title: "Availability",
+                            field: "availability",
+                            editor: "number",
+                            hozAlign: "center",
+                            formatter: formatPercent
+                        },
+                        {
+                            title: "Isu / Problem / Bad Actor",
+                            field: "isu",
+                            editor: "textarea",
+                            width: 400,
+
+                        },
+                        {
+                            title: "Kendala",
+                            field: "kendala",
                             editor: "input",
+                            width: 400
+
                         },
                         {
-                            title: "Total Personil Asset Integrity",
-                            field: "total_personil_asset_integrity",
-                            editor: "number",
-                            hozAlign: "center",
-                            width: 250
-                        },
-                        {
-                            title: "Jumlah Personil Vacant",
-                            field: "jumlah_personil_vacant",
-                            editor: "number",
-                            hozAlign: "center",
-                            width: 200
-                        },
-                        {
-                            title: "Jumlah Personil Pensiun <1 Thn",
-                            field: "jumlah_personil_pensiun",
-                            editor: "number",
-                            hozAlign: "center",
-                            width: 250
-                        },
-                        {
-                            title: "Keterangan",
-                            field: "keterangan",
-                            width: 350,
+                            title: "Tindak Lanjut",
+                            field: "tindak_lanjut",
                             editor: "input"
                         },
                         {
                             title: "Aksi",
                             download: false,
+                            hozAlign: "center",
+                            width: 150,
                             formatter: (cell) => {
                                 const row = cell.getData();
                                 return `<button onclick='deleteData("${row.id}")'>Hapus</button>`;
-                            },
-                            hozAlign: "center",
+                            }
                         }
                     ]
                 };
+
 
                 window.table = new Tabulator("#example-table", {
                     layout: "fitDataTable",
                     responsiveLayout: "collapse",
                     autoResize: true,
-                    columns: columnMap["kondisi-vacant-aims-ru-dumai"],
+                    columns: columnMap["availability-plaju"],
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -495,102 +553,93 @@
                     },
                 });
 
-                document.getElementById("download-xlsx").addEventListener("click", function() {
-                    window.table.download("xlsx", "kondisi-vacant-aims-ru-dumai.xlsx", {
-                        sheetName: "kondisi-vacant-aims",
+                document.getElementById("download-xlsx").addEventListener("click", () => {
+                    table.download("xlsx", "availability-plaju.xlsx", {
+                        sheetName: "availability-plaju",
                         columnHeaders: true,
-                        downloadDataFormatter: function(data) {
-                            return data.map(row => {
-                                const cleanedRow = {};
-                                for (const [key, value] of Object.entries(row)) {
-                                    const valStr = String(value).trim().toLowerCase();
-                                    cleanedRow[key] = (
-                                        value === null ||
-                                        value === undefined ||
-                                        value === "" ||
-                                        valStr === "null" ||
-                                        valStr === "null"
-                                    ) ? "" : value;
-                                }
-                                return cleanedRow;
-                            });
-                        }
+                        downloadDataFormatter: (data) => data.map(cleanRow)
                     });
                 });
 
-                table.on("cellEdited", function(cell) {
-                    const updatedData = cell.getRow().getData();
-                    const id = updatedData.id;
+                let previousDataMap = new Map();
 
-                    if (!id) return;
-
-                    fetch(`kondisi-vacant-aims-ru-dumai/${id}`, {
-                            method: "PUT",
+                // Load data
+                function loadData() {
+                    fetch("/monev/shrnp/input-data/availability-plaju/data", {
                             headers: {
-                                "Content-Type": "application/json",
-                                "Accept": "application/json",
-                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
-                                    .getAttribute("content")
-                            },
-                            body: JSON.stringify(updatedData)
+                                "Accept": "application/json"
+                            }
                         })
                         .then(res => res.json())
-                        .then(data => console.log("Update berhasil:", data))
-                        .catch(err => console.error("Gagal update:", err));
-                });
-
-                let previousData = [];
-                table.on("dataLoaded", function(newData) {
-                    previousData = JSON.parse(JSON.stringify(newData));
-                });
-
-                function getChangedRows(newData, oldData) {
-                    const changes = [];
-                    newData.forEach((row, index) => {
-                        if (!row.id) return;
-                        const oldRow = oldData[index];
-                        if (!oldRow) return;
-
-                        const isDifferent = Object.keys(row).some(key => row[key] !== oldRow[key]);
-                        if (isDifferent) {
-                            changes.push(row);
-                        }
-                    });
-                    return changes;
+                        .then(data => {
+                            const cleaned = data.map(cleanRow);
+                            previousDataMap = new Map(cleaned.map(item => [item.id, JSON.stringify(item)]));
+                            table.setData(cleaned);
+                        })
+                        .catch(err => console.error("Gagal load data:", err));
                 }
 
+                // Debounce untuk batch update
+                let debounceTimer;
                 table.on("dataChanged", function(newData) {
-                    const changedRows = getChangedRows(newData, previousData);
-                    console.log("Baris yang berubah:", changedRows);
+                    clearTimeout(debounceTimer);
+                    debounceTimer = setTimeout(() => {
+                        const changedRows = [];
 
-                    changedRows.forEach(rowData => {
-                        fetch(`kondisi-vacant-aims-ru-dumai/${rowData.id}`, {
-                                method: "PUT",
-                                headers: {
-                                    "Content-Type": "application/json",
-                                    "Accept": "application/json",
-                                    "X-CSRF-TOKEN": document.querySelector(
-                                        'meta[name="csrf-token"]').getAttribute("content")
-                                },
-                                body: JSON.stringify(rowData)
-                            })
-                            .then(res => res.json())
-                            .then(response => {
-                                console.log("Data berhasil disimpan:", response);
-                            })
-                            .catch(err => {
-                                console.error("Gagal menyimpan hasil paste:", err);
+                        for (const row of newData) {
+                            const id = row.id;
+                            if (!id) continue;
+
+                            const oldRowStr = previousDataMap.get(id);
+                            const currentRowStr = JSON.stringify(row);
+
+                            if (oldRowStr && oldRowStr !== currentRowStr) {
+                                // Convert persen ke number jika perlu
+                                ["target", "availability"].forEach(field => {
+                                    if (typeof row[field] === "string") {
+                                        row[field] = parseFloat(row[field].replace("%", "")
+                                            .trim());
+                                    }
+                                });
+
+                                changedRows.push({
+                                    ...row
+                                });
+                            }
+                        }
+
+                        if (changedRows.length > 0) {
+                            console.log("Changed rows:", changedRows);
+
+                            // Simpan secara paralel
+                            Promise.all(changedRows.map(row =>
+                                fetch(`availability-plaju/${row.id}`, {
+                                    method: "PUT",
+                                    headers: {
+                                        "Content-Type": "application/json",
+                                        "Accept": "application/json",
+                                        "X-CSRF-TOKEN": CSRF_TOKEN
+                                    },
+                                    body: JSON.stringify(row)
+                                })
+                                .then(res => res.json())
+                                .then(resp => console.log(`Updated ID ${row.id}`, resp))
+                                .catch(err => console.error(`Gagal update ID ${row.id}`, err))
+                            ));
+
+                            // Update previousDataMap
+                            changedRows.forEach(row => {
+                                previousDataMap.set(row.id, JSON.stringify(row));
                             });
-                    });
-
-                    previousData = JSON.parse(JSON.stringify(newData));
+                        }
+                    }, 1000); // debounce 1 detik
                 });
 
                 loadData();
             });
         </script>
 
-        {{-- create data --}}
+        {{-- create data  --}}
         <script>
             function openModal() {
                 document.getElementById("createModal").style.display = "block";
@@ -608,7 +657,7 @@
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
 
-                fetch("kondisi-vacant-aims-ru-dumai", {
+                fetch("availability-plaju", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -616,20 +665,24 @@
                             "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute(
                                 "content")
                         },
+
                         body: JSON.stringify({
                             periode: data.periode,
                             company: data.company,
-                            total_personil_asset_integrity: data.total_personil_asset_integrity,
-                            jumlah_personil_vacant: data.jumlah_personil_vacant,
-                            jumlah_personil_pensiun_1_thn: data.jumlah_personil_pensiun,
-                            keterangan: data.keterangan
+                            kategori: data.kategori || null,
+                            target: data.target || null,
+                            availability: data.availability || null,
+                            isu: data.isu || null,
+                            kendala: data.kendala || null,
+                            tindak_lanjut: data.tindak_lanjut || null,
                         })
+
                     })
                     .then(response => response.json())
                     .then(result => {
                         if (result.success) {
                             alert(result.message || "Data berhasil disimpan");
-                            table.setData("/monev/shrnp/input-data/kondisi-vacant-aims-ru-dumai/data");
+                            table.setData("/monev/shrnp/input-data/availability-plaju/data");
                             this.reset();
                             closeModal();
                         } else {
@@ -678,7 +731,6 @@
                     });
                 });
 
-                // Ketika halaman reload setelah klik, cek dan scroll otomatis
                 if (sessionStorage.getItem('scrollToActiveTab') === 'yes') {
                     scrollToActiveTab();
                     sessionStorage.removeItem('scrollToActiveTab');

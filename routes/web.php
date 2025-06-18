@@ -358,7 +358,19 @@ use App\Http\Controllers\SHRNP\InputDataMonev\RuDumai\SistemInformasiAimsRuDumai
 use App\Http\Controllers\SHRNP\InputDataMonev\RuDumai\StatusAssetAiRuDumaiController;
 use App\Http\Controllers\SHRNP\InputDataMonev\RuDumai\StatusPloRuDumaiController;
 use App\Http\Controllers\SHRNP\InputDataMonev\RuDumai\SapAssetRuDumaiController;
-
+use App\Http\Controllers\SHRNP\InputDataMonev\Plaju\AssetBreakdownPlajuController;
+use App\Http\Controllers\SHRNP\InputDataMonev\Plaju\AvailabilityPlajuController;
+use App\Http\Controllers\SHRNP\InputDataMonev\Plaju\KondisiVacantAimsPlajuController;
+use App\Http\Controllers\SHRNP\InputDataMonev\Plaju\MandatoryCertificationPlajuController;
+use App\Http\Controllers\SHRNP\InputDataMonev\Plaju\PelatihanAimsPlajuController;
+use App\Http\Controllers\SHRNP\InputDataMonev\Plaju\RealAnggaranAiPlajuController;
+use App\Http\Controllers\SHRNP\InputDataMonev\Plaju\RealAnggaranFigurePlajuController;
+use App\Http\Controllers\SHRNP\InputDataMonev\Plaju\RealProgFisikPlajuController;
+use App\Http\Controllers\SHRNP\InputDataMonev\Plaju\RencanaPemeliharaanPlajuController;
+use App\Http\Controllers\SHRNP\InputDataMonev\Plaju\SapAssetPlajuController;
+use App\Http\Controllers\SHRNP\InputDataMonev\Plaju\SistemInformasiAimsPlajuController;
+use App\Http\Controllers\SHRNP\InputDataMonev\Plaju\StatusAssetAiPlajuController;
+use App\Http\Controllers\SHRNP\InputDataMonev\Plaju\StatusPloPlajuController;
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
@@ -3322,8 +3334,123 @@ Route::prefix('monev/shrnp/input-data/sap-asset-ru-dumai')->group(function () {
     Route::delete('/{id}', [SapAssetRuDumaiController::class, 'destroy'])->name('sap-asset-ru-dumai.destroy');
 });
 
+// RU III PLAJU
+// AssetBreakdownPlajuController
+Route::prefix('monev/shrnp/input-data/asset-breakdown-plaju')->group(function () {
+    Route::get('/', [AssetBreakdownPlajuController::class, 'index'])->name('asset-breakdown-plaju');
+    Route::post('/', [AssetBreakdownPlajuController::class, 'store'])->name('asset-breakdown-plaju.store');
+    Route::get('/data', [AssetBreakdownPlajuController::class, 'data'])->name('asset-breakdown-plaju.data');
+    Route::put('/{id}', [AssetBreakdownPlajuController::class, 'update'])->name('asset-breakdown-plaju.update');
+    Route::delete('/{id}', [AssetBreakdownPlajuController::class, 'destroy'])->name('asset-breakdown-plaju.destroy');
+});
 
+// AvailabilityPlajuController
+Route::prefix('monev/shrnp/input-data/availability-plaju')->group(function () {
+    Route::get('/', [AvailabilityPlajuController::class, 'index'])->name('availability-plaju');
+    Route::post('/', [AvailabilityPlajuController::class, 'store'])->name('availability-plaju.store');
+    Route::get('/data', [AvailabilityPlajuController::class, 'data'])->name('availability-plaju.data');
+    Route::put('/{id}', [AvailabilityPlajuController::class, 'update'])->name('availability-plaju.update');
+    Route::delete('/{id}', [AvailabilityPlajuController::class, 'destroy'])->name('availability-plaju.destroy');
+});
 
+// KondisiVacantAimsPlajuController
+Route::prefix('monev/shrnp/input-data/kondisi-vacant-aims-plaju')->group(function () {
+    Route::get('/', [KondisiVacantAimsPlajuController::class, 'index'])->name('kondisi-vacant-aims-plaju');
+    Route::post('/', [KondisiVacantAimsPlajuController::class, 'store'])->name('kondisi-vacant-aims-plaju.store');
+    Route::get('/data', [KondisiVacantAimsPlajuController::class, 'data'])->name('kondisi-vacant-aims-plaju.data');
+    Route::put('/{id}', [KondisiVacantAimsPlajuController::class, 'update'])->name('kondisi-vacant-aims-plaju.update');
+    Route::delete('/{id}', [KondisiVacantAimsPlajuController::class, 'destroy'])->name('kondisi-vacant-aims-plaju.destroy');
+});
+
+// MandatoryCertificationPlajuController
+Route::prefix('monev/shrnp/input-data/mandatory-certification-plaju')->group(function () {
+    Route::get('/', [MandatoryCertificationPlajuController::class, 'index'])->name('mandatory-certification-plaju');
+    Route::post('/', [MandatoryCertificationPlajuController::class, 'store'])->name('mandatory-certification-plaju.store');
+    Route::get('/data', [MandatoryCertificationPlajuController::class, 'data'])->name('mandatory-certification-plaju.data');
+    Route::put('/{id}', [MandatoryCertificationPlajuController::class, 'update'])->name('mandatory-certification-plaju.update');
+    Route::delete('/{id}', [MandatoryCertificationPlajuController::class, 'destroy'])->name('mandatory-certification-plaju.destroy');
+});
+
+// PelatihanAimsPlajuController
+Route::prefix('monev/shrnp/input-data/pelatihan-aims-plaju')->group(function () {
+    Route::get('/', [PelatihanAimsPlajuController::class, 'index'])->name('pelatihan-aims-plaju');
+    Route::post('/', [PelatihanAimsPlajuController::class, 'store'])->name('pelatihan-aims-plaju.store');
+    Route::get('/data', [PelatihanAimsPlajuController::class, 'data'])->name('pelatihan-aims-plaju.data');
+    Route::put('/{id}', [PelatihanAimsPlajuController::class, 'update'])->name('pelatihan-aims-plaju.update');
+    Route::delete('/{id}', [PelatihanAimsPlajuController::class, 'destroy'])->name('pelatihan-aims-plaju.destroy');
+});
+
+// RealAnggaranAiPlajuController
+Route::prefix('monev/shrnp/input-data/real-anggaran-ai-plaju')->group(function () {
+    Route::get('/', [RealAnggaranAiPlajuController::class, 'index'])->name('real-anggaran-ai-plaju');
+    Route::post('/', [RealAnggaranAiPlajuController::class, 'store'])->name('real-anggaran-ai-plaju.store');
+    Route::get('/data', [RealAnggaranAiPlajuController::class, 'data'])->name('real-anggaran-ai-plaju.data');
+    Route::put('/{id}', [RealAnggaranAiPlajuController::class, 'update'])->name('real-anggaran-ai-plaju.update');
+    Route::delete('/{id}', [RealAnggaranAiPlajuController::class, 'destroy'])->name('real-anggaran-ai-plaju.destroy');
+});
+
+// RealAnggaranFigurePlajuController
+Route::prefix('monev/shrnp/input-data/real-anggaran-figure-plaju')->group(function () {
+    Route::get('/', [RealAnggaranFigurePlajuController::class, 'index'])->name('real-anggaran-figure-plaju');
+    Route::post('/', [RealAnggaranFigurePlajuController::class, 'store'])->name('real-anggaran-figure-plaju.store');
+    Route::get('/data', [RealAnggaranFigurePlajuController::class, 'data'])->name('real-anggaran-figure-plaju.data');
+    Route::put('/{id}', [RealAnggaranFigurePlajuController::class, 'update'])->name('real-anggaran-figure-plaju.update');
+    Route::delete('/{id}', [RealAnggaranFigurePlajuController::class, 'destroy'])->name('real-anggaran-figure-plaju.destroy');
+});
+
+// RealProgFisikPlajuController
+Route::prefix('monev/shrnp/input-data/real-prog-fisik-plaju')->group(function () {
+    Route::get('/', [RealProgFisikPlajuController::class, 'index'])->name('real-prog-fisik-plaju');
+    Route::post('/', [RealProgFisikPlajuController::class, 'store'])->name('real-prog-fisik-plaju.store');
+    Route::get('/data', [RealProgFisikPlajuController::class, 'data'])->name('real-prog-fisik-plaju.data');
+    Route::put('/{id}', [RealProgFisikPlajuController::class, 'update'])->name('real-prog-fisik-plaju.update');
+    Route::delete('/{id}', [RealProgFisikPlajuController::class, 'destroy'])->name('real-prog-fisik-plaju.destroy');
+});
+
+// RencanaPemeliharaanPlajuController
+Route::prefix('monev/shrnp/input-data/rencana-pemeliharaan-plaju')->group(function () {
+    Route::get('/', [RencanaPemeliharaanPlajuController::class, 'index'])->name('rencana-pemeliharaan-plaju');
+    Route::post('/', [RencanaPemeliharaanPlajuController::class, 'store'])->name('rencana-pemeliharaan-plaju.store');
+    Route::get('/data', [RencanaPemeliharaanPlajuController::class, 'data'])->name('rencana-pemeliharaan-plaju.data');
+    Route::put('/{id}', [RencanaPemeliharaanPlajuController::class, 'update'])->name('rencana-pemeliharaan-plaju.update');
+    Route::delete('/{id}', [RencanaPemeliharaanPlajuController::class, 'destroy'])->name('rencana-pemeliharaan-plaju.destroy');
+});
+
+// SapAssetPlajuController
+Route::prefix('monev/shrnp/input-data/sap-asset-plaju')->group(function () {
+    Route::get('/', [SapAssetPlajuController::class, 'index'])->name('sap-asset-plaju');
+    Route::post('/', [SapAssetPlajuController::class, 'store'])->name('sap-asset-plaju.store');
+    Route::get('/data', [SapAssetPlajuController::class, 'data'])->name('sap-asset-plaju.data');
+    Route::put('/{id}', [SapAssetPlajuController::class, 'update'])->name('sap-asset-plaju.update');
+    Route::delete('/{id}', [SapAssetPlajuController::class, 'destroy'])->name('sap-asset-plaju.destroy');
+});
+
+// SistemInformasiAimsPlajuController
+Route::prefix('monev/shrnp/input-data/sistem-informasi-aims-plaju')->group(function () {
+    Route::get('/', [SistemInformasiAimsPlajuController::class, 'index'])->name('sistem-informasi-aims-plaju');
+    Route::post('/', [SistemInformasiAimsPlajuController::class, 'store'])->name('sistem-informasi-aims-plaju.store');
+    Route::get('/data', [SistemInformasiAimsPlajuController::class, 'data'])->name('sistem-informasi-aims-plaju.data');
+    Route::put('/{id}', [SistemInformasiAimsPlajuController::class, 'update'])->name('sistem-informasi-aims-plaju.update');
+    Route::delete('/{id}', [SistemInformasiAimsPlajuController::class, 'destroy'])->name('sistem-informasi-aims-plaju.destroy');
+});
+
+// StatusAssetAiPlajuController
+Route::prefix('monev/shrnp/input-data/plaju')->group(function () {
+    Route::get('/', [StatusAssetAiPlajuController::class, 'index'])->name('plaju');
+    Route::post('/', [StatusAssetAiPlajuController::class, 'store'])->name('plaju.store');
+    Route::get('/data', [StatusAssetAiPlajuController::class, 'data'])->name('plaju.data');
+    Route::put('/{id}', [StatusAssetAiPlajuController::class, 'update'])->name('plaju.update');
+    Route::delete('/{id}', [StatusAssetAiPlajuController::class, 'destroy'])->name('plaju.destroy');
+});
+
+// StatusPloPlajuController
+Route::prefix('monev/shrnp/input-data/status-plo-plaju')->group(function () {
+    Route::get('/', [StatusPloPlajuController::class, 'index'])->name('status-plo-plaju');
+    Route::post('/', [StatusPloPlajuController::class, 'store'])->name('status-plo-plaju.store');
+    Route::get('/data', [StatusPloPlajuController::class, 'data'])->name('status-plo-plaju.data');
+    Route::put('/{id}', [StatusPloPlajuController::class, 'update'])->name('status-plo-plaju.update');
+    Route::delete('/{id}', [StatusPloPlajuController::class, 'destroy'])->name('status-plo-plaju.destroy');
+});
 
 
 

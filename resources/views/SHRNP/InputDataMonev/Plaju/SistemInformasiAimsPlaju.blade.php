@@ -18,6 +18,11 @@
                 font-size: 14px;
             }
 
+            .tabulator .tabulator-cell {
+                white-space: normal !important;
+                word-wrap: break-word;
+            }
+
             .card {
                 margin-top: 20px;
             }
@@ -25,11 +30,6 @@
             .tab-scroll-wrapper {
                 border-bottom: 1px solid #dee2e6;
                 padding-bottom: 5px;
-            }
-
-            .tabulator .tabulator-cell {
-                white-space: normal !important;
-                word-wrap: break-word;
             }
 
             .tab-scroll-wrapper {
@@ -125,7 +125,7 @@
     <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-                <h5 class="card-title mb-3 mb-md-0">Kondisi Vacant Fungsi AIMS Ru Dumai</h5>
+                <h5 class="card-title mb-3 mb-md-0">Sistem Informasi AIMS Plaju</h5>
                 <div class="d-flex flex-column flex-md-row align-items-center gap-3">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
@@ -183,41 +183,81 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Tambah Kondisi Vacant Ru Dumai</h3>
+            <h3>Tambah Sistem Informasi AIMS Plaju</h3>
             <form id="createForm">
+
                 <input type="hidden" name="id" id="form-id">
                 <div>
-                    <label>Periode</label>
-                    <input type="month" name="periode" id="periode">
+                    <label for="periode">Periode</label>
+                    <input type="month" id="periode" name="periode">
                 </div>
 
                 <div>
-                    <label>Company</label>
-                    <input type="text" name="company" id="company">
+                    <label for="company">Company</label>
+                    <input type="text" id="company" name="company">
                 </div>
 
                 <div>
-                    <label>Total Personil Asset Integrity</label>
-                    <input type="number" name="total_personil_asset_integrity" id="total_personil_asset_integrity">
+                    <label for="jumlah_aset_operasi">Jumlah Aset Operasi</label>
+                    <input type="text" id="jumlah_aset_operasi" name="jumlah_aset_operasi">
                 </div>
 
                 <div>
-                    <label>Jumlah Personil Vacant</label>
-                    <input type="number" name="jumlah_personil_vacant" id="jumlah_personil_vacant">
+                    <label for="jumlah_aset_teregister">Jumlah Aset Teregister</label>
+                    <input type="text" id="jumlah_aset_teregister" name="jumlah_aset_teregister">
                 </div>
 
                 <div>
-                    <label>Jumlah Personil Pensiun &lt; 1 Thn</label>
-                    <input type="number" name="jumlah_personil_pensiun" id="jumlah_personil_pensiun">
+                    <label for="kendala_aset_register">Kendala Aset Register</label>
+                    <input id="kendala_aset_register" type="text" name="kendala_aset_register"></input>
                 </div>
 
                 <div>
-                    <label>Keterangan</label>
-                    <input type="text" name="keterangan" id="keterangan" rows="3"></input>
+                    <label for="tindak_lanjut_aset_register">Tindak Lanjut Aset Register</label>
+                    <input id="tindak_lanjut_aset_register" type="text" name="tindak_lanjut_aset_register"></input>
                 </div>
+
+                <div>
+                    <label for="sistem_informasi_aim">Sistem Informasi AIM</label>
+                    <input type="text" id="sistem_informasi_aim" name="sistem_informasi_aim">
+                </div>
+
+                <div>
+                    <label for="total_wo_comply">Total WO Comply</label>
+                    <input type="number" step="any" id="total_wo_comply" name="total_wo_comply"
+                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                </div>
+
+                <div>
+                    <label for="total_wo_completed">Total WO Completed</label>
+                    <input type="number" step="any" id="total_wo_completed" name="total_wo_completed"
+                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                </div>
+
+                <div>
+                    <label for="total_wo_in_progress">Total WO In Progress</label>
+                    <input type="number" step="any" id="total_wo_in_progress" name="total_wo_in_progress"
+                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                </div>
+
+                <div>
+                    <label for="total_wo_backlog">Total WO Backlog</label>
+                    <input type="number" step="any" id="total_wo_backlog" name="total_wo_backlog"
+                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                </div>
+
+                <div>
+                    <label for="kendala">Kendala</label>
+                    <input id="kendala" type="text" name="kendala"></input>
+                </div>
+
+                <div>
+                    <label for="tindak_lanjut">Tindak Lanjut</label>
+                    <input id="tindak_lanjut" type="text" name="tindak_lanjut"></input>
+                </div>
+
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
-
         </div>
     </div>
 
@@ -228,7 +268,7 @@
         <script>
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
-                    fetch(`kondisi-vacant-aims-ru-dumai/${id}`, {
+                    fetch(`sistem-informasi-aims-plaju/${id}`, {
                             method: "DELETE",
                             headers: {
                                 "Accept": "application/json",
@@ -261,22 +301,57 @@
                             value: keyword
                         },
                         {
-                            field: "total_personil_asset_integrity",
+                            field: "jumlah_aset_operasi",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "jumlah_personil_vacant",
+                            field: "jumlah_aset_teregister",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "jumlah_personil_pensiun",
+                            field: "kendala_aset_register",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "keterangan",
+                            field: "tindak_lanjut_aset_register",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "sistem_informasi_aim",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "total_wo_comply",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "total_wo_completed",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "total_wo_in_progress",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "total_wo_backlog",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "kendala",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "tindak_lanjut",
                             type: "like",
                             value: keyword
                         }
@@ -290,7 +365,7 @@
             }
 
             function loadData() {
-                fetch("/monev/shrnp/input-data/kondisi-vacant-aims-ru-dumai/data", {
+                fetch("/monev/shrnp/input-data/sistem-informasi-aims-plaju/data", {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -318,7 +393,7 @@
 
             document.addEventListener("DOMContentLoaded", function() {
                 const columnMap = {
-                    "kondisi-vacant-aims-ru-dumai": [{
+                    "sistem-informasi-aims-plaju": [{
                             title: "No",
                             formatter: "rownum",
                             hozAlign: "center",
@@ -416,34 +491,71 @@
                         {
                             title: "Company",
                             field: "company",
-                            editor: "input",
-                        },
-                        {
-                            title: "Total Personil Asset Integrity",
-                            field: "total_personil_asset_integrity",
-                            editor: "number",
-                            hozAlign: "center",
-                            width: 250
-                        },
-                        {
-                            title: "Jumlah Personil Vacant",
-                            field: "jumlah_personil_vacant",
-                            editor: "number",
-                            hozAlign: "center",
-                            width: 200
-                        },
-                        {
-                            title: "Jumlah Personil Pensiun <1 Thn",
-                            field: "jumlah_personil_pensiun",
-                            editor: "number",
-                            hozAlign: "center",
-                            width: 250
-                        },
-                        {
-                            title: "Keterangan",
-                            field: "keterangan",
-                            width: 350,
                             editor: "input"
+                        },
+                        {
+                            title: "Jumlah Aset Operasi",
+                            field: "jumlah_aset_operasi",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Jumlah Aset Teregister",
+                            field: "jumlah_aset_teregister",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Kendala Aset Register",
+                            field: "kendala_aset_register",
+                            editor: "input"
+                        },
+                        {
+                            title: "Tindak Lanjut Aset Register",
+                            field: "tindak_lanjut_aset_register",
+                            editor: "input"
+                        },
+                        {
+                            title: "Sistem Informasi AIM",
+                            field: "sistem_informasi_aim",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Total WO Comply",
+                            field: "total_wo_comply",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Total WO Completed",
+                            field: "total_wo_completed",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Total WO In Progress",
+                            field: "total_wo_in_progress",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Total WO Backlog",
+                            field: "total_wo_backlog",
+                            editor: "input",
+                            hozAlign: "center"
+                        },
+                        {
+                            title: "Kendala",
+                            field: "kendala",
+                            editor: "input",
+                            width: 450
+                        },
+                        {
+                            title: "Tindak Lanjut",
+                            field: "tindak_lanjut",
+                            editor: "input",
+                            width: 400
                         },
                         {
                             title: "Aksi",
@@ -453,6 +565,7 @@
                                 return `<button onclick='deleteData("${row.id}")'>Hapus</button>`;
                             },
                             hozAlign: "center",
+                            width: 150
                         }
                     ]
                 };
@@ -461,7 +574,7 @@
                     layout: "fitDataTable",
                     responsiveLayout: "collapse",
                     autoResize: true,
-                    columns: columnMap["kondisi-vacant-aims-ru-dumai"],
+                    columns: columnMap["sistem-informasi-aims-plaju"],
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -496,8 +609,8 @@
                 });
 
                 document.getElementById("download-xlsx").addEventListener("click", function() {
-                    window.table.download("xlsx", "kondisi-vacant-aims-ru-dumai.xlsx", {
-                        sheetName: "kondisi-vacant-aims",
+                    window.table.download("xlsx", "sistem-informasi-aims-plaju.xlsx", {
+                        sheetName: "sistem-informasi-aims-plaju",
                         columnHeaders: true,
                         downloadDataFormatter: function(data) {
                             return data.map(row => {
@@ -509,7 +622,7 @@
                                         value === undefined ||
                                         value === "" ||
                                         valStr === "null" ||
-                                        valStr === "null"
+                                        valStr === "undefined"
                                     ) ? "" : value;
                                 }
                                 return cleanedRow;
@@ -524,7 +637,7 @@
 
                     if (!id) return;
 
-                    fetch(`kondisi-vacant-aims-ru-dumai/${id}`, {
+                    fetch(`sistem-informasi-aims-plaju/${id}`, {
                             method: "PUT",
                             headers: {
                                 "Content-Type": "application/json",
@@ -535,7 +648,7 @@
                             body: JSON.stringify(updatedData)
                         })
                         .then(res => res.json())
-                        .then(data => console.log("Update berhasil:", data))
+                        .then(data => console.log("Berhasil update:", data))
                         .catch(err => console.error("Gagal update:", err));
                 });
 
@@ -564,7 +677,7 @@
                     console.log("Baris yang berubah:", changedRows);
 
                     changedRows.forEach(rowData => {
-                        fetch(`kondisi-vacant-aims-ru-dumai/${rowData.id}`, {
+                        fetch(`sistem-informasi-aims-plaju/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
                                     "Content-Type": "application/json",
@@ -585,12 +698,11 @@
 
                     previousData = JSON.parse(JSON.stringify(newData));
                 });
-
                 loadData();
             });
         </script>
 
-        {{-- create data --}}
+        {{-- create data  --}}
         <script>
             function openModal() {
                 document.getElementById("createModal").style.display = "block";
@@ -608,7 +720,7 @@
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
 
-                fetch("kondisi-vacant-aims-ru-dumai", {
+                fetch("sistem-informasi-aims-plaju", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -619,17 +731,24 @@
                         body: JSON.stringify({
                             periode: data.periode,
                             company: data.company,
-                            total_personil_asset_integrity: data.total_personil_asset_integrity,
-                            jumlah_personil_vacant: data.jumlah_personil_vacant,
-                            jumlah_personil_pensiun_1_thn: data.jumlah_personil_pensiun,
-                            keterangan: data.keterangan
+                            jumlah_aset_operasi: data.jumlah_aset_operasi,
+                            jumlah_aset_teregister: data.jumlah_aset_teregister,
+                            kendala_aset_register: data.kendala_aset_register,
+                            tindak_lanjut_aset_register: data.tindak_lanjut_aset_register,
+                            sistem_informasi_aim: data.sistem_informasi_aim,
+                            total_wo_comply: data.total_wo_comply,
+                            total_wo_completed: data.total_wo_completed,
+                            total_wo_in_progress: data.total_wo_in_progress,
+                            total_wo_backlog: data.total_wo_backlog,
+                            kendala: data.kendala,
+                            tindak_lanjut: data.tindak_lanjut
                         })
                     })
                     .then(response => response.json())
                     .then(result => {
                         if (result.success) {
                             alert(result.message || "Data berhasil disimpan");
-                            table.setData("/monev/shrnp/input-data/kondisi-vacant-aims-ru-dumai/data");
+                            table.setData("/monev/shrnp/input-data/sistem-informasi-aims-plaju/data");
                             this.reset();
                             closeModal();
                         } else {
