@@ -559,9 +559,8 @@
                         {
                             title: "Periode",
                             field: "periode",
-                            hozAlign: "center",
-
                             editor: "input",
+                            hozAlign: "center",
                             headerFilter: "select",
                             headerFilterParams: {
                                 values: (() => {
@@ -583,6 +582,7 @@
                         },
                         {
                             title: "No",
+                            hozAlign: "center",
                             field: "no",
                             editor: "input"
                         },
@@ -590,7 +590,7 @@
                             title: "Program Kerja",
                             field: "program_kerja",
                             editor: "input",
-                            width: 400
+                            width: 250,
                         },
                         {
                             title: "Kategori AIBT",

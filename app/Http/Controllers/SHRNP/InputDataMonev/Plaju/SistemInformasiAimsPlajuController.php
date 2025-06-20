@@ -101,9 +101,7 @@ class SistemInformasiAimsPlajuController extends Controller
     public function data()
     {
         $TargetPLO = SistemInformasiAimsPlaju::select('*')
-            ->addSelect(DB::raw("
-            STR_TO_DATE(CONCAT('0-', periode), '%d-%b-%Y') as periode_date
-        "))
+                 ->addSelect(DB::raw("TRY_CONVERT(DATE, CONCAT('01-', periode), 120) as periode_date"))
             ->orderBy('periode_date', 'asc')
             ->get();
 
