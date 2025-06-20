@@ -22,42 +22,23 @@ class StatusPloRuDumaiRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'periode' => 'nullable|string',
-            'subholding' => 'nullable|string',
-            'company' => 'nullable|string',
-            'unit' => 'nullable|string',
-            'asset_group' => 'nullable|string',
-            'jumlah' => 'nullable|string',
-
-            'sece_low_integrity_breakdown' => 'nullable|string',
-            'sece_medium_due_date_inspection' => 'nullable|string',
-            'sece_medium_low_condition' => 'nullable|string',
-            'sece_medium_low_performance' => 'nullable|string',
-            'sece_high_integrity' => 'nullable|string',
-
-            'pce_low_integrity_breakdown' => 'nullable|string',
-            'pce_medium_due_date_inspection' => 'nullable|string',
-            'pce_medium_low_condition' => 'nullable|string',
-            'pce_medium_low_performance' => 'nullable|string',
-            'pce_high_integrity' => 'nullable|string',
-
-            'important_low_integrity_breakdown' => 'nullable|string',
-            'important_medium_due_date_inspection' => 'nullable|string',
-            'important_medium_low_condition' => 'nullable|string',
-            'important_medium_low_performance' => 'nullable|string',
-            'important_high_integrity' => 'nullable|string',
-
-            'secondary_low_integrity_breakdown' => 'nullable|string',
-            'secondary_medium_due_date_inspection' => 'nullable|string',
-            'secondary_medium_low_condition' => 'nullable|string',
-            'secondary_medium_low_performance' => 'nullable|string',
-            'secondary_high_integrity' => 'nullable|string',
-
-            'kegiatan_penurunan_low' => 'nullable|string',
-            'kegiatan_penurunan_med' => 'nullable|string',
-            'informasi_penyebab_low_integrity' => 'nullable|string',
-            'informasi_penambahan_jumlah_aset' => 'nullable|string',
-            'informasi_naik_turun_low_integrity' => 'nullable|string',
+            'periode' => 'nullable|string|max:255',
+            'nomor_plo' => 'nullable|string|max:255',
+            'company' => 'nullable|string|max:255',
+            'area' => 'nullable|string|max:255',
+            'lokasi' => 'nullable|string|max:255',
+            'nama_aset' => 'nullable|string|max:255',
+            'tanggal_pengesahan' => 'nullable|string',
+            'masa_berlaku' => 'nullable|string',
+            'keterangan' => 'nullable|string',
+            'belum_proses' => 'nullable|integer',
+            'pre_inspection' => 'nullable|integer',
+            'inspection' => 'nullable|integer',
+            'coi_peralatan' => 'nullable|integer',
+            'ba_pk' => 'nullable|integer',
+            'penerbitan_plo_valid' => 'nullable|integer',
+            'kendala' => 'nullable|string',
+            'tindak_lanjut' => 'nullable|string',
         ];
     }
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\DataMonevKalimantanJawaGasRequest;
 use App\Models\DataMonevKalimantanJawaGas;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class KalimantanJawaGasController extends Controller
 {
@@ -113,7 +114,9 @@ class KalimantanJawaGasController extends Controller
     public function data()
     {
         $TargetPLO = DataMonevKalimantanJawaGas::select('*')
-            ->orderByRaw("STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%y') ASC")
+            ->select('*')
+            ->addSelect(DB::raw("TRY_CONVERT(DATE, periode + '-01', 120) as periode_date"))
+            ->orderBy('periode', 'asc')
             ->get();
 
         return response()->json($TargetPLO);

@@ -379,7 +379,7 @@
             }
 
             function loadData() {
-                fetch("/monev/shg/input-data/air-budget-tagging-sor1/data", {
+                fetch("/monev/shg/input-data/realisasi-progress-fisik-ai-omm/data", {
                         headers: {
                             "Accept": "application/json"
                         }

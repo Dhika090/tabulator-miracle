@@ -125,7 +125,7 @@
     <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-                <h5 class="card-title mb-3 mb-md-0">Asset Breakdown PTGN</h5>
+                <h5 class="card-title mb-3 mb-md-0">Asset Breakdown ptgnN</h5>
                 <div class="d-flex flex-column flex-md-row align-items-center gap-3">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
@@ -183,7 +183,7 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Tambah Target PTGN</h3>
+            <h3>Tambah Target ptgnN</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
 
@@ -337,7 +337,7 @@
                             value: keyword
                         },
                         {
-                            field: "penyebab",
+                            field: "penyebab_root_cause",
                             type: "like",
                             value: keyword
                         },
@@ -390,36 +390,47 @@
                 table.clearFilter();
             }
 
-            document.getElementById("download-xlsx").addEventListener("click", function() {
-                window.table.download("xlsx", "asset-breakdown-ptgn.xlsx", {
-                    sheetName: "asset-breakdown-ptgn",
-                    columnHeaders: true,
-                    downloadDataFormatter: function(data) {
-                        return data.map(row => {
+            function loadData() {
+                fetch("/monev/shg/input-data/asset-breakdown-ptgn/data", {
+                        headers: {
+                            "Accept": "application/json"
+                        }
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        const cleaned = data.map(row => {
                             const cleanedRow = {};
                             for (const [key, value] of Object.entries(row)) {
                                 const valStr = String(value).trim().toLowerCase();
                                 cleanedRow[key] = (
                                     value === null ||
                                     value === undefined ||
-                                    value === "" ||
                                     valStr === "null" ||
                                     valStr === "undefined"
                                 ) ? "" : value;
                             }
                             return cleanedRow;
                         });
-                    }
-                });
-            });
+
+                        table.setData(cleaned);
+                    })
+                    .catch(err => console.error("Gagal load data:", err));
+            }
 
             document.addEventListener("DOMContentLoaded", function() {
                 const columnMap = {
                     "asset-breakdown-ptgn": [{
                             title: "No",
-                            formatter: "rownum",
+                            formatter: function(cell) {
+                                const row = cell.getRow();
+                                const table = cell.getTable();
+                                const sortedData = table.getRows("active").map(r => r.getData());
+                                const index = sortedData.findIndex(data => data.id === row.getData().id);
+                                return index + 1;
+                            },
                             hozAlign: "center",
                             width: 60,
+                            headerSort: false,
                             download: false
                         },
                         {
@@ -431,6 +442,7 @@
                             title: "Periode",
                             field: "periode",
                             editor: "input",
+                            hozAlign: "center",
                             headerFilter: "select",
                             headerFilterParams: {
                                 values: [{
@@ -513,32 +525,40 @@
                         {
                             title: "Company",
                             field: "company",
-                            editor: "input"
+                            editor: "input",
+                            hozAlign: "center",
+
                         },
                         {
                             title: "Plant/Segment",
                             field: "plant_segment",
-                            editor: "input"
+                            editor: "input",
+                            hozAlign: "center",
+
                         },
                         {
                             title: "Kategori Criticality",
                             field: "kategori_criticality",
-                            editor: "input"
+                            editor: "input",
+                            hozAlign: "center",
                         },
                         {
                             title: "Tag",
                             field: "tag",
-                            editor: "input"
+                            editor: "input",
+                            hozAlign: "center",
                         },
                         {
                             title: "Deskripsi Peralatan",
                             field: "deskripsi_peralatan",
-                            editor: "input"
+                            editor: "input",
+                            hozAlign: "center",
                         },
                         {
                             title: "Jenis Kerusakan",
                             field: "jenis_kerusakan",
-                            editor: "input"
+                            editor: "input",
+                            width: 450
                         },
                         {
                             title: "Penyebab/Root Cause",
@@ -571,8 +591,7 @@
                         {
                             title: "Tindak Lanjut",
                             field: "tindak_lanjut",
-                            editor: "input",
-                            width: 450
+                            editor: "input"
                         },
                         {
                             title: "Target Penyelesaian",
@@ -582,26 +601,8 @@
                         {
                             title: "Estimasi Biaya Perbaikan",
                             field: "estimasi_biaya_perbaikan",
-                            hozAlign: "center",
-                            formatter: function(cell) {
-                                let rawValue = cell.getValue();
-                                if (rawValue === null || rawValue === undefined || rawValue === "") {
-                                    return "0.00";
-                                }
-
-                                let cleanValue = rawValue.toString().replace(/[^0-9.-]+/g, '');
-                                let value = parseFloat(cleanValue);
-
-                                if (!isNaN(value)) {
-                                    return value.toLocaleString("en-US", {
-                                        minimumFractionDigits: 2,
-                                        maximumFractionDigits: 2
-                                    });
-                                }
-
-                                return "0.00";
-                            },
-                            editor: "input"
+                            editor: "number",
+                            hozAlign: "right"
                         },
                         {
                             title: "Link Foto/Video",
@@ -626,6 +627,8 @@
                     responsiveLayout: "collapse",
                     autoResize: true,
                     columns: columnMap["asset-breakdown-ptgn"],
+                    virtualDom: true,
+                    height: "700px",
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -749,7 +752,6 @@
 
                     previousData = JSON.parse(JSON.stringify(newData));
                 });
-
                 loadData();
             });
         </script>
@@ -772,7 +774,7 @@
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
 
-                fetch("asset-breakdown-ptgn", {
+                fetch("asset-breakdown-ptgnn", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -803,7 +805,7 @@
                     .then(result => {
                         if (result.success) {
                             alert(result.message || "Data berhasil disimpan");
-                            table.setData("/monev/shg/input-data/asset-breakdown-ptgn/data");
+                            table.setData("/monev/shg/input-data/asset-breakdown-ptgnn/data");
                             this.reset();
                             closeModal();
                         } else {

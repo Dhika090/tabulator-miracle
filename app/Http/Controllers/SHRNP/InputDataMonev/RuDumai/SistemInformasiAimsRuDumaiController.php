@@ -61,7 +61,7 @@ class SistemInformasiAimsRuDumaiController extends Controller
                 'active' => request()->routeIs('real-anggaran-figure-ru-dumai'),
             ],
             [
-                'title' => 'Real Prog Fisik Ru Dumai',
+                'title' => 'Realisasi Prog Fisik AI Ru Dumai',
                 'route' => route('real-prog-fisik-ru-dumai'),
                 'active' => request()->routeIs('real-prog-fisik-ru-dumai'),
             ],

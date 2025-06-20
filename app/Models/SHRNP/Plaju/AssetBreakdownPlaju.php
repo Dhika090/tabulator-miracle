@@ -1,13 +1,14 @@
 <?php
 
 namespace App\Models\SHRNP\Plaju;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 
 class AssetBreakdownPlaju extends Model
 {
-      use HasFactory;
+    use HasFactory;
     public $incrementing = false;
     protected $keyType = 'string';
 

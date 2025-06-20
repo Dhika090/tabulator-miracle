@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\PertaSamtan\SistemInformasiAimsPtsgRequest;
 use App\Models\SHG\PertaSamtan\SistemInformasiAimsPtsg;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SistemInformasiAimsPtsgController extends Controller
 {

@@ -323,6 +323,7 @@
 
     @push('scripts')
         <script src="https://unpkg.com/tabulator-tables@5.6.0/dist/js/tabulator.min.js"></script>
+
         <script>
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
@@ -344,6 +345,7 @@
                         });
                 }
             }
+
             document.getElementById("search-input").addEventListener("input", function(e) {
                 const keyword = e.target.value;
                 table.setFilter([
@@ -422,7 +424,7 @@
             }
 
             function loadData() {
-                fetch("/monev/shg/input-data/air-budget-tagging-sor1/data", {
+                fetch("/monev/shg/input-data/pelatihan-aims-omm/data", {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -494,14 +496,12 @@
                         {
                             title: "Company",
                             field: "company",
-                            editor: "input",
-                            hozAlign: "center",
+                            editor: "input"
                         },
                         {
                             title: "Lokasi",
                             field: "lokasi",
-                            editor: "input",
-                            hozAlign: "center",
+                            editor: "input"
                         },
                         {
                             title: "Program Kerja",
@@ -629,12 +629,14 @@
                         {
                             title: "Penyebab",
                             field: "penyebab",
-                            editor: "input"
+                            editor: "input",
+                            width: 350
                         },
                         {
                             title: "Kendala",
                             field: "kendala",
-                            editor: "input"
+                            editor: "input",
+                            width: 400
                         },
                         {
                             title: "Tindak Lanjut",
@@ -649,7 +651,8 @@
                                 return `<button onclick='deleteData("${row.id}")'>Hapus</button>`;
                             },
                             hozAlign: "center",
-                            width: 150
+                            width: 150,
+                            download: false
                         }
                     ]
                 };
@@ -691,7 +694,7 @@
                         resizable: "header",
                     },
                 });
-                
+
                 document.getElementById("download-xlsx").addEventListener("click", function() {
                     window.table.download("xlsx", "rencana-pemeliharaan-omm.xlsx", {
                         sheetName: "rencana-pemeliharaan-omm",

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\PertaSamtan\MandatoryCertificationPtsgRequest;
 use App\Models\SHG\PertaSamtan\MandatoryCertificationPtsg;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MandatoryCertificationPtsgController extends Controller
 {
@@ -160,7 +161,13 @@ class MandatoryCertificationPtsgController extends Controller
 
     public function data()
     {
-        return response()->json(MandatoryCertificationPtsg::all());
+        $TargetPLO = MandatoryCertificationPtsg::select('*')
+            ->select('*')
+            ->addSelect(DB::raw("TRY_CONVERT(DATE, periode + '-01', 120) as periode_date"))
+            ->orderBy('periode', 'asc')
+            ->get();
+
+        return response()->json($TargetPLO);
     }
 
     public function store(MandatoryCertificationPtsgRequest $request)

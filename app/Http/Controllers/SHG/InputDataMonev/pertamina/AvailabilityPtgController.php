@@ -8,6 +8,7 @@ use App\Models\SHG\Pertamina\AvailabilityPtg;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+
 class AvailabilityPtgController extends Controller
 {
     public function index()
@@ -87,7 +88,9 @@ class AvailabilityPtgController extends Controller
     public function data()
     {
         $TargetPLO = AvailabilityPtg::select('*')
-            ->orderByRaw("STR_TO_DATE(CONCAT(periode, '-01'), '%Y-%m-%d') ASC")
+            ->select('*')
+            ->addSelect(DB::raw("TRY_CONVERT(DATE, periode + '-01', 120) as periode_date"))
+            ->orderBy('periode_date', 'asc')
             ->get();
 
         return response()->json($TargetPLO);

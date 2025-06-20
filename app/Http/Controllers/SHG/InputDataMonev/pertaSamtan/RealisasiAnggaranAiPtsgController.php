@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\PertaSamtan\RealisasiAnggaranAiPtsgRequest;
 use App\Models\SHG\PertaSamtan\RealisasiAnggaranAiPtsg;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RealisasiAnggaranAiPtsgController extends Controller
 {
@@ -75,7 +76,13 @@ class RealisasiAnggaranAiPtsgController extends Controller
 
     public function data()
     {
-        return response()->json(RealisasiAnggaranAiPtsg::all());
+        $TargetPLO = RealisasiAnggaranAiPtsg::select('*')
+            ->select('*')
+            ->addSelect(DB::raw("TRY_CONVERT(DATE, periode + '-01', 120) as periode_date"))
+            ->orderBy('periode', 'asc')
+            ->get();
+
+        return response()->json($TargetPLO);
     }
 
     public function store(RealisasiAnggaranAiPtsgRequest $request)

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\Pertamina\StatusPloPtgRequest;
 use App\Models\SHG\Pertamina\StatusPloPtg;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class StatusPloPtgController extends Controller
 {
@@ -97,12 +98,15 @@ class StatusPloPtgController extends Controller
 
     public function data()
     {
-        $TargetPLO = StatusPloPtg::select('*')
-            ->orderByRaw("STR_TO_DATE(CONCAT(periode, '-01'), '%Y-%m-%d') ASC")
+        $TargetPLO = DB::table('shg_pertamina_status_plo_ptg')
+            ->select('*')
+            ->addSelect(DB::raw("TRY_CONVERT(DATE, periode + '-01', 120) as periode_date"))
+            ->orderBy('periode_date', 'asc')
             ->get();
 
         return response()->json($TargetPLO);
     }
+
     public function update(StatusPloPtgRequest $request, $id)
     {
         $progress = StatusPloPtg::findOrFail($id);

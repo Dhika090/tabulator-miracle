@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\PertaSamtan\RencanaPemeliharaanPtsgRequest;
 use App\Models\SHG\PertaSamtan\RencanaPemeliharaanPtsg;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RencanaPemeliharaanPtsgController extends Controller
 {

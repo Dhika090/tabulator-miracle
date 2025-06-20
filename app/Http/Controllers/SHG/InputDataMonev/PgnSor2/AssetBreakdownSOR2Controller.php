@@ -100,7 +100,8 @@ class AssetBreakdownSOR2Controller extends Controller
     public function data()
     {
           $TargetPLO = AssetBreakdownAiSOR2::select('*')
-            ->orderByRaw("STR_TO_DATE(CONCAT(periode, '-01'), '%Y-%m-%d') ASC")
+            ->addSelect(DB::raw("TRY_CONVERT(DATE, CONCAT('01-', periode), 120) as periode_date"))
+            ->orderBy('periode_date', 'asc')
             ->get();
 
         return response()->json($TargetPLO);

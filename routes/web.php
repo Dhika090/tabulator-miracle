@@ -345,6 +345,7 @@ use App\Http\Controllers\SHIML\InputDataMonev\PTK\SapAssetPtkController;
 use App\Http\Controllers\SHIML\InputDataMonev\PTK\SistemInformasiAimsPtkController;
 use App\Http\Controllers\SHIML\InputDataMonev\PTK\StatusAssetAiPtkController;
 use App\Http\Controllers\SHIML\InputDataMonev\PTK\StatusPloPtkController;
+use App\Http\Controllers\SHRNP\InputDataMonev\Cilacap\StatusAssetAiCilacapController;
 use App\Http\Controllers\SHRNP\InputDataMonev\RuDumai\AssetBreakdownRuDumaiController;
 use App\Http\Controllers\SHRNP\InputDataMonev\RuDumai\AvailabilityRuDumaiController;
 use App\Http\Controllers\SHRNP\InputDataMonev\RuDumai\KondisiVacantAimsRuDumaiController;
@@ -371,6 +372,18 @@ use App\Http\Controllers\SHRNP\InputDataMonev\Plaju\SapAssetPlajuController;
 use App\Http\Controllers\SHRNP\InputDataMonev\Plaju\SistemInformasiAimsPlajuController;
 use App\Http\Controllers\SHRNP\InputDataMonev\Plaju\StatusAssetAiPlajuController;
 use App\Http\Controllers\SHRNP\InputDataMonev\Plaju\StatusPloPlajuController;
+use App\Http\Controllers\SHRNP\InputDataMonev\Cilacap\AssetBreakdownCilacapController;
+use App\Http\Controllers\SHRNP\InputDataMonev\Cilacap\AvailabilityCilacapController;
+use App\Http\Controllers\SHRNP\InputDataMonev\Cilacap\KondisiVacantAimsCilacapController;
+use App\Http\Controllers\SHRNP\InputDataMonev\Cilacap\MandatoryCertificationCilacapController;
+use App\Http\Controllers\SHRNP\InputDataMonev\Cilacap\PelatihanAimsCilacapController;
+use App\Http\Controllers\SHRNP\InputDataMonev\Cilacap\RealAnggaranAiCilacapController;
+use App\Http\Controllers\SHRNP\InputDataMonev\Cilacap\RealAnggaranFigureCilacapController;
+use App\Http\Controllers\SHRNP\InputDataMonev\Cilacap\RealProgFisikAiCilacapController;
+use App\Http\Controllers\SHRNP\InputDataMonev\Cilacap\RencanaPemeliharaanCilacapController;
+use App\Http\Controllers\SHRNP\InputDataMonev\Cilacap\SapAssetCilacapController;
+use App\Http\Controllers\SHRNP\InputDataMonev\Cilacap\SistemInformasiAimsCilacapController;
+use App\Http\Controllers\SHRNP\InputDataMonev\Cilacap\StatusPloCilacapController;
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
@@ -3452,7 +3465,120 @@ Route::prefix('monev/shrnp/input-data/status-plo-plaju')->group(function () {
     Route::delete('/{id}', [StatusPloPlajuController::class, 'destroy'])->name('status-plo-plaju.destroy');
 });
 
+// Cilacap
+// AssetBreakdownCilacapController
+Route::prefix('monev/shrnp/input-data/asset-breakdown-cilacap')->group(function () {
+    Route::get('/', [AssetBreakdownCilacapController::class, 'index'])->name('asset-breakdown-cilacap');
+    Route::post('/', [AssetBreakdownCilacapController::class, 'store'])->name('asset-breakdown-cilacap.store');
+    Route::get('/data', [AssetBreakdownCilacapController::class, 'data'])->name('asset-breakdown-cilacap.data');
+    Route::put('/{id}', [AssetBreakdownCilacapController::class, 'update'])->name('asset-breakdown-cilacap.update');
+    Route::delete('/{id}', [AssetBreakdownCilacapController::class, 'destroy'])->name('asset-breakdown-cilacap.destroy');
+});
 
+// StatusAssetAiCilacapController
+Route::prefix('monev/shrnp/input-data/cilacap')->group(function () {
+    Route::get('/', [StatusAssetAiCilacapController::class, 'index'])->name('cilacap');
+    Route::post('/', [StatusAssetAiCilacapController::class, 'store'])->name('cilacap.store');
+    Route::get('/data', [StatusAssetAiCilacapController::class, 'data'])->name('cilacap.data');
+    Route::put('/{id}', [StatusAssetAiCilacapController::class, 'update'])->name('cilacap.update');
+    Route::delete('/{id}', [StatusAssetAiCilacapController::class, 'destroy'])->name('cilacap.destroy');
+});
+// AvailabilityCilacapController
+Route::prefix('monev/shrnp/input-data/availability-cilacap')->group(function () {
+    Route::get('/', [AvailabilityCilacapController::class, 'index'])->name('availability-cilacap');
+    Route::post('/', [AvailabilityCilacapController::class, 'store'])->name('availability-cilacap.store');
+    Route::get('/data', [AvailabilityCilacapController::class, 'data'])->name('availability-cilacap.data');
+    Route::put('/{id}', [AvailabilityCilacapController::class, 'update'])->name('availability-cilacap.update');
+    Route::delete('/{id}', [AvailabilityCilacapController::class, 'destroy'])->name('availability-cilacap.destroy');
+});
+
+// KondisiVacantAimsCilacapController
+Route::prefix('monev/shrnp/input-data/kondisi-vacant-aims-cilacap')->group(function () {
+    Route::get('/', [KondisiVacantAimsCilacapController::class, 'index'])->name('kondisi-vacant-aims-cilacap');
+    Route::post('/', [KondisiVacantAimsCilacapController::class, 'store'])->name('kondisi-vacant-aims-cilacap.store');
+    Route::get('/data', [KondisiVacantAimsCilacapController::class, 'data'])->name('kondisi-vacant-aims-cilacap.data');
+    Route::put('/{id}', [KondisiVacantAimsCilacapController::class, 'update'])->name('kondisi-vacant-aims-cilacap.update');
+    Route::delete('/{id}', [KondisiVacantAimsCilacapController::class, 'destroy'])->name('kondisi-vacant-aims-cilacap.destroy');
+});
+
+// MandatoryCertificationCilacapController
+Route::prefix('monev/shrnp/input-data/mandatory-certification-cilacap')->group(function () {
+    Route::get('/', [MandatoryCertificationCilacapController::class, 'index'])->name('mandatory-certification-cilacap');
+    Route::post('/', [MandatoryCertificationCilacapController::class, 'store'])->name('mandatory-certification-cilacap.store');
+    Route::get('/data', [MandatoryCertificationCilacapController::class, 'data'])->name('mandatory-certification-cilacap.data');
+    Route::put('/{id}', [MandatoryCertificationCilacapController::class, 'update'])->name('mandatory-certification-cilacap.update');
+    Route::delete('/{id}', [MandatoryCertificationCilacapController::class, 'destroy'])->name('mandatory-certification-cilacap.destroy');
+});
+
+// PelatihanAimsCilacapController
+Route::prefix('monev/shrnp/input-data/pelatihan-aims-cilacap')->group(function () {
+    Route::get('/', [PelatihanAimsCilacapController::class, 'index'])->name('pelatihan-aims-cilacap');
+    Route::post('/', [PelatihanAimsCilacapController::class, 'store'])->name('pelatihan-aims-cilacap.store');
+    Route::get('/data', [PelatihanAimsCilacapController::class, 'data'])->name('pelatihan-aims-cilacap.data');
+    Route::put('/{id}', [PelatihanAimsCilacapController::class, 'update'])->name('pelatihan-aims-cilacap.update');
+    Route::delete('/{id}', [PelatihanAimsCilacapController::class, 'destroy'])->name('pelatihan-aims-cilacap.destroy');
+});
+
+// RealAnggaranAiCilacapController
+Route::prefix('monev/shrnp/input-data/real-anggaran-ai-cilacap')->group(function () {
+    Route::get('/', [RealAnggaranAiCilacapController::class, 'index'])->name('real-anggaran-ai-cilacap');
+    Route::post('/', [RealAnggaranAiCilacapController::class, 'store'])->name('real-anggaran-ai-cilacap.store');
+    Route::get('/data', [RealAnggaranAiCilacapController::class, 'data'])->name('real-anggaran-ai-cilacap.data');
+    Route::put('/{id}', [RealAnggaranAiCilacapController::class, 'update'])->name('real-anggaran-ai-cilacap.update');
+    Route::delete('/{id}', [RealAnggaranAiCilacapController::class, 'destroy'])->name('real-anggaran-ai-cilacap.destroy');
+});
+
+// RealAnggaranFigureCilacapController
+Route::prefix('monev/shrnp/input-data/real-anggaran-figure-cilacap')->group(function () {
+    Route::get('/', [RealAnggaranFigureCilacapController::class, 'index'])->name('real-anggaran-figure-cilacap');
+    Route::post('/', [RealAnggaranFigureCilacapController::class, 'store'])->name('real-anggaran-figure-cilacap.store');
+    Route::get('/data', [RealAnggaranFigureCilacapController::class, 'data'])->name('real-anggaran-figure-cilacap.data');
+    Route::put('/{id}', [RealAnggaranFigureCilacapController::class, 'update'])->name('real-anggaran-figure-cilacap.update');
+    Route::delete('/{id}', [RealAnggaranFigureCilacapController::class, 'destroy'])->name('real-anggaran-figure-cilacap.destroy');
+});
+
+// RencanaPemeliharaanCilacapController
+Route::prefix('monev/shrnp/input-data/rencana-pemeliharaan-cilacap')->group(function () {
+    Route::get('/', [RencanaPemeliharaanCilacapController::class, 'index'])->name('rencana-pemeliharaan-cilacap');
+    Route::post('/', [RencanaPemeliharaanCilacapController::class, 'store'])->name('rencana-pemeliharaan-cilacap.store');
+    Route::get('/data', [RencanaPemeliharaanCilacapController::class, 'data'])->name('rencana-pemeliharaan-cilacap.data');
+    Route::put('/{id}', [RencanaPemeliharaanCilacapController::class, 'update'])->name('rencana-pemeliharaan-cilacap.update');
+    Route::delete('/{id}', [RencanaPemeliharaanCilacapController::class, 'destroy'])->name('rencana-pemeliharaan-cilacap.destroy');
+});
+
+// SapAssetCilacapController
+Route::prefix('monev/shrnp/input-data/sap-asset-cilacap')->group(function () {
+    Route::get('/', [SapAssetCilacapController::class, 'index'])->name('sap-asset-cilacap');
+    Route::post('/', [SapAssetCilacapController::class, 'store'])->name('sap-asset-cilacap.store');
+    Route::get('/data', [SapAssetCilacapController::class, 'data'])->name('sap-asset-cilacap.data');
+    Route::put('/{id}', [SapAssetCilacapController::class, 'update'])->name('sap-asset-cilacap.update');
+    Route::delete('/{id}', [SapAssetCilacapController::class, 'destroy'])->name('sap-asset-cilacap.destroy');
+});
+
+// SistemInformasiAimsCilacapController
+Route::prefix('monev/shrnp/input-data/sistem-informasi-aims-cilacap')->group(function () {
+    Route::get('/', [SistemInformasiAimsCilacapController::class, 'index'])->name('sistem-informasi-aims-cilacap');
+    Route::post('/', [SistemInformasiAimsCilacapController::class, 'store'])->name('sistem-informasi-aims-cilacap.store');
+    Route::get('/data', [SistemInformasiAimsCilacapController::class, 'data'])->name('sistem-informasi-aims-cilacap.data');
+    Route::put('/{id}', [SistemInformasiAimsCilacapController::class, 'update'])->name('sistem-informasi-aims-cilacap.update');
+    Route::delete('/{id}', [SistemInformasiAimsCilacapController::class, 'destroy'])->name('sistem-informasi-aims-cilacap.destroy');
+});
+
+// StatusPloCilacapController
+Route::prefix('monev/shrnp/input-data/status-plo-cilacap')->group(function () {
+    Route::get('/', [StatusPloCilacapController::class, 'index'])->name('status-plo-cilacap');
+    Route::post('/', [StatusPloCilacapController::class, 'store'])->name('status-plo-cilacap.store');
+    Route::get('/data', [StatusPloCilacapController::class, 'data'])->name('status-plo-cilacap.data');
+    Route::put('/{id}', [StatusPloCilacapController::class, 'update'])->name('status-plo-cilacap.update');
+    Route::delete('/{id}', [StatusPloCilacapController::class, 'destroy'])->name('status-plo-cilacap.destroy');
+});
+Route::prefix('monev/shrnp/input-data/real-prog-fisik-cilacap')->group(function () {
+    Route::get('/', [RealProgFisikAiCilacapController::class, 'index'])->name('real-prog-fisik-cilacap');
+    Route::post('/', [RealProgFisikAiCilacapController::class, 'store'])->name('real-prog-fisik-cilacap.store');
+    Route::get('/data', [RealProgFisikAiCilacapController::class, 'data'])->name('real-prog-fisik-cilacap.data');
+    Route::put('/{id}', [RealProgFisikAiCilacapController::class, 'update'])->name('real-prog-fisik-cilacap.update');
+    Route::delete('/{id}', [RealProgFisikAiCilacapController::class, 'destroy'])->name('real-prog-fisik-cilacap.destroy');
+});
 
 
 Route::middleware(['auth'])->group(function () {

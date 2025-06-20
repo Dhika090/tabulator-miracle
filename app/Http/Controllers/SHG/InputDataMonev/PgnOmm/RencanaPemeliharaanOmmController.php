@@ -105,11 +105,9 @@ class RencanaPemeliharaanOmmController extends Controller
     public function data()
     {
         $TargetPLO = RencanaPemeliharaanAimsOmm::select('*')
-            ->addSelect(DB::raw("
-            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
-        "))
+            ->select('*')
+            ->addSelect(DB::raw("TRY_CONVERT(DATE, periode + '-01', 120) as periode_date"))
             ->orderBy('periode_date', 'asc')
-            ->orderBy('no', 'asc')
             ->get();
 
         return response()->json($TargetPLO);

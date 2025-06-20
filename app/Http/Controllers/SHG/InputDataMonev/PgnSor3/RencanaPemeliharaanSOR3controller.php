@@ -98,13 +98,10 @@ class RencanaPemeliharaanSOR3controller extends Controller
     public function data()
     {
         $TargetPLO = RencanaPemeliharaanSOR3::select('*')
-            ->addSelect(DB::raw("
-            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
-        "))
+            ->addSelect(DB::raw("TRY_CONVERT(DATE, CONCAT('01-', periode), 120) as periode_date"))
             ->orderBy('periode_date', 'asc')
-            ->orderBy('no', 'asc')
             ->get();
-
+            
         return response()->json($TargetPLO);
     }
     public function update(RencanaPemeliharaanSOR3Request $request, $id)

@@ -508,12 +508,14 @@
                         {
                             title: "Kendala Aset Register",
                             field: "kendala_aset_register",
-                            editor: "input"
+                            editor: "input",
+                            width: 350,
                         },
                         {
                             title: "Tindak Lanjut Aset Register",
                             field: "tindak_lanjut_aset_register",
-                            editor: "input"
+                            editor: "input",
+                            width: 400,
                         },
                         {
                             title: "Sistem Informasi AIM",

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\PertaSamtan\PelatihanAimsPtsgRequest;
 use App\Models\SHG\PertaSamtan\PelatihanAimsPtsg;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PelatihanAimsPtsgController extends Controller
 {
@@ -75,7 +76,13 @@ class PelatihanAimsPtsgController extends Controller
 
     public function data()
     {
-        return response()->json(PelatihanAimsPtsg::all());
+        $TargetPLO = PelatihanAimsPtsg::select('*')
+            ->select('*')
+            ->addSelect(DB::raw("TRY_CONVERT(DATE, periode + '-01', 120) as periode_date"))
+            ->orderBy('periode', 'asc')
+            ->get();
+
+        return response()->json($TargetPLO);
     }
 
     public function store(PelatihanAimsPtsgRequest $request)

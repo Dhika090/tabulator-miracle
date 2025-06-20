@@ -4,7 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      */
@@ -31,7 +32,7 @@ return new class extends Migration {
             $table->string('oct')->nullable();
             $table->string('nov')->nullable();
             $table->string('dec')->nullable();
-            $table->enum('aset_integrity', ['Yes', 'No']);
+            $table->enum('aset_integrity', ['Yes', 'No'])->nullable();
             $table->string('airtagging')->nullable();
             $table->string('prioritas')->nullable();
             $table->string('status_integrity')->nullable();

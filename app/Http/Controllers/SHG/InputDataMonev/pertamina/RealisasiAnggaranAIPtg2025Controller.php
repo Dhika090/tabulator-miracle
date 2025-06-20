@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\Pertamina\RealisasiAnggaranAiPtg2025Request;
 use App\Models\SHG\Pertamina\RealisasiAnggaranAiPtg2025;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RealisasiAnggaranAIPtg2025Controller extends Controller
 {
@@ -86,7 +87,9 @@ class RealisasiAnggaranAIPtg2025Controller extends Controller
     public function data()
     {
         $TargetPLO = RealisasiAnggaranAiPtg2025::select('*')
-            ->orderByRaw("STR_TO_DATE(CONCAT(periode, '-01'), '%Y-%m-%d') ASC")
+            ->select('*')
+            ->addSelect(DB::raw("TRY_CONVERT(DATE, periode + '-01', 120) as periode_date"))
+            ->orderBy('periode_date', 'asc')
             ->get();
 
         return response()->json($TargetPLO);

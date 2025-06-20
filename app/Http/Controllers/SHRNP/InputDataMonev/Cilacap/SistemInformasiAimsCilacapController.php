@@ -1,0 +1,70 @@
+<?php
+
+namespace App\Http\Controllers\SHRNP\InputDataMonev\Cilacap;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\SHRNP\Cilacap\SistemInformasiAimsCilacapRequest;
+use App\Models\SHRNP\Cilacap\SistemInformasiAimsCilacap;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
+class SistemInformasiAimsCilacapController extends Controller
+{
+
+
+    public function index(Request $request)
+    {
+        $tabs = collect(config('cilacap-tabs'))->map(function ($tab) {
+            return [
+                'title' => $tab['title'],
+                'route' => route($tab['route']),
+                'active' => request()->routeIs($tab['route']), // pakai nama route, bukan URL
+            ];
+        });
+
+        return view('SHRNP.InputDataMonev.Cilacap.SistemInformasiAimsCilacap', [
+            'tabs' => $tabs,
+
+        ]);
+    }
+
+    public function store(SistemInformasiAimsCilacapRequest $request)
+    {
+        $validated = $request->validated();
+        $TargetPLO = SistemInformasiAimsCilacap::create($validated);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Data berhasil disimpan',
+            'data' => $TargetPLO,
+        ]);
+    }
+
+    public function data()
+    {
+        $TargetPLO = SistemInformasiAimsCilacap::select('*')
+            ->addSelect(DB::raw("
+            STR_TO_DATE(CONCAT('0-', periode), '%d-%b-%Y') as periode_date
+        "))
+            ->orderBy('periode_date', 'asc')
+            ->get();
+
+        return response()->json($TargetPLO);
+    }
+    public function update(SistemInformasiAimsCilacapRequest $request, $id)
+    {
+        $progress = SistemInformasiAimsCilacap::findOrFail($id);
+        $progress->update($request->validated());
+
+        return response()->json(['success' => true, 'message' => 'Data berhasil diupdate']);
+    }
+
+
+    public function destroy($id)
+    {
+        $target = SistemInformasiAimsCilacap::findOrFail($id);
+        $target->delete();
+
+        return response()->json(['success' => true, 'message' => 'Data berhasil dihapus']);
+    }
+}

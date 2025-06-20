@@ -431,7 +431,6 @@
                             hozAlign: "center",
                             width: 60,
                             headerSort: false,
-                            ,
                             download: false
                         },
                         {

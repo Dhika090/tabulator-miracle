@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\PgnLngIndonesia\AssetBreakdownPliRequest;
 use App\Models\SHG\PgnLngIndonesia\AssetBreakdownPLI;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AssetBreakdownPliController extends Controller
 {
@@ -81,7 +82,9 @@ class AssetBreakdownPliController extends Controller
     public function data()
     {
         $TargetPLO = AssetBreakdownPLI::select('*')
-            ->orderByRaw("STR_TO_DATE(CONCAT(periode, '-01'), '%Y-%m-%d') ASC")
+       ->select('*')
+            ->addSelect(DB::raw("TRY_CONVERT(DATE, periode + '-01', 120) as periode_date"))
+            ->orderBy('periode', 'asc')
             ->get();
 
         return response()->json($TargetPLO);

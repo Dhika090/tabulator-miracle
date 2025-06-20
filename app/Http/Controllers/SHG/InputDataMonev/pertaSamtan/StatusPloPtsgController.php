@@ -75,10 +75,11 @@ class StatusPloPtsgController extends Controller
 
     public function data()
     {
-       $TargetPLO = StatusPloPTsg::select('*')
-            ->orderByRaw("STR_TO_DATE(CONCAT(periode, '-01'), '%Y-%m-%d') ASC")
+        $TargetPLO = StatusPloPTsg::select('*')
+            ->select('*')
+            ->addSelect(DB::raw("TRY_CONVERT(DATE, periode + '-01', 120) as periode_date"))
+            ->orderBy('periode_date', 'asc')
             ->get();
-
         return response()->json($TargetPLO);
     }
 

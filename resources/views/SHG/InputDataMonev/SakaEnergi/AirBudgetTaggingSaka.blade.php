@@ -435,7 +435,7 @@
                             title: "No",
                             formatter: "rownum",
                             hozAlign: "center",
-                            width: 60,\
+                            width: 60,
                             download: false
                         },
                         {

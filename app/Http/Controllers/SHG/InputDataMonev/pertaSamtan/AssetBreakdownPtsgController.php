@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\PertaSamtan\AssetBreakdownPtsgRequest;
 use App\Models\SHG\PertaSamtan\AssetBreakdownPTSG;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AssetBreakdownPtsgController extends Controller
 {
@@ -72,10 +73,15 @@ class AssetBreakdownPtsgController extends Controller
         return view('SHG.InputDataMonev.pertaSamtan.AssetBreakdownPTSG', compact('tabs'));
     }
 
-
     public function data()
     {
-        return response()->json(AssetBreakdownPTSG::all());
+        $TargetPLO = AssetBreakdownPTSG::select('*')
+            ->select('*')
+            ->addSelect(DB::raw("TRY_CONVERT(DATE, periode + '-01', 120) as periode_date"))
+            ->orderBy('periode_date', 'asc')
+            ->get();
+
+        return response()->json($TargetPLO);
     }
 
     public function store(AssetBreakdownPtsgRequest $request)

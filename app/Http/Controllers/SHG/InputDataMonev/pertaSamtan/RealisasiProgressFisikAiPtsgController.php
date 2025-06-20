@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\PertaSamtan\RealisasiProgressFisikAiPtsgRequest;
 use App\Models\SHG\PertaSamtan\RealisasiProgressFisikAiPtsg;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RealisasiProgressFisikAiPtsgController extends Controller
 {
@@ -76,7 +77,13 @@ class RealisasiProgressFisikAiPtsgController extends Controller
 
     public function data()
     {
-        return response()->json(RealisasiProgressFisikAiPtsg::all());
+        $TargetPLO = RealisasiProgressFisikAiPtsg::select('*')
+            ->select('*')
+            ->addSelect(DB::raw("TRY_CONVERT(DATE, periode + '-01', 120) as periode_date"))
+            ->orderBy('periode', 'asc')
+            ->get();
+
+        return response()->json($TargetPLO);
     }
 
     public function store(RealisasiProgressFisikAiPtsgRequest $request)

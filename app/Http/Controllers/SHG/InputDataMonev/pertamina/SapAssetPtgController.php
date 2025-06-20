@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\Pertamina\SapAssetPtgRequest;
 use App\Models\SHG\Pertamina\SapAssetPtg;
 use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\DB;
 
 class SapAssetPtgController extends Controller
@@ -84,15 +85,17 @@ class SapAssetPtgController extends Controller
         return view('SHG.InputDataMonev.pertamina.SapAssetPTG', compact('tabs'));
     }
 
-
     public function data()
     {
-        $TargetPLO = SapAssetPtg::select('*')
-            ->orderByRaw("STR_TO_DATE(CONCAT(periode, '-01'), '%Y-%m-%d') ASC")
+        $TargetPLO = DB::table('shg_pertamina_sap_asset')
+            ->select('*')
+            ->addSelect(DB::raw("TRY_CONVERT(DATE, periode + '-01', 120) as periode_date"))
+            ->orderBy('periode_date', 'asc')
             ->get();
 
         return response()->json($TargetPLO);
     }
+
 
     public function store(SapAssetPtgRequest $request)
     {

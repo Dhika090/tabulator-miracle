@@ -7,9 +7,10 @@ use App\Http\Requests\SHG\GagasEnergi\RealisasiAnggaranAiGEIRequest;
 use App\Models\SHG\GagasEnergi\RealisasiAnggaranAiGEI;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+
 class RealisasiAnggaranAiGEIController extends Controller
 {
-    
+
     public function index(Request $request)
     {
 
@@ -93,10 +94,8 @@ class RealisasiAnggaranAiGEIController extends Controller
 
     public function data()
     {
-          $TargetPLO = RealisasiAnggaranAiGEI::select('*')
-            ->addSelect(DB::raw("
-            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date
-        "))
+        $TargetPLO = RealisasiAnggaranAiGEI::select('*')
+            ->addSelect(DB::raw("TRY_CONVERT(DATE, CONCAT('01-', periode), 120) as periode_date"))
             ->orderBy('periode_date', 'asc')
             ->get();
 

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\PertaSamtan\StatusAssetAIPTSGRequest;
 use App\Models\SHG\PertaSamtan\StatusAssetAIPTSG;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PertaSamtanGasController extends Controller
 {
@@ -108,7 +109,9 @@ class PertaSamtanGasController extends Controller
     public function data()
     {
         $TargetPLO = StatusAssetAIPTSG::select('*')
-            ->orderByRaw("STR_TO_DATE(CONCAT(periode, '-01'), '%Y-%m-%d') ASC")
+            ->select('*')
+            ->addSelect(DB::raw("TRY_CONVERT(DATE, periode + '-01', 120) as periode_date"))
+            ->orderBy('periode_date', 'asc')
             ->get();
 
         return response()->json($TargetPLO);

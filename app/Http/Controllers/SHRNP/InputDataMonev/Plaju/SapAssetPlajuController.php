@@ -52,17 +52,17 @@ class SapAssetPlajuController extends Controller
                 'active' => request()->routeIs('rencana-pemeliharaan-plaju'),
             ],
             [
-                'title' => 'Real Anggaran AI Plaju',
+                'title' => 'Realisasi Anggaran AI Plaju',
                 'route' => route('real-anggaran-ai-plaju'),
                 'active' => request()->routeIs('real-anggaran-ai-plaju'),
             ],
             [
-                'title' => 'Real Anggaran Figure Plaju',
+                'title' => 'Realisasi Anggaran Figure Plaju',
                 'route' => route('real-anggaran-figure-plaju'),
                 'active' => request()->routeIs('real-anggaran-figure-plaju'),
             ],
             [
-                'title' => 'Real Prog Fisik Plaju',
+                'title' => 'Realisasi Prog Fisik AI Plaju',
                 'route' => route('real-prog-fisik-plaju'),
                 'active' => request()->routeIs('real-prog-fisik-plaju'),
             ],

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\PgnLngIndonesia\SisteInformasiAimsPLIRequest;
 use App\Models\SHG\PgnLngIndonesia\SistemInformasiAimsPLI;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SistemInformasiAimsPliController extends Controller
 {
@@ -81,7 +82,13 @@ class SistemInformasiAimsPliController extends Controller
 
     public function data()
     {
-        return response()->json(SistemInformasiAimsPLI::all());
+        $TargetPLO = SistemInformasiAimsPLI::select('*')
+            ->select('*')
+            ->addSelect(DB::raw("TRY_CONVERT(DATE, periode + '-01', 120) as periode_date"))
+            ->orderBy('periode_date', 'asc')
+            ->get();
+
+        return response()->json($TargetPLO);
     }
 
     public function store(SisteInformasiAimsPLIRequest $request)

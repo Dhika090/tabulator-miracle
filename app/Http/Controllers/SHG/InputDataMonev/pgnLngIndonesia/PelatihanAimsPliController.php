@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\PgnLngIndonesia\PelatihanAimsPLIRequest;
 use App\Models\SHG\PgnLngIndonesia\PelatihanAimsPLI;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PelatihanAimsPliController extends Controller
 {
@@ -81,7 +82,13 @@ class PelatihanAimsPliController extends Controller
 
     public function data()
     {
-        return response()->json(PelatihanAimsPLI::all());
+        $TargetPLO = PelatihanAimsPLI::select('*')
+            ->select('*')
+            ->addSelect(DB::raw("TRY_CONVERT(DATE, periode + '-01', 120) as periode_date"))
+            ->orderBy('periode_date', 'asc')
+            ->get();
+
+        return response()->json($TargetPLO);
     }
 
     public function store(PelatihanAimsPLIRequest $request)

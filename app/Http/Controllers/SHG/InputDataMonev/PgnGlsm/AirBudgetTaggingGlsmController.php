@@ -14,7 +14,7 @@ class AirBudgetTaggingGlsmController extends Controller
     {
 
         $tabs = [
- [
+            [
                 'title' => 'Realisasi Anggaran AI PGN GLSM ',
                 'route' => route('realisasi-anggaran-ai-glsm'),
                 'active' => request()->routeIs('realisasi-anggaran-ai-glsm'),

@@ -418,7 +418,7 @@
             }
 
             function loadData() {
-                fetch("/monev/shg/input-data/status-plo-omm",/data", {
+                fetch("/monev/shg/input-data/status-plo-omm/data", {
                         headers: {
                             "Accept": "application/json"
                         }

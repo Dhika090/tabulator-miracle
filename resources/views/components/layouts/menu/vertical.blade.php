@@ -326,8 +326,8 @@
                             </a>
                         </li>
                         <li
-                            class="menu-item {{ request()->is('monev/shrnp/input-data/ru-cilacap') ? 'active' : '' }}">
-                            <a class="menu-link" href="{{ url('monev/shrnp/input-data/ru-cilacap') }}">
+                            class="menu-item {{ request()->is('monev/shrnp/input-data/asset-breakdown-cilacap') ? 'active' : '' }}">
+                            <a class="menu-link" href="{{ url('monev/shrnp/input-data/asset-breakdown-cilacap') }}">
                                 <i class="fa fa-wrench me-2"></i>RU IV Cilacap
                             </a>
                         </li>

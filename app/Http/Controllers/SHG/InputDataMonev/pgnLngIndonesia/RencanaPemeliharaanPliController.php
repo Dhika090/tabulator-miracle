@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\PgnLngIndonesia\RencanaPemeliharaanPliRequest;
 use App\Models\SHG\PgnLngIndonesia\RencanaPemeliharaanPLI;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RencanaPemeliharaanPliController extends Controller
 {
@@ -80,7 +81,13 @@ class RencanaPemeliharaanPliController extends Controller
 
     public function data()
     {
-        return response()->json(RencanaPemeliharaanPLI::all());
+        $TargetPLO = RencanaPemeliharaanPLI::select('*')
+            ->select('*')
+            ->addSelect(DB::raw("TRY_CONVERT(DATE, periode + '-01', 120) as periode_date"))
+            ->orderBy('periode_date', 'asc')
+            ->get();
+
+        return response()->json($TargetPLO);
     }
 
     public function store(RencanaPemeliharaanPliRequest $request)

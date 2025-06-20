@@ -620,7 +620,7 @@
                             },
                             hozAlign: "center",
                             width: 150,
-                            download: false3
+                            download: false
                         }
                     ]
                 };

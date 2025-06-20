@@ -76,8 +76,7 @@ class AirBudetTaggingWmnController extends Controller
 
         return view('SHG.InputDataMonev.widarMandripaNusantara.AirBudgetTaggingWMN', compact('tabs'));
     }
-
-
+    
     public function data()
     {
         return response()->json(AirBudgetTaggingWmn::all());

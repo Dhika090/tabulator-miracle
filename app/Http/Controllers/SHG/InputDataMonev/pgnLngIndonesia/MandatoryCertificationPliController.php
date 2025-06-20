@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\PgnLngIndonesia\MandatoryCertificationPliRequest;
 use App\Models\SHG\PgnLngIndonesia\MandatoryCertificationPLI;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MandatoryCertificationPliController extends Controller
 {
@@ -166,7 +167,9 @@ class MandatoryCertificationPliController extends Controller
     public function data()
     {
        $TargetPLO = MandatoryCertificationPLI::select('*')
-            ->orderByRaw("STR_TO_DATE(CONCAT(periode, '-01'), '%Y-%m-%d') ASC")
+       ->select('*')
+            ->addSelect(DB::raw("TRY_CONVERT(DATE, periode + '-01', 120) as periode_date"))
+            ->orderBy('periode', 'asc')
             ->get();
 
         return response()->json($TargetPLO);

@@ -394,7 +394,6 @@
                             formatter: "rownum",
                             hozAlign: "center",
                             width: 60,
-                            do
                         },
                         {
                             title: "ID",
@@ -603,7 +602,7 @@
                     },
                 });
 
-                1document.getElementById("download-xlsx").addEventListener("click", function() {
+                document.getElementById("download-xlsx").addEventListener("click", function() {
                     window.table.download("xlsx", "sistem-informasi-aims-omm.xlsx", {
                         sheetName: "sistem-informasi-aims-omm",
                         columnHeaders: true,

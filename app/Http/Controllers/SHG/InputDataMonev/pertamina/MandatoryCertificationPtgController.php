@@ -7,6 +7,8 @@ use App\Http\Requests\SHG\pertamina\MandatoryCertificationPtgRequest;
 use App\Models\SHG\pertamina\MandatoryCertificationPtg;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\DB;
+
 class MandatoryCertificationPtgController extends Controller
 {
     public function index()
@@ -86,8 +88,10 @@ class MandatoryCertificationPtgController extends Controller
 
     public function data()
     {
-        $TargetPLO = MandatoryCertificationPtg::select('*')
-            ->orderByRaw("STR_TO_DATE(CONCAT(periode, '-01'), '%Y-%m-%d') ASC")
+        $TargetPLO = DB::table('shg_pertamina_mandatory_certification_ptg')
+            ->select('*')
+            ->addSelect(DB::raw("TRY_CONVERT(DATE, periode + '-01', 120) as periode_date"))
+            ->orderBy('periode_date', 'asc')
             ->get();
 
         return response()->json($TargetPLO);

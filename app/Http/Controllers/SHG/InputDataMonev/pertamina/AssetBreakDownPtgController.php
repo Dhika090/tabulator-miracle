@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\Pertamina\AssetBreakdownPtgRequest;
 use App\Models\SHG\Pertamina\AssetBreakdownPtg;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AssetBreakDownPtgController extends Controller
 {
@@ -86,7 +87,9 @@ class AssetBreakDownPtgController extends Controller
     public function data()
     {
         $TargetPLO = AssetBreakdownPtg::select('*')
-            ->orderByRaw("STR_TO_DATE(CONCAT(periode, '-01'), '%Y-%m-%d') ASC")
+            ->select('*')
+            ->addSelect(DB::raw("TRY_CONVERT(DATE, periode + '-01', 120) as periode_date"))
+            ->orderBy('periode_date', 'asc')
             ->get();
 
         return response()->json($TargetPLO);

@@ -100,13 +100,9 @@ class RealisasiProgressFisikAiSOR1Controller extends Controller
     public function data()
     {
         $TargetPLO = RealisasiProgresFisikAiSOR1::select('*')
-            ->addSelect(DB::raw("
-            STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%Y') as periode_date,
-            ROW_NUMBER() OVER (ORDER BY periode) as no
-        "))
+            ->addSelect(DB::raw("TRY_CONVERT(DATE, CONCAT('01-', periode), 120) as periode_date"))
             ->orderBy('periode_date', 'asc')
             ->get();
-
         return response()->json($TargetPLO);
     }
     public function update(RealisasiProgresFisikAiSOR1Request $request, $id)

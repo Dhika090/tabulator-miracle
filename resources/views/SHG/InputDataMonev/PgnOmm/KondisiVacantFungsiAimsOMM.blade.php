@@ -125,14 +125,18 @@
     <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-                <h5 class="card-title mb-3 mb-md-0">Kondisi Vacant Fungsi AIMS OMM</h5>
-                <div class="d-flex">
+                <h5 class="card-title mb-3 mb-md-0">Kondisi Vacant Fungsi AIMS</h5>
+                <div class="d-flex flex-column flex-md-row align-items-center gap-3">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
-                    <button class="btn btn-outline-secondary ms-2 h-100 mt-1" type="button"
+                    <button class="btn btn-outline-secondary ms-2 h-100 mt-1 d" type="button"
                         onclick="clearSearch()">Clear</button>
+                    <button class="btn btn-primary px-4 py-2" id="download-xlsx" style="white-space: nowrap;">
+                        Export Excel
+                    </button>
                 </div>
             </div>
+
 
             <div class="d-flex flex-column flex-md-row align-items-center gap-3">
                 <button onclick="openModal()" class="btn btn-primary px-4 py-2" style="white-space: nowrap;">
@@ -220,6 +224,7 @@
     @push('scripts')
         <script src="https://unpkg.com/tabulator-tables@5.6.0/dist/js/tabulator.min.js"></script>
         <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+
 
         <script>
             function deleteData(id) {
@@ -316,9 +321,16 @@
                 const columnMap = {
                     "kondisi-vacant-aims-omm": [{
                             title: "No",
-                            formatter: "rownum",
+                            formatter: function(cell) {
+                                const row = cell.getRow();
+                                const table = cell.getTable();
+                                const sortedData = table.getRows("active").map(r => r.getData());
+                                const index = sortedData.findIndex(data => data.id === row.getData().id);
+                                return index + 1;
+                            },
                             hozAlign: "center",
                             width: 60,
+                            headerSort: false,
                             download: false
                         },
                         {
@@ -439,7 +451,7 @@
                         {
                             title: "Keterangan",
                             field: "keterangan",
-                            width: 350,
+                            width: 200,
                             editor: "input"
                         },
                         {
@@ -460,6 +472,8 @@
                     responsiveLayout: "collapse",
                     autoResize: true,
                     columns: columnMap["kondisi-vacant-aims-omm"],
+                    virtualDom: true,
+                    height: "700px",
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -583,7 +597,6 @@
 
                     previousData = JSON.parse(JSON.stringify(newData));
                 });
-
                 loadData();
             });
         </script>

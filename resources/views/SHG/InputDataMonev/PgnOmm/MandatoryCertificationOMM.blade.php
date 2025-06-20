@@ -534,7 +534,7 @@
                     },
                 });
 
-                   document.getElementById("download-xlsx").addEventListener("click", function() {
+                document.getElementById("download-xlsx").addEventListener("click", function() {
                     window.table.download("xlsx", "mandatory-certification-omm.xlsx", {
                         sheetName: "mandatory-certification-omm",
                         columnHeaders: true,
@@ -556,6 +556,7 @@
                         }
                     });
                 });
+                
                 table.on("cellEdited", function(cell) {
                     const updatedData = cell.getRow().getData();
                     const id = updatedData.id;

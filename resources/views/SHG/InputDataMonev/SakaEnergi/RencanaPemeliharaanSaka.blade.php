@@ -426,7 +426,7 @@
             }
 
             function loadData() {
-                fetch("/monev/shg/input-data/pelatihan-aims-omm/data", {
+                fetch("/monev/shg/input-data/pelatihan-aims-saka/data", {
                         headers: {
                             "Accept": "application/json"
                         }

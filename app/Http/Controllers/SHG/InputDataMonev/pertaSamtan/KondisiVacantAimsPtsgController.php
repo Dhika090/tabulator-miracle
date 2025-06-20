@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SHG\PertaSamtan\KondisiVacantPTsgRequest;
 use App\Models\SHG\PertaSamtan\KondisiVacantAimsPTsg;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class KondisiVacantAimsPtsgController extends Controller
 {
@@ -75,7 +76,14 @@ class KondisiVacantAimsPtsgController extends Controller
 
     public function data()
     {
-        return response()->json(KondisiVacantAimsPTsg::all());
+
+        $TargetPLO = KondisiVacantAimsPTsg::select('*')
+            ->select('*')
+            ->addSelect(DB::raw("TRY_CONVERT(DATE, periode + '-01', 120) as periode_date"))
+            ->orderBy('periode', 'asc')
+            ->get();
+
+        return response()->json($TargetPLO);
     }
 
     public function store(KondisiVacantPTsgRequest $request)

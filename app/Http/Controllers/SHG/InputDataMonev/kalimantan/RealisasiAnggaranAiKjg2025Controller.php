@@ -81,7 +81,9 @@ class RealisasiAnggaranAiKjg2025Controller extends Controller
     public function data()
     {
         $TargetPLO = RealisasiAnggaranAiKjg::select('*')
-            ->orderByRaw("STR_TO_DATE(CONCAT('01-', periode), '%d-%b-%y') ASC")
+  ->select('*')
+            ->addSelect(DB::raw("TRY_CONVERT(DATE, periode + '-01', 120) as periode_date"))
+            ->orderBy('periode_date', 'asc')
             ->get();
 
         return response()->json($TargetPLO);
