@@ -7,6 +7,14 @@
                 overflow-x: auto;
             }
 
+            .toast-success {
+                background-color: #28a745;
+            }
+
+            .toast-error {
+                background-color: #dc3545;
+            }
+
             #example-table {
                 background-color: white;
                 min-width: 800px;
@@ -122,8 +130,7 @@
         </style>
     @endpush
 
-    <div class="card">
-        <div class="card-body d-flex flex-column">
+         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
                 <h5 class="card-title mb-3 mb-md-0">Asset Breakdown Regional 2</h5>
                 <div class="d-flex flex-column flex-md-row align-items-center gap-3">
@@ -272,6 +279,10 @@
         </div>
     </div>
 
+    
+    <div id="toastNotification"
+        style="display:none; position: fixed; top: 20px; right: 20px; z-index: 9999; padding: 15px 20px; border-radius: 8px; color: white; font-weight: bold;">
+    </div>
     @push('scripts')
         <script src="https://unpkg.com/tabulator-tables@5.6.0/dist/js/tabulator.min.js"></script>
         <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
@@ -287,12 +298,12 @@
                         })
                         .then(res => res.json())
                         .then(result => {
-                            alert(result.message || "Data berhasil dihapus");
+                            showToast(result.message || "Data berhasil disimpan", "success");
                             loadData();
                         })
                         .catch(err => {
                             console.error("Gagal hapus data:", err);
-                            alert("Terjadi kesalahan saat menghapus data.");
+                            showToast("Terjadi kesalahan saat mengirim data.", "error");
                         });
                 }
             }
@@ -779,6 +790,18 @@
 
         {{-- create data  --}}
         <script>
+            function showToast(message, type = "success") {
+                const toast = document.getElementById("toastNotification");
+                toast.textContent = message;
+                toast.className = "";
+                toast.classList.add(type === "success" ? "toast-success" : "toast-error");
+                toast.style.display = "block";
+
+                setTimeout(() => {
+                    toast.style.display = "none";
+                }, 3000);
+            }
+
             function openModal() {
                 document.getElementById("createModal").style.display = "block";
             }
@@ -825,17 +848,17 @@
                     .then(response => response.json())
                     .then(result => {
                         if (result.success) {
-                            alert(result.message || "Data berhasil disimpan");
+                            showToast(result.message || "Data berhasil disimpan", "success");
                             table.setData("/monev/shu/input-data/regional-2/data");
                             this.reset();
                             closeModal();
-                        } else {
-                            alert("Gagal menyimpan data");
+                       } else {
+                            showToast(result.message || "Gagal menyimpan data", "error");
                         }
                     })
                     .catch(error => {
                         console.error("Error saat submit:", error);
-                        alert("Terjadi kesalahan saat mengirim data.");
+                        showToast("Terjadi kesalahan saat mengirim data.", "error");
                     });
             });
         </script>

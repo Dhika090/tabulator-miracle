@@ -7,11 +7,27 @@
                 overflow-x: auto;
             }
 
+            .toast-success {
+                background-color: #28a745;
+            }
+
+            .toast-error {
+                background-color: #dc3545;
+            }
+
             #example-table {
                 background-color: white;
                 min-width: 800px;
                 border-radius: 8px;
                 box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            }
+
+            .toast-success {
+                background-color: #28a745;
+            }
+
+            .toast-error {
+                background-color: #dc3545;
             }
 
             .tabulator-cell {
@@ -275,6 +291,9 @@
         </div>
     </div>
 
+    <div id="toastNotification"
+        style="display:none; position: fixed; top: 20px; right: 20px; z-index: 9999; padding: 15px 20px; border-radius: 8px; color: white; font-weight: bold;">
+    </div>
     @push('scripts')
         <script src="https://unpkg.com/tabulator-tables@5.6.0/dist/js/tabulator.min.js"></script>
         <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
@@ -291,12 +310,12 @@
                         })
                         .then(res => res.json())
                         .then(result => {
-                            alert(result.message || "Data berhasil dihapus");
+                            showToast(result.message || "Data berhasil disimpan", "success");
                             loadData();
                         })
                         .catch(err => {
                             console.error("Gagal hapus data:", err);
-                            alert("Terjadi kesalahan saat menghapus data.");
+                            showToast("Terjadi kesalahan saat mengirim data.", "error");
                         });
                 }
             }
@@ -630,21 +649,21 @@
                             field: "tindak_lanjut",
                             editor: "input"
                         },
-                      {
-    title: "Aksi",
-    download: false,
-    hozAlign: "center",
-    width: 150,
-    formatter: (cell) => {
-        const row = cell.getData();
-        return `
+                        {
+                            title: "Aksi",
+                            download: false,
+                            hozAlign: "center",
+                            width: 150,
+                            formatter: (cell) => {
+                                const row = cell.getData();
+                                return `
             <button onclick='deleteData("${row.id}")'
                 class="btn btn-sm btn-danger">
                 <i class="bi bi-trash"></i> Hapus
             </button>
         `;
-    }
-}
+                            }
+                        }
                     ]
                 };
 
@@ -784,6 +803,30 @@
 
         {{-- create data  --}}
         <script>
+            function showToast(message, type = "success") {
+                const toast = document.getElementById("toastNotification");
+                toast.textContent = message;
+                toast.className = "";
+                toast.classList.add(type === "success" ? "toast-success" : "toast-error");
+                toast.style.display = "block";
+
+                setTimeout(() => {
+                    toast.style.display = "none";
+                }, 3000);
+            }
+
+            function showToast(message, type = "success") {
+                const toast = document.getElementById("toastNotification");
+                toast.textContent = message;
+                toast.className = "";
+                toast.classList.add(type === "success" ? "toast-success" : "toast-error");
+                toast.style.display = "block";
+
+                setTimeout(() => {
+                    toast.style.display = "none";
+                }, 3000);
+            }
+
             function openModal() {
                 document.getElementById("createModal").style.display = "block";
             }
@@ -833,17 +876,17 @@
                     .then(response => response.json())
                     .then(result => {
                         if (result.success) {
-                            alert(result.message || "Data berhasil disimpan");
+                            showToast(result.message || "Data berhasil disimpan", "success");
                             table.setData("/monev/shrnp/input-data/sap-asset-cilacap/data");
                             this.reset();
                             closeModal();
                         } else {
-                            alert("Gagal menyimpan data");
+                            showToast(result.message || "Gagal menyimpan data", "error");
                         }
                     })
                     .catch(error => {
                         console.error("Error saat submit:", error);
-                        alert("Terjadi kesalahan saat mengirim data.");
+                        showToast("Terjadi kesalahan saat mengirim data.", "error");
                     });
             });
         </script>
