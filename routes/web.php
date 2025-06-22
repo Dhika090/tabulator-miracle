@@ -384,6 +384,10 @@ use App\Http\Controllers\SHRNP\InputDataMonev\Cilacap\RencanaPemeliharaanCilacap
 use App\Http\Controllers\SHRNP\InputDataMonev\Cilacap\SapAssetCilacapController;
 use App\Http\Controllers\SHRNP\InputDataMonev\Cilacap\SistemInformasiAimsCilacapController;
 use App\Http\Controllers\SHRNP\InputDataMonev\Cilacap\StatusPloCilacapController;
+use App\Http\Controllers\SHU\InputDataMonev\AssetBreakdown\Regional1AssetBreakdownController;
+use App\Http\Controllers\SHU\InputDataMonev\AssetBreakdown\Regional2AssetBreakdownController;
+use App\Http\Controllers\SHU\InputDataMonev\AssetBreakdown\Regional3AssetBreakdownController;
+use App\Http\Controllers\SHU\InputDataMonev\AssetBreakdown\Regional4AssetBreakdownController;
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
@@ -3579,6 +3583,52 @@ Route::prefix('monev/shrnp/input-data/real-prog-fisik-cilacap')->group(function 
     Route::put('/{id}', [RealProgFisikAiCilacapController::class, 'update'])->name('real-prog-fisik-cilacap.update');
     Route::delete('/{id}', [RealProgFisikAiCilacapController::class, 'destroy'])->name('real-prog-fisik-cilacap.destroy');
 });
+
+
+
+
+
+
+
+
+
+
+// SHU Asset Breadown Regional 1
+Route::prefix('monev/shu/input-data/aset-breakdown-regional-1')->group(function () {
+    Route::get('/', [Regional1AssetBreakdownController::class, 'index'])->name('aset-breakdown-regional-1');
+    Route::post('/', [Regional1AssetBreakdownController::class, 'store'])->name('aset-breakdown-regional-1.store');
+    Route::get('/data', [Regional1AssetBreakdownController::class, 'data'])->name('aset-breakdown-regional-1.data');
+    Route::put('/{id}', [Regional1AssetBreakdownController::class, 'update'])->name('aset-breakdown-regional-1.update');
+    Route::delete('/{id}', [Regional1AssetBreakdownController::class, 'destroy'])->name('aset-breakdown-regional-1.destroy');
+});
+
+// SHU Asset Breakdown Regional 2
+Route::prefix('monev/shu/input-data/regional-2')->group(function () {
+    Route::get('/', [Regional2AssetBreakdownController::class, 'index'])->name('regional-2');
+    Route::post('/', [Regional2AssetBreakdownController::class, 'store'])->name('regional-2.store');
+    Route::get('/data', [Regional2AssetBreakdownController::class, 'data'])->name('regional-2.data');
+    Route::put('/{id}', [Regional2AssetBreakdownController::class, 'update'])->name('regional-2.update');
+    Route::delete('/{id}', [Regional2AssetBreakdownController::class, 'destroy'])->name('regional-2.destroy');
+});
+
+// SHU Asset Breakdown Regional 3
+Route::prefix('monev/shu/input-data/regional-3')->group(function () {
+    Route::get('/', [Regional3AssetBreakdownController::class, 'index'])->name('regional-3');
+    Route::post('/', [Regional3AssetBreakdownController::class, 'store'])->name('regional-3.store');
+    Route::get('/data', [Regional3AssetBreakdownController::class, 'data'])->name('regional-3.data');
+    Route::put('/{id}', [Regional3AssetBreakdownController::class, 'update'])->name('regional-3.update');
+    Route::delete('/{id}', [Regional3AssetBreakdownController::class, 'destroy'])->name('regional-3.destroy');
+});
+
+// SHU Asset Breakdown Regional 4
+Route::prefix('monev/shu/input-data/regional-4')->group(function () {
+    Route::get('/', [Regional4AssetBreakdownController::class, 'index'])->name('regional-4');
+    Route::post('/', [Regional4AssetBreakdownController::class, 'store'])->name('regional-4.store');
+    Route::get('/data', [Regional4AssetBreakdownController::class, 'data'])->name('regional-4.data');
+    Route::put('/{id}', [Regional4AssetBreakdownController::class, 'update'])->name('regional-4.update');
+    Route::delete('/{id}', [Regional4AssetBreakdownController::class, 'destroy'])->name('regional-4.destroy');
+});
+
 
 
 Route::middleware(['auth'])->group(function () {

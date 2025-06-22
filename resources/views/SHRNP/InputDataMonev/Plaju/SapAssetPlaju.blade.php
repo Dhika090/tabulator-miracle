@@ -632,13 +632,18 @@
                         },
                         {
                             title: "Aksi",
-                            formatter: (cell) => {
-                                const row = cell.getData();
-                                return `<button onclick='deleteData("${row.id}")'>Hapus</button>`;
-                            },
+                            download: false,
                             hozAlign: "center",
                             width: 150,
-                            download: false
+                            formatter: (cell) => {
+                                const row = cell.getData();
+                                return `
+            <button onclick='deleteData("${row.id}")'
+                class="btn btn-sm btn-danger">
+                <i class="bi bi-trash"></i> Hapus
+            </button>
+        `;
+                            }
                         }
                     ]
                 };

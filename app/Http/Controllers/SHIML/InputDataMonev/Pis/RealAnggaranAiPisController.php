@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 class RealAnggaranAiPisController extends Controller
 {
-   
+
     public function index(Request $request)
     {
 
@@ -101,7 +101,7 @@ class RealAnggaranAiPisController extends Controller
     public function data()
     {
         $TargetPLO = RealAnggaranAiPis::select('*')
-                 ->addSelect(DB::raw("TRY_CONVERT(DATE, CONCAT('01-', periode), 120) as periode_date"))
+            ->addSelect(DB::raw("TRY_CONVERT(DATE, CONCAT('01-', periode), 120) as periode_date"))
             ->orderBy('periode_date', 'asc')
             ->get();
         return response()->json($TargetPLO);

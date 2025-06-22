@@ -125,7 +125,7 @@
     <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-                <h5 class="card-title mb-3 mb-md-0">Real Anggaran Figure cilacap</h5>
+                <h5 class="card-title mb-3 mb-md-0">Asset Breakdown Regional 4</h5>
                 <div class="d-flex flex-column flex-md-row align-items-center gap-3">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
@@ -183,242 +183,88 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Real Anggaran Figure cilacap</h3>
+            <h3>Tambah Target Asset Breakdown Regional 4</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
+
                 <div>
                     <label>Periode</label>
                     <input type="month" name="periode" id="periode">
                 </div>
 
                 <div>
-                    <label>No</label>
-                    <input type="number" name="no" id="no">
+                    <label>Company</label>
+                    <input type="text" name="company" id="company">
                 </div>
 
                 <div>
-                    <label>Kategori AIBT</label>
-                    <input type="text" name="kategori_aibt" id="kategori_aibt">
+                    <label>Plant/Segment</label>
+                    <input type="text" name="plant_segment" id="plant_segment">
                 </div>
 
                 <div>
-                    <label>Jenis Anggaran</label>
-                    <input type="text" name="jenis_anggaran" id="jenis_anggaran">
+                    <label>Kategori Criticality</label>
+                    <input type="text" name="kategori_criticality" id="kategori_criticality">
                 </div>
 
                 <div>
-                    <label>Besar RKAP</label>
-                    <input type="number" name="besar_rkap" id="besar_rkap">
+                    <label>Tag</label>
+                    <input type="text" name="tag" id="tag">
                 </div>
 
                 <div>
-                    <label>Entitas</label>
-                    <input type="text" name="entitas" id="entitas">
+                    <label>Deskripsi Peralatan</label>
+                    <input type="text" name="deskripsi_peralatan" id="deskripsi_peralatan">
                 </div>
 
                 <div>
-                    <label>Unit</label>
-                    <input type="text" name="unit" id="unit">
+                    <label>Jenis Kerusakan</label>
+                    <input type="text" name="jenis_kerusakan" id="jenis_kerusakan">
                 </div>
 
                 <div>
-                    <label>Nilai Kontrak</label>
-                    <input type="number" name="nilai_kontrak" id="nilai_kontrak">
+                    <label>Penyebab / Root Cause</label>
+                    <input type="text" name="penyebab" id="penyebab">
                 </div>
 
                 <div>
-                    <label>Plan Jan</label>
-                    <input type="number" name="plan_jan" id="plan_jan">
+                    <label>Kendala Perbaikan</label>
+                    <input type="text" name="kendala_perbaikan" id="kendala_perbaikan">
                 </div>
 
                 <div>
-                    <label>Plan Feb</label>
-                    <input type="number" name="plan_feb" id="plan_feb">
+                    <label>Mitigasi / Penanganan Sementara</label>
+                    <input type="text" name="mitigasi" id="mitigasi">
                 </div>
 
                 <div>
-                    <label>Plan Mar</label>
-                    <input type="number" name="plan_mar" id="plan_mar">
+                    <label>Perbaikan Permanen</label>
+                    <input type="text" name="perbaikan_permanen" id="perbaikan_permanen">
                 </div>
 
                 <div>
-                    <label>Plan Apr</label>
-                    <input type="number" name="plan_apr" id="plan_apr">
-                </div>
-
-                <div>
-                    <label>Plan Mei</label>
-                    <input type="number" name="plan_mei" id="plan_mei">
-                </div>
-
-                <div>
-                    <label>Plan Jun</label>
-                    <input type="number" name="plan_jun" id="plan_jun">
-                </div>
-
-                <div>
-                    <label>Plan Jul</label>
-                    <input type="number" name="plan_jul" id="plan_jul">
-                </div>
-
-                <div>
-                    <label>Plan Agu</label>
-                    <input type="number" name="plan_agu" id="plan_agu">
-                </div>
-
-                <div>
-                    <label>Plan Sep</label>
-                    <input type="number" name="plan_sep" id="plan_sep">
-                </div>
-
-                <div>
-                    <label>Plan Okt</label>
-                    <input type="number" name="plan_okt" id="plan_okt">
-                </div>
-
-                <div>
-                    <label>Plan Nov</label>
-                    <input type="number" name="plan_nov" id="plan_nov">
-                </div>
-
-                <div>
-                    <label>Plan Des</label>
-                    <input type="number" name="plan_des" id="plan_des">
-                </div>
-
-                <div>
-                    <label>Prognosa Jan</label>
-                    <input type="number" name="prognosa_jan" id="prognosa_jan">
-                </div>
-
-                <div>
-                    <label>Prognosa Feb</label>
-                    <input type="number" name="prognosa_feb" id="prognosa_feb">
-                </div>
-
-                <div>
-                    <label>Prognosa Mar</label>
-                    <input type="number" name="prognosa_mar" id="prognosa_mar">
-                </div>
-
-                <div>
-                    <label>Prognosa Apr</label>
-                    <input type="number" name="prognosa_apr" id="prognosa_apr">
-                </div>
-
-                <div>
-                    <label>Prognosa Mei</label>
-                    <input type="number" name="prognosa_mei" id="prognosa_mei">
-                </div>
-
-                <div>
-                    <label>Prognosa Jun</label>
-                    <input type="number" name="prognosa_jun" id="prognosa_jun">
-                </div>
-
-                <div>
-                    <label>Prognosa Jul</label>
-                    <input type="number" name="prognosa_jul" id="prognosa_jul">
-                </div>
-
-                <div>
-                    <label>Prognosa Agu</label>
-                    <input type="number" name="prognosa_agu" id="prognosa_agu">
-                </div>
-
-                <div>
-                    <label>Prognosa Sep</label>
-                    <input type="number" name="prognosa_sep" id="prognosa_sep">
-                </div>
-
-                <div>
-                    <label>Prognosa Okt</label>
-                    <input type="number" name="prognosa_okt" id="prognosa_okt">
-                </div>
-
-                <div>
-                    <label>Prognosa Nov</label>
-                    <input type="number" name="prognosa_nov" id="prognosa_nov">
-                </div>
-
-                <div>
-                    <label>Prognosa Des</label>
-                    <input type="number" name="prognosa_des" id="prognosa_des">
-                </div>
-
-                <div>
-                    <label>Actual Jan</label>
-                    <input type="number" name="actual_jan" id="actual_jan">
-                </div>
-
-                <div>
-                    <label>Actual Feb</label>
-                    <input type="number" name="actual_feb" id="actual_feb">
-                </div>
-
-                <div>
-                    <label>Actual Mar</label>
-                    <input type="number" name="actual_mar" id="actual_mar">
-                </div>
-
-                <div>
-                    <label>Actual Apr</label>
-                    <input type="number" name="actual_apr" id="actual_apr">
-                </div>
-
-                <div>
-                    <label>Actual Mei</label>
-                    <input type="number" name="actual_mei" id="actual_mei">
-                </div>
-
-                <div>
-                    <label>Actual Jun</label>
-                    <input type="number" name="actual_jun" id="actual_jun">
-                </div>
-
-                <div>
-                    <label>Actual Jul</label>
-                    <input type="number" name="actual_jul" id="actual_jul">
-                </div>
-
-                <div>
-                    <label>Actual Agu</label>
-                    <input type="number" name="actual_agu" id="actual_agu">
-                </div>
-
-                <div>
-                    <label>Actual Sep</label>
-                    <input type="number" name="actual_sep" id="actual_sep">
-                </div>
-
-                <div>
-                    <label>Actual Okt</label>
-                    <input type="number" name="actual_okt" id="actual_okt">
-                </div>
-
-                <div>
-                    <label>Actual Nov</label>
-                    <input type="number" name="actual_nov" id="actual_nov">
-                </div>
-
-                <div>
-                    <label>Actual Des</label>
-                    <input type="number" name="actual_des" id="actual_des">
-                </div>
-
-                <div>
-                    <label>Kode</label>
-                    <input type="text" name="kode" id="kode">
-                </div>
-
-                <div>
-                    <label>Kendala</label>
-                    <input type="text" name="kendala" id="kendala">
+                    <label>Progres Perbaikan Permanen</label>
+                    <input type="text" name="progres_perbaikan_permanen" id="progres_perbaikan_permanen">
                 </div>
 
                 <div>
                     <label>Tindak Lanjut</label>
                     <input type="text" name="tindak_lanjut" id="tindak_lanjut">
+                </div>
+
+                <div>
+                    <label>Target Penyelesaian</label>
+                    <input type="month" name="target_penyelesaian" id="target_penyelesaian">
+                </div>
+
+                <div>
+                    <label>Estimasi Biaya Perbaikan</label>
+                    <input type="number" name="estimasi_biaya_perbaikan" id="estimasi_biaya_perbaikan">
+                </div>
+
+                <div>
+                    <label>Link Foto/Video</label>
+                    <input type="url" name="link_foto_video" id="link_foto_video">
                 </div>
 
                 <button type="submit" class="btn btn-success">Submit</button>
@@ -429,11 +275,10 @@
     @push('scripts')
         <script src="https://unpkg.com/tabulator-tables@5.6.0/dist/js/tabulator.min.js"></script>
         <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
-
         <script>
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
-                    fetch(`real-anggaran-figure-cilacap/${id}`, {
+                    fetch(`regional-4/${id}`, {
                             method: "DELETE",
                             headers: {
                                 "Accept": "application/json",
@@ -461,37 +306,77 @@
                             value: keyword
                         },
                         {
-                            field: "no",
+                            field: "company",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "kategori_aibt",
+                            field: "plant_segment",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "jenis_anggaran",
+                            field: "kategori_criticality",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "besar_rkap",
+                            field: "tag",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "entitas",
+                            field: "deskripsi_peralatan",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "unit",
+                            field: "jenis_kerusakan",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "nilai_kontrak",
+                            field: "penyebab",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "kendala_perbaikan",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "mitigasi",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "perbaikan_permanen",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "progres_perbaikan_permanen",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "tindak_lanjut",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "target_penyelesaian",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "estimasi_biaya_perbaikan",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "link_foto_video",
                             type: "like",
                             value: keyword
                         }
@@ -505,40 +390,24 @@
             }
 
             function loadData() {
-                fetch("/monev/shrnp/input-data/real-anggaran-figure-cilacap/data", {
+                fetch("/monev/shu/input-data/regional-4/data", {
                         headers: {
                             "Accept": "application/json"
                         }
                     })
                     .then(res => res.json())
-                    .then(data => {
-                        const cleaned = data.map(row => {
-                            const cleanedRow = {};
-                            for (const [key, value] of Object.entries(row)) {
-                                const valStr = String(value).trim().toLowerCase();
-                                cleanedRow[key] = (
-                                    value === null ||
-                                    value === undefined ||
-                                    valStr === "null" ||
-                                    valStr === "undefined"
-                                ) ? "" : value;
-                            }
-                            return cleanedRow;
-                        });
-
-                        table.setData(cleaned);
-                    })
+                    .then(data => table.setData(data))
                     .catch(err => console.error("Gagal load data:", err));
             }
 
             document.addEventListener("DOMContentLoaded", function() {
                 const columnMap = {
-                    "real-anggaran-figure-cilacap": [{
+                    "regional-4": [{
                             title: "No",
                             formatter: "rownum",
                             hozAlign: "center",
                             width: 60,
-                            download: false,
+                            download: false
                         },
                         {
                             title: "ID",
@@ -547,273 +416,211 @@
                         },
                         {
                             title: "Periode",
-                            hozAlign: "center",
                             field: "periode",
                             editor: "input",
                             headerFilter: "select",
                             headerFilterParams: {
-                                values: (() => {
-                                    const years = [];
-                                    years.push({
-                                        value: "",
-                                        label: "Pilih Tahun"
-                                    });
-                                    for (let year = 2020; year <= new Date().getFullYear() +
-                                        5; year++) {
-                                        years.push({
-                                            value: String(year),
-                                            label: String(year)
-                                        });
+                                values: [{
+                                        value: "01",
+                                        label: "Januari"
+                                    },
+                                    {
+                                        value: "02",
+                                        label: "Februari"
+                                    },
+                                    {
+                                        value: "03",
+                                        label: "Maret"
+                                    },
+                                    {
+                                        value: "04",
+                                        label: "April"
+                                    },
+                                    {
+                                        value: "05",
+                                        label: "Mei"
+                                    },
+                                    {
+                                        value: "06",
+                                        label: "Juni"
+                                    },
+                                    {
+                                        value: "07",
+                                        label: "Juli"
+                                    },
+                                    {
+                                        value: "08",
+                                        label: "Agustus"
+                                    },
+                                    {
+                                        value: "09",
+                                        label: "September"
+                                    },
+                                    {
+                                        value: "10",
+                                        label: "Oktober"
+                                    },
+                                    {
+                                        value: "11",
+                                        label: "November"
+                                    },
+                                    {
+                                        value: "12",
+                                        label: "Desember"
                                     }
-                                    return years;
-                                })()
+                                ]
+                            },
+                            headerFilterPlaceholder: "Pilih Bulan",
+                            headerFilterFunc: function(headerValue, rowValue) {
+                                if (!headerValue) return true;
+                                if (!rowValue) return false;
+
+                                const periode = rowValue.toLowerCase();
+
+                                const bulanTextMap = {
+                                    "01": ["jan", "january"],
+                                    "02": ["feb", "february"],
+                                    "03": ["mar", "march"],
+                                    "04": ["apr", "april"],
+                                    "05": ["may", "mei"],
+                                    "06": ["jun", "june"],
+                                    "07": ["jul", "july"],
+                                    "08": ["aug", "august"],
+                                    "09": ["sep", "september"],
+                                    "10": ["oct", "october"],
+                                    "11": ["nov", "november"],
+                                    "12": ["dec", "december"]
+                                };
+
+                                const keywords = bulanTextMap[headerValue];
+                                return keywords.some(keyword => periode.includes(keyword)) || periode
+                                    .includes(`-${headerValue}`);
                             }
                         },
                         {
-                            title: "No",
-                            field: "no",
+                            title: "Company",
+                            field: "company",
                             hozAlign: "center",
-                            editor: "number"
-                        },
-                        {
-                            hozAlign: "center",
-                            title: "Kategori AIBT",
-                            field: "kategori_aibt",
                             editor: "input"
                         },
                         {
-                            title: "Jenis Anggaran",
+                            title: "Plant/Segment",
+                            field: "plant_segment",
+                            editor: "input"
+                        },
+                        {
+                            title: "Kategori Criticality",
+                            field: "kategori_criticality",
                             hozAlign: "center",
-                            field: "jenis_anggaran",
+                            editor: "input"
+                        },
+                        {
+                            title: "Tag",
+                            field: "tag",
+                            editor: "input"
+                        },
+                        {
+                            title: "Deskripsi Peralatan",
+                            field: "deskripsi_peralatan",
+                            editor: "input"
+                        },
+                        {
+                            title: "Jenis Kerusakan",
+                            field: "jenis_kerusakan",
+                            editor: "textarea",
+                            width: 300,
+                        },
+                        {
+                            title: "Penyebab/Root Cause",
+                            field: "penyebab",
                             editor: "input",
+                            width: 400
                         },
                         {
-                            title: "Besar RKAP",
-                            field: "besar_rkap",
-                            editor: "number",
-                            hozAlign: "right",
+                            title: "Kendala Perbaikan",
+                            field: "kendala_perbaikan",
+                            editor: "input",
+                            width: 450
                         },
                         {
-                            title: "Entitas",
-                            hozAlign: "center",
-                            field: "entitas",
-                            editor: "input"
+                            title: "Mitigasi / Penanganan Sementara",
+                            field: "mitigasi",
+                            editor: "input",
+                            width: 450
                         },
                         {
-                            title: "Unit",
-                            field: "unit",
-                            editor: "input"
+                            title: "Perbaikan Permanen",
+                            field: "perbaikan_permanen",
+                            editor: "input",
+                            width: 400
                         },
                         {
-                            title: "Nilai Kontrak",
-                            field: "nilai_kontrak",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Jan",
-                            field: "plan_jan",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Feb",
-                            field: "plan_feb",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Mar",
-                            field: "plan_mar",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Apr",
-                            field: "plan_apr",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Mei",
-                            field: "plan_mei",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Jun",
-                            field: "plan_jun",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Jul",
-                            field: "plan_jul",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Agu",
-                            field: "plan_agu",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Sep",
-                            field: "plan_sep",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Okt",
-                            field: "plan_okt",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Nov",
-                            field: "plan_nov",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Des",
-                            field: "plan_des",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Jan",
-                            field: "prognosa_jan",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Feb",
-                            field: "prognosa_feb",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Mar",
-                            field: "prognosa_mar",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Apr",
-                            field: "prognosa_apr",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Mei",
-                            field: "prognosa_mei",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Jun",
-                            field: "prognosa_jun",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Jul",
-                            field: "prognosa_jul",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Agu",
-                            field: "prognosa_agu",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Sep",
-                            field: "prognosa_sep",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Okt",
-                            field: "prognosa_okt",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Nov",
-                            field: "prognosa_nov",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Des",
-                            field: "prognosa_des",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Jan",
-                            field: "actual_jan",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Feb",
-                            field: "actual_feb",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Mar",
-                            field: "actual_mar",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Apr",
-                            field: "actual_apr",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Mei",
-                            field: "actual_mei",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Jun",
-                            field: "actual_jun",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Jul",
-                            field: "actual_jul",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Agu",
-                            field: "actual_agu",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Sep",
-                            field: "actual_sep",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Okt",
-                            field: "actual_okt",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Nov",
-                            field: "actual_nov",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Des",
-                            field: "actual_des",
-                            editor: "number"
-                        },
-                        {
-                            title: "Kode",
-                            field: "kode",
-                            editor: "input"
-                        },
-                        {
-                            title: "Kendala",
-                            field: "kendala",
-                            editor: "input"
+                            title: "Progres Perbaikan Permanen",
+                            field: "progres_perbaikan_permanen",
+                            editor: "input",
+                            width: 350
                         },
                         {
                             title: "Tindak Lanjut",
                             field: "tindak_lanjut",
+                            editor: "input",
+                            width: 450
+                        },
+                        {
+                            title: "Target Penyelesaian",
+                            field: "target_penyelesaian",
                             editor: "input"
                         },
                         {
-                            title: "Aksi",
-                            download: false,
-                            formatter: (cell) => {
-                                const row = cell.getData();
-                                return `<button onclick='deleteData("${row.id}")'>Hapus</button>`;
-                            },
+                            title: "Estimasi Biaya Perbaikan",
+                            field: "estimasi_biaya_perbaikan",
                             hozAlign: "center",
-                            width: 150
-                        }
+                            // formatter: function(cell) {
+                            //     let rawValue = cell.getValue();
+                            //     if (rawValue === null || rawValue === undefined || rawValue === "") {
+                            //         return "0.00";
+                            //     }
+
+                            //     let cleanValue = rawValue.toString().replace(/[^0-9.-]+/g, '');
+                            //     let value = parseFloat(cleanValue);
+
+                            //     if (!isNaN(value)) {
+                            //         return value.toLocaleString("en-US", {
+                            //             minimumFractionDigits: 2,
+                            //             maximumFractionDigits: 2
+                            //         });
+                            //     }
+
+                            //     return "0.00";
+                            // },
+                            editor: "input"
+                        },
+                        {
+                            title: "Link Foto/Video",
+                            field: "link_foto_video",
+                            editor: "input",
+                            width: 400,
+                            formatter: "link",
+                            formatterParams: {
+                                labelField: "link_foto_video",
+                                target: "_blank"
+                            }
+                        },
+                       {
+    title: "Aksi",
+    download: false,
+    hozAlign: "center",
+    width: 150,
+    formatter: (cell) => {
+        const row = cell.getData();
+        return `
+            <button onclick='deleteData("${row.id}")'
+                class="btn btn-sm btn-danger">
+                <i class="bi bi-trash"></i> Hapus
+            </button>
+        `;
+    }
+}
                     ]
                 };
 
@@ -821,13 +628,14 @@
                     layout: "fitDataTable",
                     responsiveLayout: "collapse",
                     autoResize: true,
-                    columns: columnMap["real-anggaran-figure-cilacap"],
+                    columns: columnMap["regional-4"],
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
                     selectableRangeRows: true,
                     selectableRangeClearCells: true,
                     editTriggerEvent: "dblclick",
+                    virtualDom: true,
 
                     pagination: "local",
                     paginationSize: 20,
@@ -845,6 +653,7 @@
                     clipboardCopyRowRange: "range",
                     clipboardPasteParser: "range",
                     clipboardPasteAction: "range",
+
                     clipboardPasteRow: true,
 
                     columnDefaults: {
@@ -856,8 +665,8 @@
                 });
 
                 document.getElementById("download-xlsx").addEventListener("click", function() {
-                    window.table.download("xlsx", "real-anggaran-figure-cilacap.xlsx", {
-                        sheetName: "real-anggaran-figure-cilacap",
+                    window.table.download("xlsx", "regional-4.xlsx", {
+                        sheetName: "Data Pelatihan",
                         columnHeaders: true,
                         downloadDataFormatter: function(data) {
                             return data.map(row => {
@@ -884,7 +693,7 @@
 
                     if (!id) return;
 
-                    fetch(`real-anggaran-figure-cilacap/${id}`, {
+                    fetch(`regional-4/${id}`, {
                             method: "PUT",
                             headers: {
                                 "Content-Type": "application/json",
@@ -924,7 +733,7 @@
                     console.log("Baris yang berubah:", changedRows);
 
                     changedRows.forEach(rowData => {
-                        fetch(`real-anggaran-figure-cilacap/${rowData.id}`, {
+                        fetch(`regional-4/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
                                     "Content-Type": "application/json",
@@ -945,6 +754,7 @@
 
                     previousData = JSON.parse(JSON.stringify(newData));
                 });
+
                 loadData();
             });
         </script>
@@ -967,7 +777,7 @@
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
 
-                fetch("real-anggaran-figure-cilacap", {
+                fetch("regional-4", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -978,15 +788,27 @@
                         body: JSON.stringify({
                             periode: data.periode,
                             company: data.company,
-                            judul_pelatihan: data.judul_pelatihan,
-                            realisasi_perwira: data.realisasi_perwira
+                            plant_segment: data.plant_segment,
+                            kategori_criticality: data.kategori_criticality,
+                            tag: data.tag,
+                            deskripsi_peralatan: data.deskripsi_peralatan,
+                            jenis_kerusakan: data.jenis_kerusakan,
+                            penyebab: data.penyebab,
+                            kendala_perbaikan: data.kendala_perbaikan,
+                            mitigasi: data.mitigasi,
+                            perbaikan_permanen: data.perbaikan_permanen,
+                            progres_perbaikan_permanen: data.progres_perbaikan_permanen,
+                            tindak_lanjut: data.tindak_lanjut,
+                            target_penyelesaian: data.target_penyelesaian,
+                            estimasi_biaya_perbaikan: data.estimasi_biaya_perbaikan,
+                            link_foto_video: data.link_foto_video
                         })
                     })
                     .then(response => response.json())
                     .then(result => {
                         if (result.success) {
                             alert(result.message || "Data berhasil disimpan");
-                            table.setData("/monev/shrnp/input-data/real-anggaran-figure-cilacap/data");
+                            table.setData("/monev/shu/input-data/regional-4/data");
                             this.reset();
                             closeModal();
                         } else {

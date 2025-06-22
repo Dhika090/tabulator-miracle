@@ -12,6 +12,7 @@ class RealAnggaranFigureCilacapController extends Controller
 {
 
 
+
     public function index(Request $request)
     {
         $tabs = collect(config('cilacap-tabs'))->map(function ($tab) {

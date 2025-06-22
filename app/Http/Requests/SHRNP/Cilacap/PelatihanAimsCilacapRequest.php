@@ -25,7 +25,7 @@ class PelatihanAimsCilacapRequest extends FormRequest
             'periode' => 'nullable|string|max:255',
             'company' => 'nullable|string|max:255',
             'judul_pelatihan' => 'nullable|string|max:255',
-            'realisasi_perwira' => 'nullable|integer',
+            'realisasi_perwira' => 'nullable|string',
         ];
     }
 }

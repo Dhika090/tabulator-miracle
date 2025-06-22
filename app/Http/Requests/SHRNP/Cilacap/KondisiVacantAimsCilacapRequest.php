@@ -27,7 +27,7 @@ class KondisiVacantAimsCilacapRequest extends FormRequest
             'total_personil_asset_integrity' => 'nullable|integer',
             'jumlah_personil_vacant' => 'nullable|integer',
             'jumlah_personil_pensiun' => 'nullable|integer',
-            'keterangan' => 'nullable|string',
+            'keterangan' => 'nullable|string|max:10000',
         ];
     }
 }

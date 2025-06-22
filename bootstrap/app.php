@@ -18,6 +18,6 @@ return Application::configure(basePath: dirname(__DIR__))
         //
     })
      ->withProviders([
-        ViewServiceProvider::class, // ✅ Tambahkan ini
+        ViewServiceProvider::class,
     ])
     ->create();

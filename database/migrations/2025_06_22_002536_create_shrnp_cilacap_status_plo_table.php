@@ -22,12 +22,12 @@ return new class extends Migration
             $table->string('tanggal_pengesahan')->nullable();
             $table->string('masa_berlaku')->nullable();
             $table->string('keterangan')->nullable();
-            $table->integer('belum_proses')->nullable();
-            $table->integer('pre_inspection')->nullable();
-            $table->integer('inspection')->nullable();
-            $table->integer('coi_peralatan')->nullable();
-            $table->integer('ba_pk')->nullable();
-            $table->integer('penerbitan_plo_valid')->nullable();
+            $table->string('belum_proses')->nullable();
+            $table->string('pre_inspection')->nullable();
+            $table->string('inspection')->nullable();
+            $table->string('coi_peralatan')->nullable();
+            $table->string('ba_pk')->nullable();
+            $table->string('penerbitan_plo_valid')->nullable();
             $table->string('kendala')->nullable();
             $table->string('tindak_lanjut', 550)->nullable()->comment('max 500 character');
             $table->timestamps();

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('total_personil_asset_integrity')->nullable();
             $table->integer('jumlah_personil_vacant')->nullable();
             $table->integer('jumlah_personil_pensiun')->nullable();
-            $table->string('keterangan', 550)->nullable();
+            $table->text('keterangan')->nullable();
             $table->timestamps();
         });
     }

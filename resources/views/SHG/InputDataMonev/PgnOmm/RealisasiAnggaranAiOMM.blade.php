@@ -661,15 +661,21 @@
                             editor: "input",
                             width: 400
                         },
-                        {
-                            title: "Aksi",
-                            formatter: (cell) => {
-                                const row = cell.getData();
-                                return `<button onclick='deleteData("${row.id}")'>Hapus</button>`;
-                            },
-                            hozAlign: "center",
-                            width: 150
-                        }
+                       {
+    title: "Aksi",
+    download: false,
+    hozAlign: "center",
+    width: 150,
+    formatter: (cell) => {
+        const row = cell.getData();
+        return `
+            <button onclick='deleteData("${row.id}")'
+                class="btn btn-sm btn-danger">
+                <i class="bi bi-trash"></i> Hapus
+            </button>
+        `;
+    }
+}
                     ]
                 };
 

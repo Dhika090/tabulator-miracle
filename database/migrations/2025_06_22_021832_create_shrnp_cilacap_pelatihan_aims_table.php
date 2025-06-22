@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('periode')->nullable();
             $table->string('company')->nullable();
             $table->string('judul_pelatihan')->nullable();
-            $table->integer('realisasi_perwira')->nullable();
+            $table->string('realisasi_perwira')->nullable();
             $table->timestamps();
         });
     }

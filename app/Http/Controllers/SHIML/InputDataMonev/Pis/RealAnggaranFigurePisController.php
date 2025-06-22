@@ -101,7 +101,7 @@ class RealAnggaranFigurePisController extends Controller
     public function data()
     {
         $TargetPLO = RealAnggaranFigurePis::select('*')
-                 ->addSelect(DB::raw("TRY_CONVERT(DATE, CONCAT('01-', periode), 120) as periode_date"))
+            ->addSelect(DB::raw("TRY_CONVERT(DATE, CONCAT('01-', periode), 120) as periode_date"))
             ->orderBy('periode_date', 'asc')
             ->get();
         return response()->json($TargetPLO);

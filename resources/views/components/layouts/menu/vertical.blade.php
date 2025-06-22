@@ -238,11 +238,83 @@
                 <i class="menu-icon tf-icons bx bx-building-house"></i>
                 <div>SHU</div>
             </a>
+            <ul class="menu-sub">
+                <li class="menu-item {{ request()->is('monev/shu/input-data*') ? 'active open' : '' }}">
+                    <a href="javascript:void(0);" class="menu-link menu-toggle">
+                        Input Data Monev
+                    </a>
+                    <ul class="menu-sub">
+                        <li
+                            class="menu-item {{ request()->is('monev/shu/input-data/aset-breakdown-regional-1*') ? 'active' : '' }}">
+                            <a class="menu-link" href="{{ url('monev/shu/input-data/aset-breakdown-regional-1') }}">
+                                <i class="fa fa-wrench me-2"></i>Aset Breakdown
+                            </a>
+                        </li>
+                        <li
+                            class="menu-item {{ request()->is('monev/shu/input-data/availability') ? 'active' : '' }}">
+                            <a class="menu-link" href="{{ url('monev/shu/input-data/availability') }}">
+                                <i class="fa fa-wrench me-2"></i>Availability
+                            </a>
+                        </li>
+                        <li class="menu-item {{ request()->is('monev/shu/input-data/pelatihan-aims') ? 'active' : '' }}">
+                            <a class="menu-link" href="{{ url('monev/shu/input-data/pelatihan-aims') }}">
+                                <i class="fa fa-wrench me-2"></i>Pelatihan AIMS
+                            </a>
+                        </li>
+                        <li class="menu-item {{ request()->is('monev/shu/input-data/sistem-informasi-aims') ? 'active' : '' }}">
+                            <a class="menu-link" href="{{ url('monev/shu/input-data/sistem-informasi-aims') }}">
+                                <i class="fa fa-wrench me-2"></i>Sistem Informasi AIMS
+                            </a>
+                        </li>
+                        <li class="menu-item {{ request()->is('monev/shu/input-data/rencana-pemeliharaan-besar') ? 'active' : '' }}">
+                            <a class="menu-link" href="{{ url('monev/shu/input-data/rencana-pemeliharaan-besar') }}">
+                                <i class="fa fa-wrench me-2"></i>Rencana Pemeliharaan Besar
+                            </a>
+                        </li>
+                        <li class="menu-item {{ request()->is('monev/shu/input-data/mandatory-certification') ? 'active' : '' }}">
+                            <a class="menu-link" href="{{ url('monev/shu/input-data/mandatory-certification') }}">
+                                <i class="fa fa-wrench me-2"></i>Mandatory Certification
+                            </a>
+                        </li>
+                        <li
+                            class="menu-item {{ request()->is('monev/shu/input-data/realisasi-anggaran-ai') ? 'active' : '' }}">
+                            <a class="menu-link" href="{{ url('monev/shu/input-data/realisasi-anggaran-ai') }}">
+                                <i class="fa fa-wrench me-2"></i>Realisasi Anggaran AI
+                            </a>
+                        </li>
+                        <li
+                            class="menu-item {{ request()->is('monev/shu/input-data/realisasi-prog-fisik-ai') ? 'active' : '' }}">
+                            <a class="menu-link" href="{{ url('monev/shu/input-data/realisasi-prog-fisik-ai') }}">
+                                <i class="fa fa-wrench me-2"></i>Realisasi Prog Fisik AI
+                            </a>
+                        </li>
+                        <li
+                            class="menu-item {{ request()->is('monev/shu/input-data/sap-asset') ? 'active' : '' }}">
+                            <a class="menu-link" href="{{ url('monev/shu/input-data/sap-asset') }}">
+                                <i class="fa fa-wrench me-2"></i>Sap Asset
+                            </a>
+                        </li>
+                        <li
+                            class="menu-item {{ request()->is('monev/shu/input-data/status-asset-integrity') ? 'active' : '' }}">
+                            <a class="menu-link" href="{{ url('monev/shu/input-data/status-asset-integrity') }}">
+                                <i class="fa fa-wrench me-2"></i>Status Aset Integrity
+                            </a>
+                        </li>
+                        <li
+                            class="menu-item {{ request()->is('monev/shu/input-data/status-plo') ? 'active' : '' }}">
+                            <a class="menu-link" href="{{ url('monev/shu/input-data/status-plo') }}">
+                                <i class="fa fa-wrench me-2"></i>Status PLO
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
         </li>
         <li class="menu-item {{ request()->is('monev/shpnre/*') ? 'active open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-building-house"></i>
                 <div>SHPNRE</div>
+
             </a>
             <ul class="menu-sub">
                 <li class="menu-item {{ request()->is('monev/shpnre/input-data*') ? 'active open' : '' }}">
@@ -343,8 +415,7 @@
                                 <i class="fa fa-wrench me-2"></i>RU VI Balongan
                             </a>
                         </li>
-                        <li
-                            class="menu-item {{ request()->is('monev/shrnp/input-data/ru-kasim') ? 'active' : '' }}">
+                        <li class="menu-item {{ request()->is('monev/shrnp/input-data/ru-kasim') ? 'active' : '' }}">
                             <a class="menu-link" href="{{ url('monev/shrnp/input-data/ru-kasim') }}">
                                 <i class="fa fa-wrench me-2"></i>RU VII Kasim
                             </a>
