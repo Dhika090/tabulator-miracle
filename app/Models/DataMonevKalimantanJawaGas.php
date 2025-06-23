@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -22,7 +23,7 @@ class DataMonevKalimantanJawaGas extends Model
         });
     }
 
-    protected $table = 'shg_kalimantan_jawa_gas';
+    protected $table = 'shg_kalimantan_status_asset_ai';
     protected $fillable = [
         'periode',
         'subholding',

@@ -104,13 +104,12 @@ class StatusAssetAiSakaController extends Controller
     public function data()
     {
         $TargetPLO = StatusAssetAiSaka::select('*')
-             ->addSelect(DB::raw("TRY_CONVERT(DATE, CONCAT('01-', periode), 120) as periode_date"))
+            ->addSelect(DB::raw("TRY_CONVERT(DATE, CONCAT('01-', periode), 120) as periode_date"))
             ->orderBy('periode_date', 'asc')
             ->get();
 
         return response()->json($TargetPLO);
     }
-
 
     public function store(StatusAssetAiSakaRequest $request)
     {
@@ -127,7 +126,46 @@ class StatusAssetAiSakaController extends Controller
     public function update(StatusAssetAiSakaRequest $request, $id)
     {
         $progress = StatusAssetAiSaka::findOrFail($id);
-        $progress->update($request->validated());
+
+        $data = $request->validated();
+
+        $intFields = [
+            'jumlah',
+
+            'sece_low_integrity_breakdown',
+            'sece_medium_due_date_inspection',
+            'sece_medium_low_condition',
+            'sece_medium_low_performance',
+            'sece_high_integrity',
+
+            'pce_low_integrity_breakdown',
+            'pce_medium_due_date_inspection',
+            'pce_medium_low_condition',
+            'pce_medium_low_performance',
+            'pce_high_integrity',
+
+            'important_low_integrity_breakdown',
+            'important_medium_due_date_inspection',
+            'important_medium_low_condition',
+            'important_medium_low_performance',
+            'important_high_integrity',
+
+            'secondary_low_integrity_breakdown',
+            'secondary_medium_due_date_inspection',
+            'secondary_medium_low_condition',
+            'secondary_medium_low_performance',
+            'secondary_high_integrity',
+
+            'kegiatan_penurunan_low',
+            'kegiatan_penurunan_med',
+        ];
+
+        foreach ($intFields as $field) {
+            if (isset($data[$field])) {
+                $data[$field] = (int) $data[$field];
+            }
+        }
+        $progress->update($data);
 
         return response()->json(['success' => true, 'message' => 'Data berhasil diupdate']);
     }

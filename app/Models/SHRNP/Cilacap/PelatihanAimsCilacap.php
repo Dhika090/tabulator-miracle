@@ -1,13 +1,14 @@
 <?php
 
 namespace App\Models\SHRNP\Cilacap;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 
 class PelatihanAimsCilacap extends Model
 {
-      use HasFactory;
+    use HasFactory;
     public $incrementing = false;
     protected $keyType = 'string';
 

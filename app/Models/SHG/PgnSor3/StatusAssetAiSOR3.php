@@ -57,8 +57,8 @@ class StatusAssetAiSOR3 extends Model
 
         'kegiatan_penurunan_low',
         'kegiatan_penurunan_med',
-        'informasi_penyebab_low_integrity',
-        'informasi_penambahan_jumlah_aset',
-        'informasi_naik_turun_low_integrity',
+        'penyebab_low_integrity',
+        'penambahan_jumlah_aset',
+        'naik_turun_low_integrity',
     ];
 }

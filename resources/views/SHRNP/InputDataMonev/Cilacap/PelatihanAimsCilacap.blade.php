@@ -14,7 +14,8 @@
             .tabulator-wrapper {
                 overflow-x: auto;
             }
-     .toast-success {
+
+            .toast-success {
                 background-color: #28a745;
             }
 
@@ -227,7 +228,7 @@
         </div>
     </div>
 
-       <div id="toastNotification"
+    <div id="toastNotification"
         style="display:none; position: fixed; top: 20px; right: 20px; z-index: 9999; padding: 15px 20px; border-radius: 8px; color: white; font-weight: bold;">
     </div>
     @push('scripts')
@@ -581,18 +582,7 @@
 
         {{-- create data  --}}
         <script>
-              function showToast(message, type = "success") {
-                const toast = document.getElementById("toastNotification");
-                toast.textContent = message;
-                toast.className = "";
-                toast.classList.add(type === "success" ? "toast-success" : "toast-error");
-                toast.style.display = "block";
-
-                setTimeout(() => {
-                    toast.style.display = "none";
-                }, 3000);
-            }
-             function showToast(message, type = "success") {
+            function showToast(message, type = "success") {
                 const toast = document.getElementById("toastNotification");
                 toast.textContent = message;
                 toast.className = "";
@@ -604,7 +594,7 @@
                 }, 3000);
             }
 
-              function showToast(message, type = "success") {
+            function showToast(message, type = "success") {
                 const toast = document.getElementById("toastNotification");
                 toast.textContent = message;
                 toast.className = "";
@@ -616,7 +606,19 @@
                 }, 3000);
             }
 
- function openModal() {
+            function showToast(message, type = "success") {
+                const toast = document.getElementById("toastNotification");
+                toast.textContent = message;
+                toast.className = "";
+                toast.classList.add(type === "success" ? "toast-success" : "toast-error");
+                toast.style.display = "block";
+
+                setTimeout(() => {
+                    toast.style.display = "none";
+                }, 3000);
+            }
+
+            function openModal() {
                 document.getElementById("createModal").style.display = "block";
             }
 

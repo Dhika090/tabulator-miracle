@@ -289,7 +289,7 @@
         <script>
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
-                    fetch(`regional-2/${id}`, {
+                    fetch(`aset-breakdown-regional-2/${id}`, {
                             method: "DELETE",
                             headers: {
                                 "Accept": "application/json",
@@ -401,7 +401,7 @@
             }
 
             function loadData() {
-                fetch("/monev/shu/input-data/regional-2/data", {
+                fetch("/monev/shu/input-data/aset-breakdown-regional-2/data", {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -429,12 +429,22 @@
 
             document.addEventListener("DOMContentLoaded", function() {
                 const columnMap = {
-                    "regional-2": [{
+                    "aset-breakdown-regional-2": [ {
                             title: "No",
-                            formatter: "rownum",
                             hozAlign: "center",
                             width: 60,
-                            download: false
+                            download: false,
+                            formatter: function(cell) {
+                                const row = cell.getRow();
+                                const table = row.getTable();
+
+                                const pageSize = table.getPageSize();
+                                const currentPage = table.getPage();
+                                const rowIndex = row
+                                    .getPosition();
+
+                                return ((currentPage - 1) * pageSize) + rowIndex;
+                            }
                         },
                         {
                             title: "ID",
@@ -657,7 +667,7 @@
                     layout: "fitDataTable",
                     responsiveLayout: "collapse",
                     autoResize: true,
-                    columns: columnMap["regional-2"],
+                    columns: columnMap["aset-breakdown-regional-2"],
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -694,7 +704,7 @@
                 });
 
                 document.getElementById("download-xlsx").addEventListener("click", function() {
-                    window.table.download("xlsx", "regional-2.xlsx", {
+                    window.table.download("xlsx", "aset-breakdown-regional-2.xlsx", {
                         sheetName: "Data Pelatihan",
                         columnHeaders: true,
                         downloadDataFormatter: function(data) {
@@ -722,7 +732,7 @@
 
                     if (!id) return;
 
-                    fetch(`regional-2/${id}`, {
+                    fetch(`aset-breakdown-regional-2/${id}`, {
                             method: "PUT",
                             headers: {
                                 "Content-Type": "application/json",
@@ -762,7 +772,7 @@
                     console.log("Baris yang berubah:", changedRows);
 
                     changedRows.forEach(rowData => {
-                        fetch(`regional-2/${rowData.id}`, {
+                        fetch(`aset-breakdown-regional-2/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
                                     "Content-Type": "application/json",
@@ -818,7 +828,7 @@
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
 
-                fetch("regional-2", {
+                fetch("aset-breakdown-regional-2", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -849,7 +859,7 @@
                     .then(result => {
                         if (result.success) {
                             showToast(result.message || "Data berhasil disimpan", "success");
-                            table.setData("/monev/shu/input-data/regional-2/data");
+                            table.setData("/monev/shu/input-data/aset-breakdown-regional-2/data");
                             this.reset();
                             closeModal();
                        } else {

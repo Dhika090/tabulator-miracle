@@ -3,7 +3,7 @@
     @push('styles')
         <link href="https://unpkg.com/tabulator-tables@5.6.0/dist/css/tabulator.min.css" rel="stylesheet">
         <style>
-          .tabulator-wrapper {
+            .tabulator-wrapper {
                 overflow-x: auto;
             }
 
@@ -317,7 +317,7 @@
         </div>
     </div>
 
-    
+
     <div id="toastNotification"
         style="display:none; position: fixed; top: 20px; right: 20px; z-index: 9999; padding: 15px 20px; border-radius: 8px; color: white; font-weight: bold;">
     </div>
@@ -447,10 +447,20 @@
                 const columnMap = {
                     "perta-arun-gas": [{
                             title: "No",
-                            formatter: "rownum",
                             hozAlign: "center",
                             width: 60,
-                            download: false
+                            download: false,
+                            formatter: function(cell) {
+                                const row = cell.getRow();
+                                const table = row.getTable();
+
+                                const pageSize = table.getPageSize();
+                                const currentPage = table.getPage();
+                                const rowIndex = row
+                                    .getPosition();
+
+                                return ((currentPage - 1) * pageSize) + rowIndex;
+                            }
                         },
                         {
                             title: "ID",
@@ -564,137 +574,231 @@
                             title: "Jumlah",
                             field: "jumlah",
                             editor: "number",
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
                             hozAlign: "center"
                         },
                         {
                             title: "SECE Low Integrity - Breakdown",
                             field: "sece_low_integrity_breakdown",
                             editor: "number",
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
                             hozAlign: "center"
                         },
                         {
                             title: "SECE Medium Integrity - Due Date Inspection",
                             field: "sece_medium_due_date_inspection",
                             editor: "number",
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
                             hozAlign: "center"
                         },
                         {
                             title: "SECE Medium Integrity - Low Condition",
                             field: "sece_medium_low_condition",
                             editor: "number",
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
                             hozAlign: "center"
                         },
                         {
                             title: "SECE Medium Integrity - Low Performance",
                             field: "sece_medium_low_performance",
                             editor: "number",
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
                             hozAlign: "center"
                         },
                         {
                             title: "SECE High Integrity",
                             field: "sece_high_integrity",
                             editor: "number",
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
                             hozAlign: "center"
                         },
                         {
                             title: "PCE Low Integrity - Breakdown",
                             field: "pce_low_integrity_breakdown",
                             editor: "number",
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
                             hozAlign: "center"
                         },
                         {
                             title: "PCE Medium Integrity - Due Date Inspection",
                             field: "pce_medium_due_date_inspection",
                             editor: "number",
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
                             hozAlign: "center"
                         },
                         {
                             title: "PCE Medium Integrity - Low Condition",
                             field: "pce_medium_low_condition",
                             editor: "number",
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
                             hozAlign: "center"
                         },
                         {
                             title: "PCE Medium Integrity - Low Performance",
                             field: "pce_medium_low_performance",
                             editor: "number",
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
                             hozAlign: "center"
                         },
                         {
                             title: "PCE High Integrity",
                             field: "pce_high_integrity",
                             editor: "number",
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
                             hozAlign: "center"
                         },
                         {
                             title: "IMPORTANT Low Integrity - Breakdown",
                             field: "important_low_integrity_breakdown",
                             editor: "number",
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
                             hozAlign: "center"
                         },
                         {
                             title: "IMPORTANT Medium Integrity - Due Date Inspection",
                             field: "important_medium_due_date_inspection",
                             editor: "number",
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
                             hozAlign: "center"
                         },
                         {
                             title: "IMPORTANT Medium Integrity - Low Condition",
                             field: "important_medium_low_condition",
                             editor: "number",
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
                             hozAlign: "center"
                         },
                         {
                             title: "IMPORTANT Medium Integrity - Low Performance",
                             field: "important_medium_low_performance",
                             editor: "number",
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
                             hozAlign: "center"
                         },
                         {
                             title: "IMPORTANT High Integrity",
                             field: "important_high_integrity",
                             editor: "number",
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
                             hozAlign: "center"
                         },
                         {
                             title: "SECONDARY Low Integrity - Breakdown",
                             field: "secondary_low_integrity_breakdown",
                             editor: "number",
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
                             hozAlign: "center"
                         },
                         {
                             title: "SECONDARY Medium Integrity - Due Date Inspection",
                             field: "secondary_medium_due_date_inspection",
                             editor: "number",
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
                             hozAlign: "center"
                         },
                         {
                             title: "SECONDARY Medium Integrity - Low Condition",
                             field: "secondary_medium_low_condition",
                             editor: "number",
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
                             hozAlign: "center"
                         },
                         {
                             title: "SECONDARY Medium Integrity - Low Performance",
                             field: "secondary_medium_low_performance",
                             editor: "number",
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
                             hozAlign: "center"
                         },
                         {
                             title: "SECONDARY High Integrity",
                             field: "secondary_high_integrity",
                             editor: "number",
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
                             hozAlign: "center"
                         },
                         {
                             title: "Kegiatan Penurunan Low",
                             field: "kegiatan_penurunan_low",
-                            editor: "input"
+                            editor: "number",
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
+                            hozAlign: "center"
                         },
                         {
                             title: "Kegiatan Penurunan Med",
                             field: "kegiatan_penurunan_med",
-                            editor: "input"
+                            editor: "number",
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
+                            hozAlign: "center"
                         },
                         {
                             title: "Informasi Penyebab Low Integrity",
@@ -714,20 +818,20 @@
                             width: 450
                         },
                         {
-    title: "Aksi",
-    download: false,
-    hozAlign: "center",
-    width: 150,
-    formatter: (cell) => {
-        const row = cell.getData();
-        return `
+                            title: "Aksi",
+                            download: false,
+                            hozAlign: "center",
+                            width: 150,
+                            formatter: (cell) => {
+                                const row = cell.getData();
+                                return `
             <button onclick='deleteData("${row.id}")'
                 class="btn btn-sm btn-danger">
                 <i class="bi bi-trash"></i> Hapus
             </button>
         `;
-    }
-}
+                            }
+                        }
                     ]
                 };
 
@@ -867,7 +971,7 @@
 
         {{-- create and update data --}}
         <script>
-             function showToast(message, type = "success") {
+            function showToast(message, type = "success") {
                 const toast = document.getElementById("toastNotification");
                 toast.textContent = message;
                 toast.className = "";
@@ -944,7 +1048,7 @@
                             table.setData("/monev/shg/input-data/perta-arun-gas/data");
                             this.reset();
                             closeModal();
-                       } else {
+                        } else {
                             showToast(result.message || "Gagal menyimpan data", "error");
                         }
                     })

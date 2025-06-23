@@ -22,7 +22,7 @@ class StatusAssetAiPLI extends Model
         });
     }
 
-    protected $table = 'shg_pgn_lng_indonesia';
+    protected $table = 'shg_pgnlng_status_asset_ai';
     protected $fillable = [
         'periode',
         'subholding',

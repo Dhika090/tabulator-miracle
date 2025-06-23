@@ -22,7 +22,7 @@ class StatusAssetAIPTSG extends Model
         });
     }
 
-    protected $table = 'shg_perta_samtan_gas';
+    protected $table = 'shg_pertasamtan_status_asset_ai';
     protected $fillable = [
         'periode',
         'subholding',

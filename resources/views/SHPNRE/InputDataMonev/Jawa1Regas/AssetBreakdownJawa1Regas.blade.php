@@ -414,12 +414,22 @@
 
             document.addEventListener("DOMContentLoaded", function() {
                 const columnMap = {
-                    "asset-breakdown-jawa1regas": [{
+                    "asset-breakdown-jawa1regas": [  {
                             title: "No",
-                            formatter: "rownum",
                             hozAlign: "center",
                             width: 60,
-                            download: false
+                            download: false,
+                            formatter: function(cell) {
+                                const row = cell.getRow();
+                                const table = row.getTable();
+
+                                const pageSize = table.getPageSize();
+                                const currentPage = table.getPage();
+                                const rowIndex = row
+                                    .getPosition();
+
+                                return ((currentPage - 1) * pageSize) + rowIndex;
+                            }
                         },
                         {
                             title: "ID",

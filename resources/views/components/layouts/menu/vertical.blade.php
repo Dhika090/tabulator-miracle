@@ -251,18 +251,18 @@
                             </a>
                         </li>
                         <li
-                            class="menu-item {{ request()->is('monev/shu/input-data/availability') ? 'active' : '' }}">
-                            <a class="menu-link" href="{{ url('monev/shu/input-data/availability') }}">
+                            class="menu-item {{ request()->is('monev/shu/input-data/availability-regional-1') ? 'active' : '' }}">
+                            <a class="menu-link" href="{{ url('monev/shu/input-data/availability-regional-1') }}">
                                 <i class="fa fa-wrench me-2"></i>Availability
                             </a>
                         </li>
-                        <li class="menu-item {{ request()->is('monev/shu/input-data/pelatihan-aims') ? 'active' : '' }}">
-                            <a class="menu-link" href="{{ url('monev/shu/input-data/pelatihan-aims') }}">
+                        <li class="menu-item {{ request()->is('monev/shu/input-data/pelatihan-aims-regional-1') ? 'active' : '' }}">
+                            <a class="menu-link" href="{{ url('monev/shu/input-data/pelatihan-aims-regional-1') }}">
                                 <i class="fa fa-wrench me-2"></i>Pelatihan AIMS
                             </a>
                         </li>
-                        <li class="menu-item {{ request()->is('monev/shu/input-data/sistem-informasi-aims') ? 'active' : '' }}">
-                            <a class="menu-link" href="{{ url('monev/shu/input-data/sistem-informasi-aims') }}">
+                        <li class="menu-item {{ request()->is('monev/shu/input-data/sistem-informasi-aims-regional-1') ? 'active' : '' }}">
+                            <a class="menu-link" href="{{ url('monev/shu/input-data/sistem-informasi-aims-regional-1') }}">
                                 <i class="fa fa-wrench me-2"></i>Sistem Informasi AIMS
                             </a>
                         </li>

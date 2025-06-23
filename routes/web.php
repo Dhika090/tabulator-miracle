@@ -384,10 +384,24 @@ use App\Http\Controllers\SHRNP\InputDataMonev\Cilacap\RencanaPemeliharaanCilacap
 use App\Http\Controllers\SHRNP\InputDataMonev\Cilacap\SapAssetCilacapController;
 use App\Http\Controllers\SHRNP\InputDataMonev\Cilacap\SistemInformasiAimsCilacapController;
 use App\Http\Controllers\SHRNP\InputDataMonev\Cilacap\StatusPloCilacapController;
+
 use App\Http\Controllers\SHU\InputDataMonev\AssetBreakdown\Regional1AssetBreakdownController;
 use App\Http\Controllers\SHU\InputDataMonev\AssetBreakdown\Regional2AssetBreakdownController;
 use App\Http\Controllers\SHU\InputDataMonev\AssetBreakdown\Regional3AssetBreakdownController;
 use App\Http\Controllers\SHU\InputDataMonev\AssetBreakdown\Regional4AssetBreakdownController;
+
+use App\Http\Controllers\SHU\InputDataMonev\Availability\Regional1AvailabilityController;
+use App\Http\Controllers\SHU\InputDataMonev\Availability\Regional2AvailabilityController;
+use App\Http\Controllers\SHU\InputDataMonev\Availability\Regional3AvailabilityController;
+use App\Http\Controllers\SHU\InputDataMonev\Availability\Regional4AvailabilityController;
+use App\Http\Controllers\SHU\InputDataMonev\PelatihanAims\Regional1PelatihanAimsController;
+use App\Http\Controllers\SHU\InputDataMonev\PelatihanAims\Regional2PelatihanAimsController;
+use App\Http\Controllers\SHU\InputDataMonev\PelatihanAims\Regional3PelatihanAimsController;
+use App\Http\Controllers\SHU\InputDataMonev\PelatihanAims\Regional4PelatihanAimsController;
+use App\Http\Controllers\SHU\InputDataMonev\SistemInformasi\Regional1SistemInformasiController;
+use App\Http\Controllers\SHU\InputDataMonev\SistemInformasi\Regional2SistemInformasiController;
+use App\Http\Controllers\SHU\InputDataMonev\SistemInformasi\Regional3SistemInformasiController;
+use App\Http\Controllers\SHU\InputDataMonev\SistemInformasi\Regional4SistemInformasiController;
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
@@ -3603,30 +3617,138 @@ Route::prefix('monev/shu/input-data/aset-breakdown-regional-1')->group(function 
 });
 
 // SHU Asset Breakdown Regional 2
-Route::prefix('monev/shu/input-data/regional-2')->group(function () {
-    Route::get('/', [Regional2AssetBreakdownController::class, 'index'])->name('regional-2');
-    Route::post('/', [Regional2AssetBreakdownController::class, 'store'])->name('regional-2.store');
-    Route::get('/data', [Regional2AssetBreakdownController::class, 'data'])->name('regional-2.data');
-    Route::put('/{id}', [Regional2AssetBreakdownController::class, 'update'])->name('regional-2.update');
-    Route::delete('/{id}', [Regional2AssetBreakdownController::class, 'destroy'])->name('regional-2.destroy');
+Route::prefix('monev/shu/input-data/aset-breakdown-regional-2')->group(function () {
+    Route::get('/', [Regional2AssetBreakdownController::class, 'index'])->name('aset-breakdown-regional-2');
+    Route::post('/', [Regional2AssetBreakdownController::class, 'store'])->name('aset-breakdown-regional-2.store');
+    Route::get('/data', [Regional2AssetBreakdownController::class, 'data'])->name('aset-breakdown-regional-2.data');
+    Route::put('/{id}', [Regional2AssetBreakdownController::class, 'update'])->name('aset-breakdown-regional-2.update');
+    Route::delete('/{id}', [Regional2AssetBreakdownController::class, 'destroy'])->name('aset-breakdown-regional-2.destroy');
 });
 
 // SHU Asset Breakdown Regional 3
-Route::prefix('monev/shu/input-data/regional-3')->group(function () {
-    Route::get('/', [Regional3AssetBreakdownController::class, 'index'])->name('regional-3');
-    Route::post('/', [Regional3AssetBreakdownController::class, 'store'])->name('regional-3.store');
-    Route::get('/data', [Regional3AssetBreakdownController::class, 'data'])->name('regional-3.data');
-    Route::put('/{id}', [Regional3AssetBreakdownController::class, 'update'])->name('regional-3.update');
-    Route::delete('/{id}', [Regional3AssetBreakdownController::class, 'destroy'])->name('regional-3.destroy');
+Route::prefix('monev/shu/input-data/aset-breakdown-regional-3')->group(function () {
+    Route::get('/', [Regional3AssetBreakdownController::class, 'index'])->name('aset-breakdown-regional-3');
+    Route::post('/', [Regional3AssetBreakdownController::class, 'store'])->name('aset-breakdown-regional-3.store');
+    Route::get('/data', [Regional3AssetBreakdownController::class, 'data'])->name('aset-breakdown-regional-3.data');
+    Route::put('/{id}', [Regional3AssetBreakdownController::class, 'update'])->name('aset-breakdown-regional-3.update');
+    Route::delete('/{id}', [Regional3AssetBreakdownController::class, 'destroy'])->name('aset-breakdown-regional-3.destroy');
 });
 
 // SHU Asset Breakdown Regional 4
-Route::prefix('monev/shu/input-data/regional-4')->group(function () {
-    Route::get('/', [Regional4AssetBreakdownController::class, 'index'])->name('regional-4');
-    Route::post('/', [Regional4AssetBreakdownController::class, 'store'])->name('regional-4.store');
-    Route::get('/data', [Regional4AssetBreakdownController::class, 'data'])->name('regional-4.data');
-    Route::put('/{id}', [Regional4AssetBreakdownController::class, 'update'])->name('regional-4.update');
-    Route::delete('/{id}', [Regional4AssetBreakdownController::class, 'destroy'])->name('regional-4.destroy');
+Route::prefix('monev/shu/input-data/aset-breakdown-regional-4')->group(function () {
+    Route::get('/', [Regional4AssetBreakdownController::class, 'index'])->name('aset-breakdown-regional-4');
+    Route::post('/', [Regional4AssetBreakdownController::class, 'store'])->name('aset-breakdown-regional-4.store');
+    Route::get('/data', [Regional4AssetBreakdownController::class, 'data'])->name('aset-breakdown-regional-4.data');
+    Route::put('/{id}', [Regional4AssetBreakdownController::class, 'update'])->name('aset-breakdown-regional-4.update');
+    Route::delete('/{id}', [Regional4AssetBreakdownController::class, 'destroy'])->name('aset-breakdown-regional-4.destroy');
+});
+
+// SHU Availability Regional 1
+Route::prefix('monev/shu/input-data/availability-regional-1')->group(function () {
+    Route::get('/', [Regional1AvailabilityController::class, 'index'])->name('availability-regional-1');
+    Route::post('/', [Regional1AvailabilityController::class, 'store'])->name('availability-regional-1.store');
+    Route::get('/data', [Regional1AvailabilityController::class, 'data'])->name('availability-regional-1.data');
+    Route::put('/{id}', [Regional1AvailabilityController::class, 'update'])->name('availability-regional-1.update');
+    Route::delete('/{id}', [Regional1AvailabilityController::class, 'destroy'])->name('availability-regional-1.destroy');
+});
+
+// SHU Availability Regional 2
+Route::prefix('monev/shu/input-data/availability-regional-2')->group(function () {
+    Route::get('/', [Regional2AvailabilityController::class, 'index'])->name('availability-regional-2');
+    Route::post('/', [Regional2AvailabilityController::class, 'store'])->name('availability-regional-2.store');
+    Route::get('/data', [Regional2AvailabilityController::class, 'data'])->name('availability-regional-2.data');
+    Route::put('/{id}', [Regional2AvailabilityController::class, 'update'])->name('availability-regional-2.update');
+    Route::delete('/{id}', [Regional2AvailabilityController::class, 'destroy'])->name('availability-regional-2.destroy');
+});
+
+// SHU Availability Regional 3
+Route::prefix('monev/shu/input-data/availability-regional-3')->group(function () {
+    Route::get('/', [Regional3AvailabilityController::class, 'index'])->name('availability-regional-3');
+    Route::post('/', [Regional3AvailabilityController::class, 'store'])->name('availability-regional-3.store');
+    Route::get('/data', [Regional3AvailabilityController::class, 'data'])->name('availability-regional-3.data');
+    Route::put('/{id}', [Regional3AvailabilityController::class, 'update'])->name('availability-regional-3.update');
+    Route::delete('/{id}', [Regional3AvailabilityController::class, 'destroy'])->name('availability-regional-3.destroy');
+});
+
+// SHU Availability Regional 4
+Route::prefix('monev/shu/input-data/availability-regional-4')->group(function () {
+    Route::get('/', [Regional4AvailabilityController::class, 'index'])->name('availability-regional-4');
+    Route::post('/', [Regional4AvailabilityController::class, 'store'])->name('availability-regional-4.store');
+    Route::get('/data', [Regional4AvailabilityController::class, 'data'])->name('availability-regional-4.data');
+    Route::put('/{id}', [Regional4AvailabilityController::class, 'update'])->name('availability-regional-4.update');
+    Route::delete('/{id}', [Regional4AvailabilityController::class, 'destroy'])->name('availability-regional-4.destroy');
+});
+
+// Regional1PelatihanAimsController
+Route::prefix('monev/shu/input-data/pelatihan-aims-regional-1')->group(function () {
+    Route::get('/', [Regional1PelatihanAimsController::class, 'index'])->name('pelatihan-aims-regional-1');
+    Route::post('/', [Regional1PelatihanAimsController::class, 'store'])->name('pelatihan-aims-regional-1.store');
+    Route::get('/data', [Regional1PelatihanAimsController::class, 'data'])->name('pelatihan-aims-regional-1.data');
+    Route::put('/{id}', [Regional1PelatihanAimsController::class, 'update'])->name('pelatihan-aims-regional-1.update');
+    Route::delete('/{id}', [Regional1PelatihanAimsController::class, 'destroy'])->name('pelatihan-aims-regional-1.destroy');
+});
+
+// Regional2PelatihanAimsController
+Route::prefix('monev/shu/input-data/pelatihan-aims-regional-2')->group(function () {
+    Route::get('/', [Regional2PelatihanAimsController::class, 'index'])->name('pelatihan-aims-regional-2');
+    Route::post('/', [Regional2PelatihanAimsController::class, 'store'])->name('pelatihan-aims-regional-2.store');
+    Route::get('/data', [Regional2PelatihanAimsController::class, 'data'])->name('pelatihan-aims-regional-2.data');
+    Route::put('/{id}', [Regional2PelatihanAimsController::class, 'update'])->name('pelatihan-aims-regional-2.update');
+    Route::delete('/{id}', [Regional2PelatihanAimsController::class, 'destroy'])->name('pelatihan-aims-regional-2.destroy');
+});
+
+// Regional3PelatihanAimsController
+Route::prefix('monev/shu/input-data/pelatihan-aims-regional-3')->group(function () {
+    Route::get('/', [Regional3PelatihanAimsController::class, 'index'])->name('pelatihan-aims-regional-3');
+    Route::post('/', [Regional3PelatihanAimsController::class, 'store'])->name('pelatihan-aims-regional-3.store');
+    Route::get('/data', [Regional3PelatihanAimsController::class, 'data'])->name('pelatihan-aims-regional-3.data');
+    Route::put('/{id}', [Regional3PelatihanAimsController::class, 'update'])->name('pelatihan-aims-regional-3.update');
+    Route::delete('/{id}', [Regional3PelatihanAimsController::class, 'destroy'])->name('pelatihan-aims-regional-3.destroy');
+});
+
+// Regional4PelatihanAimsController
+Route::prefix('monev/shu/input-data/pelatihan-aims-regional-4')->group(function () {
+    Route::get('/', [Regional4PelatihanAimsController::class, 'index'])->name('pelatihan-aims-regional-4');
+    Route::post('/', [Regional4PelatihanAimsController::class, 'store'])->name('pelatihan-aims-regional-4.store');
+    Route::get('/data', [Regional4PelatihanAimsController::class, 'data'])->name('pelatihan-aims-regional-4.data');
+    Route::put('/{id}', [Regional4PelatihanAimsController::class, 'update'])->name('pelatihan-aims-regional-4.update');
+    Route::delete('/{id}', [Regional4PelatihanAimsController::class, 'destroy'])->name('pelatihan-aims-regional-4.destroy');
+});
+
+// Regional1SistemInformasiController
+Route::prefix('monev/shu/input-data/sistem-informasi-aims-regional-1')->group(function () {
+    Route::get('/', [Regional1SistemInformasiController::class, 'index'])->name('sistem-informasi-aims-regional-1');
+    Route::post('/', [Regional1SistemInformasiController::class, 'store'])->name('sistem-informasi-aims-regional-1.store');
+    Route::get('/data', [Regional1SistemInformasiController::class, 'data'])->name('sistem-informasi-aims-regional-1.data');
+    Route::put('/{id}', [Regional1SistemInformasiController::class, 'update'])->name('sistem-informasi-aims-regional-1.update');
+    Route::delete('/{id}', [Regional1SistemInformasiController::class, 'destroy'])->name('sistem-informasi-aims-regional-1.destroy');
+});
+
+// Regional2SistemInformasiController
+Route::prefix('monev/shu/input-data/sistem-informasi-aims-regional-2')->group(function () {
+    Route::get('/', [Regional2SistemInformasiController::class, 'index'])->name('sistem-informasi-aims-regional-2');
+    Route::post('/', [Regional2SistemInformasiController::class, 'store'])->name('sistem-informasi-aims-regional-2.store');
+    Route::get('/data', [Regional2SistemInformasiController::class, 'data'])->name('sistem-informasi-aims-regional-2.data');
+    Route::put('/{id}', [Regional2SistemInformasiController::class, 'update'])->name('sistem-informasi-aims-regional-2.update');
+    Route::delete('/{id}', [Regional2SistemInformasiController::class, 'destroy'])->name('sistem-informasi-aims-regional-2.destroy');
+});
+
+// Regional3SistemInformasiController
+Route::prefix('monev/shu/input-data/sistem-informasi-aims-regional-3')->group(function () {
+    Route::get('/', [Regional3SistemInformasiController::class, 'index'])->name('sistem-informasi-aims-regional-3');
+    Route::post('/', [Regional3SistemInformasiController::class, 'store'])->name('sistem-informasi-aims-regional-3.store');
+    Route::get('/data', [Regional3SistemInformasiController::class, 'data'])->name('sistem-informasi-aims-regional-3.data');
+    Route::put('/{id}', [Regional3SistemInformasiController::class, 'update'])->name('sistem-informasi-aims-regional-3.update');
+    Route::delete('/{id}', [Regional3SistemInformasiController::class, 'destroy'])->name('sistem-informasi-aims-regional-3.destroy');
+});
+
+// Regional4SistemInformasiController
+Route::prefix('monev/shu/input-data/sistem-informasi-aims-regional-4')->group(function () {
+    Route::get('/', [Regional4SistemInformasiController::class, 'index'])->name('sistem-informasi-aims-regional-4');
+    Route::post('/', [Regional4SistemInformasiController::class, 'store'])->name('sistem-informasi-aims-regional-4.store');
+    Route::get('/data', [Regional4SistemInformasiController::class, 'data'])->name('sistem-informasi-aims-regional-4.data');
+    Route::put('/{id}', [Regional4SistemInformasiController::class, 'update'])->name('sistem-informasi-aims-regional-4.update');
+    Route::delete('/{id}', [Regional4SistemInformasiController::class, 'destroy'])->name('sistem-informasi-aims-regional-4.destroy');
 });
 
 

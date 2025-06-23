@@ -22,7 +22,7 @@ class StatusAssetAiWmn extends Model
         });
     }
 
-    protected $table = 'shg_widar_mandripa_nusantara_wmn';
+    protected $table = 'shg_wmn_status_asset_ai';
     protected $fillable = [
         'periode',
         'subholding',

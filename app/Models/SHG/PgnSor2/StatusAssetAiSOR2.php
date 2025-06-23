@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models\SHG\PgnSor2;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
@@ -22,7 +23,7 @@ class StatusAssetAiSOR2 extends Model
         });
     }
 
-    protected $table = 'shg_pgnsor2_status_aset_ai';
+    protected $table = 'shg_pgnsor2_status_asset_ai';
     protected $fillable = [
         'periode',
         'subholding',
@@ -57,8 +58,8 @@ class StatusAssetAiSOR2 extends Model
 
         'kegiatan_penurunan_low',
         'kegiatan_penurunan_med',
-        'informasi_penyebab_low_integrity',
-        'informasi_penambahan_jumlah_aset',
-        'informasi_naik_turun_low_integrity',
+        'penyebab_low_integrity',
+        'penambahan_jumlah_aset',
+        'naik_turun_low_integrity',
     ];
 }

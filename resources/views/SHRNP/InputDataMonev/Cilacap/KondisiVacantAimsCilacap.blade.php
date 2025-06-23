@@ -340,12 +340,22 @@
 
             document.addEventListener("DOMContentLoaded", function() {
                 const columnMap = {
-                    "kondisi-vacant-aims-cilacap": [{
+                    "kondisi-vacant-aims-cilacap": [  {
                             title: "No",
-                            formatter: "rownum",
                             hozAlign: "center",
                             width: 60,
-                            download: false
+                            download: false,
+                            formatter: function(cell) {
+                                const row = cell.getRow();
+                                const table = row.getTable();
+
+                                const pageSize = table.getPageSize();
+                                const currentPage = table.getPage();
+                                const rowIndex = row
+                                    .getPosition();
+
+                                return ((currentPage - 1) * pageSize) + rowIndex;
+                            }
                         },
                         {
                             title: "ID",

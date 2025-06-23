@@ -328,10 +328,20 @@
                 const columnMap = {
                     "kondisi-vacant-fungsi-aims-kjg": [{
                             title: "No",
-                            formatter: "rownum",
                             hozAlign: "center",
                             width: 60,
-                            download: false
+                            download: false,
+                            formatter: function(cell) {
+                                const row = cell.getRow();
+                                const table = row.getTable();
+
+                                const pageSize = table.getPageSize();
+                                const currentPage = table.getPage();
+                                const rowIndex = row
+                                    .getPosition();
+
+                                return ((currentPage - 1) * pageSize) + rowIndex;
+                            }
                         },
                         {
                             title: "ID",

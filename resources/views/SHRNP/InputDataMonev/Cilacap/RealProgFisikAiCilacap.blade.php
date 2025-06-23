@@ -7,7 +7,7 @@
                 overflow-x: auto;
             }
 
-             .toast-success {
+            .toast-success {
                 background-color: #28a745;
             }
 
@@ -195,8 +195,13 @@
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
                 <div>
-                    <label>Periode</label>
-                    <input type="month" name="periode" id="periode">
+                    <label for="periode">Periode (Tahun):</label>
+                    <select name="periode" id="periode" class="form-select">
+                        <option value="" selected disabled>Pilih Periode</option>
+                        @for ($year = 2000; $year <= date('Y') + 5; $year++)
+                            <option value="{{ $year }}">{{ $year }}</option>
+                        @endfor
+                    </select>
                 </div>
 
                 <div>
@@ -921,7 +926,7 @@
 
         {{-- create data  --}}
         <script>
-             function showToast(message, type = "success") {
+            function showToast(message, type = "success") {
                 const toast = document.getElementById("toastNotification");
                 toast.textContent = message;
                 toast.className = "";

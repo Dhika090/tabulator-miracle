@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models\SHG\PgnSor1;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
@@ -57,8 +58,8 @@ class StatusAssetAiSOR1 extends Model
 
         'kegiatan_penurunan_low',
         'kegiatan_penurunan_med',
-        'informasi_penyebab_low_integrity',
-        'informasi_penambahan_jumlah_aset',
-        'informasi_naik_turun_low_integrity',
+        'penyebab_low_integrity',
+        'penambahan_jumlah_aset',
+        'naik_turun_low_integrity',
     ];
 }

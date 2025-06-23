@@ -100,7 +100,7 @@ class PertaminaGasController extends Controller
 
     public function data()
     {
-        $TargetPLO = DB::table('shg_pertamina_sap_asset')
+        $TargetPLO = DB::table('shg_pertamina_status_asset_ai')
             ->select('*')
             ->addSelect(DB::raw("TRY_CONVERT(DATE, periode + '-01', 120) as periode_date"))
             ->orderBy('periode_date', 'asc')

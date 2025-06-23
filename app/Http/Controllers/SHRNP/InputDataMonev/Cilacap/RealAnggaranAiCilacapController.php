@@ -43,10 +43,11 @@ class RealAnggaranAiCilacapController extends Controller
     public function data()
     {
         $TargetPLO = RealAnggaranAiCilacap::select('*')
-                 ->addSelect(DB::raw("TRY_CONVERT(DATE, CONCAT('01-', periode), 120) as periode_date"))
-            ->orderBy('periode_date', 'asc')
+            ->addSelect(DB::raw("TRY_CONVERT(DATE, CONCAT('01-', periode), 120) as periode_date"))
+            ->addSelect(DB::raw("YEAR(TRY_CONVERT(DATE, CONCAT('01-', periode), 120)) as periode_year"))
+            ->orderBy('periode_year', 'asc')
+            ->orderBy('no', 'asc')
             ->get();
-
         return response()->json($TargetPLO);
     }
     public function update(RealAnggaranAiCilacapRequest $request, $id)
