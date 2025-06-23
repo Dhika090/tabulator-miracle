@@ -11,19 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('shu_sistem_informasi_aims_regional_3', function (Blueprint $table) {
+        Schema::create('shu_sistem_informasi_aims_regional_4', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('periode')->nullable();
             $table->string('company')->nullable();
-            $table->string('jumlah_aset_operasi')->nullable();
-            $table->string('jumlah_aset_teregister')->nullable();
+            $table->integer('jumlah_aset_operasi')->nullable();
+            $table->integer('jumlah_aset_teregister')->nullable();
             $table->string('kendala_aset_register')->nullable();
             $table->string('tindak_lanjut_aset_register')->nullable();
             $table->string('sistem_informasi_aim')->nullable();
-            $table->string('total_wo_comply')->nullable();
-            $table->string('total_wo_completed')->nullable();
-            $table->string('total_wo_in_progress')->nullable();
-            $table->string('total_wo_backlog')->nullable();
+            $table->integer('total_wo_comply')->nullable();
+            $table->integer('total_wo_completed')->nullable();
+            $table->integer('total_wo_in_progress')->nullable();
+            $table->integer('total_wo_backlog')->nullable();
             $table->string('kendala')->nullable();
             $table->string('tindak_lanjut')->nullable();
             $table->timestamps();
@@ -35,6 +35,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('shu_sistem_informasi_aims_regional_3');
+        Schema::dropIfExists('shu_sistem_informasi_aims_regional_4');
     }
 };

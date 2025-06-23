@@ -520,73 +520,85 @@
                         {
                             title: "Company",
                             field: "company",
-                            editor: "input"
+                            editor: "input",
+                            validator: "string"
                         },
                         {
                             title: "Jumlah Aset Operasi",
                             field: "jumlah_aset_operasi",
                             editor: "input",
-                            hozAlign: "center"
+                            hozAlign: "center",
+                            validator: "integer"
                         },
                         {
                             title: "Jumlah Aset Teregister",
                             field: "jumlah_aset_teregister",
                             editor: "input",
-                            hozAlign: "center"
+                            hozAlign: "center",
+                            validator: "integer"
                         },
                         {
                             title: "Kendala Aset Register",
                             field: "kendala_aset_register",
                             editor: "input",
                             width: 350,
+                            validator: "string"
                         },
                         {
                             title: "Tindak Lanjut Aset Register",
                             field: "tindak_lanjut_aset_register",
                             editor: "input",
                             width: 400,
+                            validator: "string"
                         },
                         {
                             title: "Sistem Informasi AIM",
                             field: "sistem_informasi_aim",
                             editor: "input",
-                            hozAlign: "center"
+                            hozAlign: "center",
+                            validator: "string"
                         },
                         {
                             title: "Total WO Comply",
                             field: "total_wo_comply",
                             editor: "input",
-                            hozAlign: "center"
+                            hozAlign: "center",
+                            validator: "integer"
                         },
                         {
                             title: "Total WO Completed",
                             field: "total_wo_completed",
                             editor: "input",
-                            hozAlign: "center"
+                            hozAlign: "center",
+                            validator: "integer"
                         },
                         {
                             title: "Total WO In Progress",
                             field: "total_wo_in_progress",
                             editor: "input",
-                            hozAlign: "center"
+                            hozAlign: "center",
+                            validator: "integer"
                         },
                         {
                             title: "Total WO Backlog",
                             field: "total_wo_backlog",
                             editor: "input",
-                            hozAlign: "center"
+                            hozAlign: "center",
+                            validator: "integer"
                         },
                         {
                             title: "Kendala",
                             field: "kendala",
                             editor: "input",
-                            width: 450
+                            width: 450,
+                            validator: "string"
                         },
                         {
                             title: "Tindak Lanjut",
                             field: "tindak_lanjut",
                             editor: "input",
-                            width: 400
+                            width: 400,
+                            validator: "string"
                         },
                         {
                             title: "Aksi",

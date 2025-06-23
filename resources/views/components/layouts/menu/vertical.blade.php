@@ -266,13 +266,13 @@
                                 <i class="fa fa-wrench me-2"></i>Sistem Informasi AIMS
                             </a>
                         </li>
-                        <li class="menu-item {{ request()->is('monev/shu/input-data/rencana-pemeliharaan-besar') ? 'active' : '' }}">
-                            <a class="menu-link" href="{{ url('monev/shu/input-data/rencana-pemeliharaan-besar') }}">
+                        <li class="menu-item {{ request()->is('monev/shu/input-data/rencana-pemeliharaan-regional-1') ? 'active' : '' }}">
+                            <a class="menu-link" href="{{ url('monev/shu/input-data/rencana-pemeliharaan-regional-1') }}">
                                 <i class="fa fa-wrench me-2"></i>Rencana Pemeliharaan Besar
                             </a>
                         </li>
-                        <li class="menu-item {{ request()->is('monev/shu/input-data/mandatory-certification') ? 'active' : '' }}">
-                            <a class="menu-link" href="{{ url('monev/shu/input-data/mandatory-certification') }}">
+                        <li class="menu-item {{ request()->is('monev/shu/input-data/mandatory-certification-regional-1') ? 'active' : '' }}">
+                            <a class="menu-link" href="{{ url('monev/shu/input-data/mandatory-certification-regional-1') }}">
                                 <i class="fa fa-wrench me-2"></i>Mandatory Certification
                             </a>
                         </li>

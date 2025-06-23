@@ -318,8 +318,7 @@
 
             document.addEventListener("DOMContentLoaded", function() {
                 const columnMap = {
-                    "pelatihan-aims-regional-1": [
-                        {
+                    "pelatihan-aims-regional-1": [{
                             title: "No",
                             hozAlign: "center",
                             width: 60,

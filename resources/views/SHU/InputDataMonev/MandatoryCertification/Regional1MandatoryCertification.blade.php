@@ -147,7 +147,7 @@
     <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-                <h5 class="card-title mb-3 mb-md-0">Mandatory Certification cilacap</h5>
+                <h5 class="card-title mb-3 mb-md-0">Mandatory Certification Regional 1</h5>
                 <div class="d-flex flex-column flex-md-row align-items-center gap-3">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
@@ -204,7 +204,7 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Tambah Target Mandatory Certification cilacap</h3>
+            <h3>Tambah Target Mandatory Certification Regional 1</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
                 <div>
@@ -267,7 +267,7 @@
         <script>
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
-                    fetch(`mandatory-certification-cilacap/${id}`, {
+                    fetch(`mandatory-certification-regional-1/${id}`, {
                             method: "DELETE",
                             headers: {
                                 "Accept": "application/json",
@@ -292,7 +292,7 @@
             }
 
             function loadData() {
-                fetch("/monev/shrnp/input-data/mandatory-certification-cilacap/data", {
+                fetch("/monev/shu/input-data/mandatory-certification-regional-1/data", {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -368,7 +368,7 @@
 
             document.addEventListener("DOMContentLoaded", function() {
                 const columnMap = {
-                    "mandatory-certification-cilacap": [{
+                    "mandatory-certification-regional-1": [{
                             title: "No",
                             hozAlign: "center",
                             width: 60,
@@ -536,7 +536,7 @@
                     layout: "fitDataTable",
                     responsiveLayout: "collapse",
                     autoResize: true,
-                    columns: columnMap["mandatory-certification-cilacap"],
+                    columns: columnMap["mandatory-certification-regional-1"],
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -599,7 +599,7 @@
 
                     if (!id) return;
 
-                    fetch(`mandatory-certification-cilacap/${id}`, {
+                    fetch(`mandatory-certification-regional-1/${id}`, {
                             method: "PUT",
                             headers: {
                                 "Content-Type": "application/json",
@@ -638,7 +638,7 @@
                     console.log("Baris yang berubah:", changedRows);
 
                     changedRows.forEach(rowData => {
-                        fetch(`mandatory-certification-cilacap/${rowData.id}`, {
+                        fetch(`mandatory-certification-regional-1/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
                                     "Content-Type": "application/json",
@@ -705,7 +705,7 @@
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
 
-                fetch("mandatory-certification-cilacap", {
+                fetch("mandatory-certification-regional-1", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -729,7 +729,7 @@
                     .then(result => {
                         if (result.success) {
                             showToast(result.message || "Data berhasil disimpan", "success");
-                            table.setData("/monev/shrnp/input-data/mandatory-certification-cilacap/data");
+                            table.setData("/monev/shu/input-data/mandatory-certification-regional-1/data");
                             this.reset();
                             closeModal();
                         } else {

@@ -1,13 +1,15 @@
 <?php
 
-namespace App\Models\SHU\SistemInformasi;
+namespace App\Models\SHU\RencanaPemeliharaan;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 
-class Regional2SistemInformasi extends Model
+class Regional3RencanaPemeliharaan extends Model
 {
-       use HasFactory;
+
+    use HasFactory;
     public $incrementing = false;
     protected $keyType = 'string';
 
@@ -21,21 +23,32 @@ class Regional2SistemInformasi extends Model
             }
         });
     }
-
-    protected $table = 'shu_sistem_informasi_aims_regional_2';
+    protected $table = 'shu_rencana_pemeliharaan_regional_3';
 
     protected $fillable = [
         'periode',
+        'no',
         'company',
-        'jumlah_aset_operasi',
-        'jumlah_aset_teregister',
-        'kendala_aset_register',
-        'tindak_lanjut_aset_register',
-        'sistem_informasi_aim',
-        'total_wo_comply',
-        'total_wo_completed',
-        'total_wo_in_progress',
-        'total_wo_backlog',
+        'lokasi',
+        'program_kerja',
+        'kategori_maintenance',
+        'besar_phasing',
+        'remark',
+        'jan',
+        'feb',
+        'mar',
+        'apr',
+        'may',
+        'jun',
+        'jul',
+        'aug',
+        'sep',
+        'oct',
+        'nov',
+        'dec',
+        'biaya_kerugian',
+        'keterangan_kerugian',
+        'penyebab',
         'kendala',
         'tindak_lanjut',
     ];

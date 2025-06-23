@@ -2,12 +2,6 @@
 <x-layouts.app :title="__('')">
     @push('styles')
         <link href="https://unpkg.com/tabulator-tables@5.6.0/dist/css/tabulator.min.css" rel="stylesheet">
-        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
         <style>
             .toast-success {
                 background-color: #28a745;
@@ -147,7 +141,7 @@
     <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-                <h5 class="card-title mb-3 mb-md-0">Mandatory Certification cilacap</h5>
+                <h5 class="card-title mb-3 mb-md-0">Sistem Informasi AIMS cilacap</h5>
                 <div class="d-flex flex-column flex-md-row align-items-center gap-3">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
@@ -193,6 +187,7 @@
                     </div>
                 </div>
             </div>
+
             <div id="mainTable"></div>
 
             <div class="tabulator-wrapper mt-4">
@@ -204,53 +199,77 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Tambah Target Mandatory Certification cilacap</h3>
+            <h3>Tambah Sistem Informasi AIMS cilacap</h3>
             <form id="createForm">
+
                 <input type="hidden" name="id" id="form-id">
                 <div>
-                    <label>Periode</label>
-                    <input type="month" name="periode" id="periode">
+                    <label for="periode">Periode</label>
+                    <input type="month" id="periode" name="periode">
                 </div>
 
                 <div>
-                    <label>Subholding</label>
-                    <input type="text" name="subholding" id="subholding">
+                    <label for="company">Company</label>
+                    <input type="text" id="company" name="company">
                 </div>
 
                 <div>
-                    <label>Company</label>
-                    <input type="text" name="company" id="company">
+                    <label for="jumlah_aset_operasi">Jumlah Aset Operasi</label>
+                    <input type="text" id="jumlah_aset_operasi" name="jumlah_aset_operasi">
                 </div>
 
                 <div>
-                    <label>Unit</label>
-                    <input type="text" name="unit" id="unit">
-                </div>
-
-                {{-- dropdown nama Sertifikasi --}}
-                <div>
-                    <label>Nama Sertifikasi</label>
-                    <select name="nama_sertifikasi" id="nama_sertifikasi" class="form-control">
-                        <option value="">-- Pilih Sertifikasi --</option>
-                        @foreach ($sertifikasiOptions as $option)
-                            <option value="{{ $option }}">{{ $option }}</option>
-                        @endforeach
-                    </select>
+                    <label for="jumlah_aset_teregister">Jumlah Aset Teregister</label>
+                    <input type="text" id="jumlah_aset_teregister" name="jumlah_aset_teregister">
                 </div>
 
                 <div>
-                    <label>Lembaga Penerbit Sertifikat</label>
-                    <input type="text" name="lembaga_penerbit_sertifikat" id="lembaga_penerbit_sertifikat">
+                    <label for="kendala_aset_register">Kendala Aset Register</label>
+                    <input id="kendala_aset_register" type="text" name="kendala_aset_register"></input>
                 </div>
 
                 <div>
-                    <label>Jumlah Sertifikasi yang Sudah Terbit</label>
-                    <input type="number" name="jumlah_sertifikasi_terbit" id="jumlah_sertifikasi_terbit">
+                    <label for="tindak_lanjut_aset_register">Tindak Lanjut Aset Register</label>
+                    <input id="tindak_lanjut_aset_register" type="text" name="tindak_lanjut_aset_register"></input>
                 </div>
 
                 <div>
-                    <label>Jumlah Learning Hours</label>
-                    <input type="number" name="jumlah_learning_hours" id="jumlah_learning_hours">
+                    <label for="sistem_informasi_aim">Sistem Informasi AIM</label>
+                    <input type="text" id="sistem_informasi_aim" name="sistem_informasi_aim">
+                </div>
+
+                <div>
+                    <label for="total_wo_comply">Total WO Comply</label>
+                    <input type="number" step="any" id="total_wo_comply" name="total_wo_comply"
+                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                </div>
+
+                <div>
+                    <label for="total_wo_completed">Total WO Completed</label>
+                    <input type="number" step="any" id="total_wo_completed" name="total_wo_completed"
+                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                </div>
+
+                <div>
+                    <label for="total_wo_in_progress">Total WO In Progress</label>
+                    <input type="number" step="any" id="total_wo_in_progress" name="total_wo_in_progress"
+                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                </div>
+
+                <div>
+                    <label for="total_wo_backlog">Total WO Backlog</label>
+                    <input type="number" step="any" id="total_wo_backlog" name="total_wo_backlog"
+                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                </div>
+
+                <div>
+                    <label for="kendala">Kendala</label>
+                    <input id="kendala" type="text" name="kendala"></input>
+                </div>
+
+                <div>
+                    <label for="tindak_lanjut">Tindak Lanjut</label>
+                    <input id="tindak_lanjut" type="text" name="tindak_lanjut"></input>
                 </div>
 
                 <button type="submit" class="btn btn-success">Submit</button>
@@ -264,10 +283,11 @@
     @push('scripts')
         <script src="https://unpkg.com/tabulator-tables@5.6.0/dist/js/tabulator.min.js"></script>
         <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+
         <script>
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
-                    fetch(`mandatory-certification-cilacap/${id}`, {
+                    fetch(`sistem-informasi-aims-regional-3/${id}`, {
                             method: "DELETE",
                             headers: {
                                 "Accept": "application/json",
@@ -286,13 +306,85 @@
                 }
             }
 
+            document.getElementById("search-input").addEventListener("input", function(e) {
+                const keyword = e.target.value;
+                table.setFilter([
+                    [{
+                            field: "periode",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "company",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "jumlah_aset_operasi",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "jumlah_aset_teregister",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "kendala_aset_register",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "tindak_lanjut_aset_register",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "sistem_informasi_aim",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "total_wo_comply",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "total_wo_completed",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "total_wo_in_progress",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "total_wo_backlog",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "kendala",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "tindak_lanjut",
+                            type: "like",
+                            value: keyword
+                        }
+                    ]
+                ]);
+            });
+
             function clearSearch() {
                 document.getElementById("search-input").value = "";
                 table.clearFilter();
             }
 
             function loadData() {
-                fetch("/monev/shrnp/input-data/mandatory-certification-cilacap/data", {
+                fetch("/monev/shu/input-data/sistem-informasi-aims-regional-3/data", {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -318,57 +410,9 @@
                     .catch(err => console.error("Gagal load data:", err));
             }
 
-            document.getElementById("search-input").addEventListener("input", function(e) {
-                const keyword = e.target.value;
-                table.setFilter([
-                    [{
-                            field: "periode",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "subholding",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "company",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "unit",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "nama_sertifikasi",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "lembaga_penerbit_sertifikat",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "jumlah_sertifikasi_sudah_terbit",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "jumlah_learning_hours",
-                            type: "like",
-                            value: keyword
-                        }
-                    ]
-                ]);
-
-            });
-
             document.addEventListener("DOMContentLoaded", function() {
                 const columnMap = {
-                    "mandatory-certification-cilacap": [{
+                    "sistem-informasi-aims-regional-3": [{
                             title: "No",
                             hozAlign: "center",
                             width: 60,
@@ -474,45 +518,87 @@
                             }
                         },
                         {
-                            title: "Subholding",
-                            field: "subholding",
-                            hozAlign: "center",
-                            editor: "input"
-                        },
-                        {
                             title: "Company",
                             field: "company",
+                            editor: "input",
+                            validator: "string"
+                        },
+                        {
+                            title: "Jumlah Aset Operasi",
+                            field: "jumlah_aset_operasi",
+                            editor: "input",
                             hozAlign: "center",
-                            editor: "input"
+                            validator: "integer"
                         },
                         {
-                            title: "Unit",
-                            field: "unit",
+                            title: "Jumlah Aset Teregister",
+                            field: "jumlah_aset_teregister",
                             editor: "input",
-                            width: 200
+                            hozAlign: "center",
+                            validator: "integer"
                         },
                         {
-                            title: "Nama Sertifikasi",
-                            field: "nama_sertifikasi",
+                            title: "Kendala Aset Register",
+                            field: "kendala_aset_register",
                             editor: "input",
-                            width: 450
+                            width: 350,
+                            validator: "string"
                         },
                         {
-                            title: "Lembaga Penerbit Sertifikat",
-                            field: "lembaga_penerbit_sertifikat",
-                            editor: "input"
-                        },
-                        {
-                            title: "Jumlah Sertifikasi yang Sudah Terbit",
-                            field: "jumlah_sertifikasi_terbit",
+                            title: "Tindak Lanjut Aset Register",
+                            field: "tindak_lanjut_aset_register",
                             editor: "input",
-                            hozAlign: "center"
+                            width: 400,
+                            validator: "string"
                         },
                         {
-                            title: "Jumlah Learning Hours",
-                            field: "jumlah_learning_hours",
+                            title: "Sistem Informasi AIM",
+                            field: "sistem_informasi_aim",
                             editor: "input",
-                            hozAlign: "center"
+                            hozAlign: "center",
+                            validator: "string"
+                        },
+                        {
+                            title: "Total WO Comply",
+                            field: "total_wo_comply",
+                            editor: "input",
+                            hozAlign: "center",
+                            validator: "integer"
+                        },
+                        {
+                            title: "Total WO Completed",
+                            field: "total_wo_completed",
+                            editor: "input",
+                            hozAlign: "center",
+                            validator: "integer"
+                        },
+                        {
+                            title: "Total WO In Progress",
+                            field: "total_wo_in_progress",
+                            editor: "input",
+                            hozAlign: "center",
+                            validator: "integer"
+                        },
+                        {
+                            title: "Total WO Backlog",
+                            field: "total_wo_backlog",
+                            editor: "input",
+                            hozAlign: "center",
+                            validator: "integer"
+                        },
+                        {
+                            title: "Kendala",
+                            field: "kendala",
+                            editor: "input",
+                            width: 450,
+                            validator: "string"
+                        },
+                        {
+                            title: "Tindak Lanjut",
+                            field: "tindak_lanjut",
+                            editor: "input",
+                            width: 400,
+                            validator: "string"
                         },
                         {
                             title: "Aksi",
@@ -531,12 +617,11 @@
                         }
                     ]
                 };
-
                 window.table = new Tabulator("#example-table", {
                     layout: "fitDataTable",
                     responsiveLayout: "collapse",
                     autoResize: true,
-                    columns: columnMap["mandatory-certification-cilacap"],
+                    columns: columnMap["sistem-informasi-aims-regional-3"],
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -571,8 +656,8 @@
                 });
 
                 document.getElementById("download-xlsx").addEventListener("click", function() {
-                    window.table.download("xlsx", "pelatihan-aims-cilacap.xlsx", {
-                        sheetName: "pelatihan-aims-cilacap",
+                    window.table.download("xlsx", "sistem-informasi-aims-regional-3.xlsx", {
+                        sheetName: "sistem-informasi-aims-regional-3",
                         columnHeaders: true,
                         downloadDataFormatter: function(data) {
                             return data.map(row => {
@@ -599,7 +684,7 @@
 
                     if (!id) return;
 
-                    fetch(`mandatory-certification-cilacap/${id}`, {
+                    fetch(`sistem-informasi-aims-regional-3/${id}`, {
                             method: "PUT",
                             headers: {
                                 "Content-Type": "application/json",
@@ -610,9 +695,10 @@
                             body: JSON.stringify(updatedData)
                         })
                         .then(res => res.json())
-                        .then(data => console.log("Update berhasil:", data))
+                        .then(data => console.log("Berhasil update:", data))
                         .catch(err => console.error("Gagal update:", err));
                 });
+
                 let previousData = [];
                 table.on("dataLoaded", function(newData) {
                     previousData = JSON.parse(JSON.stringify(newData));
@@ -638,7 +724,7 @@
                     console.log("Baris yang berubah:", changedRows);
 
                     changedRows.forEach(rowData => {
-                        fetch(`mandatory-certification-cilacap/${rowData.id}`, {
+                        fetch(`sistem-informasi-aims-regional-3/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
                                     "Content-Type": "application/json",
@@ -705,7 +791,7 @@
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
 
-                fetch("mandatory-certification-cilacap", {
+                fetch("sistem-informasi-aims-regional-3", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -715,21 +801,25 @@
                         },
                         body: JSON.stringify({
                             periode: data.periode,
-                            subholding: data.subholding,
                             company: data.company,
-                            unit: data.unit,
-                            nama_sertifikasi: data.nama_sertifikasi,
-                            lembaga_penerbit_sertifikat: data.lembaga_penerbit_sertifikat,
-                            jumlah_sertifikasi_terbit: data.jumlah_sertifikasi_terbit,
-                            jumlah_learning_hours: data.jumlah_learning_hours
+                            jumlah_aset_operasi: data.jumlah_aset_operasi,
+                            jumlah_aset_teregister: data.jumlah_aset_teregister,
+                            kendala_aset_register: data.kendala_aset_register,
+                            tindak_lanjut_aset_register: data.tindak_lanjut_aset_register,
+                            sistem_informasi_aim: data.sistem_informasi_aim,
+                            total_wo_comply: data.total_wo_comply,
+                            total_wo_completed: data.total_wo_completed,
+                            total_wo_in_progress: data.total_wo_in_progress,
+                            total_wo_backlog: data.total_wo_backlog,
+                            kendala: data.kendala,
+                            tindak_lanjut: data.tindak_lanjut
                         })
-
                     })
                     .then(response => response.json())
                     .then(result => {
                         if (result.success) {
                             showToast(result.message || "Data berhasil disimpan", "success");
-                            table.setData("/monev/shrnp/input-data/mandatory-certification-cilacap/data");
+                            table.setData("/monev/shu/input-data/sistem-informasi-aims-regional-3/data");
                             this.reset();
                             closeModal();
                         } else {

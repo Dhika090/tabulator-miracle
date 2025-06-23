@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Models\SHU\SistemInformasi;
+namespace App\Models\SHU\MandatoryCertification;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 
-class Regional2SistemInformasi extends Model
+class Regional4MandatoryCertification extends Model
 {
-       use HasFactory;
+    use HasFactory;
     public $incrementing = false;
     protected $keyType = 'string';
 
@@ -22,21 +23,16 @@ class Regional2SistemInformasi extends Model
         });
     }
 
-    protected $table = 'shu_sistem_informasi_aims_regional_2';
+    protected $table = 'shu_mandatory_certification_regional_4';
 
     protected $fillable = [
         'periode',
+        'subholding',
         'company',
-        'jumlah_aset_operasi',
-        'jumlah_aset_teregister',
-        'kendala_aset_register',
-        'tindak_lanjut_aset_register',
-        'sistem_informasi_aim',
-        'total_wo_comply',
-        'total_wo_completed',
-        'total_wo_in_progress',
-        'total_wo_backlog',
-        'kendala',
-        'tindak_lanjut',
+        'unit',
+        'nama_sertifikasi',
+        'lembaga_penerbit_sertifikat',
+        'jumlah_sertifikasi_terbit',
+        'jumlah_learning_hours',
     ];
 }

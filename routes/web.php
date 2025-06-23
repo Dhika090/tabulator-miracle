@@ -394,10 +394,18 @@ use App\Http\Controllers\SHU\InputDataMonev\Availability\Regional1AvailabilityCo
 use App\Http\Controllers\SHU\InputDataMonev\Availability\Regional2AvailabilityController;
 use App\Http\Controllers\SHU\InputDataMonev\Availability\Regional3AvailabilityController;
 use App\Http\Controllers\SHU\InputDataMonev\Availability\Regional4AvailabilityController;
+use App\Http\Controllers\SHU\InputDataMonev\MandatoryCertification\Regional1MandatoryCertificationController;
+use App\Http\Controllers\SHU\InputDataMonev\MandatoryCertification\Regional2MandatoryCertificationController;
+use App\Http\Controllers\SHU\InputDataMonev\MandatoryCertification\Regional3MandatoryCertificationController;
+use App\Http\Controllers\SHU\InputDataMonev\MandatoryCertification\Regional4MandatoryCertificationController;
 use App\Http\Controllers\SHU\InputDataMonev\PelatihanAims\Regional1PelatihanAimsController;
 use App\Http\Controllers\SHU\InputDataMonev\PelatihanAims\Regional2PelatihanAimsController;
 use App\Http\Controllers\SHU\InputDataMonev\PelatihanAims\Regional3PelatihanAimsController;
 use App\Http\Controllers\SHU\InputDataMonev\PelatihanAims\Regional4PelatihanAimsController;
+use App\Http\Controllers\SHU\InputDataMonev\RencanaPemeliharaan\Regional1RencanaPemeliharaanController;
+use App\Http\Controllers\SHU\InputDataMonev\RencanaPemeliharaan\Regional2RencanaPemeliharaanController;
+use App\Http\Controllers\SHU\InputDataMonev\RencanaPemeliharaan\Regional3RencanaPemeliharaanController;
+use App\Http\Controllers\SHU\InputDataMonev\RencanaPemeliharaan\Regional4RencanaPemeliharaanController;
 use App\Http\Controllers\SHU\InputDataMonev\SistemInformasi\Regional1SistemInformasiController;
 use App\Http\Controllers\SHU\InputDataMonev\SistemInformasi\Regional2SistemInformasiController;
 use App\Http\Controllers\SHU\InputDataMonev\SistemInformasi\Regional3SistemInformasiController;
@@ -3750,6 +3758,82 @@ Route::prefix('monev/shu/input-data/sistem-informasi-aims-regional-4')->group(fu
     Route::put('/{id}', [Regional4SistemInformasiController::class, 'update'])->name('sistem-informasi-aims-regional-4.update');
     Route::delete('/{id}', [Regional4SistemInformasiController::class, 'destroy'])->name('sistem-informasi-aims-regional-4.destroy');
 });
+
+// Regional1RencanaPemeliharaanController
+Route::prefix('monev/shu/input-data/rencana-pemeliharaan-regional-1')->group(function () {
+    Route::get('/', [Regional1RencanaPemeliharaanController::class, 'index'])->name('rencana-pemeliharaan-regional-1');
+    Route::post('/', [Regional1RencanaPemeliharaanController::class, 'store'])->name('rencana-pemeliharaan-regional-1.store');
+    Route::get('/data', [Regional1RencanaPemeliharaanController::class, 'data'])->name('rencana-pemeliharaan-regional-1.data');
+    Route::put('/{id}', [Regional1RencanaPemeliharaanController::class, 'update'])->name('rencana-pemeliharaan-regional-1.update');
+    Route::delete('/{id}', [Regional1RencanaPemeliharaanController::class, 'destroy'])->name('rencana-pemeliharaan-regional-1.destroy');
+});
+
+// Regional2RencanaPemeliharaanController
+Route::prefix('monev/shu/input-data/rencana-pemeliharaan-regional-2')->group(function () {
+    Route::get('/', [Regional2RencanaPemeliharaanController::class, 'index'])->name('rencana-pemeliharaan-regional-2');
+    Route::post('/', [Regional2RencanaPemeliharaanController::class, 'store'])->name('rencana-pemeliharaan-regional-2.store');
+    Route::get('/data', [Regional2RencanaPemeliharaanController::class, 'data'])->name('rencana-pemeliharaan-regional-2.data');
+    Route::put('/{id}', [Regional2RencanaPemeliharaanController::class, 'update'])->name('rencana-pemeliharaan-regional-2.update');
+    Route::delete('/{id}', [Regional2RencanaPemeliharaanController::class, 'destroy'])->name('rencana-pemeliharaan-regional-2.destroy');
+});
+
+// Regional3RencanaPemeliharaanController
+Route::prefix('monev/shu/input-data/rencana-pemeliharaan-regional-3')->group(function () {
+    Route::get('/', [Regional3RencanaPemeliharaanController::class, 'index'])->name('rencana-pemeliharaan-regional-3');
+    Route::post('/', [Regional3RencanaPemeliharaanController::class, 'store'])->name('rencana-pemeliharaan-regional-3.store');
+    Route::get('/data', [Regional3RencanaPemeliharaanController::class, 'data'])->name('rencana-pemeliharaan-regional-3.data');
+    Route::put('/{id}', [Regional3RencanaPemeliharaanController::class, 'update'])->name('rencana-pemeliharaan-regional-3.update');
+    Route::delete('/{id}', [Regional3RencanaPemeliharaanController::class, 'destroy'])->name('rencana-pemeliharaan-regional-3.destroy');
+});
+
+// Regional4RencanaPemeliharaanController
+Route::prefix('monev/shu/input-data/rencana-pemeliharaan-regional-4')->group(function () {
+    Route::get('/', [Regional4RencanaPemeliharaanController::class, 'index'])->name('rencana-pemeliharaan-regional-4');
+    Route::post('/', [Regional4RencanaPemeliharaanController::class, 'store'])->name('rencana-pemeliharaan-regional-4.store');
+    Route::get('/data', [Regional4RencanaPemeliharaanController::class, 'data'])->name('rencana-pemeliharaan-regional-4.data');
+    Route::put('/{id}', [Regional4RencanaPemeliharaanController::class, 'update'])->name('rencana-pemeliharaan-regional-4.update');
+    Route::delete('/{id}', [Regional4RencanaPemeliharaanController::class, 'destroy'])->name('rencana-pemeliharaan-regional-4.destroy');
+});
+// Regional1MandatoryCertificationController
+Route::prefix('monev/shu/input-data/mandatory-certification-regional-1')->group(function () {
+    Route::get('/', [Regional1MandatoryCertificationController::class, 'index'])->name('mandatory-certification-regional-1');
+    Route::post('/', [Regional1MandatoryCertificationController::class, 'store'])->name('mandatory-certification-regional-1.store');
+    Route::get('/data', [Regional1MandatoryCertificationController::class, 'data'])->name('mandatory-certification-regional-1.data');
+    Route::put('/{id}', [Regional1MandatoryCertificationController::class, 'update'])->name('mandatory-certification-regional-1.update');
+    Route::delete('/{id}', [Regional1MandatoryCertificationController::class, 'destroy'])->name('mandatory-certification-regional-1.destroy');
+});
+
+// Regional2MandatoryCertificationController
+Route::prefix('monev/shu/input-data/mandatory-certification-regional-2')->group(function () {
+    Route::get('/', [Regional2MandatoryCertificationController::class, 'index'])->name('mandatory-certification-regional-2');
+    Route::post('/', [Regional2MandatoryCertificationController::class, 'store'])->name('mandatory-certification-regional-2.store');
+    Route::get('/data', [Regional2MandatoryCertificationController::class, 'data'])->name('mandatory-certification-regional-2.data');
+    Route::put('/{id}', [Regional2MandatoryCertificationController::class, 'update'])->name('mandatory-certification-regional-2.update');
+    Route::delete('/{id}', [Regional2MandatoryCertificationController::class, 'destroy'])->name('mandatory-certification-regional-2.destroy');
+});
+
+// Regional3MandatoryCertificationController
+Route::prefix('monev/shu/input-data/mandatory-certification-regional-3')->group(function () {
+    Route::get('/', [Regional3MandatoryCertificationController::class, 'index'])->name('mandatory-certification-regional-3');
+    Route::post('/', [Regional3MandatoryCertificationController::class, 'store'])->name('mandatory-certification-regional-3.store');
+    Route::get('/data', [Regional3MandatoryCertificationController::class, 'data'])->name('mandatory-certification-regional-3.data');
+    Route::put('/{id}', [Regional3MandatoryCertificationController::class, 'update'])->name('mandatory-certification-regional-3.update');
+    Route::delete('/{id}', [Regional3MandatoryCertificationController::class, 'destroy'])->name('mandatory-certification-regional-3.destroy');
+});
+
+// Regional4MandatoryCertificationController
+Route::prefix('monev/shu/input-data/mandatory-certification-regional-4')->group(function () {
+    Route::get('/', [Regional4MandatoryCertificationController::class, 'index'])->name('mandatory-certification-regional-4');
+    Route::post('/', [Regional4MandatoryCertificationController::class, 'store'])->name('mandatory-certification-regional-4.store');
+    Route::get('/data', [Regional4MandatoryCertificationController::class, 'data'])->name('mandatory-certification-regional-4.data');
+    Route::put('/{id}', [Regional4MandatoryCertificationController::class, 'update'])->name('mandatory-certification-regional-4.update');
+    Route::delete('/{id}', [Regional4MandatoryCertificationController::class, 'destroy'])->name('mandatory-certification-regional-4.destroy');
+});
+
+
+
+
+
 
 
 
