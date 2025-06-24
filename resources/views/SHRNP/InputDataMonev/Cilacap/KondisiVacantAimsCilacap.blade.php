@@ -6,7 +6,8 @@
             .tabulator-wrapper {
                 overflow-x: auto;
             }
-     .toast-success {
+
+            .toast-success {
                 background-color: #28a745;
             }
 
@@ -240,7 +241,7 @@
         style="display:none; position: fixed; top: 20px; right: 20px; z-index: 9999; padding: 15px 20px; border-radius: 8px; color: white; font-weight: bold;">
     </div>
 
-       <div id="toastNotification"
+    <div id="toastNotification"
         style="display:none; position: fixed; top: 20px; right: 20px; z-index: 9999; padding: 15px 20px; border-radius: 8px; color: white; font-weight: bold;">
     </div>
     @push('scripts')
@@ -340,7 +341,7 @@
 
             document.addEventListener("DOMContentLoaded", function() {
                 const columnMap = {
-                    "kondisi-vacant-aims-cilacap": [  {
+                    "kondisi-vacant-aims-cilacap": [{
                             title: "No",
                             hozAlign: "center",
                             width: 60,
@@ -630,7 +631,7 @@
 
         {{-- create data --}}
         <script>
-             function showToast(message, type = "success") {
+            function showToast(message, type = "success") {
                 const toast = document.getElementById("toastNotification");
                 toast.textContent = message;
                 toast.className = "";
@@ -642,7 +643,7 @@
                 }, 3000);
             }
 
-              function showToast(message, type = "success") {
+            function showToast(message, type = "success") {
                 const toast = document.getElementById("toastNotification");
                 toast.textContent = message;
                 toast.className = "";
@@ -654,7 +655,7 @@
                 }, 3000);
             }
 
- function openModal() {
+            function openModal() {
                 document.getElementById("createModal").style.display = "block";
             }
 

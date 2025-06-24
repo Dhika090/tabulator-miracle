@@ -25,7 +25,7 @@ class DataMonevKalimantanJawaGas extends Model
 
     protected $table = 'shg_kalimantan_status_asset_ai';
     protected $fillable = [
-        'periode',
+       'periode',
         'subholding',
         'company',
         'unit',

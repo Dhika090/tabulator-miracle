@@ -114,5 +114,50 @@ class ViewServiceProvider extends ServiceProvider
 
             $view->with('tabs', $tabs);
         });
+
+        View::composer('*', function ($view) {
+            $routeName = optional(request()->route())->getName();
+            if (!$routeName || !str_contains($routeName, 'kondisi-vacant-fungsi-aims-regional-1')) return;
+
+            $tabs = collect(config('shu-kondisi-vacant-aims'))->map(function ($tab) {
+                return [
+                    'title' => $tab['title'],
+                    'route' => route($tab['route']),
+                    'active' => request()->routeIs($tab['route']),
+                ];
+            })->toArray();
+
+            $view->with('tabs', $tabs);
+        });
+
+        View::composer('*', function ($view) {
+            $routeName = optional(request()->route())->getName();
+            if (!$routeName || !str_contains($routeName, 'realisasi-anggaran-ai-regional-1')) return;
+
+            $tabs = collect(config('shu-realisasi-anggarai-ai'))->map(function ($tab) {
+                return [
+                    'title' => $tab['title'],
+                    'route' => route($tab['route']),
+                    'active' => request()->routeIs($tab['route']),
+                ];
+            })->toArray();
+
+            $view->with('tabs', $tabs);
+        });
+
+        View::composer('*', function ($view) {
+            $routeName = optional(request()->route())->getName();
+            if (!$routeName || !str_contains($routeName, 'realisasi-progres-fisik-ai-regional-1')) return;
+
+            $tabs = collect(config('shu-realisasi-progress-fisik-ai'))->map(function ($tab) {
+                return [
+                    'title' => $tab['title'],
+                    'route' => route($tab['route']),
+                    'active' => request()->routeIs($tab['route']),
+                ];
+            })->toArray();
+
+            $view->with('tabs', $tabs);
+        });
     }
 }

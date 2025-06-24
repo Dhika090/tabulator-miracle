@@ -394,6 +394,10 @@ use App\Http\Controllers\SHU\InputDataMonev\Availability\Regional1AvailabilityCo
 use App\Http\Controllers\SHU\InputDataMonev\Availability\Regional2AvailabilityController;
 use App\Http\Controllers\SHU\InputDataMonev\Availability\Regional3AvailabilityController;
 use App\Http\Controllers\SHU\InputDataMonev\Availability\Regional4AvailabilityController;
+use App\Http\Controllers\SHU\InputDataMonev\KondisiVacantAims\Regional1KondisiVacantAimsController;
+use App\Http\Controllers\SHU\InputDataMonev\KondisiVacantAims\Regional2KondisiVacantAimsController;
+use App\Http\Controllers\SHU\InputDataMonev\KondisiVacantAims\Regional3KondisiVacantAimsController;
+use App\Http\Controllers\SHU\InputDataMonev\KondisiVacantAims\Regional4KondisiVacantAimsController;
 use App\Http\Controllers\SHU\InputDataMonev\MandatoryCertification\Regional1MandatoryCertificationController;
 use App\Http\Controllers\SHU\InputDataMonev\MandatoryCertification\Regional2MandatoryCertificationController;
 use App\Http\Controllers\SHU\InputDataMonev\MandatoryCertification\Regional3MandatoryCertificationController;
@@ -402,6 +406,14 @@ use App\Http\Controllers\SHU\InputDataMonev\PelatihanAims\Regional1PelatihanAims
 use App\Http\Controllers\SHU\InputDataMonev\PelatihanAims\Regional2PelatihanAimsController;
 use App\Http\Controllers\SHU\InputDataMonev\PelatihanAims\Regional3PelatihanAimsController;
 use App\Http\Controllers\SHU\InputDataMonev\PelatihanAims\Regional4PelatihanAimsController;
+use App\Http\Controllers\SHU\InputDataMonev\RealisasiAnggaranAi\Regional1RealisasiAnggaranAiController;
+use App\Http\Controllers\SHU\InputDataMonev\RealisasiAnggaranAi\Regional2RealisasiAnggaranAiController;
+use App\Http\Controllers\SHU\InputDataMonev\RealisasiAnggaranAi\Regional3RealisasiAnggaranAiController;
+use App\Http\Controllers\SHU\InputDataMonev\RealisasiAnggaranAi\Regional4RealisasiAnggaranAiController;
+use App\Http\Controllers\SHU\InputDataMonev\RealisasiProgressFisikAi\Regional1RealisasiProgresFisikAiController;
+use App\Http\Controllers\SHU\InputDataMonev\RealisasiProgressFisikAi\Regional2RealisasiProgresFisikAiController;
+use App\Http\Controllers\SHU\InputDataMonev\RealisasiProgressFisikAi\Regional3RealisasiProgresFisikAiController;
+use App\Http\Controllers\SHU\InputDataMonev\RealisasiProgressFisikAi\Regional4RealisasiProgresFisikAiController;
 use App\Http\Controllers\SHU\InputDataMonev\RencanaPemeliharaan\Regional1RencanaPemeliharaanController;
 use App\Http\Controllers\SHU\InputDataMonev\RencanaPemeliharaan\Regional2RencanaPemeliharaanController;
 use App\Http\Controllers\SHU\InputDataMonev\RencanaPemeliharaan\Regional3RencanaPemeliharaanController;
@@ -3830,11 +3842,107 @@ Route::prefix('monev/shu/input-data/mandatory-certification-regional-4')->group(
     Route::delete('/{id}', [Regional4MandatoryCertificationController::class, 'destroy'])->name('mandatory-certification-regional-4.destroy');
 });
 
+// Regional1KondisiVacantAimsController
+Route::prefix('monev/shu/input-data/kondisi-vacant-fungsi-aims-regional-1')->group(function () {
+    Route::get('/', [Regional1KondisiVacantAimsController::class, 'index'])->name('kondisi-vacant-fungsi-aims-regional-1');
+    Route::post('/', [Regional1KondisiVacantAimsController::class, 'store'])->name('kondisi-vacant-fungsi-aims-regional-1.store');
+    Route::get('/data', [Regional1KondisiVacantAimsController::class, 'data'])->name('kondisi-vacant-fungsi-aims-regional-1.data');
+    Route::put('/{id}', [Regional1KondisiVacantAimsController::class, 'update'])->name('kondisi-vacant-fungsi-aims-regional-1.update');
+    Route::delete('/{id}', [Regional1KondisiVacantAimsController::class, 'destroy'])->name('kondisi-vacant-fungsi-aims-regional-1.destroy');
+});
+
+// Regional2KondisiVacantAimsController
+Route::prefix('monev/shu/input-data/kondisi-vacant-fungsi-aims-regional-2')->group(function () {
+    Route::get('/', [Regional2KondisiVacantAimsController::class, 'index'])->name('kondisi-vacant-fungsi-aims-regional-2');
+    Route::post('/', [Regional2KondisiVacantAimsController::class, 'store'])->name('kondisi-vacant-fungsi-aims-regional-2.store');
+    Route::get('/data', [Regional2KondisiVacantAimsController::class, 'data'])->name('kondisi-vacant-fungsi-aims-regional-2.data');
+    Route::put('/{id}', [Regional2KondisiVacantAimsController::class, 'update'])->name('kondisi-vacant-fungsi-aims-regional-2.update');
+    Route::delete('/{id}', [Regional2KondisiVacantAimsController::class, 'destroy'])->name('kondisi-vacant-fungsi-aims-regional-2.destroy');
+});
+
+// Regional3KondisiVacantAimsController
+Route::prefix('monev/shu/input-data/kondisi-vacant-fungsi-aims-regional-3')->group(function () {
+    Route::get('/', [Regional3KondisiVacantAimsController::class, 'index'])->name('kondisi-vacant-fungsi-aims-regional-3');
+    Route::post('/', [Regional3KondisiVacantAimsController::class, 'store'])->name('kondisi-vacant-fungsi-aims-regional-3.store');
+    Route::get('/data', [Regional3KondisiVacantAimsController::class, 'data'])->name('kondisi-vacant-fungsi-aims-regional-3.data');
+    Route::put('/{id}', [Regional3KondisiVacantAimsController::class, 'update'])->name('kondisi-vacant-fungsi-aims-regional-3.update');
+    Route::delete('/{id}', [Regional3KondisiVacantAimsController::class, 'destroy'])->name('kondisi-vacant-fungsi-aims-regional-3.destroy');
+});
+
+// Regional4KondisiVacantAimsController
+Route::prefix('monev/shu/input-data/kondisi-vacant-fungsi-aims-regional-4')->group(function () {
+    Route::get('/', [Regional4KondisiVacantAimsController::class, 'index'])->name('kondisi-vacant-fungsi-aims-regional-4');
+    Route::post('/', [Regional4KondisiVacantAimsController::class, 'store'])->name('kondisi-vacant-fungsi-aims-regional-4.store');
+    Route::get('/data', [Regional4KondisiVacantAimsController::class, 'data'])->name('kondisi-vacant-fungsi-aims-regional-4.data');
+    Route::put('/{id}', [Regional4KondisiVacantAimsController::class, 'update'])->name('kondisi-vacant-fungsi-aims-regional-4.update');
+    Route::delete('/{id}', [Regional4KondisiVacantAimsController::class, 'destroy'])->name('kondisi-vacant-fungsi-aims-regional-4.destroy');
+});
+Route::prefix('monev/shu/input-data/realisasi-anggaran-ai-regional-1')->group(function () {
+    Route::get('/', [Regional1RealisasiAnggaranAiController::class, 'index'])->name('realisasi-anggaran-ai-regional-1');
+    Route::post('/', [Regional1RealisasiAnggaranAiController::class, 'store'])->name('realisasi-anggaran-ai-regional-1.store');
+    Route::get('/data', [Regional1RealisasiAnggaranAiController::class, 'data'])->name('realisasi-anggaran-ai-regional-1.data');
+    Route::put('/{id}', [Regional1RealisasiAnggaranAiController::class, 'update'])->name('realisasi-anggaran-ai-regional-1.update');
+    Route::delete('/{id}', [Regional1RealisasiAnggaranAiController::class, 'destroy'])->name('realisasi-anggaran-ai-regional-1.destroy');
+});
+
+Route::prefix('monev/shu/input-data/realisasi-anggaran-ai-regional-2')->group(function () {
+    Route::get('/', [Regional2RealisasiAnggaranAiController::class, 'index'])->name('realisasi-anggaran-ai-regional-2');
+    Route::post('/', [Regional2RealisasiAnggaranAiController::class, 'store'])->name('realisasi-anggaran-ai-regional-2.store');
+    Route::get('/data', [Regional2RealisasiAnggaranAiController::class, 'data'])->name('realisasi-anggaran-ai-regional-2.data');
+    Route::put('/{id}', [Regional2RealisasiAnggaranAiController::class, 'update'])->name('realisasi-anggaran-ai-regional-2.update');
+    Route::delete('/{id}', [Regional2RealisasiAnggaranAiController::class, 'destroy'])->name('realisasi-anggaran-ai-regional-2.destroy');
+});
+
+Route::prefix('monev/shu/input-data/realisasi-anggaran-ai-regional-3')->group(function () {
+    Route::get('/', [Regional3RealisasiAnggaranAiController::class, 'index'])->name('realisasi-anggaran-ai-regional-3');
+    Route::post('/', [Regional3RealisasiAnggaranAiController::class, 'store'])->name('realisasi-anggaran-ai-regional-3.store');
+    Route::get('/data', [Regional3RealisasiAnggaranAiController::class, 'data'])->name('realisasi-anggaran-ai-regional-3.data');
+    Route::put('/{id}', [Regional3RealisasiAnggaranAiController::class, 'update'])->name('realisasi-anggaran-ai-regional-3.update');
+    Route::delete('/{id}', [Regional3RealisasiAnggaranAiController::class, 'destroy'])->name('realisasi-anggaran-ai-regional-3.destroy');
+});
+
+Route::prefix('monev/shu/input-data/realisasi-anggaran-ai-regional-4')->group(function () {
+    Route::get('/', [Regional4RealisasiAnggaranAiController::class, 'index'])->name('realisasi-anggaran-ai-regional-4');
+    Route::post('/', [Regional4RealisasiAnggaranAiController::class, 'store'])->name('realisasi-anggaran-ai-regional-4.store');
+    Route::get('/data', [Regional4RealisasiAnggaranAiController::class, 'data'])->name('realisasi-anggaran-ai-regional-4.data');
+    Route::put('/{id}', [Regional4RealisasiAnggaranAiController::class, 'update'])->name('realisasi-anggaran-ai-regional-4.update');
+    Route::delete('/{id}', [Regional4RealisasiAnggaranAiController::class, 'destroy'])->name('realisasi-anggaran-ai-regional-4.destroy');
+});
+
+Route::prefix('monev/shu/input-data/realisasi-progres-fisik-ai-regional-1')->group(function () {
+    Route::get('/', [Regional1RealisasiProgresFisikAiController::class, 'index'])->name('realisasi-progres-fisik-ai-regional-1');
+    Route::post('/', [Regional1RealisasiProgresFisikAiController::class, 'store'])->name('realisasi-progres-fisik-ai-regional-1.store');
+    Route::get('/data', [Regional1RealisasiProgresFisikAiController::class, 'data'])->name('realisasi-progres-fisik-ai-regional-1.data');
+    Route::put('/{id}', [Regional1RealisasiProgresFisikAiController::class, 'update'])->name('realisasi-progres-fisik-ai-regional-1.update');
+    Route::delete('/{id}', [Regional1RealisasiProgresFisikAiController::class, 'destroy'])->name('realisasi-progres-fisik-ai-regional-1.destroy');
+});
+
+Route::prefix('monev/shu/input-data/realisasi-progres-fisik-ai-regional-2')->group(function () {
+    Route::get('/', [Regional2RealisasiProgresFisikAiController::class, 'index'])->name('realisasi-progres-fisik-ai-regional-2');
+    Route::post('/', [Regional2RealisasiProgresFisikAiController::class, 'store'])->name('realisasi-progres-fisik-ai-regional-2.store');
+    Route::get('/data', [Regional2RealisasiProgresFisikAiController::class, 'data'])->name('realisasi-progres-fisik-ai-regional-2.data');
+    Route::put('/{id}', [Regional2RealisasiProgresFisikAiController::class, 'update'])->name('realisasi-progres-fisik-ai-regional-2.update');
+    Route::delete('/{id}', [Regional2RealisasiProgresFisikAiController::class, 'destroy'])->name('realisasi-progres-fisik-ai-regional-2.destroy');
+});
+
+Route::prefix('monev/shu/input-data/realisasi-progres-fisik-ai-regional-3')->group(function () {
+    Route::get('/', [Regional3RealisasiProgresFisikAiController::class, 'index'])->name('realisasi-progres-fisik-ai-regional-3');
+    Route::post('/', [Regional3RealisasiProgresFisikAiController::class, 'store'])->name('realisasi-progres-fisik-ai-regional-3.store');
+    Route::get('/data', [Regional3RealisasiProgresFisikAiController::class, 'data'])->name('realisasi-progres-fisik-ai-regional-3.data');
+    Route::put('/{id}', [Regional3RealisasiProgresFisikAiController::class, 'update'])->name('realisasi-progres-fisik-ai-regional-3.update');
+    Route::delete('/{id}', [Regional3RealisasiProgresFisikAiController::class, 'destroy'])->name('realisasi-progres-fisik-ai-regional-3.destroy');
+});
+
+Route::prefix('monev/shu/input-data/realisasi-progres-fisik-ai-regional-4')->group(function () {
+    Route::get('/', [Regional4RealisasiProgresFisikAiController::class, 'index'])->name('realisasi-progres-fisik-ai-regional-4');
+    Route::post('/', [Regional4RealisasiProgresFisikAiController::class, 'store'])->name('realisasi-progres-fisik-ai-regional-4.store');
+    Route::get('/data', [Regional4RealisasiProgresFisikAiController::class, 'data'])->name('realisasi-progres-fisik-ai-regional-4.data');
+    Route::put('/{id}', [Regional4RealisasiProgresFisikAiController::class, 'update'])->name('realisasi-progres-fisik-ai-regional-4.update');
+    Route::delete('/{id}', [Regional4RealisasiProgresFisikAiController::class, 'destroy'])->name('realisasi-progres-fisik-ai-regional-4.destroy');
+});
 
 
-
-
-
+ 
 
 
 Route::middleware(['auth'])->group(function () {
