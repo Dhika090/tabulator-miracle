@@ -573,142 +573,231 @@
                             title: "Jumlah",
                             field: "jumlah",
                             editor: "number",
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
                             hozAlign: "center"
                         },
                         {
-                            title: "SECE Low Breakdown",
+                            title: "SECE Low Integrity - Breakdown",
                             field: "sece_low_breakdown",
                             editor: "number",
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
                             hozAlign: "center"
                         },
                         {
-                            title: "SECE Medium Due Date Inspection",
+                            title: "SECE Medium Integrity - Due Date Inspection",
                             field: "sece_medium_due_date_inspection",
                             editor: "number",
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
                             hozAlign: "center"
                         },
                         {
-                            title: "SECE Medium Low Condition",
+                            title: "SECE Medium Integrity - Low Condition",
                             field: "sece_medium_low_condition",
                             editor: "number",
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
                             hozAlign: "center"
                         },
                         {
-                            title: "SECE Medium Low Performance",
+                            title: "SECE Medium Integrity - Low Performance",
                             field: "sece_medium_low_performance",
                             editor: "number",
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
                             hozAlign: "center"
                         },
                         {
-                            title: "SECE High",
+                            title: "SECE High Integrity",
                             field: "sece_high",
                             editor: "number",
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
                             hozAlign: "center"
                         },
                         {
-                            title: "PCE Low Breakdown",
+                            title: "PCE Low Integrity - Breakdown",
                             field: "pce_low_breakdown",
                             editor: "number",
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
                             hozAlign: "center"
                         },
                         {
-                            title: "PCE Medium Due Date Inspection",
+                            title: "PCE Medium Integrity - Due Date Inspection",
                             field: "pce_medium_due_date_inspection",
                             editor: "number",
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
                             hozAlign: "center"
                         },
                         {
-                            title: "PCE Medium Low Condition",
+                            title: "PCE Medium Integrity - Low Condition",
                             field: "pce_medium_low_condition",
                             editor: "number",
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
                             hozAlign: "center"
                         },
                         {
-                            title: "PCE Medium Low Performance",
+                            title: "PCE Medium Integrity - Low Performance",
                             field: "pce_medium_low_performance",
                             editor: "number",
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
                             hozAlign: "center"
                         },
                         {
-                            title: "PCE High",
+                            title: "PCE High Integrity",
                             field: "pce_high",
                             editor: "number",
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
                             hozAlign: "center"
                         },
                         {
-                            title: "IMPORTANT Low Breakdown",
+                            title: "IMPORTANT Low Integrity - Breakdown",
                             field: "important_low_breakdown",
                             editor: "number",
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
                             hozAlign: "center"
                         },
                         {
-                            title: "IMPORTANT Medium Due Date Inspection",
+                            title: "IMPORTANT Medium Integrity - Due Date Inspection",
                             field: "important_medium_due_date_inspection",
                             editor: "number",
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
                             hozAlign: "center"
                         },
                         {
-                            title: "IMPORTANT Medium Low Condition",
+                            title: "IMPORTANT Medium Integrity - Low Condition",
                             field: "important_medium_low_condition",
                             editor: "number",
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
                             hozAlign: "center"
                         },
                         {
-                            title: "IMPORTANT Medium Low Performance",
+                            title: "IMPORTANT Medium Integrity - Low Performance",
                             field: "important_medium_low_performance",
                             editor: "number",
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
                             hozAlign: "center"
                         },
                         {
-                            title: "IMPORTANT High",
+                            title: "IMPORTANT High Integrity",
                             field: "important_high",
                             editor: "number",
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
                             hozAlign: "center"
                         },
                         {
-                            title: "SECONDARY Low Breakdown",
+                            title: "SECONDARY Low Integrity - Breakdown",
                             field: "secondary_low_breakdown",
                             editor: "number",
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
                             hozAlign: "center"
                         },
                         {
-                            title: "SECONDARY Medium Due Date Inspection",
+                            title: "SECONDARY Medium Integrity - Due Date Inspection",
                             field: "secondary_medium_due_date_inspection",
                             editor: "number",
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
                             hozAlign: "center"
                         },
                         {
-                            title: "SECONDARY Medium Low Condition",
+                            title: "SECONDARY Medium Integrity - Low Condition",
                             field: "secondary_medium_low_condition",
                             editor: "number",
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
                             hozAlign: "center"
                         },
                         {
-                            title: "SECONDARY Medium Low Performance",
+                            title: "SECONDARY Medium Integrity - Low Performance",
                             field: "secondary_medium_low_performance",
                             editor: "number",
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
                             hozAlign: "center"
                         },
                         {
-                            title: "SECONDARY High",
+                            title: "SECONDARY High Integrity",
                             field: "secondary_high",
                             editor: "number",
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
                             hozAlign: "center"
                         },
                         {
                             title: "Kegiatan Penurunan Low",
                             field: "kegiatan_penurunan_low",
-                            editor: "number"
+                            editor: "number",
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
+                            hozAlign: "center"
                         },
                         {
                             title: "Kegiatan Penurunan Med",
                             field: "kegiatan_penurunan_med",
                             editor: "number",
-                            // formatter: function(cell) {
-                            //     let value = cell.getValue();
-                            //     if (value === null || value === undefined || value === '') return '';
-                            //     return parseFloat(value).toFixed(2);
-                            // }
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
+                            hozAlign: "center"
                         },
                         {
                             title: "Informasi Penyebab Low Integrity",

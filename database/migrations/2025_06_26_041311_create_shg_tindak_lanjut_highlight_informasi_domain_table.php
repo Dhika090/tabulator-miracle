@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('shg_hasil_monev', function (Blueprint $table) {
+        Schema::create('shg_tindak_lanjut_highlight_informasi_domain', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('periode');
-            $table->integer('no');
-            $table->string('bahasan');
-            $table->string('rtl');
-            $table->string('progress');
+            $table->string('periode')->nullable();
+            $table->integer('no')->nullable();
+            $table->text('highlight')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('shg_hasil_monev');
+        Schema::dropIfExists('shg_tindak_lanjut_highlight_informasi_domain');
     }
 };

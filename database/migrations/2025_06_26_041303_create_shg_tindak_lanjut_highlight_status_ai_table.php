@@ -11,14 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('shg_target_sap_asset', function (Blueprint $table) {
+        Schema::create('shg_tindak_lanjut_highlight_status_ai', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('periode');
-            $table->string('company');
-            $table->string('subholding');
-            $table->string('unit');
-            $table->integer('jumlah_unit_harus_di_benahi');
-            $table->integer('jumlah_unit_sedang_di_benahi');
+            $table->string('periode')->nullable();
+            $table->integer('no')->nullable();
+            $table->text('highlight')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('shg_target_sap_asset');
+        Schema::dropIfExists('shg_tindak_lanjut_highlight_status_ai');
     }
 };

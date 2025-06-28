@@ -159,5 +159,66 @@ class ViewServiceProvider extends ServiceProvider
 
             $view->with('tabs', $tabs);
         });
+
+        View::composer('*', function ($view) {
+            $routeName = optional(request()->route())->getName();
+            if (!$routeName || !str_contains($routeName, 'sap-asset-regional-1')) return;
+
+            $tabs = collect(config('shu-sap-asset'))->map(function ($tab) {
+                return [
+                    'title' => $tab['title'],
+                    'route' => route($tab['route']),
+                    'active' => request()->routeIs($tab['route']),
+                ];
+            })->toArray();
+
+            $view->with('tabs', $tabs);
+        });
+
+        View::composer('*', function ($view) {
+            $routeName = optional(request()->route())->getName();
+            if (!$routeName || !str_contains($routeName, 'status-ai-regional-1')) return;
+
+            $tabs = collect(config('shu-status-ai'))->map(function ($tab) {
+                return [
+                    'title' => $tab['title'],
+                    'route' => route($tab['route']),
+                    'active' => request()->routeIs($tab['route']),
+                ];
+            })->toArray();
+
+            $view->with('tabs', $tabs);
+        });
+
+        View::composer('*', function ($view) {
+            $routeName = optional(request()->route())->getName();
+            if (!$routeName || !str_contains($routeName, 'status-plo-regional-1')) return;
+
+            $tabs = collect(config('shu-status-plo'))->map(function ($tab) {
+                return [
+                    'title' => $tab['title'],
+                    'route' => route($tab['route']),
+                    'active' => request()->routeIs($tab['route']),
+                ];
+            })->toArray();
+
+            $view->with('tabs', $tabs);
+        });
+
+        // SHG TIndak Lanjut
+        View::composer('*', function ($view) {
+            $routeName = optional(request()->route())->getName();
+            if (!$routeName || !str_contains($routeName, 'tindak-lanjut-hasil-monev')) return;
+
+            $tabs = collect(config('shg-tindak-lanjut-hasil-monev'))->map(function ($tab) {
+                return [
+                    'title' => $tab['title'],
+                    'route' => route($tab['route']),
+                    'active' => request()->routeIs($tab['route']),
+                ];
+            })->toArray();
+
+            $view->with('tabs', $tabs);
+        });
     }
 }

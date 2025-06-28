@@ -22,12 +22,12 @@ class SHGTargetSapAssetRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'periode' => 'required|string|max:255',
-            'company' => 'required|string|max:255',
-            'subholding' => 'required|string|max:255',
-            'unit' => 'required|string|min:0',
-            'jumlah_unit_harus_di_benahi' => 'required|integer|min:0',
-            'jumlah_unit_sedang_di_benahi' => 'required|integer|min:0',
+            'periode' => 'nullable|string|max:255',
+            'subholding' => 'nullable|string|max:255',
+            'company' => 'nullable|string|max:255',
+            'unit' => 'nullable|string|min:1',
+            'jumlah_unit_yang_harus_dibenahi' => 'nullable|integer|min:1',
+            'jumlah_unit_yang_sedang_dibenahi' => 'nullable|integer|min:0',
         ];
     }
 }

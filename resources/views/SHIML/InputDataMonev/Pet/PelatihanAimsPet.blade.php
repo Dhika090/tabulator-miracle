@@ -6,7 +6,8 @@
             .tabulator-wrapper {
                 overflow-x: auto;
             }
-  .toast-success {
+
+            .toast-success {
                 background-color: #28a745;
             }
 
@@ -222,7 +223,7 @@
     <div id="toastNotification"
         style="display:none; position: fixed; top: 20px; right: 20px; z-index: 9999; padding: 15px 20px; border-radius: 8px; color: white; font-weight: bold;">
     </div>
-    
+
     <div id="toastNotification"
         style="display:none; position: fixed; top: 20px; right: 20px; z-index: 9999; padding: 15px 20px; border-radius: 8px; color: white; font-weight: bold;">
     </div>
@@ -240,7 +241,7 @@
                                 "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
                             }
                         })
-                      .then(res => res.json())
+                        .then(res => res.json())
                         .then(result => {
                             showToast(result.message || "Data berhasil disimpan", "success");
                             loadData();
@@ -425,21 +426,21 @@
                             editor: "number",
                             hozAlign: "center"
                         },
-                     {
-    title: "Aksi",
-    download: false,
-    hozAlign: "center",
-    width: 150,
-    formatter: (cell) => {
-        const row = cell.getData();
-        return `
+                        {
+                            title: "Aksi",
+                            download: false,
+                            hozAlign: "center",
+                            width: 150,
+                            formatter: (cell) => {
+                                const row = cell.getData();
+                                return `
             <button onclick='deleteData("${row.id}")'
                 class="btn btn-sm btn-danger">
                 <i class="bi bi-trash"></i> Hapus
             </button>
         `;
-    }
-}
+                            }
+                        }
                     ]
                 };
 
@@ -577,7 +578,7 @@
 
         {{-- create data  --}}
         <script>
-           function showToast(message, type = "success") {
+            function showToast(message, type = "success") {
                 const toast = document.getElementById("toastNotification");
                 toast.textContent = message;
                 toast.className = "";
@@ -589,7 +590,7 @@
                 }, 3000);
             }
 
- function openModal() {
+            function openModal() {
                 document.getElementById("createModal").style.display = "block";
             }
 
@@ -622,11 +623,12 @@
                     })
                     .then(response => response.json())
                     .then(result => {
-                        if (result.success) {showToast(result.message || "Data berhasil disimpan", "success");
+                        if (result.success) {
+                            showToast(result.message || "Data berhasil disimpan", "success");
                             table.setData("/monev/shiml/input-data/pelatihan-aims-pet/data");
                             this.reset();
                             closeModal();
-                         } else {
+                        } else {
                             showToast(result.message || "Gagal menyimpan data", "error");
                         }
                     })

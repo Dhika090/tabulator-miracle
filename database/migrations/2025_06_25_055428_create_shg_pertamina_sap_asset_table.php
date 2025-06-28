@@ -4,7 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      */
@@ -23,11 +24,11 @@ return new class extends Migration {
             $table->integer('survey_lapangan')->nullable();
             $table->integer('pembenahan_funloc')->nullable();
             $table->integer('review_criticality')->nullable();
-            $table->integer('penyelarasan_dokumen')->nullable();
+            $table->integer('penyelarasan_dokumen_dan_lapangan')->nullable();
             $table->integer('melengkapi_tag_fisik')->nullable();
-            $table->integer('form_upload_data')->nullable();
-            $table->integer('request_master_data')->nullable();
-            $table->integer('update_master_data')->nullable();
+            $table->integer('mempersiapkan_form_upload_data')->nullable();
+            $table->integer('request_ke_master_data')->nullable();
+            $table->integer('update_di_master_data')->nullable();
             $table->string('kendala')->nullable();
             $table->string('tindak_lanjut')->nullable();
             $table->timestamps();

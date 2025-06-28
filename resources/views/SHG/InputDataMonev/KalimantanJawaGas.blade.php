@@ -795,7 +795,13 @@
                             width: 450
                         },
                         {
-                            title: "Informasi Naik Turun low Integrity",
+                            title: "Informasi Penambahan Jumlah Aset",
+                            field: "penambahan_jumlah_aset",
+                            editor: "input",
+                            width: 450
+                        },
+                        {
+                            title: "Informasi Naik Turun Low Integrity",
                             field: "naik_turun_low_integrity",
                             editor: "input",
                             width: 450

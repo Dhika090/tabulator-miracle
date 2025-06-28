@@ -128,16 +128,43 @@ class PertaminaGasController extends Controller
 
         $data = $request->validated();
 
-        if (isset($data['kegiatan_penurunan_low'])) {
-            $data['kegiatan_penurunan_low'] = intval($data['kegiatan_penurunan_low']);
+        $intFields = [
+            'jumlah',
+
+            'sece_low_breakdown',
+            'sece_medium_due_date_inspection',
+            'sece_medium_low_condition',
+            'sece_medium_low_performance',
+            'sece_high',
+
+            'pce_low_breakdown',
+            'pce_medium_due_date_inspection',
+            'pce_medium_low_condition',
+            'pce_medium_low_performance',
+            'pce_high',
+
+            'important_low_breakdown',
+            'important_medium_due_date_inspection',
+            'important_medium_low_condition',
+            'important_medium_low_performance',
+            'important_high',
+
+            'secondary_low_breakdown',
+            'secondary_medium_due_date_inspection',
+            'secondary_medium_low_condition',
+            'secondary_medium_low_performance',
+            'secondary_high',
+
+            'kegiatan_penurunan_low',
+            'kegiatan_penurunan_med',
+
+        ];
+
+        foreach ($intFields as $field) {
+            if (isset($data[$field])) {
+                $data[$field] = (int) $data[$field];
+            }
         }
-
-        if (isset($data['kegiatan_penurunan_med'])) {
-            $data['kegiatan_penurunan_med'] = intval($data['kegiatan_penurunan_med']);
-        }
-
-        // Tambahkan juga jika ada field serupa lainnya
-
         $progress->update($data);
 
         return response()->json(['success' => true, 'message' => 'Data berhasil diupdate']);

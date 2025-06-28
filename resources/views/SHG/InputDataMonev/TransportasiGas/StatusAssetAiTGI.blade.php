@@ -3,7 +3,7 @@
     @push('styles')
         <link href="https://unpkg.com/tabulator-tables@5.6.0/dist/css/tabulator.min.css" rel="stylesheet">
         <style>
-          .tabulator-wrapper {
+            .tabulator-wrapper {
                 overflow-x: auto;
             }
 
@@ -317,7 +317,7 @@
         </div>
     </div>
 
-    
+
     <div id="toastNotification"
         style="display:none; position: fixed; top: 20px; right: 20px; z-index: 9999; padding: 15px 20px; border-radius: 8px; color: white; font-weight: bold;">
     </div>
@@ -811,7 +811,8 @@
                         {
                             title: "Informasi Penambahan Jumlah Aset",
                             field: "informasi_penambahan_jumlah_aset",
-                            editor: "input"
+                            editor: "input",
+                            width: 450
                         },
                         {
                             title: "Informasi Naik Turun low Integrity",
@@ -820,20 +821,20 @@
                             width: 450
                         },
                         {
-    title: "Aksi",
-    download: false,
-    hozAlign: "center",
-    width: 150,
-    formatter: (cell) => {
-        const row = cell.getData();
-        return `
+                            title: "Aksi",
+                            download: false,
+                            hozAlign: "center",
+                            width: 150,
+                            formatter: (cell) => {
+                                const row = cell.getData();
+                                return `
             <button onclick='deleteData("${row.id}")'
                 class="btn btn-sm btn-danger">
                 <i class="bi bi-trash"></i> Hapus
             </button>
         `;
-    }
-}
+                            }
+                        }
                     ]
                 };
 
@@ -970,7 +971,7 @@
 
         {{-- create and update data --}}
         <script>
-             function showToast(message, type = "success") {
+            function showToast(message, type = "success") {
                 const toast = document.getElementById("toastNotification");
                 toast.textContent = message;
                 toast.className = "";
@@ -1047,7 +1048,7 @@
                             table.setData("/monev/shg/input-data/transportasi-gas-indonesia/data");
                             this.reset();
                             closeModal();
-                       } else {
+                        } else {
                             showToast(result.message || "Gagal menyimpan data", "error");
                         }
                     })

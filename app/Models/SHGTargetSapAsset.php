@@ -22,10 +22,10 @@ class SHGTargetSapAsset extends Model
     protected $table = 'shg_target_sap_asset';
     protected $fillable = [
         'periode',
-        'company',
         'subholding',
+        'company',
         'unit',
-        'jumlah_unit_harus_di_benahi',
-        'jumlah_unit_sedang_di_benahi',
+        'jumlah_unit_yang_harus_dibenahi',
+        'jumlah_unit_yang_sedang_dibenahi',
     ];
 }

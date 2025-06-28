@@ -580,7 +580,7 @@
                         },
                         {
                             title: "SECE Low Integrity - Breakdown",
-                            field: "sece_low_integrity_breakdown",
+                            field: "sece_low_breakdown",
                             editor: "number",
                             editorParams: {
                                 step: 1,
@@ -620,7 +620,7 @@
                         },
                         {
                             title: "SECE High Integrity",
-                            field: "sece_high_integrity",
+                            field: "sece_high",
                             editor: "number",
                             editorParams: {
                                 step: 1,
@@ -630,7 +630,7 @@
                         },
                         {
                             title: "PCE Low Integrity - Breakdown",
-                            field: "pce_low_integrity_breakdown",
+                            field: "pce_low_breakdown",
                             editor: "number",
                             editorParams: {
                                 step: 1,
@@ -670,7 +670,7 @@
                         },
                         {
                             title: "PCE High Integrity",
-                            field: "pce_high_integrity",
+                            field: "pce_high",
                             editor: "number",
                             editorParams: {
                                 step: 1,
@@ -680,7 +680,7 @@
                         },
                         {
                             title: "IMPORTANT Low Integrity - Breakdown",
-                            field: "important_low_integrity_breakdown",
+                            field: "important_low_breakdown",
                             editor: "number",
                             editorParams: {
                                 step: 1,
@@ -720,7 +720,7 @@
                         },
                         {
                             title: "IMPORTANT High Integrity",
-                            field: "important_high_integrity",
+                            field: "important_high",
                             editor: "number",
                             editorParams: {
                                 step: 1,
@@ -730,7 +730,7 @@
                         },
                         {
                             title: "SECONDARY Low Integrity - Breakdown",
-                            field: "secondary_low_integrity_breakdown",
+                            field: "secondary_low_breakdown",
                             editor: "number",
                             editorParams: {
                                 step: 1,
@@ -770,7 +770,7 @@
                         },
                         {
                             title: "SECONDARY High Integrity",
-                            field: "secondary_high_integrity",
+                            field: "secondary_high",
                             editor: "number",
                             editorParams: {
                                 step: 1,
@@ -800,21 +800,22 @@
                         },
                         {
                             title: "Informasi Penyebab Low Integrity",
-                            field: "informasi_penyebab_low_integrity",
+                            field: "penyebab_low_integrity",
                             editor: "input",
                             width: 450
                         },
                         {
                             title: "Informasi Penambahan Jumlah Aset",
-                            field: "informasi_penambahan_jumlah_aset",
-                            editor: "input"
-                        },
-                        {
-                            title: "Informasi Naik Turun low Integrity",
-                            field: "informasi_naik_turun_low_integrity",
+                            field: "penambahan_jumlah_aset",
                             editor: "input",
                             width: 450
                         },
+                        {
+                            title: "Informasi Naik Turun Low Integrity",
+                            field: "naik_turun_low_integrity",
+                            editor: "input",
+                            width: 450
+                        },  
                         {
                             title: "Aksi",
                             download: false,

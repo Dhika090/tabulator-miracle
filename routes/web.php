@@ -204,6 +204,12 @@ use App\Http\Controllers\SHG\InputTargetKinerja\StatusAssetInteregrityController
 use App\Http\Controllers\SHG\InputTArgetKinerja\Target2025KPIController;
 use App\Http\Controllers\SHG\InputTargetKinerja\TargetSAPController;
 use App\Http\Controllers\SHG\InputTargetKinerja\TargetStatusAssetController;
+use App\Http\Controllers\SHG\InputTargetKinerja\Tl\HasilMonevTlController;
+use App\Http\Controllers\SHG\InputTargetKinerja\Tl\HighligtInformasiDomainTlController;
+use App\Http\Controllers\SHG\InputTargetKinerja\Tl\HighligtMandatoryCertificationTlController;
+use App\Http\Controllers\SHG\InputTargetKinerja\Tl\HighligtRealisasiAimsTlController;
+use App\Http\Controllers\SHG\InputTargetKinerja\Tl\HighligtStatusaiTlController;
+use App\Http\Controllers\SHG\InputTargetKinerja\Tl\HighligtStatusPloTlController;
 use App\Http\Controllers\SHG\KpiAssetIntegrityController;
 use App\Http\Controllers\SHG\TargetMandatoryCertificationController;
 use App\Http\Controllers\SHG\TargetSapAssetController;
@@ -418,10 +424,22 @@ use App\Http\Controllers\SHU\InputDataMonev\RencanaPemeliharaan\Regional1Rencana
 use App\Http\Controllers\SHU\InputDataMonev\RencanaPemeliharaan\Regional2RencanaPemeliharaanController;
 use App\Http\Controllers\SHU\InputDataMonev\RencanaPemeliharaan\Regional3RencanaPemeliharaanController;
 use App\Http\Controllers\SHU\InputDataMonev\RencanaPemeliharaan\Regional4RencanaPemeliharaanController;
+use App\Http\Controllers\SHU\InputDataMonev\SapAsset\Regional1SapAssetController;
+use App\Http\Controllers\SHU\InputDataMonev\SapAsset\Regional2SapAssetController;
+use App\Http\Controllers\SHU\InputDataMonev\SapAsset\Regional3SapAssetController;
+use App\Http\Controllers\SHU\InputDataMonev\SapAsset\Regional4SapAssetController;
 use App\Http\Controllers\SHU\InputDataMonev\SistemInformasi\Regional1SistemInformasiController;
 use App\Http\Controllers\SHU\InputDataMonev\SistemInformasi\Regional2SistemInformasiController;
 use App\Http\Controllers\SHU\InputDataMonev\SistemInformasi\Regional3SistemInformasiController;
 use App\Http\Controllers\SHU\InputDataMonev\SistemInformasi\Regional4SistemInformasiController;
+use App\Http\Controllers\SHU\InputDataMonev\StatusAi\Regional1StatusAiController;
+use App\Http\Controllers\SHU\InputDataMonev\StatusAi\Regional2StatusAiController;
+use App\Http\Controllers\SHU\InputDataMonev\StatusAi\Regional3StatusAiController;
+use App\Http\Controllers\SHU\InputDataMonev\StatusAi\Regional4StatusAiController;
+use App\Http\Controllers\SHU\InputDataMonev\StatusPlo\Regional1StatusPloController;
+use App\Http\Controllers\SHU\InputDataMonev\StatusPlo\Regional2StatusPloController;
+use App\Http\Controllers\SHU\InputDataMonev\StatusPlo\Regional3StatusPloController;
+use App\Http\Controllers\SHU\InputDataMonev\StatusPlo\Regional4StatusPloController;
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
@@ -502,11 +520,14 @@ Route::prefix('monev/shg/kinerja/kpi-asset-integrity')->group(function () {
     Route::get('/data', [KpiAssetIntegrityController::class, 'getData'])->name('kpi-asset-integrity.data');
 });
 
-Route::prefix('monev/shg/kinerja/sap')->group(function () {
-    Route::get('/', [TargetSapAssetController::class, 'index'])->name('sap');
-    Route::post('/', [TargetSapAssetController::class, 'store'])->name('sap');
-    Route::get('/data', [TargetSapAssetController::class, 'getData'])->name('sap.data');
+Route::prefix('monev/shg/kinerja/target-sap-asset')->group(function () {
+    Route::get('/', [TargetSapAssetController::class, 'index'])->name('target-sap-asset');
+    Route::post('/', [TargetSapAssetController::class, 'store'])->name('target-sap-asset.store');
+    Route::get('/data', [TargetSapAssetController::class, 'data'])->name('target-sap-asset.data');
+    Route::put('/{id}', [TargetSapAssetController::class, 'update'])->name('target-sap-asset.update');
+    Route::delete('/{id}', [TargetSapAssetController::class, 'destroy'])->name('target-sap-asset.destroy');
 });
+
 
 Route::prefix('monev/shg/kinerja/mandatory-certification')->group(function () {
     Route::get('/', [TargetMandatoryCertificationController::class, 'index'])->name('mandatory-certification');
@@ -3941,10 +3962,149 @@ Route::prefix('monev/shu/input-data/realisasi-progres-fisik-ai-regional-4')->gro
     Route::delete('/{id}', [Regional4RealisasiProgresFisikAiController::class, 'destroy'])->name('realisasi-progres-fisik-ai-regional-4.destroy');
 });
 
+Route::prefix('monev/shu/input-data/sap-asset-regional-1')->group(function () {
+    Route::get('/', [Regional1SapAssetController::class, 'index'])->name('sap-asset-regional-1');
+    Route::post('/', [Regional1SapAssetController::class, 'store'])->name('sap-asset-regional-1.store');
+    Route::get('/data', [Regional1SapAssetController::class, 'data'])->name('sap-asset-regional-1.data');
+    Route::put('/{id}', [Regional1SapAssetController::class, 'update'])->name('sap-asset-regional-1.update');
+    Route::delete('/{id}', [Regional1SapAssetController::class, 'destroy'])->name('sap-asset-regional-1.destroy');
+});
 
- 
+Route::prefix('monev/shu/input-data/sap-asset-regional-2')->group(function () {
+    Route::get('/', [Regional2SapAssetController::class, 'index'])->name('sap-asset-regional-2');
+    Route::post('/', [Regional2SapAssetController::class, 'store'])->name('sap-asset-regional-2.store');
+    Route::get('/data', [Regional2SapAssetController::class, 'data'])->name('sap-asset-regional-2.data');
+    Route::put('/{id}', [Regional2SapAssetController::class, 'update'])->name('sap-asset-regional-2.update');
+    Route::delete('/{id}', [Regional2SapAssetController::class, 'destroy'])->name('sap-asset-regional-2.destroy');
+});
 
+Route::prefix('monev/shu/input-data/sap-asset-regional-3')->group(function () {
+    Route::get('/', [Regional3SapAssetController::class, 'index'])->name('sap-asset-regional-3');
+    Route::post('/', [Regional3SapAssetController::class, 'store'])->name('sap-asset-regional-3.store');
+    Route::get('/data', [Regional3SapAssetController::class, 'data'])->name('sap-asset-regional-3.data');
+    Route::put('/{id}', [Regional3SapAssetController::class, 'update'])->name('sap-asset-regional-3.update');
+    Route::delete('/{id}', [Regional3SapAssetController::class, 'destroy'])->name('sap-asset-regional-3.destroy');
+});
 
+Route::prefix('monev/shu/input-data/sap-asset-regional-4')->group(function () {
+    Route::get('/', [Regional4SapAssetController::class, 'index'])->name('sap-asset-regional-4');
+    Route::post('/', [Regional4SapAssetController::class, 'store'])->name('sap-asset-regional-4.store');
+    Route::get('/data', [Regional4SapAssetController::class, 'data'])->name('sap-asset-regional-4.data');
+    Route::put('/{id}', [Regional4SapAssetController::class, 'update'])->name('sap-asset-regional-4.update');
+    Route::delete('/{id}', [Regional4SapAssetController::class, 'destroy'])->name('sap-asset-regional-4.destroy');
+});
+
+Route::prefix('monev/shu/input-data/status-ai-regional-1')->group(function () {
+    Route::get('/', [Regional1StatusAiController::class, 'index'])->name('status-ai-regional-1');
+    Route::post('/', [Regional1StatusAiController::class, 'store'])->name('status-ai-regional-1.store');
+    Route::get('/data', [Regional1StatusAiController::class, 'data'])->name('status-ai-regional-1.data');
+    Route::put('/{id}', [Regional1StatusAiController::class, 'update'])->name('status-ai-regional-1.update');
+    Route::delete('/{id}', [Regional1StatusAiController::class, 'destroy'])->name('status-ai-regional-1.destroy');
+});
+
+Route::prefix('monev/shu/input-data/status-ai-regional-2')->group(function () {
+    Route::get('/', [Regional2StatusAiController::class, 'index'])->name('status-ai-regional-2');
+    Route::post('/', [Regional2StatusAiController::class, 'store'])->name('status-ai-regional-2.store');
+    Route::get('/data', [Regional2StatusAiController::class, 'data'])->name('status-ai-regional-2.data');
+    Route::put('/{id}', [Regional2StatusAiController::class, 'update'])->name('status-ai-regional-2.update');
+    Route::delete('/{id}', [Regional2StatusAiController::class, 'destroy'])->name('status-ai-regional-2.destroy');
+});
+
+Route::prefix('monev/shu/input-data/status-ai-regional-3')->group(function () {
+    Route::get('/', [Regional3StatusAiController::class, 'index'])->name('status-ai-regional-3');
+    Route::post('/', [Regional3StatusAiController::class, 'store'])->name('status-ai-regional-3.store');
+    Route::get('/data', [Regional3StatusAiController::class, 'data'])->name('status-ai-regional-3.data');
+    Route::put('/{id}', [Regional3StatusAiController::class, 'update'])->name('status-ai-regional-3.update');
+    Route::delete('/{id}', [Regional3StatusAiController::class, 'destroy'])->name('status-ai-regional-3.destroy');
+});
+
+Route::prefix('monev/shu/input-data/status-ai-regional-4')->group(function () {
+    Route::get('/', [Regional4StatusAiController::class, 'index'])->name('status-ai-regional-4');
+    Route::post('/', [Regional4StatusAiController::class, 'store'])->name('status-ai-regional-4.store');
+    Route::get('/data', [Regional4StatusAiController::class, 'data'])->name('status-ai-regional-4.data');
+    Route::put('/{id}', [Regional4StatusAiController::class, 'update'])->name('status-ai-regional-4.update');
+    Route::delete('/{id}', [Regional4StatusAiController::class, 'destroy'])->name('status-ai-regional-4.destroy');
+});
+Route::prefix('monev/shu/input-data/status-plo-regional-1')->group(function () {
+    Route::get('/', [Regional1StatusPloController::class, 'index'])->name('status-plo-regional-1');
+    Route::post('/', [Regional1StatusPloController::class, 'store'])->name('status-plo-regional-1.store');
+    Route::get('/data', [Regional1StatusPloController::class, 'data'])->name('status-plo-regional-1.data');
+    Route::put('/{id}', [Regional1StatusPloController::class, 'update'])->name('status-plo-regional-1.update');
+    Route::delete('/{id}', [Regional1StatusPloController::class, 'destroy'])->name('status-plo-regional-1.destroy');
+});
+
+Route::prefix('monev/shu/input-data/status-plo-regional-2')->group(function () {
+    Route::get('/', [Regional2StatusPloController::class, 'index'])->name('status-plo-regional-2');
+    Route::post('/', [Regional2StatusPloController::class, 'store'])->name('status-plo-regional-2.store');
+    Route::get('/data', [Regional2StatusPloController::class, 'data'])->name('status-plo-regional-2.data');
+    Route::put('/{id}', [Regional2StatusPloController::class, 'update'])->name('status-plo-regional-2.update');
+    Route::delete('/{id}', [Regional2StatusPloController::class, 'destroy'])->name('status-plo-regional-2.destroy');
+});
+
+Route::prefix('monev/shu/input-data/status-plo-regional-3')->group(function () {
+    Route::get('/', [Regional3StatusPloController::class, 'index'])->name('status-plo-regional-3');
+    Route::post('/', [Regional3StatusPloController::class, 'store'])->name('status-plo-regional-3.store');
+    Route::get('/data', [Regional3StatusPloController::class, 'data'])->name('status-plo-regional-3.data');
+    Route::put('/{id}', [Regional3StatusPloController::class, 'update'])->name('status-plo-regional-3.update');
+    Route::delete('/{id}', [Regional3StatusPloController::class, 'destroy'])->name('status-plo-regional-3.destroy');
+});
+
+Route::prefix('monev/shu/input-data/status-plo-regional-4')->group(function () {
+    Route::get('/', [Regional4StatusPloController::class, 'index'])->name('status-plo-regional-4');
+    Route::post('/', [Regional4StatusPloController::class, 'store'])->name('status-plo-regional-4.store');
+    Route::get('/data', [Regional4StatusPloController::class, 'data'])->name('status-plo-regional-4.data');
+    Route::put('/{id}', [Regional4StatusPloController::class, 'update'])->name('status-plo-regional-4.update');
+    Route::delete('/{id}', [Regional4StatusPloController::class, 'destroy'])->name('status-plo-regional-4.destroy');
+});
+
+// SHG Target Kinerja Tl
+Route::prefix('monev/shg/kinerja/tindak-lanjut-hasil-monev')->group(function () {
+    Route::get('/', [HasilMonevTlController::class, 'index'])->name('tindak-lanjut-hasil-monev');
+    Route::post('/', [HasilMonevTlController::class, 'store'])->name('tindak-lanjut-hasil-monev.store');
+    Route::get('/data', [HasilMonevTlController::class, 'data'])->name('tindak-lanjut-hasil-monev.data');
+    Route::put('/{id}', [HasilMonevTlController::class, 'update'])->name('tindak-lanjut-hasil-monev.update');
+    Route::delete('/{id}', [HasilMonevTlController::class, 'destroy'])->name('tindak-lanjut-hasil-monev.destroy');
+});
+
+Route::prefix('monev/shg/kinerja/tindak-lanjut-highlight-informasi-domain')->group(function () {
+    Route::get('/', [HighligtInformasiDomainTlController::class, 'index'])->name('tindak-lanjut-highlight-informasi-domain');
+    Route::post('/', [HighligtInformasiDomainTlController::class, 'store'])->name('tindak-lanjut-highlight-informasi-domain.store');
+    Route::get('/data', [HighligtInformasiDomainTlController::class, 'data'])->name('tindak-lanjut-highlight-informasi-domain.data');
+    Route::put('/{id}', [HighligtInformasiDomainTlController::class, 'update'])->name('tindak-lanjut-highlight-informasi-domain.update');
+    Route::delete('/{id}', [HighligtInformasiDomainTlController::class, 'destroy'])->name('tindak-lanjut-highlight-informasi-domain.destroy');
+});
+
+Route::prefix('monev/shg/kinerja/tindak-lanjut-highlight-mandatory-certification')->group(function () {
+    Route::get('/', [HighligtMandatoryCertificationTlController::class, 'index'])->name('tindak-lanjut-highlight-mandatory-certification');
+    Route::post('/', [HighligtMandatoryCertificationTlController::class, 'store'])->name('tindak-lanjut-highlight-mandatory-certification.store');
+    Route::get('/data', [HighligtMandatoryCertificationTlController::class, 'data'])->name('tindak-lanjut-highlight-mandatory-certification.data');
+    Route::put('/{id}', [HighligtMandatoryCertificationTlController::class, 'update'])->name('tindak-lanjut-highlight-mandatory-certification.update');
+    Route::delete('/{id}', [HighligtMandatoryCertificationTlController::class, 'destroy'])->name('tindak-lanjut-highlight-mandatory-certification.destroy');
+});
+
+Route::prefix('monev/shg/kinerja/tindak-lanjut-highlight-realisasi-aims')->group(function () {
+    Route::get('/', [HighligtRealisasiAimsTlController::class, 'index'])->name('tindak-lanjut-highlight-realisasi-aims');
+    Route::post('/', [HighligtRealisasiAimsTlController::class, 'store'])->name('tindak-lanjut-highlight-realisasi-aims.store');
+    Route::get('/data', [HighligtRealisasiAimsTlController::class, 'data'])->name('tindak-lanjut-highlight-realisasi-aims.data');
+    Route::put('/{id}', [HighligtRealisasiAimsTlController::class, 'update'])->name('tindak-lanjut-highlight-realisasi-aims.update');
+    Route::delete('/{id}', [HighligtRealisasiAimsTlController::class, 'destroy'])->name('tindak-lanjut-highlight-realisasi-aims.destroy');
+});
+
+Route::prefix('monev/shg/kinerja/tindak-lanjut-highlight-status-ai')->group(function () {
+    Route::get('/', [HighligtStatusaiTlController::class, 'index'])->name('tindak-lanjut-highlight-status-ai');
+    Route::post('/', [HighligtStatusaiTlController::class, 'store'])->name('tindak-lanjut-highlight-status-ai.store');
+    Route::get('/data', [HighligtStatusaiTlController::class, 'data'])->name('tindak-lanjut-highlight-status-ai.data');
+    Route::put('/{id}', [HighligtStatusaiTlController::class, 'update'])->name('tindak-lanjut-highlight-status-ai.update');
+    Route::delete('/{id}', [HighligtStatusaiTlController::class, 'destroy'])->name('tindak-lanjut-highlight-status-ai.destroy');
+});
+
+Route::prefix('monev/shg/kinerja/tindak-lanjut-highlight-status-plo')->group(function () {
+    Route::get('/', [HighligtStatusPloTlController::class, 'index'])->name('tindak-lanjut-highlight-status-plo');
+    Route::post('/', [HighligtStatusPloTlController::class, 'store'])->name('tindak-lanjut-highlight-status-plo.store');
+    Route::get('/data', [HighligtStatusPloTlController::class, 'data'])->name('tindak-lanjut-highlight-status-plo.data');
+    Route::put('/{id}', [HighligtStatusPloTlController::class, 'update'])->name('tindak-lanjut-highlight-status-plo.update');
+    Route::delete('/{id}', [HighligtStatusPloTlController::class, 'destroy'])->name('tindak-lanjut-highlight-status-plo.destroy');
+});
 Route::middleware(['auth'])->group(function () {
     Route::redirect('   ettings', 'settings/profile');
     Volt::route('settings/profile', 'settings.profile')->name('settings.profile');

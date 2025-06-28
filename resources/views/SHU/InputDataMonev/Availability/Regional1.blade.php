@@ -369,7 +369,7 @@
 
                 const formatPercent = (cell) => {
                     let value = parseFloat(cell.getValue());
-                    return isNaN(value) ? "-" : value.toFixed(2) + " %";
+                    return isNaN(value) ? "-" : (value * 100).toFixed(2) + " %";
                 };
 
                 const columnMap = {

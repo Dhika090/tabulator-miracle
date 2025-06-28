@@ -3,7 +3,7 @@
     @push('styles')
         <link href="https://unpkg.com/tabulator-tables@5.6.0/dist/css/tabulator.min.css" rel="stylesheet">
         <style>
-          .tabulator-wrapper {
+            .tabulator-wrapper {
                 overflow-x: auto;
             }
 
@@ -245,7 +245,8 @@
 
                 <div>
                     <label>Penyelarasan Dokumen dan Lapangan</label>
-                    <input type="number" name="penyelarasan_dokumen" id="penyelarasan_dokumen">
+                    <input type="number" name="penyelarasan_dokumen_dan_lapangan"
+                        id="penyelarasan_dokumen_dan_lapangan">
                 </div>
 
                 <div>
@@ -255,17 +256,17 @@
 
                 <div>
                     <label>Mempersiapkan Form Upload Data</label>
-                    <input type="number" name="form_upload_data" id="form_upload_data">
+                    <input type="number" name="mempersiapkan_form_upload_data" id="mempersiapkan_form_upload_data">
                 </div>
 
                 <div>
                     <label>Request ke Master Data</label>
-                    <input type="number" name="request_master_data" id="request_master_data">
+                    <input type="number" name="request_ke_master_data" id="request_ke_master_data">
                 </div>
 
                 <div>
                     <label>Update Di Master Data</label>
-                    <input type="number" name="update_master_data" id="update_master_data">
+                    <input type="number" name="update_di_master_data" id="update_di_master_data">
                 </div>
 
                 <div>
@@ -283,7 +284,7 @@
         </div>
     </div>
 
-    
+
     <div id="toastNotification"
         style="display:none; position: fixed; top: 20px; right: 20px; z-index: 9999; padding: 15px 20px; border-radius: 8px; color: white; font-weight: bold;">
     </div>
@@ -372,7 +373,7 @@
                             value: keyword
                         },
                         {
-                            field: "penyelarasan_dokumen",
+                            field: "penyelarasan_dokumen_dan_lapangan",
                             type: "like",
                             value: keyword
                         },
@@ -382,17 +383,17 @@
                             value: keyword
                         },
                         {
-                            field: "form_upload_data",
+                            field: "mempersiapkan_form_upload_data",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "request_master_data",
+                            field: "request_ke_master_data",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "update_master_data",
+                            field: "update_di_master_data",
                             type: "like",
                             value: keyword
                         },
@@ -570,37 +571,37 @@
                             title: "Belum Mulai",
                             field: "belum_mulai",
                             editor: "input",
-                            hozAlign: "center",
+                            hozAlign: "center"
                         },
                         {
                             title: "Kickoff Meeting",
                             field: "kickoff_meeting",
                             editor: "input",
-                            hozAlign: "center",
+                            hozAlign: "center"
                         },
                         {
                             title: "Identifikasi Peralatan",
                             field: "identifikasi_peralatan",
                             editor: "input",
-                            hozAlign: "center",
+                            hozAlign: "center"
                         },
                         {
                             title: "Survey Lapangan",
                             field: "survey_lapangan",
                             editor: "input",
-                            hozAlign: "center",
+                            hozAlign: "center"
                         },
                         {
                             title: "Pembenahan Funloc",
                             field: "pembenahan_funloc",
                             editor: "input",
-                            hozAlign: "center",
+                            hozAlign: "center"
                         },
                         {
                             title: "Review Criticality",
                             field: "review_criticality",
                             editor: "input",
-                            hozAlign: "center",
+                            hozAlign: "center"
                         },
                         {
                             title: "Penyelarasan Dokumen dan Lapangan",
@@ -611,31 +612,31 @@
                             title: "Melengkapi Tag Fisik",
                             field: "melengkapi_tag_fisik",
                             editor: "input",
-                            hozAlign: "center",
+                            hozAlign: "center"
                         },
                         {
                             title: "Mempersiapkan Form Upload Data",
                             field: "mempersiapkan_form_upload_data",
                             editor: "input",
-                            hozAlign: "center",
+                            hozAlign: "center"
                         },
                         {
                             title: "Request ke Master Data",
                             field: "request_ke_master_data",
                             editor: "input",
-                            hozAlign: "center",
+                            hozAlign: "center"
                         },
                         {
                             title: "Update Di Master Data",
                             field: "update_di_master_data",
                             editor: "input",
-                            hozAlign: "center",
+                            hozAlign: "center"
                         },
                         {
                             title: "Kendala",
                             field: "kendala",
                             editor: "input",
-                            hozAlign: "center",
+                            hozAlign: "center"
                         },
                         {
                             title: "Tindak Lanjut",
@@ -643,20 +644,20 @@
                             editor: "input"
                         },
                         {
-    title: "Aksi",
-    download: false,
-    hozAlign: "center",
-    width: 150,
-    formatter: (cell) => {
-        const row = cell.getData();
-        return `
+                            title: "Aksi",
+                            download: false,
+                            hozAlign: "center",
+                            width: 150,
+                            formatter: (cell) => {
+                                const row = cell.getData();
+                                return `
             <button onclick='deleteData("${row.id}")'
                 class="btn btn-sm btn-danger">
                 <i class="bi bi-trash"></i> Hapus
             </button>
         `;
-    }
-}
+                            }
+                        }
                     ]
                 };
 
@@ -797,7 +798,7 @@
 
         {{-- create data  --}}
         <script>
-             function showToast(message, type = "success") {
+            function showToast(message, type = "success") {
                 const toast = document.getElementById("toastNotification");
                 toast.textContent = message;
                 toast.className = "";
@@ -862,7 +863,7 @@
                             table.setData("/monev/shg/input-data/sap-asset-ptg/data");
                             this.reset();
                             closeModal();
-                       } else {
+                        } else {
                             showToast(result.message || "Gagal menyimpan data", "error");
                         }
                     })

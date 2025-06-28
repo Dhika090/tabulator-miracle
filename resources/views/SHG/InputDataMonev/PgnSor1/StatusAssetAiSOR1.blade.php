@@ -807,7 +807,8 @@
                         {
                             title: "Informasi Penambahan Jumlah Aset",
                             field: "informasi_penambahan_jumlah_aset",
-                            editor: "input"
+                            editor: "input",
+                            width: 450
                         },
                         {
                             title: "Informasi Naik Turun low Integrity",

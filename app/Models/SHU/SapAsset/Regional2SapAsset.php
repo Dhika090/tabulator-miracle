@@ -1,0 +1,48 @@
+<?php
+
+namespace App\Models\SHU\SapAsset;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Model;
+
+class Regional2SapAsset extends Model
+{
+    use HasFactory;
+    public $incrementing = false;
+    protected $keyType = 'string';
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (empty($model->{$model->getKeyName()})) {
+                $model->{$model->getKeyName()} = (string) Str::uuid();
+            }
+        });
+    }
+
+    protected $table = 'shu_sap_asset_regional_2';
+
+    protected $fillable = [
+        'periode',
+        'subholding',
+        'company',
+        'unit',
+        'nama_stasiun',
+        'belum_mulai',
+        'kickoff_meeting',
+        'identifikasi_peralatan',
+        'survey_lapangan',
+        'pembenahan_funloc',
+        'review_criticality',
+        'penyelarasan_dokumen_dan_lapangan',
+        'melengkapi_tag_fisik',
+        'mempersiapkan_form_upload_data',
+        'request_ke_master_data',
+        'update_di_master_data',
+        'kendala',
+        'tindak_lanjut',
+    ];
+}
