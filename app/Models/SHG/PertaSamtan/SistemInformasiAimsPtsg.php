@@ -22,7 +22,7 @@ class SistemInformasiAimsPtsg extends Model
         });
     }
 
-    protected $table = 'shg_pertasamtan_sistem_informasi_aims_ptsg';
+    protected $table = 'shg_pertasamtan_sistem_informasi_aims';
 
     protected $fillable = [
         'periode',

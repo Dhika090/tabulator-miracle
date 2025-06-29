@@ -22,7 +22,7 @@ class SistemInformasiAimsKjg extends Model
         });
     }
 
-    protected $table = 'shg_kalimantan_sistem_informasi_aims_kjg';
+    protected $table = 'shg_kalimantan_sistem_informasi_aims';
 
     protected $fillable = [
         'periode',

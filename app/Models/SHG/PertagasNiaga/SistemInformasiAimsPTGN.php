@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models\SHG\PertagasNiaga;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;

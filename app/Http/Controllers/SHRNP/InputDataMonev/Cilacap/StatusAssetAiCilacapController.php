@@ -13,7 +13,7 @@ class StatusAssetAiCilacapController extends Controller
 
     public function index(Request $request)
     {
-          if ($request->wantsJson()) {
+        if ($request->wantsJson()) {
             $TargetPLO = StatusAssetAiCilacap::all();
             return response()->json(data: $TargetPLO);
         }
@@ -33,7 +33,7 @@ class StatusAssetAiCilacapController extends Controller
             'PAG',
             'NR'
         ];
-        
+
         $tabs = collect(config('cilacap-tabs'))->map(function ($tab) {
             return [
                 'title' => $tab['title'],
@@ -63,7 +63,7 @@ class StatusAssetAiCilacapController extends Controller
     public function data()
     {
         $TargetPLO = StatusAssetAiCilacap::select('*')
-                 ->addSelect(DB::raw("TRY_CONVERT(DATE, CONCAT('01-', periode), 120) as periode_date"))
+            ->addSelect(DB::raw("TRY_CONVERT(DATE, CONCAT('01-', periode), 120) as periode_date"))
             ->orderBy('periode_date', 'asc')
             ->get();
 

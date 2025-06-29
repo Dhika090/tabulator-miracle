@@ -351,6 +351,19 @@ use App\Http\Controllers\SHIML\InputDataMonev\PTK\SapAssetPtkController;
 use App\Http\Controllers\SHIML\InputDataMonev\PTK\SistemInformasiAimsPtkController;
 use App\Http\Controllers\SHIML\InputDataMonev\PTK\StatusAssetAiPtkController;
 use App\Http\Controllers\SHIML\InputDataMonev\PTK\StatusPloPtkController;
+use App\Http\Controllers\SHRNP\InputDataMonev\Balikpapan\AssetBreakdownBalikpapanController;
+use App\Http\Controllers\SHRNP\InputDataMonev\Balikpapan\AvailabilityBalikpapanController;
+use App\Http\Controllers\SHRNP\InputDataMonev\Balikpapan\KondisiVacantAimsBalikpapanController;
+use App\Http\Controllers\SHRNP\InputDataMonev\Balikpapan\MandatoryCertificationBalikpapanController;
+use App\Http\Controllers\SHRNP\InputDataMonev\Balikpapan\PelatihanAimsBalikpapanController;
+use App\Http\Controllers\SHRNP\InputDataMonev\Balikpapan\RealAnggaranAiBalikpapanController;
+use App\Http\Controllers\SHRNP\InputDataMonev\Balikpapan\RealAnggaranFigureBalikpapanController;
+use App\Http\Controllers\SHRNP\InputDataMonev\Balikpapan\RealProgFisikAiBalikpapanController;
+use App\Http\Controllers\SHRNP\InputDataMonev\Balikpapan\RencanaPemeliharaanBalikpapanController;
+use App\Http\Controllers\SHRNP\InputDataMonev\Balikpapan\SapAssetBalikpapanController;
+use App\Http\Controllers\SHRNP\InputDataMonev\Balikpapan\SistemInformasiAimsBalikpapanController;
+use App\Http\Controllers\SHRNP\InputDataMonev\Balikpapan\StatusAssetAiBalikpapanController;
+use App\Http\Controllers\SHRNP\InputDataMonev\Balikpapan\StatusPloBalikpapanController;
 use App\Http\Controllers\SHRNP\InputDataMonev\Cilacap\StatusAssetAiCilacapController;
 use App\Http\Controllers\SHRNP\InputDataMonev\RuDumai\AssetBreakdownRuDumaiController;
 use App\Http\Controllers\SHRNP\InputDataMonev\RuDumai\AvailabilityRuDumaiController;
@@ -3637,6 +3650,122 @@ Route::prefix('monev/shrnp/input-data/real-prog-fisik-cilacap')->group(function 
     Route::get('/data', [RealProgFisikAiCilacapController::class, 'data'])->name('real-prog-fisik-cilacap.data');
     Route::put('/{id}', [RealProgFisikAiCilacapController::class, 'update'])->name('real-prog-fisik-cilacap.update');
     Route::delete('/{id}', [RealProgFisikAiCilacapController::class, 'destroy'])->name('real-prog-fisik-cilacap.destroy');
+});
+// AssetBreakdownBalikpapanController
+Route::prefix('monev/shrnp/input-data/asset-breakdown-balikpapan')->group(function () {
+    Route::get('/', [AssetBreakdownBalikpapanController::class, 'index'])->name('asset-breakdown-balikpapan');
+    Route::post('/', [AssetBreakdownBalikpapanController::class, 'store'])->name('asset-breakdown-balikpapan.store');
+    Route::get('/data', [AssetBreakdownBalikpapanController::class, 'data'])->name('asset-breakdown-balikpapan.data');
+    Route::put('/{id}', [AssetBreakdownBalikpapanController::class, 'update'])->name('asset-breakdown-balikpapan.update');
+    Route::delete('/{id}', [AssetBreakdownBalikpapanController::class, 'destroy'])->name('asset-breakdown-balikpapan.destroy');
+});
+
+// AvailabilityBalikpapanController
+Route::prefix('monev/shrnp/input-data/availability-balikpapan')->group(function () {
+    Route::get('/', [AvailabilityBalikpapanController::class, 'index'])->name('availability-balikpapan');
+    Route::post('/', [AvailabilityBalikpapanController::class, 'store'])->name('availability-balikpapan.store');
+    Route::get('/data', [AvailabilityBalikpapanController::class, 'data'])->name('availability-balikpapan.data');
+    Route::put('/{id}', [AvailabilityBalikpapanController::class, 'update'])->name('availability-balikpapan.update');
+    Route::delete('/{id}', [AvailabilityBalikpapanController::class, 'destroy'])->name('availability-balikpapan.destroy');
+});
+
+// KondisiVacantAimsBalikpapanController
+Route::prefix('monev/shrnp/input-data/kondisi-vacant-aims-balikpapan')->group(function () {
+    Route::get('/', [KondisiVacantAimsBalikpapanController::class, 'index'])->name('kondisi-vacant-aims-balikpapan');
+    Route::post('/', [KondisiVacantAimsBalikpapanController::class, 'store'])->name('kondisi-vacant-aims-balikpapan.store');
+    Route::get('/data', [KondisiVacantAimsBalikpapanController::class, 'data'])->name('kondisi-vacant-aims-balikpapan.data');
+    Route::put('/{id}', [KondisiVacantAimsBalikpapanController::class, 'update'])->name('kondisi-vacant-aims-balikpapan.update');
+    Route::delete('/{id}', [KondisiVacantAimsBalikpapanController::class, 'destroy'])->name('kondisi-vacant-aims-balikpapan.destroy');
+});
+
+// MandatoryCertificationBalikpapanController
+Route::prefix('monev/shrnp/input-data/mandatory-certification-balikpapan')->group(function () {
+    Route::get('/', [MandatoryCertificationBalikpapanController::class, 'index'])->name('mandatory-certification-balikpapan');
+    Route::post('/', [MandatoryCertificationBalikpapanController::class, 'store'])->name('mandatory-certification-balikpapan.store');
+    Route::get('/data', [MandatoryCertificationBalikpapanController::class, 'data'])->name('mandatory-certification-balikpapan.data');
+    Route::put('/{id}', [MandatoryCertificationBalikpapanController::class, 'update'])->name('mandatory-certification-balikpapan.update');
+    Route::delete('/{id}', [MandatoryCertificationBalikpapanController::class, 'destroy'])->name('mandatory-certification-balikpapan.destroy');
+});
+
+// PelatihanAimsBalikpapanController
+Route::prefix('monev/shrnp/input-data/pelatihan-aims-balikpapan')->group(function () {
+    Route::get('/', [PelatihanAimsBalikpapanController::class, 'index'])->name('pelatihan-aims-balikpapan');
+    Route::post('/', [PelatihanAimsBalikpapanController::class, 'store'])->name('pelatihan-aims-balikpapan.store');
+    Route::get('/data', [PelatihanAimsBalikpapanController::class, 'data'])->name('pelatihan-aims-balikpapan.data');
+    Route::put('/{id}', [PelatihanAimsBalikpapanController::class, 'update'])->name('pelatihan-aims-balikpapan.update');
+    Route::delete('/{id}', [PelatihanAimsBalikpapanController::class, 'destroy'])->name('pelatihan-aims-balikpapan.destroy');
+});
+
+// RealAnggaranAiBalikpapanController
+Route::prefix('monev/shrnp/input-data/realisasi-anggaran-ai-balikpapan')->group(function () {
+    Route::get('/', [RealAnggaranAiBalikpapanController::class, 'index'])->name('realisasi-anggaran-ai-balikpapan');
+    Route::post('/', [RealAnggaranAiBalikpapanController::class, 'store'])->name('realisasi-anggaran-ai-balikpapan.store');
+    Route::get('/data', [RealAnggaranAiBalikpapanController::class, 'data'])->name('realisasi-anggaran-ai-balikpapan.data');
+    Route::put('/{id}', [RealAnggaranAiBalikpapanController::class, 'update'])->name('realisasi-anggaran-ai-balikpapan.update');
+    Route::delete('/{id}', [RealAnggaranAiBalikpapanController::class, 'destroy'])->name('realisasi-anggaran-ai-balikpapan.destroy');
+});
+
+// RealAnggaranFigureBalikpapanController
+Route::prefix('monev/shrnp/input-data/realisasi-anggaran-figure-balikpapan')->group(function () {
+    Route::get('/', [RealAnggaranFigureBalikpapanController::class, 'index'])->name('realisasi-anggaran-figure-balikpapan');
+    Route::post('/', [RealAnggaranFigureBalikpapanController::class, 'store'])->name('realisasi-anggaran-figure-balikpapan.store');
+    Route::get('/data', [RealAnggaranFigureBalikpapanController::class, 'data'])->name('realisasi-anggaran-figure-balikpapan.data');
+    Route::put('/{id}', [RealAnggaranFigureBalikpapanController::class, 'update'])->name('realisasi-anggaran-figure-balikpapan.update');
+    Route::delete('/{id}', [RealAnggaranFigureBalikpapanController::class, 'destroy'])->name('realisasi-anggaran-figure-balikpapan.destroy');
+});
+
+// RealProgFisikAiBalikpapanController
+Route::prefix('monev/shrnp/input-data/realisasi-prog-fisik-balikpapan')->group(function () {
+    Route::get('/', [RealProgFisikAiBalikpapanController::class, 'index'])->name('realisasi-prog-fisik-balikpapan');
+    Route::post('/', [RealProgFisikAiBalikpapanController::class, 'store'])->name('realisasi-prog-fisik-balikpapan.store');
+    Route::get('/data', [RealProgFisikAiBalikpapanController::class, 'data'])->name('realisasi-prog-fisik-balikpapan.data');
+    Route::put('/{id}', [RealProgFisikAiBalikpapanController::class, 'update'])->name('realisasi-prog-fisik-balikpapan.update');
+    Route::delete('/{id}', [RealProgFisikAiBalikpapanController::class, 'destroy'])->name('realisasi-prog-fisik-balikpapan.destroy');
+});
+
+// RencanaPemeliharaanBalikpapanController
+Route::prefix('monev/shrnp/input-data/rencana-pemeliharaan-balikpapan')->group(function () {
+    Route::get('/', [RencanaPemeliharaanBalikpapanController::class, 'index'])->name('rencana-pemeliharaan-balikpapan');
+    Route::post('/', [RencanaPemeliharaanBalikpapanController::class, 'store'])->name('rencana-pemeliharaan-balikpapan.store');
+    Route::get('/data', [RencanaPemeliharaanBalikpapanController::class, 'data'])->name('rencana-pemeliharaan-balikpapan.data');
+    Route::put('/{id}', [RencanaPemeliharaanBalikpapanController::class, 'update'])->name('rencana-pemeliharaan-balikpapan.update');
+    Route::delete('/{id}', [RencanaPemeliharaanBalikpapanController::class, 'destroy'])->name('rencana-pemeliharaan-balikpapan.destroy');
+});
+
+// SapAssetBalikpapanController
+Route::prefix('monev/shrnp/input-data/sap-asset-balikpapan')->group(function () {
+    Route::get('/', [SapAssetBalikpapanController::class, 'index'])->name('sap-asset-balikpapan');
+    Route::post('/', [SapAssetBalikpapanController::class, 'store'])->name('sap-asset-balikpapan.store');
+    Route::get('/data', [SapAssetBalikpapanController::class, 'data'])->name('sap-asset-balikpapan.data');
+    Route::put('/{id}', [SapAssetBalikpapanController::class, 'update'])->name('sap-asset-balikpapan.update');
+    Route::delete('/{id}', [SapAssetBalikpapanController::class, 'destroy'])->name('sap-asset-balikpapan.destroy');
+});
+
+// SistemInformasiAimsBalikpapanController
+Route::prefix('monev/shrnp/input-data/sistem-informasi-aims-balikpapan')->group(function () {
+    Route::get('/', [SistemInformasiAimsBalikpapanController::class, 'index'])->name('sistem-informasi-aims-balikpapan');
+    Route::post('/', [SistemInformasiAimsBalikpapanController::class, 'store'])->name('sistem-informasi-aims-balikpapan.store');
+    Route::get('/data', [SistemInformasiAimsBalikpapanController::class, 'data'])->name('sistem-informasi-aims-balikpapan.data');
+    Route::put('/{id}', [SistemInformasiAimsBalikpapanController::class, 'update'])->name('sistem-informasi-aims-balikpapan.update');
+    Route::delete('/{id}', [SistemInformasiAimsBalikpapanController::class, 'destroy'])->name('sistem-informasi-aims-balikpapan.destroy');
+});
+
+// StatusAssetAiBalikpapanController
+Route::prefix('monev/shrnp/input-data/status-asset-ai-balikpapan')->group(function () {
+    Route::get('/', [StatusAssetAiBalikpapanController::class, 'index'])->name('status-asset-ai-balikpapan');
+    Route::post('/', [StatusAssetAiBalikpapanController::class, 'store'])->name('status-asset-ai-balikpapan.store');
+    Route::get('/data', [StatusAssetAiBalikpapanController::class, 'data'])->name('status-asset-ai-balikpapan.data');
+    Route::put('/{id}', [StatusAssetAiBalikpapanController::class, 'update'])->name('status-asset-ai-balikpapan.update');
+    Route::delete('/{id}', [StatusAssetAiBalikpapanController::class, 'destroy'])->name('status-asset-ai-balikpapan.destroy');
+});
+
+// StatusPloBalikpapanController
+Route::prefix('monev/shrnp/input-data/status-plo-balikpapan')->group(function () {
+    Route::get('/', [StatusPloBalikpapanController::class, 'index'])->name('status-plo-balikpapan');
+    Route::post('/', [StatusPloBalikpapanController::class, 'store'])->name('status-plo-balikpapan.store');
+    Route::get('/data', [StatusPloBalikpapanController::class, 'data'])->name('status-plo-balikpapan.data');
+    Route::put('/{id}', [StatusPloBalikpapanController::class, 'update'])->name('status-plo-balikpapan.update');
+    Route::delete('/{id}', [StatusPloBalikpapanController::class, 'destroy'])->name('status-plo-balikpapan.destroy');
 });
 
 

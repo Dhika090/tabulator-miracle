@@ -416,8 +416,8 @@
                             </a>
                         </li>
                         <li
-                            class="menu-item {{ request()->is('monev/shrnp/input-data/ru-balikpapan') ? 'active' : '' }}">
-                            <a class="menu-link" href="{{ url('monev/shrnp/input-data/ru-balikpapan') }}">
+                            class="menu-item {{ request()->is('monev/shrnp/input-data/status-asset-ai-balikpapan') ? 'active' : '' }}">
+                            <a class="menu-link" href="{{ url('monev/shrnp/input-data/status-asset-ai-balikpapan') }}">
                                 <i class="fa fa-wrench me-2"></i>RU V Balikpapan
                             </a>
                         </li>

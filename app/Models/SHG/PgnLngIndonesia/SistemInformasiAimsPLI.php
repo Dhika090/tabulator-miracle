@@ -22,7 +22,7 @@ class SistemInformasiAimsPLI extends Model
         });
     }
 
-    protected $table = 'shg_pgnlngindonesia_siste_informasi_aims_pli';
+    protected $table = 'shg_pgnlngindonesia_sistem_informasi_aims';
 
     protected $fillable = [
         'periode',

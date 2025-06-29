@@ -24,8 +24,8 @@ class SistemInformasiWmnRequest extends FormRequest
         return [
             'periode' => 'nullable|string',
             'company' => 'nullable|string',
-            'jumlah_aset_operasi' => 'nullable|string',
-            'jumlah_aset_teregister' => 'nullable|string',
+            'jumlah_aset_operasi' => 'nullable|integer',
+            'jumlah_aset_teregister' => 'nullable|integer',
             'kendala_aset_register' => 'nullable|string',
             'tindak_lanjut_aset_register' => 'nullable|string',
             'sistem_informasi_aim' => 'nullable|string',
