@@ -24,20 +24,12 @@ class AvailabilityBalikpapanRequest extends FormRequest
         return [
             'periode' => 'nullable|string',
             'company' => 'nullable|string',
-            'plant_segment' => 'nullable|string',
-            'kategori_criticality' => 'nullable|string',
-            'tag' => 'nullable|string',
-            'deskripsi_peralatan' => 'nullable|string',
-            'jenis_kerusakan' => 'nullable|string',
-            'penyebab' => 'nullable|string',
-            'kendala_perbaikan' => 'nullable|string',
-            'mitigasi' => 'nullable|string',
-            'perbaikan_permanen' => 'nullable|string',
-            'progres_perbaikan_permanen' => 'nullable|string',
-            'tindak_lanjut' => 'nullable|string|max:1000',
-            'target_penyelesaian' => 'nullable|string',
-            'estimasi_biaya_perbaikan' => 'nullable|string',
-            'link_foto_video' => 'nullable|string',
+            'kategori' => 'nullable|string',
+            'target' => 'nullable|numeric',
+            'availability' => 'nullable|numeric',
+            'isu' => 'nullable|string',
+            'kendala' => 'nullable|string',
+            'tindak_lanjut' => 'nullable|string',
         ];
     }
 }

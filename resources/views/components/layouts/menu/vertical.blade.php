@@ -292,17 +292,27 @@
                         </li>
                         <li
                             class="menu-item {{ request()->is('monev/shu/input-data/realisasi-anggaran-ai-regional-1') ? 'active' : '' }}">
-                            <a class="menu-link" href="{{ url('monev/shu/input-data/realisasi-anggaran-ai-regional-1') }}">
+                            <a class="menu-link"
+                                href="{{ url('monev/shu/input-data/realisasi-anggaran-ai-regional-1') }}">
                                 <i class="fa fa-wrench me-2"></i>Realisasi Anggaran AI
                             </a>
                         </li>
                         <li
+                            class="menu-item {{ request()->is('monev/shu/input-data/realisasi-anggaran-figure-regional-1') ? 'active' : '' }}">
+                            <a class="menu-link"
+                                href="{{ url('monev/shu/input-data/realisasi-anggaran-figure-regional-1') }}">
+                                <i class="fa fa-wrench me-2"></i>Realisasi Anggaran Figure
+                            </a>
+                        </li>
+                        <li
                             class="menu-item {{ request()->is('monev/shu/input-data/realisasi-progres-fisik-ai-regional-1') ? 'active' : '' }}">
-                            <a class="menu-link" href="{{ url('monev/shu/input-data/realisasi-progres-fisik-ai-regional-1') }}">
+                            <a class="menu-link"
+                                href="{{ url('monev/shu/input-data/realisasi-progres-fisik-ai-regional-1') }}">
                                 <i class="fa fa-wrench me-2"></i>Realisasi Prog Fisik AI
                             </a>
                         </li>
-                        <li class="menu-item {{ request()->is('monev/shu/input-data/sap-asset-regional-1') ? 'active' : '' }}">
+                        <li
+                            class="menu-item {{ request()->is('monev/shu/input-data/sap-asset-regional-1') ? 'active' : '' }}">
                             <a class="menu-link" href="{{ url('monev/shu/input-data/sap-asset-regional-1') }}">
                                 <i class="fa fa-wrench me-2"></i>Sap Asset
                             </a>
@@ -313,7 +323,8 @@
                                 <i class="fa fa-wrench me-2"></i>Status Aset Integrity
                             </a>
                         </li>
-                        <li class="menu-item {{ request()->is('monev/shu/input-data/status-plo-regional-1') ? 'active' : '' }}">
+                        <li
+                            class="menu-item {{ request()->is('monev/shu/input-data/status-plo-regional-1') ? 'active' : '' }}">
                             <a class="menu-link" href="{{ url('monev/shu/input-data/status-plo-regional-1') }}">
                                 <i class="fa fa-wrench me-2"></i>Status PLO
                             </a>
@@ -417,13 +428,15 @@
                         </li>
                         <li
                             class="menu-item {{ request()->is('monev/shrnp/input-data/status-asset-ai-balikpapan') ? 'active' : '' }}">
-                            <a class="menu-link" href="{{ url('monev/shrnp/input-data/status-asset-ai-balikpapan') }}">
+                            <a class="menu-link"
+                                href="{{ url('monev/shrnp/input-data/status-asset-ai-balikpapan') }}">
                                 <i class="fa fa-wrench me-2"></i>RU V Balikpapan
                             </a>
                         </li>
                         <li
-                            class="menu-item {{ request()->is('monev/shrnp/input-data/ru-balongan') ? 'active' : '' }}">
-                            <a class="menu-link" href="{{ url('monev/shrnp/input-data/ru-balongan') }}">
+                            class="menu-item {{ request()->is('monev/shrnp/input-data/status-asset-ai-balongan') ? 'active' : '' }}">
+                            <a class="menu-link"
+                                href="{{ url('monev/shrnp/input-data/status-asset-ai-balongan') }}">
                                 <i class="fa fa-wrench me-2"></i>RU VI Balongan
                             </a>
                         </li>

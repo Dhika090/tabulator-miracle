@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('shrnp_balikpapan_real_anggaran_ai', function (Blueprint $table) {
-           $table->uuid('id')->primary();
+            $table->uuid('id')->primary();
             $table->string('periode')->nullable();
             $table->string('no')->nullable();
             $table->string('program_kerja')->nullable();

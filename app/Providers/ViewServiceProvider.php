@@ -39,6 +39,21 @@ class ViewServiceProvider extends ServiceProvider
             $view->with('tabs', $tabs);
         });
 
+        View::composer('*', function ($view) {
+            $routeName = optional(request()->route())->getName();
+            if (!$routeName || !str_contains($routeName, 'status-asset-ai-balongan')) return;
+
+            $tabs = collect(config('shrnp-balongan'))->map(function ($tab) {
+                return [
+                    'title' => $tab['title'],
+                    'route' => route($tab['route']),
+                    'active' => request()->routeIs($tab['route']),
+                ];
+            })->toArray();
+
+            $view->with('tabs', $tabs);
+        });
+
         // SHU
         View::composer('*', function ($view) {
             $routeName = optional(request()->route())->getName();
@@ -150,6 +165,21 @@ class ViewServiceProvider extends ServiceProvider
             if (!$routeName || !str_contains($routeName, 'realisasi-anggaran-ai-regional-1')) return;
 
             $tabs = collect(config('shu-realisasi-anggarai-ai'))->map(function ($tab) {
+                return [
+                    'title' => $tab['title'],
+                    'route' => route($tab['route']),
+                    'active' => request()->routeIs($tab['route']),
+                ];
+            })->toArray();
+
+            $view->with('tabs', $tabs);
+        });
+
+        View::composer('*', function ($view) {
+            $routeName = optional(request()->route())->getName();
+            if (!$routeName || !str_contains($routeName, 'realisasi-anggaran-figure-regional-1')) return;
+
+            $tabs = collect(config('shu-realisasi-anggaran-figure'))->map(function ($tab) {
                 return [
                     'title' => $tab['title'],
                     'route' => route($tab['route']),

@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('shrnp_balikpapan_status_asset_ai', function (Blueprint $table) {
-               $table->uuid('id')->primary();
+            $table->uuid('id')->primary();
             $table->string('periode')->nullable();
             $table->string('subholding')->nullable();
             $table->string('company')->nullable();
@@ -54,6 +54,7 @@ return new class extends Migration
             $table->text('informasi_penyebab_low_integrity')->nullable();
             $table->text('informasi_penambahan_jumlah_aset')->nullable();
             $table->text('informasi_naik_turun_low_integrity')->nullable();
+            $table->timestamps();
         });
     }
 

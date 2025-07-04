@@ -19,15 +19,15 @@ class RealAnggaranFigureCilacapController extends Controller
             return [
                 'title' => $tab['title'],
                 'route' => route($tab['route']),
-                'active' => request()->routeIs($tab['route']), // pakai nama route, bukan URL
+                'active' => request()->routeIs($tab['route']),
             ];
         });
 
-        return view('SHRNP.InputDataMonev.Cilacap.RealProgFisikAiCilacap', [
+        return view('SHRNP.InputDataMonev.Cilacap.RealAnggaranFigureCilacap', [
             'tabs' => $tabs,
 
         ]); 
-    }
+    }  
 
     public function store(RealAnggaranFigureCilacapRequest $request)
     {
