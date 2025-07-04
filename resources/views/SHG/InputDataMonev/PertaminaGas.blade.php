@@ -322,7 +322,6 @@
 
         <script>
             const BASE_URL = "{{ config('app.url') }}";
-
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
                     fetch(`pertamina-gas/${id}`, {

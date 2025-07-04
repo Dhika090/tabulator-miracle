@@ -252,6 +252,8 @@
         <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
 
         <script>
+            const BASE_URL = "{{ config('app.url') }}";
+
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
                     fetch(`availability-regional-1/${id}`, {
@@ -326,7 +328,7 @@
             });
 
             function loadData() {
-                fetch("/monev/shu/input-data/availability-regional-1/data", {
+                fetch(`${BASE_URL}/monev/shu/input-data/availability-regional-1/data`, {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -369,11 +371,11 @@
 
                 const formatPercent = (cell) => {
                     let value = parseFloat(cell.getValue());
-                    return isNaN(value) ? "-" : (value * 100).toFixed(2) + " %";
+                    return isNaN(value) ? "-" : value.toFixed(2) + " %";
                 };
 
                 const columnMap = {
-                    "availability-regional-1": [ {
+                    "availability-regional-1": [{
                             title: "No",
                             hozAlign: "center",
                             width: 60,
@@ -591,7 +593,7 @@
 
                 // Load data
                 function loadData() {
-                    fetch("/monev/shu/input-data/availability-regional-1/data", {
+                    fetch(`${BASE_URL}/monev/shu/input-data/availability-regional-1/data`, {
                             headers: {
                                 "Accept": "application/json"
                             }
@@ -720,7 +722,7 @@
                     .then(result => {
                         if (result.success) {
                             showToast(result.message || "Data berhasil disimpan", "success");
-                            table.setData("/monev/shu/input-data/availability-regional-1/data");
+                            table.setData(`${BASE_URL}/monev/shu/input-data/availability-regional-1/data`);
                             this.reset();
                             closeModal();
                         } else {
