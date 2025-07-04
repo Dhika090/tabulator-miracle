@@ -486,7 +486,7 @@ if (!empty($prefix)) {
 }
 
 // Tes dulu satu route dashboard
-Route::get("/", function () {
+Route::get($prefix, function () {
     return view('dashboard');
 });
 
