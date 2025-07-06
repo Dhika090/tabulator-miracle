@@ -374,7 +374,7 @@
             }
 
             function loadData() {
-                fetch("/monev/shg/input-data/sistem-informasi-aims-pli/data", {
+                fetch(`${BASE_URL}/monev/shg/input-data/sistem-informasi-aims-pli/data`, {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -785,7 +785,7 @@
                     .then(result => {
                         if (result.success) {
                             showToast(result.message || "Data berhasil disimpan", "success");
-                            table.setData("/monev/shg/input-data/sistem-informasi-aims-pli/data");
+                            table.setData(`${BASE_URL}/monev/shg/input-data/sistem-informasi-aims-pli/data`);
                             this.reset();
                             closeModal();
                        } else {

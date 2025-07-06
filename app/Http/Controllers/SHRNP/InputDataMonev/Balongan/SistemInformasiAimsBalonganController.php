@@ -21,7 +21,7 @@ class SistemInformasiAimsBalonganController extends Controller
             ];
         });
 
-        return view('SHRNP.InputDataMonev.Balikpapan.SistemInformasiAimsBalongan', [
+        return view('SHRNP.InputDataMonev.Balongan.SistemInformasiAimsBalongan', [
             'tabs' => $tabs,
 
         ]);

@@ -21,7 +21,7 @@ class RealisasiProgFisikAiBalonganController extends Controller
             ];
         });
 
-        return view('SHRNP.InputDataMonev.Balikpapan.RealProgFisikAiBalongan', [
+        return view('SHRNP.InputDataMonev.Balongan.RealProgFisikAiBalongan', [
             'tabs' => $tabs,
 
         ]);

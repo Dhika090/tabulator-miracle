@@ -21,7 +21,7 @@ class KondisiVacantAimsBalonganController extends Controller
             ];
         });
 
-        return view('SHRNP.InputDataMonev.Balikpapan.KondisiVacantAimsBalongan', [
+        return view('SHRNP.InputDataMonev.Balongan.KondisiVacantAimsBalongan', [
             'tabs' => $tabs,
 
         ]);

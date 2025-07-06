@@ -23,7 +23,7 @@ class RealProgFisikAiBalongan extends Model
         });
     }
 
-    protected $table = 'shrnp_balongan_real_prog_fisik_ai';
+    protected $table = 'shrnp_balongan_realisasi_prog_fisik_ai';
 
     protected $fillable = [
         'periode',

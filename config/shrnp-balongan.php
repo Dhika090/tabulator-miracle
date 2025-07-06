@@ -37,7 +37,6 @@ return [
     [
         'title' => 'Realisasi Anggaran Figure Ru VI Balongan',
         'route' => 'realisasi-anggaran-figure-balongan',
-
     ],
     [
         'title' => 'Realisasi Prog Fisik AI Ru VI Balongan',

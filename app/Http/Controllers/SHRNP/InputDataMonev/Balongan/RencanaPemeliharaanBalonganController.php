@@ -21,7 +21,7 @@ class RencanaPemeliharaanBalonganController extends Controller
             ];
         });
 
-        return view('SHRNP.InputDataMonev.Balikpapan.RencanaPemeliharaanBalongan', [
+        return view('SHRNP.InputDataMonev.Balongan.RencanaPemeliharaanBalongan', [
             'tabs' => $tabs,
 
         ]);

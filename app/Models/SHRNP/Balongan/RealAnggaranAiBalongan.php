@@ -22,7 +22,7 @@ class RealAnggaranAiBalongan extends Model
         });
     }
 
-    protected $table = 'shrnp_balongan_real_anggaran_ai';
+    protected $table = 'shrnp_balongan_realisasi_anggaran_ai';
 
     protected $fillable = [
         'periode',

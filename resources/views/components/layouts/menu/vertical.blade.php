@@ -488,8 +488,8 @@
                                 <i class="fa fa-wrench me-2"></i>RU VI Balongan
                             </a>
                         </li>
-                        <li class="menu-item {{ request()->is('monev/shrnp/input-data/ru-kasim') ? 'active' : '' }}">
-                            <a class="menu-link" href="{{ url('monev/shrnp/input-data/ru-kasim') }}">
+                        <li class="menu-item {{ request()->is('monev/shrnp/input-data/status-asset-ai-kasim') ? 'active' : '' }}">
+                            <a class="menu-link" href="{{ url('monev/shrnp/input-data/status-asset-ai-kasim') }}">
                                 <i class="fa fa-wrench me-2"></i>RU VII Kasim
                             </a>
                         </li>

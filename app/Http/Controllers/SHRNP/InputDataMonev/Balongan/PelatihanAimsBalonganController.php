@@ -21,7 +21,7 @@ class PelatihanAimsBalonganController extends Controller
             ];
         });
 
-        return view('SHRNP.InputDataMonev.Balikpapan.PelatihanAimsBalongan', [
+        return view('SHRNP.InputDataMonev.Balongan.PelatihanAimsBalongan', [
             'tabs' => $tabs,
 
         ]);

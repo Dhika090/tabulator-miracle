@@ -21,7 +21,7 @@ class AvailabilityBalonganController extends Controller
             ];
         });
 
-        return view('SHRNP.InputDataMonev.Balikpapan.AvailabilityBalongan', [
+        return view('SHRNP.InputDataMonev.Balongan.AvailabilityBalongan', [
             'tabs' => $tabs,
 
         ]);

@@ -21,7 +21,7 @@ class RealisasiAnggaranAiBalonganController extends Controller
             ];
         });
 
-        return view('SHRNP.InputDataMonev.Balikpapan.RealAnggaranAiBalongan', [
+        return view('SHRNP.InputDataMonev.Balongan.RealAnggaranAiBalongan', [
             'tabs' => $tabs,
 
         ]);

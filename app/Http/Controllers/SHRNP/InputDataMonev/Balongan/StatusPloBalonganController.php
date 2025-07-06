@@ -21,7 +21,7 @@ class StatusPloBalonganController extends Controller
             ];
         });
 
-        return view('SHRNP.InputDataMonev.Balikpapan.StatusPloBalongan', [
+        return view('SHRNP.InputDataMonev.Balongan.StatusPloBalongan', [
             'tabs' => $tabs,
 
         ]);

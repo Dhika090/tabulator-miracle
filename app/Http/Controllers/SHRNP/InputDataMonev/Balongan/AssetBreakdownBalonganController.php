@@ -21,7 +21,7 @@ class AssetBreakdownBalonganController extends Controller
             ];
         });
 
-        return view('SHRNP.InputDataMonev.Balikpapan.AssetBreakdownBalongan', [
+        return view('SHRNP.InputDataMonev.Balongan.AssetBreakdownBalongan', [
             'tabs' => $tabs,
 
         ]);

@@ -105,7 +105,7 @@ class MandatoryCertificationBalonganController extends Controller
             ];
         });
 
-        return view('SHRNP.InputDataMonev.Balikpapan.MandatoryCertificationBalongan', [
+        return view('SHRNP.InputDataMonev.Balongan.MandatoryCertificationBalongan', [
             'tabs' => $tabs,
             'sertifikasiOptions' => $sertifikasiOptions
 

@@ -23,7 +23,7 @@ class RealAnggaranFigureBalongan extends Model
         });
     }
 
-    protected $table = 'shrnp_balongan_real_anggaran_figure';
+    protected $table = 'shrnp_balongan_realisasi_anggaran_figure';
 
     protected $fillable = [
         'periode',

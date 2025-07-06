@@ -416,7 +416,19 @@ use App\Http\Controllers\SHRNP\InputDataMonev\Cilacap\RencanaPemeliharaanCilacap
 use App\Http\Controllers\SHRNP\InputDataMonev\Cilacap\SapAssetCilacapController;
 use App\Http\Controllers\SHRNP\InputDataMonev\Cilacap\SistemInformasiAimsCilacapController;
 use App\Http\Controllers\SHRNP\InputDataMonev\Cilacap\StatusPloCilacapController;
-
+use App\Http\Controllers\SHRNP\InputDataMonev\Kasim\AssetBreakdownKasimController;
+use App\Http\Controllers\SHRNP\InputDataMonev\Kasim\AvailabilityKasimController;
+use App\Http\Controllers\SHRNP\InputDataMonev\Kasim\KondisiVacantAimsKasimController;
+use App\Http\Controllers\SHRNP\InputDataMonev\Kasim\MandatoryCertificationKasimController;
+use App\Http\Controllers\SHRNP\InputDataMonev\Kasim\PelatihanAimsKasimController;
+use App\Http\Controllers\SHRNP\InputDataMonev\Kasim\RealAnggaranAiKasimController;
+use App\Http\Controllers\SHRNP\InputDataMonev\Kasim\RealAnggaranFigureKasimController;
+use App\Http\Controllers\SHRNP\InputDataMonev\Kasim\RealProgFisikAiKasimController;
+use App\Http\Controllers\SHRNP\InputDataMonev\Kasim\RencanaPemeliharaanKasimController;
+use App\Http\Controllers\SHRNP\InputDataMonev\Kasim\SapAssetKasimController;
+use App\Http\Controllers\SHRNP\InputDataMonev\Kasim\SistemInformasiAimsKasimController;
+use App\Http\Controllers\SHRNP\InputDataMonev\Kasim\StatusAssetAiKasimController;
+use App\Http\Controllers\SHRNP\InputDataMonev\Kasim\StatusPloKasimController;
 use App\Http\Controllers\SHU\InputDataMonev\AssetBreakdown\Regional1AssetBreakdownController;
 use App\Http\Controllers\SHU\InputDataMonev\AssetBreakdown\Regional2AssetBreakdownController;
 use App\Http\Controllers\SHU\InputDataMonev\AssetBreakdown\Regional3AssetBreakdownController;
@@ -3919,10 +3931,121 @@ Route::middleware([\App\Http\Middleware\CorsMiddleware::class])->group(function 
         Route::put('/{id}', [StatusPloBalonganController::class, 'update'])->name('status-plo-balongan.update');
         Route::delete('/{id}', [StatusPloBalonganController::class, 'destroy'])->name('status-plo-balongan.destroy');
     });
+    // AssetBreakdownKasimController
+    Route::prefix('monev/shrnp/input-data/asset-breakdown-kasim')->group(function () {
+        Route::get('/', [AssetBreakdownKasimController::class, 'index'])->name('asset-breakdown-kasim');
+        Route::post('/', [AssetBreakdownKasimController::class, 'store'])->name('asset-breakdown-kasim.store');
+        Route::get('/data', [AssetBreakdownKasimController::class, 'data'])->name('asset-breakdown-kasim.data');
+        Route::put('/{id}', [AssetBreakdownKasimController::class, 'update'])->name('asset-breakdown-kasim.update');
+        Route::delete('/{id}', [AssetBreakdownKasimController::class, 'destroy'])->name('asset-breakdown-kasim.destroy');
+    });
 
+    // KondisiVacantAimsKasimController
+    Route::prefix('monev/shrnp/input-data/kondisi-vacant-aims-kasim')->group(function () {
+        Route::get('/', [KondisiVacantAimsKasimController::class, 'index'])->name('kondisi-vacant-aims-kasim');
+        Route::post('/', [KondisiVacantAimsKasimController::class, 'store'])->name('kondisi-vacant-aims-kasim.store');
+        Route::get('/data', [KondisiVacantAimsKasimController::class, 'data'])->name('kondisi-vacant-aims-kasim.data');
+        Route::put('/{id}', [KondisiVacantAimsKasimController::class, 'update'])->name('kondisi-vacant-aims-kasim.update');
+        Route::delete('/{id}', [KondisiVacantAimsKasimController::class, 'destroy'])->name('kondisi-vacant-aims-kasim.destroy');
+    });
 
+    // MandatoryCertificationKasimController
+    Route::prefix('monev/shrnp/input-data/mandatory-certification-kasim')->group(function () {
+        Route::get('/', [MandatoryCertificationKasimController::class, 'index'])->name('mandatory-certification-kasim');
+        Route::post('/', [MandatoryCertificationKasimController::class, 'store'])->name('mandatory-certification-kasim.store');
+        Route::get('/data', [MandatoryCertificationKasimController::class, 'data'])->name('mandatory-certification-kasim.data');
+        Route::put('/{id}', [MandatoryCertificationKasimController::class, 'update'])->name('mandatory-certification-kasim.update');
+        Route::delete('/{id}', [MandatoryCertificationKasimController::class, 'destroy'])->name('mandatory-certification-kasim.destroy');
+    });
 
+    // PelatihanAimsKasimController
+    Route::prefix('monev/shrnp/input-data/pelatihan-aims-kasim')->group(function () {
+        Route::get('/', [PelatihanAimsKasimController::class, 'index'])->name('pelatihan-aims-kasim');
+        Route::post('/', [PelatihanAimsKasimController::class, 'store'])->name('pelatihan-aims-kasim.store');
+        Route::get('/data', [PelatihanAimsKasimController::class, 'data'])->name('pelatihan-aims-kasim.data');
+        Route::put('/{id}', [PelatihanAimsKasimController::class, 'update'])->name('pelatihan-aims-kasim.update');
+        Route::delete('/{id}', [PelatihanAimsKasimController::class, 'destroy'])->name('pelatihan-aims-kasim.destroy');
+    });
 
+    // RealAnggaranAiKasimController
+    Route::prefix('monev/shrnp/input-data/realisasi-anggaran-ai-kasim')->group(function () {
+        Route::get('/', [RealAnggaranAiKasimController::class, 'index'])->name('realisasi-anggaran-ai-kasim');
+        Route::post('/', [RealAnggaranAiKasimController::class, 'store'])->name('realisasi-anggaran-ai-kasim.store');
+        Route::get('/data', [RealAnggaranAiKasimController::class, 'data'])->name('realisasi-anggaran-ai-kasim.data');
+        Route::put('/{id}', [RealAnggaranAiKasimController::class, 'update'])->name('realisasi-anggaran-ai-kasim.update');
+        Route::delete('/{id}', [RealAnggaranAiKasimController::class, 'destroy'])->name('realisasi-anggaran-ai-kasim.destroy');
+    });
+
+    // RealAnggaranFigureKasimController
+    Route::prefix('monev/shrnp/input-data/realisasi-anggaran-figure-kasim')->group(function () {
+        Route::get('/', [RealAnggaranFigureKasimController::class, 'index'])->name('realisasi-anggaran-figure-kasim');
+        Route::post('/', [RealAnggaranFigureKasimController::class, 'store'])->name('realisasi-anggaran-figure-kasim.store');
+        Route::get('/data', [RealAnggaranFigureKasimController::class, 'data'])->name('realisasi-anggaran-figure-kasim.data');
+        Route::put('/{id}', [RealAnggaranFigureKasimController::class, 'update'])->name('realisasi-anggaran-figure-kasim.update');
+        Route::delete('/{id}', [RealAnggaranFigureKasimController::class, 'destroy'])->name('realisasi-anggaran-figure-kasim.destroy');
+    });
+
+    // RealProgFisikAiKasimController
+    Route::prefix('monev/shrnp/input-data/realisasi-prog-fisik-ai-kasim')->group(function () {
+        Route::get('/', [RealProgFisikAiKasimController::class, 'index'])->name('realisasi-prog-fisik-ai-kasim');
+        Route::post('/', [RealProgFisikAiKasimController::class, 'store'])->name('realisasi-prog-fisik-ai-kasim.store');
+        Route::get('/data', [RealProgFisikAiKasimController::class, 'data'])->name('realisasi-prog-fisik-ai-kasim.data');
+        Route::put('/{id}', [RealProgFisikAiKasimController::class, 'update'])->name('realisasi-prog-fisik-ai-kasim.update');
+        Route::delete('/{id}', [RealProgFisikAiKasimController::class, 'destroy'])->name('realisasi-prog-fisik-ai-kasim.destroy');
+    });
+
+    // RencanaPemeliharaanKasimController
+    Route::prefix('monev/shrnp/input-data/rencana-pemeliharaan-kasim')->group(function () {
+        Route::get('/', [RencanaPemeliharaanKasimController::class, 'index'])->name('rencana-pemeliharaan-kasim');
+        Route::post('/', [RencanaPemeliharaanKasimController::class, 'store'])->name('rencana-pemeliharaan-kasim.store');
+        Route::get('/data', [RencanaPemeliharaanKasimController::class, 'data'])->name('rencana-pemeliharaan-kasim.data');
+        Route::put('/{id}', [RencanaPemeliharaanKasimController::class, 'update'])->name('rencana-pemeliharaan-kasim.update');
+        Route::delete('/{id}', [RencanaPemeliharaanKasimController::class, 'destroy'])->name('rencana-pemeliharaan-kasim.destroy');
+    });
+
+    // SapAssetKasimController
+    Route::prefix('monev/shrnp/input-data/sap-asset-kasim')->group(function () {
+        Route::get('/', [SapAssetKasimController::class, 'index'])->name('sap-asset-kasim');
+        Route::post('/', [SapAssetKasimController::class, 'store'])->name('sap-asset-kasim.store');
+        Route::get('/data', [SapAssetKasimController::class, 'data'])->name('sap-asset-kasim.data');
+        Route::put('/{id}', [SapAssetKasimController::class, 'update'])->name('sap-asset-kasim.update');
+        Route::delete('/{id}', [SapAssetKasimController::class, 'destroy'])->name('sap-asset-kasim.destroy');
+    });
+
+    // SistemInformasiAimsKasimController
+    Route::prefix('monev/shrnp/input-data/sistem-informasi-aims-kasim')->group(function () {
+        Route::get('/', [SistemInformasiAimsKasimController::class, 'index'])->name('sistem-informasi-aims-kasim');
+        Route::post('/', [SistemInformasiAimsKasimController::class, 'store'])->name('sistem-informasi-aims-kasim.store');
+        Route::get('/data', [SistemInformasiAimsKasimController::class, 'data'])->name('sistem-informasi-aims-kasim.data');
+        Route::put('/{id}', [SistemInformasiAimsKasimController::class, 'update'])->name('sistem-informasi-aims-kasim.update');
+        Route::delete('/{id}', [SistemInformasiAimsKasimController::class, 'destroy'])->name('sistem-informasi-aims-kasim.destroy');
+    });
+
+    // StatusAssetAiKasimController
+    Route::prefix('monev/shrnp/input-data/status-asset-ai-kasim')->group(function () {
+        Route::get('/', [StatusAssetAiKasimController::class, 'index'])->name('status-asset-ai-kasim');
+        Route::post('/', [StatusAssetAiKasimController::class, 'store'])->name('status-asset-ai-kasim.store');
+        Route::get('/data', [StatusAssetAiKasimController::class, 'data'])->name('status-asset-ai-kasim.data');
+        Route::put('/{id}', [StatusAssetAiKasimController::class, 'update'])->name('status-asset-ai-kasim.update');
+        Route::delete('/{id}', [StatusAssetAiKasimController::class, 'destroy'])->name('status-asset-ai-kasim.destroy');
+    });
+
+    // StatusPloKasimController
+    Route::prefix('monev/shrnp/input-data/status-plo-kasim')->group(function () {
+        Route::get('/', [StatusPloKasimController::class, 'index'])->name('status-plo-kasim');
+        Route::post('/', [StatusPloKasimController::class, 'store'])->name('status-plo-kasim.store');
+        Route::get('/data', [StatusPloKasimController::class, 'data'])->name('status-plo-kasim.data');
+        Route::put('/{id}', [StatusPloKasimController::class, 'update'])->name('status-plo-kasim.update');
+        Route::delete('/{id}', [StatusPloKasimController::class, 'destroy'])->name('status-plo-kasim.destroy');
+    });
+    // AvailabilityKasimController
+    Route::prefix('monev/shrnp/input-data/availability-kasim')->group(function () {
+        Route::get('/', [AvailabilityKasimController::class, 'index'])->name('availability-kasim');
+        Route::post('/', [AvailabilityKasimController::class, 'store'])->name('availability-kasim.store');
+        Route::get('/data', [AvailabilityKasimController::class, 'data'])->name('availability-kasim.data');
+        Route::put('/{id}', [AvailabilityKasimController::class, 'update'])->name('availability-kasim.update');
+        Route::delete('/{id}', [AvailabilityKasimController::class, 'destroy'])->name('availability-kasim.destroy');
+    });
 
 
 

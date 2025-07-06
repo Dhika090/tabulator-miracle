@@ -447,9 +447,10 @@
         <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
 
         <script>
+             const BASE_URL = "{{ config('app.url') }}";
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
-                    fetch(`realisasi-prog-fisik-balongan/${id}`, {
+                    fetch(`realisasi-anggaran-figure-balongan/${id}`, {
                             method: "DELETE",
                             headers: {
                                 "Accept": "application/json",
@@ -521,7 +522,7 @@
             }
 
             function loadData() {
-                fetch("/monev/shrnp/input-data/realisasi-prog-fisik-balongan/data", {
+                fetch(`${BASE_URL}/monev/shrnp/input-data/realisasi-anggaran-figure-balongan/data`, {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -549,7 +550,7 @@
 
             document.addEventListener("DOMContentLoaded", function() {
                 const columnMap = {
-                    "realisasi-prog-fisik-balongan": [{
+                    "realisasi-anggaran-figure-balongan": [{
                             title: "No",
                             formatter: "rownum",
                             hozAlign: "center",
@@ -842,7 +843,7 @@
                     layout: "fitDataTable",
                     responsiveLayout: "collapse",
                     autoResize: true,
-                    columns: columnMap["realisasi-prog-fisik-balongan"],
+                    columns: columnMap["realisasi-anggaran-figure-balongan"],
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -877,8 +878,8 @@
                 });
 
                 document.getElementById("download-xlsx").addEventListener("click", function() {
-                    window.table.download("xlsx", "realisasi-prog-fisik-balongan.xlsx", {
-                        sheetName: "realisasi-prog-fisik-balongan",
+                    window.table.download("xlsx", "realisasi-anggaran-figure-balongan.xlsx", {
+                        sheetName: "realisasi-anggaran-figure-balongan",
                         columnHeaders: true,
                         downloadDataFormatter: function(data) {
                             return data.map(row => {
@@ -905,7 +906,7 @@
 
                     if (!id) return;
 
-                    fetch(`realisasi-prog-fisik-balongan/${id}`, {
+                    fetch(`realisasi-anggaran-figure-balongan/${id}`, {
                             method: "PUT",
                             headers: {
                                 "Content-Type": "application/json",
@@ -945,7 +946,7 @@
                     console.log("Baris yang berubah:", changedRows);
 
                     changedRows.forEach(rowData => {
-                        fetch(`realisasi-prog-fisik-balongan/${rowData.id}`, {
+                        fetch(`realisasi-anggaran-figure-balongan/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
                                     "Content-Type": "application/json",
@@ -1000,7 +1001,7 @@
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
 
-                fetch("realisasi-prog-fisik-balongan", {
+                fetch("realisasi-anggaran-figure-balongan", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -1019,7 +1020,7 @@
                     .then(result => {
                         if (result.success) {
                             showToast(result.message || "Data berhasil disimpan", "success");
-                            table.setData("/monev/shrnp/input-data/realisasi-prog-fisik-balongan/data");
+                            table.setData(`${BASE_URL}/monev/shrnp/input-data/realisasi-anggaran-figure-balongan/data`);
                             this.reset();
                             closeModal();
                         } else {

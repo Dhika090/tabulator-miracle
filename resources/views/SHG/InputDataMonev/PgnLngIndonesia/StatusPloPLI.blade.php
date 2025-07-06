@@ -414,7 +414,7 @@
             }
 
             function loadData() {
-                fetch("/monev/shg/input-data/status-plo-pli/data", {
+                fetch(`${BASE_URL}/monev/shg/input-data/status-plo-pli/data`, {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -870,7 +870,7 @@
                         if (result.success) {
                             alert(result.message);
                             // table.addRow([result.data]);
-                            table.setData("/monev/shg/input-data/status-plo-pli/data");
+                            table.setData(`${BASE_URL}/monev/shg/input-data/status-plo-pli/data`);
                             this.reset();
                         } else {
                             alert('Gagal menyimpan data');
