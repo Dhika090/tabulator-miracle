@@ -435,10 +435,10 @@
                             width: 400,
                             editor: "input",
                         },
-                        {
+                            {
                             title: "Realisasi Perwira",
                             field: "realisasi_perwira",
-                            editor: "number",
+                            editor: "input",
                             hozAlign: "center"
                         },
                         {

@@ -438,7 +438,7 @@
                         {
                             title: "Realisasi Perwira",
                             field: "realisasi_perwira",
-                            editor: "number",
+                            editor: "input",
                             hozAlign: "center"
                         },
                         {

@@ -239,6 +239,7 @@
 
 
         <script>
+            const BASE_URL = "{{ config('app.url') }}";
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
                     fetch(`kondisi-vacant-fungsi-aims-nr/${id}`, {
@@ -303,7 +304,7 @@
             }
 
             function loadData() {
-                fetch("/monev/shg/input-data/kondisi-vacant-fungsi-aims-nr/data", {
+                fetch(`${BASE_URL}/monev/shg/input-data/kondisi-vacant-fungsi-aims-nr/data`, {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -671,7 +672,7 @@
                     .then(result => {
                         if (result.success) {
                             showToast(result.message || "Data berhasil disimpan", "success");
-                            table.setData("/monev/shg/input-data/kondisi-vacant-fungsi-aims-nr/data");
+                            table.setData(`${BASE_URL}/monev/shg/input-data/kondisi-vacant-fungsi-aims-nr/data`);
                             this.reset();
                             closeModal();
                        } else {

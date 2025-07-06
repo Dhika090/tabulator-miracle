@@ -249,7 +249,7 @@ class ViewServiceProvider extends ServiceProvider
 
             $view->with('tabs', $tabs);
         });
-
+        
         // SHG TIndak Lanjut
         View::composer('*', function ($view) {
             $routeName = optional(request()->route())->getName();

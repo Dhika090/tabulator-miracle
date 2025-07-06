@@ -319,6 +319,7 @@
     @push('scripts')
         <script src="https://unpkg.com/tabulator-tables@5.6.0/dist/js/tabulator.min.js"></script>
         <script>
+            const BASE_URL = "{{ config('app.url') }}";
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
                     fetch(`realisasi-progress-fisik-ai-glsm/${id}`, {

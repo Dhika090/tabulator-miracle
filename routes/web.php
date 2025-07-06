@@ -470,6 +470,22 @@ use App\Http\Controllers\SHU\InputDataMonev\StatusPlo\Regional1StatusPloControll
 use App\Http\Controllers\SHU\InputDataMonev\StatusPlo\Regional2StatusPloController;
 use App\Http\Controllers\SHU\InputDataMonev\StatusPlo\Regional3StatusPloController;
 use App\Http\Controllers\SHU\InputDataMonev\StatusPlo\Regional4StatusPloController;
+use App\Http\Controllers\SHU\TargetKinerja\KinerjaKpiAssetIntegrity\KinerjaKpiPemnhnPloShuController;
+use App\Http\Controllers\SHU\TargetKinerja\KinerjaKpiAssetIntegrity\KinerjaKpiStatusAiShuController;
+use App\Http\Controllers\SHU\TargetKinerja\KinerjaKpiAssetIntegrity\KinerjaMandatoryCertiSummaryShuController;
+use App\Http\Controllers\SHU\TargetKinerja\PrognosaStatusAiShuController;
+use App\Http\Controllers\SHU\TargetKinerja\StatusPlo\KumulatifStatusPloController;
+use App\Http\Controllers\SHU\TargetKinerja\StatusPlo\PrognosaStatusPloController;
+use App\Http\Controllers\SHU\TargetKinerja\StatusPlo\TargetPenurunanPloController;
+use App\Http\Controllers\SHU\TargetKinerja\TargetKpiAiShuController;
+use App\Http\Controllers\SHU\TargetKinerja\TargetMandatoryCertificationShuController;
+use App\Http\Controllers\SHU\TargetKinerja\TargetSapAssetShuController;
+use App\Http\Controllers\SHU\TargetKinerja\TindakLanjutMonev\HasilMonevShuController;
+use App\Http\Controllers\SHU\TargetKinerja\TindakLanjutMonev\HighlightInformasiDomainShuController;
+use App\Http\Controllers\SHU\TargetKinerja\TindakLanjutMonev\HighlightMandatoryCertificationShuController;
+use App\Http\Controllers\SHU\TargetKinerja\TindakLanjutMonev\HighlightRealisasiAimsShuController;
+use App\Http\Controllers\SHU\TargetKinerja\TindakLanjutMonev\HighlightStatusAiShuController;
+use App\Http\Controllers\SHU\TargetKinerja\TindakLanjutMonev\HighlightStatusPloShuController;
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 use Illuminate\Support\Facades\App;
@@ -4350,6 +4366,132 @@ Route::middleware([\App\Http\Middleware\CorsMiddleware::class])->group(function 
         Route::get('/data', [Regional4RealisasiAnggaranFigureController::class, 'data'])->name('realisasi-anggaran-figure-regional-4.data');
         Route::put('/{id}', [Regional4RealisasiAnggaranFigureController::class, 'update'])->name('realisasi-anggaran-figure-regional-4.update');
         Route::delete('/{id}', [Regional4RealisasiAnggaranFigureController::class, 'destroy'])->name('realisasi-anggaran-figure-regional-4.destroy');
+    });
+
+    // SHU Target Status AI
+    // SHU Target KPI
+    Route::prefix('monev/shu/kinerja/shu-target-kpi-2025-ai')->group(function () {
+        Route::get('/', [TargetKpiAiShuController::class, 'index'])->name('shu-target-kpi-2025-ai');
+        Route::post('/', [TargetKpiAiShuController::class, 'store'])->name('shu-target-kpi-2025-ai.store');
+        Route::get('/data', [TargetKpiAiShuController::class, 'data'])->name('shu-target-kpi-2025-ai.data');
+        Route::put('/{id}', [TargetKpiAiShuController::class, 'update'])->name('shu-target-kpi-2025-ai.update');
+        Route::delete('/{id}', [TargetKpiAiShuController::class, 'destroy'])->name('shu-target-kpi-2025-ai.destroy');
+    });
+
+    // SHU Prognosa Status AI
+    Route::prefix('monev/shu/kinerja/shu-prognosa-status-ai')->group(function () {
+        Route::get('/', [PrognosaStatusAiShuController::class, 'index'])->name('shu-prognosa-status-ai');
+        Route::post('/', [PrognosaStatusAiShuController::class, 'store'])->name('shu-prognosa-status-ai.store');
+        Route::get('/data', [PrognosaStatusAiShuController::class, 'data'])->name('shu-prognosa-status-ai.data');
+        Route::put('/{id}', [PrognosaStatusAiShuController::class, 'update'])->name('shu-prognosa-status-ai.update');
+        Route::delete('/{id}', [PrognosaStatusAiShuController::class, 'destroy'])->name('shu-prognosa-status-ai.destroy');
+    });
+    // SHU Target Kinerja Status PLO
+    Route::prefix('monev/shu/kinerja/shu-kumulatif-status-plo')->group(function () {
+        Route::get('/', [KumulatifStatusPloController::class, 'index'])->name('shu-kumulatif-status-plo');
+        Route::post('/', [KumulatifStatusPloController::class, 'store'])->name('shu-kumulatif-status-plo.store');
+        Route::get('/data', [KumulatifStatusPloController::class, 'data'])->name('shu-kumulatif-status-plo.data');
+        Route::put('/{id}', [KumulatifStatusPloController::class, 'update'])->name('shu-kumulatif-status-plo.update');
+        Route::delete('/{id}', [KumulatifStatusPloController::class, 'destroy'])->name('shu-kumulatif-status-plo.destroy');
+    });
+
+    Route::prefix('monev/shu/kinerja/shu-prognosa-status-plo')->group(function () {
+        Route::get('/', [PrognosaStatusPloController::class, 'index'])->name('shu-prognosa-status-plo');
+        Route::post('/', [PrognosaStatusPloController::class, 'store'])->name('shu-prognosa-status-plo.store');
+        Route::get('/data', [PrognosaStatusPloController::class, 'data'])->name('shu-prognosa-status-plo.data');
+        Route::put('/{id}', [PrognosaStatusPloController::class, 'update'])->name('shu-prognosa-status-plo.update');
+        Route::delete('/{id}', [PrognosaStatusPloController::class, 'destroy'])->name('shu-prognosa-status-plo.destroy');
+    });
+
+    Route::prefix('monev/shu/kinerja/shu-target-penurunan-plo')->group(function () {
+        Route::get('/', [TargetPenurunanPloController::class, 'index'])->name('shu-target-penurunan-plo');
+        Route::post('/', [TargetPenurunanPloController::class, 'store'])->name('shu-target-penurunan-plo.store');
+        Route::get('/data', [TargetPenurunanPloController::class, 'data'])->name('shu-target-penurunan-plo.data');
+        Route::put('/{id}', [TargetPenurunanPloController::class, 'update'])->name('shu-target-penurunan-plo.update');
+        Route::delete('/{id}', [TargetPenurunanPloController::class, 'destroy'])->name('shu-target-penurunan-plo.destroy');
+    });
+
+    Route::prefix('monev/shu/kinerja/shu-kinerja-kpi-status-ai')->group(function () {
+        Route::get('/', [KinerjaKpiStatusAiShuController::class, 'index'])->name('shu-kinerja-kpi-status-ai');
+        Route::post('/', [KinerjaKpiStatusAiShuController::class, 'store'])->name('shu-kinerja-kpi-status-ai.store');
+        Route::get('/data', [KinerjaKpiStatusAiShuController::class, 'data'])->name('shu-kinerja-kpi-status-ai.data');
+        Route::put('/{id}', [KinerjaKpiStatusAiShuController::class, 'update'])->name('shu-kinerja-kpi-status-ai.update');
+        Route::delete('/{id}', [KinerjaKpiStatusAiShuController::class, 'destroy'])->name('shu-kinerja-kpi-status-ai.destroy');
+    });
+    Route::prefix('monev/shu/kinerja/shu-kinerja-kpi-pemnhn-plo')->group(function () {
+        Route::get('/', [KinerjaKpiPemnhnPloShuController::class, 'index'])->name('shu-kinerja-kpi-pemnhn-plo');
+        Route::post('/', [KinerjaKpiPemnhnPloShuController::class, 'store'])->name('shu-kinerja-kpi-pemnhn-plo.store');
+        Route::get('/data', [KinerjaKpiPemnhnPloShuController::class, 'data'])->name('shu-kinerja-kpi-pemnhn-plo.data');
+        Route::put('/{id}', [KinerjaKpiPemnhnPloShuController::class, 'update'])->name('shu-kinerja-kpi-pemnhn-plo.update');
+        Route::delete('/{id}', [KinerjaKpiPemnhnPloShuController::class, 'destroy'])->name('shu-kinerja-kpi-pemnhn-plo.destroy');
+    });
+    Route::prefix('monev/shu/kinerja/shu-kpi-mandatory-certi-summary')->group(function () {
+        Route::get('/', [KinerjaMandatoryCertiSummaryShuController::class, 'index'])->name('shu-kpi-mandatory-certi-summary');
+        Route::post('/', [KinerjaMandatoryCertiSummaryShuController::class, 'store'])->name('shu-kpi-mandatory-certi-summary.store');
+        Route::get('/data', [KinerjaMandatoryCertiSummaryShuController::class, 'data'])->name('shu-kpi-mandatory-certi-summary.data');
+        Route::put('/{id}', [KinerjaMandatoryCertiSummaryShuController::class, 'update'])->name('shu-kpi-mandatory-certi-summary.update');
+        Route::delete('/{id}', [KinerjaMandatoryCertiSummaryShuController::class, 'destroy'])->name('shu-kpi-mandatory-certi-summary.destroy');
+    });
+    // SHU Target Kinerja Tl
+    Route::prefix('monev/shu/kinerja/tindak-lanjut-monev-shu')->group(function () {
+        Route::get('/', [HasilMonevShuController::class, 'index'])->name('tindak-lanjut-monev-shu');
+        Route::post('/', [HasilMonevShuController::class, 'store'])->name('tindak-lanjut-monev-shu.store');
+        Route::get('/data', [HasilMonevShuController::class, 'data'])->name('tindak-lanjut-monev-shu.data');
+        Route::put('/{id}', [HasilMonevShuController::class, 'update'])->name('tindak-lanjut-monev-shu.update');
+        Route::delete('/{id}', [HasilMonevShuController::class, 'destroy'])->name('tindak-lanjut-monev-shu.destroy');
+    });
+
+    Route::prefix('monev/shu/kinerja/highlight-mandatory-certification-shu')->group(function () {
+        Route::get('/', [HighlightMandatoryCertificationShuController::class, 'index'])->name('highlight-mandatory-certification-shu');
+        Route::post('/', [HighlightMandatoryCertificationShuController::class, 'store'])->name('highlight-mandatory-certification-shu.store');
+        Route::get('/data', [HighlightMandatoryCertificationShuController::class, 'data'])->name('highlight-mandatory-certification-shu.data');
+        Route::put('/{id}', [HighlightMandatoryCertificationShuController::class, 'update'])->name('highlight-mandatory-certification-shu.update');
+        Route::delete('/{id}', [HighlightMandatoryCertificationShuController::class, 'destroy'])->name('highlight-mandatory-certification-shu.destroy');
+    });
+
+    Route::prefix('monev/shu/kinerja/highlight-status-ai-shu')->group(function () {
+        Route::get('/', [HighlightStatusAiShuController::class, 'index'])->name('highlight-status-ai-shu');
+        Route::post('/', [HighlightStatusAiShuController::class, 'store'])->name('highlight-status-ai-shu.store');
+        Route::get('/data', [HighlightStatusAiShuController::class, 'data'])->name('highlight-status-ai-shu.data');
+        Route::put('/{id}', [HighlightStatusAiShuController::class, 'update'])->name('highlight-status-ai-shu.update');
+        Route::delete('/{id}', [HighlightStatusAiShuController::class, 'destroy'])->name('highlight-status-ai-shu.destroy');
+    });
+
+    Route::prefix('monev/shu/kinerja/highlight-status-plo-shu')->group(function () {
+        Route::get('/', [HighlightStatusPloShuController::class, 'index'])->name('highlight-status-plo-shu');
+        Route::post('/', [HighlightStatusPloShuController::class, 'store'])->name('highlight-status-plo-shu.store');
+        Route::get('/data', [HighlightStatusPloShuController::class, 'data'])->name('highlight-status-plo-shu.data');
+        Route::put('/{id}', [HighlightStatusPloShuController::class, 'update'])->name('highlight-status-plo-shu.update');
+        Route::delete('/{id}', [HighlightStatusPloShuController::class, 'destroy'])->name('highlight-status-plo-shu.destroy');
+    });
+
+    Route::prefix('monev/shu/kinerja/highlight-realisasi-aims-shu')->group(function () {
+        Route::get('/', [HighlightRealisasiAimsShuController::class, 'index'])->name('highlight-realisasi-aims-shu');
+        Route::post('/', [HighlightRealisasiAimsShuController::class, 'store'])->name('highlight-realisasi-aims-shu.store');
+        Route::get('/data', [HighlightRealisasiAimsShuController::class, 'data'])->name('highlight-realisasi-aims-shu.data');
+        Route::put('/{id}', [HighlightRealisasiAimsShuController::class, 'update'])->name('highlight-realisasi-aims-shu.update');
+        Route::delete('/{id}', [HighlightRealisasiAimsShuController::class, 'destroy'])->name('highlight-realisasi-aims-shu.destroy');
+    });
+    Route::prefix('monev/shu/kinerja/highlight-informasi-domain-shu')->group(function () {
+        Route::get('/', [HighlightInformasiDomainShuController::class, 'index'])->name('highlight-informasi-domain-shu');
+        Route::post('/', [HighlightInformasiDomainShuController::class, 'store'])->name('highlight-informasi-domain-shu.store');
+        Route::get('/data', [HighlightInformasiDomainShuController::class, 'data'])->name('highlight-informasi-domain-shu.data');
+        Route::put('/{id}', [HighlightInformasiDomainShuController::class, 'update'])->name('highlight-informasi-domain-shu.update');
+        Route::delete('/{id}', [HighlightInformasiDomainShuController::class, 'destroy'])->name('highlight-informasi-domain-shu.destroy');
+    });
+    Route::prefix('monev/shu/kinerja/target-sap-asset-shu')->group(function () {
+        Route::get('/', [TargetSapAssetShuController::class, 'index'])->name('target-sap-asset-shu');
+        Route::post('/', [TargetSapAssetShuController::class, 'store'])->name('target-sap-asset-shu.store');
+        Route::get('/data', [TargetSapAssetShuController::class, 'data'])->name('target-sap-asset-shu.data');
+        Route::put('/{id}', [TargetSapAssetShuController::class, 'update'])->name('target-sap-asset-shu.update');
+        Route::delete('/{id}', [TargetSapAssetShuController::class, 'destroy'])->name('target-sap-asset-shu.destroy');
+    });
+    Route::prefix('monev/shu/kinerja/target-mandatory-certification-shu')->group(function () {
+        Route::get('/', [TargetMandatoryCertificationShuController::class, 'index'])->name('target-mandatory-certification-shu');
+        Route::post('/', [TargetMandatoryCertificationShuController::class, 'store'])->name('target-mandatory-certification-shu.store');
+        Route::get('/data', [TargetMandatoryCertificationShuController::class, 'data'])->name('target-mandatory-certification-shu.data');
+        Route::put('/{id}', [TargetMandatoryCertificationShuController::class, 'update'])->name('target-mandatory-certification-shu.update');
+        Route::delete('/{id}', [TargetMandatoryCertificationShuController::class, 'destroy'])->name('target-mandatory-certification-shu.destroy');
     });
 
 

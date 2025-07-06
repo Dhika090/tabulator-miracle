@@ -1037,7 +1037,7 @@
                     .then(result => {
                         if (result.success) {
                             showToast(result.message || "Data berhasil disimpan", "success");
-                            table.setData(`${base_url}/monev/shg/input-data/pertamina-gas/data`);
+                            table.setData(`${BASE_URL}/monev/shg/input-data/pertamina-gas/data`);
                             this.reset();
                             closeModal();
                         } else {

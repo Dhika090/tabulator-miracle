@@ -131,45 +131,39 @@
     @endpush
 
     <div class="card">
-    <div class="card-body d-flex flex-column">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h5 class="card-title mb-0">Target Sap Asset</h5>
-        </div>
+        <div class="card-body d-flex flex-column">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="card-title mb-0">Target Sap Asset</h5>
+            </div>
 
-        <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-3 mb-3">
-            <button onclick="openModal()" class="btn btn-primary px-4 py-2" style="white-space: nowrap;">
-                Create Data
-            </button>
-
-            <div class="d-flex flex-column flex-md-row align-items-center gap-2">
-                <input id="search-input" 
-                       type="text" 
-                       class="form-control" 
-                       placeholder="Search data..." 
-                       style="max-width: 200px;">
-
-                <button class="btn btn-outline-secondary" 
-                        type="button" 
-                        onclick="clearSearch()">
-                    Clear
+            <div
+                class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-3 mb-3">
+                <button onclick="openModal()" class="btn btn-primary px-4 py-2" style="white-space: nowrap;">
+                    Create Data
                 </button>
 
-                <button class="btn btn-primary px-4 py-2" 
-                        id="download-xlsx" 
-                        style="white-space: nowrap;">
-                    Export Excel
-                </button>
+                <div class="d-flex flex-column flex-md-row align-items-center gap-2">
+                    <input id="search-input" type="text" class="form-control" placeholder="Search data..."
+                        style="max-width: 200px;">
+
+                    <button class="btn btn-outline-secondary" type="button" onclick="clearSearch()">
+                        Clear
+                    </button>
+
+                    <button class="btn btn-primary px-4 py-2" id="download-xlsx" style="white-space: nowrap;">
+                        Export Excel
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tabel dan Konten -->
+            <div id="mainTable"></div>
+
+            <div class="tabulator-wrapper mt-4">
+                <div id="example-table"></div>
             </div>
         </div>
-
-        <!-- Tabel dan Konten -->
-        <div id="mainTable"></div>
-
-        <div class="tabulator-wrapper mt-4">
-            <div id="example-table"></div>
-        </div>
     </div>
-</div>
 
     <div id="createModal" class="modal">
         <div class="modal-content">
@@ -249,8 +243,7 @@
             document.getElementById("search-input").addEventListener("input", function(e) {
                 const keyword = e.target.value;
                 table.setFilter([
-                    [
-                        {
+                    [{
                             field: "periode",
                             type: "like",
                             value: keyword

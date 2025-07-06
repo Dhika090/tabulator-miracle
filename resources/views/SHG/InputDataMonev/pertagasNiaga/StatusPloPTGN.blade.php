@@ -312,6 +312,7 @@
             pengesahanInput.addEventListener('change', validateDates);
             berlakuInput.addEventListener('change', validateDates);
 
+            const BASE_URL = "{{ config('app.url') }}";
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
                     fetch(`status-plo-ptgn/${id}`, {

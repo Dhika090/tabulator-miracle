@@ -87,6 +87,7 @@
             </a>
 
             <ul class="menu-sub">
+                {{-- target kinerja --}}
                 <li class="menu-item {{ request()->is('monev/shg/kinerja*') ? 'active open' : '' }}">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
                         Input Target Kinerja SHG
@@ -239,6 +240,52 @@
                 <div>SHU</div>
             </a>
             <ul class="menu-sub">
+                {{-- target kinerja --}}
+                <li class="menu-item {{ request()->is('monev/shu/kinerja*') ? 'active open' : '' }}">
+                    <a href="javascript:void(0);" class="menu-link menu-toggle">
+                        Input Target Kinerja SHU
+                    </a>
+                    <ul class="menu-sub">
+                        <li
+                            class="menu-item {{ request()->is('monev/shu/kinerja/shu-target-kpi-2025-ai*') ? 'active' : '' }}">
+                            <a class="menu-link" href="{{ route('shu-target-kpi-2025-ai') }}">
+                                Target Status Asset Integrity SHU
+                            </a>
+                        </li>
+                        <li
+                            class="menu-item {{ request()->is('monev/shu/kinerja/shu-target-penurunan-plo*') ? 'active' : '' }}">
+                            <a class="menu-link" href="{{ route('shu-target-penurunan-plo') }}">
+                                Target Status Plo
+                            </a>
+                        </li>
+                        <li
+                            class="menu-item {{ request()->is('monev/shu/kinerja/shu-kinerja-kpi-status-ai*') ? 'active' : '' }}">
+                            <a class="menu-link" href="{{ route('shu-kinerja-kpi-status-ai') }}">
+                                Kinerja KPI Status AI
+                            </a>
+                        </li>
+                        <li
+                            class="menu-item {{ request()->is('monev/shu/kinerja/tindak-lanjut-monev-shu*') ? 'active' : '' }}">
+                            <a class="menu-link" href="{{ route('tindak-lanjut-monev-shu') }}">
+                                Tindak Lanjut Hasil Monev
+                            </a>
+                        </li>
+                        <li
+                            class="menu-item {{ request()->is('monev/shu/kinerja/target-sap-asset-shu*') ? 'active' : '' }}">
+                            <a class="menu-link" href="{{ route('target-sap-asset-shu') }}">
+                                Target SAP Asset
+                            </a>
+                        </li>
+                        <li
+                            class="menu-item {{ request()->is('monev/shu/kinerja/target-mandatory-certification-shu*') ? 'active' : '' }}">
+                            <a class="menu-link"
+                                href="{{ url('monev/shu/kinerja/target-mandatory-certification-shu') }}">
+                                Mandatory Certification
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                {{-- monev --}}
                 <li class="menu-item {{ request()->is('monev/shu/input-data*') ? 'active open' : '' }}">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
                         Input Data Monev
@@ -410,7 +457,8 @@
                         Input Data Monev
                     </a>
                     <ul class="menu-sub">
-                        <li class="menu-item {{ request()->is('monev/shrnp/input-data/ru-dumai*') ? 'active' : '' }}">
+                        <li
+                            class="menu-item {{ request()->is('monev/shrnp/input-data/ru-dumai*') ? 'active' : '' }}">
                             <a class="menu-link" href="{{ url('monev/shrnp/input-data/ru-dumai') }}">
                                 <i class="fa fa-wrench me-2"></i>RU II Dumai
                             </a>
@@ -482,7 +530,6 @@
 
         {{-- </ul>
         </li> --}}
-
 
         <!-- Settings -->
         {{-- <li class="menu-item {{ request()->is('settings/*') ? 'active open' : '' }}">

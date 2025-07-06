@@ -297,6 +297,7 @@
         <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
 
         <script>
+            const BASE_URL = "{{ config('app.url') }}";
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
                     fetch(`realisasi-progress-fisik-ai-gei/${id}`, {
@@ -391,7 +392,7 @@
             }
 
             function loadData() {
-                fetch("/monev/shg/input-data/realisasi-progress-fisik-ai-gei/data", {
+                fetch(`${BASE_URL}/monev/shg/input-data/realisasi-progress-fisik-ai-gei/data`, {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -770,7 +771,7 @@
                     .then(result => {
                         if (result.success) {
                             showToast(result.message || "Data berhasil disimpan", "success");
-                            table.setData("/monev/shg/input-data/realisasi-progress-fisik-ai-gei/data");
+                            table.setData(`${BASE_URL}/monev/shg/input-data/realisasi-progress-fisik-ai-gei/data`);
                             this.reset();
                             closeModal();
                        } else {

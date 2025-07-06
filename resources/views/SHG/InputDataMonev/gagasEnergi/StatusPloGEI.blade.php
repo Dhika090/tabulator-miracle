@@ -311,6 +311,7 @@
             pengesahanInput.addEventListener('change', validateDates);
             berlakuInput.addEventListener('change', validateDates);
 
+            const BASE_URL = "{{ config('app.url') }}";
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
                     fetch(`status-plo-gei/${id}`, {
@@ -430,7 +431,7 @@
             }
 
             function loadData() {
-                fetch("/monev/shg/input-data/status-plo-gei/data", {
+                fetch(`${BASE_URL}/monev/shg/input-data/gagas-energi-indonesia/data`, {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -893,7 +894,7 @@
                         if (result.success) {
                             alert(result.message);
                             // table.addRow([result.data]);
-                            table.setData("/monev/shg/input-data/status-plo-gei/data");
+                            table.setData(`${BASE_URL}/monev/shg/input-data/gagas-energi-indonesia/data`);
                             this.reset();
                         } else {
                             alert('Gagal menyimpan data');

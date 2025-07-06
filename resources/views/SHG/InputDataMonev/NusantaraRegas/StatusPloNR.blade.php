@@ -306,6 +306,7 @@
             pengesahanInput.addEventListener('change', validateDates);
             berlakuInput.addEventListener('change', validateDates);
 
+            const BASE_URL = "{{ config('app.url') }}";
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
                     fetch(`status-plo-nr/${id}`, {
@@ -425,7 +426,7 @@
             }
 
             function loadData() {
-                fetch("/monev/shg/input-data/status-plo-nr/data", {
+                fetch(`${BASE_URL}/monev/shg/input-data/status-plo-nr/data`, {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -882,7 +883,7 @@
                         if (result.success) {
                             alert(result.message);
                             // table.addRow([result.data]);
-                            table.setData("/monev/shg/input-data/status-plo-nr/data");
+                            table.setData(`${BASE_URL}/monev/shg/input-data/status-plo-nr/data`);
                             this.reset();
                         } else {
                             alert('Gagal menyimpan data');

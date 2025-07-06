@@ -29,10 +29,7 @@
 
             #tabSwitcher .btn {
                 white-space: nowrap;
-                /* biar teks dalam button gak pecah ke bawah */
             }
-
-
             /* modall */
             .modal {
                 display: none;

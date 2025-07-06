@@ -274,7 +274,6 @@
             </form>
         </div>
     </div>
-
     
     <div id="toastNotification"
         style="display:none; position: fixed; top: 20px; right: 20px; z-index: 9999; padding: 15px 20px; border-radius: 8px; color: white; font-weight: bold;">
@@ -284,6 +283,7 @@
         <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
 
         <script>
+            const BASE_URL = "{{ config('app.url') }}";
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
                     fetch(`asset-breakdown-pag/${id}`, {
@@ -398,7 +398,7 @@
             }
 
             function loadData() {
-                fetch("/monev/shg/input-data/asset-breakdown-pag/data", {
+                fetch(`${BASE_URL}/monev/shg/input-data/asset-breakdown-pag/data`, {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -822,7 +822,7 @@
                     .then(result => {
                         if (result.success) {
                             showToast(result.message || "Data berhasil disimpan", "success");
-                            table.setData("/monev/shg/input-data/asset-breakdown-pag/data");
+                            table.setData(`${BASE_URL}/monev/shg/input-data/asset-breakdown-pag/data`);
                             this.reset();
                             closeModal();
                        } else {
