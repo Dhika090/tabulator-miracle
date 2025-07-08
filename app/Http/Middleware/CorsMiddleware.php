@@ -15,9 +15,9 @@ class CorsMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!session()->has('user')) {
-            return redirect()->away('https://digio.pgn.co.id');
-        }
+        // if (!session()->has('user')) {
+        //     return redirect()->away('https://digio.pgn.co.id');
+        // }
         return $next($request);
     }
 }

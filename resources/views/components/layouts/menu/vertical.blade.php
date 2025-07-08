@@ -105,11 +105,11 @@
                 {{-- target kinerja --}}
                 <li class="menu-item {{ request()->is('monev/shg/kinerja*') ? 'active open' : '' }}">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
-                        Input Target Kinerja SHG
+                        Input Target Kinerja SH
                     </a>
-                    <ul
-                        class="menu-item {{ request()->is('monev/shg/kinerja/shg-target-kpi-2025-ai*') ? 'active' : '' }}">
-                        <li class="menu-item">
+                    <ul class="menu-sub">
+                        <li
+                            class="menu-item {{ request()->is('monev/shg/kinerja/shg-target-kpi-2025-ai*') ? 'active' : '' }}">
                             <a class="menu-link" href="{{ route('shg-target-kpi-2025-ai') }}">
                                 Target Status Asset Integrity
                             </a>
@@ -126,17 +126,20 @@
                                 Kinerja KPI Status AI
                             </a>
                         </li>
-                        <li class="menu-item">
+                        <li
+                            class="menu-item {{ request()->is('monev/shg/kinerja/tindak-lanjut-hasil-monev*') ? 'active' : '' }}">
                             <a class="menu-link" href="{{ url('monev/shg/kinerja/tindak-lanjut-hasil-monev') }}">
                                 Tindak Lanjut Hasil Monev
                             </a>
                         </li>
-                        <li class="menu-item">
+                        <li
+                            class="menu-item {{ request()->is('monev/shg/kinerja/target-sap-asset*') ? 'active' : '' }}">
                             <a class="menu-link" href="{{ url('monev/shg/kinerja/target-sap-asset') }}">
                                 Target SAP Asset
                             </a>
                         </li>
-                        <li class="menu-item">
+                        <li
+                            class="menu-item {{ request()->is('monev/shg/kinerja/mandatory-certification*') ? 'active' : '' }}">
                             <a class="menu-link" href="{{ url('monev/shg/kinerja/mandatory-certification') }}">
                                 Mandatory Certification
                             </a>
