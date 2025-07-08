@@ -237,6 +237,7 @@
 
         <script>
             const BASE_URL = "{{ config('app.url') }}";
+
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
                     fetch(`pelatihan-aims-regional-2/${id}`, {
@@ -319,8 +320,7 @@
 
             document.addEventListener("DOMContentLoaded", function() {
                 const columnMap = {
-                    "pelatihan-aims-regional-2": [
-                       {
+                    "pelatihan-aims-regional-2": [{
                             title: "No",
                             hozAlign: "center",
                             width: 60,
@@ -436,7 +436,7 @@
                             width: 400,
                             editor: "input",
                         },
-                            {
+                        {
                             title: "Realisasi Perwira",
                             field: "realisasi_perwira",
                             editor: "input",
@@ -594,30 +594,6 @@
 
         {{-- create data  --}}
         <script>
-            function showToast(message, type = "success") {
-                const toast = document.getElementById("toastNotification");
-                toast.textContent = message;
-                toast.className = "";
-                toast.classList.add(type === "success" ? "toast-success" : "toast-error");
-                toast.style.display = "block";
-
-                setTimeout(() => {
-                    toast.style.display = "none";
-                }, 3000);
-            }
-
-            function showToast(message, type = "success") {
-                const toast = document.getElementById("toastNotification");
-                toast.textContent = message;
-                toast.className = "";
-                toast.classList.add(type === "success" ? "toast-success" : "toast-error");
-                toast.style.display = "block";
-
-                setTimeout(() => {
-                    toast.style.display = "none";
-                }, 3000);
-            }
-
             function showToast(message, type = "success") {
                 const toast = document.getElementById("toastNotification");
                 toast.textContent = message;

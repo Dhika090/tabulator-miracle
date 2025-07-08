@@ -214,12 +214,14 @@
 
                 <div>
                     <label>Penurunan Kumulatif Low Integrity</label>
-                    <input type="number" name="penurunan_kumulatif_low_integrity" id="penurunan_kumulatif_low_integrity">
+                    <input type="number" name="penurunan_kumulatif_low_integrity"
+                        id="penurunan_kumulatif_low_integrity">
                 </div>
 
                 <div>
                     <label>Penurunan Kumulatif Medium Integrity</label>
-                    <input type="number" name="penurunan_kumulatif_medium_integrity" id="penurunan_kumulatif_medium_integrity">
+                    <input type="number" name="penurunan_kumulatif_medium_integrity"
+                        id="penurunan_kumulatif_medium_integrity">
                 </div>
 
                 <button type="submit" class="btn btn-success">Submit</button>
@@ -262,8 +264,7 @@
             document.getElementById("search-input").addEventListener("input", function(e) {
                 const keyword = e.target.value;
                 table.setFilter([
-                    [
-                        {
+                    [{
                             field: "periode",
                             type: "like",
                             value: keyword
@@ -594,30 +595,6 @@
 
         {{-- create data  --}}
         <script>
-            function showToast(message, type = "success") {
-                const toast = document.getElementById("toastNotification");
-                toast.textContent = message;
-                toast.className = "";
-                toast.classList.add(type === "success" ? "toast-success" : "toast-error");
-                toast.style.display = "block";
-
-                setTimeout(() => {
-                    toast.style.display = "none";
-                }, 3000);
-            }
-
-            function showToast(message, type = "success") {
-                const toast = document.getElementById("toastNotification");
-                toast.textContent = message;
-                toast.className = "";
-                toast.classList.add(type === "success" ? "toast-success" : "toast-error");
-                toast.style.display = "block";
-
-                setTimeout(() => {
-                    toast.style.display = "none";
-                }, 3000);
-            }
-
             function showToast(message, type = "success") {
                 const toast = document.getElementById("toastNotification");
                 toast.textContent = message;

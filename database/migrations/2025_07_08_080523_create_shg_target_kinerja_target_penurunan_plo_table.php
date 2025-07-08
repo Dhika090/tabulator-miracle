@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('shg_kpi_asset_integrity', function (Blueprint $table) {
+        Schema::create('shg_target_kinerja_target_penurunan_plo', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('periode');
-            $table->string('company');
-            $table->integer('kpi');
-            $table->integer('kpi_subholding');
+            $table->string('periode')->nullable();
+            $table->string('subholding')->nullable();
+            $table->string('company')->nullable();
+            $table->integer('plo_expired')->nullable();
+            $table->integer('plo_uncertified')->nullable();
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('shg_kpi_asset_integrity');
+        Schema::dropIfExists('shg_target_kinerja_target_penurunan_plo');
     }
 };

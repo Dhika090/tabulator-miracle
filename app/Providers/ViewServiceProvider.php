@@ -278,5 +278,36 @@ class ViewServiceProvider extends ServiceProvider
 
             $view->with('tabs', $tabs);
         });
+
+        // SHCNT
+        View::composer('*', function ($view) {
+            $routeName = optional(request()->route())->getName();
+            if (!$routeName || !str_contains($routeName, 'sistem-informasi-aims-region-1')) return;
+
+            $tabs = collect(config('shcnt-sistem-informasi'))->map(function ($tab) {
+                return [
+                    'title' => $tab['title'],
+                    'route' => route($tab['route']),
+                    'active' => request()->routeIs($tab['route']),
+                ];
+            })->toArray();
+
+            $view->with('tabs', $tabs);
+        });
+
+        View::composer('*', function ($view) {
+            $routeName = optional(request()->route())->getName();
+            if (!$routeName || !str_contains($routeName, 'asset-breakdown-region-1')) return;
+
+            $tabs = collect(config('shcnt-asset-breakdown'))->map(function ($tab) {
+                return [
+                    'title' => $tab['title'],
+                    'route' => route($tab['route']),
+                    'active' => request()->routeIs($tab['route']),
+                ];
+            })->toArray();
+
+            $view->with('tabs', $tabs);
+        });
     }
 }

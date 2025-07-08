@@ -604,30 +604,6 @@
                 }, 3000);
             }
 
-            function showToast(message, type = "success") {
-                const toast = document.getElementById("toastNotification");
-                toast.textContent = message;
-                toast.className = "";
-                toast.classList.add(type === "success" ? "toast-success" : "toast-error");
-                toast.style.display = "block";
-
-                setTimeout(() => {
-                    toast.style.display = "none";
-                }, 3000);
-            }
-
-            function showToast(message, type = "success") {
-                const toast = document.getElementById("toastNotification");
-                toast.textContent = message;
-                toast.className = "";
-                toast.classList.add(type === "success" ? "toast-success" : "toast-error");
-                toast.style.display = "block";
-
-                setTimeout(() => {
-                    toast.style.display = "none";
-                }, 3000);
-            }
-
             function openModal() {
                 document.getElementById("createModal").style.display = "block";
             }

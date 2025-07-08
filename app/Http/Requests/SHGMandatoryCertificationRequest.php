@@ -22,18 +22,23 @@ class SHGMandatoryCertificationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'periode' => 'required|string|max:255',
-            'subholding' => 'required|string|max:255',
-            'company' => 'required|string|max:255',
-            'unit' => 'required|string|max:255',
-            'posisi_awal_tahun' => 'required|integer|min:0',
-            'posisi_vacant_awal_tahun' => 'required|integer|min:0',
-            'posisi_terisi_awal_tahun' => 'required|integer|min:0',
-            'target_personil_memenuhi_sertifikasi' => 'required|integer|min:0',
-            'jumlah_sertifikasi_sudah_terbit' => 'required|integer|min:0',
-            'jumlah_sertifikasi_belum_terbit' => 'required|integer|min:0',
-            'jumlah_learning_hours' => 'required|integer|min:0',
-            'target_kpi' => 'required|integer|min:0',
+            'periode' => 'nullable|string|max:255',
+            'subholding' => 'nullable|string|max:255',
+            'company' => 'nullable|string|max:255',
+            'unit' => 'nullable|string|max:255',
+            'posisi_awal_tahun' => 'nullable|string',
+            'posisi_vacant_awal_tahun' => 'nullable|string',
+            'posisi_terisi_awal_tahun' => 'nullable|string',
+            'target_personil_memenuhi_sertifikasi_tahunan' => 'nullable|string',
+            'jumlah_sertifikasi_sudah_terbit' => 'nullable|string',
+            'jumlah_sertifikasi_belum_terbit' => 'nullable|string',
+            'jumlah_learning_hours' => 'nullable|string',
+            'jumlah_learning_hours_kumulatif' => 'nullable|string',
+            'jumlah_sertifikasi_sudah_terbit_kumulatif' => 'nullable|string',
+            'target_personil_memenuhi_sertifikasi_bulanan' => 'nullable|string',
+            'target_personil_memenuhi_sertifikasi_kumulatif' => 'nullable|string',
+            'target_kpi' => 'nullable|string',
+            'target_kpi_kumulatif' => 'nullable|string',
         ];
     }
 }

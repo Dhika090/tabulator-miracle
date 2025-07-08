@@ -1,11 +1,14 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\SHG\TargetKinerja;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Str;
-class SHGKpiAssetIntegrity extends Model
+use Illuminate\Database\Eloquent\Model;
+
+class TargetKpi2025AiShg extends Model
 {
+    use HasFactory;
     public $incrementing = false;
     protected $keyType = 'string';
 
@@ -19,12 +22,12 @@ class SHGKpiAssetIntegrity extends Model
             }
         });
     }
-    
-    protected $table = 'shg_kpi_asset_integrity';
+
+    protected $table = 'shg_target_kinerja_target_kpi_2025_ai';
     protected $fillable = [
         'periode',
         'company',
-        'kpi',
-        'kpi_subholding',
+        'penurunan_kumulatif_low_integrity',
+        'penurunan_kumulatif_medium_integrity'
     ];
 }
