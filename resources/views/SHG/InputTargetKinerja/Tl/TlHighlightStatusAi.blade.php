@@ -196,17 +196,17 @@
                 <input type="hidden" name="id" id="form-id">
                 <div>
                     <label>Periode</label>
-                    <input type="text" name="periode" id="periode" >
+                    <input type="text" name="periode" id="periode">
                 </div>
 
                 <div>
                     <label>No</label>
-                    <input type="number" name="no" id="no"  min="0">
+                    <input type="number" name="no" id="no" min="0">
                 </div>
 
                 <div>
                     <label>Highlight</label>
-                    <input type="text" name="highlight" id="highlight" >
+                    <input type="text" name="highlight" id="highlight">
                 </div>
 
                 <button type="submit" class="btn btn-success">Submit</button>
@@ -227,6 +227,8 @@
         <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
 
         <script>
+            const BASE_URL = "{{ config('app.url') }}";
+
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
                     fetch(`tindak-lanjut-highlight-status-ai/${id}`, {
@@ -251,8 +253,7 @@
             document.getElementById("search-input").addEventListener("input", function(e) {
                 const keyword = e.target.value;
                 table.setFilter([
-                    [
-                        {
+                    [{
                             field: "periode",
                             type: "like",
                             value: keyword
@@ -277,7 +278,7 @@
             }
 
             function loadData() {
-                fetch("/monev/shg/kinerja/tindak-lanjut-highlight-status-ai/data", {
+                fetch(`${base_url}/monev/shg/kinerja/tindak-lanjut-highlight-status-ai/data`, {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -609,7 +610,7 @@
                     .then(result => {
                         if (result.success) {
                             showToast(result.message || "Data berhasil disimpan", "success");
-                            table.setData("/monev/shg/kinerja/tindak-lanjut-highlight-status-ai/data");
+                            table.setData(`${base_url}/monev/shg/kinerja/tindak-lanjut-highlight-status-ai/data`);
                             this.reset();
                             closeModal();
                         } else {

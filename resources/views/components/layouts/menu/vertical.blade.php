@@ -105,7 +105,7 @@
                 {{-- target kinerja --}}
                 <li class="menu-item {{ request()->is('monev/shg/kinerja*') ? 'active open' : '' }}">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
-                        Input Target Kinerja SH
+                        Input Target Kinerja SHG
                     </a>
                     <ul class="menu-sub">
                         <li
@@ -421,7 +421,7 @@
                 {{-- target kinerja --}}
                 <li class="menu-item {{ request()->is('monev/shpnre/kinerja*') ? 'active open' : '' }}">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
-                        Input Target Kinerja SHU
+                        Input Target Kinerja SHPNRE
                     </a>
                     <ul class="menu-sub">
                         <li

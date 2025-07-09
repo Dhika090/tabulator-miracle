@@ -196,27 +196,27 @@
                 <input type="hidden" name="id" id="form-id">
                 <div>
                     <label>Periode</label>
-                    <input type="text" name="periode" id="periode" >
+                    <input type="text" name="periode" id="periode">
                 </div>
 
                 <div>
                     <label>No</label>
-                    <input type="number" name="no" id="no"  min="0">
+                    <input type="number" name="no" id="no" min="0">
                 </div>
 
                 <div>
                     <label>Bahasan</label>
-                    <input type="text" name="bahasan" id="bahasan" >
+                    <input type="text" name="bahasan" id="bahasan">
                 </div>
 
                 <div>
                     <label>RTL</label>
-                    <input type="text" name="rtl" id="rtl" >
+                    <input type="text" name="rtl" id="rtl">
                 </div>
 
                 <div>
                     <label>Progress</label>
-                    <input type="text" name="progress" id="progress" >
+                    <input type="text" name="progress" id="progress">
                 </div>
 
                 <button type="submit" class="btn btn-success">Submit</button>
@@ -237,6 +237,8 @@
         <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
 
         <script>
+            const BASE_URL = "{{ config('app.url') }}";
+
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
                     fetch(`tindak-lanjut-hasil-monev/${id}`, {
@@ -267,17 +269,17 @@
                             value: keyword
                         },
                         {
-                            field: "company",
+                            field: "bahasan",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "judul_pelatihan",
+                            field: "rtl",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "realisasi_perwira",
+                            field: "progress",
                             type: "like",
                             value: keyword
                         }
@@ -291,7 +293,7 @@
             }
 
             function loadData() {
-                fetch("/monev/shg/kinerja/tindak-lanjut-hasil-monev/data", {
+                fetch(`${base_url}/monev/shg/kinerja/tindak-lanjut-hasil-monev/data`, {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -637,7 +639,7 @@
                     .then(result => {
                         if (result.success) {
                             showToast(result.message || "Data berhasil disimpan", "success");
-                            table.setData("/monev/shg/kinerja/tindak-lanjut-hasil-monev/data");
+                            table.setData(`${base_url}/monev/shg/kinerja/tindak-lanjut-hasil-monev/data`);
                             this.reset();
                             closeModal();
                         } else {

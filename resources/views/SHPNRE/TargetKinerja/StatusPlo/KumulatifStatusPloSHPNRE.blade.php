@@ -141,7 +141,7 @@
     <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-                <h5 class="card-title mb-3 mb-md-0">KPI Mandatory Certi Summary</h5>
+                <h5 class="card-title mb-3 mb-md-0">Target Penurunan Plo</h5>
                 <div class="d-flex flex-column flex-md-row align-items-center gap-3">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
@@ -199,7 +199,7 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Tambah Data KPI Mandatory Certi Summary</h3>
+            <h3>Target Penurunan Plo</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
                 <div>
@@ -223,92 +223,13 @@
                 </div>
 
                 <div>
-                    <label>Posisi Awal Tahun</label>
-                    <input type="number" name="posisi_awal_tahun" id="posisi_awal_tahun">
+                    <label>PLO Expired</label>
+                    <input type="number" name="plo_expired" id="plo_expired">
                 </div>
 
                 <div>
-                    <label>Posisi Vacant Awal Tahun</label>
-                    <input type="number" name="posisi_vacant_awal_tahun" id="posisi_vacant_awal_tahun">
-                </div>
-
-                <div>
-                    <label>Posisi Terisi Awal Tahun</label>
-                    <input type="number" name="posisi_terisi_awal_tahun" id="posisi_terisi_awal_tahun">
-                </div>
-
-                <div>
-                    <label>Target Personil Memenuhi Sertifikasi Tahunan</label>
-                    <input type="number" name="target_personil_memenuhi_sertifikasi_tahunan"
-                        id="target_personil_memenuhi_sertifikasi_tahunan">
-                </div>
-
-                <div>
-                    <label>Jumlah Sertifikasi Sudah Terbit</label>
-                    <input type="number" name="jumlah_sertifikasi_sudah_terbit" id="jumlah_sertifikasi_sudah_terbit">
-                </div>
-
-                <div>
-                    <label>Jumlah Sertifikasi Belum Terbit</label>
-                    <input type="number" name="jumlah_sertifikasi_belum_terbit" id="jumlah_sertifikasi_belum_terbit">
-                </div>
-
-                <div>
-                    <label>Jumlah Learning Hours</label>
-                    <input type="number" name="jumlah_learning_hours" id="jumlah_learning_hours">
-                </div>
-
-                <div>
-                    <label>Jumlah Learning Hours Kumulatif</label>
-                    <input type="number" name="jumlah_learning_hours_kumulatif" id="jumlah_learning_hours_kumulatif">
-                </div>
-
-                <div>
-                    <label>Jumlah Sertifikasi Sudah Terbit Kumulatif</label>
-                    <input type="number" name="jumlah_sertifikasi_sudah_terbit_kumulatif"
-                        id="jumlah_sertifikasi_sudah_terbit_kumulatif">
-                </div>
-
-                <div>
-                    <label>Target Personil Memenuhi Sertifikasi Bulanan</label>
-                    <input type="number" name="target_personil_memenuhi_sertifikasi_bulanan"
-                        id="target_personil_memenuhi_sertifikasi_bulanan">
-                </div>
-
-                <div>
-                    <label>Target Personil Memenuhi Sertifikasi Kumulatif</label>
-                    <input type="number" name="target_personil_memenuhi_sertifikasi_kumulatif"
-                        id="target_personil_memenuhi_sertifikasi_kumulatif">
-                </div>
-
-                <div>
-                    <label>Target KPI</label>
-                    <input type="number" name="target_kpi" id="target_kpi">
-                </div>
-
-                <div>
-                    <label>Real</label>
-                    <input type="number" name="real" id="real">
-                </div>
-
-                <div>
-                    <label>Real Kumulatif</label>
-                    <input type="number" name="real_kumulatif" id="real_kumulatif">
-                </div>
-
-                <div>
-                    <label>Real KPI</label>
-                    <input type="number" name="real_kpi" id="real_kpi">
-                </div>
-
-                <div>
-                    <label>Real KPI Kumulatif</label>
-                    <input type="number" name="real_kpi_kumulatif" id="real_kpi_kumulatif">
-                </div>
-
-                <div>
-                    <label>KPI Summary</label>
-                    <input type="number" name="kpi_summary" id="kpi_summary">
+                    <label>PLO Uncertified</label>
+                    <input type="number" name="plo_uncertified" id="plo_uncertified">
                 </div>
 
                 <button type="submit" class="btn btn-success">Submit</button>
@@ -329,7 +250,7 @@
 
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
-                    fetch(`shu-kpi-mandatory-certi-summary/${id}`, {
+                    fetch(`shpnre-kumulatif-status-plo/${id}`, {
                             method: "DELETE",
                             headers: {
                                 "Accept": "application/json",
@@ -372,90 +293,15 @@
                             value: keyword
                         },
                         {
-                            field: "posisi_awal_tahun",
+                            field: "plo_expired",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "posisi_vacant_awal_tahun",
+                            field: "plo_uncertified",
                             type: "like",
                             value: keyword
-                        },
-                        {
-                            field: "posisi_terisi_awal_tahun",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "target_personil_memenuhi_sertifikasi_tahunan",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "jumlah_sertifikasi_sudah_terbit",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "jumlah_sertifikasi_belum_terbit",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "jumlah_learning_hours",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "jumlah_learning_hours_kumulatif",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "jumlah_sertifikasi_sudah_terbit_kumulatif",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "target_personil_memenuhi_sertifikasi_bulanan",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "target_personil_memenuhi_sertifikasi_kumulatif",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "target_kpi",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "real",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "real_kumulatif",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "real_kpi",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "real_kpi_kumulatif",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "kpi_summary",
-                            type: "like",
-                            value: keyword
-                        },
+                        }
                     ]
                 ]);
             });
@@ -466,7 +312,7 @@
             }
 
             function loadData() {
-                fetch(`${BASE_URL}/monev/shu/kinerja/shu-kpi-mandatory-certi-summary/data`, {
+                fetch(`${BASE_URL}/monev/shpnre/kinerja/shpnre-kumulatif-status-plo/data`, {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -493,13 +339,8 @@
             }
 
             document.addEventListener("DOMContentLoaded", function() {
-                const formatPercent = (cell) => {
-                    let value = parseFloat(cell.getValue());
-                    return isNaN(value) ? "-" : value.toFixed(2) + " %";
-                };
-
                 const columnMap = {
-                    "shu-kpi-mandatory-certi-summary": [{
+                    "shpnre-kumulatif-status-plo": [{
                             title: "No",
                             hozAlign: "center",
                             width: 60,
@@ -620,131 +461,16 @@
                             editor: "input"
                         },
                         {
-                            title: "Posisi Awal Tahun",
-                            field: "posisi_awal_tahun",
-                            editor: "number"
+                            title: "PLO Expired",
+                            field: "plo_expired",
+                            editor: "number",
+                            hozAlign: "center"
                         },
                         {
-                            title: "Posisi Vacant Awal Tahun",
-                            field: "posisi_vacant_awal_tahun",
-                            editor: "number"
-                        },
-                        {
-                            title: "Posisi Terisi Awal Tahun",
-                            field: "posisi_terisi_awal_tahun",
-                            editor: "number"
-                        },
-                        {
-                            title: "Target Personil Memenuhi Sertifikasi Tahunan",
-                            field: "target_personil_memenuhi_sertifikasi_tahunan",
-                            editor: "number"
-                        },
-                        {
-                            title: "Jumlah Sertifikasi Sudah Terbit",
-                            field: "jumlah_sertifikasi_sudah_terbit",
-                            editor: "number"
-                        },
-                        {
-                            title: "Jumlah Sertifikasi Belum Terbit",
-                            field: "jumlah_sertifikasi_belum_terbit",
-                            editor: "number"
-                        },
-                        {
-                            title: "Jumlah Learning Hours",
-                            field: "jumlah_learning_hours",
-                            editor: "number"
-                        },
-                        {
-                            title: "Jumlah Learning Hours Kumulatif",
-                            field: "jumlah_learning_hours_kumulatif",
-                            editor: "number"
-                        },
-                        {
-                            title: "Jumlah Sertifikasi Sudah Terbit Kumulatif",
-                            field: "jumlah_sertifikasi_sudah_terbit_kumulatif",
-                            editor: "number"
-                        },
-                        {
-                            title: "Target Personil Memenuhi Sertifikasi Bulanan",
-                            field: "target_personil_memenuhi_sertifikasi_bulanan",
-                            editor: "number"
-                        },
-                        {
-                            title: "Target Personil Memenuhi Sertifikasi Kumulatif",
-                            field: "target_personil_memenuhi_sertifikasi_kumulatif",
-                            editor: "number"
-                        },
-                        {
-                            title: "Target KPI",
-                            field: "target_kpi",
-                            formatter: formatPercent,
-                            mutatorData: (value) => {
-                                if (typeof value === 'string') {
-                                    value = value.replace('%', '').trim();
-                                }
-                                return parseFloat(value);
-                            },
-                            editor: "number"
-                        },
-                        {
-                            title: "Real",
-                            field: "real",
-                            formatter: formatPercent,
-                            mutatorData: (value) => {
-                                if (typeof value === 'string') {
-                                    value = value.replace('%', '').trim();
-                                }
-                                return parseFloat(value);
-                            },
-                            editor: "number"
-                        },
-                        {
-                            title: "Real Kumulatif",
-                            field: "real_kumulatif",
-                            formatter: formatPercent,
-                            mutatorData: (value) => {
-                                if (typeof value === 'string') {
-                                    value = value.replace('%', '').trim();
-                                }
-                                return parseFloat(value);
-                            },
-                            editor: "number"
-                        },
-                        {
-                            title: "Real KPI",
-                            field: "real_kpi",
-                            formatter: formatPercent,
-                            mutatorData: (value) => {
-                                if (typeof value === 'string') {
-                                    value = value.replace('%', '').trim();
-                                }
-                                return parseFloat(value);
-                            },
-                            editor: "number"
-                        },
-                        {
-                            title: "Real KPI Kumulatif",
-                            field: "real_kpi_kumulatif",
-                            formatter: formatPercent,
-                            mutatorData: (value) => {
-                                if (typeof value === 'string') {
-                                    value = value.replace('%', '').trim();
-                                }
-                                return parseFloat(value);
-                            },
-                            editor: "number"
-                        },
-                        {
-                            title: "KPI Summary",
-                            field: "kpi_summary",
-                            formatter: formatPercent,
-                            mutatorData: (value) => {
-                                if (typeof value === 'string') {
-                                    value = value.replace('%', '').trim();
-                                }
-                                return parseFloat(value);
-                            },
-                            editor: "number"
+                            title: "PLO Uncertified",
+                            field: "plo_uncertified",
+                            editor: "number",
+                            hozAlign: "center"
                         },
                         {
                             title: "Aksi",
@@ -768,7 +494,7 @@
                     layout: "fitDataTable",
                     responsiveLayout: "collapse",
                     autoResize: true,
-                    columns: columnMap["shu-kpi-mandatory-certi-summary"],
+                    columns: columnMap["shpnre-kumulatif-status-plo"],
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -802,8 +528,8 @@
                 });
 
                 document.getElementById("download-xlsx").addEventListener("click", function() {
-                    window.table.download("xlsx", "shu-kpi-mandatory-certi-summary.xlsx", {
-                        sheetName: "shu-kpi-mandatory-certi-summary",
+                    window.table.download("xlsx", "shpnre-kumulatif-status-plo.xlsx", {
+                        sheetName: "shpnre-kumulatif-status-plo",
                         columnHeaders: true,
                         downloadDataFormatter: function(data) {
                             return data.map(row => {
@@ -830,7 +556,7 @@
 
                     if (!id) return;
 
-                    fetch(`shu-kpi-mandatory-certi-summary/${id}`, {
+                    fetch(`shpnre-kumulatif-status-plo/${id}`, {
                             method: "PUT",
                             headers: {
                                 "Content-Type": "application/json",
@@ -870,7 +596,7 @@
                     console.log("Baris yang berubah:", changedRows);
 
                     changedRows.forEach(rowData => {
-                        fetch(`shu-kpi-mandatory-certi-summary/${rowData.id}`, {
+                        fetch(`shpnre-kumulatif-status-plo/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
                                     "Content-Type": "application/json",
@@ -949,7 +675,7 @@
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
 
-                fetch("shu-kpi-mandatory-certi-summary", {
+                fetch("shpnre-kumulatif-status-plo", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -962,34 +688,15 @@
                             subholding: data.subholding,
                             company: data.company,
                             unit: data.unit,
-                            posisi_awal_tahun: data.posisi_awal_tahun,
-                            posisi_vacant_awal_tahun: data.posisi_vacant_awal_tahun,
-                            posisi_terisi_awal_tahun: data.posisi_terisi_awal_tahun,
-                            target_personil_memenuhi_sertifikasi_tahunan: data
-                                .target_personil_memenuhi_sertifikasi_tahunan,
-                            jumlah_sertifikasi_sudah_terbit: data.jumlah_sertifikasi_sudah_terbit,
-                            jumlah_sertifikasi_belum_terbit: data.jumlah_sertifikasi_belum_terbit,
-                            jumlah_learning_hours: data.jumlah_learning_hours,
-                            jumlah_learning_hours_kumulatif: data.jumlah_learning_hours_kumulatif,
-                            jumlah_sertifikasi_sudah_terbit_kumulatif: data
-                                .jumlah_sertifikasi_sudah_terbit_kumulatif,
-                            target_personil_memenuhi_sertifikasi_bulanan: data
-                                .target_personil_memenuhi_sertifikasi_bulanan,
-                            target_personil_memenuhi_sertifikasi_kumulatif: data
-                                .target_personil_memenuhi_sertifikasi_kumulatif,
-                            target_kpi: data.target_kpi,
-                            real: data.real,
-                            real_kumulatif: data.real_kumulatif,
-                            real_kpi: data.real_kpi,
-                            real_kpi_kumulatif: data.real_kpi_kumulatif,
-                            kpi_summary: data.kpi_summary,
+                            plo_expired: data.plo_expired,
+                            plo_uncertified: data.plo_uncertified
                         })
                     })
                     .then(response => response.json())
                     .then(result => {
                         if (result.success) {
                             showToast(result.message || "Data berhasil disimpan", "success");
-                            table.setData(`${BASE_URL}/monev/shu/kinerja/shu-kpi-mandatory-certi-summary/data`);
+                            table.setData(`${BASE_URL}/monev/shpnre/kinerja/shpnre-kumulatif-status-plo/data`);
                             this.reset();
                             closeModal();
                         } else {

@@ -17,12 +17,12 @@ return new class extends Migration
             // Tambahan untuk integrasi JWT/Digio
             $table->string('userid')->unique();
             $table->string('display_name')->nullable();
-            $table->string('title')->nullable();
+            $table->string('title',550)->nullable();
             $table->string('group')->nullable();
             $table->string('dir')->nullable();
             $table->string('iss')->nullable();
             $table->string('aud')->nullable();
-            $table->string('token')->nullable();
+            $table->string('token',1000)->nullable();
             $table->timestamp('jwt_exp')->nullable();
 
             // Status dan fitur tambahan

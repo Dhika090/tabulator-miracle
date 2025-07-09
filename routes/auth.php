@@ -1,8 +1,7 @@
 <?php
 
-use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\Auth\AuthController;
 use Illuminate\Support\Facades\Route;
-use Livewire\Volt\Volt;
 
 // Route::middleware('guest')->group(function () {
 //     Volt::route('login', 'auth.login')
@@ -30,6 +29,8 @@ use Livewire\Volt\Volt;
 //     Volt::route('confirm-password', 'auth.confirm-password')
 //         ->name('password.confirm');
 // });
+
+// Route::post('/auth/digio-login/{provider}', [AuthController::class, 'loginFromDigio']);
 
 Route::post('logout', App\Livewire\Actions\Logout::class)
     ->name('logout');

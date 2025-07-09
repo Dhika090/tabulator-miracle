@@ -245,7 +245,7 @@
 
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
-                    fetch(`shu-target-penurunan-plo/${id}`, {
+                    fetch(`shpnre-target-penurunan-plo/${id}`, {
                             method: "DELETE",
                             headers: {
                                 "Accept": "application/json",
@@ -302,7 +302,7 @@
             }
 
             function loadData() {
-                fetch(`${BASE_URL}/monev/shu/kinerja/shu-target-penurunan-plo/data`, {
+                fetch(`${BASE_URL}/monev/shpnre/kinerja/shpnre-target-penurunan-plo/data`, {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -330,7 +330,7 @@
 
             document.addEventListener("DOMContentLoaded", function() {
                 const columnMap = {
-                    "shu-target-penurunan-plo": [{
+                    "shpnre-target-penurunan-plo": [{
                             title: "No",
                             hozAlign: "center",
                             width: 60,
@@ -479,7 +479,7 @@
                     layout: "fitDataTable",
                     responsiveLayout: "collapse",
                     autoResize: true,
-                    columns: columnMap["shu-target-penurunan-plo"],
+                    columns: columnMap["shpnre-target-penurunan-plo"],
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -513,8 +513,8 @@
                 });
 
                 document.getElementById("download-xlsx").addEventListener("click", function() {
-                    window.table.download("xlsx", "shu-target-penurunan-plo.xlsx", {
-                        sheetName: "shu-target-penurunan-plo",
+                    window.table.download("xlsx", "shpnre-target-penurunan-plo.xlsx", {
+                        sheetName: "shpnre-target-penurunan-plo",
                         columnHeaders: true,
                         downloadDataFormatter: function(data) {
                             return data.map(row => {
@@ -541,7 +541,7 @@
 
                     if (!id) return;
 
-                    fetch(`shu-target-penurunan-plo/${id}`, {
+                    fetch(`shpnre-target-penurunan-plo/${id}`, {
                             method: "PUT",
                             headers: {
                                 "Content-Type": "application/json",
@@ -581,7 +581,7 @@
                     console.log("Baris yang berubah:", changedRows);
 
                     changedRows.forEach(rowData => {
-                        fetch(`shu-target-penurunan-plo/${rowData.id}`, {
+                        fetch(`shpnre-target-penurunan-plo/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
                                     "Content-Type": "application/json",
@@ -660,7 +660,7 @@
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
 
-                fetch("shu-target-penurunan-plo", {
+                fetch("shpnre-target-penurunan-plo", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -680,7 +680,7 @@
                     .then(result => {
                         if (result.success) {
                             showToast(result.message || "Data berhasil disimpan", "success");
-                            table.setData(`${BASE_URL}/monev/shu/kinerja/shu-target-penurunan-plo/data`);
+                            table.setData(`${BASE_URL}/monev/shpnre/kinerja/shpnre-target-penurunan-plo/data`);
                             this.reset();
                             closeModal();
                         } else {

@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
 {
-    public function digioLogin(Request $request, string $provider)
+    public function loginFromDigio(Request $request, string $provider)
     {
         if (!in_array($provider, ['pertamina', 'pgasol', 'google'])) {
             return abort(400, 'Provider tidak dikenal.');
@@ -56,6 +56,10 @@ class AuthController extends Controller
             ]
         );
 
+        if (!$user || !$user->is_active) {
+            return response()->json(['error' => 'Akun tidak terdaftar di sistem atau tidak aktif.'], 403);
+        }
+
         session()->put('user', [
             'username' => $user->userid,
             'nama' => $user->display_name,
@@ -65,5 +69,9 @@ class AuthController extends Controller
         ]);
 
         return redirect('/');
+        // return response()->json([
+        //     'message' => 'Login berhasil',
+        //     'user' => $user
+        // ]);
     }
 }

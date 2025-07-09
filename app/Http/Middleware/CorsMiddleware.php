@@ -8,13 +8,13 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CorsMiddleware
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
-     */
+
+    protected $except = [
+        'auth/digio-login/*',
+    ];
     public function handle(Request $request, Closure $next): Response
     {
+
         // if (!session()->has('user')) {
         //     return redirect()->away('https://digio.pgn.co.id');
         // }

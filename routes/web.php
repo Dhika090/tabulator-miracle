@@ -3084,7 +3084,7 @@ Route::prefix('monev/shg/kinerja/shg-kumulatif-status-plo')->group(function () {
     });
     // TargetKinerja
     // KumulatifStatusPloSHPNREController
-    Route::prefix('monev/shpnre/input-data/shpnre-kumulatif-status-plo')->group(function () {
+    Route::prefix('monev/shpnre/kinerja/shpnre-kumulatif-status-plo')->group(function () {
         Route::get('/', [KumulatifStatusPloSHPNREController::class, 'index'])->name('shpnre-kumulatif-status-plo');
         Route::post('/', [KumulatifStatusPloSHPNREController::class, 'store'])->name('shpnre-kumulatif-status-plo.store');
         Route::get('/data', [KumulatifStatusPloSHPNREController::class, 'data'])->name('shpnre-kumulatif-status-plo.data');
@@ -3093,7 +3093,7 @@ Route::prefix('monev/shg/kinerja/shg-kumulatif-status-plo')->group(function () {
     });
 
     // PrognosaStatusPloSHPNREController
-    Route::prefix('monev/shpnre/input-data/shpnre-prognosa-status-plo')->group(function () {
+    Route::prefix('monev/shpnre/kinerja/shpnre-prognosa-status-plo')->group(function () {
         Route::get('/', [PrognosaStatusPloSHPNREController::class, 'index'])->name('shpnre-prognosa-status-plo');
         Route::post('/', [PrognosaStatusPloSHPNREController::class, 'store'])->name('shpnre-prognosa-status-plo.store');
         Route::get('/data', [PrognosaStatusPloSHPNREController::class, 'data'])->name('shpnre-prognosa-status-plo.data');
@@ -3102,7 +3102,7 @@ Route::prefix('monev/shg/kinerja/shg-kumulatif-status-plo')->group(function () {
     });
 
     // TargetPenurunanPloSHPNREController
-    Route::prefix('monev/shpnre/input-data/shpnre-target-penurunan-plo')->group(function () {
+    Route::prefix('monev/shpnre/kinerja/shpnre-target-penurunan-plo')->group(function () {
         Route::get('/', [TargetPenurunanPloSHPNREController::class, 'index'])->name('shpnre-target-penurunan-plo');
         Route::post('/', [TargetPenurunanPloSHPNREController::class, 'store'])->name('shpnre-target-penurunan-plo.store');
         Route::get('/data', [TargetPenurunanPloSHPNREController::class, 'data'])->name('shpnre-target-penurunan-plo.data');

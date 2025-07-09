@@ -138,10 +138,10 @@
         </style>
     @endpush
 
-  <div class="card">
+    <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex justify-content-between align-items-center">
-                <h5 class="card-title mb-0">Target Sap Asset</h5>
+                <h5 class="card-title mb-0">Mandatory Certification SHG</h5>
             </div>
 
             <div
@@ -237,8 +237,7 @@
 
                 <div>
                     <label>Jumlah Learning Hours Kumulatif</label>
-                    <input type="number" name="jumlah_learning_hours_kumulatif"
-                        id="jumlah_learning_hours_kumulatif">
+                    <input type="number" name="jumlah_learning_hours_kumulatif" id="jumlah_learning_hours_kumulatif">
                 </div>
 
                 <div>
@@ -309,8 +308,7 @@
             document.getElementById("search-input").addEventListener("input", function(e) {
                 const keyword = e.target.value;
                 table.setFilter([
-                    [
-                        {
+                    [{
                             field: "periode",
                             type: "like",
                             value: keyword
@@ -782,7 +780,6 @@
 
         {{-- create data  --}}
         <script>
-
             function showToast(message, type = "success") {
                 const toast = document.getElementById("toastNotification");
                 toast.textContent = message;
@@ -827,14 +824,18 @@
                             posisi_awal_tahun: data.posisi_awal_tahun,
                             posisi_vacant_awal_tahun: data.posisi_vacant_awal_tahun,
                             posisi_terisi_awal_tahun: data.posisi_terisi_awal_tahun,
-                            target_personil_memenuhi_sertifikasi_tahunan: data.target_personil_memenuhi_sertifikasi_tahunan,
+                            target_personil_memenuhi_sertifikasi_tahunan: data
+                                .target_personil_memenuhi_sertifikasi_tahunan,
                             jumlah_sertifikasi_sudah_terbit: data.jumlah_sertifikasi_sudah_terbit,
                             jumlah_sertifikasi_belum_terbit: data.jumlah_sertifikasi_belum_terbit,
                             jumlah_learning_hours: data.jumlah_learning_hours,
                             jumlah_learning_hours_kumulatif: data.jumlah_learning_hours_kumulatif,
-                            jumlah_sertifikasi_sudah_terbit_kumulatif: data.jumlah_sertifikasi_sudah_terbit_kumulatif,
-                            target_personil_memenuhi_sertifikasi_bulanan: data.target_personil_memenuhi_sertifikasi_bulanan,
-                            target_personil_memenuhi_sertifikasi_kumulatif: data.target_personil_memenuhi_sertifikasi_kumulatif,
+                            jumlah_sertifikasi_sudah_terbit_kumulatif: data
+                                .jumlah_sertifikasi_sudah_terbit_kumulatif,
+                            target_personil_memenuhi_sertifikasi_bulanan: data
+                                .target_personil_memenuhi_sertifikasi_bulanan,
+                            target_personil_memenuhi_sertifikasi_kumulatif: data
+                                .target_personil_memenuhi_sertifikasi_kumulatif,
                             target_kpi: data.target_kpi,
                             target_kpi_kumulatif: data.target_kpi_kumulatif,
                         })
