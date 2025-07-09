@@ -436,8 +436,9 @@
                     <ul class="menu-sub">
                         <li
                             class="menu-item {{ request()->is('monev/shpnre/kinerja/shpnre-target-kpi-2025-ai*') ? 'active' : '' }}">
-                            {{-- <a class="menu-link" href="{{ route('shpnre-target-kpi-2025-ai') }}"> --}}
-                            Target Status Asset Integrity SHU
+                            <a class="menu-link"
+                                href="{{ url('monev/shpnre/kinerja/target-mandatory-certification-shpnre') }}">
+                                Target Status Asset Integrity SHU
                             </a>
                         </li>
                         <li
@@ -448,20 +449,23 @@
                         </li>
                         <li
                             class="menu-item {{ request()->is('monev/shpnre/kinerja/shpnre-kinerja-kpi-status-ai*') ? 'active' : '' }}">
-                            {{-- <a class="menu-link" href="{{ route('shpnre-kinerja-kpi-status-ai') }}"> --}}
-                            Kinerja KPI Status AI
+                            <a class="menu-link"
+                                href="{{ url('monev/shpnre/kinerja/target-mandatory-certification-shpnre') }}">
+                                Kinerja KPI Status AI
                             </a>
                         </li>
                         <li
                             class="menu-item {{ request()->is('monev/shpnre/kinerja/tindak-lanjut-monev-shpnre*') ? 'active' : '' }}">
-                            {{-- <a class="menu-link" href="{{ route('tindak-lanjut-monev-shpnre') }}"> --}}
-                            Tindak Lanjut Hasil Monev
+                            <a class="menu-link"
+                                href="{{ url('monev/shpnre/kinerja/target-mandatory-certification-shpnre') }}">
+                                Tindak Lanjut Hasil Monev
                             </a>
                         </li>
                         <li
                             class="menu-item {{ request()->is('monev/shpnre/kinerja/target-sap-asset-shpnre*') ? 'active' : '' }}">
-                            {{-- <a class="menu-link" href="{{ route('target-sap-asset-shpnre') }}"> --}}
-                            Target SAP Asset
+                            <a class="menu-link"
+                                href="{{ url('monev/shpnre/kinerja/target-mandatory-certification-shpnre') }}">
+                                Target SAP Asset
                             </a>
                         </li>
                         <li
@@ -600,10 +604,17 @@
                             </a>
                         </li>
                         <li
-                            class="menu-item {{ request()->is('monev/shcnt/input-data/pelatihan-aims-regional-1') ? 'active' : '' }}">
+                            class="menu-item {{ request()->is('monev/shcnt/input-data/rencana-pemeliharaan-region-1') ? 'active' : '' }}">
                             <a class="menu-link"
-                                href="{{ url('monev/shcnt/input-data/pelatihan-aims-regional-1') }}">
-                                <i class="fa fa-wrench me-2"></i>Pelatihan AIMS
+                                href="{{ url('monev/shcnt/input-data/rencana-pemeliharaan-region-1') }}">
+                                <i class="fa fa-wrench me-2"></i>Rencana Pemeliharaan Besar
+                            </a>
+                        </li>
+                        <li
+                            class="menu-item {{ request()->is('monev/shcnt/input-data/availability-region-1') ? 'active' : '' }}">
+                            <a class="menu-link"
+                                href="{{ url('monev/shcnt/input-data/availability-region-1') }}">
+                                <i class="fa fa-wrench me-2"></i>Availability
                             </a>
                         </li>
                         <li
@@ -611,13 +622,6 @@
                             <a class="menu-link"
                                 href="{{ url('monev/shcnt/input-data/sistem-informasi-aims-regional-1') }}">
                                 <i class="fa fa-wrench me-2"></i>Sistem Informasi AIMS
-                            </a>
-                        </li>
-                        <li
-                            class="menu-item {{ request()->is('monev/shcnt/input-data/rencana-pemeliharaan-regional-1') ? 'active' : '' }}">
-                            <a class="menu-link"
-                                href="{{ url('monev/shcnt/input-data/rencana-pemeliharaan-regional-1') }}">
-                                <i class="fa fa-wrench me-2"></i>Rencana Pemeliharaan Besar
                             </a>
                         </li>
                         <li

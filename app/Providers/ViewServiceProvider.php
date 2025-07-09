@@ -309,5 +309,35 @@ class ViewServiceProvider extends ServiceProvider
 
             $view->with('tabs', $tabs);
         });
+
+        View::composer('*', function ($view) {
+            $routeName = optional(request()->route())->getName();
+            if (!$routeName || !str_contains($routeName, 'rencana-pemeliharaan-region-1')) return;
+
+            $tabs = collect(config('shcnt-rencana-pemeliharaan'))->map(function ($tab) {
+                return [
+                    'title' => $tab['title'],
+                    'route' => route($tab['route']),
+                    'active' => request()->routeIs($tab['route']),
+                ];
+            })->toArray();
+
+            $view->with('tabs', $tabs);
+        });
+
+        View::composer('*', function ($view) {
+            $routeName = optional(request()->route())->getName();
+            if (!$routeName || !str_contains($routeName, 'availability-region-1')) return;
+
+            $tabs = collect(config('shcnt-availability'))->map(function ($tab) {
+                return [
+                    'title' => $tab['title'],
+                    'route' => route($tab['route']),
+                    'active' => request()->routeIs($tab['route']),
+                ];
+            })->toArray();
+
+            $view->with('tabs', $tabs);
+        });
     }
 }

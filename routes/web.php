@@ -10,6 +10,22 @@ use App\Http\Controllers\SHCNT\InputDataMonev\AssetBreakdown\Region5AssetBreakdo
 use App\Http\Controllers\SHCNT\InputDataMonev\AssetBreakdown\Region6AssetBreakdownController;
 use App\Http\Controllers\SHCNT\InputDataMonev\AssetBreakdown\Region7AssetBreakdownController;
 use App\Http\Controllers\SHCNT\InputDataMonev\AssetBreakdown\Region8AssetBreakdownController;
+use App\Http\Controllers\SHCNT\InputDataMonev\Availability\Region1AvailabilityController;
+use App\Http\Controllers\SHCNT\InputDataMonev\Availability\Region2AvailabilityController;
+use App\Http\Controllers\SHCNT\InputDataMonev\Availability\Region3AvailabilityController;
+use App\Http\Controllers\SHCNT\InputDataMonev\Availability\Region4AvailabilityController;
+use App\Http\Controllers\SHCNT\InputDataMonev\Availability\Region5AvailabilityController;
+use App\Http\Controllers\SHCNT\InputDataMonev\Availability\Region6AvailabilityController;
+use App\Http\Controllers\SHCNT\InputDataMonev\Availability\Region7AvailabilityController;
+use App\Http\Controllers\SHCNT\InputDataMonev\Availability\Region8AvailabilityController;
+use App\Http\Controllers\SHCNT\InputDataMonev\RencanaPemeliharaan\Region1RencanaPemeliharaanController;
+use App\Http\Controllers\SHCNT\InputDataMonev\RencanaPemeliharaan\Region2RencanaPemeliharaanController;
+use App\Http\Controllers\SHCNT\InputDataMonev\RencanaPemeliharaan\Region3RencanaPemeliharaanController;
+use App\Http\Controllers\SHCNT\InputDataMonev\RencanaPemeliharaan\Region4RencanaPemeliharaanController;
+use App\Http\Controllers\SHCNT\InputDataMonev\RencanaPemeliharaan\Region5RencanaPemeliharaanController;
+use App\Http\Controllers\SHCNT\InputDataMonev\RencanaPemeliharaan\Region6RencanaPemeliharaanController;
+use App\Http\Controllers\SHCNT\InputDataMonev\RencanaPemeliharaan\Region7RencanaPemeliharaanController;
+use App\Http\Controllers\SHCNT\InputDataMonev\RencanaPemeliharaan\Region8RencanaPemeliharaanController;
 use App\Http\Controllers\SHCNT\InputDataMonev\SistemInformasi\Region1SistemInformasiController;
 use App\Http\Controllers\SHCNT\InputDataMonev\SistemInformasi\Region2SistemInformasiController;
 use App\Http\Controllers\SHCNT\InputDataMonev\SistemInformasi\Region3SistemInformasiController;
@@ -379,6 +395,7 @@ use App\Http\Controllers\SHIML\InputDataMonev\PTK\StatusPloPtkController;
 use App\Http\Controllers\SHPNRE\TargetKinerja\StatusPlo\KumulatifStatusPloSHPNREController;
 use App\Http\Controllers\SHPNRE\TargetKinerja\StatusPlo\PrognosaStatusPloSHPNREController;
 use App\Http\Controllers\SHPNRE\TargetKinerja\StatusPlo\TargetPenurunanPloSHPNREController;
+use App\Http\Controllers\SHPNRE\TargetKinerja\TargetMandatoryCertficationShpnreController;
 use App\Http\Controllers\SHRNP\InputDataMonev\Balikpapan\AssetBreakdownBalikpapanController;
 use App\Http\Controllers\SHRNP\InputDataMonev\Balikpapan\AvailabilityBalikpapanController;
 use App\Http\Controllers\SHRNP\InputDataMonev\Balikpapan\KondisiVacantAimsBalikpapanController;
@@ -602,32 +619,32 @@ Route::middleware([\App\Http\Middleware\CorsMiddleware::class])->group(function 
     });
 
     // target-status-plo
-// Prognosa Status PLO SHG
-Route::prefix('monev/shg/kinerja/shg-prognosa-status-plo')->group(function () {
-    Route::get('/', [PrognosaStatusPloShgController::class, 'index'])->name('shg-prognosa-status-plo');
-    Route::post('/', [PrognosaStatusPloShgController::class, 'store'])->name('shg-prognosa-status-plo.store');
-    Route::get('/data', [PrognosaStatusPloShgController::class, 'data'])->name('shg-prognosa-status-plo.data');
-    Route::put('/{id}', [PrognosaStatusPloShgController::class, 'update'])->name('shg-prognosa-status-plo.update');
-    Route::delete('/{id}', [PrognosaStatusPloShgController::class, 'destroy'])->name('shg-prognosa-status-plo.destroy');
-});
+    // Prognosa Status PLO SHG
+    Route::prefix('monev/shg/kinerja/shg-prognosa-status-plo')->group(function () {
+        Route::get('/', [PrognosaStatusPloShgController::class, 'index'])->name('shg-prognosa-status-plo');
+        Route::post('/', [PrognosaStatusPloShgController::class, 'store'])->name('shg-prognosa-status-plo.store');
+        Route::get('/data', [PrognosaStatusPloShgController::class, 'data'])->name('shg-prognosa-status-plo.data');
+        Route::put('/{id}', [PrognosaStatusPloShgController::class, 'update'])->name('shg-prognosa-status-plo.update');
+        Route::delete('/{id}', [PrognosaStatusPloShgController::class, 'destroy'])->name('shg-prognosa-status-plo.destroy');
+    });
 
-// Target Penurunan PLO SHG
-Route::prefix('monev/shg/kinerja/shg-target-penurunan-plo')->group(function () {
-    Route::get('/', [TargetPenurunanPloShgController::class, 'index'])->name('shg-target-penurunan-plo');
-    Route::post('/', [TargetPenurunanPloShgController::class, 'store'])->name('shg-target-penurunan-plo.store');
-    Route::get('/data', [TargetPenurunanPloShgController::class, 'data'])->name('shg-target-penurunan-plo.data');
-    Route::put('/{id}', [TargetPenurunanPloShgController::class, 'update'])->name('shg-target-penurunan-plo.update');
-    Route::delete('/{id}', [TargetPenurunanPloShgController::class, 'destroy'])->name('shg-target-penurunan-plo.destroy');
-});
+    // Target Penurunan PLO SHG
+    Route::prefix('monev/shg/kinerja/shg-target-penurunan-plo')->group(function () {
+        Route::get('/', [TargetPenurunanPloShgController::class, 'index'])->name('shg-target-penurunan-plo');
+        Route::post('/', [TargetPenurunanPloShgController::class, 'store'])->name('shg-target-penurunan-plo.store');
+        Route::get('/data', [TargetPenurunanPloShgController::class, 'data'])->name('shg-target-penurunan-plo.data');
+        Route::put('/{id}', [TargetPenurunanPloShgController::class, 'update'])->name('shg-target-penurunan-plo.update');
+        Route::delete('/{id}', [TargetPenurunanPloShgController::class, 'destroy'])->name('shg-target-penurunan-plo.destroy');
+    });
 
-// Kumulatif Status PLO SHG
-Route::prefix('monev/shg/kinerja/shg-kumulatif-status-plo')->group(function () {
-    Route::get('/', [KumulatifStatusPloShgController::class, 'index'])->name('shg-kumulatif-status-plo');
-    Route::post('/', [KumulatifStatusPloShgController::class, 'store'])->name('shg-kumulatif-status-plo.store');
-    Route::get('/data', [KumulatifStatusPloShgController::class, 'data'])->name('shg-kumulatif-status-plo.data');
-    Route::put('/{id}', [KumulatifStatusPloShgController::class, 'update'])->name('shg-kumulatif-status-plo.update');
-    Route::delete('/{id}', [KumulatifStatusPloShgController::class, 'destroy'])->name('shg-kumulatif-status-plo.destroy');
-});
+    // Kumulatif Status PLO SHG
+    Route::prefix('monev/shg/kinerja/shg-kumulatif-status-plo')->group(function () {
+        Route::get('/', [KumulatifStatusPloShgController::class, 'index'])->name('shg-kumulatif-status-plo');
+        Route::post('/', [KumulatifStatusPloShgController::class, 'store'])->name('shg-kumulatif-status-plo.store');
+        Route::get('/data', [KumulatifStatusPloShgController::class, 'data'])->name('shg-kumulatif-status-plo.data');
+        Route::put('/{id}', [KumulatifStatusPloShgController::class, 'update'])->name('shg-kumulatif-status-plo.update');
+        Route::delete('/{id}', [KumulatifStatusPloShgController::class, 'destroy'])->name('shg-kumulatif-status-plo.destroy');
+    });
 
     // Route::prefix('monev/shg/kinerja/target-status-plo')->group(function () {
     //     Route::get('/', [TargetStatusPLOController::class, 'index'])->name('target-status-plo');
@@ -641,7 +658,7 @@ Route::prefix('monev/shg/kinerja/shg-kumulatif-status-plo')->group(function () {
         Route::post('/', [HasilMonevController::class, 'store'])->name('hasil-monev');
         Route::get('/data', [HasilMonevController::class, 'getData'])->name('hasil-monev.data');
     });
-    
+
     // Kinerja KPI Pemnhn PLO SHG
     Route::prefix('monev/shg/kinerja/shg-kinerja-kpi-pemnhn-plo')->group(function () {
         Route::get('/', [KinerjaKpiPemnhnPloShgController::class, 'index'])->name('shg-kinerja-kpi-pemnhn-plo');
@@ -2192,7 +2209,7 @@ Route::prefix('monev/shg/kinerja/shg-kumulatif-status-plo')->group(function () {
         Route::put('/{id}', [AirBudgetTaggingSOR3Controller::class, 'update'])->name('air-budget-tagging-sor3.update');
         Route::delete('/{id}', [AirBudgetTaggingSOR3controller::class, 'destroy'])->name('air-budget-tagging-sor3.destroy');
     });
-    
+
 
     // PGN GLSM
     Route::prefix('monev/shg/input-data/realisasi-anggaran-ai-glsm')->group(function () {
@@ -3109,6 +3126,14 @@ Route::prefix('monev/shg/kinerja/shg-kumulatif-status-plo')->group(function () {
         Route::get('/data', [TargetPenurunanPloSHPNREController::class, 'data'])->name('shpnre-target-penurunan-plo.data');
         Route::put('/{id}', [TargetPenurunanPloSHPNREController::class, 'update'])->name('shpnre-target-penurunan-plo.update');
         Route::delete('/{id}', [TargetPenurunanPloSHPNREController::class, 'destroy'])->name('shpnre-target-penurunan-plo.destroy');
+    });
+    // TargetMandatoryCertficationShpnreController
+    Route::prefix('monev/shpnre/kinerja/target-mandatory-certification-shpnre')->group(function () {
+        Route::get('/', [TargetMandatoryCertficationShpnreController::class, 'index'])->name('target-mandatory-certification-shpnre');
+        Route::post('/', [TargetMandatoryCertficationShpnreController::class, 'store'])->name('target-mandatory-certification-shpnre.store');
+        Route::get('/data', [TargetMandatoryCertficationShpnreController::class, 'data'])->name('target-mandatory-certification-shpnre.data');
+        Route::put('/{id}', [TargetMandatoryCertficationShpnreController::class, 'update'])->name('target-mandatory-certification-shpnre.update');
+        Route::delete('/{id}', [TargetMandatoryCertficationShpnreController::class, 'destroy'])->name('target-mandatory-certification-shpnre.destroy');
     });
 
     // SHIML
@@ -4845,6 +4870,7 @@ Route::prefix('monev/shg/kinerja/shg-kumulatif-status-plo')->group(function () {
         Route::delete('/{id}', [Region8SistemInformasiController::class, 'destroy'])->name('sistem-informasi-aims-region-8.destroy');
     });
 
+    // SHCNT Asset Breakdown
     Route::prefix('monev/shcnt/input-data/asset-breakdown-region-1')->group(function () {
         Route::get('/', [Region1AssetBreakdownController::class, 'index'])->name('asset-breakdown-region-1');
         Route::post('/', [Region1AssetBreakdownController::class, 'store'])->name('asset-breakdown-region-1.store');
@@ -4901,6 +4927,124 @@ Route::prefix('monev/shg/kinerja/shg-kumulatif-status-plo')->group(function () {
         Route::put('/{id}', [Region8AssetBreakdownController::class, 'update'])->name('asset-breakdown-region-8.update');
         Route::delete('/{id}', [Region8AssetBreakdownController::class, 'destroy'])->name('asset-breakdown-region-8.destroy');
     });
+
+    // SHCNT Rencana Pemeliharaan
+    Route::prefix('monev/shcnt/input-data/rencana-pemeliharaan-region-1')->group(function () {
+        Route::get('/', [Region1RencanaPemeliharaanController::class, 'index'])->name('rencana-pemeliharaan-region-1');
+        Route::post('/', [Region1RencanaPemeliharaanController::class, 'store'])->name('rencana-pemeliharaan-region-1.store');
+        Route::get('/data', [Region1RencanaPemeliharaanController::class, 'data'])->name('rencana-pemeliharaan-region-1.data');
+        Route::put('/{id}', [Region1RencanaPemeliharaanController::class, 'update'])->name('rencana-pemeliharaan-region-1.update');
+        Route::delete('/{id}', [Region1RencanaPemeliharaanController::class, 'destroy'])->name('rencana-pemeliharaan-region-1.destroy');
+    });
+    Route::prefix('monev/shcnt/input-data/rencana-pemeliharaan-region-2')->group(function () {
+        Route::get('/', [Region2RencanaPemeliharaanController::class, 'index'])->name('rencana-pemeliharaan-region-2');
+        Route::post('/', [Region2RencanaPemeliharaanController::class, 'store'])->name('rencana-pemeliharaan-region-2.store');
+        Route::get('/data', [Region2RencanaPemeliharaanController::class, 'data'])->name('rencana-pemeliharaan-region-2.data');
+        Route::put('/{id}', [Region2RencanaPemeliharaanController::class, 'update'])->name('rencana-pemeliharaan-region-2.update');
+        Route::delete('/{id}', [Region2RencanaPemeliharaanController::class, 'destroy'])->name('rencana-pemeliharaan-region-2.destroy');
+    });
+    Route::prefix('monev/shcnt/input-data/rencana-pemeliharaan-region-3')->group(function () {
+        Route::get('/', [Region3RencanaPemeliharaanController::class, 'index'])->name('rencana-pemeliharaan-region-3');
+        Route::post('/', [Region3RencanaPemeliharaanController::class, 'store'])->name('rencana-pemeliharaan-region-3.store');
+        Route::get('/data', [Region3RencanaPemeliharaanController::class, 'data'])->name('rencana-pemeliharaan-region-3.data');
+        Route::put('/{id}', [Region3RencanaPemeliharaanController::class, 'update'])->name('rencana-pemeliharaan-region-3.update');
+        Route::delete('/{id}', [Region3RencanaPemeliharaanController::class, 'destroy'])->name('rencana-pemeliharaan-region-3.destroy');
+    });
+    Route::prefix('monev/shcnt/input-data/rencana-pemeliharaan-region-4')->group(function () {
+        Route::get('/', [Region4RencanaPemeliharaanController::class, 'index'])->name('rencana-pemeliharaan-region-4');
+        Route::post('/', [Region4RencanaPemeliharaanController::class, 'store'])->name('rencana-pemeliharaan-region-4.store');
+        Route::get('/data', [Region4RencanaPemeliharaanController::class, 'data'])->name('rencana-pemeliharaan-region-4.data');
+        Route::put('/{id}', [Region4RencanaPemeliharaanController::class, 'update'])->name('rencana-pemeliharaan-region-4.update');
+        Route::delete('/{id}', [Region4RencanaPemeliharaanController::class, 'destroy'])->name('rencana-pemeliharaan-region-4.destroy');
+    });
+    Route::prefix('monev/shcnt/input-data/rencana-pemeliharaan-region-5')->group(function () {
+        Route::get('/', [Region5RencanaPemeliharaanController::class, 'index'])->name('rencana-pemeliharaan-region-5');
+        Route::post('/', [Region5RencanaPemeliharaanController::class, 'store'])->name('rencana-pemeliharaan-region-5.store');
+        Route::get('/data', [Region5RencanaPemeliharaanController::class, 'data'])->name('rencana-pemeliharaan-region-5.data');
+        Route::put('/{id}', [Region5RencanaPemeliharaanController::class, 'update'])->name('rencana-pemeliharaan-region-5.update');
+        Route::delete('/{id}', [Region5RencanaPemeliharaanController::class, 'destroy'])->name('rencana-pemeliharaan-region-5.destroy');
+    });
+    Route::prefix('monev/shcnt/input-data/rencana-pemeliharaan-region-6')->group(function () {
+        Route::get('/', [Region6RencanaPemeliharaanController::class, 'index'])->name('rencana-pemeliharaan-region-6');
+        Route::post('/', [Region6RencanaPemeliharaanController::class, 'store'])->name('rencana-pemeliharaan-region-6.store');
+        Route::get('/data', [Region6RencanaPemeliharaanController::class, 'data'])->name('rencana-pemeliharaan-region-6.data');
+        Route::put('/{id}', [Region6RencanaPemeliharaanController::class, 'update'])->name('rencana-pemeliharaan-region-6.update');
+        Route::delete('/{id}', [Region6RencanaPemeliharaanController::class, 'destroy'])->name('rencana-pemeliharaan-region-6.destroy');
+    });
+    Route::prefix('monev/shcnt/input-data/rencana-pemeliharaan-region-7')->group(function () {
+        Route::get('/', [Region7RencanaPemeliharaanController::class, 'index'])->name('rencana-pemeliharaan-region-7');
+        Route::post('/', [Region7RencanaPemeliharaanController::class, 'store'])->name('rencana-pemeliharaan-region-7.store');
+        Route::get('/data', [Region7RencanaPemeliharaanController::class, 'data'])->name('rencana-pemeliharaan-region-7.data');
+        Route::put('/{id}', [Region7RencanaPemeliharaanController::class, 'update'])->name('rencana-pemeliharaan-region-7.update');
+        Route::delete('/{id}', [Region7RencanaPemeliharaanController::class, 'destroy'])->name('rencana-pemeliharaan-region-7.destroy');
+    });
+    Route::prefix('monev/shcnt/input-data/rencana-pemeliharaan-region-8')->group(function () {
+        Route::get('/', [Region8RencanaPemeliharaanController::class, 'index'])->name('rencana-pemeliharaan-region-8');
+        Route::post('/', [Region8RencanaPemeliharaanController::class, 'store'])->name('rencana-pemeliharaan-region-8.store');
+        Route::get('/data', [Region8RencanaPemeliharaanController::class, 'data'])->name('rencana-pemeliharaan-region-8.data');
+        Route::put('/{id}', [Region8RencanaPemeliharaanController::class, 'update'])->name('rencana-pemeliharaan-region-8.update');
+        Route::delete('/{id}', [Region8RencanaPemeliharaanController::class, 'destroy'])->name('rencana-pemeliharaan-region-8.destroy');
+    });
+
+    // Availability SHCNT
+    Route::prefix('monev/shcnt/input-data/availability-region-1')->group(function () {
+        Route::get('/', [Region1AvailabilityController::class, 'index'])->name('availability-region-1');
+        Route::post('/', [Region1AvailabilityController::class, 'store'])->name('availability-region-1.store');
+        Route::get('/data', [Region1AvailabilityController::class, 'data'])->name('availability-region-1.data');
+        Route::put('/{id}', [Region1AvailabilityController::class, 'update'])->name('availability-region-1.update');
+        Route::delete('/{id}', [Region1AvailabilityController::class, 'destroy'])->name('availability-region-1.destroy');
+    });
+    Route::prefix('monev/shcnt/input-data/availability-region-2')->group(function () {
+        Route::get('/', [Region2AvailabilityController::class, 'index'])->name('availability-region-2');
+        Route::post('/', [Region2AvailabilityController::class, 'store'])->name('availability-region-2.store');
+        Route::get('/data', [Region2AvailabilityController::class, 'data'])->name('availability-region-2.data');
+        Route::put('/{id}', [Region2AvailabilityController::class, 'update'])->name('availability-region-2.update');
+        Route::delete('/{id}', [Region2AvailabilityController::class, 'destroy'])->name('availability-region-2.destroy');
+    });
+    Route::prefix('monev/shcnt/input-data/availability-region-3')->group(function () {
+        Route::get('/', [Region3AvailabilityController::class, 'index'])->name('availability-region-3');
+        Route::post('/', [Region3AvailabilityController::class, 'store'])->name('availability-region-3.store');
+        Route::get('/data', [Region3AvailabilityController::class, 'data'])->name('availability-region-3.data');
+        Route::put('/{id}', [Region3AvailabilityController::class, 'update'])->name('availability-region-3.update');
+        Route::delete('/{id}', [Region3AvailabilityController::class, 'destroy'])->name('availability-region-3.destroy');
+    });
+    Route::prefix('monev/shcnt/input-data/availability-region-4')->group(function () {
+        Route::get('/', [Region4AvailabilityController::class, 'index'])->name('availability-region-4');
+        Route::post('/', [Region4AvailabilityController::class, 'store'])->name('availability-region-4.store');
+        Route::get('/data', [Region4AvailabilityController::class, 'data'])->name('availability-region-4.data');
+        Route::put('/{id}', [Region4AvailabilityController::class, 'update'])->name('availability-region-4.update');
+        Route::delete('/{id}', [Region4AvailabilityController::class, 'destroy'])->name('availability-region-4.destroy');
+    });
+    Route::prefix('monev/shcnt/input-data/availability-region-5')->group(function () {
+        Route::get('/', [Region5AvailabilityController::class, 'index'])->name('availability-region-5');
+        Route::post('/', [Region5AvailabilityController::class, 'store'])->name('availability-region-5.store');
+        Route::get('/data', [Region5AvailabilityController::class, 'data'])->name('availability-region-5.data');
+        Route::put('/{id}', [Region5AvailabilityController::class, 'update'])->name('availability-region-5.update');
+        Route::delete('/{id}', [Region5AvailabilityController::class, 'destroy'])->name('availability-region-5.destroy');
+    });
+    Route::prefix('monev/shcnt/input-data/availability-region-6')->group(function () {
+        Route::get('/', [Region6AvailabilityController::class, 'index'])->name('availability-region-6');
+        Route::post('/', [Region6AvailabilityController::class, 'store'])->name('availability-region-6.store');
+        Route::get('/data', [Region6AvailabilityController::class, 'data'])->name('availability-region-6.data');
+        Route::put('/{id}', [Region6AvailabilityController::class, 'update'])->name('availability-region-6.update');
+        Route::delete('/{id}', [Region6AvailabilityController::class, 'destroy'])->name('availability-region-6.destroy');
+    });
+    Route::prefix('monev/shcnt/input-data/availability-region-7')->group(function () {
+        Route::get('/', [Region7AvailabilityController::class, 'index'])->name('availability-region-7');
+        Route::post('/', [Region7AvailabilityController::class, 'store'])->name('availability-region-7.store');
+        Route::get('/data', [Region7AvailabilityController::class, 'data'])->name('availability-region-7.data');
+        Route::put('/{id}', [Region7AvailabilityController::class, 'update'])->name('availability-region-7.update');
+        Route::delete('/{id}', [Region7AvailabilityController::class, 'destroy'])->name('availability-region-7.destroy');
+    });
+    Route::prefix('monev/shcnt/input-data/availability-region-8')->group(function () {
+        Route::get('/', [Region8AvailabilityController::class, 'index'])->name('availability-region-8');
+        Route::post('/', [Region8AvailabilityController::class, 'store'])->name('availability-region-8.store');
+        Route::get('/data', [Region8AvailabilityController::class, 'data'])->name('availability-region-8.data');
+        Route::put('/{id}', [Region8AvailabilityController::class, 'update'])->name('availability-region-8.update');
+        Route::delete('/{id}', [Region8AvailabilityController::class, 'destroy'])->name('availability-region-8.destroy');
+    });
+
+
 });
 
 

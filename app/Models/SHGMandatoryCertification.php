@@ -20,7 +20,7 @@ class SHGMandatoryCertification extends Model
         });
     }
     
-    protected $table = 'shg_target_kinerja_mandatory_certification_shg';
+    protected $table = 'shg_target_kinerja_mandatory_certification';
     protected $fillable = [
         'periode',
         'subholding',
@@ -30,11 +30,6 @@ class SHGMandatoryCertification extends Model
         'posisi_vacant_awal_tahun',
         'posisi_terisi_awal_tahun',
         'target_personil_memenuhi_sertifikasi_tahunan',
-        'jumlah_sertifikasi_sudah_terbit',
-        'jumlah_sertifikasi_belum_terbit',
-        'jumlah_learning_hours',
-        'jumlah_learning_hours_kumulatif',
-        'jumlah_sertifikasi_sudah_terbit_kumulatif',
         'target_personil_memenuhi_sertifikasi_bulanan',
         'target_personil_memenuhi_sertifikasi_kumulatif',
         'target_kpi',

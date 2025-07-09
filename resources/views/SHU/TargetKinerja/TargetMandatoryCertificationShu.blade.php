@@ -141,7 +141,7 @@
     <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex justify-content-between align-items-center">
-                <h5 class="card-title mb-0">Mandatory Certification SHG</h5>
+                <h5 class="card-title mb-0">Mandatory Certification SHU</h5>
             </div>
 
             <div
@@ -201,71 +201,45 @@
 
                 <div>
                     <label>Posisi Awal Tahun</label>
-                    <input type="number" name="posisi_awal_tahun" id="posisi_awal_tahun">
+                    <input type="number" step="0.01" name="posisi_awal_tahun" id="posisi_awal_tahun">
                 </div>
 
                 <div>
                     <label>Posisi Vacant Awal Tahun</label>
-                    <input type="number" name="posisi_vacant_awal_tahun" id="posisi_vacant_awal_tahun">
+                    <input type="number" step="0.01" name="posisi_vacant_awal_tahun" id="posisi_vacant_awal_tahun">
                 </div>
 
                 <div>
                     <label>Posisi Terisi Awal Tahun</label>
-                    <input type="number" name="posisi_terisi_awal_tahun" id="posisi_terisi_awal_tahun">
+                    <input type="number" step="0.01" name="posisi_terisi_awal_tahun" id="posisi_terisi_awal_tahun">
                 </div>
 
                 <div>
                     <label>Target Personil Memenuhi Sertifikasi Tahunan</label>
-                    <input type="number" name="target_personil_memenuhi_sertifikasi_tahunan"
+                    <input type="number" step="0.01" name="target_personil_memenuhi_sertifikasi_tahunan"
                         id="target_personil_memenuhi_sertifikasi_tahunan">
                 </div>
 
                 <div>
-                    <label>Jumlah Sertifikasi Sudah Terbit</label>
-                    <input type="number" name="jumlah_sertifikasi_sudah_terbit" id="jumlah_sertifikasi_sudah_terbit">
-                </div>
-
-                <div>
-                    <label>Jumlah Sertifikasi Belum Terbit</label>
-                    <input type="number" name="jumlah_sertifikasi_belum_terbit" id="jumlah_sertifikasi_belum_terbit">
-                </div>
-
-                <div>
-                    <label>Jumlah Learning Hours</label>
-                    <input type="number" name="jumlah_learning_hours" id="jumlah_learning_hours">
-                </div>
-
-                <div>
-                    <label>Jumlah Learning Hours Kumulatif</label>
-                    <input type="number" name="jumlah_learning_hours_kumulatif" id="jumlah_learning_hours_kumulatif">
-                </div>
-
-                <div>
-                    <label>Jumlah Sertifikasi Sudah Terbit Kumulatif</label>
-                    <input type="number" name="jumlah_sertifikasi_sudah_terbit_kumulatif"
-                        id="jumlah_sertifikasi_sudah_terbit_kumulatif">
-                </div>
-
-                <div>
                     <label>Target Personil Memenuhi Sertifikasi Bulanan</label>
-                    <input type="number" name="target_personil_memenuhi_sertifikasi_bulanan"
+                    <input type="number" step="0.01" name="target_personil_memenuhi_sertifikasi_bulanan"
                         id="target_personil_memenuhi_sertifikasi_bulanan">
                 </div>
 
                 <div>
                     <label>Target Personil Memenuhi Sertifikasi Kumulatif</label>
-                    <input type="number" name="target_personil_memenuhi_sertifikasi_kumulatif"
+                    <input type="number" step="0.01" name="target_personil_memenuhi_sertifikasi_kumulatif"
                         id="target_personil_memenuhi_sertifikasi_kumulatif">
                 </div>
 
                 <div>
                     <label>Target KPI</label>
-                    <input type="number" name="target_kpi" id="target_kpi">
+                    <input type="number" step="0.01" name="target_kpi" id="target_kpi">
                 </div>
 
                 <div>
                     <label>Target KPI Kumulatif</label>
-                    <input type="number" name="target_kpi_kumulatif" id="target_kpi_kumulatif">
+                    <input type="number" step="0.01" name="target_kpi_kumulatif" id="target_kpi_kumulatif">
                 </div>
 
                 <button type="submit" class="btn btn-success">Submit</button>
@@ -345,31 +319,6 @@
                         },
                         {
                             field: "target_personil_memenuhi_sertifikasi_tahunan",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "jumlah_sertifikasi_sudah_terbit",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "jumlah_sertifikasi_belum_terbit",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "jumlah_learning_hours",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "jumlah_learning_hours_kumulatif",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "jumlah_sertifikasi_sudah_terbit_kumulatif",
                             type: "like",
                             value: keyword
                         },
@@ -539,94 +488,75 @@
                         {
                             title: "Subholding",
                             field: "subholding",
-                            editor: "input"
+                            editor: "input",
+                            validator: "string"
                         },
                         {
                             title: "Company",
                             field: "company",
-                            editor: "input"
+                            editor: "input",
+                            validator: "string"
                         },
                         {
                             title: "Unit",
                             field: "unit",
-                            editor: "input"
+                            editor: "input",
+                            validator: "string"
                         },
                         {
                             title: "Posisi Awal Tahun",
                             field: "posisi_awal_tahun",
                             editor: "number",
+                            validator: "number",
                             hozAlign: "center"
                         },
                         {
                             title: "Posisi Vacant Awal Tahun",
                             field: "posisi_vacant_awal_tahun",
                             editor: "number",
+                            validator: "number",
                             hozAlign: "center"
                         },
                         {
                             title: "Posisi Terisi Awal Tahun",
                             field: "posisi_terisi_awal_tahun",
                             editor: "number",
+                            validator: "number",
                             hozAlign: "center"
                         },
                         {
                             title: "Target Personil Memenuhi Sertifikasi Tahunan",
                             field: "target_personil_memenuhi_sertifikasi_tahunan",
                             editor: "number",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "Jumlah Sertifikasi Sudah Terbit",
-                            field: "jumlah_sertifikasi_sudah_terbit",
-                            editor: "number",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "Jumlah Sertifikasi Belum Terbit",
-                            field: "jumlah_sertifikasi_belum_terbit",
-                            editor: "number",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "Jumlah Learning Hours",
-                            field: "jumlah_learning_hours",
-                            editor: "number",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "Jumlah Learning Hours Kumulatif",
-                            field: "jumlah_learning_hours_kumulatif",
-                            editor: "number",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "Jumlah Sertifikasi Sudah Terbit Kumulatif",
-                            field: "jumlah_sertifikasi_sudah_terbit_kumulatif",
-                            editor: "number",
+                            validator: "number",
                             hozAlign: "center"
                         },
                         {
                             title: "Target Personil Memenuhi Sertifikasi Bulanan",
                             field: "target_personil_memenuhi_sertifikasi_bulanan",
                             editor: "number",
+                            validator: "number",
                             hozAlign: "center"
                         },
                         {
                             title: "Target Personil Memenuhi Sertifikasi Kumulatif",
                             field: "target_personil_memenuhi_sertifikasi_kumulatif",
                             editor: "number",
+                            validator: "number",
                             hozAlign: "center"
                         },
                         {
                             title: "Target KPI",
                             field: "target_kpi",
                             editor: "number",
+                            validator: "number",
                             hozAlign: "center"
                         },
                         {
                             title: "Target KPI Kumulatif",
                             field: "target_kpi_kumulatif",
                             editor: "number",
+                            validator: "number",
                             hozAlign: "center"
                         },
                         {
@@ -821,23 +751,14 @@
                             subholding: data.subholding,
                             company: data.company,
                             unit: data.unit,
-                            posisi_awal_tahun: data.posisi_awal_tahun,
-                            posisi_vacant_awal_tahun: data.posisi_vacant_awal_tahun,
-                            posisi_terisi_awal_tahun: data.posisi_terisi_awal_tahun,
-                            target_personil_memenuhi_sertifikasi_tahunan: data
-                                .target_personil_memenuhi_sertifikasi_tahunan,
-                            jumlah_sertifikasi_sudah_terbit: data.jumlah_sertifikasi_sudah_terbit,
-                            jumlah_sertifikasi_belum_terbit: data.jumlah_sertifikasi_belum_terbit,
-                            jumlah_learning_hours: data.jumlah_learning_hours,
-                            jumlah_learning_hours_kumulatif: data.jumlah_learning_hours_kumulatif,
-                            jumlah_sertifikasi_sudah_terbit_kumulatif: data
-                                .jumlah_sertifikasi_sudah_terbit_kumulatif,
-                            target_personil_memenuhi_sertifikasi_bulanan: data
-                                .target_personil_memenuhi_sertifikasi_bulanan,
-                            target_personil_memenuhi_sertifikasi_kumulatif: data
-                                .target_personil_memenuhi_sertifikasi_kumulatif,
-                            target_kpi: data.target_kpi,
-                            target_kpi_kumulatif: data.target_kpi_kumulatif,
+                            posisi_awal_tahun: parseFloat(data.posisi_awal_tahun) || null,
+                            posisi_vacant_awal_tahun: parseFloat(data.posisi_vacant_awal_tahun) || null,
+                            posisi_terisi_awal_tahun: parseFloat(data.posisi_terisi_awal_tahun) || null,
+                            target_personil_memenuhi_sertifikasi_tahunan: parseFloat(data.target_personil_memenuhi_sertifikasi_tahunan) || null,
+                            target_personil_memenuhi_sertifikasi_bulanan: parseFloat(data.target_personil_memenuhi_sertifikasi_bulanan) || null,
+                            target_personil_memenuhi_sertifikasi_kumulatif: parseFloat(data.target_personil_memenuhi_sertifikasi_kumulatif) || null,
+                            target_kpi: parseFloat(data.target_kpi) || null,
+                            target_kpi_kumulatif: parseFloat(data.target_kpi_kumulatif) || null,
                         })
                     })
                     .then(response => response.json())

@@ -18,7 +18,7 @@ class TargetMandatoryCertificationShuController extends Controller
             return response()->json($TargetPLO);
         }
 
-        return view('Shu.TargetKinerja.TargetMandatoryCertificationShu');
+        return view('SHU.TargetKinerja.TargetMandatoryCertificationShu');
     }
 
 
