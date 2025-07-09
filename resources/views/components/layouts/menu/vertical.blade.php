@@ -90,6 +90,7 @@
             $user = session('user');
             $entitasUser = strtolower($user['entitas'] ?? '');
         @endphp
+
         <!-- Dashboards -->
         <li class="menu-item {{ request()->is('dashboard') ? 'active' : '' }}">
             <a class="menu-link" href="{{ route('dashboard') }}" wire:navigate>{{ __('Dashboard') }}</a>
@@ -154,8 +155,17 @@
                     </a>
                     <ul class="menu-sub">
                         @php
-                            $entitasIni = 'pertamina';
+                            $entitasIni = 'pertamina'; // lowercase agar konsisten
                             $isActive = $entitasUser === $entitasIni;
+                            if ($isActive) {
+                                echo '<script>
+                                    console.log("Entitas cocok: ' . $entitasUser . '");
+                                </script>';
+                            } else {
+                                echo '<script>
+                                    console.log("Entitas tidak cocok: ' . $entitasUser . '");
+                                </script>';
+                            }
                         @endphp
                         <li
                             class="menu-item {{ request()->is('monev/shg/input-data/pertamina-gas*') ? 'active' : '' }} {{ $isActive ? '' : 'disabled-menu' }}">
