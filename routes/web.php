@@ -534,8 +534,9 @@ use Illuminate\Support\Facades\App;
 //     return view('auth.login');
 // })->name('login');
 
-// Route::post('/auth/digio-login', [AuthController::class, 'digioLogin']);
-Route::post('/auth/digio-login/{provider}', [AuthController::class, 'loginFromDigio']);
+// Route::post('/auth/digio-token-login', [AuthController::class, 'loginWithDigioToken']);
+Route::post('/auth/digio-jwt-login', [AuthController::class, 'loginFromDigioToken']);
+
 
 Route::get('monev-aim', [MonevAimController::class, 'index'])
     ->middleware(['auth', 'verified'])

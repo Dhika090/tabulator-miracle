@@ -8,70 +8,52 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 
 class AuthController extends Controller
 {
-    public function loginFromDigio(Request $request, string $provider)
+    public function loginFromDigioToken(Request $request)
     {
-        if (!in_array($provider, ['pertamina', 'pgasol', 'google'])) {
-            return abort(400, 'Provider tidak dikenal.');
+        $token = $request->input('token');
+        $secretKey = env('DIGIO_JWT_SECRET', 'zx7xCQraOUX/PFANpi5E+dNqN4Q0QV3S8QXdQpJHHKM=');
+
+        try {
+            $decoded = JWT::decode($token, new Key($secretKey, 'HS256'));
+
+            if (Carbon::now()->timestamp > $decoded->exp) {
+                return response()->json(['error' => 'Token expired.'], 401);
+            }
+            $user = UserDigio::updateOrCreate(
+                ['userid' => $decoded->userid],
+                [
+                    'display_name' => $decoded->displayName ?? null,
+                    'title' => $decoded->title ?? null,
+                    'group' => $decoded->group ?? null,
+                    'dir' => $decoded->dir ?? null,
+                    'iss' => $decoded->iss ?? null,
+                    'aud' => $decoded->aud ?? null,
+                    'jwt_exp' => Carbon::createFromTimestamp($decoded->exp),
+                    'token' => $token,
+                    'is_active' => true
+                ]
+            );
+
+            if (!$user || !$user->is_active) {
+                return response()->json(['error' => 'Akun tidak aktif di sistem.'], 403);
+            }
+
+            session()->put('user', [
+                'username' => $user->userid,
+                'nama' => $user->display_name,
+                'entitas' => strtolower($user->dir),
+                'group' => $user->group,
+                'token' => $user->token
+            ]);
+
+            return response()->json(['message' => 'Login berhasil.', 'user' => $user], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Token tidak valid: ' . $e->getMessage()], 403);
         }
-
-        $endpoint = "https://digio.pgn.co.id/AuthService/account/{$provider}";
-
-        $payload = match ($provider) {
-            'google' => [
-                'tokenid' => $request->input('tokenid')
-            ],
-            default => [
-                'username' => $request->input('username'),
-                'password' => $request->input('password')
-            ],
-        };
-
-        $response = Http::withHeaders([
-            'Authorization' => 'Bearer zx7xCQraOUX/PFANpi5E+dNqN4Q0QV3S8QXdQpJHHKM=',
-            'Accept' => 'application/json',
-        ])->post($endpoint, $payload);
-
-        if (!$response->successful() || !$response->json('AccessToken')) {
-            return redirect()->back()->with('error', 'Login ke Digio gagal.');
-        }
-
-        $token = $response['AccessToken'];
-        $payload = json_decode(base64_decode(explode('.', $token)[1]), true);
-
-        $user = UserDigio::updateOrCreate(
-            ['userid' => $payload['userid']],
-            [
-                'display_name' => $payload['displayName'],
-                'title' => $payload['title'] ?? null,
-                'group' => $payload['group'] ?? null,
-                'dir' => $payload['dir'] ?? null,
-                'iss' => $payload['iss'] ?? null,
-                'aud' => $payload['aud'] ?? null,
-                'jwt_exp' => Carbon::createFromTimestamp($payload['exp']),
-                'token' => $token,
-                'is_active' => true
-            ]
-        );
-
-        if (!$user || !$user->is_active) {
-            return response()->json(['error' => 'Akun tidak terdaftar di sistem atau tidak aktif.'], 403);
-        }
-
-        session()->put('user', [
-            'username' => $user->userid,
-            'nama' => $user->display_name,
-            'entitas' => strtolower($user->dir),
-            'group' => $user->group,
-            'token' => $user->token
-        ]);
-
-        return redirect('/');
-        // return response()->json([
-        //     'message' => 'Login berhasil',
-        //     'user' => $user
-        // ]);
     }
 }
