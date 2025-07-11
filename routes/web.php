@@ -18,6 +18,30 @@ use App\Http\Controllers\SHCNT\InputDataMonev\Availability\Region5AvailabilityCo
 use App\Http\Controllers\SHCNT\InputDataMonev\Availability\Region6AvailabilityController;
 use App\Http\Controllers\SHCNT\InputDataMonev\Availability\Region7AvailabilityController;
 use App\Http\Controllers\SHCNT\InputDataMonev\Availability\Region8AvailabilityController;
+use App\Http\Controllers\SHCNT\InputDataMonev\KondisiVacantAims\Region1KondisiVacantAimsController;
+use App\Http\Controllers\SHCNT\InputDataMonev\KondisiVacantAims\Region2KondisiVacantAimsController;
+use App\Http\Controllers\SHCNT\InputDataMonev\KondisiVacantAims\Region3KondisiVacantAimsController;
+use App\Http\Controllers\SHCNT\InputDataMonev\KondisiVacantAims\Region4KondisiVacantAimsController;
+use App\Http\Controllers\SHCNT\InputDataMonev\KondisiVacantAims\Region5KondisiVacantAimsController;
+use App\Http\Controllers\SHCNT\InputDataMonev\KondisiVacantAims\Region6KondisiVacantAimsController;
+use App\Http\Controllers\SHCNT\InputDataMonev\KondisiVacantAims\Region7KondisiVacantAimsController;
+use App\Http\Controllers\SHCNT\InputDataMonev\KondisiVacantAims\Region8KondisiVacantAimsController;
+use App\Http\Controllers\SHCNT\InputDataMonev\MandatoryCerti\Region1MandatoryCertiController;
+use App\Http\Controllers\SHCNT\InputDataMonev\MandatoryCerti\Region2MandatoryCertiController;
+use App\Http\Controllers\SHCNT\InputDataMonev\MandatoryCerti\Region3MandatoryCertiController;
+use App\Http\Controllers\SHCNT\InputDataMonev\MandatoryCerti\Region4MandatoryCertiController;
+use App\Http\Controllers\SHCNT\InputDataMonev\MandatoryCerti\Region5MandatoryCertiController;
+use App\Http\Controllers\SHCNT\InputDataMonev\MandatoryCerti\Region6MandatoryCertiController;
+use App\Http\Controllers\SHCNT\InputDataMonev\MandatoryCerti\Region7MandatoryCertiController;
+use App\Http\Controllers\SHCNT\InputDataMonev\MandatoryCerti\Region8MandatoryCertiController;
+use App\Http\Controllers\SHCNT\InputDataMonev\PelatihanAims\Region1PelatihanAimsController;
+use App\Http\Controllers\SHCNT\InputDataMonev\PelatihanAims\Region2PelatihanAimsController;
+use App\Http\Controllers\SHCNT\InputDataMonev\PelatihanAims\Region3PelatihanAimsController;
+use App\Http\Controllers\SHCNT\InputDataMonev\PelatihanAims\Region4PelatihanAimsController;
+use App\Http\Controllers\SHCNT\InputDataMonev\PelatihanAims\Region5PelatihanAimsController;
+use App\Http\Controllers\SHCNT\InputDataMonev\PelatihanAims\Region6PelatihanAimsController;
+use App\Http\Controllers\SHCNT\InputDataMonev\PelatihanAims\Region7PelatihanAimsController;
+use App\Http\Controllers\SHCNT\InputDataMonev\PelatihanAims\Region8PelatihanAimsController;
 use App\Http\Controllers\SHCNT\InputDataMonev\RencanaPemeliharaan\Region1RencanaPemeliharaanController;
 use App\Http\Controllers\SHCNT\InputDataMonev\RencanaPemeliharaan\Region2RencanaPemeliharaanController;
 use App\Http\Controllers\SHCNT\InputDataMonev\RencanaPemeliharaan\Region3RencanaPemeliharaanController;
@@ -5043,8 +5067,185 @@ Route::middleware([\App\Http\Middleware\CorsMiddleware::class])->group(function 
         Route::put('/{id}', [Region8AvailabilityController::class, 'update'])->name('availability-region-8.update');
         Route::delete('/{id}', [Region8AvailabilityController::class, 'destroy'])->name('availability-region-8.destroy');
     });
+    Route::prefix('monev/shcnt/input-data/pelatihan-aims-region-1')->group(function () {
+        Route::get('/', [Region1PelatihanAimsController::class, 'index'])->name('pelatihan-aims-region-1');
+        Route::post('/', [Region1PelatihanAimsController::class, 'store'])->name('pelatihan-aims-region-1.store');
+        Route::get('/data', [Region1PelatihanAimsController::class, 'data'])->name('pelatihan-aims-region-1.data');
+        Route::put('/{id}', [Region1PelatihanAimsController::class, 'update'])->name('pelatihan-aims-region-1.update');
+        Route::delete('/{id}', [Region1PelatihanAimsController::class, 'destroy'])->name('pelatihan-aims-region-1.destroy');
+    });
 
+    Route::prefix('monev/shcnt/input-data/pelatihan-aims-region-2')->group(function () {
+        Route::get('/', [Region2PelatihanAimsController::class, 'index'])->name('pelatihan-aims-region-2');
+        Route::post('/', [Region2PelatihanAimsController::class, 'store'])->name('pelatihan-aims-region-2.store');
+        Route::get('/data', [Region2PelatihanAimsController::class, 'data'])->name('pelatihan-aims-region-2.data');
+        Route::put('/{id}', [Region2PelatihanAimsController::class, 'update'])->name('pelatihan-aims-region-2.update');
+        Route::delete('/{id}', [Region2PelatihanAimsController::class, 'destroy'])->name('pelatihan-aims-region-2.destroy');
+    });
 
+    Route::prefix('monev/shcnt/input-data/pelatihan-aims-region-3')->group(function () {
+        Route::get('/', [Region3PelatihanAimsController::class, 'index'])->name('pelatihan-aims-region-3');
+        Route::post('/', [Region3PelatihanAimsController::class, 'store'])->name('pelatihan-aims-region-3.store');
+        Route::get('/data', [Region3PelatihanAimsController::class, 'data'])->name('pelatihan-aims-region-3.data');
+        Route::put('/{id}', [Region3PelatihanAimsController::class, 'update'])->name('pelatihan-aims-region-3.update');
+        Route::delete('/{id}', [Region3PelatihanAimsController::class, 'destroy'])->name('pelatihan-aims-region-3.destroy');
+    });
+
+    Route::prefix('monev/shcnt/input-data/pelatihan-aims-region-4')->group(function () {
+        Route::get('/', [Region4PelatihanAimsController::class, 'index'])->name('pelatihan-aims-region-4');
+        Route::post('/', [Region4PelatihanAimsController::class, 'store'])->name('pelatihan-aims-region-4.store');
+        Route::get('/data', [Region4PelatihanAimsController::class, 'data'])->name('pelatihan-aims-region-4.data');
+        Route::put('/{id}', [Region4PelatihanAimsController::class, 'update'])->name('pelatihan-aims-region-4.update');
+        Route::delete('/{id}', [Region4PelatihanAimsController::class, 'destroy'])->name('pelatihan-aims-region-4.destroy');
+    });
+
+    Route::prefix('monev/shcnt/input-data/pelatihan-aims-region-5')->group(function () {
+        Route::get('/', [Region5PelatihanAimsController::class, 'index'])->name('pelatihan-aims-region-5');
+        Route::post('/', [Region5PelatihanAimsController::class, 'store'])->name('pelatihan-aims-region-5.store');
+        Route::get('/data', [Region5PelatihanAimsController::class, 'data'])->name('pelatihan-aims-region-5.data');
+        Route::put('/{id}', [Region5PelatihanAimsController::class, 'update'])->name('pelatihan-aims-region-5.update');
+        Route::delete('/{id}', [Region5PelatihanAimsController::class, 'destroy'])->name('pelatihan-aims-region-5.destroy');
+    });
+
+    Route::prefix('monev/shcnt/input-data/pelatihan-aims-region-6')->group(function () {
+        Route::get('/', [Region6PelatihanAimsController::class, 'index'])->name('pelatihan-aims-region-6');
+        Route::post('/', [Region6PelatihanAimsController::class, 'store'])->name('pelatihan-aims-region-6.store');
+        Route::get('/data', [Region6PelatihanAimsController::class, 'data'])->name('pelatihan-aims-region-6.data');
+        Route::put('/{id}', [Region6PelatihanAimsController::class, 'update'])->name('pelatihan-aims-region-6.update');
+        Route::delete('/{id}', [Region6PelatihanAimsController::class, 'destroy'])->name('pelatihan-aims-region-6.destroy');
+    });
+
+    Route::prefix('monev/shcnt/input-data/pelatihan-aims-region-7')->group(function () {
+        Route::get('/', [Region7PelatihanAimsController::class, 'index'])->name('pelatihan-aims-region-7');
+        Route::post('/', [Region7PelatihanAimsController::class, 'store'])->name('pelatihan-aims-region-7.store');
+        Route::get('/data', [Region7PelatihanAimsController::class, 'data'])->name('pelatihan-aims-region-7.data');
+        Route::put('/{id}', [Region7PelatihanAimsController::class, 'update'])->name('pelatihan-aims-region-7.update');
+        Route::delete('/{id}', [Region7PelatihanAimsController::class, 'destroy'])->name('pelatihan-aims-region-7.destroy');
+    });
+
+    Route::prefix('monev/shcnt/input-data/pelatihan-aims-region-8')->group(function () {
+        Route::get('/', [Region8PelatihanAimsController::class, 'index'])->name('pelatihan-aims-region-8');
+        Route::post('/', [Region8PelatihanAimsController::class, 'store'])->name('pelatihan-aims-region-8.store');
+        Route::get('/data', [Region8PelatihanAimsController::class, 'data'])->name('pelatihan-aims-region-8.data');
+        Route::put('/{id}', [Region8PelatihanAimsController::class, 'update'])->name('pelatihan-aims-region-8.update');
+        Route::delete('/{id}', [Region8PelatihanAimsController::class, 'destroy'])->name('pelatihan-aims-region-8.destroy');
+    });
+    
+    // mandatory certification
+    Route::prefix('monev/shcnt/input-data/mandatory-certification-region-1')->group(function () {
+        Route::get('/', [Region1MandatoryCertiController::class, 'index'])->name('mandatory-certification-region-1');
+        Route::post('/', [Region1MandatoryCertiController::class, 'store'])->name('mandatory-certification-region-1.store');
+        Route::get('/data', [Region1MandatoryCertiController::class, 'data'])->name('mandatory-certification-region-1.data');
+        Route::put('/{id}', [Region1MandatoryCertiController::class, 'update'])->name('mandatory-certification-region-1.update');
+        Route::delete('/{id}', [Region1MandatoryCertiController::class, 'destroy'])->name('mandatory-certification-region-1.destroy');
+    });
+    Route::prefix('monev/shcnt/input-data/mandatory-certification-region-2')->group(function () {
+        Route::get('/', [Region2MandatoryCertiController::class, 'index'])->name('mandatory-certification-region-2');
+        Route::post('/', [Region2MandatoryCertiController::class, 'store'])->name('mandatory-certification-region-2.store');
+        Route::get('/data', [Region2MandatoryCertiController::class, 'data'])->name('mandatory-certification-region-2.data');
+        Route::put('/{id}', [Region2MandatoryCertiController::class, 'update'])->name('mandatory-certification-region-2.update');
+        Route::delete('/{id}', [Region2MandatoryCertiController::class, 'destroy'])->name('mandatory-certification-region-2.destroy');
+    });
+    Route::prefix('monev/shcnt/input-data/mandatory-certification-region-3')->group(function () {
+        Route::get('/', [Region3MandatoryCertiController::class, 'index'])->name('mandatory-certification-region-3');
+        Route::post('/', [Region3MandatoryCertiController::class, 'store'])->name('mandatory-certification-region-3.store');
+        Route::get('/data', [Region3MandatoryCertiController::class, 'data'])->name('mandatory-certification-region-3.data');
+        Route::put('/{id}', [Region3MandatoryCertiController::class, 'update'])->name('mandatory-certification-region-3.update');
+        Route::delete('/{id}', [Region3MandatoryCertiController::class, 'destroy'])->name('mandatory-certification-region-3.destroy');
+    });
+    Route::prefix('monev/shcnt/input-data/mandatory-certification-region-4')->group(function () {
+        Route::get('/', [Region4MandatoryCertiController::class, 'index'])->name('mandatory-certification-region-4');
+        Route::post('/', [Region4MandatoryCertiController::class, 'store'])->name('mandatory-certification-region-4.store');
+        Route::get('/data', [Region4MandatoryCertiController::class, 'data'])->name('mandatory-certification-region-4.data');
+        Route::put('/{id}', [Region4MandatoryCertiController::class, 'update'])->name('mandatory-certification-region-4.update');
+        Route::delete('/{id}', [Region4MandatoryCertiController::class, 'destroy'])->name('mandatory-certification-region-4.destroy');
+    });
+    Route::prefix('monev/shcnt/input-data/mandatory-certification-region-5')->group(function () {
+        Route::get('/', [Region5MandatoryCertiController::class, 'index'])->name('mandatory-certification-region-5');
+        Route::post('/', [Region5MandatoryCertiController::class, 'store'])->name('mandatory-certification-region-5.store');
+        Route::get('/data', [Region5MandatoryCertiController::class, 'data'])->name('mandatory-certification-region-5.data');
+        Route::put('/{id}', [Region5MandatoryCertiController::class, 'update'])->name('mandatory-certification-region-5.update');
+        Route::delete('/{id}', [Region5MandatoryCertiController::class, 'destroy'])->name('mandatory-certification-region-5.destroy');
+    });
+    Route::prefix('monev/shcnt/input-data/mandatory-certification-region-6')->group(function () {
+        Route::get('/', [Region6MandatoryCertiController::class, 'index'])->name('mandatory-certification-region-6');
+        Route::post('/', [Region6MandatoryCertiController::class, 'store'])->name('mandatory-certification-region-6.store');
+        Route::get('/data', [Region6MandatoryCertiController::class, 'data'])->name('mandatory-certification-region-6.data');
+        Route::put('/{id}', [Region6MandatoryCertiController::class, 'update'])->name('mandatory-certification-region-6.update');
+        Route::delete('/{id}', [Region6MandatoryCertiController::class, 'destroy'])->name('mandatory-certification-region-6.destroy');
+    });
+    Route::prefix('monev/shcnt/input-data/mandatory-certification-region-7')->group(function () {
+        Route::get('/', [Region7MandatoryCertiController::class, 'index'])->name('mandatory-certification-region-7');
+        Route::post('/', [Region7MandatoryCertiController::class, 'store'])->name('mandatory-certification-region-7.store');
+        Route::get('/data', [Region7MandatoryCertiController::class, 'data'])->name('mandatory-certification-region-7.data');
+        Route::put('/{id}', [Region7MandatoryCertiController::class, 'update'])->name('mandatory-certification-region-7.update');
+        Route::delete('/{id}', [Region7MandatoryCertiController::class, 'destroy'])->name('mandatory-certification-region-7.destroy');
+    });
+    Route::prefix('monev/shcnt/input-data/mandatory-certification-region-8')->group(function () {
+        Route::get('/', [Region8MandatoryCertiController::class, 'index'])->name('mandatory-certification-region-8');
+        Route::post('/', [Region8MandatoryCertiController::class, 'store'])->name('mandatory-certification-region-8.store');
+        Route::get('/data', [Region8MandatoryCertiController::class, 'data'])->name('mandatory-certification-region-8.data');
+        Route::put('/{id}', [Region8MandatoryCertiController::class, 'update'])->name('mandatory-certification-region-8.update');
+        Route::delete('/{id}', [Region8MandatoryCertiController::class, 'destroy'])->name('mandatory-certification-region-8.destroy');
+    });
+
+    // Kondisi Vacant AIMS
+    Route::prefix('monev/shcnt/input-data/kondisi-vacant-aims-region-1')->group(function () {
+        Route::get('/', [Region1KondisiVacantAimsController::class, 'index'])->name('kondisi-vacant-aims-region-1');
+        Route::post('/', [Region1KondisiVacantAimsController::class, 'store'])->name('kondisi-vacant-aims-region-1.store');
+        Route::get('/data', [Region1KondisiVacantAimsController::class, 'data'])->name('kondisi-vacant-aims-region-1.data');
+        Route::put('/{id}', [Region1KondisiVacantAimsController::class, 'update'])->name('kondisi-vacant-aims-region-1.update');
+        Route::delete('/{id}', [Region1KondisiVacantAimsController::class, 'destroy'])->name('kondisi-vacant-aims-region-1.destroy');
+    });
+    Route::prefix('monev/shcnt/input-data/kondisi-vacant-aims-region-2')->group(function () {
+        Route::get('/', [Region2KondisiVacantAimsController::class, 'index'])->name('kondisi-vacant-aims-region-2');
+        Route::post('/', [Region2KondisiVacantAimsController::class, 'store'])->name('kondisi-vacant-aims-region-2.store');
+        Route::get('/data', [Region2KondisiVacantAimsController::class, 'data'])->name('kondisi-vacant-aims-region-2.data');
+        Route::put('/{id}', [Region2KondisiVacantAimsController::class, 'update'])->name('kondisi-vacant-aims-region-2.update');
+        Route::delete('/{id}', [Region2KondisiVacantAimsController::class, 'destroy'])->name('kondisi-vacant-aims-region-2.destroy');
+    });
+    Route::prefix('monev/shcnt/input-data/kondisi-vacant-aims-region-3')->group(function () {
+        Route::get('/', [Region3KondisiVacantAimsController::class, 'index'])->name('kondisi-vacant-aims-region-3');
+        Route::post('/', [Region3KondisiVacantAimsController::class, 'store'])->name('kondisi-vacant-aims-region-3.store');
+        Route::get('/data', [Region3KondisiVacantAimsController::class, 'data'])->name('kondisi-vacant-aims-region-3.data');
+        Route::put('/{id}', [Region3KondisiVacantAimsController::class, 'update'])->name('kondisi-vacant-aims-region-3.update');
+        Route::delete('/{id}', [Region3KondisiVacantAimsController::class, 'destroy'])->name('kondisi-vacant-aims-region-3.destroy');
+    });
+    Route::prefix('monev/shcnt/input-data/kondisi-vacant-aims-region-4')->group(function () {
+        Route::get('/', [Region4KondisiVacantAimsController::class, 'index'])->name('kondisi-vacant-aims-region-4');
+        Route::post('/', [Region4KondisiVacantAimsController::class, 'store'])->name('kondisi-vacant-aims-region-4.store');
+        Route::get('/data', [Region4KondisiVacantAimsController::class, 'data'])->name('kondisi-vacant-aims-region-4.data');
+        Route::put('/{id}', [Region4KondisiVacantAimsController::class, 'update'])->name('kondisi-vacant-aims-region-4.update');
+        Route::delete('/{id}', [Region4KondisiVacantAimsController::class, 'destroy'])->name('kondisi-vacant-aims-region-4.destroy');
+    });
+    Route::prefix('monev/shcnt/input-data/kondisi-vacant-aims-region-5')->group(function () {
+        Route::get('/', [Region5KondisiVacantAimsController::class, 'index'])->name('kondisi-vacant-aims-region-5');
+        Route::post('/', [Region5KondisiVacantAimsController::class, 'store'])->name('kondisi-vacant-aims-region-5.store');
+        Route::get('/data', [Region5KondisiVacantAimsController::class, 'data'])->name('kondisi-vacant-aims-region-5.data');
+        Route::put('/{id}', [Region5KondisiVacantAimsController::class, 'update'])->name('kondisi-vacant-aims-region-5.update');
+        Route::delete('/{id}', [Region5KondisiVacantAimsController::class, 'destroy'])->name('kondisi-vacant-aims-region-5.destroy');
+    });
+    Route::prefix('monev/shcnt/input-data/kondisi-vacant-aims-region-6')->group(function () {
+        Route::get('/', [Region6KondisiVacantAimsController::class, 'index'])->name('kondisi-vacant-aims-region-6');
+        Route::post('/', [Region6KondisiVacantAimsController::class, 'store'])->name('kondisi-vacant-aims-region-6.store');
+        Route::get('/data', [Region6KondisiVacantAimsController::class, 'data'])->name('kondisi-vacant-aims-region-6.data');
+        Route::put('/{id}', [Region6KondisiVacantAimsController::class, 'update'])->name('kondisi-vacant-aims-region-6.update');
+        Route::delete('/{id}', [Region6KondisiVacantAimsController::class, 'destroy'])->name('kondisi-vacant-aims-region-6.destroy');
+    });
+    Route::prefix('monev/shcnt/input-data/kondisi-vacant-aims-region-7')->group(function () {
+        Route::get('/', [Region7KondisiVacantAimsController::class, 'index'])->name('kondisi-vacant-aims-region-7');
+        Route::post('/', [Region7KondisiVacantAimsController::class, 'store'])->name('kondisi-vacant-aims-region-7.store');
+        Route::get('/data', [Region7KondisiVacantAimsController::class, 'data'])->name('kondisi-vacant-aims-region-7.data');
+        Route::put('/{id}', [Region7KondisiVacantAimsController::class, 'update'])->name('kondisi-vacant-aims-region-7.update');
+        Route::delete('/{id}', [Region7KondisiVacantAimsController::class, 'destroy'])->name('kondisi-vacant-aims-region-7.destroy');
+    });
+    Route::prefix('monev/shcnt/input-data/kondisi-vacant-aims-region-8')->group(function () {
+        Route::get('/', [Region8KondisiVacantAimsController::class, 'index'])->name('kondisi-vacant-aims-region-8');
+        Route::post('/', [Region8KondisiVacantAimsController::class, 'store'])->name('kondisi-vacant-aims-region-8.store');
+        Route::get('/data', [Region8KondisiVacantAimsController::class, 'data'])->name('kondisi-vacant-aims-region-8.data');
+        Route::put('/{id}', [Region8KondisiVacantAimsController::class, 'update'])->name('kondisi-vacant-aims-region-8.update');
+        Route::delete('/{id}', [Region8KondisiVacantAimsController::class, 'destroy'])->name('kondisi-vacant-aims-region-8.destroy');
+    });
 });
 
 

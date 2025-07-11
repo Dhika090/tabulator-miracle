@@ -250,6 +250,7 @@
 
         <script>
             const BASE_URL = "{{ config('app.url') }}";
+
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
                     fetch(`kondisi-vacant-fungsi-aims-regional-1/${id}`, {
@@ -639,9 +640,9 @@
                 toast.classList.add(type === "success" ? "toast-success" : "toast-error");
                 toast.style.display = "block";
 
-                setTimeout(() => {
+               setTimeout(() => {
                     toast.style.display = "none";
-                }, 3000);
+                }, 3500);
             }
 
             function showToast(message, type = "success") {
@@ -651,9 +652,9 @@
                 toast.classList.add(type === "success" ? "toast-success" : "toast-error");
                 toast.style.display = "block";
 
-                setTimeout(() => {
+               setTimeout(() => {
                     toast.style.display = "none";
-                }, 3000);
+                }, 3500);
             }
 
             function openModal() {
@@ -693,7 +694,8 @@
                     .then(result => {
                         if (result.success) {
                             showToast(result.message || "Data berhasil disimpan", "success");
-                            table.setData(`${BASE_URL}/monev/shu/input-data/kondisi-vacant-fungsi-aims-regional-1/data`);
+                            table.setData(
+                                `${BASE_URL}/monev/shu/input-data/kondisi-vacant-fungsi-aims-regional-1/data`);
                             this.reset();
                             closeModal();
                         } else {

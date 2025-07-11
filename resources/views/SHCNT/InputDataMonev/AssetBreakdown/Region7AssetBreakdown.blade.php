@@ -202,85 +202,9 @@
             <h3>Asset Breakdown Region 7</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
-                <div>
-                    <label>Periode</label>
-                    <input type="month" name="periode" id="periode">
-                </div>
 
-                <div>
-                    <label>Company</label>
-                    <input type="text" name="company" id="company">
-                </div>
-
-                <div>
-                    <label>Plant Segment</label>
-                    <input type="text" name="plant_segment" id="plant_segment">
-                </div>
-
-                <div>
-                    <label>Kategori Criticality</label>
-                    <input type="text" name="kategori_criticality" id="kategori_criticality">
-                </div>
-
-                <div>
-                    <label>Tag</label>
-                    <input type="text" name="tag" id="tag">
-                </div>
-
-                <div>
-                    <label>Deskripsi Peralatan</label>
-                    <input type="text" name="deskripsi_peralatan" id="deskripsi_peralatan">
-                </div>
-
-                <div>
-                    <label>Jenis Kerusakan</label>
-                    <input type="text" name="jenis_kerusakan" id="jenis_kerusakan">
-                </div>
-
-                <div>
-                    <label>Penyebab</label>
-                    <input type="text" name="penyebab" id="penyebab">
-                </div>
-
-                <div>
-                    <label>Kendala Perbaikan</label>
-                    <input type="text" name="kendala_perbaikan" id="kendala_perbaikan">
-                </div>
-
-                <div>
-                    <label>Mitigasi</label>
-                    <input type="text" name="mitigasi" id="mitigasi">
-                </div>
-
-                <div>
-                    <label>Perbaikan Permanen</label>
-                    <input type="text" name="perbaikan_permanen" id="perbaikan_permanen">
-                </div>
-
-                <div>
-                    <label>Progres Perbaikan Permanen</label>
-                    <input type="text" name="progres_perbaikan_permanen" id="progres_perbaikan_permanen">
-                </div>
-
-                <div>
-                    <label>Tindak Lanjut</label>
-                    <input type="text" name="tindak_lanjut" id="tindak_lanjut">
-                </div>
-
-                <div>
-                    <label>Target Penyelesaian</label>
-                    <input type="month" name="target_penyelesaian" id="target_penyelesaian">
-                </div>
-
-                <div>
-                    <label>Estimasi Biaya Perbaikan</label>
-                    <input type="number" name="estimasi_biaya_perbaikan" id="estimasi_biaya_perbaikan">
-                </div>
-
-                <div>
-                    <label>Link Foto/Video</label>
-                    <input type="text" name="link_foto_video" id="link_foto_video">
-                </div>
+                <label>Jumlah Row yang ingin dibuat</label>
+                <input type="number" name="jumlah_row" id="jumlah_row" min="1" value="1" required>
 
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
@@ -638,11 +562,20 @@
                     });
                 });
 
+                function isValidPeriodeFormat(value) {
+                    const regex = /^[A-Za-z]{3}-\d{2}$/;
+                    return regex.test(value);
+                }
                 table.on("cellEdited", function(cell) {
                     const updatedData = cell.getRow().getData();
                     const id = updatedData.id;
 
                     if (!id) return;
+                    if (cell.getField() === "periode" && !isValidPeriodeFormat(cell.getValue())) {
+                        showToast("Format Periode tidak valid! Gunakan format: Sep-24", "error");
+                        cell.restoreOldValue();
+                        return;
+                    }
 
                     fetch(`asset-breakdown-region-7/${id}`, {
                             method: "PUT",
@@ -655,8 +588,17 @@
                             body: JSON.stringify(updatedData)
                         })
                         .then(res => res.json())
-                        .then(data => console.log("Update berhasil:", data))
-                        .catch(err => console.error("Gagal update:", err));
+                        .then(data => {
+                            if (data.success) {
+                                showToast("Update berhasil!", "success");
+                            } else {
+                                showToast("Update gagal: " + data.message, "error");
+                            }
+                        })
+                        .catch(err => {
+                            console.error("Gagal update:", err);
+                            showToast("Terjadi kesalahan saat update!", "error");
+                        });
                 });
 
                 let previousData = [];
@@ -683,7 +625,28 @@
                     const changedRows = getChangedRows(newData, previousData);
                     console.log("Baris yang berubah:", changedRows);
 
-                    changedRows.forEach(rowData => {
+                    changedRows.forEach((rowData, index) => {
+                        const id = rowData.id;
+                        if (!id) return;
+
+                        const oldRow = previousData.find(r => r.id === id);
+                        if (!oldRow) return;
+
+                        if (rowData.periode !== oldRow.periode && !isValidPeriodeFormat(rowData
+                                .periode)) {
+                            showToast(
+                                `"${rowData.periode}" Format Periode tidak valid! Gunakan format: Jan-25`,
+                                "error");
+
+                            rowData.periode = oldRow.periode;
+
+                            table.updateData([{
+                                id: rowData.id,
+                                periode: oldRow.periode
+                            }]);
+
+                            return;
+                        }
                         fetch(`asset-breakdown-region-7/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
@@ -693,13 +656,19 @@
                                         'meta[name="csrf-token"]').getAttribute("content")
                                 },
                                 body: JSON.stringify(rowData)
-                            })
-                            .then(res => res.json())
+                            }).then(res => res.json())
                             .then(response => {
-                                console.log("Data berhasil disimpan:", response);
+                                if (response.success) {
+                                    showToast(`Data berhasil disimpan`, "success");
+                                } else {
+                                    showToast(
+                                        `Gagal simpan Periode ${rowData.periode}: ${response.message}`,
+                                        "error");
+                                }
                             })
                             .catch(err => {
                                 console.error("Gagal menyimpan hasil paste:", err);
+                                showToast(`Kesalahan pada ID ${id}`, "error");
                             });
                     });
 
@@ -720,7 +689,7 @@
 
                 setTimeout(() => {
                     toast.style.display = "none";
-                }, 3000);
+                }, 3500);
             }
 
             function openModal() {
@@ -739,43 +708,55 @@
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
 
-                fetch("asset-breakdown-region-7", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Accept": "application/json",
-                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute(
-                                "content")
-                        },
-                        body: JSON.stringify({
-                            periode: data.periode,
-                            company: data.company,
-                            plant_segment: data.plant_segment,
-                            kategori_criticality: data.kategori_criticality,
-                            tag: data.tag,
-                            deskripsi_peralatan: data.deskripsi_peralatan,
-                            jenis_kerusakan: data.jenis_kerusakan,
-                            penyebab: data.penyebab,
-                            kendala_perbaikan: data.kendala_perbaikan,
-                            mitigasi: data.mitigasi,
-                            perbaikan_permanen: data.perbaikan_permanen,
-                            progres_perbaikan_permanen: data.progres_perbaikan_permanen,
-                            tindak_lanjut: data.tindak_lanjut,
-                            target_penyelesaian: data.target_penyelesaian,
-                            estimasi_biaya_perbaikan: data.estimasi_biaya_perbaikan,
-                            link_foto_video: data.link_foto_video
-                        })
-                    })
-                    .then(response => response.json())
-                    .then(result => {
-                        if (result.success) {
-                            showToast(result.message || "Data berhasil disimpan", "success");
-                            table.setData(`${BASE_URL}/monev/shcnt/input-data/asset-breakdown-region-7/data`);
-                            this.reset();
-                            closeModal();
+                const jumlahRow = parseInt(data.jumlah_row);
+
+                const payloadArray = [];
+
+                for (let i = 0; i < jumlahRow; i++) {
+                    payloadArray.push({
+                        periode: data.periode,
+                        company: data.company,
+                        plant_segment: data.plant_segment,
+                        kategori_criticality: data.kategori_criticality,
+                        tag: data.tag,
+                        deskripsi_peralatan: data.deskripsi_peralatan,
+                        jenis_kerusakan: data.jenis_kerusakan,
+                        penyebab: data.penyebab,
+                        kendala_perbaikan: data.kendala_perbaikan,
+                        mitigasi: data.mitigasi,
+                        perbaikan_permanen: data.perbaikan_permanen,
+                        progres_perbaikan_permanen: data.progres_perbaikan_permanen,
+                        tindak_lanjut: data.tindak_lanjut,
+                        target_penyelesaian: data.target_penyelesaian,
+                        estimasi_biaya_perbaikan: data.estimasi_biaya_perbaikan,
+                        link_foto_video: data.link_foto_video
+                    });
+                }
+
+                Promise.all(payloadArray.map(dataItem => {
+                        return fetch("asset-breakdown-region-7", {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                    "Accept": "application/json",
+                                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                        .getAttribute("content")
+                                },
+                                body: JSON.stringify(dataItem)
+                            })
+                            .then(res => res.json());
+                    }))
+                    .then(results => {
+                        const gagal = results.filter(r => !r.success);
+                        if (gagal.length === 0) {
+                            showToast(`${jumlahRow} baris data berhasil buat`, "success");
                         } else {
-                            showToast(result.message || "Gagal menyimpan data", "error");
+                            showToast(`${gagal.length} data gagal disimpan`, "error");
                         }
+
+                        table.setData(`${BASE_URL}/monev/shcnt/input-data/asset-breakdown-region-7/data`);
+                        document.getElementById("createForm").reset();
+                        closeModal();
                     })
                     .catch(error => {
                         console.error("Error saat submit:", error);

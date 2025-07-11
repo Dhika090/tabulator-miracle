@@ -339,5 +339,49 @@ class ViewServiceProvider extends ServiceProvider
 
             $view->with('tabs', $tabs);
         });
+        
+        View::composer('*', function ($view) {
+            $routeName = optional(request()->route())->getName();
+            if (!$routeName || !str_contains($routeName, 'pelatihan-aims-region-1')) return;
+
+            $tabs = collect(config('shcnt-pelatihan-aims'))->map(function ($tab) {
+                return [
+                    'title' => $tab['title'],
+                    'route' => route($tab['route']),
+                    'active' => request()->routeIs($tab['route']),
+                ];
+            })->toArray();
+
+            $view->with('tabs', $tabs);
+        });
+
+        View::composer('*', function ($view) {
+            $routeName = optional(request()->route())->getName();
+            if (!$routeName || !str_contains($routeName, 'mandatory-certification-region-1')) return;
+
+            $tabs = collect(config('shcnt-mandatory-certification'))->map(function ($tab) {
+                return [
+                    'title' => $tab['title'],
+                    'route' => route($tab['route']),
+                    'active' => request()->routeIs($tab['route']),
+                ];
+            })->toArray();
+
+            $view->with('tabs', $tabs);
+        });
+        View::composer('*', function ($view) {
+            $routeName = optional(request()->route())->getName();
+            if (!$routeName || !str_contains($routeName, 'kondisi-vacant-aims-region-1')) return;
+
+            $tabs = collect(config('shcnt-kondisi-vacant-aims'))->map(function ($tab) {
+                return [
+                    'title' => $tab['title'],
+                    'route' => route($tab['route']),
+                    'active' => request()->routeIs($tab['route']),
+                ];
+            })->toArray();
+
+            $view->with('tabs', $tabs);
+        });
     }
 }

@@ -212,28 +212,6 @@
                         id="target_personil_memenuhi_sertifikasi_tahunan">
                 </div>
 
-                <div>
-                    <label>Target Personil Memenuhi Sertifikasi Bulanan</label>
-                    <input type="number" name="target_personil_memenuhi_sertifikasi_bulanan"
-                        id="target_personil_memenuhi_sertifikasi_bulanan">
-                </div>
-
-                <div>
-                    <label>Target Personil Memenuhi Sertifikasi Kumulatif</label>
-                    <input type="number" name="target_personil_memenuhi_sertifikasi_kumulatif"
-                        id="target_personil_memenuhi_sertifikasi_kumulatif">
-                </div>
-
-                <div>
-                    <label>Target KPI</label>
-                    <input type="number" name="target_kpi" id="target_kpi">
-                </div>
-
-                <div>
-                    <label>Target KPI Kumulatif</label>
-                    <input type="number" name="target_kpi_kumulatif" id="target_kpi_kumulatif">
-                </div>
-
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
 
@@ -518,30 +496,6 @@
                             hozAlign: "center"
                         },
                         {
-                            title: "Target Personil Memenuhi Sertifikasi Bulanan",
-                            field: "target_personil_memenuhi_sertifikasi_bulanan",
-                            editor: "input",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "Target Personil Memenuhi Sertifikasi Kumulatif",
-                            field: "target_personil_memenuhi_sertifikasi_kumulatif",
-                            editor: "input",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "Target KPI",
-                            field: "target_kpi",
-                            editor: "input",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "Target KPI Kumulatif",
-                            field: "target_kpi_kumulatif",
-                            editor: "input",
-                            hozAlign: "center"
-                        },
-                        {
                             title: "Aksi",
                             download: false,
                             hozAlign: "center",
@@ -702,9 +656,9 @@
                 toast.classList.add(type === "success" ? "toast-success" : "toast-error");
                 toast.style.display = "block";
 
-                setTimeout(() => {
+               setTimeout(() => {
                     toast.style.display = "none";
-                }, 3000);
+                }, 3500);
             }
 
             function openModal() {
@@ -741,13 +695,6 @@
                             posisi_terisi_awal_tahun: data.posisi_terisi_awal_tahun,
                             target_personil_memenuhi_sertifikasi_tahunan: data
                                 .target_personil_memenuhi_sertifikasi_tahunan,
-                            .jumlah_sertifikasi_sudah_terbit_kumulatif,
-                            target_personil_memenuhi_sertifikasi_bulanan: data
-                                .target_personil_memenuhi_sertifikasi_bulanan,
-                            target_personil_memenuhi_sertifikasi_kumulatif: data
-                                .target_personil_memenuhi_sertifikasi_kumulatif,
-                            target_kpi: data.target_kpi,
-                            target_kpi_kumulatif: data.target_kpi_kumulatif,
                         })
                     })
                     .then(response => response.json())

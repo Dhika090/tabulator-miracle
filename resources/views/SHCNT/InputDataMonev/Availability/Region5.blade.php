@@ -197,47 +197,8 @@
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
 
-                <div>
-                    <label>Periode</label>
-                    <input type="month" name="periode" id="periode">
-                </div>
-
-                <div>
-                    <label>Company</label>
-                    <input type="text" name="company" id="company">
-                </div>
-
-                <div>
-                    <label>Kategori</label>
-                    <input type="text" name="kategori" id="kategori">
-                </div>
-
-                <div>
-                    <label>Target</label>
-                    <input type="number" name="target" id="target" step="0.01" min="0" max="100">
-
-                </div>
-
-                <div>
-                    <label>Availability</label>
-                    <input type="number" name="availability" id="availability" step="0.01" min="0"
-                        max="100">
-                </div>
-
-                <div>
-                    <label>Isu / Problem / Bad Actor</label>
-                    <input type="text" name="isu" id="isu"></input>
-                </div>
-
-                <div>
-                    <label>Kendala</label>
-                    <input type="text" name="kendala" id="kendala"></input>
-                </div>
-
-                <div>
-                    <label>Tindak Lanjut</label>
-                    <input type="text" name="tindak_lanjut" id="tindak_lanjut"></input>
-                </div>
+                <label>Jumlah Row yang ingin dibuat</label>
+                <input type="number" name="jumlah_row" id="jumlah_row" min="1" value="1" required>
 
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
@@ -608,7 +569,48 @@
                 }
 
                 // Debounce untuk batch update
-                let debounceTimer;
+                function isValidPeriodeFormat(value) {
+                    const regex = /^[A-Za-z]{3}-\d{2}$/;
+                    return regex.test(value);
+                }
+
+                table.on("cellEdited", function(cell) {
+                    const updatedData = cell.getRow().getData();
+                    const id = updatedData.id;
+
+                    if (!id) return;
+
+                    if (cell.getField() === "periode" && !isValidPeriodeFormat(cell.getValue())) {
+                        showToast("Format Periode tidak valid! Gunakan format: Sep-24", "error");
+                        cell.restoreOldValue();
+                        return;
+                    }
+
+                    fetch(`availability-region-1/${id}`, {
+                            method: "PUT",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute("content")
+                            },
+                            body: JSON.stringify(updatedData)
+                        })
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.success) {
+                                showToast("Update berhasil!", "success");
+                            } else {
+                                showToast("Update gagal: " + data.message, "error");
+                            }
+                        })
+                        .catch(err => {
+                            console.error("Gagal update:", err);
+                            showToast("Terjadi kesalahan saat update!", "error");
+                        });
+                });
+
+let debounceTimer;
                 table.on("dataChanged", function(newData) {
                     clearTimeout(debounceTimer);
                     debounceTimer = setTimeout(() => {
@@ -678,7 +680,7 @@
 
                 setTimeout(() => {
                     toast.style.display = "none";
-                }, 3000);
+                }, 3500);
             }
 
             function openModal() {
@@ -696,38 +698,47 @@
 
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
+                const jumlahRow = parseInt(data.jumlah_row);
 
-                fetch("availability-region-5", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Accept": "application/json",
-                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute(
-                                "content")
-                        },
+                const payloadArray = [];
 
-                        body: JSON.stringify({
-                            periode: data.periode,
-                            company: data.company,
-                            kategori: data.kategori || null,
-                            target: data.target || null,
-                            availability: data.availability || null,
-                            isu: data.isu || null,
-                            kendala: data.kendala || null,
-                            tindak_lanjut: data.tindak_lanjut || null,
-                        })
+                for (let i = 0; i < jumlahRow; i++) {
+                    payloadArray.push({
+                        periode: data.periode,
+                        company: data.company,
+                        kategori: data.kategori || null,
+                        target: data.target || null,
+                        availability: data.availability || null,
+                        isu: data.isu || null,
+                        kendala: data.kendala || null,
+                        tindak_lanjut: data.tindak_lanjut || null,
+                    });
+                }
 
-                    })
-                    .then(response => response.json())
-                    .then(result => {
-                        if (result.success) {
-                            showToast(result.message || "Data berhasil disimpan", "success");
-                            table.setData(`${BASE_URL}/monev/shcnt/input-data/availability-region-5/data`);
-                            this.reset();
-                            closeModal();
+                Promise.all(payloadArray.map(dataItem => {
+                        return fetch("availability-region-5", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute(
+                                        "content")
+                            },
+                            body: JSON.stringify(dataItem)
+                        }).then(res => res.json());
+                    }))
+                    .then(results => {
+                        const gagal = results.filter(r => !r.success);
+                        if (gagal.length === 0) {
+                            showToast(`${jumlahRow} baris data berhasil buat`, "success");
                         } else {
-                            showToast(result.message || "Gagal menyimpan data", "error");
+                            showToast(`${gagal.length} data gagal disimpan`, "error");
                         }
+
+                        table.setData(`${BASE_URL}/monev/shcnt/input-data/availability-region-5/data`);
+                        document.getElementById("createForm").reset();
+                        closeModal();
                     })
                     .catch(error => {
                         console.error("Error saat submit:", error);

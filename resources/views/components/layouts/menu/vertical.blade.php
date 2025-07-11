@@ -154,7 +154,7 @@
                         Input Data Monev
                     </a>
                     <ul class="menu-sub">
-                        @php
+                        {{-- @php
                             $entitasIni = 'pertamina'; // lowercase agar konsisten
                             $isActive = $entitasUser === $entitasIni;
                             if ($isActive) {
@@ -166,20 +166,20 @@
                                     console.log("Entitas tidak cocok: ' . $entitasUser . '");
                                 </script>';
                             }
-                        @endphp
-                        <li
+                        @endphp --}}
+                        {{-- <li
                             class="menu-item {{ request()->is('monev/shg/input-data/pertamina-gas*') ? 'active' : '' }} {{ $isActive ? '' : 'disabled-menu' }}">
                             <a class="menu-link {{ $isActive ? '' : 'no-click' }}"
                                 href="{{ $isActive ? url('monev/shg/input-data/pertamina-gas') : '#' }}">
                                 <i class="fa fa-wrench me-2"></i>PT Pertamina Gas
                             </a>
-                        </li>
-                        {{-- <li
+                        </li> --}}
+                        <li
                             class="menu-item {{ request()->is('monev/shg/input-data/pertamina-gas*') ? 'active' : '' }}">
                             <a class="menu-link" href="{{ url('monev/shg/input-data/pertamina-gas') }}">
                                 <i class="fa fa-wrench me-2"></i>PT Pertamina Gas
                             </a>
-                        </li> --}}
+                        </li>
                         <li
                             class="menu-item {{ request()->is('monev/shg/input-data/kalimantan-jawa-gas') ? 'active' : '' }}">
                             <a class="menu-link" href="{{ url('monev/shg/input-data/kalimantan-jawa-gas') }}">
@@ -618,23 +618,23 @@
                             </a>
                         </li>
                         <li
-                            class="menu-item {{ request()->is('monev/shcnt/input-data/sistem-informasi-aims-regional-1') ? 'active' : '' }}">
+                            class="menu-item {{ request()->is('monev/shcnt/input-data/pelatihan-aims-region-1') ? 'active' : '' }}">
                             <a class="menu-link"
-                                href="{{ url('monev/shcnt/input-data/sistem-informasi-aims-regional-1') }}">
-                                <i class="fa fa-wrench me-2"></i>Sistem Informasi AIMS
+                                href="{{ url('monev/shcnt/input-data/pelatihan-aims-region-1') }}">
+                                <i class="fa fa-wrench me-2"></i>Pelatihan AIMS
                             </a>
                         </li>
                         <li
-                            class="menu-item {{ request()->is('monev/shcnt/input-data/mandatory-certification-regional-1') ? 'active' : '' }}">
+                            class="menu-item {{ request()->is('monev/shcnt/input-data/mandatory-certification-region-1') ? 'active' : '' }}">
                             <a class="menu-link"
-                                href="{{ url('monev/shcnt/input-data/mandatory-certification-regional-1') }}">
+                                href="{{ url('monev/shcnt/input-data/mandatory-certification-region-1') }}">
                                 <i class="fa fa-wrench me-2"></i>Mandatory Certification
                             </a>
                         </li>
                         <li
-                            class="menu-item {{ request()->is('monev/shcnt/input-data/kondisi-vacant-fungsi-aims-regional-1') ? 'active' : '' }}">
+                            class="menu-item {{ request()->is('monev/shcnt/input-data/kondisi-vacant-aims-region-1') ? 'active' : '' }}">
                             <a class="menu-link"
-                                href="{{ url('monev/shcnt/input-data/kondisi-vacant-fungsi-aims-regional-1') }}">
+                                href="{{ url('monev/shcnt/input-data/kondisi-vacant-aims-region-1') }}">
                                 <i class="fa fa-wrench me-2"></i>Kondisi Vacant Fungsi Aims
                             </a>
                         </li>

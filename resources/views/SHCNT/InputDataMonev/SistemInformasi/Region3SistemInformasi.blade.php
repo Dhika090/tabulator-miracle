@@ -202,70 +202,9 @@
             <h3>Sistem Informasi Aims Regiona 3</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
-                <div>
-                    <label>Periode</label>
-                    <input type="month" name="periode" id="periode">
-                </div>
 
-                <div>
-                    <label>Company</label>
-                    <input type="text" name="company" id="company">
-                </div>
-
-                <div>
-                    <label>Jumlah Aset Operasi</label>
-                    <input type="text" name="jumlah_aset_operasi" id="jumlah_aset_operasi">
-                </div>
-
-                <div>
-                    <label>Jumlah Aset Teregister</label>
-                    <input type="text" name="jumlah_aset_teregister" id="jumlah_aset_teregister">
-                </div>
-
-                <div>
-                    <label>Kendala Aset Register</label>
-                    <input type="text" name="kendala_aset_register" id="kendala_aset_register">
-                </div>
-
-                <div>
-                    <label>Tindak Lanjut Aset Register</label>
-                    <input type="text" name="tindak_lanjut_aset_register" id="tindak_lanjut_aset_register">
-                </div>
-
-                <div>
-                    <label>Sistem Informasi AIMS</label>
-                    <input type="text" name="sistem_informasi_aim" id="sistem_informasi_aim">
-                </div>
-
-                <div>
-                    <label>Total WO Comply</label>
-                    <input type="number" name="total_wo_comply" id="total_wo_comply">
-                </div>
-
-                <div>
-                    <label>Total WO Completed</label>
-                    <input type="number" name="total_wo_completed" id="total_wo_completed">
-                </div>
-
-                <div>
-                    <label>Total WO In Progress</label>
-                    <input type="number" name="total_wo_in_progress" id="total_wo_in_progress">
-                </div>
-
-                <div>
-                    <label>Total WO Backlog</label>
-                    <input type="number" name="total_wo_backlog" id="total_wo_backlog">
-                </div>
-
-                <div>
-                    <label>Kendala</label>
-                    <input type="text" name="kendala" id="kendala">
-                </div>
-
-                <div>
-                    <label>Tindak Lanjut</label>
-                    <input type="text" name="tindak_lanjut" id="tindak_lanjut">
-                </div>
+                <label>Jumlah Row yang ingin dibuat</label>
+                <input type="number" name="jumlah_row" id="jumlah_row" min="1" value="1" required>
 
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
@@ -660,6 +599,10 @@
                     });
                 });
 
+                function isValidPeriodeFormat(value) {
+                    const regex = /^[A-Za-z]{3}-\d{2}$/;
+                    return regex.test(value);
+                }
                 table.on("cellEdited", function(cell) {
                     const updatedData = cell.getRow().getData();
                     const id = updatedData.id;
@@ -677,8 +620,17 @@
                             body: JSON.stringify(updatedData)
                         })
                         .then(res => res.json())
-                        .then(data => console.log("Update berhasil:", data))
-                        .catch(err => console.error("Gagal update:", err));
+                        .then(data => {
+                            if (data.success) {
+                                showToast("Update berhasil!", "success");
+                            } else {
+                                showToast("Update gagal: " + data.message, "error");
+                            }
+                        })
+                        .catch(err => {
+                            console.error("Gagal update:", err);
+                            showToast("Terjadi kesalahan saat update!", "error");
+                        });
                 });
 
                 let previousData = [];
@@ -705,7 +657,28 @@
                     const changedRows = getChangedRows(newData, previousData);
                     console.log("Baris yang berubah:", changedRows);
 
-                    changedRows.forEach(rowData => {
+                    changedRows.forEach((rowData, index) => {
+                        const id = rowData.id;
+                        if (!id) return;
+
+                        const oldRow = previousData.find(r => r.id === id);
+                        if (!oldRow) return;
+
+                        if (rowData.periode !== oldRow.periode && !isValidPeriodeFormat(rowData
+                                .periode)) {
+                            showToast(
+                                `"${rowData.periode}" Format Periode tidak valid! Gunakan format: Jan-25`,
+                                "error");
+
+                            rowData.periode = oldRow.periode;
+
+                            table.updateData([{
+                                id: rowData.id,
+                                periode: oldRow.periode
+                            }]);
+
+                            return;
+                        }
                         fetch(`sistem-informasi-aims-region-3/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
@@ -718,10 +691,17 @@
                             })
                             .then(res => res.json())
                             .then(response => {
-                                console.log("Data berhasil disimpan:", response);
+                                if (response.success) {
+                                    showToast(`Data berhasil disimpan`, "success");
+                                } else {
+                                    showToast(
+                                        `Format Periode tidak valid! Gunakan format: Jan-25 : ${response.message}`,
+                                        "error");
+                                }
                             })
                             .catch(err => {
                                 console.error("Gagal menyimpan hasil paste:", err);
+                                showToast(`Kesalahan pada ID ${id}`, "error");
                             });
                     });
 
@@ -742,7 +722,7 @@
 
                 setTimeout(() => {
                     toast.style.display = "none";
-                }, 3000);
+                }, 3500);
             }
 
             function openModal() {
@@ -761,40 +741,52 @@
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
 
-                fetch("sistem-informasi-aims-region-3", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Accept": "application/json",
-                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute(
-                                "content")
-                        },
-                        body: JSON.stringify({
-                            periode: data.periode,
-                            company: data.company,
-                            jumlah_aset_operasi: data.jumlah_aset_operasi,
-                            jumlah_aset_teregister: data.jumlah_aset_teregister,
-                            kendala_aset_register: data.kendala_aset_register,
-                            tindak_lanjut_aset_register: data.tindak_lanjut_aset_register,
-                            sistem_informasi_aim: data.sistem_informasi_aim,
-                            total_wo_comply: data.total_wo_comply,
-                            total_wo_completed: data.total_wo_completed,
-                            total_wo_in_progress: data.total_wo_in_progress,
-                            total_wo_backlog: data.total_wo_backlog,
-                            kendala: data.kendala,
-                            tindak_lanjut: data.tindak_lanjut
-                        })
-                    })
-                    .then(response => response.json())
-                    .then(result => {
-                        if (result.success) {
-                            showToast(result.message || "Data berhasil disimpan", "success");
-                            table.setData(`${BASE_URL}/monev/shcnt/input-data/sistem-informasi-aims-region-3/data`);
-                            this.reset();
-                            closeModal();
+                const jumlahRow = parseInt(data.jumlah_row);
+
+                const payloadArray = [];
+
+                for (let i = 0; i < jumlahRow; i++) {
+                    payloadArray.push({
+                        periode: data.periode,
+                        company: data.company,
+                        jumlah_aset_operasi: data.jumlah_aset_operasi,
+                        jumlah_aset_teregister: data.jumlah_aset_teregister,
+                        kendala_aset_register: data.kendala_aset_register,
+                        tindak_lanjut_aset_register: data.tindak_lanjut_aset_register,
+                        sistem_informasi_aim: data.sistem_informasi_aim,
+                        total_wo_comply: data.total_wo_comply,
+                        total_wo_completed: data.total_wo_completed,
+                        total_wo_in_progress: data.total_wo_in_progress,
+                        total_wo_backlog: data.total_wo_backlog,
+                        kendala: data.kendala,
+                        tindak_lanjut: data.tindak_lanjut,
+                    });
+                }
+
+                Promise.all(payloadArray.map(dataItem => {
+                        return fetch("sistem-informasi-aims-region-3", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute(
+                                        "content")
+                            },
+                            body: JSON.stringify(dataItem)
+                        }).then(res => res.json());
+                    }))
+                    .then(results => {
+                        const gagal = results.filter(r => !r.success);
+                        if (gagal.length === 0) {
+                            showToast(`${jumlahRow} baris data berhasil disimpan`, "success");
                         } else {
-                            showToast(result.message || "Gagal menyimpan data", "error");
+                            showToast(`${gagal.length} data gagal disimpan`, "error");
                         }
+
+                        table.setData(`${BASE_URL}/monev/shcnt/input-data/sistem-informasi-aims-region-3/data`);
+                        document.getElementById("createForm").reset();
+                        closeModal();
                     })
                     .catch(error => {
                         console.error("Error saat submit:", error);

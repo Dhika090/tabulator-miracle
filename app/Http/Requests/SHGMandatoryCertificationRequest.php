@@ -30,10 +30,6 @@ class SHGMandatoryCertificationRequest extends FormRequest
             'posisi_vacant_awal_tahun' => 'nullable|numeric',
             'posisi_terisi_awal_tahun' => 'nullable|numeric',
             'target_personil_memenuhi_sertifikasi_tahunan' => 'nullable|numeric',
-            'target_personil_memenuhi_sertifikasi_bulanan' => 'nullable|numeric',
-            'target_personil_memenuhi_sertifikasi_kumulatif' => 'nullable|numeric',
-            'target_kpi' => 'nullable|numeric',
-            'target_kpi_kumulatif' => 'nullable|numeric',
         ];
     }
 }

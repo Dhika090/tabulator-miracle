@@ -30,9 +30,5 @@ class SHGMandatoryCertification extends Model
         'posisi_vacant_awal_tahun',
         'posisi_terisi_awal_tahun',
         'target_personil_memenuhi_sertifikasi_tahunan',
-        'target_personil_memenuhi_sertifikasi_bulanan',
-        'target_personil_memenuhi_sertifikasi_kumulatif',
-        'target_kpi',
-        'target_kpi_kumulatif',
     ];
 }

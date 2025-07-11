@@ -675,9 +675,9 @@
                 toast.classList.add(type === "success" ? "toast-success" : "toast-error");
                 toast.style.display = "block";
 
-                setTimeout(() => {
+               setTimeout(() => {
                     toast.style.display = "none";
-                }, 3000);
+                }, 3500);
             }
 
             function openModal() {
