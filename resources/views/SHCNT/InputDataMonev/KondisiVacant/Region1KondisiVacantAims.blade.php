@@ -651,8 +651,6 @@
                     previousData = JSON.parse(JSON.stringify(newData));
                 });
 
-
-
                 loadData();
             });
         </script>

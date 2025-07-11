@@ -552,27 +552,16 @@
 
                 let previousDataMap = new Map();
 
-                // Load data
-                function loadData() {
-                    fetch(`${BASE_URL}/monev/shcnt/input-data/availability-region-3/data`, {
-                            headers: {
-                                "Accept": "application/json"
-                            }
-                        })
-                        .then(res => res.json())
-                        .then(data => {
-                            const cleaned = data.map(cleanRow);
-                            previousDataMap = new Map(cleaned.map(item => [item.id, JSON.stringify(item)]));
-                            table.setData(cleaned);
-                        })
-                        .catch(err => console.error("Gagal load data:", err));
-                }
 
-                // Debounce untuk batch update
                 function isValidPeriodeFormat(value) {
                     const regex = /^[A-Za-z]{3}-\d{2}$/;
                     return regex.test(value);
                 }
+
+                let previousData = [];
+                table.on("dataLoaded", function(newData) {
+                    previousData = JSON.parse(JSON.stringify(newData));
+                });
 
                 table.on("cellEdited", function(cell) {
                     const updatedData = cell.getRow().getData();
@@ -586,7 +575,7 @@
                         return;
                     }
 
-                    fetch(`availability-region-1/${id}`, {
+                    fetch(`availability-region-3/${id}`, {
                             method: "PUT",
                             headers: {
                                 "Content-Type": "application/json",
@@ -610,61 +599,72 @@
                         });
                 });
 
-let debounceTimer;
+                function getChangedRows(newData, oldData) {
+                    const changes = [];
+                    newData.forEach((row, index) => {
+                        if (!row.id) return;
+                        const oldRow = oldData.find(old => old.id === row.id);
+                        if (!oldRow) return;
+
+                        const isDifferent = Object.keys(row).some(key => row[key] !== oldRow[key]);
+                        if (isDifferent) changes.push({
+                            new: row,
+                            old: oldRow
+                        });
+                    });
+                    return changes;
+                }
+
                 table.on("dataChanged", function(newData) {
-                    clearTimeout(debounceTimer);
-                    debounceTimer = setTimeout(() => {
-                        const changedRows = [];
+                    const changedRows = getChangedRows(newData, previousData);
 
-                        for (const row of newData) {
-                            const id = row.id;
-                            if (!id) continue;
+                    changedRows.forEach(({
+                        new: newRow,
+                        old: oldRow
+                    }) => {
+                        const id = newRow.id;
+                        if (!id) return;
 
-                            const oldRowStr = previousDataMap.get(id);
-                            const currentRowStr = JSON.stringify(row);
+                        if (newRow.periode !== oldRow.periode && !isValidPeriodeFormat(newRow
+                                .periode)) {
+                            showToast(
+                                `"${newRow.periode}" Format Periode tidak valid! Gunakan format: Jan-25`,
+                                "error");
 
-                            if (oldRowStr && oldRowStr !== currentRowStr) {
-                                // Convert persen ke number jika perlu
-                                ["target", "availability"].forEach(field => {
-                                    if (typeof row[field] === "string") {
-                                        row[field] = parseFloat(row[field].replace("%", "")
-                                            .trim());
-                                    }
-                                });
-
-                                changedRows.push({
-                                    ...row
-                                });
-                            }
+                            table.updateData([{
+                                id: newRow.id,
+                                periode: oldRow.periode
+                            }]);
+                            return;
                         }
 
-                        if (changedRows.length > 0) {
-                            console.log("Changed rows:", changedRows);
-
-                            // Simpan secara paralel
-                            Promise.all(changedRows.map(row =>
-                                fetch(`availability-region-3/${row.id}`, {
-                                    method: "PUT",
-                                    headers: {
-                                        "Content-Type": "application/json",
-                                        "Accept": "application/json",
-                                        "X-CSRF-TOKEN": CSRF_TOKEN
-                                    },
-                                    body: JSON.stringify(row)
-                                })
-                                .then(res => res.json())
-                                .then(resp => console.log(`Updated ID ${row.id}`, resp))
-                                .catch(err => console.error(`Gagal update ID ${row.id}`, err))
-                            ));
-
-                            // Update previousDataMap
-                            changedRows.forEach(row => {
-                                previousDataMap.set(row.id, JSON.stringify(row));
+                        fetch(`availability-region-3/${id}`, {
+                                method: "PUT",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                    "Accept": "application/json",
+                                    "X-CSRF-TOKEN": document.querySelector(
+                                        'meta[name="csrf-token"]').getAttribute("content")
+                                },
+                                body: JSON.stringify(newRow)
+                            })
+                            .then(res => res.json())
+                            .then(response => {
+                                if (response.success) {
+                                    showToast(`Data ID ${id} berhasil disimpan`, "success");
+                                } else {
+                                    showToast(`Gagal simpan ID ${id}: ${response.message}`,
+                                        "error");
+                                }
+                            })
+                            .catch(err => {
+                                console.error("Gagal simpan hasil paste:", err);
+                                showToast(`Kesalahan pada ID ${id}`, "error");
                             });
-                        }
-                    }, 1000); // debounce 1 detik
-                });
+                    });
 
+                    previousData = JSON.parse(JSON.stringify(newData));
+                });
                 loadData();
             });
         </script>
