@@ -6,7 +6,8 @@
             .tabulator-wrapper {
                 overflow-x: auto;
             }
-     .toast-success {
+
+            .toast-success {
                 background-color: #28a745;
             }
 
@@ -194,121 +195,8 @@
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
 
-                <div>
-                    <label>Periode</label>
-                    <input type="month" name="periode" id="periode">
-                </div>
-
-                <div>
-                    <label>Subholding</label>
-                    <input type="text" name="subholding" id="subholding">
-                </div>
-
-                <label for="company">Company:</label>
-                <select name="company" id="company" class="form-select">
-                    <option value="">-- Pilih Company --</option>
-                    @foreach ($companies as $company)
-                        <option value="{{ $company }}">{{ $company }}</option>
-                    @endforeach
-                </select>
-
-                <div>
-                    <label>Unit</label>
-                    <input type="text" name="unit" id="unit">
-                </div>
-
-                <div>
-                    <label>Asset Group</label>
-                    <input type="text" name="asset_group" id="asset_group">
-                </div>
-
-                <div>
-                    <label>Jumlah</label>
-                    <input type="number" name="jumlah" id="jumlah" step="0.01">
-                </div>
-
-                <!-- SECE -->
-                <h4>SECE</h4>
-                <div><label>Low Integrity - Breakdown</label><input type="number" id="sece_low_integrity_breakdown"
-                        step="0.01">
-                </div>
-                <div><label>Medium - Due Date Inspection</label><input type="number"
-                        id="sece_medium_due_date_inspection" step="0.01"></div>
-                <div><label>Medium - Low Condition</label><input type="number" id="sece_medium_low_condition"
-                        step="0.01"></div>
-                <div><label>Medium - Low Performance</label><input type="number" id="sece_medium_low_performance"
-                        step="0.01">
-                </div>
-                <div><label>High Integrity</label><input type="number" id="sece_high_integrity" step="0.01"></div>
-
-                <!-- PCE -->
-                <h4>PCE</h4>
-                <div><label>Low Integrity - Breakdown</label><input type="number" id="pce_low_integrity_breakdown"
-                        step="0.01">
-                </div>
-                <div><label>Medium - Due Date Inspection</label><input type="number"
-                        id="pce_medium_due_date_inspection" step="0.01"></div>
-                <div><label>Medium - Low Condition</label><input type="number" id="pce_medium_low_condition"
-                        step="0.01"></div>
-                <div><label>Medium - Low Performance</label><input type="number" id="pce_medium_low_performance"
-                        step="0.01"></div>
-                <div><label>High Integrity</label><input type="number" id="pce_high_integrity" step="0.01"></div>
-
-                <!-- IMPORTANT -->
-                <h4>IMPORTANT</h4>
-                <div><label>Low Integrity - Breakdown</label><input type="number"
-                        id="important_low_integrity_breakdown" step="0.01"></div>
-                <div><label>Medium - Due Date Inspection</label><input type="number"
-                        id="important_medium_due_date_inspection" step="0.01"></div>
-                <div><label>Medium - Low Condition</label><input type="number" id="important_medium_low_condition"
-                        step="0.01">
-                </div>
-                <div><label>Medium - Low Performance</label><input type="number"
-                        id="important_medium_low_performance" step="0.01">
-                </div>
-                <div><label>High Integrity</label><input type="number" id="important_high_integrity" step="0.01">
-                </div>
-
-                <!-- SECONDARY -->
-                <h4>SECONDARY</h4>
-                <div><label>Low Integrity - Breakdown</label><input type="number"
-                        id="secondary_low_integrity_breakdown" step="0.01"></div>
-                <div><label>Medium - Due Date Inspection</label><input type="number"
-                        id="secondary_medium_due_date_inspection" step="0.01"></div>
-                <div><label>Medium - Low Condition</label><input type="number" id="secondary_medium_low_condition"
-                        step="0.01">
-                </div>
-                <div><label>Medium - Low Performance</label><input type="number"
-                        id="secondary_medium_low_performance" step="0.01">
-                </div>
-                <div><label>High Integrity</label><input type="number" id="secondary_high_integrity" step="0.01">
-                </div>
-
-                <!-- Tambahan Informasi -->
-                <div>
-                    <label>Kegiatan Penurunan Low</label>
-                    <input type="text" id="kegiatan_penurunan_low">
-                </div>
-
-                <div>
-                    <label>Kegiatan Penurunan Med</label>
-                    <input type="text" id="kegiatan_penurunan_med">
-                </div>
-
-                <div>
-                    <label>Informasi Penyebab Low Integrity</label>
-                    <input id="informasi_penyebab_low_integrity"></input>
-                </div>
-
-                <div>
-                    <label>Informasi Penambahan Jumlah Aset</label>
-                    <input id="informasi_penambahan_jumlah_aset"></input>
-                </div>
-
-                <div>
-                    <label>Informasi Naik Turun Low Integrity</label>
-                    <input id="informasi_naik_turun_low_integrity"></input>
-                </div>
+                <label>Jumlah Row yang ingin dibuat</label>
+                <input type="number" name="jumlah_row" id="jumlah_row" min="1" value="1" required>
 
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
@@ -316,7 +204,7 @@
         </div>
     </div>
 
-       <div id="toastNotification"
+    <div id="toastNotification"
         style="display:none; position: fixed; top: 20px; right: 20px; z-index: 9999; padding: 15px 20px; border-radius: 8px; color: white; font-weight: bold;">
     </div>
     @push('scripts')
@@ -324,7 +212,8 @@
         <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
 
         <script>
-             const BASE_URL = "{{ config('app.url') }}";
+            const BASE_URL = "{{ config('app.url') }}";
+
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
                     fetch(`ru-dumai/${id}`, {
@@ -334,14 +223,14 @@
                                 "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
                             }
                         })
-                      .then(res => res.json())
+                        .then(res => res.json())
                         .then(result => {
                             showToast(result.message || "Data berhasil disimpan", "success");
                             loadData();
                         })
                         .catch(err => {
                             console.error("Gagal hapus data:", err);
-                        showToast("Terjadi kesalahan saat mengirim data.", "error");
+                            showToast("Terjadi kesalahan saat mengirim data.", "error");
                         });
                 }
             }
@@ -442,7 +331,7 @@
 
             document.addEventListener("DOMContentLoaded", function() {
                 const columnMap = {
-                    "ru-dumai": [  {
+                    "ru-dumai": [{
                             title: "No",
                             hozAlign: "center",
                             width: 60,
@@ -722,21 +611,21 @@
                             editor: "input",
                             width: 450
                         },
-                       {
-    title: "Aksi",
-    download: false,
-    hozAlign: "center",
-    width: 150,
-    formatter: (cell) => {
-        const row = cell.getData();
-        return `
+                        {
+                            title: "Aksi",
+                            download: false,
+                            hozAlign: "center",
+                            width: 150,
+                            formatter: (cell) => {
+                                const row = cell.getData();
+                                return `
             <button onclick='deleteData("${row.id}")'
                 class="btn btn-sm btn-danger">
                 <i class="bi bi-trash"></i> Hapus
             </button>
         `;
-    }
-}
+                            }
+                        }
                     ]
                 };
 
@@ -802,11 +691,21 @@
                     });
                 });
 
+                function isValidPeriodeFormat(value) {
+                    const regex = /^[A-Za-z]{3}-\d{2}$/;
+                    return regex.test(value);
+                }
+
                 table.on("cellEdited", function(cell) {
                     const updatedData = cell.getRow().getData();
                     const id = updatedData.id;
 
                     if (!id) return;
+                    if (cell.getField() === "periode" && !isValidPeriodeFormat(cell.getValue())) {
+                        showToast("Format Periode tidak valid! Gunakan format: Sep-24", "error");
+                        cell.restoreOldValue();
+                        return;
+                    }
 
                     fetch(`ru-dumai/${id}`, {
                             method: "PUT",
@@ -819,8 +718,17 @@
                             body: JSON.stringify(updatedData)
                         })
                         .then(res => res.json())
-                        .then(data => console.log("Update berhasil:", data))
-                        .catch(err => console.error("Gagal update:", err));
+                        .then(data => {
+                            if (data.success) {
+                                showToast("Update berhasil!", "success");
+                            } else {
+                                showToast("Update gagal: " + data.message, "error");
+                            }
+                        })
+                        .catch(err => {
+                            console.error("Gagal update:", err);
+                            showToast("Terjadi kesalahan saat update!", "error");
+                        });
                 });
 
                 let previousData = [];
@@ -847,7 +755,28 @@
                     const changedRows = getChangedRows(newData, previousData);
                     console.log("Baris yang berubah:", changedRows);
 
-                    changedRows.forEach(rowData => {
+                    changedRows.forEach((rowData, index) => {
+                        const id = rowData.id;
+                        if (!id) return;
+
+                        const oldRow = previousData.find(r => r.id === id);
+                        if (!oldRow) return;
+
+                        if (rowData.periode !== oldRow.periode && !isValidPeriodeFormat(rowData
+                                .periode)) {
+                            showToast(
+                                `"${rowData.periode}" Format Periode tidak valid! Gunakan format: Jan-25`,
+                                "error");
+
+                            rowData.periode = oldRow.periode;
+
+                            table.updateData([{
+                                id: rowData.id,
+                                periode: oldRow.periode
+                            }]);
+
+                            return;
+                        }
                         fetch(`ru-dumai/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
@@ -860,10 +789,17 @@
                             })
                             .then(res => res.json())
                             .then(response => {
-                                console.log("Data berhasil disimpan:", response);
+                                if (response.success) {
+                                    showToast(`Data berhasil disimpan`, "success");
+                                } else {
+                                    showToast(
+                                        `Format Periode tidak valid! Gunakan format: Jan-25 : ${response.message}`,
+                                        "error");
+                                }
                             })
                             .catch(err => {
                                 console.error("Gagal menyimpan hasil paste:", err);
+                                showToast(`Kesalahan pada ID ${id}`, "error");
                             });
                     });
 
@@ -875,19 +811,19 @@
 
         {{-- create and update data --}}
         <script>
-              function showToast(message, type = "success") {
+            function showToast(message, type = "success") {
                 const toast = document.getElementById("toastNotification");
                 toast.textContent = message;
                 toast.className = "";
                 toast.classList.add(type === "success" ? "toast-success" : "toast-error");
                 toast.style.display = "block";
 
-               setTimeout(() => {
+                setTimeout(() => {
                     toast.style.display = "none";
                 }, 3500);
             }
 
- function openModal() {
+            function openModal() {
                 document.getElementById("createModal").style.display = "block";
             }
 

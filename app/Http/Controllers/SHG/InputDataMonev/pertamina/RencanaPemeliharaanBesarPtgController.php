@@ -12,7 +12,7 @@ class RencanaPemeliharaanBesarPtgController extends Controller
 {
     public function index()
     {
-        
+
         $tabs = [
             [
                 'title' => 'Status Asset 2025 AI 2025 PTG',
@@ -88,7 +88,7 @@ class RencanaPemeliharaanBesarPtgController extends Controller
     {
         $TargetPLO = RencanaPemeliharaanBesarPtg::select('*')
             ->select('*')
-            ->addSelect(DB::raw("TRY_CONVERT(DATE, periode + '-01', 120) as periode_date"))
+            ->addSelect(DB::raw("TRY_CONVERT(DATE, CONCAT('01-', periode), 120) as periode_date"))
             ->orderBy('periode_date', 'asc')
             ->get();
 

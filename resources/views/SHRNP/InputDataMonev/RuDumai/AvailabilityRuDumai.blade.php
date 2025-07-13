@@ -6,7 +6,8 @@
             .tabulator-wrapper {
                 overflow-x: auto;
             }
-     .toast-success {
+
+            .toast-success {
                 background-color: #28a745;
             }
 
@@ -196,54 +197,15 @@
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
 
-                <div>
-                    <label>Periode</label>
-                    <input type="month" name="periode" id="periode">
-                </div>
-
-                <div>
-                    <label>Company</label>
-                    <input type="text" name="company" id="company">
-                </div>
-
-                <div>
-                    <label>Kategori</label>
-                    <input type="text" name="kategori" id="kategori">
-                </div>
-
-                <div>
-                    <label>Target</label>
-                    <input type="number" name="target" id="target" step="0.01" min="0" max="100">
-
-                </div>
-
-                <div>
-                    <label>Availability</label>
-                    <input type="number" name="availability" id="availability" step="0.01" min="0"
-                        max="100">
-                </div>
-
-                <div>
-                    <label>Isu / Problem / Bad Actor</label>
-                    <input type="text" name="isu" id="isu"></input>
-                </div>
-
-                <div>
-                    <label>Kendala</label>
-                    <input type="text" name="kendala" id="kendala"></input>
-                </div>
-
-                <div>
-                    <label>Tindak Lanjut</label>
-                    <input type="text" name="tindak_lanjut" id="tindak_lanjut"></input>
-                </div>
+                <label>Jumlah Row yang ingin dibuat</label>
+                <input type="number" name="jumlah_row" id="jumlah_row" min="1" value="1" required>
 
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
         </div>
     </div>
 
-       <div id="toastNotification"
+    <div id="toastNotification"
         style="display:none; position: fixed; top: 20px; right: 20px; z-index: 9999; padding: 15px 20px; border-radius: 8px; color: white; font-weight: bold;">
     </div>
     @push('scripts')
@@ -251,7 +213,8 @@
         <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
 
         <script>
-             const BASE_URL = "{{ config('app.url') }}";
+            const BASE_URL = "{{ config('app.url') }}";
+
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
                     fetch(`availability-ru-dumai/${id}`, {
@@ -261,14 +224,14 @@
                                 "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
                             }
                         })
-                      .then(res => res.json())
+                        .then(res => res.json())
                         .then(result => {
                             showToast(result.message || "Data berhasil disimpan", "success");
                             loadData();
                         })
                         .catch(err => {
                             console.error("Gagal hapus data:", err);
-                        showToast("Terjadi kesalahan saat mengirim data.", "error");
+                            showToast("Terjadi kesalahan saat mengirim data.", "error");
                         });
                 }
             }
@@ -373,7 +336,7 @@
                 };
 
                 const columnMap = {
-                    "availability-ru-dumai": [  {
+                    "availability-ru-dumai": [{
                             title: "No",
                             hozAlign: "center",
                             width: 60,
@@ -523,20 +486,20 @@
                             editor: "input"
                         },
                         {
-    title: "Aksi",
-    download: false,
-    hozAlign: "center",
-    width: 150,
-    formatter: (cell) => {
-        const row = cell.getData();
-        return `
+                            title: "Aksi",
+                            download: false,
+                            hozAlign: "center",
+                            width: 150,
+                            formatter: (cell) => {
+                                const row = cell.getData();
+                                return `
             <button onclick='deleteData("${row.id}")'
                 class="btn btn-sm btn-danger">
                 <i class="bi bi-trash"></i> Hapus
             </button>
         `;
-    }
-}
+                            }
+                        }
                     ]
                 };
 
@@ -667,19 +630,19 @@
 
         {{-- create data  --}}
         <script>
-              function showToast(message, type = "success") {
+            function showToast(message, type = "success") {
                 const toast = document.getElementById("toastNotification");
                 toast.textContent = message;
                 toast.className = "";
                 toast.classList.add(type === "success" ? "toast-success" : "toast-error");
                 toast.style.display = "block";
 
-               setTimeout(() => {
+                setTimeout(() => {
                     toast.style.display = "none";
                 }, 3500);
             }
 
- function openModal() {
+            function openModal() {
                 document.getElementById("createModal").style.display = "block";
             }
 

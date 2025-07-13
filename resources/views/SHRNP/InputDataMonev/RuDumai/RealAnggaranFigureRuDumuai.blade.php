@@ -6,7 +6,8 @@
             .tabulator-wrapper {
                 overflow-x: auto;
             }
-     .toast-success {
+
+            .toast-success {
                 background-color: #28a745;
             }
 
@@ -193,247 +194,16 @@
             <h3>Real Anggaran Figure RuDumai</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
-                <div>
-                    <label>Periode</label>
-                    <input type="month" name="periode" id="periode">
-                </div>
 
-                <div>
-                    <label>No</label>
-                    <input type="number" name="no" id="no">
-                </div>
-
-                <div>
-                    <label>Kategori AIBT</label>
-                    <input type="text" name="kategori_aibt" id="kategori_aibt">
-                </div>
-
-                <div>
-                    <label>Jenis Anggaran</label>
-                    <input type="text" name="jenis_anggaran" id="jenis_anggaran">
-                </div>
-
-                <div>
-                    <label>Besar RKAP</label>
-                    <input type="number" name="besar_rkap" id="besar_rkap">
-                </div>
-
-                <div>
-                    <label>Entitas</label>
-                    <input type="text" name="entitas" id="entitas">
-                </div>
-
-                <div>
-                    <label>Unit</label>
-                    <input type="text" name="unit" id="unit">
-                </div>
-
-                <div>
-                    <label>Nilai Kontrak</label>
-                    <input type="number" name="nilai_kontrak" id="nilai_kontrak">
-                </div>
-
-                <div>
-                    <label>Plan Jan</label>
-                    <input type="number" name="plan_jan" id="plan_jan">
-                </div>
-
-                <div>
-                    <label>Plan Feb</label>
-                    <input type="number" name="plan_feb" id="plan_feb">
-                </div>
-
-                <div>
-                    <label>Plan Mar</label>
-                    <input type="number" name="plan_mar" id="plan_mar">
-                </div>
-
-                <div>
-                    <label>Plan Apr</label>
-                    <input type="number" name="plan_apr" id="plan_apr">
-                </div>
-
-                <div>
-                    <label>Plan Mei</label>
-                    <input type="number" name="plan_mei" id="plan_mei">
-                </div>
-
-                <div>
-                    <label>Plan Jun</label>
-                    <input type="number" name="plan_jun" id="plan_jun">
-                </div>
-
-                <div>
-                    <label>Plan Jul</label>
-                    <input type="number" name="plan_jul" id="plan_jul">
-                </div>
-
-                <div>
-                    <label>Plan Agu</label>
-                    <input type="number" name="plan_agu" id="plan_agu">
-                </div>
-
-                <div>
-                    <label>Plan Sep</label>
-                    <input type="number" name="plan_sep" id="plan_sep">
-                </div>
-
-                <div>
-                    <label>Plan Okt</label>
-                    <input type="number" name="plan_okt" id="plan_okt">
-                </div>
-
-                <div>
-                    <label>Plan Nov</label>
-                    <input type="number" name="plan_nov" id="plan_nov">
-                </div>
-
-                <div>
-                    <label>Plan Des</label>
-                    <input type="number" name="plan_des" id="plan_des">
-                </div>
-
-                <div>
-                    <label>Prognosa Jan</label>
-                    <input type="number" name="prognosa_jan" id="prognosa_jan">
-                </div>
-
-                <div>
-                    <label>Prognosa Feb</label>
-                    <input type="number" name="prognosa_feb" id="prognosa_feb">
-                </div>
-
-                <div>
-                    <label>Prognosa Mar</label>
-                    <input type="number" name="prognosa_mar" id="prognosa_mar">
-                </div>
-
-                <div>
-                    <label>Prognosa Apr</label>
-                    <input type="number" name="prognosa_apr" id="prognosa_apr">
-                </div>
-
-                <div>
-                    <label>Prognosa Mei</label>
-                    <input type="number" name="prognosa_mei" id="prognosa_mei">
-                </div>
-
-                <div>
-                    <label>Prognosa Jun</label>
-                    <input type="number" name="prognosa_jun" id="prognosa_jun">
-                </div>
-
-                <div>
-                    <label>Prognosa Jul</label>
-                    <input type="number" name="prognosa_jul" id="prognosa_jul">
-                </div>
-
-                <div>
-                    <label>Prognosa Agu</label>
-                    <input type="number" name="prognosa_agu" id="prognosa_agu">
-                </div>
-
-                <div>
-                    <label>Prognosa Sep</label>
-                    <input type="number" name="prognosa_sep" id="prognosa_sep">
-                </div>
-
-                <div>
-                    <label>Prognosa Okt</label>
-                    <input type="number" name="prognosa_okt" id="prognosa_okt">
-                </div>
-
-                <div>
-                    <label>Prognosa Nov</label>
-                    <input type="number" name="prognosa_nov" id="prognosa_nov">
-                </div>
-
-                <div>
-                    <label>Prognosa Des</label>
-                    <input type="number" name="prognosa_des" id="prognosa_des">
-                </div>
-
-                <div>
-                    <label>Actual Jan</label>
-                    <input type="number" name="actual_jan" id="actual_jan">
-                </div>
-
-                <div>
-                    <label>Actual Feb</label>
-                    <input type="number" name="actual_feb" id="actual_feb">
-                </div>
-
-                <div>
-                    <label>Actual Mar</label>
-                    <input type="number" name="actual_mar" id="actual_mar">
-                </div>
-
-                <div>
-                    <label>Actual Apr</label>
-                    <input type="number" name="actual_apr" id="actual_apr">
-                </div>
-
-                <div>
-                    <label>Actual Mei</label>
-                    <input type="number" name="actual_mei" id="actual_mei">
-                </div>
-
-                <div>
-                    <label>Actual Jun</label>
-                    <input type="number" name="actual_jun" id="actual_jun">
-                </div>
-
-                <div>
-                    <label>Actual Jul</label>
-                    <input type="number" name="actual_jul" id="actual_jul">
-                </div>
-
-                <div>
-                    <label>Actual Agu</label>
-                    <input type="number" name="actual_agu" id="actual_agu">
-                </div>
-
-                <div>
-                    <label>Actual Sep</label>
-                    <input type="number" name="actual_sep" id="actual_sep">
-                </div>
-
-                <div>
-                    <label>Actual Okt</label>
-                    <input type="number" name="actual_okt" id="actual_okt">
-                </div>
-
-                <div>
-                    <label>Actual Nov</label>
-                    <input type="number" name="actual_nov" id="actual_nov">
-                </div>
-
-                <div>
-                    <label>Actual Des</label>
-                    <input type="number" name="actual_des" id="actual_des">
-                </div>
-
-                <div>
-                    <label>Kode</label>
-                    <input type="text" name="kode" id="kode">
-                </div>
-
-                <div>
-                    <label>Kendala</label>
-                    <input type="text" name="kendala" id="kendala">
-                </div>
-
-                <div>
-                    <label>Tindak Lanjut</label>
-                    <input type="text" name="tindak_lanjut" id="tindak_lanjut">
-                </div>
+                <label>Jumlah Row yang ingin dibuat</label>
+                <input type="number" name="jumlah_row" id="jumlah_row" min="1" value="1" required>
 
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
         </div>
     </div>
 
-       <div id="toastNotification"
+    <div id="toastNotification"
         style="display:none; position: fixed; top: 20px; right: 20px; z-index: 9999; padding: 15px 20px; border-radius: 8px; color: white; font-weight: bold;">
     </div>
     @push('scripts')
@@ -441,7 +211,8 @@
         <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
 
         <script>
-             const BASE_URL = "{{ config('app.url') }}";
+            const BASE_URL = "{{ config('app.url') }}";
+
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
                     fetch(`real-anggaran-figure-ru-dumai/${id}`, {
@@ -451,14 +222,14 @@
                                 "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
                             }
                         })
-                      .then(res => res.json())
+                        .then(res => res.json())
                         .then(result => {
                             showToast(result.message || "Data berhasil disimpan", "success");
                             loadData();
                         })
                         .catch(err => {
                             console.error("Gagal hapus data:", err);
-                        showToast("Terjadi kesalahan saat mengirim data.", "error");
+                            showToast("Terjadi kesalahan saat mengirim data.", "error");
                         });
                 }
             }
@@ -815,21 +586,21 @@
                             field: "tindak_lanjut",
                             editor: "input"
                         },
-                       {
-    title: "Aksi",
-    download: false,
-    hozAlign: "center",
-    width: 150,
-    formatter: (cell) => {
-        const row = cell.getData();
-        return `
+                        {
+                            title: "Aksi",
+                            download: false,
+                            hozAlign: "center",
+                            width: 150,
+                            formatter: (cell) => {
+                                const row = cell.getData();
+                                return `
             <button onclick='deleteData("${row.id}")'
                 class="btn btn-sm btn-danger">
                 <i class="bi bi-trash"></i> Hapus
             </button>
         `;
-    }
-}
+                            }
+                        }
                     ]
                 };
 
@@ -894,11 +665,21 @@
                     });
                 });
 
+                function isValidPeriodeFormat(value) {
+                    const regex = /^[A-Za-z]{3}-\d{2}$/;
+                    return regex.test(value);
+                }
+
                 table.on("cellEdited", function(cell) {
                     const updatedData = cell.getRow().getData();
                     const id = updatedData.id;
 
                     if (!id) return;
+                    if (cell.getField() === "periode" && !isValidPeriodeFormat(cell.getValue())) {
+                        showToast("Format Periode tidak valid! Gunakan format: Sep-24", "error");
+                        cell.restoreOldValue();
+                        return;
+                    }
 
                     fetch(`real-anggaran-figure-ru-dumai/${id}`, {
                             method: "PUT",
@@ -911,8 +692,17 @@
                             body: JSON.stringify(updatedData)
                         })
                         .then(res => res.json())
-                        .then(data => console.log("Update berhasil:", data))
-                        .catch(err => console.error("Gagal update:", err));
+                        .then(data => {
+                            if (data.success) {
+                                showToast("Update berhasil!", "success");
+                            } else {
+                                showToast("Update gagal: " + data.message, "error");
+                            }
+                        })
+                        .catch(err => {
+                            console.error("Gagal update:", err);
+                            showToast("Terjadi kesalahan saat update!", "error");
+                        });
                 });
 
                 let previousData = [];
@@ -939,7 +729,28 @@
                     const changedRows = getChangedRows(newData, previousData);
                     console.log("Baris yang berubah:", changedRows);
 
-                    changedRows.forEach(rowData => {
+                    changedRows.forEach((rowData, index) => {
+                        const id = rowData.id;
+                        if (!id) return;
+
+                        const oldRow = previousData.find(r => r.id === id);
+                        if (!oldRow) return;
+
+                        if (rowData.periode !== oldRow.periode && !isValidPeriodeFormat(rowData
+                                .periode)) {
+                            showToast(
+                                `"${rowData.periode}" Format Periode tidak valid! Gunakan format: Jan-25`,
+                                "error");
+
+                            rowData.periode = oldRow.periode;
+
+                            table.updateData([{
+                                id: rowData.id,
+                                periode: oldRow.periode
+                            }]);
+
+                            return;
+                        }
                         fetch(`real-anggaran-figure-ru-dumai/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
@@ -952,10 +763,17 @@
                             })
                             .then(res => res.json())
                             .then(response => {
-                                console.log("Data berhasil disimpan:", response);
+                                if (response.success) {
+                                    showToast(`Data berhasil disimpan`, "success");
+                                } else {
+                                    showToast(
+                                        `Format Periode tidak valid! Gunakan format: Jan-25 : ${response.message}`,
+                                        "error");
+                                }
                             })
                             .catch(err => {
                                 console.error("Gagal menyimpan hasil paste:", err);
+                                showToast(`Kesalahan pada ID ${id}`, "error");
                             });
                     });
 
@@ -967,19 +785,19 @@
 
         {{-- create data  --}}
         <script>
-              function showToast(message, type = "success") {
+            function showToast(message, type = "success") {
                 const toast = document.getElementById("toastNotification");
                 toast.textContent = message;
                 toast.className = "";
                 toast.classList.add(type === "success" ? "toast-success" : "toast-error");
                 toast.style.display = "block";
 
-               setTimeout(() => {
+                setTimeout(() => {
                     toast.style.display = "none";
                 }, 3500);
             }
 
- function openModal() {
+            function openModal() {
                 document.getElementById("createModal").style.display = "block";
             }
 

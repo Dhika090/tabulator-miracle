@@ -3,7 +3,7 @@
     @push('styles')
         <link href="https://unpkg.com/tabulator-tables@5.6.0/dist/css/tabulator.min.css" rel="stylesheet">
         <style>
-          .tabulator-wrapper {
+            .tabulator-wrapper {
                 overflow-x: auto;
             }
 
@@ -190,236 +190,16 @@
             <h3>Tambah Data Realisasi Anggaran AI 2025</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
-                <div>
-                    <label for="periode">Periode (Tahun):</label>
-                    <select name="periode" id="periode" class="form-select">
-                        <option value="" selected disabled>Pilih Periode</option>
-                        @for ($year = 2000; $year <= date('Y') + 5; $year++)
-                            <option value="{{ $year }}">{{ $year }}</option>
-                        @endfor
-                    </select>
-                </div>
-                <div>
-                    <label>No</label>
-                    <input type="number" name="no" id="no">
-                </div>
 
-                <div>
-                    <label>Program Kerja</label>
-                    <input type="text" name="program_kerja" id="program_kerja">
-                </div>
-
-                <div>
-                    <label>Kategori AIBT</label>
-                    <input type="text" name="kategori_aibt" id="kategori_aibt">
-                </div>
-
-                <div>
-                    <label>Jenis Anggaran</label>
-                    <input type="text" name="jenis_anggaran" id="jenis_anggaran">
-                </div>
-
-                <div>
-                    <label>Besar RKAP</label>
-                    <input type="number" name="besar_rkap" id="besar_rkap" step="0.01">
-                </div>
-
-                <div>
-                    <label>Entitas</label>
-                    <input type="text" name="entitas" id="entitas">
-                </div>
-
-                <div>
-                    <label>Unit</label>
-                    <input type="text" name="unit" id="unit">
-                </div>
-
-                <div>
-                    <label>Nilai Kontrak</label>
-                    <input type="number" name="nilai_kontrak" id="nilai_kontrak" step="0.01">
-                </div>
-
-                <!-- Plan Fields -->
-                <fieldset>
-                    <legend>Plan</legend>
-                    <div>
-                        <label>Plan Jan</label>
-                        <input type="text" name="plan_jan">
-                    </div>
-                    <div>
-                        <label>Plan Feb</label>
-                        <input type="text" name="plan_feb">
-                    </div>
-                    <div>
-                        <label>Plan Mar</label>
-                        <input type="text" name="plan_mar">
-                    </div>
-                    <div>
-                        <label>Plan Apr</label>
-                        <input type="text" name="plan_apr">
-                    </div>
-                    <div>
-                        <label>Plan May</label>
-                        <input type="text" name="plan_may">
-                    </div>
-                    <div>
-                        <label>Plan Jun</label>
-                        <input type="text" name="plan_jun">
-                    </div>
-                    <div>
-                        <label>Plan Jul</label>
-                        <input type="text" name="plan_jul">
-                    </div>
-                    <div>
-                        <label>Plan Aug</label>
-                        <input type="text" name="plan_aug">
-                    </div>
-                    <div>
-                        <label>Plan Sep</label>
-                        <input type="text" name="plan_sep">
-                    </div>
-                    <div>
-                        <label>Plan Oct</label>
-                        <input type="text" name="plan_oct">
-                    </div>
-                    <div>
-                        <label>Plan Nov</label>
-                        <input type="text" name="plan_nov">
-                    </div>
-                    <div>
-                        <label>Plan Dec</label>
-                        <input type="text" name="plan_dec">
-                    </div>
-                </fieldset>
-
-                <!-- Prognosa Fields -->
-                <fieldset>
-                    <legend>Prognosa</legend>
-                    <!-- Sama seperti Plan -->
-                    <div>
-                        <label>Prognosa Jan</label>
-                        <input type="text" name="prognosa_jan">
-                    </div>
-                    <div>
-                        <label>Prognosa Feb</label>
-                        <input type="text" name="prognosa_feb">
-                    </div>
-                    <div>
-                        <label>Prognosa Mar</label>
-                        <input type="text" name="prognosa_mar">
-                    </div>
-                    <div>
-                        <label>Prognosa Apr</label>
-                        <input type="text" name="prognosa_apr">
-                    </div>
-                    <div>
-                        <label>Prognosa May</label>
-                        <input type="text" name="prognosa_may">
-                    </div>
-                    <div>
-                        <label>Prognosa Jun</label>
-                        <input type="text" name="prognosa_jun">
-                    </div>
-                    <div>
-                        <label>Prognosa Jul</label>
-                        <input type="text" name="prognosa_jul">
-                    </div>
-                    <div>
-                        <label>Prognosa Aug</label>
-                        <input type="text" name="prognosa_aug">
-                    </div>
-                    <div>
-                        <label>Prognosa Sep</label>
-                        <input type="text" name="prognosa_sep">
-                    </div>
-                    <div>
-                        <label>Prognosa Oct</label>
-                        <input type="text" name="prognosa_oct">
-                    </div>
-                    <div>
-                        <label>Prognosa Nov</label>
-                        <input type="text" name="prognosa_nov">
-                    </div>
-                    <div>
-                        <label>Prognosa Dec</label>
-                        <input type="text" name="prognosa_dec">
-                    </div>
-                </fieldset>
-
-                <!-- Actual Fields -->
-                <fieldset>
-                    <legend>Actual</legend>
-                    <div>
-                        <label>Actual Jan</label>
-                        <input type="text" name="actual_jan">
-                    </div>
-                    <div>
-                        <label>Actual Feb</label>
-                        <input type="text" name="actual_feb">
-                    </div>
-                    <div>
-                        <label>Actual Mar</label>
-                        <input type="text" name="actual_mar">
-                    </div>
-                    <div>
-                        <label>Actual Apr</label>
-                        <input type="text" name="actual_apr">
-                    </div>
-                    <div>
-                        <label>Actual May</label>
-                        <input type="text" name="actual_may">
-                    </div>
-                    <div>
-                        <label>Actual Jun</label>
-                        <input type="text" name="actual_jun">
-                    </div>
-                    <div>
-                        <label>Actual Jul</label>
-                        <input type="text" name="actual_jul">
-                    </div>
-                    <div>
-                        <label>Actual Aug</label>
-                        <input type="text" name="actual_aug">
-                    </div>
-                    <div>
-                        <label>Actual Sep</label>
-                        <input type="text" name="actual_sep">
-                    </div>
-                    <div>
-                        <label>Actual Oct</label>
-                        <input type="text" name="actual_oct">
-                    </div>
-                    <div>
-                        <label>Actual Nov</label>
-                        <input type="text" name="actual_nov">
-                    </div>
-                    <div>
-                        <label>Actual Dec</label>
-                        <input type="text" name="actual_dec">
-                    </div>
-                </fieldset>
-
-                <div>
-                    <label>Kode</label>
-                    <input type="text" name="kode" id="kode">
-                </div>
-
-                <div>
-                    <label>Kendala</label>
-                    <input name="kendala" id="kendala"></input>
-                </div>
-
-                <div>
-                    <label>Tindak Lanjut</label>
-                    <input name="tindak_lanjut" id="tindak_lanjut"></input>
-                </div>
+                <label>Jumlah Row yang ingin dibuat</label>
+                <input type="number" name="jumlah_row" id="jumlah_row" min="1" value="1" required>
 
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
         </div>
     </div>
 
-    
+
     <div id="toastNotification"
         style="display:none; position: fixed; top: 20px; right: 20px; z-index: 9999; padding: 15px 20px; border-radius: 8px; color: white; font-weight: bold;">
     </div>
@@ -429,6 +209,7 @@
 
         <script>
             const BASE_URL = "{{ config('app.url') }}";
+
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
                     fetch(`realisasi-anggaran-ai-gei/${id}`, {
@@ -686,20 +467,20 @@
                             width: 400
                         },
                         {
-    title: "Aksi",
-    download: false,
-    hozAlign: "center",
-    width: 150,
-    formatter: (cell) => {
-        const row = cell.getData();
-        return `
+                            title: "Aksi",
+                            download: false,
+                            hozAlign: "center",
+                            width: 150,
+                            formatter: (cell) => {
+                                const row = cell.getData();
+                                return `
             <button onclick='deleteData("${row.id}")'
                 class="btn btn-sm btn-danger">
                 <i class="bi bi-trash"></i> Hapus
             </button>
         `;
-    }
-}
+                            }
+                        }
                     ]
                 };
 
@@ -766,12 +547,23 @@
                     });
                 });
 
+                function isValidPeriodeFormat(value) {
+                    const regex = /^[A-Za-z]{3}-\d{2}$/;
+                    return regex.test(value);
+                }
+
                 table.on("cellEdited", function(cell) {
                     const updatedData = cell.getRow().getData();
                     const id = updatedData.id;
 
+
                     if (!id) return;
 
+                    if (cell.getField() === "periode" && !isValidPeriodeFormat(cell.getValue())) {
+                        showToast("Format Periode tidak valid! Gunakan format: Sep-24", "error");
+                        cell.restoreOldValue();
+                        return;
+                    }
                     fetch(`realisasi-anggaran-ai-gei/${id}`, {
                             method: "PUT",
                             headers: {
@@ -783,8 +575,17 @@
                             body: JSON.stringify(updatedData)
                         })
                         .then(res => res.json())
-                        .then(data => console.log("Update berhasil:", data))
-                        .catch(err => console.error("Gagal update:", err));
+                        .then(data => {
+                            if (data.success) {
+                                showToast("Update berhasil!", "success");
+                            } else {
+                                showToast("Update gagal: " + data.message, "error");
+                            }
+                        })
+                        .catch(err => {
+                            console.error("Gagal update:", err);
+                            showToast("Terjadi kesalahan saat update!", "error");
+                        });
                 });
 
                 let previousData = [];
@@ -811,7 +612,28 @@
                     const changedRows = getChangedRows(newData, previousData);
                     console.log("Baris yang berubah:", changedRows);
 
-                    changedRows.forEach(rowData => {
+                    changedRows.forEach((rowData, index) => {
+                        const id = rowData.id;
+                        if (!id) return;
+
+                        const oldRow = previousData.find(r => r.id === id);
+                        if (!oldRow) return;
+
+                        if (rowData.periode !== oldRow.periode && !isValidPeriodeFormat(rowData
+                                .periode)) {
+                            showToast(
+                                `"${rowData.periode}" Format Periode tidak valid! Gunakan format: Jan-25`,
+                                "error");
+
+                            rowData.periode = oldRow.periode;
+
+                            table.updateData([{
+                                id: rowData.id,
+                                periode: oldRow.periode
+                            }]);
+
+                            return;
+                        }
                         fetch(`realisasi-anggaran-ai-gei/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
@@ -824,10 +646,17 @@
                             })
                             .then(res => res.json())
                             .then(response => {
-                                console.log("Data berhasil disimpan:", response);
+                                if (response.success) {
+                                    showToast(`Data berhasil disimpan`, "success");
+                                } else {
+                                    showToast(
+                                        `Format Periode tidak valid! Gunakan format: Jan-25 : ${response.message}`,
+                                        "error");
+                                }
                             })
                             .catch(err => {
                                 console.error("Gagal menyimpan hasil paste:", err);
+                                showToast(`Kesalahan pada ID ${id}`, "error");
                             });
                     });
 
@@ -839,14 +668,14 @@
 
         {{-- create data  --}}
         <script>
-             function showToast(message, type = "success") {
+            function showToast(message, type = "success") {
                 const toast = document.getElementById("toastNotification");
                 toast.textContent = message;
                 toast.className = "";
                 toast.classList.add(type === "success" ? "toast-success" : "toast-error");
                 toast.style.display = "block";
 
-               setTimeout(() => {
+                setTimeout(() => {
                     toast.style.display = "none";
                 }, 3500);
             }
@@ -941,7 +770,7 @@
                             table.setData(`${BASE_URL}/monev/shg/input-data/realisasi-anggaran-ai-gei/data`);
                             this.reset();
                             closeModal();
-                       } else {
+                        } else {
                             showToast(result.message || "Gagal menyimpan data", "error");
                         }
                     })

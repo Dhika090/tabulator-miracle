@@ -3,7 +3,7 @@
     @push('styles')
         <link href="https://unpkg.com/tabulator-tables@5.6.0/dist/css/tabulator.min.css" rel="stylesheet">
         <style>
-          .tabulator-wrapper {
+            .tabulator-wrapper {
                 overflow-x: auto;
             }
 
@@ -196,45 +196,8 @@
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
 
-                <div>
-                    <label>Periode</label>
-                    <input type="month" name="periode" id="periode">
-                </div>
-
-                <div>
-                    <label>Company</label>
-                    <input type="text" name="company" id="company">
-                </div>
-
-                <div>
-                    <label>Kategori</label>
-                    <input type="text" name="kategori" id="kategori">
-                </div>
-
-                <div>
-                    <label>Target</label>
-                    <input type="number" step="0.01" name="target" id="target">
-                </div>
-
-                <div>
-                    <label>Availability</label>
-                    <input type="number" step="0.01" name="availability" id="availability">
-                </div>
-
-                <div>
-                    <label>Isu / Problem / Bad Actor</label>
-                    <input name="isu" id="isu"></input>
-                </div>
-
-                <div>
-                    <label>Kendala</label>
-                    <input name="kendala" id="kendala"></input>
-                </div>
-
-                <div>
-                    <label>Tindak Lanjut</label>
-                    <input name="tindak_lanjut" id="tindak_lanjut"></input>
-                </div>
+                <label>Jumlah Row yang ingin dibuat</label>
+                <input type="number" name="jumlah_row" id="jumlah_row" min="1" value="1" required>
 
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
@@ -242,7 +205,6 @@
         </div>
     </div>
 
-    
     <div id="toastNotification"
         style="display:none; position: fixed; top: 20px; right: 20px; z-index: 9999; padding: 15px 20px; border-radius: 8px; color: white; font-weight: bold;">
     </div>
@@ -252,6 +214,7 @@
 
         <script>
             const BASE_URL = "{{ config('app.url') }}";
+
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
                     fetch(`availability-ptg/${id}`, {
@@ -326,7 +289,7 @@
             }
 
             function loadData() {
-                fetch("/monev/shg/input-data/availability-ptg/data", {
+                fetch(`${BASE_URL}/monev/shg/input-data/availability-ptg/data`, {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -353,6 +316,27 @@
             }
 
             document.addEventListener("DOMContentLoaded", function() {
+                const CSRF_TOKEN = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
+
+                const cleanRow = (row) => {
+                    const cleaned = {};
+                    for (const [key, value] of Object.entries(row)) {
+                        const valStr = String(value).trim().toLowerCase();
+                        cleaned[key] = (
+                            value === null || value === undefined ||
+                            valStr === "null" || valStr === "undefined"
+                        ) ? "" : value;
+                    }
+                    return cleaned;
+                };
+
+                const formatPercent = (cell) => {
+                    let value = parseFloat(cell.getValue());
+                    if (isNaN(value)) return "-";
+                    const displayValue = value <= 1 ? value * 100 : value;
+                    return displayValue.toFixed(2) + " %";
+                };
+
                 const columnMap = {
                     "availability-ptg": [{
                             title: "No",
@@ -471,20 +455,14 @@
                             field: "target",
                             editor: "number",
                             hozAlign: "center",
-                            formatter: function(cell) {
-                                let value = parseFloat(cell.getValue());
-                                return isNaN(value) ? "-" : value.toFixed(2) + " %";
-                            }
+                            formatter: formatPercent
                         },
                         {
                             title: "Availability",
                             field: "availability",
                             editor: "number",
                             hozAlign: "center",
-                            formatter: function(cell) {
-                                let value = parseFloat(cell.getValue());
-                                return isNaN(value) ? "-" : value.toFixed(2) + " %";
-                            }
+                            formatter: formatPercent
                         },
                         {
                             title: "Isu / Problem / Bad Actor",
@@ -503,20 +481,20 @@
                             editor: "input"
                         },
                         {
-    title: "Aksi",
-    download: false,
-    hozAlign: "center",
-    width: 150,
-    formatter: (cell) => {
-        const row = cell.getData();
-        return `
+                            title: "Aksi",
+                            download: false,
+                            hozAlign: "center",
+                            width: 150,
+                            formatter: (cell) => {
+                                const row = cell.getData();
+                                return `
             <button onclick='deleteData("${row.id}")'
                 class="btn btn-sm btn-danger">
                 <i class="bi bi-trash"></i> Hapus
             </button>
         `;
-    }
-}
+                            }
+                        }
                     ]
                 };
 
@@ -560,6 +538,7 @@
                         resizable: "header",
                     },
                 });
+
                 document.getElementById("download-xlsx").addEventListener("click", function() {
                     window.table.download("xlsx", "availability-ptg.xlsx", {
                         sheetName: "availability-ptg",
@@ -583,11 +562,41 @@
                     });
                 });
 
+                let previousDataMap = new Map();
+
+                function isValidPeriodeFormat(value) {
+                    const regex = /^[A-Za-z]{3}-\d{2}$/;
+                    return regex.test(value);
+                }
+
+                let previousData = [];
+                table.on("dataLoaded", function(newData) {
+                    previousData = JSON.parse(JSON.stringify(newData));
+                });
+
                 table.on("cellEdited", function(cell) {
                     const updatedData = cell.getRow().getData();
+                    const field = cell.getField();
                     const id = updatedData.id;
 
                     if (!id) return;
+
+                    if (cell.getField() === "periode" && !isValidPeriodeFormat(cell.getValue())) {
+                        showToast("Format Periode tidak valid! Gunakan format: Sep-24", "error");
+                        cell.restoreOldValue();
+                        return;
+                    }
+
+                    if (field === "target" || field === "availability") {
+                        let value = parseFloat(cell.getValue());
+                        if (!isNaN(value)) {
+                            updatedData[field] = value > 1 ? (value / 100) : value;
+
+                            cell.getRow().update({
+                                [field]: updatedData[field]
+                            });
+                        }
+                    }
 
                     fetch(`availability-ptg/${id}`, {
                             method: "PUT",
@@ -600,44 +609,66 @@
                             body: JSON.stringify(updatedData)
                         })
                         .then(res => res.json())
-                        .then(data => console.log("Update berhasil:", data))
-                        .catch(err => console.error("Gagal update:", err));
-                });
-
-                let previousData = [];
-                table.on("dataLoaded", function(newData) {
-                    previousData = JSON.parse(JSON.stringify(newData));
+                        .then(data => {
+                            if (data.success) {
+                                showToast("Update berhasil!", "success");
+                            } else {
+                                showToast("Update gagal: " + data.message, "error");
+                            }
+                        })
+                        .catch(err => {
+                            console.error("Gagal update:", err);
+                            showToast("Terjadi kesalahan saat update!", "error");
+                        });
                 });
 
                 function getChangedRows(newData, oldData) {
                     const changes = [];
                     newData.forEach((row, index) => {
                         if (!row.id) return;
-                        const oldRow = oldData[index];
+                        const oldRow = oldData.find(old => old.id === row.id);
                         if (!oldRow) return;
 
                         const isDifferent = Object.keys(row).some(key => row[key] !== oldRow[key]);
-                        if (isDifferent) {
-                            changes.push(row);
-                        }
+                        if (isDifferent) changes.push({
+                            new: row,
+                            old: oldRow
+                        });
                     });
                     return changes;
                 }
 
                 table.on("dataChanged", function(newData) {
                     const changedRows = getChangedRows(newData, previousData);
-                    console.log("Baris yang berubah:", changedRows);
 
-                    changedRows.forEach(rowData => {
-                        if (rowData.target !== undefined && typeof rowData.target === "string") {
-                            rowData.target = parseFloat(rowData.target.replace("%", "").trim());
+                    changedRows.forEach(({
+                        new: newRow,
+                        old: oldRow
+                    }) => {
+                        const id = newRow.id;
+                        if (!id) return;
+
+                        if (newRow.periode !== oldRow.periode && !isValidPeriodeFormat(newRow
+                                .periode)) {
+                            showToast(
+                                `"${newRow.periode}" Format Periode tidak valid! Gunakan format: Jan-25`,
+                                "error");
+
+                            table.updateData([{
+                                id: newRow.id,
+                                periode: oldRow.periode
+                            }]);
+                            return;
                         }
-                        if (rowData.availability !== undefined && typeof rowData.availability ===
-                            "string") {
-                            rowData.availability = parseFloat(rowData.availability.replace("%", "")
-                                .trim());
-                        }
-                        fetch(`availability-ptg/${rowData.id}`, {
+
+                        ["target", "availability"].forEach(field => {
+                            const value = parseFloat(newRow[field]);
+                            if (!isNaN(value)) {
+                                newRow[field] = value > 1 ? (value / 100) : value;
+                            }
+                        });
+
+                        fetch(`availability-ptg/${id}`, {
                                 method: "PUT",
                                 headers: {
                                     "Content-Type": "application/json",
@@ -645,14 +676,19 @@
                                     "X-CSRF-TOKEN": document.querySelector(
                                         'meta[name="csrf-token"]').getAttribute("content")
                                 },
-                                body: JSON.stringify(rowData)
+                                body: JSON.stringify(newRow)
                             })
                             .then(res => res.json())
                             .then(response => {
-                                console.log("Data berhasil disimpan:", response);
+                                if (response.success) {
+                                    showToast(`Data berhasil disimpan`, "success");
+                                } else {
+                                    showToast(`Gagal simpan : ${response.message}`, "error");
+                                }
                             })
                             .catch(err => {
-                                console.error("Gagal menyimpan hasil paste:", err);
+                                console.error("Gagal simpan hasil paste:", err);
+                                showToast(`Kesalahan pada ID ${id}`, "error");
                             });
                     });
 
@@ -664,14 +700,14 @@
 
         {{-- create data  --}}
         <script>
-             function showToast(message, type = "success") {
+            function showToast(message, type = "success") {
                 const toast = document.getElementById("toastNotification");
                 toast.textContent = message;
                 toast.className = "";
                 toast.classList.add(type === "success" ? "toast-success" : "toast-error");
                 toast.style.display = "block";
 
-               setTimeout(() => {
+                setTimeout(() => {
                     toast.style.display = "none";
                 }, 3500);
             }
@@ -685,43 +721,51 @@
                 document.getElementById("form-id").value = "";
                 document.getElementById("createModal").style.display = "none";
             }
-
             document.getElementById("createForm").addEventListener("submit", function(e) {
                 e.preventDefault();
 
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
 
-                fetch("availability-ptg", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Accept": "application/json",
-                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute(
-                                "content")
-                        },
-                        body: JSON.stringify({
-                            periode: data.periode,
-                            company: data.company,
-                            kategori: data.kategori || null,
-                            target: data.target || null,
-                            availability: data.availability || null,
-                            isu: data.isu || null,
-                            kendala: data.kendala || null,
-                            tindak_lanjut: data.tindak_lanjut || null,
-                        })
+                const jumlahRow = parseInt(data.jumlah_row);
+                const payloadArray = [];
 
-                    })
-                    .then(response => response.json())
-                    .then(result => {
-                        if (result.success) {
-                            showToast(result.message || "Data berhasil disimpan", "success");
-                            table.setData("/monev/shg/input-data/availability-ptg/data");
-                            this.reset();
-                            closeModal();
-                       } else {
-                            showToast(result.message || "Gagal menyimpan data", "error");
+                for (let i = 0; i < jumlahRow; i++) {
+                    payloadArray.push({
+                        periode: data.periode,
+                        company: data.company,
+                        kategori: data.kategori,
+                        target: data.target,
+                        availability: data.availability,
+                        isu: data.isu,
+                        kendala: data.kendala,
+                        tindak_lanjut: data.tindak_lanjut,
+                    });
+                }
+
+                Promise.all(payloadArray.map(dataItem => {
+                        return fetch("availability-ptg", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute("content")
+                            },
+                            body: JSON.stringify(dataItem)
+                        }).then(res => res.json());
+                    }))
+                    .then(results => {
+                        const gagal = results.filter(r => !r.success);
+                        if (gagal.length === 0) {
+                            showToast(`${jumlahRow} baris data berhasil buat`, "success");
+                        } else {
+                            showToast(`${gagal.length} data gagal disimpan`, "error");
                         }
+
+                        table.setData(`${BASE_URL}/monev/shg/input-data/availability-ptg/data`);
+                        document.getElementById("createForm").reset();
+                        closeModal();
                     })
                     .catch(error => {
                         console.error("Error saat submit:", error);

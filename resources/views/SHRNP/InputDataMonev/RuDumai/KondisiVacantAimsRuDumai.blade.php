@@ -6,7 +6,8 @@
             .tabulator-wrapper {
                 overflow-x: auto;
             }
-     .toast-success {
+
+            .toast-success {
                 background-color: #28a745;
             }
 
@@ -193,42 +194,17 @@
             <h3>Tambah Kondisi Vacant Ru Dumai</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
-                <div>
-                    <label>Periode</label>
-                    <input type="month" name="periode" id="periode">
-                </div>
 
-                <div>
-                    <label>Company</label>
-                    <input type="text" name="company" id="company">
-                </div>
+                <label>Jumlah Row yang ingin dibuat</label>
+                <input type="number" name="jumlah_row" id="jumlah_row" min="1" value="1" required>
 
-                <div>
-                    <label>Total Personil Asset Integrity</label>
-                    <input type="number" name="total_personil_asset_integrity" id="total_personil_asset_integrity">
-                </div>
-
-                <div>
-                    <label>Jumlah Personil Vacant</label>
-                    <input type="number" name="jumlah_personil_vacant" id="jumlah_personil_vacant">
-                </div>
-
-                <div>
-                    <label>Jumlah Personil Pensiun &lt; 1 Thn</label>
-                    <input type="number" name="jumlah_personil_pensiun" id="jumlah_personil_pensiun">
-                </div>
-
-                <div>
-                    <label>Keterangan</label>
-                    <input type="text" name="keterangan" id="keterangan" rows="3"></input>
-                </div>
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
 
         </div>
     </div>
 
-       <div id="toastNotification"
+    <div id="toastNotification"
         style="display:none; position: fixed; top: 20px; right: 20px; z-index: 9999; padding: 15px 20px; border-radius: 8px; color: white; font-weight: bold;">
     </div>
     @push('scripts')
@@ -236,7 +212,8 @@
         <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
 
         <script>
-             const BASE_URL = "{{ config('app.url') }}";
+            const BASE_URL = "{{ config('app.url') }}";
+
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
                     fetch(`kondisi-vacant-aims-ru-dumai/${id}`, {
@@ -246,14 +223,14 @@
                                 "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
                             }
                         })
-                      .then(res => res.json())
+                        .then(res => res.json())
                         .then(result => {
                             showToast(result.message || "Data berhasil disimpan", "success");
                             loadData();
                         })
                         .catch(err => {
                             console.error("Gagal hapus data:", err);
-                        showToast("Terjadi kesalahan saat mengirim data.", "error");
+                            showToast("Terjadi kesalahan saat mengirim data.", "error");
                         });
                 }
             }
@@ -328,311 +305,342 @@
             }
 
             document.addEventListener("DOMContentLoaded", function() {
-                const columnMap = {
-                    "kondisi-vacant-aims-ru-dumai": [  {
-                            title: "No",
-                            hozAlign: "center",
-                            width: 60,
-                            download: false,
-                            formatter: function(cell) {
-                                const row = cell.getRow();
-                                const table = row.getTable();
+                        const columnMap = {
+                            "kondisi-vacant-aims-ru-dumai": [{
+                                    title: "No",
+                                    hozAlign: "center",
+                                    width: 60,
+                                    download: false,
+                                    formatter: function(cell) {
+                                        const row = cell.getRow();
+                                        const table = row.getTable();
 
-                                const pageSize = table.getPageSize();
-                                const currentPage = table.getPage();
-                                const rowIndex = row
-                                    .getPosition();
+                                        const pageSize = table.getPageSize();
+                                        const currentPage = table.getPage();
+                                        const rowIndex = row
+                                            .getPosition();
 
-                                return ((currentPage - 1) * pageSize) + rowIndex;
-                            }
-                        },
-                        {
-                            title: "ID",
-                            field: "id",
-                            visible: false
-                        },
-                        {
-                            title: "Periode",
-                            field: "periode",
-                            editor: "input",
-                            headerFilter: "select",
-                            headerFilterParams: {
-                                values: [{
-                                        value: "01",
-                                        label: "Januari"
-                                    },
-                                    {
-                                        value: "02",
-                                        label: "Februari"
-                                    },
-                                    {
-                                        value: "03",
-                                        label: "Maret"
-                                    },
-                                    {
-                                        value: "04",
-                                        label: "April"
-                                    },
-                                    {
-                                        value: "05",
-                                        label: "Mei"
-                                    },
-                                    {
-                                        value: "06",
-                                        label: "Juni"
-                                    },
-                                    {
-                                        value: "07",
-                                        label: "Juli"
-                                    },
-                                    {
-                                        value: "08",
-                                        label: "Agustus"
-                                    },
-                                    {
-                                        value: "09",
-                                        label: "September"
-                                    },
-                                    {
-                                        value: "10",
-                                        label: "Oktober"
-                                    },
-                                    {
-                                        value: "11",
-                                        label: "November"
-                                    },
-                                    {
-                                        value: "12",
-                                        label: "Desember"
+                                        return ((currentPage - 1) * pageSize) + rowIndex;
                                     }
-                                ]
-                            },
-                            headerFilterPlaceholder: "Pilih Bulan",
-                            headerFilterFunc: function(headerValue, rowValue) {
-                                if (!headerValue) return true;
-                                if (!rowValue) return false;
+                                },
+                                {
+                                    title: "ID",
+                                    field: "id",
+                                    visible: false
+                                },
+                                {
+                                    title: "Periode",
+                                    field: "periode",
+                                    editor: "input",
+                                    headerFilter: "select",
+                                    headerFilterParams: {
+                                        values: [{
+                                                value: "01",
+                                                label: "Januari"
+                                            },
+                                            {
+                                                value: "02",
+                                                label: "Februari"
+                                            },
+                                            {
+                                                value: "03",
+                                                label: "Maret"
+                                            },
+                                            {
+                                                value: "04",
+                                                label: "April"
+                                            },
+                                            {
+                                                value: "05",
+                                                label: "Mei"
+                                            },
+                                            {
+                                                value: "06",
+                                                label: "Juni"
+                                            },
+                                            {
+                                                value: "07",
+                                                label: "Juli"
+                                            },
+                                            {
+                                                value: "08",
+                                                label: "Agustus"
+                                            },
+                                            {
+                                                value: "09",
+                                                label: "September"
+                                            },
+                                            {
+                                                value: "10",
+                                                label: "Oktober"
+                                            },
+                                            {
+                                                value: "11",
+                                                label: "November"
+                                            },
+                                            {
+                                                value: "12",
+                                                label: "Desember"
+                                            }
+                                        ]
+                                    },
+                                    headerFilterPlaceholder: "Pilih Bulan",
+                                    headerFilterFunc: function(headerValue, rowValue) {
+                                        if (!headerValue) return true;
+                                        if (!rowValue) return false;
 
-                                const periode = rowValue.toLowerCase();
+                                        const periode = rowValue.toLowerCase();
 
-                                const bulanTextMap = {
-                                    "01": ["jan", "january"],
-                                    "02": ["feb", "february"],
-                                    "03": ["mar", "march"],
-                                    "04": ["apr", "april"],
-                                    "05": ["may", "mei"],
-                                    "06": ["jun", "june"],
-                                    "07": ["jul", "july"],
-                                    "08": ["aug", "august"],
-                                    "09": ["sep", "september"],
-                                    "10": ["oct", "october"],
-                                    "11": ["nov", "november"],
-                                    "12": ["dec", "december"]
-                                };
+                                        const bulanTextMap = {
+                                            "01": ["jan", "january"],
+                                            "02": ["feb", "february"],
+                                            "03": ["mar", "march"],
+                                            "04": ["apr", "april"],
+                                            "05": ["may", "mei"],
+                                            "06": ["jun", "june"],
+                                            "07": ["jul", "july"],
+                                            "08": ["aug", "august"],
+                                            "09": ["sep", "september"],
+                                            "10": ["oct", "october"],
+                                            "11": ["nov", "november"],
+                                            "12": ["dec", "december"]
+                                        };
 
-                                const keywords = bulanTextMap[headerValue];
-                                return keywords.some(keyword => periode.includes(keyword)) || periode
-                                    .includes(`-${headerValue}`);
-                            }
-                        },
-                        {
-                            title: "Company",
-                            field: "company",
-                            editor: "input",
-                        },
-                        {
-                            title: "Total Personil Asset Integrity",
-                            field: "total_personil_asset_integrity",
-                            editor: "number",
-                            hozAlign: "center",
-                            width: 250
-                        },
-                        {
-                            title: "Jumlah Personil Vacant",
-                            field: "jumlah_personil_vacant",
-                            editor: "number",
-                            hozAlign: "center",
-                            width: 200
-                        },
-                        {
-                            title: "Jumlah Personil Pensiun <1 Thn",
-                            field: "jumlah_personil_pensiun",
-                            editor: "number",
-                            hozAlign: "center",
-                            width: 250
-                        },
-                        {
-                            title: "Keterangan",
-                            field: "keterangan",
-                            width: 350,
-                            editor: "input"
-                        },
-                        {
-                       {
-    title: "Aksi",
-    download: false,
-    hozAlign: "center",
-    width: 150,
-    formatter: (cell) => {
-        const row = cell.getData();
-        return `
+                                        const keywords = bulanTextMap[headerValue];
+                                        return keywords.some(keyword => periode.includes(keyword)) || periode
+                                            .includes(`-${headerValue}`);
+                                    }
+                                },
+                                {
+                                    title: "Company",
+                                    field: "company",
+                                    editor: "input",
+                                },
+                                {
+                                    title: "Total Personil Asset Integrity",
+                                    field: "total_personil_asset_integrity",
+                                    editor: "number",
+                                    hozAlign: "center",
+                                    width: 250
+                                },
+                                {
+                                    title: "Jumlah Personil Vacant",
+                                    field: "jumlah_personil_vacant",
+                                    editor: "number",
+                                    hozAlign: "center",
+                                    width: 200
+                                },
+                                {
+                                    title: "Jumlah Personil Pensiun <1 Thn",
+                                    field: "jumlah_personil_pensiun",
+                                    editor: "number",
+                                    hozAlign: "center",
+                                    width: 250
+                                },
+                                {
+                                    title: "Keterangan",
+                                    field: "keterangan",
+                                    width: 350,
+                                    editor: "input"
+                                },
+                                {
+                                    {
+                                        title: "Aksi",
+                                        download: false,
+                                        hozAlign: "center",
+                                        width: 150,
+                                        formatter: (cell) => {
+                                            const row = cell.getData();
+                                            return `
             <button onclick='deleteData("${row.id}")'
                 class="btn btn-sm btn-danger">
                 <i class="bi bi-trash"></i> Hapus
             </button>
         `;
-    }
-}
-                    ]
-                };
+                                        }
+                                    }
+                                ]
+                            };
 
-                window.table = new Tabulator("#example-table", {
-                    layout: "fitDataTable",
-                    responsiveLayout: "collapse",
-                    autoResize: true,
-                    columns: columnMap["kondisi-vacant-aims-ru-dumai"],
+                            window.table = new Tabulator("#example-table", {
+                                layout: "fitDataTable",
+                                responsiveLayout: "collapse",
+                                autoResize: true,
+                                columns: columnMap["kondisi-vacant-aims-ru-dumai"],
 
-                    selectableRange: 1,
-                    selectableRangeColumns: true,
-                    selectableRangeRows: true,
-                    selectableRangeClearCells: true,
-                    editTriggerEvent: "dblclick",
+                                selectableRange: 1,
+                                selectableRangeColumns: true,
+                                selectableRangeRows: true,
+                                selectableRangeClearCells: true,
+                                editTriggerEvent: "dblclick",
 
-                    pagination: "local",
-                    paginationSize: 20,
-                    paginationSizeSelector: [40, 60, 80, 100],
-                    paginationCounter: "rows",
+                                pagination: "local",
+                                paginationSize: 20,
+                                paginationSizeSelector: [40, 60, 80, 100],
+                                paginationCounter: "rows",
 
-                    movableColumns: true,
+                                movableColumns: true,
 
-                    clipboard: true,
-                    clipboardCopyStyled: false,
-                    clipboardCopyConfig: {
-                        rowHeaders: false,
-                        columnHeaders: false,
-                    },
-                    clipboardCopyRowRange: "range",
-                    clipboardPasteParser: "range",
-                    clipboardPasteAction: "range",
-                    clipboardPasteRow: true,
-
-                    columnDefaults: {
-                        headerSort: true,
-                        headerHozAlign: "center",
-                        editor: "input",
-                        resizable: "header",
-                    },
-                });
-
-                document.getElementById("download-xlsx").addEventListener("click", function() {
-                    window.table.download("xlsx", "kondisi-vacant-aims-ru-dumai.xlsx", {
-                        sheetName: "kondisi-vacant-aims",
-                        columnHeaders: true,
-                        downloadDataFormatter: function(data) {
-                            return data.map(row => {
-                                const cleanedRow = {};
-                                for (const [key, value] of Object.entries(row)) {
-                                    const valStr = String(value).trim().toLowerCase();
-                                    cleanedRow[key] = (
-                                        value === null ||
-                                        value === undefined ||
-                                        value === "" ||
-                                        valStr === "null" ||
-                                        valStr === "null"
-                                    ) ? "" : value;
-                                }
-                                return cleanedRow;
-                            });
-                        }
-                    });
-                });
-
-                table.on("cellEdited", function(cell) {
-                    const updatedData = cell.getRow().getData();
-                    const id = updatedData.id;
-
-                    if (!id) return;
-
-                    fetch(`kondisi-vacant-aims-ru-dumai/${id}`, {
-                            method: "PUT",
-                            headers: {
-                                "Content-Type": "application/json",
-                                "Accept": "application/json",
-                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
-                                    .getAttribute("content")
-                            },
-                            body: JSON.stringify(updatedData)
-                        })
-                        .then(res => res.json())
-                        .then(data => console.log("Update berhasil:", data))
-                        .catch(err => console.error("Gagal update:", err));
-                });
-
-                let previousData = [];
-                table.on("dataLoaded", function(newData) {
-                    previousData = JSON.parse(JSON.stringify(newData));
-                });
-
-                function getChangedRows(newData, oldData) {
-                    const changes = [];
-                    newData.forEach((row, index) => {
-                        if (!row.id) return;
-                        const oldRow = oldData[index];
-                        if (!oldRow) return;
-
-                        const isDifferent = Object.keys(row).some(key => row[key] !== oldRow[key]);
-                        if (isDifferent) {
-                            changes.push(row);
-                        }
-                    });
-                    return changes;
-                }
-
-                table.on("dataChanged", function(newData) {
-                    const changedRows = getChangedRows(newData, previousData);
-                    console.log("Baris yang berubah:", changedRows);
-
-                    changedRows.forEach(rowData => {
-                        fetch(`kondisi-vacant-aims-ru-dumai/${rowData.id}`, {
-                                method: "PUT",
-                                headers: {
-                                    "Content-Type": "application/json",
-                                    "Accept": "application/json",
-                                    "X-CSRF-TOKEN": document.querySelector(
-                                        'meta[name="csrf-token"]').getAttribute("content")
+                                clipboard: true,
+                                clipboardCopyStyled: false,
+                                clipboardCopyConfig: {
+                                    rowHeaders: false,
+                                    columnHeaders: false,
                                 },
-                                body: JSON.stringify(rowData)
-                            })
-                            .then(res => res.json())
-                            .then(response => {
-                                console.log("Data berhasil disimpan:", response);
-                            })
-                            .catch(err => {
-                                console.error("Gagal menyimpan hasil paste:", err);
+                                clipboardCopyRowRange: "range",
+                                clipboardPasteParser: "range",
+                                clipboardPasteAction: "range",
+                                clipboardPasteRow: true,
+
+                                columnDefaults: {
+                                    headerSort: true,
+                                    headerHozAlign: "center",
+                                    editor: "input",
+                                    resizable: "header",
+                                },
                             });
-                    });
 
-                    previousData = JSON.parse(JSON.stringify(newData));
-                });
+                            document.getElementById("download-xlsx").addEventListener("click", function() {
+                                window.table.download("xlsx", "kondisi-vacant-aims-ru-dumai.xlsx", {
+                                    sheetName: "kondisi-vacant-aims",
+                                    columnHeaders: true,
+                                    downloadDataFormatter: function(data) {
+                                        return data.map(row => {
+                                            const cleanedRow = {};
+                                            for (const [key, value] of Object.entries(row)) {
+                                                const valStr = String(value).trim().toLowerCase();
+                                                cleanedRow[key] = (
+                                                    value === null ||
+                                                    value === undefined ||
+                                                    value === "" ||
+                                                    valStr === "null" ||
+                                                    valStr === "null"
+                                                ) ? "" : value;
+                                            }
+                                            return cleanedRow;
+                                        });
+                                    }
+                                });
+                            });
 
-                loadData();
-            });
+                            function isValidPeriodeFormat(value) {
+                                const regex = /^[A-Za-z]{3}-\d{2}$/;
+                                return regex.test(value);
+                            }
+
+                            table.on("cellEdited", function(cell) {
+                                const updatedData = cell.getRow().getData();
+                                const id = updatedData.id;
+
+                                if (!id) return;
+                                if (cell.getField() === "periode" && !isValidPeriodeFormat(cell.getValue())) {
+                                    showToast("Format Periode tidak valid! Gunakan format: Sep-24", "error");
+                                    cell.restoreOldValue();
+                                    return;
+                                }
+
+                                fetch(`kondisi-vacant-aims-ru-dumai/${id}`, {
+                                        method: "PUT",
+                                        headers: {
+                                            "Content-Type": "application/json",
+                                            "Accept": "application/json",
+                                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                                .getAttribute("content")
+                                        },
+                                        body: JSON.stringify(updatedData)
+                                    })
+                                    .then(res => res.json())
+                                    .then(data => console.log("Update berhasil:", data))
+                                    .catch(err => console.error("Gagal update:", err));
+                            });
+
+                            let previousData = [];
+                            table.on("dataLoaded", function(newData) {
+                                previousData = JSON.parse(JSON.stringify(newData));
+                            });
+
+                            function getChangedRows(newData, oldData) {
+                                const changes = [];
+                                newData.forEach((row, index) => {
+                                    if (!row.id) return;
+                                    const oldRow = oldData[index];
+                                    if (!oldRow) return;
+
+                                    const isDifferent = Object.keys(row).some(key => row[key] !== oldRow[key]);
+                                    if (isDifferent) {
+                                        changes.push(row);
+                                    }
+                                });
+                                return changes;
+                            }
+
+                            table.on("dataChanged", function(newData) {
+                                const changedRows = getChangedRows(newData, previousData);
+                                console.log("Baris yang berubah:", changedRows);
+
+                                changedRows.forEach((rowData, index) => {
+                                    const id = rowData.id;
+                                    if (!id) return;
+
+                                    const oldRow = previousData.find(r => r.id === id);
+                                    if (!oldRow) return;
+
+                                    if (rowData.periode !== oldRow.periode && !isValidPeriodeFormat(rowData
+                                            .periode)) {
+                                        showToast(
+                                            `"${rowData.periode}" Format Periode tidak valid! Gunakan format: Jan-25`,
+                                            "error");
+
+                                        rowData.periode = oldRow.periode;
+
+                                        table.updateData([{
+                                            id: rowData.id,
+                                            periode: oldRow.periode
+                                        }]);
+
+                                        return;
+                                    }
+                                    fetch(`kondisi-vacant-aims-ru-dumai/${rowData.id}`, {
+                                            method: "PUT",
+                                            headers: {
+                                                "Content-Type": "application/json",
+                                                "Accept": "application/json",
+                                                "X-CSRF-TOKEN": document.querySelector(
+                                                    'meta[name="csrf-token"]').getAttribute("content")
+                                            },
+                                            body: JSON.stringify(rowData)
+                                        })
+                                        .then(res => res.json())
+                                        .then(response => {
+                                            console.log("Data berhasil disimpan:", response);
+                                        })
+                                        .catch(err => {
+                                            console.error("Gagal menyimpan hasil paste:", err);
+                                        });
+                                });
+
+                                previousData = JSON.parse(JSON.stringify(newData));
+                            });
+
+                            loadData();
+                        });
         </script>
 
         {{-- create data --}}
         <script>
-              function showToast(message, type = "success") {
+            function showToast(message, type = "success") {
                 const toast = document.getElementById("toastNotification");
                 toast.textContent = message;
                 toast.className = "";
                 toast.classList.add(type === "success" ? "toast-success" : "toast-error");
                 toast.style.display = "block";
 
-               setTimeout(() => {
+                setTimeout(() => {
                     toast.style.display = "none";
                 }, 3500);
             }
 
- function openModal() {
+            function openModal() {
                 document.getElementById("createModal").style.display = "block";
             }
 

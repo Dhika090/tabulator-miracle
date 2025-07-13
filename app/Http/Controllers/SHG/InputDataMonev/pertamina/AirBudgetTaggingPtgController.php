@@ -81,14 +81,14 @@ class AirBudgetTaggingPtgController extends Controller
         ];
 
         return view('SHG.InputDataMonev.pertamina.AirBudgetTaggingPtg', compact('tabs'));
-        // return view('SHG.InputDataMonev.pertamina.AirBudgetTaggingPtg');
+       
     }
 
     public function data()
     {
         $TargetPLO = AirBudgetTaggingPtg::select('*')
             ->select('*')
-            ->addSelect(DB::raw("TRY_CONVERT(DATE, periode + '-01', 120) as periode_date"))
+            ->addSelect(DB::raw("TRY_CONVERT(DATE, CONCAT('01-', periode), 120) as periode_date"))
             ->orderBy('periode_date', 'asc')
             ->get();
 
@@ -109,25 +109,10 @@ class AirBudgetTaggingPtgController extends Controller
 
     public function update(AirBudgetTaggingPtgRequest $request, $id)
     {
-        $validated = [];
+        $progress = AirBudgetTaggingPtg::findOrFail($id);
+        $progress->update($request->validated());
 
-        $validated['jumlah_aset_critical_pce'] = $request->filled('jumlah_aset_critical_pce')
-            ? (int) floatval($request->jumlah_aset_critical_pce)
-            : null;
-
-        $validated['jumlah_aset_critical_sece'] = $request->filled('jumlah_aset_critical_sece')
-            ? (int) floatval($request->jumlah_aset_critical_sece)
-            : null;
-
-        $validated['jumlah_aset_important'] = $request->filled('jumlah_aset_important')
-            ? (int) floatval($request->jumlah_aset_important)
-            : null;
-
-        $validated['jumlah_aset_secondary'] = $request->filled('jumlah_aset_secondary')
-            ? (int) floatval($request->jumlah_aset_secondary)
-            : null;
-
-        AirBudgetTaggingPtg::findOrFail($id)->update($validated);
+        return response()->json(['success' => true, 'message' => 'Data berhasil diupdate']);
     }
 
 

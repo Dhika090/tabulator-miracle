@@ -612,15 +612,13 @@
                         </li>
                         <li
                             class="menu-item {{ request()->is('monev/shcnt/input-data/availability-region-1') ? 'active' : '' }}">
-                            <a class="menu-link"
-                                href="{{ url('monev/shcnt/input-data/availability-region-1') }}">
+                            <a class="menu-link" href="{{ url('monev/shcnt/input-data/availability-region-1') }}">
                                 <i class="fa fa-wrench me-2"></i>Availability
                             </a>
                         </li>
                         <li
                             class="menu-item {{ request()->is('monev/shcnt/input-data/pelatihan-aims-region-1') ? 'active' : '' }}">
-                            <a class="menu-link"
-                                href="{{ url('monev/shcnt/input-data/pelatihan-aims-region-1') }}">
+                            <a class="menu-link" href="{{ url('monev/shcnt/input-data/pelatihan-aims-region-1') }}">
                                 <i class="fa fa-wrench me-2"></i>Pelatihan AIMS
                             </a>
                         </li>
@@ -639,9 +637,9 @@
                             </a>
                         </li>
                         <li
-                            class="menu-item {{ request()->is('monev/shcnt/input-data/realisasi-anggaran-ai-regional-1') ? 'active' : '' }}">
+                            class="menu-item {{ request()->is('monev/shcnt/input-data/realisasi-anggaran-ai-region-1') ? 'active' : '' }}">
                             <a class="menu-link"
-                                href="{{ url('monev/shcnt/input-data/realisasi-anggaran-ai-regional-1') }}">
+                                href="{{ url('monev/shcnt/input-data/realisasi-anggaran-ai-region-1') }}">
                                 <i class="fa fa-wrench me-2"></i>Realisasi Anggaran AI
                             </a>
                         </li>
@@ -653,27 +651,28 @@
                             </a>
                         </li>
                         <li
-                            class="menu-item {{ request()->is('monev/shcnt/input-data/realisasi-progres-fisik-ai-regional-1') ? 'active' : '' }}">
+                            class="menu-item {{ request()->is('monev/shcnt/input-data/realisasi-prog-fisik-ai-region-1') ? 'active' : '' }}">
                             <a class="menu-link"
-                                href="{{ url('monev/shcnt/input-data/realisasi-progres-fisik-ai-regional-1') }}">
+                                href="{{ url('monev/shcnt/input-data/realisasi-prog-fisik-ai-region-1') }}">
                                 <i class="fa fa-wrench me-2"></i>Realisasi Prog Fisik AI
                             </a>
                         </li>
                         <li
-                            class="menu-item {{ request()->is('monev/shcnt/input-data/sap-asset-regional-1') ? 'active' : '' }}">
-                            <a class="menu-link" href="{{ url('monev/shcnt/input-data/sap-asset-regional-1') }}">
+                            class="menu-item {{ request()->is('monev/shcnt/input-data/sap-asset-region-1') ? 'active' : '' }}">
+                            <a class="menu-link" href="{{ url('monev/shcnt/input-data/sap-asset-region-1') }}">
                                 <i class="fa fa-wrench me-2"></i>Sap Asset
                             </a>
                         </li>
                         <li
-                            class="menu-item {{ request()->is('monev/shcnt/input-data/status-ai-regional-1') ? 'active' : '' }}">
-                            <a class="menu-link" href="{{ url('monev/shcnt/input-data/status-ai-regional-1') }}">
+                            class="menu-item {{ request()->is('monev/shcnt/input-data/status-asset-integrity-region-1') ? 'active' : '' }}">
+                            <a class="menu-link"
+                                href="{{ url('monev/shcnt/input-data/status-asset-integrity-region-1') }}">
                                 <i class="fa fa-wrench me-2"></i>Status Aset Integrity
                             </a>
                         </li>
                         <li
-                            class="menu-item {{ request()->is('monev/shcnt/input-data/status-plo-regional-1') ? 'active' : '' }}">
-                            <a class="menu-link" href="{{ url('monev/shcnt/input-data/status-plo-regional-1') }}">
+                            class="menu-item {{ request()->is('monev/shcnt/input-data/status-plo-region-1') ? 'active' : '' }}">
+                            <a class="menu-link" href="{{ url('monev/shcnt/input-data/status-plo-region-1') }}">
                                 <i class="fa fa-wrench me-2"></i>Status PLO
                             </a>
                         </li>

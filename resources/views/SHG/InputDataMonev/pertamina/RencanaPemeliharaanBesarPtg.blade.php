@@ -197,132 +197,8 @@
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
 
-                <div>
-                    <label>Periode</label>
-                    <input type="month" name="periode" id="periode">
-                </div>
-
-                <div>
-                    <label>No</label>
-                    <input type="number" name="no" id="no">
-                </div>
-
-                <div>
-                    <label>Company</label>
-                    <input type="text" name="company" id="company">
-                </div>
-
-                <div>
-                    <label>Lokasi</label>
-                    <input type="text" name="lokasi" id="lokasi">
-                </div>
-
-                <div>
-                    <label>Program Kerja</label>
-                    <input type="text" name="program_kerja" id="program_kerja">
-                </div>
-
-                <div>
-                    <label>Kategori Maintenance</label>
-                    <input type="text" name="kategori_maintenance" id="kategori_maintenance">
-                </div>
-
-                <div>
-                    <label>Besar Phasing</label>
-                    <input type="text" name="besar_phasing" id="besar_phasing">
-                </div>
-
-                <div>
-                    <label>Remark</label>
-                    <input type="text" name="remark" id="remark">
-                </div>
-
-                <!-- Bulan -->
-                <div>
-                    <label>Jan</label>
-                    <input type="number" name="jan" id="jan">
-                </div>
-
-                <div>
-                    <label>Feb</label>
-                    <input type="number" name="feb" id="feb">
-                </div>
-
-                <div>
-                    <label>Mar</label>
-                    <input type="number" name="mar" id="mar">
-                </div>
-
-                <div>
-                    <label>Apr</label>
-                    <input type="number" name="apr" id="apr">
-                </div>
-
-                <div>
-                    <label>May</label>
-                    <input type="number" name="may" id="may">
-                </div>
-
-                <div>
-                    <label>Jun</label>
-                    <input type="number" name="jun" id="jun">
-                </div>
-
-                <div>
-                    <label>Jul</label>
-                    <input type="number" name="jul" id="jul">
-                </div>
-
-                <div>
-                    <label>Aug</label>
-                    <input type="number" name="aug" id="aug">
-                </div>
-
-                <div>
-                    <label>Sep</label>
-                    <input type="number" name="sep" id="sep">
-                </div>
-
-                <div>
-                    <label>Oct</label>
-                    <input type="number" name="oct" id="oct">
-                </div>
-
-                <div>
-                    <label>Nov</label>
-                    <input type="number" name="nov" id="nov">
-                </div>
-
-                <div>
-                    <label>Dec</label>
-                    <input type="number" name="dec" id="dec">
-                </div>
-
-                <!-- Kerugian -->
-                <div>
-                    <label>Biaya Kerugian (USD)</label>
-                    <input type="number" name="biaya_kerugian" id="biaya_kerugian">
-                </div>
-
-                <div>
-                    <label>Keterangan Kerugian</label>
-                    <input type="text" name="keterangan_kerugian" id="keterangan_kerugian">
-                </div>
-
-                <div>
-                    <label>Penyebab</label>
-                    <input type="text" name="penyebab" id="penyebab">
-                </div>
-
-                <div>
-                    <label>Kendala</label>
-                    <input type="text" name="kendala" id="kendala">
-                </div>
-
-                <div>
-                    <label>Tindak Lanjut</label>
-                    <input type="text" name="tindak_lanjut" id="tindak_lanjut">
-                </div>
+                <label>Jumlah Row yang ingin dibuat</label>
+                <input type="number" name="jumlah_row" id="jumlah_row" min="1" value="1" required>
 
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
@@ -340,6 +216,7 @@
 
         <script>
             const BASE_URL = "{{ config('app.url') }}";
+
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
                     fetch(`rencana-pemeliharaan-besar-ptg/${id}`, {
@@ -590,7 +467,7 @@
             }
 
             function loadData() {
-                fetch("/monev/shg/input-data/rencana-pemeliharaan-besar-ptg/data", {
+                fetch(`${BASE_URL}/monev/shg/input-data/rencana-pemeliharaan-besar-ptg/data`, {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -711,76 +588,80 @@
                             editor: "input"
                         },
                         {
-                            title: "Jan",
-                            field: "jan",
-                            editor: "number",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "Feb",
-                            field: "feb",
-                            editor: "number",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "Mar",
-                            field: "mar",
-                            editor: "number",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "Apr",
-                            field: "apr",
-                            editor: "number",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "May",
-                            field: "may",
-                            editor: "number",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "Jun",
-                            field: "jun",
-                            editor: "number",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "Jul",
-                            field: "jul",
-                            editor: "number",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "Aug",
-                            field: "aug",
-                            editor: "number",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "Sep",
-                            field: "sep",
-                            editor: "number",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "Oct",
-                            field: "oct",
-                            editor: "number",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "Nov",
-                            field: "nov",
-                            editor: "number",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "Dec",
-                            field: "dec",
-                            editor: "number",
-                            hozAlign: "center"
+                            title: "Bulan",
+                            columns: [{
+                                    title: "Jan",
+                                    field: "jan",
+                                    editor: "number",
+                                    hozAlign: "center"
+                                },
+                                {
+                                    title: "Feb",
+                                    field: "feb",
+                                    editor: "number",
+                                    hozAlign: "center"
+                                },
+                                {
+                                    title: "Mar",
+                                    field: "mar",
+                                    editor: "number",
+                                    hozAlign: "center"
+                                },
+                                {
+                                    title: "Apr",
+                                    field: "apr",
+                                    editor: "number",
+                                    hozAlign: "center"
+                                },
+                                {
+                                    title: "May",
+                                    field: "may",
+                                    editor: "number",
+                                    hozAlign: "center"
+                                },
+                                {
+                                    title: "Jun",
+                                    field: "jun",
+                                    editor: "number",
+                                    hozAlign: "center"
+                                },
+                                {
+                                    title: "Jul",
+                                    field: "jul",
+                                    editor: "number",
+                                    hozAlign: "center"
+                                },
+                                {
+                                    title: "Aug",
+                                    field: "aug",
+                                    editor: "number",
+                                    hozAlign: "center"
+                                },
+                                {
+                                    title: "Sep",
+                                    field: "sep",
+                                    editor: "number",
+                                    hozAlign: "center"
+                                },
+                                {
+                                    title: "Oct",
+                                    field: "oct",
+                                    editor: "number",
+                                    hozAlign: "center"
+                                },
+                                {
+                                    title: "Nov",
+                                    field: "nov",
+                                    editor: "number",
+                                    hozAlign: "center"
+                                },
+                                {
+                                    title: "Dec",
+                                    field: "dec",
+                                    editor: "number",
+                                    hozAlign: "center"
+                                },
+                            ]
                         },
                         {
                             title: "Biaya Kerugian (USD)",
@@ -909,39 +790,47 @@
                     return changes;
                 }
 
-                table.on("dataChanged", function(newData) {
-                    const changedRows = getChangedRows(newData, previousData);
-                    console.log("Baris yang berubah:", changedRows);
+                function isValidPeriodeFormat(value) {
+                    const regex = /^[A-Za-z]{3}-\d{2}$/;
+                    return regex.test(value);
+                }
 
-                    changedRows.forEach(rowData => {
-                        fetch(`rencana-pemeliharaan-besar-ptg/${rowData.id}`, {
-                                method: "PUT",
-                                headers: {
-                                    "Content-Type": "application/json",
-                                    "Accept": "application/json",
-                                    "X-CSRF-TOKEN": document.querySelector(
-                                        'meta[name="csrf-token"]').getAttribute("content")
-                                },
-                                body: JSON.stringify(rowData)
-                            })
-                            .then(res => res.json())
-                            .then(response => {
-                                console.log("Data berhasil disimpan:", response);
-                            })
-                            .catch(err => {
-                                console.error("Gagal menyimpan hasil paste:", err);
-                            });
-                    });
-
-                    previousData = JSON.parse(JSON.stringify(newData));
-                });
-
+                function isValidAngkaBulan(value) {
+                    const angka = parseFloat(value);
+                    return !isNaN(angka) && angka >= 0;
+                }
+                const bulanFields = [
+                    "jan", "feb", "mar", "apr", "may", "jun",
+                    "jul", "aug", "sep", "oct", "nov", "dec"
+                ];
 
                 table.on("cellEdited", function(cell) {
                     const updatedData = cell.getRow().getData();
                     const id = updatedData.id;
 
                     if (!id) return;
+
+                    const field = cell.getField();
+                    const value = cell.getValue();
+
+                    if (field === "periode" && !isValidPeriodeFormat(value)) {
+                        showToast("Format Periode tidak valid! Gunakan format: Sep-24", "error");
+                        cell.restoreOldValue();
+                        return;
+                    }
+
+                    const bulanFields = [
+                        "jan", "feb", "mar", "apr", "may", "jun",
+                        "jul", "aug", "sep", "oct", "nov", "dec"
+                    ];
+
+                    if (bulanFields.includes(field) && !isValidAngkaBulan(value)) {
+                        showToast(`Nilai bulan ${field.toUpperCase()} tidak valid! Harus berupa angka Numerik`,
+                            "error");
+                        cell.restoreOldValue();
+                        return;
+                    }
+
 
                     fetch(`rencana-pemeliharaan-besar-ptg/${id}`, {
                             method: "PUT",
@@ -954,8 +843,89 @@
                             body: JSON.stringify(updatedData)
                         })
                         .then(res => res.json())
-                        .then(data => console.log("Berhasil update:", data))
-                        .catch(err => console.error("Gagal update:", err));
+                        .then(data => {
+                            if (data.success) {
+                                showToast("Update berhasil!", "success");
+                            } else {
+                                showToast("Update gagal: " + data.message, "error");
+                            }
+                        })
+                        .catch(err => {
+                            console.error("Gagal update:", err);
+                            showToast("Terjadi kesalahan saat update!", "error");
+                        });
+                });
+
+
+                table.on("dataChanged", function(newData) {
+                    const changedRows = getChangedRows(newData, previousData);
+                    console.log("Baris yang berubah:", changedRows);
+
+                    changedRows.forEach((rowData, index) => {
+                        const id = rowData.id;
+                        if (!id) return;
+
+                        const oldRow = previousData.find(r => r.id === id);
+                        if (!oldRow) return;
+
+                        if (rowData.periode !== oldRow.periode && !isValidPeriodeFormat(rowData
+                                .periode)) {
+                            showToast(
+                                `"${rowData.periode}" Format Periode tidak valid! Gunakan format: Jan-25`,
+                                "error");
+
+                            rowData.periode = oldRow.periode;
+                            table.updateData([{
+                                id: rowData.id,
+                                periode: oldRow.periode
+                            }]);
+                            return;
+                        }
+
+                        for (const bulan of bulanFields) {
+                            if (rowData[bulan] !== oldRow[bulan] && !isValidAngkaBulan(rowData[
+                                    bulan])) {
+                                showToast(
+                                    `Nilai bulan ${bulan.toUpperCase()} tidak valid! Harus angka Numerik`,
+                                    "error");
+
+                                rowData[bulan] = oldRow[bulan];
+                                const updatePayload = {
+                                    id: rowData.id
+                                };
+                                updatePayload[bulan] = oldRow[bulan];
+                                table.updateData([updatePayload]);
+                                return;
+                            }
+                        }
+
+                        fetch(`rencana-pemeliharaan-besar-ptg/${rowData.id}`, {
+                                method: "PUT",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                    "Accept": "application/json",
+                                    "X-CSRF-TOKEN": document.querySelector(
+                                        'meta[name="csrf-token"]').getAttribute("content")
+                                },
+                                body: JSON.stringify(rowData)
+                            })
+                            .then(res => res.json())
+                            .then(response => {
+                                if (response.success) {
+                                    showToast(`Data berhasil disimpan`, "success");
+                                } else {
+                                    showToast(
+                                        `Format Periode tidak valid! Gunakan format: Jan-25 : ${response.message}`,
+                                        "error");
+                                }
+                            })
+                            .catch(err => {
+                                console.error("Gagal menyimpan hasil paste:", err);
+                                showToast(`Kesalahan pada ID ${id}`, "error");
+                            });
+                    });
+
+                    previousData = JSON.parse(JSON.stringify(newData));
                 });
 
                 loadData();
@@ -971,7 +941,7 @@
                 toast.classList.add(type === "success" ? "toast-success" : "toast-error");
                 toast.style.display = "block";
 
-               setTimeout(() => {
+                setTimeout(() => {
                     toast.style.display = "none";
                 }, 3500);
             }
@@ -992,52 +962,64 @@
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
 
-                fetch("rencana-pemeliharaan-besar-ptg", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Accept": "application/json",
-                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute(
-                                "content")
-                        },
-                        body: JSON.stringify({
-                            periode: data.periode,
-                            no: data.no,
-                            company: data.company,
-                            lokasi: data.lokasi,
-                            program_kerja: data.program_kerja,
-                            kategori_maintenance: data.kategori_maintenance,
-                            besar_phasing: data.besar_phasing,
-                            remark: data.remark,
-                            jan: data.jan,
-                            feb: data.feb,
-                            mar: data.mar,
-                            apr: data.apr,
-                            may: data.may,
-                            jun: data.jun,
-                            jul: data.jul,
-                            aug: data.aug,
-                            sep: data.sep,
-                            oct: data.oct,
-                            nov: data.nov,
-                            dec: data.dec,
-                            biaya_kerugian: data.biaya_kerugian,
-                            keterangan_kerugian: data.keterangan_kerugian,
-                            penyebab: data.penyebab,
-                            kendala: data.kendala,
-                            tindak_lanjut: data.tindak_lanjut
-                        })
-                    })
-                    .then(response => response.json())
-                    .then(result => {
-                        if (result.success) {
-                            showToast(result.message || "Data berhasil disimpan", "success");
-                            table.setData("/monev/shg/input-data/rencana-pemeliharaan-besar-ptg/data");
-                            this.reset();
-                            closeModal();
+                const jumlahRow = parseInt(data.jumlah_row);
+
+                const payloadArray = [];
+
+                for (let i = 0; i < jumlahRow; i++) {
+                    payloadArray.push({
+                        periode: data.periode,
+                        company: data.company,
+                        no: data[`no_${i}`],
+                        lokasi: data[`lokasi_${i}`],
+                        program_kerja: data[`program_kerja_${i}`],
+                        kategori_maintenance: data[`kategori_maintenance_${i}`],
+                        besar_phasing: data[`besar_phasing_${i}`],
+                        remark: data[`remark_${i}`],
+                        jan: data[`jan_${i}`],
+                        feb: data[`feb_${i}`],
+                        mar: data[`mar_${i}`],
+                        apr: data[`apr_${i}`],
+                        may: data[`may_${i}`],
+                        jun: data[`jun_${i}`],
+                        jul: data[`jul_${i}`],
+                        aug: data[`aug_${i}`],
+                        sep: data[`sep_${i}`],
+                        oct: data[`oct_${i}`],
+                        nov: data[`nov_${i}`],
+                        dec: data[`dec_${i}`],
+                        biaya_kerugian: data[`biaya_kerugian_${i}`],
+                        keterangan_kerugian: data[`keterangan_kerugian_${i}`],
+                        penyebab: data[`penyebab_${i}`],
+                        kendala: data[`kendala_${i}`],
+                        tindak_lanjut: data[`tindak_lanjut_${i}`]
+                    });
+                }
+
+                Promise.all(payloadArray.map(dataItem => {
+                        return fetch("rencana-pemeliharaan-besar-ptg", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute(
+                                        "content")
+                            },
+                            body: JSON.stringify(dataItem)
+                        }).then(res => res.json());
+                    }))
+                    .then(results => {
+                        const gagal = results.filter(r => !r.success);
+                        if (gagal.length === 0) {
+                            showToast(`${jumlahRow} baris data berhasil buat`, "success");
                         } else {
-                            showToast(result.message || "Gagal menyimpan data", "error");
+                            showToast(`${gagal.length} data gagal disimpan`, "error");
                         }
+
+                        table.setData(`${BASE_URL}/monev/shg/input-data/rencana-pemeliharaan-besar-ptg/data`);
+                        document.getElementById("createForm").reset();
+                        closeModal();
                     })
                     .catch(error => {
                         console.error("Error saat submit:", error);

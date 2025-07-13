@@ -534,6 +534,21 @@
                     });
                 });
 
+                function getChangedRows(newData, oldData) {
+                    const changes = [];
+                    newData.forEach((row, index) => {
+                        if (!row.id) return;
+                        const oldRow = oldData[index];
+                        if (!oldRow) return;
+
+                        const isDifferent = Object.keys(row).some(key => row[key] !== oldRow[key]);
+                        if (isDifferent) {
+                            changes.push(row);
+                        }
+                    });
+                    return changes;
+                }
+
                 function isValidPeriodeFormat(value) {
                     const regex = /^[A-Za-z]{3}-\d{2}$/;
                     return regex.test(value);
@@ -579,21 +594,6 @@
                 table.on("dataLoaded", function(newData) {
                     previousData = JSON.parse(JSON.stringify(newData));
                 });
-
-                function getChangedRows(newData, oldData) {
-                    const changes = [];
-                    newData.forEach((row, index) => {
-                        if (!row.id) return;
-                        const oldRow = oldData[index];
-                        if (!oldRow) return;
-
-                        const isDifferent = Object.keys(row).some(key => row[key] !== oldRow[key]);
-                        if (isDifferent) {
-                            changes.push(row);
-                        }
-                    });
-                    return changes;
-                }
 
                 table.on("dataChanged", function(newData) {
                     const changedRows = getChangedRows(newData, previousData);

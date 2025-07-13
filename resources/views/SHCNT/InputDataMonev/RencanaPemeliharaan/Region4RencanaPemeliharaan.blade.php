@@ -688,6 +688,20 @@
                     });
                 });
 
+                function isValidPeriodeFormat(value) {
+                    const regex = /^[A-Za-z]{3}-\d{2}$/;
+                    return regex.test(value);
+                }
+
+                function isValidAngkaBulan(value) {
+                    const angka = parseFloat(value);
+                    return !isNaN(angka) && angka >= 0;
+                }
+                const bulanFields = [
+                    "jan", "feb", "mar", "apr", "may", "jun",
+                    "jul", "aug", "sep", "oct", "nov", "dec"
+                ];
+
                 let previousData = [];
                 table.on("dataLoaded", function(newData) {
                     previousData = JSON.parse(JSON.stringify(newData));
@@ -712,7 +726,7 @@
                     const changedRows = getChangedRows(newData, previousData);
                     console.log("Baris yang berubah:", changedRows);
 
-                    changedRows.forEach((rowData, index) => {
+                    changedRows.forEach((rowData) => {
                         const id = rowData.id;
                         if (!id) return;
 
@@ -726,15 +740,31 @@
                                 "error");
 
                             rowData.periode = oldRow.periode;
-
                             table.updateData([{
                                 id: rowData.id,
                                 periode: oldRow.periode
                             }]);
-
                             return;
                         }
-                        fetch(`rencana-pemeliharaan-region-4/${rowData.id}`, {
+
+                        for (const bulan of bulanFields) {
+                            if (rowData[bulan] !== oldRow[bulan] && !isValidAngkaBulan(rowData[
+                                    bulan])) {
+                                showToast(
+                                    `Nilai bulan ${bulan.toUpperCase()} tidak valid! Harus angka Numerik`,
+                                    "error");
+
+                                rowData[bulan] = oldRow[bulan];
+                                const updatePayload = {
+                                    id: rowData.id
+                                };
+                                updatePayload[bulan] = oldRow[bulan];
+                                table.updateData([updatePayload]);
+                                return;
+                            }
+                        }
+
+                        fetch(`rencana-pemeliharaan-region-4/${id}`, {
                                 method: "PUT",
                                 headers: {
                                     "Content-Type": "application/json",
@@ -749,9 +779,7 @@
                                 if (response.success) {
                                     showToast(`Data berhasil disimpan`, "success");
                                 } else {
-                                    showToast(
-                                        `Format Periode tidak valid! Gunakan format: Jan-25 : ${response.message}`,
-                                        "error");
+                                    showToast(`Gagal simpan: ${response.message}`, "error");
                                 }
                             })
                             .catch(err => {
@@ -763,17 +791,32 @@
                     previousData = JSON.parse(JSON.stringify(newData));
                 });
 
-
-                function isValidPeriodeFormat(value) {
-                    const regex = /^[A-Za-z]{3}-\d{2}$/;
-                    return regex.test(value);
-                }
-
                 table.on("cellEdited", function(cell) {
                     const updatedData = cell.getRow().getData();
                     const id = updatedData.id;
 
                     if (!id) return;
+
+                    const field = cell.getField();
+                    const value = cell.getValue();
+
+                    if (field === "periode" && !isValidPeriodeFormat(value)) {
+                        showToast("Format Periode tidak valid! Gunakan format: Sep-24", "error");
+                        cell.restoreOldValue();
+                        return;
+                    }
+
+                    const bulanFields = [
+                        "jan", "feb", "mar", "apr", "may", "jun",
+                        "jul", "aug", "sep", "oct", "nov", "dec"
+                    ];
+
+                    if (bulanFields.includes(field) && !isValidAngkaBulan(value)) {
+                        showToast(`Nilai bulan ${field.toUpperCase()} tidak valid! Harus berupa angka Numerik`,
+                            "error");
+                        cell.restoreOldValue();
+                        return;
+                    }
 
                     fetch(`rencana-pemeliharaan-region-4/${id}`, {
                             method: "PUT",
@@ -798,6 +841,7 @@
                             showToast("Terjadi kesalahan saat update!", "error");
                         });
                 });
+
 
                 loadData();
             });

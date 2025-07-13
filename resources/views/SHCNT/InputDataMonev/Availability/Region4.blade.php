@@ -332,7 +332,9 @@
 
                 const formatPercent = (cell) => {
                     let value = parseFloat(cell.getValue());
-                    return isNaN(value) ? "-" : value.toFixed(2) + " %";
+                    if (isNaN(value)) return "-";
+                    const displayValue = value <= 1 ? value * 100 : value;
+                    return displayValue.toFixed(2) + " %";
                 };
 
                 const columnMap = {
@@ -564,6 +566,7 @@
 
                 table.on("cellEdited", function(cell) {
                     const updatedData = cell.getRow().getData();
+                    const field = cell.getField();
                     const id = updatedData.id;
 
                     if (!id) return;
@@ -574,7 +577,18 @@
                         return;
                     }
 
-                    fetch(`availability-region-4/${id}`, {
+                    if (field === "target" || field === "availability") {
+                        let value = parseFloat(cell.getValue());
+                        if (!isNaN(value)) {
+                            updatedData[field] = value > 1 ? (value / 100) : value;
+
+                            cell.getRow().update({
+                                [field]: updatedData[field]
+                            });
+                        }
+                    }
+
+                    fetch(`availability-region-2/${id}`, {
                             method: "PUT",
                             headers: {
                                 "Content-Type": "application/json",
@@ -637,7 +651,14 @@
                             return;
                         }
 
-                        fetch(`availability-region-4/${id}`, {
+                        ["target", "availability"].forEach(field => {
+                            const value = parseFloat(newRow[field]);
+                            if (!isNaN(value)) {
+                                newRow[field] = value > 1 ? (value / 100) : value;
+                            }
+                        });
+
+                        fetch(`availability-region-2/${id}`, {
                                 method: "PUT",
                                 headers: {
                                     "Content-Type": "application/json",
@@ -650,10 +671,9 @@
                             .then(res => res.json())
                             .then(response => {
                                 if (response.success) {
-                                    showToast(`Data ID ${id} berhasil disimpan`, "success");
+                                    showToast(`Data berhasil disimpan`, "success");
                                 } else {
-                                    showToast(`Gagal simpan ID ${id}: ${response.message}`,
-                                        "error");
+                                    showToast(`Gagal simpan : ${response.message}`, "error");
                                 }
                             })
                             .catch(err => {

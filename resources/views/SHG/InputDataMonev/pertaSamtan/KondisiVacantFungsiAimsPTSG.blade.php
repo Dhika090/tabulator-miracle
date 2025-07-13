@@ -3,7 +3,7 @@
     @push('styles')
         <link href="https://unpkg.com/tabulator-tables@5.6.0/dist/css/tabulator.min.css" rel="stylesheet">
         <style>
-          .tabulator-wrapper {
+            .tabulator-wrapper {
                 overflow-x: auto;
             }
 
@@ -196,42 +196,16 @@
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
 
-                <div>
-                    <label>Periode</label>
-                    <input type="month" name="periode" id="periode">
-                </div>
+                <label>Jumlah Row yang ingin dibuat</label>
+                <input type="number" name="jumlah_row" id="jumlah_row" min="1" value="1" required>
 
-                <div>
-                    <label>Company</label>
-                    <input type="text" name="company" id="company">
-                </div>
-
-                <div>
-                    <label>Total Personil Asset Integrity</label>
-                    <input type="number" name="total_personil_asset_integrity" id="total_personil_asset_integrity">
-                </div>
-
-                <div>
-                    <label>Jumlah Personil Vacant</label>
-                    <input type="number" name="jumlah_personil_vacant" id="jumlah_personil_vacant">
-                </div>
-
-                <div>
-                    <label>Jumlah Personil Pensiun &lt; 1 Thn</label>
-                    <input type="number" name="jumlah_personil_pensiun" id="jumlah_personil_pensiun">
-                </div>
-
-                <div>
-                    <label>Keterangan</label>
-                    <input type="text" name="keterangan" id="keterangan" rows="3"></input>
-                </div>
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
 
         </div>
     </div>
 
-    
+
     <div id="toastNotification"
         style="display:none; position: fixed; top: 20px; right: 20px; z-index: 9999; padding: 15px 20px; border-radius: 8px; color: white; font-weight: bold;">
     </div>
@@ -241,6 +215,7 @@
 
         <script>
             const BASE_URL = "{{ config('app.url') }}";
+
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
                     fetch(`kondisi-vacant-fungsi-aims-ptsg/${id}`, {
@@ -305,7 +280,7 @@
             }
 
             function loadData() {
-                fetch("/monev/shg/input-data/kondisi-vacant-fungsi-aims-ptsg/data", {
+                fetch(`${BASE_URL}/monev/shg/input-data/kondisi-vacant-fungsi-aims-ptsg/data`, {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -472,20 +447,20 @@
                             editor: "input"
                         },
                         {
-    title: "Aksi",
-    download: false,
-    hozAlign: "center",
-    width: 150,
-    formatter: (cell) => {
-        const row = cell.getData();
-        return `
+                            title: "Aksi",
+                            download: false,
+                            hozAlign: "center",
+                            width: 150,
+                            formatter: (cell) => {
+                                const row = cell.getData();
+                                return `
             <button onclick='deleteData("${row.id}")'
                 class="btn btn-sm btn-danger">
                 <i class="bi bi-trash"></i> Hapus
             </button>
         `;
-    }
-}
+                            }
+                        }
                     ]
                 };
 
@@ -576,7 +551,28 @@
                     const changedRows = getChangedRows(newData, previousData);
                     console.log("Baris yang berubah:", changedRows);
 
-                    changedRows.forEach(rowData => {
+                    changedRows.forEach((rowData, index) => {
+                        const id = rowData.id;
+                        if (!id) return;
+
+                        const oldRow = previousData.find(r => r.id === id);
+                        if (!oldRow) return;
+
+                        if (rowData.periode !== oldRow.periode && !isValidPeriodeFormat(rowData
+                                .periode)) {
+                            showToast(
+                                `"${rowData.periode}" Format Periode tidak valid! Gunakan format: Jan-25`,
+                                "error");
+
+                            rowData.periode = oldRow.periode;
+
+                            table.updateData([{
+                                id: rowData.id,
+                                periode: oldRow.periode
+                            }]);
+
+                            return;
+                        }
                         fetch(`kondisi-vacant-fungsi-aims-ptsg/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
@@ -589,15 +585,27 @@
                             })
                             .then(res => res.json())
                             .then(response => {
-                                console.log("Data berhasil disimpan:", response);
+                                if (response.success) {
+                                    showToast(`Data berhasil disimpan`, "success");
+                                } else {
+                                    showToast(
+                                        `Format Periode tidak valid! Gunakan format: Jan-25 : ${response.message}`,
+                                        "error");
+                                }
                             })
                             .catch(err => {
                                 console.error("Gagal menyimpan hasil paste:", err);
+                                showToast(`Kesalahan pada ID ${id}`, "error");
                             });
                     });
 
                     previousData = JSON.parse(JSON.stringify(newData));
                 });
+
+                function isValidPeriodeFormat(value) {
+                    const regex = /^[A-Za-z]{3}-\d{2}$/;
+                    return regex.test(value);
+                }
 
                 table.on("cellEdited", function(cell) {
                     const updatedData = cell.getRow().getData();
@@ -605,6 +613,11 @@
 
                     if (!id) return;
 
+                    if (cell.getField() === "periode" && !isValidPeriodeFormat(cell.getValue())) {
+                        showToast("Format Periode tidak valid! Gunakan format: Sep-24", "error");
+                        cell.restoreOldValue();
+                        return;
+                    }
                     fetch(`kondisi-vacant-fungsi-aims-ptsg/${id}`, {
                             method: "PUT",
                             headers: {
@@ -616,8 +629,17 @@
                             body: JSON.stringify(updatedData)
                         })
                         .then(res => res.json())
-                        .then(data => console.log("Update berhasil:", data))
-                        .catch(err => console.error("Gagal update:", err));
+                        .then(data => {
+                            if (data.success) {
+                                showToast("Update berhasil!", "success");
+                            } else {
+                                showToast("Update gagal: " + data.message, "error");
+                            }
+                        })
+                        .catch(err => {
+                            console.error("Gagal update:", err);
+                            showToast("Terjadi kesalahan saat update!", "error");
+                        });
                 });
                 loadData();
             });
@@ -625,14 +647,14 @@
 
         {{-- create data  --}}
         <script>
-             function showToast(message, type = "success") {
+            function showToast(message, type = "success") {
                 const toast = document.getElementById("toastNotification");
                 toast.textContent = message;
                 toast.className = "";
                 toast.classList.add(type === "success" ? "toast-success" : "toast-error");
                 toast.style.display = "block";
 
-               setTimeout(() => {
+                setTimeout(() => {
                     toast.style.display = "none";
                 }, 3500);
             }
@@ -653,33 +675,43 @@
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
 
-                fetch("kondisi-vacant-fungsi-aims-ptsg", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Accept": "application/json",
-                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute(
-                                "content")
-                        },
-                        body: JSON.stringify({
-                            periode: data.periode,
-                            company: data.company,
-                            total_personil_asset_integrity: data.total_personil_asset_integrity,
-                            jumlah_personil_vacant: data.jumlah_personil_vacant,
-                            jumlah_personil_pensiun_1_thn: data.jumlah_personil_pensiun,
-                            keterangan: data.keterangan
-                        })
-                    })
-                    .then(response => response.json())
-                    .then(result => {
-                        if (result.success) {
-                            showToast(result.message || "Data berhasil disimpan", "success");
-                            table.setData("/monev/shg/input-data/kondisi-vacant-fungsi-aims-ptsg/data");
-                            this.reset();
-                            closeModal();
-                       } else {
-                            showToast(result.message || "Gagal menyimpan data", "error");
+                const jumlahRow = parseInt(data.jumlah_row);
+                const payloadArray = [];
+
+                for (let i = 0; i < jumlahRow; i++) {
+                    payloadArray.push({
+                        periode: data.periode,
+                        company: data.company,
+                        total_personil_asset_integrity: data.total_personil_asset_integrity,
+                        jumlah_personil_vacant: data.jumlah_personil_vacant,
+                        jumlah_personil_pensiun_1_thn: data.jumlah_personil_pensiun,
+                        keterangan: data.keterangan
+                    });
+                }
+
+                Promise.all(payloadArray.map(payload => {
+                        return fetch("kondisi-vacant-fungsi-aims-ptsg", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute("content")
+                            },
+                            body: JSON.stringify(payload)
+                        }).then(res => res.json());
+                    }))
+                    .then(results => {
+                        const gagal = results.filter(r => !r.success);
+                        if (gagal.length === 0) {
+                            showToast(`${jumlahRow} baris data berhasil dibuat`, "success");
+                        } else {
+                            showToast(`${gagal.length} data gagal disimpan`, "error");
                         }
+
+                        table.setData(`${BASE_URL}/monev/shg/input-data/kondisi-vacant-fungsi-aims-ptsg/data`);
+                        document.getElementById("createForm").reset();
+                        closeModal();
                     })
                     .catch(error => {
                         console.error("Error saat submit:", error);

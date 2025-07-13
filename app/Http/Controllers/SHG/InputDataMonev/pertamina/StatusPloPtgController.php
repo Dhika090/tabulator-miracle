@@ -100,7 +100,7 @@ class StatusPloPtgController extends Controller
     {
         $TargetPLO = DB::table('shg_pertamina_status_plo_ptg')
             ->select('*')
-            ->addSelect(DB::raw("TRY_CONVERT(DATE, periode + '-01', 120) as periode_date"))
+            ->addSelect(DB::raw("TRY_CONVERT(DATE, CONCAT('01-', periode), 120) as periode_date"))
             ->orderBy('periode_date', 'asc')
             ->get();
 

@@ -86,9 +86,9 @@ class RealisasiProgressFisikAI2025PtgController extends Controller
     public function data()
     {
         $TargetPLO = RealisasiProgressFisikAI2025Ptg::select('*')
-            ->select('*')
-            ->addSelect(DB::raw("TRY_CONVERT(DATE, periode + '-01', 120) as periode_date"))
-            ->orderBy('periode_date', 'asc')
+            ->addSelect(DB::raw("YEAR(periode) as periode_year"))
+            ->orderBy('periode_year', 'asc')
+            ->orderBy('no', 'asc')
             ->get();
 
         return response()->json($TargetPLO);

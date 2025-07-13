@@ -3,7 +3,7 @@
     @push('styles')
         <link href="https://unpkg.com/tabulator-tables@5.6.0/dist/css/tabulator.min.css" rel="stylesheet">
         <style>
-          .tabulator-wrapper {
+            .tabulator-wrapper {
                 overflow-x: auto;
             }
 
@@ -193,79 +193,17 @@
             <span class="close" onclick="closeModal()">&times;</span>
             <h3>Tambah Sistem Informasi AIMS GEI</h3>
             <form id="createForm">
-
                 <input type="hidden" name="id" id="form-id">
-                <div>
-                    <label for="periode">Periode</label>
-                    <input type="month" id="periode" name="periode">
-                </div>
 
-                <div>
-                    <label for="company">Company</label>
-                    <input type="text" id="company" name="company">
-                </div>
-
-                <div>
-                    <label for="jumlah_aset_operasi">Jumlah Aset Operasi</label>
-                    <input type="text" id="jumlah_aset_operasi" name="jumlah_aset_operasi">
-                </div>
-
-                <div>
-                    <label for="jumlah_aset_teregister">Jumlah Aset Teregister</label>
-                    <input type="text" id="jumlah_aset_teregister" name="jumlah_aset_teregister">
-                </div>
-
-                <div>
-                    <label for="kendala_aset_register">Kendala Aset Register</label>
-                    <input id="kendala_aset_register" type="text" name="kendala_aset_register"></input>
-                </div>
-
-                <div>
-                    <label for="tindak_lanjut_aset_register">Tindak Lanjut Aset Register</label>
-                    <input id="tindak_lanjut_aset_register" type="text" name="tindak_lanjut_aset_register"></input>
-                </div>
-
-                <div>
-                    <label for="sistem_informasi_aim">Sistem Informasi AIM</label>
-                    <input type="text" id="sistem_informasi_aim" name="sistem_informasi_aim">
-                </div>
-
-                <div>
-                    <label for="total_wo_comply">Total WO Comply</label>
-                    <input type="number" id="total_wo_comply" name="total_wo_comply">
-                </div>
-
-                <div>
-                    <label for="total_wo_completed">Total WO Completed</label>
-                    <input type="number" id="total_wo_completed" name="total_wo_completed">
-                </div>
-
-                <div>
-                    <label for="total_wo_in_progress">Total WO In Progress</label>
-                    <input type="number" id="total_wo_in_progress" name="total_wo_in_progress">
-                </div>
-
-                <div>
-                    <label for="total_wo_backlog">Total WO Backlog</label>
-                    <input type="number" id="total_wo_backlog" name="total_wo_backlog">
-                </div>
-
-                <div>
-                    <label for="kendala">Kendala</label>
-                    <input id="kendala" type="text" name="kendala"></input>
-                </div>
-
-                <div>
-                    <label for="tindak_lanjut">Tindak Lanjut</label>
-                    <input id="tindak_lanjut" type="text" name="tindak_lanjut"></input>
-                </div>
+                <label>Jumlah Row yang ingin dibuat</label>
+                <input type="number" name="jumlah_row" id="jumlah_row" min="1" value="1" required>
 
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
         </div>
     </div>
 
-    
+
     <div id="toastNotification"
         style="display:none; position: fixed; top: 20px; right: 20px; z-index: 9999; padding: 15px 20px; border-radius: 8px; color: white; font-weight: bold;">
     </div>
@@ -275,6 +213,7 @@
 
         <script>
             const BASE_URL = "{{ config('app.url') }}";
+
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
                     fetch(`sistem-informasi-aims-gei/${id}`, {
@@ -608,20 +547,20 @@
                             width: 400
                         },
                         {
-    title: "Aksi",
-    download: false,
-    hozAlign: "center",
-    width: 150,
-    formatter: (cell) => {
-        const row = cell.getData();
-        return `
+                            title: "Aksi",
+                            download: false,
+                            hozAlign: "center",
+                            width: 150,
+                            formatter: (cell) => {
+                                const row = cell.getData();
+                                return `
             <button onclick='deleteData("${row.id}")'
                 class="btn btn-sm btn-danger">
                 <i class="bi bi-trash"></i> Hapus
             </button>
         `;
-    }
-}
+                            }
+                        }
                     ]
                 };
 
@@ -688,12 +627,23 @@
                     });
                 });
 
+                function isValidPeriodeFormat(value) {
+                    const regex = /^[A-Za-z]{3}-\d{2}$/;
+                    return regex.test(value);
+                }
+
                 table.on("cellEdited", function(cell) {
                     const updatedData = cell.getRow().getData();
                     const id = updatedData.id;
 
+
                     if (!id) return;
 
+                    if (cell.getField() === "periode" && !isValidPeriodeFormat(cell.getValue())) {
+                        showToast("Format Periode tidak valid! Gunakan format: Sep-24", "error");
+                        cell.restoreOldValue();
+                        return;
+                    }
                     fetch(`sistem-informasi-aims-gei/${id}`, {
                             method: "PUT",
                             headers: {
@@ -733,7 +683,28 @@
                     const changedRows = getChangedRows(newData, previousData);
                     console.log("Baris yang berubah:", changedRows);
 
-                    changedRows.forEach(rowData => {
+                    changedRows.forEach((rowData, index) => {
+                        const id = rowData.id;
+                        if (!id) return;
+
+                        const oldRow = previousData.find(r => r.id === id);
+                        if (!oldRow) return;
+
+                        if (rowData.periode !== oldRow.periode && !isValidPeriodeFormat(rowData
+                                .periode)) {
+                            showToast(
+                                `"${rowData.periode}" Format Periode tidak valid! Gunakan format: Jan-25`,
+                                "error");
+
+                            rowData.periode = oldRow.periode;
+
+                            table.updateData([{
+                                id: rowData.id,
+                                periode: oldRow.periode
+                            }]);
+
+                            return;
+                        }
                         fetch(`sistem-informasi-aims-gei/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
@@ -746,10 +717,17 @@
                             })
                             .then(res => res.json())
                             .then(response => {
-                                console.log("Data berhasil disimpan:", response);
+                                if (response.success) {
+                                    showToast(`Data berhasil disimpan`, "success");
+                                } else {
+                                    showToast(
+                                        `Format Periode tidak valid! Gunakan format: Jan-25 : ${response.message}`,
+                                        "error");
+                                }
                             })
                             .catch(err => {
                                 console.error("Gagal menyimpan hasil paste:", err);
+                                showToast(`Kesalahan pada ID ${id}`, "error");
                             });
                     });
 
@@ -761,14 +739,14 @@
 
         {{-- create data  --}}
         <script>
-             function showToast(message, type = "success") {
+            function showToast(message, type = "success") {
                 const toast = document.getElementById("toastNotification");
                 toast.textContent = message;
                 toast.className = "";
                 toast.classList.add(type === "success" ? "toast-success" : "toast-error");
                 toast.style.display = "block";
 
-               setTimeout(() => {
+                setTimeout(() => {
                     toast.style.display = "none";
                 }, 3500);
             }
@@ -820,7 +798,7 @@
                             table.setData(`${BASE_URL}/monev/shg/input-data/sistem-informasi-aims-gei/data`);
                             this.reset();
                             closeModal();
-                       } else {
+                        } else {
                             showToast(result.message || "Gagal menyimpan data", "error");
                         }
                     })

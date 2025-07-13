@@ -192,126 +192,17 @@
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
             <h3>Create New Data</h3>
-            <form id="createForm" class="form-grid">
-                <div class="form-column">
-                    <input type="hidden" name="id" id="form-id">
+            <form id="createForm">
+                <input type="hidden" name="id" id="form-id">
 
-                    <label>Periode:</label>
-                    <input type="month" name="periode" id="periode">
+                <label>Jumlah Row yang ingin dibuat</label>
+                <input type="number" name="jumlah_row" id="jumlah_row" min="1" value="1" required>
 
-                    <label>Subholding:</label>
-                    <input type="text" name="subholding" id="subholding">
-
-                    <label for="company">Company:</label>
-                    <select name="company" id="company" class="form-select">
-                        <option value="">-- Pilih Company --</option>
-                        @foreach ($companies as $company)
-                            <option value="{{ $company }}">{{ $company }}</option>
-                        @endforeach
-                    </select>
-
-                    <label>Unit:</label>
-                    <input type="text" name="unit" id="unit">
-
-                    <label>Asset Group:</label>
-                    <input type="text" name="asset_group" id="asset_group">
-
-                    <label>Jumlah:</label>
-                    <input type="number" name="jumlah" id="jumlah">
-
-                    <label>SECE Low Integrity - Breakdown:</label>
-                    <input type="number" name="sece_low_breakdown" id="sece_low_breakdown">
-
-                    <label>SECE Medium Integrity - Due Date Inspection:</label>
-                    <input type="number" name="sece_medium_due_date_inspection" id="sece_medium_due_date_inspection">
-
-                    <label>SECE Medium Integrity - Low Condition:</label>
-                    <input type="number" name="sece_medium_low_condition" id="sece_medium_low_condition">
-
-                    <label>SECE Medium Integrity - Low Performance:</label>
-                    <input type="number" name="sece_medium_low_performance" id="sece_medium_low_performance">
-
-                    <label>SECE High Integrity:</label>
-                    <input type="number" name="sece_high" id="sece_high">
-
-                    <label>PCE Low Integrity - Breakdown:</label>
-                    <input type="number" name="pce_low_breakdown" id="pce_low_breakdown">
-
-                    <label>PCE Medium Integrity - Due Date Inspection:</label>
-                    <input type="number" name="pce_medium_due_date_inspection" id="pce_medium_due_date_inspection">
-                </div>
-
-                <!-- Kolom Kanan -->
-                <div class="form-column">
-                    <label>PCE Medium Integrity - Low Condition:</label>
-                    <input type="number" name="pce_medium_low_condition" id="pce_medium_low_condition">
-
-                    <label>PCE Medium Integrity - Low Performance:</label>
-                    <input type="number" name="pce_medium_low_performance" id="pce_medium_low_performance">
-
-                    <label>PCE High Integrity:</label>
-                    <input type="number" name="pce_high" id="pce_high">
-
-                    <label>IMPORTANT Low Integrity - Breakdown:</label>
-                    <input type="number" name="important_low_breakdown" id="important_low_breakdown">
-
-                    <label>IMPORTANT Medium Integrity - Due Date Inspection:</label>
-                    <input type="number" name="important_medium_due_date_inspection"
-                        id="important_medium_due_date_inspection">
-
-                    <label>IMPORTANT Medium Integrity - Low Condition:</label>
-                    <input type="number" name="important_medium_low_condition" id="important_medium_low_condition">
-
-                    <label>IMPORTANT Medium Integrity - Low Performance:</label>
-                    <input type="number" name="important_medium_low_performance"
-                        id="important_medium_low_performance">
-
-                    <label>IMPORTANT High Integrity:</label>
-                    <input type="number" name="important_high" id="important_high">
-
-                    <label>SECONDARY Low Integrity - Breakdown:</label>
-                    <input type="number" name="secondary_low_breakdown" id="secondary_low_breakdown">
-
-                    <label>SECONDARY Medium Integrity - Due Date Inspection:</label>
-                    <input type="number" name="secondary_medium_due_date_inspection"
-                        id="secondary_medium_due_date_inspection">
-
-                    <label>SECONDARY Medium Integrity - Low Condition:</label>
-                    <input type="number" name="secondary_medium_low_condition" id="secondary_medium_low_condition">
-
-                    <label>SECONDARY Medium Integrity - Low Performance:</label>
-                    <input type="number" name="secondary_medium_low_performance"
-                        id="secondary_medium_low_performance">
-
-                    <label>SECONDARY High Integrity:</label>
-                    <input type="number" name="secondary_high" id="secondary_high">
-
-                    <label>Kegiatan Penurunan Low:</label>
-                    <input type="number" name="kegiatan_penurunan_low" id="kegiatan_penurunan_low">
-
-                    <label>Kegiatan Penurunan Med:</label>
-                    <input type="number" name="kegiatan_penurunan_med" id="kegiatan_penurunan_med">
-
-                    <label>Informasi Penyebab Low Integrity:</label>
-                    <input type="text" name="penyebab_low_integrity" id="penyebab_low_integrity">
-
-                    <label>Informasi Penambahan Jumlah Aset:</label>
-                    <input type="text" name="penambahan_jumlah_aset" id="penambahan_jumlah_aset">
-
-                    <label>Informasi Naik Turun Low Integrity:</label>
-                    <input type="text" name="naik_turun_low_integrity" id="naik_turun_low_integrity">
-                </div>
-
-                <!-- Tombol Submit -->
-                <div class="form-actions" style="grid-column: span 2;">
-                    <br><br>
-                    <button type="submit" class="btn btn-success">Submit</button>
-                </div>
+                <button type="submit" class="btn btn-success">Submit</button>
             </form>
 
         </div>
     </div>
-
 
     <div id="toastNotification"
         style="display:none; position: fixed; top: 20px; right: 20px; z-index: 9999; padding: 15px 20px; border-radius: 8px; color: white; font-weight: bold;">
@@ -322,6 +213,7 @@
 
         <script>
             const BASE_URL = "{{ config('app.url') }}";
+
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
                     fetch(`pertamina-gas/${id}`, {
@@ -889,11 +781,15 @@
                     });
                 });
 
-
                 let previousData = [];
                 table.on("dataLoaded", function(newData) {
                     previousData = JSON.parse(JSON.stringify(newData));
                 });
+
+                function isValidPeriodeFormat(value) {
+                    const regex = /^[A-Za-z]{3}-\d{2}$/;
+                    return regex.test(value);
+                }
 
                 function getChangedRows(newData, oldData) {
                     const changes = [];
@@ -914,7 +810,28 @@
                     const changedRows = getChangedRows(newData, previousData);
                     console.log("Baris yang berubah:", changedRows);
 
-                    changedRows.forEach(rowData => {
+                    changedRows.forEach((rowData, index) => {
+                        const id = rowData.id;
+                        if (!id) return;
+
+                        const oldRow = previousData.find(r => r.id === id);
+                        if (!oldRow) return;
+
+                        if (rowData.periode !== oldRow.periode && !isValidPeriodeFormat(rowData
+                                .periode)) {
+                            showToast(
+                                `"${rowData.periode}" Format Periode tidak valid! Gunakan format: Jan-25`,
+                                "error");
+
+                            rowData.periode = oldRow.periode;
+
+                            table.updateData([{
+                                id: rowData.id,
+                                periode: oldRow.periode
+                            }]);
+
+                            return;
+                        }
                         fetch(`pertamina-gas/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
@@ -927,10 +844,17 @@
                             })
                             .then(res => res.json())
                             .then(response => {
-                                console.log("Data berhasil disimpan:", response);
+                                if (response.success) {
+                                    showToast(`Data berhasil disimpan`, "success");
+                                } else {
+                                    showToast(
+                                        `Format Periode tidak valid! Gunakan format: Jan-25 : ${response.message}`,
+                                        "error");
+                                }
                             })
                             .catch(err => {
                                 console.error("Gagal menyimpan hasil paste:", err);
+                                showToast(`Kesalahan pada ID ${id}`, "error");
                             });
                     });
 
@@ -942,6 +866,11 @@
                     const id = updatedData.id;
 
                     if (!id) return;
+                    if (cell.getField() === "periode" && !isValidPeriodeFormat(cell.getValue())) {
+                        showToast("Format Periode tidak valid! Gunakan format: Sep-24", "error");
+                        cell.restoreOldValue();
+                        return;
+                    }
 
                     fetch(`pertamina-gas/${id}`, {
                             method: "PUT",
@@ -954,8 +883,17 @@
                             body: JSON.stringify(updatedData)
                         })
                         .then(res => res.json())
-                        .then(data => console.log("Update berhasil:", data))
-                        .catch(err => console.error("Gagal update:", err));
+                        .then(data => {
+                            if (data.success) {
+                                showToast("Update berhasil!", "success");
+                            } else {
+                                showToast("Update gagal: " + data.message, "error");
+                            }
+                        })
+                        .catch(err => {
+                            console.error("Gagal update:", err);
+                            showToast("Terjadi kesalahan saat update!", "error");
+                        });
                 });
                 loadData();
             });
@@ -970,7 +908,7 @@
                 toast.classList.add(type === "success" ? "toast-success" : "toast-error");
                 toast.style.display = "block";
 
-               setTimeout(() => {
+                setTimeout(() => {
                     toast.style.display = "none";
                 }, 3500);
             }
@@ -991,58 +929,70 @@
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
 
-                fetch("pertamina-gas", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Accept": "application/json",
-                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute(
-                                "content")
-                        },
-                        body: JSON.stringify({
-                            periode: data.periode,
-                            subholding: data.subholding,
-                            company: data.company,
-                            unit: data.unit,
-                            asset_group: data.asset_group,
-                            jumlah: data.jumlah,
-                            sece_low_breakdown: data.sece_low_breakdown,
-                            sece_medium_due_date_inspection: data.sece_medium_due_date_inspection,
-                            sece_medium_low_condition: data.sece_medium_low_condition,
-                            sece_medium_low_performance: data.sece_medium_low_performance,
-                            sece_high: data.sece_high,
-                            pce_low_breakdown: data.pce_low_breakdown,
-                            pce_medium_due_date_inspection: data.pce_medium_due_date_inspection,
-                            pce_medium_low_condition: data.pce_medium_low_condition,
-                            pce_medium_low_performance: data.pce_medium_low_performance,
-                            pce_high: data.pce_high,
-                            important_low_breakdown: data.important_low_breakdown,
-                            important_medium_due_date_inspection: data.important_medium_due_date_inspection,
-                            important_medium_low_condition: data.important_medium_low_condition,
-                            important_medium_low_performance: data.important_medium_low_performance,
-                            important_high: data.important_high,
-                            secondary_low_breakdown: data.secondary_low_breakdown,
-                            secondary_medium_due_date_inspection: data.secondary_medium_due_date_inspection,
-                            secondary_medium_low_condition: data.secondary_medium_low_condition,
-                            secondary_medium_low_performance: data.secondary_medium_low_performance,
-                            secondary_high: data.secondary_high,
-                            kegiatan_penurunan_low: data.kegiatan_penurunan_low,
-                            kegiatan_penurunan_med: data.kegiatan_penurunan_med,
-                            informasi_penyebab_low: data.informasi_penyebab_low,
-                            informasi_penambahan_jumlah_aset: data.informasi_penambahan_jumlah_aset,
-                            informasi_naik_turun_low: data.informasi_naik_turun_low
-                        })
-                    })
-                    .then(response => response.json())
-                    .then(result => {
-                        if (result.success) {
-                            showToast(result.message || "Data berhasil disimpan", "success");
-                            table.setData(`${BASE_URL}/monev/shg/input-data/pertamina-gas/data`);
-                            this.reset();
-                            closeModal();
+                const jumlahRow = parseInt(data.jumlah_row);
+
+                const payloadArray = [];
+
+                for (let i = 0; i < jumlahRow; i++) {
+                    payloadArray.push({
+                        periode: data.periode,
+                        subholding: data.subholding,
+                        company: data.company,
+                        unit: data.unit,
+                        asset_group: data.asset_group,
+                        jumlah: data.jumlah,
+                        sece_low_breakdown: data.sece_low_breakdown,
+                        sece_medium_due_date_inspection: data.sece_medium_due_date_inspection,
+                        sece_medium_low_condition: data.sece_medium_low_condition,
+                        sece_medium_low_performance: data.sece_medium_low_performance,
+                        sece_high: data.sece_high,
+                        pce_low_breakdown: data.pce_low_breakdown,
+                        pce_medium_due_date_inspection: data.pce_medium_due_date_inspection,
+                        pce_medium_low_condition: data.pce_medium_low_condition,
+                        pce_medium_low_performance: data.pce_medium_low_performance,
+                        pce_high: data.pce_high,
+                        important_low_breakdown: data.important_low_breakdown,
+                        important_medium_due_date_inspection: data.important_medium_due_date_inspection,
+                        important_medium_low_condition: data.important_medium_low_condition,
+                        important_medium_low_performance: data.important_medium_low_performance,
+                        important_high: data.important_high,
+                        secondary_low_breakdown: data.secondary_low_breakdown,
+                        secondary_medium_due_date_inspection: data.secondary_medium_due_date_inspection,
+                        secondary_medium_low_condition: data.secondary_medium_low_condition,
+                        secondary_medium_low_performance: data.secondary_medium_low_performance,
+                        secondary_high: data.secondary_high,
+                        kegiatan_penurunan_low: data.kegiatan_penurunan_low,
+                        kegiatan_penurunan_med: data.kegiatan_penurunan_med,
+                        informasi_penyebab_low: data.informasi_penyebab_low,
+                        informasi_penambahan_jumlah_aset: data.informasi_penambahan_jumlah_aset,
+                        informasi_naik_turun_low: data.informasi_naik_turun_low
+                    });
+                }
+
+                Promise.all(payloadArray.map(dataItem => {
+                        return fetch("pertamina-gas", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute(
+                                        "content")
+                            },
+                            body: JSON.stringify(dataItem)
+                        }).then(res => res.json());
+                    }))
+                    .then(results => {
+                        const gagal = results.filter(r => !r.success);
+                        if (gagal.length === 0) {
+                            showToast(`${jumlahRow} baris data berhasil buat`, "success");
                         } else {
-                            showToast(result.message || "Gagal menyimpan data", "error");
+                            showToast(`${gagal.length} data gagal disimpan`, "error");
                         }
+
+                        table.setData(`${BASE_URL}/monev/shg/input-data/pertamina-gas/data`);
+                        document.getElementById("createForm").reset();
+                        closeModal();
                     })
                     .catch(error => {
                         console.error("Error saat submit:", error);

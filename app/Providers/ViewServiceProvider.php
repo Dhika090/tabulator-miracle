@@ -262,7 +262,7 @@ class ViewServiceProvider extends ServiceProvider
 
             $view->with('tabs', $tabs);
         });
-        
+
         // SHG TIndak Lanjut
         View::composer('*', function ($view) {
             $routeName = optional(request()->route())->getName();
@@ -339,7 +339,7 @@ class ViewServiceProvider extends ServiceProvider
 
             $view->with('tabs', $tabs);
         });
-        
+
         View::composer('*', function ($view) {
             $routeName = optional(request()->route())->getName();
             if (!$routeName || !str_contains($routeName, 'pelatihan-aims-region-1')) return;
@@ -369,11 +369,87 @@ class ViewServiceProvider extends ServiceProvider
 
             $view->with('tabs', $tabs);
         });
+
         View::composer('*', function ($view) {
             $routeName = optional(request()->route())->getName();
             if (!$routeName || !str_contains($routeName, 'kondisi-vacant-aims-region-1')) return;
 
             $tabs = collect(config('shcnt-kondisi-vacant-aims'))->map(function ($tab) {
+                return [
+                    'title' => $tab['title'],
+                    'route' => route($tab['route']),
+                    'active' => request()->routeIs($tab['route']),
+                ];
+            })->toArray();
+
+            $view->with('tabs', $tabs);
+        });
+
+        View::composer('*', function ($view) {
+            $routeName = optional(request()->route())->getName();
+            if (!$routeName || !str_contains($routeName, 'realisasi-anggaran-ai-region-1')) return;
+
+            $tabs = collect(config('shcnt-realisasi-anggarai-ai'))->map(function ($tab) {
+                return [
+                    'title' => $tab['title'],
+                    'route' => route($tab['route']),
+                    'active' => request()->routeIs($tab['route']),
+                ];
+            })->toArray();
+
+            $view->with('tabs', $tabs);
+        });
+
+        View::composer('*', function ($view) {
+            $routeName = optional(request()->route())->getName();
+            if (!$routeName || !str_contains($routeName, 'realisasi-prog-fisik-ai-region-1')) return;
+
+            $tabs = collect(config('shcnt-realisasi-progress-fisik-ai'))->map(function ($tab) {
+                return [
+                    'title' => $tab['title'],
+                    'route' => route($tab['route']),
+                    'active' => request()->routeIs($tab['route']),
+                ];
+            })->toArray();
+
+            $view->with('tabs', $tabs);
+        });
+
+        View::composer('*', function ($view) {
+            $routeName = optional(request()->route())->getName();
+            if (!$routeName || !str_contains($routeName, 'sap-asset-region-1')) return;
+
+            $tabs = collect(config('shcnt-sap-asset'))->map(function ($tab) {
+                return [
+                    'title' => $tab['title'],
+                    'route' => route($tab['route']),
+                    'active' => request()->routeIs($tab['route']),
+                ];
+            })->toArray();
+
+            $view->with('tabs', $tabs);
+        });
+
+        View::composer('*', function ($view) {
+            $routeName = optional(request()->route())->getName();
+            if (!$routeName || !str_contains($routeName, 'status-asset-integrity-region-1')) return;
+
+            $tabs = collect(config('shcnt-status-asset-integrity'))->map(function ($tab) {
+                return [
+                    'title' => $tab['title'],
+                    'route' => route($tab['route']),
+                    'active' => request()->routeIs($tab['route']),
+                ];
+            })->toArray();
+
+            $view->with('tabs', $tabs);
+        });
+
+        View::composer('*', function ($view) {
+            $routeName = optional(request()->route())->getName();
+            if (!$routeName || !str_contains($routeName, 'status-plo-region-1')) return;
+
+            $tabs = collect(config('shcnt-status-plo'))->map(function ($tab) {
                 return [
                     'title' => $tab['title'],
                     'route' => route($tab['route']),

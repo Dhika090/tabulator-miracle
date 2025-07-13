@@ -3,7 +3,7 @@
     @push('styles')
         <link href="https://unpkg.com/tabulator-tables@5.6.0/dist/css/tabulator.min.css" rel="stylesheet">
         <style>
-          .tabulator-wrapper {
+            .tabulator-wrapper {
                 overflow-x: auto;
             }
 
@@ -194,135 +194,9 @@
             <h3>Tambah Rencana Pemeliharaan GEI</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
-                <label for="periode">Periode (Tahun):</label>
-                <select name="periode" id="periode" class="form-select">
-                    <option value="" selected disabled>Pilih Periode</option>
-                    @for ($year = 2000; $year <= date('Y') + 5; $year++)
-                        <option value="{{ $year }}">{{ $year }}</option>
-                    @endfor
-                </select>
 
-
-                <div>
-                    <label for="no">No</label>
-                    <input type="number" id="no" name="no">
-                </div>
-
-                <div>
-                    <label for="company">Company</label>
-                    <input type="text" id="company" name="company">
-                </div>
-
-                <div>
-                    <label for="lokasi">Lokasi</label>
-                    <input type="text" id="lokasi" name="lokasi">
-                </div>
-
-                <div>
-                    <label for="program_kerja">Program Kerja</label>
-                    <input type="text" id="program_kerja" name="program_kerja">
-                </div>
-
-                <div>
-                    <label for="kategori_maintenance">Kategori Maintenance</label>
-                    <input type="text" id="kategori_maintenance" name="kategori_maintenance">
-                </div>
-
-                <div>
-                    <label for="besar_phasing">Besar Phasing</label>
-                    <input type="number" id="besar_phasing" name="besar_phasing" step="any">
-                </div>
-
-                <div>
-                    <label for="remark">Remark</label>
-                    <input type="text" id="remark" name="remark">
-                </div>
-
-                <!-- Bulan -->
-                <div>
-                    <label for="jan">Jan</label>
-                    <input type="number" id="jan" name="jan">
-                </div>
-
-                <div>
-                    <label for="feb">Feb</label>
-                    <input type="number" id="feb" name="feb">
-                </div>
-
-                <div>
-                    <label for="mar">Mar</label>
-                    <input type="number" id="mar" name="mar">
-                </div>
-
-                <div>
-                    <label for="apr">Apr</label>
-                    <input type="number" id="apr" name="apr">
-                </div>
-
-                <div>
-                    <label for="may">May</label>
-                    <input type="number" id="may" name="may">
-                </div>
-
-                <div>
-                    <label for="jun">Jun</label>
-                    <input type="number" id="jun" name="jun">
-                </div>
-
-                <div>
-                    <label for="jul">Jul</label>
-                    <input type="number" id="jul" name="jul">
-                </div>
-
-                <div>
-                    <label for="aug">Aug</label>
-                    <input type="number" id="aug" name="aug">
-                </div>
-
-                <div>
-                    <label for="sep">Sep</label>
-                    <input type="number" id="sep" name="sep">
-                </div>
-
-                <div>
-                    <label for="oct">Oct</label>
-                    <input type="number" id="oct" name="oct">
-                </div>
-
-                <div>
-                    <label for="nov">Nov</label>
-                    <input type="number" id="nov" name="nov">
-                </div>
-
-                <div>
-                    <label for="dec">Dec</label>
-                    <input type="number" id="dec" name="dec">
-                </div>
-
-                <div>
-                    <label for="biaya_kerugian">Biaya Kerugian (USD)</label>
-                    <input type="number" id="biaya_kerugian" name="biaya_kerugian" step="0.01">
-                </div>
-
-                <div>
-                    <label for="keterangan_kerugian">Keterangan Kerugian</label>
-                    <input type="text" id="keterangan_kerugian" name="keterangan_kerugian">
-                </div>
-
-                <div>
-                    <label for="penyebab">Penyebab</label>
-                    <input type="text" id="penyebab" name="penyebab">
-                </div>
-
-                <div>
-                    <label for="kendala">Kendala</label>
-                    <input type="text" id="kendala" name="kendala">
-                </div>
-
-                <div>
-                    <label for="tindak_lanjut">Tindak Lanjut</label>
-                    <input type="text" id="tindak_lanjut" name="tindak_lanjut">
-                </div>
+                <label>Jumlah Row yang ingin dibuat</label>
+                <input type="number" name="jumlah_row" id="jumlah_row" min="1" value="1" required>
 
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
@@ -330,7 +204,7 @@
         </div>
     </div>
 
-    
+
     <div id="toastNotification"
         style="display:none; position: fixed; top: 20px; right: 20px; z-index: 9999; padding: 15px 20px; border-radius: 8px; color: white; font-weight: bold;">
     </div>
@@ -340,6 +214,7 @@
 
         <script>
             const BASE_URL = "{{ config('app.url') }}";
+
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
                     fetch(`rencana-pemeliharaan-gei/${id}`, {
@@ -669,20 +544,20 @@
                             width: 450
                         },
                         {
-    title: "Aksi",
-    download: false,
-    hozAlign: "center",
-    width: 150,
-    formatter: (cell) => {
-        const row = cell.getData();
-        return `
+                            title: "Aksi",
+                            download: false,
+                            hozAlign: "center",
+                            width: 150,
+                            formatter: (cell) => {
+                                const row = cell.getData();
+                                return `
             <button onclick='deleteData("${row.id}")'
                 class="btn btn-sm btn-danger">
                 <i class="bi bi-trash"></i> Hapus
             </button>
         `;
-    }
-}
+                            }
+                        }
                     ]
                 };
 
@@ -749,12 +624,23 @@
                     });
                 });
 
+                function isValidPeriodeFormat(value) {
+                    const regex = /^[A-Za-z]{3}-\d{2}$/;
+                    return regex.test(value);
+                }
+
                 table.on("cellEdited", function(cell) {
                     const updatedData = cell.getRow().getData();
                     const id = updatedData.id;
 
+
                     if (!id) return;
 
+                    if (cell.getField() === "periode" && !isValidPeriodeFormat(cell.getValue())) {
+                        showToast("Format Periode tidak valid! Gunakan format: Sep-24", "error");
+                        cell.restoreOldValue();
+                        return;
+                    }
                     fetch(`rencana-pemeliharaan-gei/${id}`, {
                             method: "PUT",
                             headers: {
@@ -794,7 +680,28 @@
                     const changedRows = getChangedRows(newData, previousData);
                     console.log("Baris yang berubah:", changedRows);
 
-                    changedRows.forEach(rowData => {
+                    changedRows.forEach((rowData, index) => {
+                        const id = rowData.id;
+                        if (!id) return;
+
+                        const oldRow = previousData.find(r => r.id === id);
+                        if (!oldRow) return;
+
+                        if (rowData.periode !== oldRow.periode && !isValidPeriodeFormat(rowData
+                                .periode)) {
+                            showToast(
+                                `"${rowData.periode}" Format Periode tidak valid! Gunakan format: Jan-25`,
+                                "error");
+
+                            rowData.periode = oldRow.periode;
+
+                            table.updateData([{
+                                id: rowData.id,
+                                periode: oldRow.periode
+                            }]);
+
+                            return;
+                        }
                         fetch(`rencana-pemeliharaan-gei/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
@@ -807,10 +714,17 @@
                             })
                             .then(res => res.json())
                             .then(response => {
-                                console.log("Data berhasil disimpan:", response);
+                                if (response.success) {
+                                    showToast(`Data berhasil disimpan`, "success");
+                                } else {
+                                    showToast(
+                                        `Format Periode tidak valid! Gunakan format: Jan-25 : ${response.message}`,
+                                        "error");
+                                }
                             })
                             .catch(err => {
                                 console.error("Gagal menyimpan hasil paste:", err);
+                                showToast(`Kesalahan pada ID ${id}`, "error");
                             });
                     });
 
@@ -823,14 +737,14 @@
 
         {{-- create data  --}}
         <script>
-             function showToast(message, type = "success") {
+            function showToast(message, type = "success") {
                 const toast = document.getElementById("toastNotification");
                 toast.textContent = message;
                 toast.className = "";
                 toast.classList.add(type === "success" ? "toast-success" : "toast-error");
                 toast.style.display = "block";
 
-               setTimeout(() => {
+                setTimeout(() => {
                     toast.style.display = "none";
                 }, 3500);
             }
@@ -894,7 +808,7 @@
                             table.setData(`${BASE_URL}/monev/shg/input-data/rencana-pemeliharaan-gei/data`);
                             this.reset();
                             closeModal();
-                       } else {
+                        } else {
                             showToast(result.message || "Gagal menyimpan data", "error");
                         }
                     })

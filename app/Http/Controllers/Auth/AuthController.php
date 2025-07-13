@@ -51,14 +51,21 @@ class AuthController extends Controller
                 'token' => $user->token
             ]);
 
-            return response()->json(['message' => 'Login berhasil.', 'user' => $user])->with('console', 'Login successful');
-        } catch (\Exception $e) {
-            return response()->json(['error' => 'Token tidak valid: ' . $e->getMessage()], 403)->with('console', 'Login failed');
-        }
+            //     return response()->json(['message' => 'Login berhasil.', 'user' => $user])->with('console', 'Login successful');
+            // } catch (\Exception $e) {
+            //     return response()->json(['error' => 'Token tidak valid: ' . $e->getMessage()], 403)->with('console', 'Login failed');
+            // }
 
-        //     return redirect('/')->with(['message' => 'Login berhasil.', 'user' => $user])->with('console', 'Login successful');
-        // } catch (\Exception $e) {
-        //     return response()->json(['error' => 'Token tidak valid: ' . $e->getMessage()], 403)->with('console', 'Login failed');
-        // }
+            return response()->json([
+                'message' => 'Login berhasil.',
+                'console' => 'Login successful',
+                'user' => $user
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Token tidak valid: ' . $e->getMessage(),
+                'console' => 'Login failed'
+            ], 403);
+        }
     }
 }

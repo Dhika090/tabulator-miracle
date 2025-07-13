@@ -3,7 +3,7 @@
     @push('styles')
         <link href="https://unpkg.com/tabulator-tables@5.6.0/dist/css/tabulator.min.css" rel="stylesheet">
         <style>
-          .tabulator-wrapper {
+            .tabulator-wrapper {
                 overflow-x: auto;
             }
 
@@ -194,97 +194,15 @@
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
 
-                <div>
-                    <label>Periode</label>
-                    <input type="month" name="periode" id="periode">
-                </div>
-
-                <div>
-                    <label>Nomor PLO</label>
-                    <input type="text" name="nomor_plo" id="nomor_plo">
-                </div>
-
-                <div>
-                    <label>Company</label>
-                    <input type="text" name="company" id="company">
-                </div>
-
-                <div>
-                    <label>Area</label>
-                    <input type="text" name="area" id="area">
-                </div>
-
-                <div>
-                    <label>Lokasi</label>
-                    <input type="text" name="lokasi" id="lokasi">
-                </div>
-
-                <div>
-                    <label>Nama Aset</label>
-                    <input type="text" name="nama_aset" id="nama_aset">
-                </div>
-
-                <div>
-                    <label>Tanggal Pengesahan</label>
-                    <input type="date" name="tanggal_pengesahan" id="tanggal_pengesahan">
-                </div>
-
-                <div>
-                    <label>Masa Berlaku</label>
-                    <input type="date" name="masa_berlaku" id="masa_berlaku">
-                </div>
-
-                <div>
-                    <label>Keterangan</label>
-                    <input type="text" name="keterangan" id="keterangan">
-                </div>
-
-                <div>
-                    <label>Belum Proses</label>
-                    <input type="text" name="belum_proses" id="belum_proses">
-                </div>
-
-                <div>
-                    <label>Pre-Inspection</label>
-                    <input type="text" name="pre_inspection" id="pre_inspection">
-                </div>
-
-                <div>
-                    <label>Inspection</label>
-                    <input type="text" name="inspection" id="inspection">
-                </div>
-
-                <div>
-                    <label>COI Peralatan</label>
-                    <input type="text" name="coi_peralatan" id="coi_peralatan">
-                </div>
-
-                <div>
-                    <label>BA PK</label>
-                    <input type="text" name="ba_pk" id="ba_pk">
-                </div>
-
-                <div>
-                    <label>Penerbitan PLO (Valid)</label>
-                    <input type="text" name="penerbitan_plo_valid" id="penerbitan_plo_valid">
-                </div>
-
-                <div>
-                    <label>Kendala</label>
-                    <input type="text" name="kendala" id="kendala">
-                </div>
-
-                <div>
-                    <label>Tindak Lanjut</label>
-                    <input type="text" name="tindak_lanjut" id="tindak_lanjut">
-                </div>
+                <label>Jumlah Row yang ingin dibuat</label>
+                <input type="number" name="jumlah_row" id="jumlah_row" min="1" value="1" required>
 
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
         </div>
     </div>
 
-    
+
     <div id="toastNotification"
         style="display:none; position: fixed; top: 20px; right: 20px; z-index: 9999; padding: 15px 20px; border-radius: 8px; color: white; font-weight: bold;">
     </div>
@@ -294,6 +212,7 @@
 
         <script>
             const BASE_URL = "{{ config('app.url') }}";
+
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
                     fetch(`status-plo-ptsg/${id}`, {
@@ -414,7 +333,7 @@
             }
 
             function loadData() {
-                fetch("/monev/shg/input-data/status-plo-ptsg/data", {
+                fetch(`${BASE_URL}/monev/shg/input-data/status-plo-ptsg/data`, {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -632,20 +551,20 @@
                             editor: "input"
                         },
                         {
-    title: "Aksi",
-    download: false,
-    hozAlign: "center",
-    width: 150,
-    formatter: (cell) => {
-        const row = cell.getData();
-        return `
+                            title: "Aksi",
+                            download: false,
+                            hozAlign: "center",
+                            width: 150,
+                            formatter: (cell) => {
+                                const row = cell.getData();
+                                return `
             <button onclick='deleteData("${row.id}")'
                 class="btn btn-sm btn-danger">
                 <i class="bi bi-trash"></i> Hapus
             </button>
         `;
-    }
-}
+                            }
+                        }
                     ]
                 };
 
@@ -716,6 +635,77 @@
                     previousData = JSON.parse(JSON.stringify(newData));
                 });
 
+                function isValidPeriodeFormat(value) {
+                    const regex = /^[A-Za-z]{3}-\d{2}$/;
+                    return regex.test(value);
+                }
+
+                function isValidDateFormat(value) {
+                    const regex = /^\d{2}-\d{2}-\d{4}$/;
+                    if (!regex.test(value)) return false;
+
+                    const [day, month, year] = value.split("-").map(Number);
+                    const date = new Date(year, month - 1, day);
+
+                    return (
+                        date.getFullYear() === year &&
+                        date.getMonth() === month - 1 &&
+                        date.getDate() === day
+                    );
+                }
+
+                table.on("cellEdited", function(cell) {
+                    const updatedData = cell.getRow().getData();
+                    const id = updatedData.id;
+                    const field = cell.getField();
+                    const value = cell.getValue();
+
+                    if (!id) return;
+
+                    if (field === "periode" && !isValidPeriodeFormat(value)) {
+                        showToast("Format Periode tidak valid! Gunakan format: Sep-24", "error");
+                        cell.restoreOldValue();
+                        return;
+                    }
+
+                    if ((field === "tanggal_pengesahan" || field === "masa_berlaku") && !isValidDateFormat(
+                            value)) {
+                        showToast(`Format ${field.replace("_", " ")} tidak valid! Gunakan format: DD-MM-YYYY`,
+                            "error");
+                        cell.restoreOldValue();
+                        return;
+                    }
+
+                    fetch(`status-plo-ptsg/${id}`, {
+                            method: "PUT",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute("content")
+                            },
+                            body: JSON.stringify(updatedData)
+                        })
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.success) {
+                                showToast("Update berhasil!", "success");
+                            } else {
+                                showToast("Update gagal: " + data.message, "error");
+                            }
+                        })
+                        .catch(err => {
+                            console.error("Gagal update:", err);
+                            showToast("Terjadi kesalahan saat update!", "error");
+                        });
+                });
+
+
+                let previousData = [];
+                table.on("dataLoaded", function(newData) {
+                    previousData = JSON.parse(JSON.stringify(newData));
+                });
+
                 function getChangedRows(newData, oldData) {
                     const changes = [];
                     newData.forEach((row, index) => {
@@ -735,7 +725,55 @@
                     const changedRows = getChangedRows(newData, previousData);
                     console.log("Baris yang berubah:", changedRows);
 
-                    changedRows.forEach(rowData => {
+                    changedRows.forEach((rowData, index) => {
+                        const id = rowData.id;
+                        if (!id) return;
+
+                        const oldRow = previousData.find(r => r.id === id);
+                        if (!oldRow) return;
+
+                        if (rowData.periode !== oldRow.periode && !isValidPeriodeFormat(rowData
+                                .periode)) {
+                            showToast(
+                                `"${rowData.periode}" Format Periode tidak valid! Gunakan format: Jan-25`,
+                                "error");
+                            rowData.periode = oldRow.periode;
+
+                            table.updateData([{
+                                id: rowData.id,
+                                periode: oldRow.periode
+                            }]);
+                            return;
+                        }
+
+                        if (rowData.tanggal_pengesahan !== oldRow.tanggal_pengesahan &&
+                            !isValidDateFormat(rowData.tanggal_pengesahan)) {
+                            showToast(
+                                `"${rowData.tanggal_pengesahan}" Format Tanggal Pengesahan tidak valid! Gunakan format: DD-MM-YYYY`,
+                                "error");
+                            rowData.tanggal_pengesahan = oldRow.tanggal_pengesahan;
+
+                            table.updateData([{
+                                id: rowData.id,
+                                tanggal_pengesahan: oldRow.tanggal_pengesahan
+                            }]);
+                            return;
+                        }
+
+                        if (rowData.masa_berlaku !== oldRow.masa_berlaku &&
+                            !isValidDateFormat(rowData.masa_berlaku)) {
+                            showToast(
+                                `"${rowData.masa_berlaku}" Format Masa Berlaku tidak valid! Gunakan format: DD-MM-YYYY`,
+                                "error");
+                            rowData.masa_berlaku = oldRow.masa_berlaku;
+
+                            table.updateData([{
+                                id: rowData.id,
+                                masa_berlaku: oldRow.masa_berlaku
+                            }]);
+                            return;
+                        }
+
                         fetch(`status-plo-ptsg/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
@@ -748,35 +786,19 @@
                             })
                             .then(res => res.json())
                             .then(response => {
-                                console.log("Data berhasil disimpan:", response);
+                                if (response.success) {
+                                    showToast(`Data berhasil disimpan`, "success");
+                                } else {
+                                    showToast(`Gagal menyimpan: ${response.message}`, "error");
+                                }
                             })
                             .catch(err => {
                                 console.error("Gagal menyimpan hasil paste:", err);
+                                showToast(`Kesalahan pada ID ${id}`, "error");
                             });
                     });
 
                     previousData = JSON.parse(JSON.stringify(newData));
-                });
-
-                table.on("cellEdited", function(cell) {
-                    const updatedData = cell.getRow().getData();
-                    const id = updatedData.id;
-
-                    if (!id) return;
-
-                    fetch(`status-plo-ptsg/${id}`, {
-                            method: "PUT",
-                            headers: {
-                                "Content-Type": "application/json",
-                                "Accept": "application/json",
-                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
-                                    .getAttribute("content")
-                            },
-                            body: JSON.stringify(updatedData)
-                        })
-                        .then(res => res.json())
-                        .then(data => console.log("Update berhasil:", data))
-                        .catch(err => console.error("Gagal update:", err));
                 });
                 loadData();
             });
@@ -784,14 +806,14 @@
 
         {{-- create data and create  --}}
         <script>
-             function showToast(message, type = "success") {
+            function showToast(message, type = "success") {
                 const toast = document.getElementById("toastNotification");
                 toast.textContent = message;
                 toast.className = "";
                 toast.classList.add(type === "success" ? "toast-success" : "toast-error");
                 toast.style.display = "block";
 
-               setTimeout(() => {
+                setTimeout(() => {
                     toast.style.display = "none";
                 }, 3500);
             }
@@ -811,77 +833,59 @@
 
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
-                console.log("Data submitted:", data);
 
-                const id = document.getElementById("form-id").value;
-                const periode = document.getElementById("periode").value;
-                const nomorPlo = document.getElementById("nomor_plo").value;
-                const company = document.getElementById("company").value;
-                const area = document.getElementById("area").value;
-                const lokasi = document.getElementById("lokasi").value;
-                const namaAset = document.getElementById("nama_aset").value;
-                const tanggalPengesahan = document.getElementById("tanggal_pengesahan").value;
-                const masaBerlaku = document.getElementById("masa_berlaku").value;
-                const keterangan = document.getElementById("keterangan").value;
-                const belumProses = document.getElementById("belum_proses").value;
-                const preInspection = document.getElementById("pre_inspection").value;
-                const inspection = document.getElementById("inspection").value;
-                const coiPeralatan = document.getElementById("coi_peralatan").value;
-                const baPk = document.getElementById("ba_pk").value;
-                const penerbitanPloValid = document.getElementById("penerbitan_plo_valid").value;
-                const kendala = document.getElementById("kendala").value;
-                const tindakLanjut = document.getElementById("tindak_lanjut").value;
+                const jumlahRow = parseInt(data.jumlah_row);
+                const payloadArray = [];
 
-                const method = id ? "PUT" : "POST";
-                const url = id ? `status-plo-ptsg/${id}` : "status-plo-ptsg";
+                for (let i = 0; i < jumlahRow; i++) {
+                    payloadArray.push({
+                        periode: data.periode,
+                        nomor_plo: data.nomor_plo,
+                        company: data.company,
+                        area: data.area,
+                        lokasi: data.lokasi,
+                        nama_aset: data.nama_aset,
+                        tanggal_pengesahan: data.tanggal_pengesahan,
+                        masa_berlaku: data.masa_berlaku,
+                        keterangan: data.keterangan,
+                        belum_proses: data.belum_proses,
+                        pre_inspection: data.pre_inspection,
+                        inspection: data.inspection,
+                        coi_peralatan: data.coi_peralatan,
+                        ba_pk: data.ba_pk,
+                        penerbitan_plo_valid: data.penerbitan_plo_valid,
+                        kendala: data.kendala,
+                        tindak_lanjut: data.tindak_lanjut
+                    });
+                }
 
-                fetch(url, {
-                        method: method,
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Accept": "application/json",
-                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute(
-                                "content")
-                        },
-                        body: JSON.stringify({
-                            id: id,
-                            periode: periode,
-                            nomor_plo: nomorPlo,
-                            company: company,
-                            area: area,
-                            lokasi: lokasi,
-                            nama_aset: namaAset,
-                            tanggal_pengesahan: tanggalPengesahan,
-                            masa_berlaku: masaBerlaku,
-                            keterangan: keterangan,
-                            belum_proses: belumProses,
-                            pre_inspection: preInspection,
-                            inspection: inspection,
-                            coi_peralatan: coiPeralatan,
-                            ba_pk: baPk,
-                            penerbitan_plo_valid: penerbitanPloValid,
-                            kendala: kendala,
-                            tindak_lanjut: tindakLanjut
-                        })
-                    })
-                    .then(response => response.json())
-                    .then(result => {
-                        if (result.success) {
-                            alert(result.message);
-                            // table.addRow([result.data]);
-                            table.setData("/monev/shg/input-data/status-plo-ptsg/data");
-                            this.reset();
+                Promise.all(payloadArray.map(payload => {
+                        return fetch("status-plo-ptsg", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute("content")
+                            },
+                            body: JSON.stringify(payload)
+                        }).then(res => res.json());
+                    }))
+                    .then(results => {
+                        const gagal = results.filter(r => !r.success);
+                        if (gagal.length === 0) {
+                            alert(`${jumlahRow} baris data berhasil disimpan`);
                         } else {
-                            alert('Gagal menyimpan data');
+                            alert(`${gagal.length} data gagal disimpan`);
                         }
+
+                        table.setData(`${BASE_URL}/monev/shg/input-data/status-plo-ptsg/data`);
+                        document.getElementById("createForm").reset();
+                        closeModal();
                     })
                     .catch(error => {
                         console.error("Error submitting data:", error);
-                        alert('Terjadi kesalahan saat mengirim data.');
-                    })
-                    .finally(() => {
-                        closeModal();
-                        this.reset();
+                        alert("Terjadi kesalahan saat mengirim data.");
                     });
             });
         </script>

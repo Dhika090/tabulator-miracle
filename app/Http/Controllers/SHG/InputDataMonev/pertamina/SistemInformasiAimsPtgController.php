@@ -89,7 +89,7 @@ class SistemInformasiAimsPtgController extends Controller
     {
         $TargetPLO = SistemInformasiAimsPtg::select('*')
             ->select('*')
-            ->addSelect(DB::raw("TRY_CONVERT(DATE, periode + '-01', 120) as periode_date"))
+            ->addSelect(DB::raw("TRY_CONVERT(DATE, CONCAT('01-', periode), 120) as periode_date"))
             ->orderBy('periode_date', 'asc')
             ->get();
 

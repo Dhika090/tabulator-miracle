@@ -332,7 +332,9 @@
 
                 const formatPercent = (cell) => {
                     let value = parseFloat(cell.getValue());
-                    return isNaN(value) ? "-" : value.toFixed(2) + " %";
+                    if (isNaN(value)) return "-";
+                    const displayValue = value <= 1 ? value * 100 : value;
+                    return displayValue.toFixed(2) + " %";
                 };
 
                 const columnMap = {
@@ -564,6 +566,7 @@
 
                 table.on("cellEdited", function(cell) {
                     const updatedData = cell.getRow().getData();
+                    const field = cell.getField();
                     const id = updatedData.id;
 
                     if (!id) return;
@@ -572,6 +575,17 @@
                         showToast("Format Periode tidak valid! Gunakan format: Sep-24", "error");
                         cell.restoreOldValue();
                         return;
+                    }
+
+                    if (field === "target" || field === "availability") {
+                        let value = parseFloat(cell.getValue());
+                        if (!isNaN(value)) {
+                            updatedData[field] = value > 1 ? (value / 100) : value;
+
+                            cell.getRow().update({
+                                [field]: updatedData[field]
+                            });
+                        }
                     }
 
                     fetch(`availability-region-7/${id}`, {
@@ -637,6 +651,13 @@
                             return;
                         }
 
+                        ["target", "availability"].forEach(field => {
+                            const value = parseFloat(newRow[field]);
+                            if (!isNaN(value)) {
+                                newRow[field] = value > 1 ? (value / 100) : value;
+                            }
+                        });
+
                         fetch(`availability-region-7/${id}`, {
                                 method: "PUT",
                                 headers: {
@@ -650,10 +671,9 @@
                             .then(res => res.json())
                             .then(response => {
                                 if (response.success) {
-                                    showToast(`Data ID ${id} berhasil disimpan`, "success");
+                                    showToast(`Data berhasil disimpan`, "success");
                                 } else {
-                                    showToast(`Gagal simpan ID ${id}: ${response.message}`,
-                                        "error");
+                                    showToast(`Gagal simpan : ${response.message}`, "error");
                                 }
                             })
                             .catch(err => {
