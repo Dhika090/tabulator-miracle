@@ -190,85 +190,8 @@
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
 
-                <div>
-                    <label>Periode</label>
-                    <input type="month" name="periode" id="periode">
-                </div>
-
-                <div>
-                    <label>Company</label>
-                    <input type="text" name="company" id="company">
-                </div>
-
-                <div>
-                    <label>Plant/Segment</label>
-                    <input type="text" name="plant_segment" id="plant_segment">
-                </div>
-
-                <div>
-                    <label>Kategori Criticality</label>
-                    <input type="text" name="kategori_criticality" id="kategori_criticality">
-                </div>
-
-                <div>
-                    <label>Tag</label>
-                    <input type="text" name="tag" id="tag">
-                </div>
-
-                <div>
-                    <label>Deskripsi Peralatan</label>
-                    <input type="text" name="deskripsi_peralatan" id="deskripsi_peralatan">
-                </div>
-
-                <div>
-                    <label>Jenis Kerusakan</label>
-                    <input type="text" name="jenis_kerusakan" id="jenis_kerusakan">
-                </div>
-
-                <div>
-                    <label>Penyebab / Root Cause</label>
-                    <input type="text" name="penyebab" id="penyebab">
-                </div>
-
-                <div>
-                    <label>Kendala Perbaikan</label>
-                    <input type="text" name="kendala_perbaikan" id="kendala_perbaikan">
-                </div>
-
-                <div>
-                    <label>Mitigasi / Penanganan Sementara</label>
-                    <input type="text" name="mitigasi" id="mitigasi">
-                </div>
-
-                <div>
-                    <label>Perbaikan Permanen</label>
-                    <input type="text" name="perbaikan_permanen" id="perbaikan_permanen">
-                </div>
-
-                <div>
-                    <label>Progres Perbaikan Permanen</label>
-                    <input type="text" name="progres_perbaikan_permanen" id="progres_perbaikan_permanen">
-                </div>
-
-                <div>
-                    <label>Tindak Lanjut</label>
-                    <input type="text" name="tindak_lanjut" id="tindak_lanjut">
-                </div>
-
-                <div>
-                    <label>Target Penyelesaian</label>
-                    <input type="month" name="target_penyelesaian" id="target_penyelesaian">
-                </div>
-
-                <div>
-                    <label>Estimasi Biaya Perbaikan</label>
-                    <input type="number" name="estimasi_biaya_perbaikan" id="estimasi_biaya_perbaikan">
-                </div>
-
-                <div>
-                    <label>Link Foto/Video</label>
-                    <input type="url" name="link_foto_video" id="link_foto_video">
-                </div>
+                <label>Jumlah Row yang ingin dibuat</label>
+                <input type="number" name="jumlah_row" id="jumlah_row" min="1" value="1" required>
 
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
@@ -839,44 +762,54 @@
 
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
+                const jumlahRow = parseInt(data.jumlah_row);
 
-                fetch("asset-breakdown-pag", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Accept": "application/json",
-                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute(
-                                "content")
-                        },
-                        body: JSON.stringify({
-                            periode: data.periode,
-                            company: data.company,
-                            plant_segment: data.plant_segment,
-                            kategori_criticality: data.kategori_criticality,
-                            tag: data.tag,
-                            deskripsi_peralatan: data.deskripsi_peralatan,
-                            jenis_kerusakan: data.jenis_kerusakan,
-                            penyebab: data.penyebab,
-                            kendala_perbaikan: data.kendala_perbaikan,
-                            mitigasi: data.mitigasi,
-                            perbaikan_permanen: data.perbaikan_permanen,
-                            progres_perbaikan_permanen: data.progres_perbaikan_permanen,
-                            tindak_lanjut: data.tindak_lanjut,
-                            target_penyelesaian: data.target_penyelesaian,
-                            estimasi_biaya_perbaikan: data.estimasi_biaya_perbaikan,
-                            link_foto_video: data.link_foto_video
-                        })
-                    })
-                    .then(response => response.json())
-                    .then(result => {
-                        if (result.success) {
-                            showToast(result.message || "Data berhasil disimpan", "success");
-                            table.setData(`${BASE_URL}/monev/shg/input-data/asset-breakdown-pag/data`);
-                            this.reset();
-                            closeModal();
+                const payloadArray = [];
+
+                for (let i = 0; i < jumlahRow; i++) {
+                    payloadArray.push({
+                        periode: data[`periode_${i}`],
+                        company: data[`company_${i}`],
+                        plant_segment: data[`plant_segment_${i}`],
+                        kategori_criticality: data[`kategori_criticality_${i}`],
+                        tag: data[`tag_${i}`],
+                        deskripsi_peralatan: data[`deskripsi_peralatan_${i}`],
+                        jenis_kerusakan: data[`jenis_kerusakan_${i}`],
+                        penyebab: data[`penyebab_${i}`],
+                        kendala_perbaikan: data[`kendala_perbaikan_${i}`],
+                        mitigasi: data[`mitigasi_${i}`],
+                        perbaikan_permanen: data[`perbaikan_permanen_${i}`],
+                        progres_perbaikan_permanen: data[`progres_perbaikan_permanen_${i}`],
+                        tindak_lanjut: data[`tindak_lanjut_${i}`],
+                        target_penyelesaian: data[`target_penyelesaian_${i}`],
+                        estimasi_biaya_perbaikan: data[`estimasi_biaya_perbaikan_${i}`],
+                        link_foto_video: data[`link_foto_video_${i}`]
+                    });
+                }
+
+                Promise.all(payloadArray.map(item => {
+                        return fetch("asset-breakdown-pag", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute("content")
+                            },
+                            body: JSON.stringify(item)
+                        }).then(res => res.json());
+                    }))
+                    .then(results => {
+                        const gagal = results.filter(r => !r.success);
+                        if (gagal.length === 0) {
+                            showToast(`${jumlahRow} baris data berhasil dibuat`, "success");
                         } else {
-                            showToast(result.message || "Gagal menyimpan data", "error");
+                            showToast(`${gagal.length} dari ${jumlahRow} data gagal disimpan`, "error");
                         }
+
+                        table.setData(`${BASE_URL}/monev/shg/input-data/asset-breakdown-pag/data`);
+                        document.getElementById("createForm").reset();
+                        closeModal();
                     })
                     .catch(error => {
                         console.error("Error saat submit:", error);

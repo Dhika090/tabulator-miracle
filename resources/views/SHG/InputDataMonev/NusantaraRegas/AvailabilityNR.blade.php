@@ -478,20 +478,14 @@
                             field: "target",
                             editor: "number",
                             hozAlign: "center",
-                            formatter: function(cell) {
-                                let value = parseFloat(cell.getValue());
-                                return isNaN(value) ? "-" : value.toFixed(2) + " %";
-                            }
+                            formatter: formatPercent
                         },
                         {
                             title: "Availability",
                             field: "availability",
                             editor: "number",
                             hozAlign: "center",
-                            formatter: function(cell) {
-                                let value = parseFloat(cell.getValue());
-                                return isNaN(value) ? "-" : value.toFixed(2) + " %";
-                            }
+                            formatter: formatPercent
                         },
                         {
                             title: "Isu / Problem / Bad Actor",

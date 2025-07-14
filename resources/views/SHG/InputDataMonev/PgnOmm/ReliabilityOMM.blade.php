@@ -3,7 +3,7 @@
     @push('styles')
         <link href="https://unpkg.com/tabulator-tables@5.6.0/dist/css/tabulator.min.css" rel="stylesheet">
         <style>
-          .tabulator-wrapper {
+            .tabulator-wrapper {
                 overflow-x: auto;
             }
 
@@ -233,7 +233,7 @@
         </div>
     </div>
 
-    
+
     <div id="toastNotification"
         style="display:none; position: fixed; top: 20px; right: 20px; z-index: 9999; padding: 15px 20px; border-radius: 8px; color: white; font-weight: bold;">
     </div>
@@ -242,6 +242,7 @@
         <script src="https://unpkg.com/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
         <script>
             const BASE_URL = "{{ config('app.url') }}";
+
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
                     fetch(`reliability-omm/${id}`, {
@@ -305,7 +306,7 @@
                 table.clearFilter();
             }
 
-              function loadData() {
+            function loadData() {
                 fetch("/monev/shg/input-data/reliability-omm/data", {
                         headers: {
                             "Accept": "application/json"
@@ -455,20 +456,14 @@
                             field: "target",
                             editor: "number",
                             hozAlign: "center",
-                            formatter: function(cell) {
-                                let value = parseFloat(cell.getValue());
-                                return isNaN(value) ? "-" : value.toFixed(2) + " %";
-                            }
+                            formatter: formatPercent
                         },
                         {
                             title: "Reliability",
                             field: "reliability",
                             editor: "number",
                             hozAlign: "center",
-                            formatter: function(cell) {
-                                let value = parseFloat(cell.getValue());
-                                return isNaN(value) ? "-" : value.toFixed(2) + " %";
-                            }
+                            formatter: formatPercent
                         },
                         {
                             title: "Keterangan",
@@ -477,20 +472,20 @@
                             width: 400
                         },
                         {
-    title: "Aksi",
-    download: false,
-    hozAlign: "center",
-    width: 150,
-    formatter: (cell) => {
-        const row = cell.getData();
-        return `
+                            title: "Aksi",
+                            download: false,
+                            hozAlign: "center",
+                            width: 150,
+                            formatter: (cell) => {
+                                const row = cell.getData();
+                                return `
             <button onclick='deleteData("${row.id}")'
                 class="btn btn-sm btn-danger">
                 <i class="bi bi-trash"></i> Hapus
             </button>
         `;
-    }
-}
+                            }
+                        }
                     ]
                 };
 
@@ -532,7 +527,7 @@
                     },
                 });
 
-                   document.getElementById("download-xlsx").addEventListener("click", function() {
+                document.getElementById("download-xlsx").addEventListener("click", function() {
                     window.table.download("xlsx", "reliability-omm.xlsx", {
                         sheetName: "reliability-omm",
                         columnHeaders: true,
@@ -636,14 +631,14 @@
 
         {{-- create data  --}}
         <script>
-             function showToast(message, type = "success") {
+            function showToast(message, type = "success") {
                 const toast = document.getElementById("toastNotification");
                 toast.textContent = message;
                 toast.className = "";
                 toast.classList.add(type === "success" ? "toast-success" : "toast-error");
                 toast.style.display = "block";
 
-               setTimeout(() => {
+                setTimeout(() => {
                     toast.style.display = "none";
                 }, 3500);
             }
@@ -689,7 +684,7 @@
                             table.setData("/monev/shg/input-data/reliability-omm/data");
                             this.reset();
                             closeModal();
-                       } else {
+                        } else {
                             showToast(result.message || "Gagal menyimpan data", "error");
                         }
                     })

@@ -196,90 +196,8 @@
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
 
-                <div>
-                    <label>Periode</label>
-                    <input type="month" name="periode" id="periode">
-                </div>
-
-                <div>
-                    <label>Nomor PLO</label>
-                    <input type="text" name="nomor_plo" id="nomor_plo">
-                </div>
-
-                <div>
-                    <label>Company</label>
-                    <input type="text" name="company" id="company">
-                </div>
-
-                <div>
-                    <label>Area</label>
-                    <input type="text" name="area" id="area">
-                </div>
-
-                <div>
-                    <label>Lokasi</label>
-                    <input type="text" name="lokasi" id="lokasi">
-                </div>
-
-                <div>
-                    <label>Nama Aset</label>
-                    <input type="text" name="nama_aset" id="nama_aset">
-                </div>
-
-                <div>
-                    <label>Tanggal Pengesahan</label>
-                    <input type="date" name="tanggal_pengesahan" id="tanggal_pengesahan">
-                </div>
-
-                <div>
-                    <label>Masa Berlaku</label>
-                    <input type="date" name="masa_berlaku" id="masa_berlaku">
-                </div>
-
-                <div>
-                    <label>Keterangan</label>
-                    <input type="text" name="keterangan" id="keterangan">
-                </div>
-
-                <div>
-                    <label>Belum Proses</label>
-                    <input type="text" name="belum_proses" id="belum_proses">
-                </div>
-
-                <div>
-                    <label>Pre-Inspection</label>
-                    <input type="text" name="pre_inspection" id="pre_inspection">
-                </div>
-
-                <div>
-                    <label>Inspection</label>
-                    <input type="text" name="inspection" id="inspection">
-                </div>
-
-                <div>
-                    <label>COI Peralatan</label>
-                    <input type="text" name="coi_peralatan" id="coi_peralatan">
-                </div>
-
-                <div>
-                    <label>BA PK</label>
-                    <input type="text" name="ba_pk" id="ba_pk">
-                </div>
-
-                <div>
-                    <label>Penerbitan PLO (Valid)</label>
-                    <input type="text" name="penerbitan_plo_valid" id="penerbitan_plo_valid">
-                </div>
-
-                <div>
-                    <label>Kendala</label>
-                    <input type="text" name="kendala" id="kendala">
-                </div>
-
-                <div>
-                    <label>Tindak Lanjut</label>
-                    <input type="text" name="tindak_lanjut" id="tindak_lanjut">
-                </div>
+                <label>Jumlah Row yang ingin dibuat</label>
+                <input type="number" name="jumlah_row" id="jumlah_row" min="1" value="1" required>
 
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
@@ -719,14 +637,38 @@
                     return regex.test(value);
                 }
 
+                function isValidDateFormat(value) {
+                    const regex = /^\d{2}-\d{2}-\d{4}$/;
+                    if (!regex.test(value)) return false;
+
+                    const [day, month, year] = value.split("-").map(Number);
+                    const date = new Date(year, month - 1, day);
+
+                    return (
+                        date.getFullYear() === year &&
+                        date.getMonth() === month - 1 &&
+                        date.getDate() === day
+                    );
+                }
+
                 table.on("cellEdited", function(cell) {
                     const updatedData = cell.getRow().getData();
                     const id = updatedData.id;
+                    const field = cell.getField();
+                    const value = cell.getValue();
 
                     if (!id) return;
 
-                    if (cell.getField() === "periode" && !isValidPeriodeFormat(cell.getValue())) {
+                    if (field === "periode" && !isValidPeriodeFormat(value)) {
                         showToast("Format Periode tidak valid! Gunakan format: Sep-24", "error");
+                        cell.restoreOldValue();
+                        return;
+                    }
+
+                    if ((field === "tanggal_pengesahan" || field === "masa_berlaku") && !isValidDateFormat(
+                            value)) {
+                        showToast(`Format ${field.replace("_", " ")} tidak valid! Gunakan format: DD-MM-YYYY`,
+                            "error");
                         cell.restoreOldValue();
                         return;
                     }
@@ -754,6 +696,7 @@
                             showToast("Terjadi kesalahan saat update!", "error");
                         });
                 });
+
 
                 let previousData = [];
                 table.on("dataLoaded", function(newData) {
@@ -791,16 +734,43 @@
                             showToast(
                                 `"${rowData.periode}" Format Periode tidak valid! Gunakan format: Jan-25`,
                                 "error");
-
                             rowData.periode = oldRow.periode;
 
                             table.updateData([{
                                 id: rowData.id,
                                 periode: oldRow.periode
                             }]);
-
                             return;
                         }
+
+                        if (rowData.tanggal_pengesahan !== oldRow.tanggal_pengesahan &&
+                            !isValidDateFormat(rowData.tanggal_pengesahan)) {
+                            showToast(
+                                `"${rowData.tanggal_pengesahan}" Format Tanggal Pengesahan tidak valid! Gunakan format: DD-MM-YYYY`,
+                                "error");
+                            rowData.tanggal_pengesahan = oldRow.tanggal_pengesahan;
+
+                            table.updateData([{
+                                id: rowData.id,
+                                tanggal_pengesahan: oldRow.tanggal_pengesahan
+                            }]);
+                            return;
+                        }
+
+                        if (rowData.masa_berlaku !== oldRow.masa_berlaku &&
+                            !isValidDateFormat(rowData.masa_berlaku)) {
+                            showToast(
+                                `"${rowData.masa_berlaku}" Format Masa Berlaku tidak valid! Gunakan format: DD-MM-YYYY`,
+                                "error");
+                            rowData.masa_berlaku = oldRow.masa_berlaku;
+
+                            table.updateData([{
+                                id: rowData.id,
+                                masa_berlaku: oldRow.masa_berlaku
+                            }]);
+                            return;
+                        }
+
                         fetch(`status-plo-pag/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
@@ -816,9 +786,7 @@
                                 if (response.success) {
                                     showToast(`Data berhasil disimpan`, "success");
                                 } else {
-                                    showToast(
-                                        `Format Periode tidak valid! Gunakan format: Jan-25 : ${response.message}`,
-                                        "error");
+                                    showToast(`Gagal menyimpan: ${response.message}`, "error");
                                 }
                             })
                             .catch(err => {

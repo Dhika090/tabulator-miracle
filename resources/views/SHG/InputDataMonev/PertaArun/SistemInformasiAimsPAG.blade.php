@@ -193,72 +193,10 @@
             <span class="close" onclick="closeModal()">&times;</span>
             <h3>Tambah Sistem Informasi AIMS PAG</h3>
             <form id="createForm">
-
                 <input type="hidden" name="id" id="form-id">
-                <div>
-                    <label for="periode">Periode</label>
-                    <input type="month" id="periode" name="periode">
-                </div>
 
-                <div>
-                    <label for="company">Company</label>
-                    <input type="text" id="company" name="company">
-                </div>
-
-                <div>
-                    <label for="jumlah_aset_operasi">Jumlah Aset Operasi</label>
-                    <input type="text" id="jumlah_aset_operasi" name="jumlah_aset_operasi">
-                </div>
-
-                <div>
-                    <label for="jumlah_aset_teregister">Jumlah Aset Teregister</label>
-                    <input type="text" id="jumlah_aset_teregister" name="jumlah_aset_teregister">
-                </div>
-
-                <div>
-                    <label for="kendala_aset_register">Kendala Aset Register</label>
-                    <input id="kendala_aset_register" type="text" name="kendala_aset_register"></input>
-                </div>
-
-                <div>
-                    <label for="tindak_lanjut_aset_register">Tindak Lanjut Aset Register</label>
-                    <input id="tindak_lanjut_aset_register" type="text" name="tindak_lanjut_aset_register"></input>
-                </div>
-
-                <div>
-                    <label for="sistem_informasi_aim">Sistem Informasi AIM</label>
-                    <input type="text" id="sistem_informasi_aim" name="sistem_informasi_aim">
-                </div>
-
-                <div>
-                    <label for="total_wo_comply">Total WO Comply</label>
-                    <input type="number" id="total_wo_comply" name="total_wo_comply">
-                </div>
-
-                <div>
-                    <label for="total_wo_completed">Total WO Completed</label>
-                    <input type="number" id="total_wo_completed" name="total_wo_completed">
-                </div>
-
-                <div>
-                    <label for="total_wo_in_progress">Total WO In Progress</label>
-                    <input type="number" id="total_wo_in_progress" name="total_wo_in_progress">
-                </div>
-
-                <div>
-                    <label for="total_wo_backlog">Total WO Backlog</label>
-                    <input type="number" id="total_wo_backlog" name="total_wo_backlog">
-                </div>
-
-                <div>
-                    <label for="kendala">Kendala</label>
-                    <input id="kendala" type="text" name="kendala"></input>
-                </div>
-
-                <div>
-                    <label for="tindak_lanjut">Tindak Lanjut</label>
-                    <input id="tindak_lanjut" type="text" name="tindak_lanjut"></input>
-                </div>
+                <label>Jumlah Row yang ingin dibuat</label>
+                <input type="number" name="jumlah_row" id="jumlah_row" min="1" value="1" required>
 
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
@@ -792,47 +730,58 @@
                 document.getElementById("form-id").value = "";
                 document.getElementById("createModal").style.display = "none";
             }
-
             document.getElementById("createForm").addEventListener("submit", function(e) {
                 e.preventDefault();
 
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
+                const jumlahRow = parseInt(data.jumlah_row);
 
-                fetch("sistem-informasi-aims-pag", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Accept": "application/json",
-                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute(
-                                "content")
-                        },
-                        body: JSON.stringify({
-                            periode: data.periode,
-                            company: data.company,
-                            jumlah_aset_operasi: data.jumlah_aset_operasi,
-                            jumlah_aset_teregister: data.jumlah_aset_teregister,
-                            kendala_aset_register: data.kendala_aset_register,
-                            tindak_lanjut_aset_register: data.tindak_lanjut_aset_register,
-                            sistem_informasi_aim: data.sistem_informasi_aim,
-                            total_wo_comply: data.total_wo_comply,
-                            total_wo_completed: data.total_wo_completed,
-                            total_wo_in_progress: data.total_wo_in_progress,
-                            total_wo_backlog: data.total_wo_backlog,
-                            kendala: data.kendala,
-                            tindak_lanjut: data.tindak_lanjut
-                        })
-                    })
-                    .then(response => response.json())
-                    .then(result => {
-                        if (result.success) {
-                            showToast(result.message || "Data berhasil disimpan", "success");
-                            table.setData(`${BASE_URL}/monev/shg/input-data/sistem-informasi-aims-pag/data`);
-                            this.reset();
-                            closeModal();
+                const payloadArray = [];
+
+                for (let i = 0; i < jumlahRow; i++) {
+                    payloadArray.push({
+                        periode: data[`periode_${i}`],
+                        company: data[`company_${i}`],
+                        jumlah_aset_operasi: data[`jumlah_aset_operasi_${i}`],
+                        jumlah_aset_teregister: data[`jumlah_aset_teregister_${i}`],
+                        kendala_aset_register: data[`kendala_aset_register_${i}`],
+                        tindak_lanjut_aset_register: data[`tindak_lanjut_aset_register_${i}`],
+                        sistem_informasi_aim: data[`sistem_informasi_aim_${i}`],
+                        total_wo_comply: data[`total_wo_comply_${i}`],
+                        total_wo_completed: data[`total_wo_completed_${i}`],
+                        total_wo_in_progress: data[`total_wo_in_progress_${i}`],
+                        total_wo_backlog: data[`total_wo_backlog_${i}`],
+                        kendala: data[`kendala_${i}`],
+                        tindak_lanjut: data[`tindak_lanjut_${i}`],
+                    });
+                }
+
+                Promise.all(
+                        payloadArray.map(row =>
+                            fetch("sistem-informasi-aims-pag", {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                    "Accept": "application/json",
+                                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute(
+                                        "content")
+                                },
+                                body: JSON.stringify(row)
+                            }).then(res => res.json())
+                        )
+                    )
+                    .then(results => {
+                        const gagal = results.filter(r => !r.success);
+                        if (gagal.length === 0) {
+                            showToast(`${jumlahRow} baris data berhasil disimpan`, "success");
                         } else {
-                            showToast(result.message || "Gagal menyimpan data", "error");
+                            showToast(`${gagal.length} dari ${jumlahRow} data gagal disimpan`, "error");
                         }
+
+                        table.setData(`${BASE_URL}/monev/shg/input-data/sistem-informasi-aims-pag/data`);
+                        document.getElementById("createForm").reset();
+                        closeModal();
                     })
                     .catch(error => {
                         console.error("Error saat submit:", error);

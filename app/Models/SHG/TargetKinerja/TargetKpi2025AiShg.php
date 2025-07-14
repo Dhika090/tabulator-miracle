@@ -23,7 +23,7 @@ class TargetKpi2025AiShg extends Model
         });
     }
 
-    protected $table = 'shg_target_kinerja_target_kpi_2025_ai';
+    protected $table = 'shg_kinerja_target_2025_ai';
     protected $fillable = [
         'periode',
         'company',

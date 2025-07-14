@@ -199,51 +199,9 @@
             <h3>Tambah Target PLI</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
-                <div>
-                    <label>Periode</label>
-                    <input type="month" name="periode" id="periode">
-                </div>
 
-                <div>
-                    <label>Subholding</label>
-                    <input type="text" name="subholding" id="subholding">
-                </div>
-
-                <div>
-                    <label>Company</label>
-                    <input type="text" name="company" id="company">
-                </div>
-
-                <div>
-                    <label>Unit</label>
-                    <input type="text" name="unit" id="unit">
-                </div>
-
-                {{-- dropdown nama Sertifikasi --}}
-                <div>
-                    <label>Nama Sertifikasi</label>
-                    <select name="nama_sertifikasi" id="nama_sertifikasi" class="form-control">
-                        <option value="">-- Pilih Sertifikasi --</option>
-                        @foreach ($sertifikasiOptions as $option)
-                            <option value="{{ $option }}">{{ $option }}</option>
-                        @endforeach
-                    </select>
-                </div>
-
-                <div>
-                    <label>Lembaga Penerbit Sertifikat</label>
-                    <input type="text" name="lembaga_penerbit_sertifikat" id="lembaga_penerbit_sertifikat">
-                </div>
-
-                <div>
-                    <label>Jumlah Sertifikasi yang Sudah Terbit</label>
-                    <input type="number" name="jumlah_sertifikasi_terbit" id="jumlah_sertifikasi_terbit">
-                </div>
-
-                <div>
-                    <label>Jumlah Learning Hours</label>
-                    <input type="number" name="jumlah_learning_hours" id="jumlah_learning_hours">
-                </div>
+                <label>Jumlah Row yang ingin dibuat</label>
+                <input type="number" name="jumlah_row" id="jumlah_row" min="1" value="1" required>
 
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
@@ -589,11 +547,22 @@
                 });
 
 
+                function isValidPeriodeFormat(value) {
+                    const regex = /^[A-Za-z]{3}-\d{2}$/;
+                    return regex.test(value);
+                }
+
                 table.on("cellEdited", function(cell) {
                     const updatedData = cell.getRow().getData();
                     const id = updatedData.id;
 
                     if (!id) return;
+
+                    if (cell.getField() === "periode" && !isValidPeriodeFormat(cell.getValue())) {
+                        showToast("Format Periode tidak valid! Gunakan format: Sep-24", "error");
+                        cell.restoreOldValue();
+                        return;
+                    }
 
                     fetch(`mandatory-certification-pli/${id}`, {
                             method: "PUT",
@@ -606,8 +575,17 @@
                             body: JSON.stringify(updatedData)
                         })
                         .then(res => res.json())
-                        .then(data => console.log("Update berhasil:", data))
-                        .catch(err => console.error("Gagal update:", err));
+                        .then(data => {
+                            if (data.success) {
+                                showToast("Update berhasil!", "success");
+                            } else {
+                                showToast("Update gagal: " + data.message, "error");
+                            }
+                        })
+                        .catch(err => {
+                            console.error("Gagal update:", err);
+                            showToast("Terjadi kesalahan saat update!", "error");
+                        });
                 });
                 let previousData = [];
                 table.on("dataLoaded", function(newData) {
@@ -633,7 +611,29 @@
                     const changedRows = getChangedRows(newData, previousData);
                     console.log("Baris yang berubah:", changedRows);
 
-                    changedRows.forEach(rowData => {
+
+                    changedRows.forEach((rowData, index) => {
+                        const id = rowData.id;
+                        if (!id) return;
+
+                        const oldRow = previousData.find(r => r.id === id);
+                        if (!oldRow) return;
+
+                        if (rowData.periode !== oldRow.periode && !isValidPeriodeFormat(rowData
+                                .periode)) {
+                            showToast(
+                                `"${rowData.periode}" Format Periode tidak valid! Gunakan format: Jan-25`,
+                                "error");
+
+                            rowData.periode = oldRow.periode;
+
+                            table.updateData([{
+                                id: rowData.id,
+                                periode: oldRow.periode
+                            }]);
+
+                            return;
+                        }
                         fetch(`mandatory-certification-pli/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
@@ -646,10 +646,17 @@
                             })
                             .then(res => res.json())
                             .then(response => {
-                                console.log("Data berhasil disimpan:", response);
+                                if (response.success) {
+                                    showToast(`Data berhasil disimpan`, "success");
+                                } else {
+                                    showToast(
+                                        `Format Periode tidak valid! Gunakan format: Jan-25 : ${response.message}`,
+                                        "error");
+                                }
                             })
                             .catch(err => {
                                 console.error("Gagal menyimpan hasil paste:", err);
+                                showToast(`Kesalahan pada ID ${id}`, "error");
                             });
                     });
 
@@ -668,7 +675,7 @@
                 toast.classList.add(type === "success" ? "toast-success" : "toast-error");
                 toast.style.display = "block";
 
-               setTimeout(() => {
+                setTimeout(() => {
                     toast.style.display = "none";
                 }, 3500);
             }
@@ -688,40 +695,50 @@
 
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
+                const jumlahRow = parseInt(data.jumlah_row);
+                const payloadArray = [];
 
-                fetch("mandatory-certification-pli", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Accept": "application/json",
-                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute(
-                                "content")
-                        },
-                        body: JSON.stringify({
-                            periode: data.periode,
-                            subholding: data.subholding,
-                            company: data.company,
-                            unit: data.unit,
-                            nama_sertifikasi: data.nama_sertifikasi,
-                            lembaga_penerbit_sertifikat: data.lembaga_penerbit_sertifikat,
-                            jumlah_sertifikasi_terbit: data.jumlah_sertifikasi_terbit,
-                            jumlah_learning_hours: data.jumlah_learning_hours
+                for (let i = 0; i < jumlahRow; i++) {
+                    payloadArray.push({
+                        periode: data.periode,
+                        subholding: data.subholding,
+                        company: data.company,
+                        unit: data.unit,
+                        nama_sertifikasi: data.nama_sertifikasi,
+                        lembaga_penerbit_sertifikat: data.lembaga_penerbit_sertifikat,
+                        jumlah_sertifikasi_terbit: data.jumlah_sertifikasi_terbit,
+                        jumlah_learning_hours: data.jumlah_learning_hours
+                    });
+                }
+
+                Promise.all(
+                        payloadArray.map(payload => {
+                            return fetch("mandatory-certification-pli", {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                    "Accept": "application/json",
+                                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                        .getAttribute("content")
+                                },
+                                body: JSON.stringify(payload)
+                            }).then(res => res.json());
                         })
-
-                    })
-                    .then(response => response.json())
-                    .then(result => {
-                        if (result.success) {
-                            showToast(result.message || "Data berhasil disimpan", "success");
-                            table.setData(`${BASE_URL}/monev/shg/input-data/mandatory-certification-pli/data`);
-                            this.reset();
-                            closeModal();
+                    )
+                    .then(results => {
+                        const gagal = results.filter(r => !r.success);
+                        if (gagal.length === 0) {
+                            showToast(`${jumlahRow} data berhasil disimpan`, "success");
                         } else {
-                            showToast(result.message || "Gagal menyimpan data", "error");
+                            showToast(`${gagal.length} dari ${jumlahRow} data gagal disimpan`, "error");
                         }
+
+                        table.setData(`${BASE_URL}/monev/shg/input-data/mandatory-certification-pli/data`);
+                        document.getElementById("createForm").reset();
+                        closeModal();
                     })
                     .catch(error => {
-                        console.error("Error saat submit:", error);
+                        console.error("Error batch submit:", error);
                         showToast("Terjadi kesalahan saat mengirim data.", "error");
                     });
             });

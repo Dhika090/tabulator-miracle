@@ -188,126 +188,11 @@
             <h3>Tambah Data Realisasi Progress Fisik AI </h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
-                <label for="periode">Periode (Tahun):</label>
-                <select name="periode" id="periode" class="form-select">
-                    <option value="" selected disabled>Pilih Periode</option>
-                    @for ($year = 2000; $year <= date('Y') + 5; $year++)
-                        <option value="{{ $year }}">{{ $year }}</option>
-                    @endfor
-                </select>
 
-                <div>
-                    <label>No</label>
-                    <input type="number" name="no">
-                </div>
+                <label>Jumlah Row yang ingin dibuat</label>
+                <input type="number" name="jumlah_row" id="jumlah_row" min="1" value="1" required>
 
-                <div>
-                    <label>Program Kerja</label>
-                    <input type="text" name="program_kerja">
-                </div>
-
-                <div>
-                    <label>Kategori AIBT</label>
-                    <input type="text" name="kategori_aibt">
-                </div>
-
-                <div>
-                    <label>Jenis Anggaran</label>
-                    <input type="text" name="jenis_anggaran">
-                </div>
-
-                <div>
-                    <label>Besar RKAP</label>
-                    <input type="number" name="besar_rkap" id="besar_rkap" step="any">
-                </div>
-
-                <div>
-                    <label>Entitas</label>
-                    <input type="text" name="entitas">
-                </div>
-
-                <div>
-                    <label>Unit</label>
-                    <input type="text" name="unit">
-                </div>
-
-                <div>
-                    <label>Nilai Kontrak</label>
-                    <input type="number" name="nilai_kontrak" step="0.01">
-                </div>
-
-                <fieldset>
-                    <legend>Rencana (Plan)</legend>
-                    <label>Plan Jan</label><input type="text" name="plan_jan" pattern="^\d+(\.\d+)?$"
-                        inputmode="numeric">
-                    <label>Plan Feb</label><input type="text" name="plan_feb" pattern="^\d+(\.\d+)?$"
-                        inputmode="numeric">
-                    <label>Plan Mar</label><input type="text" name="plan_mar" pattern="^\d+(\.\d+)?$"
-                        inputmode="numeric">
-                    <label>Plan Apr</label><input type="text" name="plan_apr" pattern="^\d+(\.\d+)?$"
-                        inputmode="numeric">
-                    <label>Plan May</label><input type="text" name="plan_may" pattern="^\d+(\.\d+)?$"
-                        inputmode="numeric">
-                    <label>Plan Jun</label><input type="text" name="plan_jun" pattern="^\d+(\.\d+)?$"
-                        inputmode="numeric">
-                    <label>Plan Jul</label><input type="text" name="plan_jul" pattern="^\d+(\.\d+)?$"
-                        inputmode="numeric">
-                    <label>Plan Aug</label><input type="text" name="plan_aug" pattern="^\d+(\.\d+)?$"
-                        inputmode="numeric">
-                    <label>Plan Sep</label><input type="text" name="plan_sep" pattern="^\d+(\.\d+)?$"
-                        inputmode="numeric">
-                    <label>Plan Oct</label><input type="text" name="plan_oct" pattern="^\d+(\.\d+)?$"
-                        inputmode="numeric">
-                    <label>Plan Nov</label><input type="text" name="plan_nov" pattern="^\d+(\.\d+)?$"
-                        inputmode="numeric">
-                    <label>Plan Dec</label><input type="text" name="plan_dec" pattern="^\d+(\.\d+)?$"
-                        inputmode="numeric">
-                </fieldset>
-
-                <fieldset>
-                    <legend>Realisasi (Actual)</legend>
-                    <label>Actual Jan</label><input type="text" name="actual_jan" pattern="^\d+(\.\d+)?$"
-                        inputmode="numeric">
-                    <label>Actual Feb</label><input type="text" name="actual_feb" pattern="^\d+(\.\d+)?$"
-                        inputmode="numeric">
-                    <label>Actual Mar</label><input type="text" name="actual_mar" pattern="^\d+(\.\d+)?$"
-                        inputmode="numeric">
-                    <label>Actual Apr</label><input type="text" name="actual_apr" pattern="^\d+(\.\d+)?$"
-                        inputmode="numeric">
-                    <label>Actual May</label><input type="text" name="actual_may" pattern="^\d+(\.\d+)?$"
-                        inputmode="numeric">
-                    <label>Actual Jun</label><input type="text" name="actual_jun" pattern="^\d+(\.\d+)?$"
-                        inputmode="numeric">
-                    <label>Actual Jul</label><input type="text" name="actual_jul" pattern="^\d+(\.\d+)?$"
-                        inputmode="numeric">
-                    <label>Actual Aug</label><input type="text" name="actual_aug" pattern="^\d+(\.\d+)?$"
-                        inputmode="numeric">
-                    <label>Actual Sep</label><input type="text" name="actual_sep" pattern="^\d+(\.\d+)?$"
-                        inputmode="numeric">
-                    <label>Actual Oct</label><input type="text" name="actual_oct" pattern="^\d+(\.\d+)?$"
-                        inputmode="numeric">
-                    <label>Actual Nov</label><input type="text" name="actual_nov" pattern="^\d+(\.\d+)?$"
-                        inputmode="numeric">
-                    <label>Actual Dec</label><input type="text" name="actual_dec" pattern="^\d+(\.\d+)?$"
-                        inputmode="numeric">
-                </fieldset>
-
-                <div>
-                    <label>Kode</label>
-                    <input type="text" name="kode">
-                </div>
-
-                <div>
-                    <label>Kendala</label>
-                    <input type="text" name="kendala"></input>
-                </div>
-
-                <div>
-                    <label>Tindak Lanjut</label>
-                    <input type="text" name="tindak_lanjut"></input>
-                </div>
-
-                <button class="btn btn-primary" type="submit">Simpan</button>
+                <button type="submit" class="btn btn-success">Submit</button>
             </form>
         </div>
     </div>
@@ -658,21 +543,68 @@
                     });
                 });
 
+
+                let previousData = [];
+                table.on("dataLoaded", function(newData) {
+                    previousData = JSON.parse(JSON.stringify(newData));
+                });
+
+                function getChangedRows(newData, oldData) {
+                    const changes = [];
+                    newData.forEach((row, index) => {
+                        if (!row.id) return;
+                        const oldRow = oldData[index];
+                        if (!oldRow) return;
+
+                        const isDifferent = Object.keys(row).some(key => row[key] !== oldRow[key]);
+                        if (isDifferent) {
+                            changes.push(row);
+                        }
+                    });
+                    return changes;
+                }
+
                 function isValidPeriodeFormat(value) {
-                    const regex = /^[A-Za-z]{3}-\d{2}$/;
+                    const regex = /^\d{4}$/;
                     return regex.test(value);
                 }
+
+                function isValidDecimal(value) {
+                    if (value === null || value === undefined || value === "") return true;
+                    const number = parseFloat(value);
+                    return (
+                        !isNaN(number) &&
+                        number >= 0 &&
+                        number <= 100 &&
+                        /^\d{1,3}(\.\d{1,2})?$/.test(value.toString())
+                    );
+                }
+                const bulan = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
 
                 table.on("cellEdited", function(cell) {
                     const updatedData = cell.getRow().getData();
                     const id = updatedData.id;
-
                     if (!id) return;
+                    const field = cell.getField();
+                    const value = cell.getValue();
 
-                    if (cell.getField() === "periode" && !isValidPeriodeFormat(cell.getValue())) {
-                        showToast("Format Periode tidak valid! Gunakan format: Sep-24", "error");
+                    if (field === "periode" && !isValidPeriodeFormat(value)) {
+                        showToast(`"${value}" Format Periode tidak valid! Gunakan format: 2025`, "error");
                         cell.restoreOldValue();
                         return;
+                    }
+
+                    if (
+                        field.startsWith("plan_") ||
+                        field.startsWith("actual_")
+                    ) {
+                        if (!isValidDecimal(value)) {
+                            showToast(
+                                `"${value}" tidak valid! Input harus berupa desimal, maksimal 100, tanpa ribuan`,
+                                "error");
+                            cell.restoreOldValue();
+                            return;
+                        }
                     }
 
                     fetch(`realisasi-progress-fisik-ai-pag/${id}`, {
@@ -699,26 +631,6 @@
                         });
                 });
 
-                let previousData = [];
-                table.on("dataLoaded", function(newData) {
-                    previousData = JSON.parse(JSON.stringify(newData));
-                });
-
-                function getChangedRows(newData, oldData) {
-                    const changes = [];
-                    newData.forEach((row, index) => {
-                        if (!row.id) return;
-                        const oldRow = oldData[index];
-                        if (!oldRow) return;
-
-                        const isDifferent = Object.keys(row).some(key => row[key] !== oldRow[key]);
-                        if (isDifferent) {
-                            changes.push(row);
-                        }
-                    });
-                    return changes;
-                }
-
                 table.on("dataChanged", function(newData) {
                     const changedRows = getChangedRows(newData, previousData);
                     console.log("Baris yang berubah:", changedRows);
@@ -733,10 +645,8 @@
                         if (rowData.periode !== oldRow.periode && !isValidPeriodeFormat(rowData
                                 .periode)) {
                             showToast(
-                                `"${rowData.periode}" Format Periode tidak valid! Gunakan format: Jan-25`,
+                                `"${rowData.periode}" Format Periode tidak valid! Gunakan format: 2025`,
                                 "error");
-
-                            rowData.periode = oldRow.periode;
 
                             table.updateData([{
                                 id: rowData.id,
@@ -745,6 +655,37 @@
 
                             return;
                         }
+
+                        let invalidField = null;
+
+                        for (let b of bulan) {
+                            for (let prefix of ["plan_", "actual_"]) {
+                                const field = prefix + b;
+                                const newValue = rowData[field];
+                                const oldValue = oldRow[field];
+
+                                if (newValue !== oldValue && !isValidDecimal(newValue)) {
+                                    invalidField = field;
+                                    break;
+                                }
+                            }
+                            if (invalidField) break;
+                        }
+
+                        if (invalidField) {
+                            showToast(
+                                `"${rowData[invalidField]}" Nilai pada kolom "${invalidField}" tidak valid! Gunakan angka desimal 0 - 100 tanpa ribuan`,
+                                "error");
+
+                            const rollbackData = {
+                                id
+                            };
+                            rollbackData[invalidField] = oldRow[invalidField];
+
+                            table.updateData([rollbackData]);
+                            return;
+                        }
+
                         fetch(`realisasi-progress-fisik-ai-pag/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
@@ -773,7 +714,6 @@
 
                     previousData = JSON.parse(JSON.stringify(newData));
                 });
-
                 loadData();
             });
         </script>
@@ -807,67 +747,76 @@
 
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
+                const jumlahRow = parseInt(data.jumlah_row);
+                const payloadArray = [];
 
-                fetch("realisasi-progress-fisik-ai-pag", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Accept": "application/json",
-                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute(
-                                "content")
-                        },
-                        body: JSON.stringify({
-                            periode: data.periode,
-                            no: data.no,
-                            program_kerja: data.program_kerja,
-                            kategori_aibt: data.kategori_aibt,
-                            jenis_anggaran: data.jenis_anggaran,
-                            besar_rkap: data.besar_rkap,
-                            entitas: data.entitas,
-                            unit: data.unit,
-                            nilai_kontrak: data.nilai_kontrak,
+                for (let i = 0; i < jumlahRow; i++) {
+                    payloadArray.push({
+                        periode: data[`periode_${i}`],
+                        no: data[`no_${i}`],
+                        program_kerja: data[`program_kerja_${i}`],
+                        kategori_aibt: data[`kategori_aibt_${i}`],
+                        jenis_anggaran: data[`jenis_anggaran_${i}`],
+                        besar_rkap: data[`besar_rkap_${i}`],
+                        entitas: data[`entitas_${i}`],
+                        unit: data[`unit_${i}`],
+                        nilai_kontrak: data[`nilai_kontrak_${i}`],
 
-                            plan_jan: data.plan_jan,
-                            plan_feb: data.plan_feb,
-                            plan_mar: data.plan_mar,
-                            plan_apr: data.plan_apr,
-                            plan_may: data.plan_may,
-                            plan_jun: data.plan_jun,
-                            plan_jul: data.plan_jul,
-                            plan_aug: data.plan_aug,
-                            plan_sep: data.plan_sep,
-                            plan_oct: data.plan_oct,
-                            plan_nov: data.plan_nov,
-                            plan_dec: data.plan_dec,
+                        plan_jan: data[`plan_jan_${i}`],
+                        plan_feb: data[`plan_feb_${i}`],
+                        plan_mar: data[`plan_mar_${i}`],
+                        plan_apr: data[`plan_apr_${i}`],
+                        plan_may: data[`plan_may_${i}`],
+                        plan_jun: data[`plan_jun_${i}`],
+                        plan_jul: data[`plan_jul_${i}`],
+                        plan_aug: data[`plan_aug_${i}`],
+                        plan_sep: data[`plan_sep_${i}`],
+                        plan_oct: data[`plan_oct_${i}`],
+                        plan_nov: data[`plan_nov_${i}`],
+                        plan_dec: data[`plan_dec_${i}`],
 
-                            actual_jan: data.actual_jan,
-                            actual_feb: data.actual_feb,
-                            actual_mar: data.actual_mar,
-                            actual_apr: data.actual_apr,
-                            actual_may: data.actual_may,
-                            actual_jun: data.actual_jun,
-                            actual_jul: data.actual_jul,
-                            actual_aug: data.actual_aug,
-                            actual_sep: data.actual_sep,
-                            actual_oct: data.actual_oct,
-                            actual_nov: data.actual_nov,
-                            actual_dec: data.actual_dec,
+                        actual_jan: data[`actual_jan_${i}`],
+                        actual_feb: data[`actual_feb_${i}`],
+                        actual_mar: data[`actual_mar_${i}`],
+                        actual_apr: data[`actual_apr_${i}`],
+                        actual_may: data[`actual_may_${i}`],
+                        actual_jun: data[`actual_jun_${i}`],
+                        actual_jul: data[`actual_jul_${i}`],
+                        actual_aug: data[`actual_aug_${i}`],
+                        actual_sep: data[`actual_sep_${i}`],
+                        actual_oct: data[`actual_oct_${i}`],
+                        actual_nov: data[`actual_nov_${i}`],
+                        actual_dec: data[`actual_dec_${i}`],
 
-                            kode: data.kode,
-                            kendala: data.kendala,
-                            tindak_lanjut: data.tindak_lanjut,
-                        })
-                    })
-                    .then(response => response.json())
-                    .then(result => {
-                        if (result.success) {
-                            showToast(result.message || "Data berhasil disimpan", "success");
-                            table.setData(`${BASE_URL}/monev/shg/input-data/realisasi-progress-fisik-ai-pag/data`);
-                            this.reset();
-                            closeModal();
+                        kode: data[`kode_${i}`],
+                        kendala: data[`kendala_${i}`],
+                        tindak_lanjut: data[`tindak_lanjut_${i}`],
+                    });
+                }
+
+                Promise.all(payloadArray.map(item => {
+                        return fetch("realisasi-progress-fisik-ai-pag", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute("content")
+                            },
+                            body: JSON.stringify(item)
+                        }).then(res => res.json());
+                    }))
+                    .then(results => {
+                        const gagal = results.filter(r => !r.success);
+                        if (gagal.length === 0) {
+                            showToast(`${jumlahRow} baris data berhasil disimpan`, "success");
                         } else {
-                            showToast(result.message || "Gagal menyimpan data", "error");
+                            showToast(`${gagal.length} dari ${jumlahRow} baris gagal disimpan`, "error");
                         }
+
+                        table.setData(`${BASE_URL}/monev/shg/input-data/realisasi-progress-fisik-ai-pag/data`);
+                        document.getElementById("createForm").reset();
+                        closeModal();
                     })
                     .catch(error => {
                         console.error("Error saat submit:", error);
