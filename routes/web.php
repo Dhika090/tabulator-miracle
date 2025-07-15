@@ -623,7 +623,8 @@ Route::get('monev-aim', [MonevAimController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('monev.aim');
 
-Route::middleware([\App\Http\Middleware\CorsMiddleware::class])->group(function () {
+// Route::middleware([\App\Http\Middleware\CorsMiddleware::class])->group(function () {
+Route::middleware([\App\Http\Middleware\verityTokenDigio::class])->group(function () {
     Route::get('/', function () {
         return view('dashboard');
     });

@@ -61,7 +61,7 @@ class AuthController extends Controller
                     'user' => $user,
                 ])
 
-                ->cookie('digio_token', $token, 60, '/', null, false, false);
+                ->cookie('digio_token', $token, 60, '/', true, null, false, false);
         } catch (\Exception $e) {
             return response()->json([
                 'error' => 'Token tidak valid: ' . $e->getMessage(),
