@@ -198,50 +198,12 @@
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
 
-                <div>
-                    <label>Periode</label>
-                    <input type="month" name="periode" id="periode">
-                </div>
-
-                <div>
-                    <label>Company</label>
-                    <input type="text" name="company" id="company">
-                </div>
-
-                <div>
-                    <label>Kategori</label>
-                    <input type="text" name="kategori" id="kategori">
-                </div>
-
-                <div>
-                    <label>Target</label>
-                    <input type="number" name="target" id="target" step="0.01" min="0" max="100">
-
-                </div>
-
-                <div>
-                    <label>Availability</label>
-                    <input type="number" name="availability" id="availability" step="0.01" min="0"
-                        max="100">
-                </div>
-
-                <div>
-                    <label>Isu / Problem / Bad Actor</label>
-                    <input type="text" name="isu" id="isu"></input>
-                </div>
-
-                <div>
-                    <label>Kendala</label>
-                    <input type="text" name="kendala" id="kendala"></input>
-                </div>
-
-                <div>
-                    <label>Tindak Lanjut</label>
-                    <input type="text" name="tindak_lanjut" id="tindak_lanjut"></input>
-                </div>
+                <label>Jumlah Row yang ingin dibuat</label>
+                <input type="number" name="jumlah_row" id="jumlah_row" min="1" value="1" required>
 
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
+
         </div>
     </div>
 
@@ -330,7 +292,7 @@
             }
 
             function loadData() {
-                fetch("/monev/shg/input-data/availability-ptgn/data", {
+                fetch(`${BASE_URL}/monev/shg/input-data/availability-ptgn/data`, {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -765,7 +727,7 @@
                     .then(result => {
                         if (result.success) {
                             showToast(result.message || "Data berhasil disimpan", "success");
-                            table.setData("/monev/shg/input-data/availability-ptgn/data");
+                            table.setData(`${BASE_URL}/monev/shg/input-data/availability-ptgn/data`);
                             this.reset();
                             closeModal();
                         } else {

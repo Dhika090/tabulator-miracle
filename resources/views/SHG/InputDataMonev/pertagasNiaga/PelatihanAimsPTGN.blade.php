@@ -194,28 +194,13 @@
             <h3>Pelatihan AIMS PTGN</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
-                <div>
-                    <label>Periode</label>
-                    <input type="month" name="periode" id="periode">
-                </div>
 
-                <div>
-                    <label>Company</label>
-                    <input type="text" name="company" id="company">
-                </div>
-
-                <div>
-                    <label>Judul Pelatihan/Training/Forum</label>
-                    <input type="text" name="judul_pelatihan" id="judul_pelatihan">
-                </div>
-
-                <div>
-                    <label>Realisasi Perwira</label>
-                    <input type="number" name="realisasi_perwira" id="realisasi_perwira">
-                </div>
+                <label>Jumlah Row yang ingin dibuat</label>
+                <input type="number" name="jumlah_row" id="jumlah_row" min="1" value="1" required>
 
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
+
 
         </div>
     </div>
@@ -285,7 +270,7 @@
             }
 
             function loadData() {
-                fetch("/monev/shg/input-data/pelatihan-aims-ptgn/data", {
+                fetch(`${BASE_URL}/monev/shg/input-data/pelatihan-aims-ptgn/data`, {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -682,7 +667,7 @@
                     .then(result => {
                         if (result.success) {
                             showToast(result.message || "Data berhasil disimpan", "success");
-                            table.setData("/monev/shg/input-data/pelatihan-aims-ptgn/data");
+                            table.setData(`${BASE_URL}/monev/shg/input-data/pelatihan-aims-ptgn/data`);
                             this.reset();
                             closeModal();
                         } else {

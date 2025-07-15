@@ -278,7 +278,7 @@
             }
 
             function loadData() {
-                fetch(`${base_url}/monev/shg/kinerja/tindak-lanjut-highlight-realisasi-aims/data`, {
+                fetch(`${BASE_URL}/monev/shg/kinerja/tindak-lanjut-highlight-realisasi-aims/data`, {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -571,7 +571,7 @@
                 toast.classList.add(type === "success" ? "toast-success" : "toast-error");
                 toast.style.display = "block";
 
-               setTimeout(() => {
+                setTimeout(() => {
                     toast.style.display = "none";
                 }, 3500);
             }
@@ -610,7 +610,8 @@
                     .then(result => {
                         if (result.success) {
                             showToast(result.message || "Data berhasil disimpan", "success");
-                            table.setData(`${base_url}/monev/shg/kinerja/tindak-lanjut-highlight-realisasi-aims/data`);
+                            table.setData(
+                                `${BASE_URL}/monev/shg/kinerja/tindak-lanjut-highlight-realisasi-aims/data`);
                             this.reset();
                             closeModal();
                         } else {

@@ -16,6 +16,8 @@
             }
 
             #example-table {
+                word-wrap: break-word;
+                white-space: normal;
                 background-color: white;
                 min-width: 800px;
                 border-radius: 8px;
@@ -24,11 +26,6 @@
 
             .tabulator-cell {
                 font-size: 14px;
-            }
-
-            .tabulator .tabulator-cell {
-                white-space: normal !important;
-                word-wrap: break-word;
             }
 
             .card {
@@ -50,6 +47,11 @@
                 border-bottom: 1px solid #dee2e6;
                 white-space: nowrap;
                 position: relative;
+            }
+
+            .tabulator .tabulator-cell {
+                white-space: normal !important;
+                word-wrap: break-word;
             }
 
 
@@ -133,7 +135,7 @@
     <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-                <h5 class="card-title mb-3 mb-md-0">Rencana Pemeliharaan Besar RuDumai</h5>
+                <h5 class="card-title mb-3 mb-md-0">Rencana Pemeliharaan Ru Dumai 2025</h5>
                 <div class="d-flex flex-column flex-md-row align-items-center gap-3">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
@@ -191,7 +193,7 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Tambah Rencana Pemeliharaan Besar RuDumai</h3>
+            <h3>Tambah Rencana Pemeliharaan Besar Ru Dumai</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
 
@@ -204,12 +206,14 @@
         </div>
     </div>
 
+
     <div id="toastNotification"
         style="display:none; position: fixed; top: 20px; right: 20px; z-index: 9999; padding: 15px 20px; border-radius: 8px; color: white; font-weight: bold;">
     </div>
     @push('scripts')
-        <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
         <script src="https://unpkg.com/tabulator-tables@5.6.0/dist/js/tabulator.min.js"></script>
+        <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+
         <script>
             const BASE_URL = "{{ config('app.url') }}";
 
@@ -234,18 +238,104 @@
                 }
             }
 
-            function clearSearch() {
-                document.getElementById("search-input").value = "";
-                table.clearFilter();
-            }
-
             document.getElementById("search-input").addEventListener("input", function(e) {
                 const keyword = e.target.value;
                 table.setFilter([
                     [{
+                            title: "No",
+                            formatter: function(cell) {
+                                const row = cell.getRow();
+                                const table = cell.getTable();
+                                const sortedData = table.getRows("active").map(r => r.getData());
+                                const index = sortedData.findIndex(data => data.id === row.getData().id);
+                                return index + 1;
+                            },
+                            hozAlign: "center",
+                            width: 60,
+                            headerSort: false,
+                        },
+                        {
+                            title: "Periode",
                             field: "periode",
-                            type: "like",
-                            value: keyword
+                            editor: "input",
+                            headerFilter: "select",
+                            headerFilterParams: {
+                                values: [{
+                                        value: "01",
+                                        label: "Januari"
+                                    },
+                                    {
+                                        value: "02",
+                                        label: "Februari"
+                                    },
+                                    {
+                                        value: "03",
+                                        label: "Maret"
+                                    },
+                                    {
+                                        value: "04",
+                                        label: "April"
+                                    },
+                                    {
+                                        value: "05",
+                                        label: "Mei"
+                                    },
+                                    {
+                                        value: "06",
+                                        label: "Juni"
+                                    },
+                                    {
+                                        value: "07",
+                                        label: "Juli"
+                                    },
+                                    {
+                                        value: "08",
+                                        label: "Agustus"
+                                    },
+                                    {
+                                        value: "09",
+                                        label: "September"
+                                    },
+                                    {
+                                        value: "10",
+                                        label: "Oktober"
+                                    },
+                                    {
+                                        value: "11",
+                                        label: "November"
+                                    },
+                                    {
+                                        value: "12",
+                                        label: "Desember"
+                                    }
+                                ]
+                            },
+                            headerFilterPlaceholder: "Pilih Bulan",
+                            headerFilterFunc: function(headerValue, rowValue) {
+                                if (!headerValue) return true;
+                                if (!rowValue) return false;
+
+                                const periode = rowValue.toLowerCase();
+
+                                const bulanTextMap = {
+                                    "01": ["jan", "january"],
+                                    "02": ["feb", "february"],
+                                    "03": ["mar", "march"],
+                                    "04": ["apr", "april"],
+                                    "05": ["may", "mei"],
+                                    "06": ["jun", "june"],
+                                    "07": ["jul", "july"],
+                                    "08": ["aug", "august"],
+                                    "09": ["sep", "september"],
+                                    "10": ["oct", "october"],
+                                    "11": ["nov", "november"],
+                                    "12": ["dec", "december"]
+                                };
+
+                                const keywords = bulanTextMap[headerValue];
+                                return keywords.some(keyword => periode.includes(keyword)) || periode
+                                    .includes(`-${headerValue}`);
+                            }
                         },
                         {
                             field: "no",
@@ -270,7 +360,7 @@
                         {
                             field: "kategori_maintenance",
                             type: "like",
-                            value: keyword
+                            value: keyword,
                         },
                         {
                             field: "besar_phasing",
@@ -279,6 +369,66 @@
                         },
                         {
                             field: "remark",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "jan",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "feb",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "mar",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "apr",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "may",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "jun",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "jul",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "aug",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "sep",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "oct",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "nov",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "dec",
                             type: "like",
                             value: keyword
                         },
@@ -311,8 +461,13 @@
                 ]);
             });
 
+            function clearSearch() {
+                document.getElementById("search-input").value = "";
+                table.clearFilter();
+            }
+
             function loadData() {
-                fetch("/monev/shrnp/input-data/rencana-pemeliharaan-ru-dumai/data", {
+                fetch(`${BASE_URL}/monev/shrnp/input-data/rencana-pemeliharaan-ru-dumai/data`, {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -342,20 +497,10 @@
                 const columnMap = {
                     "rencana-pemeliharaan-ru-dumai": [{
                             title: "No",
+                            formatter: "rownum",
                             hozAlign: "center",
                             width: 60,
-                            download: false,
-                            formatter: function(cell) {
-                                const row = cell.getRow();
-                                const table = row.getTable();
-
-                                const pageSize = table.getPageSize();
-                                const currentPage = table.getPage();
-                                const rowIndex = row
-                                    .getPosition();
-
-                                return ((currentPage - 1) * pageSize) + rowIndex;
-                            }
+                            donwload: false
                         },
                         {
                             title: "ID",
@@ -364,7 +509,6 @@
                         },
                         {
                             title: "Periode",
-                            hozAlign: "center",
                             field: "periode",
                             editor: "input",
                             headerFilter: "select",
@@ -411,8 +555,8 @@
                         {
                             title: "Kategori Maintenance",
                             field: "kategori_maintenance",
-                            hozAlign: "center",
-                            editor: "input"
+                            editor: "input",
+                            width: 200
                         },
                         {
                             title: "Besar Phasing",
@@ -444,76 +588,80 @@
                             editor: "input"
                         },
                         {
-                            title: "Jan",
-                            field: "jan",
-                            editor: "number",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "Feb",
-                            field: "feb",
-                            editor: "number",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "Mar",
-                            field: "mar",
-                            editor: "number",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "Apr",
-                            field: "apr",
-                            editor: "number",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "May",
-                            field: "may",
-                            editor: "number",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "Jun",
-                            field: "jun",
-                            editor: "number",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "Jul",
-                            field: "jul",
-                            editor: "number",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "Aug",
-                            field: "aug",
-                            editor: "number",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "Sep",
-                            field: "sep",
-                            editor: "number",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "Oct",
-                            field: "oct",
-                            editor: "number",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "Nov",
-                            field: "nov",
-                            editor: "number",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "Dec",
-                            field: "dec",
-                            editor: "number",
-                            hozAlign: "center"
+                            title: "Bulan",
+                            columns: [{
+                                    title: "Jan",
+                                    field: "jan",
+                                    editor: "number",
+                                    hozAlign: "center"
+                                },
+                                {
+                                    title: "Feb",
+                                    field: "feb",
+                                    editor: "number",
+                                    hozAlign: "center"
+                                },
+                                {
+                                    title: "Mar",
+                                    field: "mar",
+                                    editor: "number",
+                                    hozAlign: "center"
+                                },
+                                {
+                                    title: "Apr",
+                                    field: "apr",
+                                    editor: "number",
+                                    hozAlign: "center"
+                                },
+                                {
+                                    title: "May",
+                                    field: "may",
+                                    editor: "number",
+                                    hozAlign: "center"
+                                },
+                                {
+                                    title: "Jun",
+                                    field: "jun",
+                                    editor: "number",
+                                    hozAlign: "center"
+                                },
+                                {
+                                    title: "Jul",
+                                    field: "jul",
+                                    editor: "number",
+                                    hozAlign: "center"
+                                },
+                                {
+                                    title: "Aug",
+                                    field: "aug",
+                                    editor: "number",
+                                    hozAlign: "center"
+                                },
+                                {
+                                    title: "Sep",
+                                    field: "sep",
+                                    editor: "number",
+                                    hozAlign: "center"
+                                },
+                                {
+                                    title: "Oct",
+                                    field: "oct",
+                                    editor: "number",
+                                    hozAlign: "center"
+                                },
+                                {
+                                    title: "Nov",
+                                    field: "nov",
+                                    editor: "number",
+                                    hozAlign: "center"
+                                },
+                                {
+                                    title: "Dec",
+                                    field: "dec",
+                                    editor: "number",
+                                    hozAlign: "center"
+                                },
+                            ]
                         },
                         {
                             title: "Biaya Kerugian (USD)",
@@ -529,20 +677,17 @@
                         {
                             title: "Penyebab",
                             field: "penyebab",
-                            editor: "input",
-                            width: 450
+                            editor: "input"
                         },
                         {
                             title: "Kendala",
                             field: "kendala",
-                            editor: "input",
-                            width: 450
+                            editor: "input"
                         },
                         {
                             title: "Tindak Lanjut",
                             field: "tindak_lanjut",
-                            editor: "input",
-                            width: 450
+                            editor: "input"
                         },
                         {
                             title: "Aksi",
@@ -567,6 +712,8 @@
                     responsiveLayout: "collapse",
                     autoResize: true,
                     columns: columnMap["rencana-pemeliharaan-ru-dumai"],
+                    virtualDom: true,
+                    height: "700px",
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -623,37 +770,6 @@
                     });
                 });
 
-                function isValidPeriodeFormat(value) {
-                    const regex = /^[A-Za-z]{3}-\d{2}$/;
-                    return regex.test(value);
-                }
-
-                table.on("cellEdited", function(cell) {
-                    const updatedData = cell.getRow().getData();
-                    const id = updatedData.id;
-
-                    if (!id) return;
-                    if (cell.getField() === "periode" && !isValidPeriodeFormat(cell.getValue())) {
-                        showToast("Format Periode tidak valid! Gunakan format: Sep-24", "error");
-                        cell.restoreOldValue();
-                        return;
-                    }
-
-                    fetch(`rencana-pemeliharaan-ru-dumai/${id}`, {
-                            method: "PUT",
-                            headers: {
-                                "Content-Type": "application/json",
-                                "Accept": "application/json",
-                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
-                                    .getAttribute("content")
-                            },
-                            body: JSON.stringify(updatedData)
-                        })
-                        .then(res => res.json())
-                        .then(data => console.log("Berhasil update:", data))
-                        .catch(err => console.error("Gagal update:", err));
-                });
-
                 let previousData = [];
                 table.on("dataLoaded", function(newData) {
                     previousData = JSON.parse(JSON.stringify(newData));
@@ -674,6 +790,73 @@
                     return changes;
                 }
 
+                function isValidPeriodeFormat(value) {
+                    const regex = /^[A-Za-z]{3}-\d{2}$/;
+                    return regex.test(value);
+                }
+
+                function isValidAngkaBulan(value) {
+                    const angka = parseFloat(value);
+                    return !isNaN(angka) && angka >= 0;
+                }
+                const bulanFields = [
+                    "jan", "feb", "mar", "apr", "may", "jun",
+                    "jul", "aug", "sep", "oct", "nov", "dec"
+                ];
+
+                table.on("cellEdited", function(cell) {
+                    const updatedData = cell.getRow().getData();
+                    const id = updatedData.id;
+
+                    if (!id) return;
+
+                    const field = cell.getField();
+                    const value = cell.getValue();
+
+                    if (field === "periode" && !isValidPeriodeFormat(value)) {
+                        showToast("Format Periode tidak valid! Gunakan format: Sep-24", "error");
+                        cell.restoreOldValue();
+                        return;
+                    }
+
+                    const bulanFields = [
+                        "jan", "feb", "mar", "apr", "may", "jun",
+                        "jul", "aug", "sep", "oct", "nov", "dec"
+                    ];
+
+                    if (bulanFields.includes(field) && !isValidAngkaBulan(value)) {
+                        showToast(`Nilai bulan ${field.toUpperCase()} tidak valid! Harus berupa angka Numerik`,
+                            "error");
+                        cell.restoreOldValue();
+                        return;
+                    }
+
+
+                    fetch(`rencana-pemeliharaan-ru-dumai/${id}`, {
+                            method: "PUT",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute("content")
+                            },
+                            body: JSON.stringify(updatedData)
+                        })
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.success) {
+                                showToast("Update berhasil!", "success");
+                            } else {
+                                showToast("Update gagal: " + data.message, "error");
+                            }
+                        })
+                        .catch(err => {
+                            console.error("Gagal update:", err);
+                            showToast("Terjadi kesalahan saat update!", "error");
+                        });
+                });
+
+
                 table.on("dataChanged", function(newData) {
                     const changedRows = getChangedRows(newData, previousData);
                     console.log("Baris yang berubah:", changedRows);
@@ -692,14 +875,30 @@
                                 "error");
 
                             rowData.periode = oldRow.periode;
-
                             table.updateData([{
                                 id: rowData.id,
                                 periode: oldRow.periode
                             }]);
-
                             return;
                         }
+
+                        for (const bulan of bulanFields) {
+                            if (rowData[bulan] !== oldRow[bulan] && !isValidAngkaBulan(rowData[
+                                    bulan])) {
+                                showToast(
+                                    `Nilai bulan ${bulan.toUpperCase()} tidak valid! Harus angka Numerik`,
+                                    "error");
+
+                                rowData[bulan] = oldRow[bulan];
+                                const updatePayload = {
+                                    id: rowData.id
+                                };
+                                updatePayload[bulan] = oldRow[bulan];
+                                table.updateData([updatePayload]);
+                                return;
+                            }
+                        }
+
                         fetch(`rencana-pemeliharaan-ru-dumai/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
@@ -763,52 +962,64 @@
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
 
-                fetch("rencana-pemeliharaan-ru-dumai", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Accept": "application/json",
-                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute(
-                                "content")
-                        },
-                        body: JSON.stringify({
-                            periode: data.periode,
-                            no: data.no,
-                            company: data.company,
-                            lokasi: data.lokasi,
-                            program_kerja: data.program_kerja,
-                            kategori_maintenance: data.kategori_maintenance,
-                            besar_phasing: data.besar_phasing,
-                            remark: data.remark,
-                            jan: data.jan,
-                            feb: data.feb,
-                            mar: data.mar,
-                            apr: data.apr,
-                            may: data.may,
-                            jun: data.jun,
-                            jul: data.jul,
-                            aug: data.aug,
-                            sep: data.sep,
-                            oct: data.oct,
-                            nov: data.nov,
-                            dec: data.dec,
-                            biaya_kerugian: data.biaya_kerugian,
-                            keterangan_kerugian: data.keterangan_kerugian,
-                            penyebab: data.penyebab,
-                            kendala: data.kendala,
-                            tindak_lanjut: data.tindak_lanjut
-                        })
-                    })
-                    .then(response => response.json())
-                    .then(result => {
-                        if (result.success) {
-                            showToast(result.message || "Data berhasil disimpan", "success");
-                            table.setData("/monev/shrnp/input-data/rencana-pemeliharaan-ru-dumai/data");
-                            this.reset();
-                            closeModal();
+                const jumlahRow = parseInt(data.jumlah_row);
+
+                const payloadArray = [];
+
+                for (let i = 0; i < jumlahRow; i++) {
+                    payloadArray.push({
+                        periode: data.periode,
+                        company: data.company,
+                        no: data[`no_${i}`],
+                        lokasi: data[`lokasi_${i}`],
+                        program_kerja: data[`program_kerja_${i}`],
+                        kategori_maintenance: data[`kategori_maintenance_${i}`],
+                        besar_phasing: data[`besar_phasing_${i}`],
+                        remark: data[`remark_${i}`],
+                        jan: data[`jan_${i}`],
+                        feb: data[`feb_${i}`],
+                        mar: data[`mar_${i}`],
+                        apr: data[`apr_${i}`],
+                        may: data[`may_${i}`],
+                        jun: data[`jun_${i}`],
+                        jul: data[`jul_${i}`],
+                        aug: data[`aug_${i}`],
+                        sep: data[`sep_${i}`],
+                        oct: data[`oct_${i}`],
+                        nov: data[`nov_${i}`],
+                        dec: data[`dec_${i}`],
+                        biaya_kerugian: data[`biaya_kerugian_${i}`],
+                        keterangan_kerugian: data[`keterangan_kerugian_${i}`],
+                        penyebab: data[`penyebab_${i}`],
+                        kendala: data[`kendala_${i}`],
+                        tindak_lanjut: data[`tindak_lanjut_${i}`]
+                    });
+                }
+
+                Promise.all(payloadArray.map(dataItem => {
+                        return fetch("rencana-pemeliharaan-ru-dumai", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute(
+                                        "content")
+                            },
+                            body: JSON.stringify(dataItem)
+                        }).then(res => res.json());
+                    }))
+                    .then(results => {
+                        const gagal = results.filter(r => !r.success);
+                        if (gagal.length === 0) {
+                            showToast(`${jumlahRow} baris data berhasil buat`, "success");
                         } else {
-                            showToast(result.message || "Gagal menyimpan data", "error");
+                            showToast(`${gagal.length} data gagal disimpan`, "error");
                         }
+
+                        table.setData(`${BASE_URL}/monev/shrnp/input-data/rencana-pemeliharaan-ru-dumai/data`);
+                        document.getElementById("createForm").reset();
+                        closeModal();
                     })
                     .catch(error => {
                         console.error("Error saat submit:", error);
@@ -852,6 +1063,7 @@
                     });
                 });
 
+                // Ketika halaman reload setelah klik, cek dan scroll otomatis
                 if (sessionStorage.getItem('scrollToActiveTab') === 'yes') {
                     scrollToActiveTab();
                     sessionStorage.removeItem('scrollToActiveTab');

@@ -194,25 +194,9 @@
             <h3>Pelatihan AIMS PDG</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
-                <div>
-                    <label>Periode</label>
-                    <input type="month" name="periode" id="periode">
-                </div>
 
-                <div>
-                    <label>Company</label>
-                    <input type="text" name="company" id="company">
-                </div>
-
-                <div>
-                    <label>Judul Pelatihan/Training/Forum</label>
-                    <input type="text" name="judul_pelatihan" id="judul_pelatihan">
-                </div>
-
-                <div>
-                    <label>Realisasi Perwira</label>
-                    <input type="number" name="realisasi_perwira" id="realisasi_perwira">
-                </div>
+                <label>Jumlah Row yang ingin dibuat</label>
+                <input type="number" name="jumlah_row" id="jumlah_row" min="1" value="1" required>
 
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
@@ -584,13 +568,11 @@
                     changedRows.forEach((rowData, index) => {
                         const id = rowData.id;
                         if (!id) return;
-
                         if (cell.getField() === "periode" && !isValidPeriodeFormat(cell.getValue())) {
                             showToast("Format Periode tidak valid! Gunakan format: Sep-24", "error");
                             cell.restoreOldValue();
                             return;
                         }
-
                         const oldRow = previousData.find(r => r.id === id);
                         if (!oldRow) return;
 
@@ -670,32 +652,44 @@
 
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
+                const jumlahRow = parseInt(data.jumlah_row);
 
-                fetch("pelatihan-aims-pdg", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Accept": "application/json",
-                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute(
-                                "content")
-                        },
-                        body: JSON.stringify({
-                            periode: data.periode,
-                            company: data.company,
-                            judul_pelatihan: data.judul_pelatihan,
-                            realisasi_perwira: data.realisasi_perwira
-                        })
-                    })
-                    .then(response => response.json())
-                    .then(result => {
-                        if (result.success) {
-                            showToast(result.message || "Data berhasil disimpan", "success");
-                            table.setData(`${BASE_URL}/monev/shg/input-data/pelatihan-aims-pdg/data`);
-                            this.reset();
-                            closeModal();
+                const payloadArray = [];
+
+                for (let i = 0; i < jumlahRow; i++) {
+                    payloadArray.push({
+                        periode: data[`periode_${i}`],
+                        company: data[`company_${i}`],
+                        judul_pelatihan: data[`judul_pelatihan_${i}`],
+                        realisasi_perwira: data[`realisasi_perwira_${i}`]
+                    });
+                }
+
+                Promise.all(
+                        payloadArray.map(row =>
+                            fetch("pelatihan-aims-pdg", {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                    "Accept": "application/json",
+                                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute(
+                                        "content")
+                                },
+                                body: JSON.stringify(row)
+                            }).then(res => res.json())
+                        )
+                    )
+                    .then(results => {
+                        const gagal = results.filter(r => !r.success);
+                        if (gagal.length === 0) {
+                            showToast(`${jumlahRow} baris data berhasil disimpan`, "success");
                         } else {
-                            showToast(result.message || "Gagal menyimpan data", "error");
+                            showToast(`${gagal.length} dari ${jumlahRow} data gagal disimpan`, "error");
                         }
+
+                        table.setData(`${BASE_URL}/monev/shg/input-data/pelatihan-aims-pdg/data`);
+                        document.getElementById("createForm").reset();
+                        closeModal();
                     })
                     .catch(error => {
                         console.error("Error saat submit:", error);

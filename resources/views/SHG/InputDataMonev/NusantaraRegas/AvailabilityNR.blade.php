@@ -24,14 +24,13 @@
 
             .tabulator-cell {
                 font-size: 14px;
-                white-space: normal !important;
-                word-wrap: break-word;
             }
 
             .tabulator .tabulator-cell {
                 white-space: normal !important;
                 word-wrap: break-word;
             }
+
 
             .card {
                 margin-top: 20px;
@@ -193,57 +192,18 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Tambah Data Availability NR</h3>
+            <h3>Pelatihan AIMS NR</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
 
-                <div>
-                    <label>Periode</label>
-                    <input type="month" name="periode" id="periode">
-                </div>
-
-                <div>
-                    <label>Company</label>
-                    <input type="text" name="company" id="company">
-                </div>
-
-                <div>
-                    <label>Kategori</label>
-                    <input type="text" name="kategori" id="kategori">
-                </div>
-
-                <div>
-                    <label>Target</label>
-                    <input type="number" name="target" id="target" step="0.01" min="0" max="100">
-
-                </div>
-
-                <div>
-                    <label>Availability</label>
-                    <input type="number" name="availability" id="availability" step="0.01" min="0"
-                        max="100">
-                </div>
-
-                <div>
-                    <label>Isu / Problem / Bad Actor</label>
-                    <input type="text" name="isu" id="isu"></input>
-                </div>
-
-                <div>
-                    <label>Kendala</label>
-                    <input type="text" name="kendala" id="kendala"></input>
-                </div>
-
-                <div>
-                    <label>Tindak Lanjut</label>
-                    <input type="text" name="tindak_lanjut" id="tindak_lanjut"></input>
-                </div>
+                <label>Jumlah Row yang ingin dibuat</label>
+                <input type="number" name="jumlah_row" id="jumlah_row" min="1" value="1" required>
 
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
+
         </div>
     </div>
-
 
     <div id="toastNotification"
         style="display:none; position: fixed; top: 20px; right: 20px; z-index: 9999; padding: 15px 20px; border-radius: 8px; color: white; font-weight: bold;">
@@ -356,23 +316,41 @@
             }
 
             document.addEventListener("DOMContentLoaded", function() {
+                const CSRF_TOKEN = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
+
+                const cleanRow = (row) => {
+                    const cleaned = {};
+                    for (const [key, value] of Object.entries(row)) {
+                        const valStr = String(value).trim().toLowerCase();
+                        cleaned[key] = (
+                            value === null || value === undefined ||
+                            valStr === "null" || valStr === "undefined"
+                        ) ? "" : value;
+                    }
+                    return cleaned;
+                };
+
+                const formatPercent = (cell) => {
+                    let value = parseFloat(cell.getValue());
+                    if (isNaN(value)) return "-";
+                    const displayValue = value <= 1 ? value * 100 : value;
+                    return displayValue.toFixed(2) + " %";
+                };
+
                 const columnMap = {
                     "availability-nr": [{
                             title: "No",
-                            hozAlign: "center",
-                            width: 60,
-                            download: false,
                             formatter: function(cell) {
                                 const row = cell.getRow();
-                                const table = row.getTable();
-
-                                const pageSize = table.getPageSize();
-                                const currentPage = table.getPage();
-                                const rowIndex = row
-                                    .getPosition();
-
-                                return ((currentPage - 1) * pageSize) + rowIndex;
-                            }
+                                const table = cell.getTable();
+                                const sortedData = table.getRows("active").map(r => r.getData());
+                                const index = sortedData.findIndex(data => data.id === row.getData().id);
+                                return index + 1;
+                            },
+                            hozAlign: "center",
+                            width: 60,
+                            headerSort: false,
+                            download: false
                         },
                         {
                             title: "ID",
@@ -465,7 +443,6 @@
                         {
                             title: "Company",
                             field: "company",
-                            hozAlign: "center",
                             editor: "input"
                         },
                         {
@@ -490,7 +467,7 @@
                         {
                             title: "Isu / Problem / Bad Actor",
                             field: "isu",
-                            editor: "textarea",
+                            editor: "input",
                             width: 400
                         },
                         {
@@ -526,6 +503,9 @@
                     responsiveLayout: "collapse",
                     autoResize: true,
                     columns: columnMap["availability-nr"],
+
+                    virtualDom: true,
+                    height: "700px",
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -582,96 +562,21 @@
                     });
                 });
 
-                let previousData = [];
-                table.on("dataLoaded", function(newData) {
-                    previousData = JSON.parse(JSON.stringify(newData));
-                });
-
-                function getChangedRows(newData, oldData) {
-                    const changes = [];
-                    newData.forEach((row, index) => {
-                        if (!row.id) return;
-                        const oldRow = oldData[index];
-                        if (!oldRow) return;
-
-                        const isDifferent = Object.keys(row).some(key => row[key] !== oldRow[key]);
-                        if (isDifferent) {
-                            changes.push(row);
-                        }
-                    });
-                    return changes;
-                }
-
-                table.on("dataChanged", function(newData) {
-                    const changedRows = getChangedRows(newData, previousData);
-                    console.log("Baris yang berubah:", changedRows);
-
-                    changedRows.forEach((rowData, index) => {
-                        const id = rowData.id;
-                        if (!id) return;
-
-                        const oldRow = previousData.find(r => r.id === id);
-                        if (!oldRow) return;
-
-                        if (rowData.periode !== oldRow.periode && !isValidPeriodeFormat(rowData
-                                .periode)) {
-                            showToast(
-                                `"${rowData.periode}" Format Periode tidak valid! Gunakan format: Jan-25`,
-                                "error");
-
-                            rowData.periode = oldRow.periode;
-
-                            table.updateData([{
-                                id: rowData.id,
-                                periode: oldRow.periode
-                            }]);
-
-                            return;
-                        }
-                        if (rowData.target !== undefined && typeof rowData.target === "string") {
-                            rowData.target = parseFloat(rowData.target.replace("%", "").trim());
-                        }
-                        if (rowData.availability !== undefined && typeof rowData.availability ===
-                            "string") {
-                            rowData.availability = parseFloat(rowData.availability.replace("%", "")
-                                .trim());
-                        }
-                        fetch(`availability-nr/${rowData.id}`, {
-                                method: "PUT",
-                                headers: {
-                                    "Content-Type": "application/json",
-                                    "Accept": "application/json",
-                                    "X-CSRF-TOKEN": document.querySelector(
-                                        'meta[name="csrf-token"]').getAttribute("content")
-                                },
-                                body: JSON.stringify(rowData)
-                            })
-                            .then(res => res.json())
-                            .then(response => {
-                                if (response.success) {
-                                    showToast(`Data berhasil disimpan`, "success");
-                                } else {
-                                    showToast(
-                                        `Format Periode tidak valid! Gunakan format: Jan-25 : ${response.message}`,
-                                        "error");
-                                }
-                            })
-                            .catch(err => {
-                                console.error("Gagal menyimpan hasil paste:", err);
-                                showToast(`Kesalahan pada ID ${id}`, "error");
-                            });
-                    });
-
-                    previousData = JSON.parse(JSON.stringify(newData));
-                });
+                let previousDataMap = new Map();
 
                 function isValidPeriodeFormat(value) {
                     const regex = /^[A-Za-z]{3}-\d{2}$/;
                     return regex.test(value);
                 }
 
+                let previousData = [];
+                table.on("dataLoaded", function(newData) {
+                    previousData = JSON.parse(JSON.stringify(newData));
+                });
+
                 table.on("cellEdited", function(cell) {
                     const updatedData = cell.getRow().getData();
+                    const field = cell.getField();
                     const id = updatedData.id;
 
                     if (!id) return;
@@ -681,6 +586,18 @@
                         cell.restoreOldValue();
                         return;
                     }
+
+                    if (field === "target" || field === "availability") {
+                        let value = parseFloat(cell.getValue());
+                        if (!isNaN(value)) {
+                            updatedData[field] = value > 1 ? (value / 100) : value;
+
+                            cell.getRow().update({
+                                [field]: updatedData[field]
+                            });
+                        }
+                    }
+
                     fetch(`availability-nr/${id}`, {
                             method: "PUT",
                             headers: {
@@ -703,6 +620,79 @@
                             console.error("Gagal update:", err);
                             showToast("Terjadi kesalahan saat update!", "error");
                         });
+                });
+
+                function getChangedRows(newData, oldData) {
+                    const changes = [];
+                    newData.forEach((row, index) => {
+                        if (!row.id) return;
+                        const oldRow = oldData.find(old => old.id === row.id);
+                        if (!oldRow) return;
+
+                        const isDifferent = Object.keys(row).some(key => row[key] !== oldRow[key]);
+                        if (isDifferent) changes.push({
+                            new: row,
+                            old: oldRow
+                        });
+                    });
+                    return changes;
+                }
+
+                table.on("dataChanged", function(newData) {
+                    const changedRows = getChangedRows(newData, previousData);
+
+                    changedRows.forEach(({
+                        new: newRow,
+                        old: oldRow
+                    }) => {
+                        const id = newRow.id;
+                        if (!id) return;
+
+                        if (newRow.periode !== oldRow.periode && !isValidPeriodeFormat(newRow
+                                .periode)) {
+                            showToast(
+                                `"${newRow.periode}" Format Periode tidak valid! Gunakan format: Jan-25`,
+                                "error");
+
+                            table.updateData([{
+                                id: newRow.id,
+                                periode: oldRow.periode
+                            }]);
+                            return;
+                        }
+
+                        ["target", "availability"].forEach(field => {
+                            const value = parseFloat(newRow[field]);
+                            if (!isNaN(value)) {
+                                newRow[field] = value > 1 ? (value / 100) : value;
+                            }
+                        });
+
+                        fetch(`availability-nr/${id}`, {
+                                method: "PUT",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                    "Accept": "application/json",
+                                    "X-CSRF-TOKEN": document.querySelector(
+                                        'meta[name="csrf-token"]').getAttribute("content")
+                                },
+                                body: JSON.stringify(newRow)
+                            })
+                            .then(res => res.json())
+                            .then(response => {
+                                if (response.success) {
+                                    showToast(`Data berhasil disimpan`, "success");
+                                } else {
+                                    showToast(`Gagal simpan : ${response.message}`, "error");
+                                }
+                            })
+                            .catch(err => {
+                                console.error("Gagal simpan hasil paste:", err);
+                                showToast(`Kesalahan pada ID ${id}`, "error");
+                            });
+                    });
+
+                    previousData = JSON.parse(JSON.stringify(newData));
                 });
                 loadData();
             });
@@ -731,44 +721,51 @@
                 document.getElementById("form-id").value = "";
                 document.getElementById("createModal").style.display = "none";
             }
-
             document.getElementById("createForm").addEventListener("submit", function(e) {
                 e.preventDefault();
 
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
 
-                fetch("availability-nr", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Accept": "application/json",
-                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute(
-                                "content")
-                        },
+                const jumlahRow = parseInt(data.jumlah_row);
+                const payloadArray = [];
 
-                        body: JSON.stringify({
-                            periode: data.periode,
-                            company: data.company,
-                            kategori: data.kategori || null,
-                            target: data.target || null,
-                            availability: data.availability || null,
-                            isu: data.isu || null,
-                            kendala: data.kendala || null,
-                            tindak_lanjut: data.tindak_lanjut || null,
-                        })
+                for (let i = 0; i < jumlahRow; i++) {
+                    payloadArray.push({
+                        periode: data.periode,
+                        company: data.company,
+                        kategori: data.kategori,
+                        target: data.target,
+                        availability: data.availability,
+                        isu: data.isu,
+                        kendala: data.kendala,
+                        tindak_lanjut: data.tindak_lanjut,
+                    });
+                }
 
-                    })
-                    .then(response => response.json())
-                    .then(result => {
-                        if (result.success) {
-                            showToast(result.message || "Data berhasil disimpan", "success");
-                            table.setData(`${BASE_URL}/monev/shg/input-data/availability-nr/data`);
-                            this.reset();
-                            closeModal();
+                Promise.all(payloadArray.map(dataItem => {
+                        return fetch("availability-nr", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute("content")
+                            },
+                            body: JSON.stringify(dataItem)
+                        }).then(res => res.json());
+                    }))
+                    .then(results => {
+                        const gagal = results.filter(r => !r.success);
+                        if (gagal.length === 0) {
+                            showToast(`${jumlahRow} baris data berhasil buat`, "success");
                         } else {
-                            showToast(result.message || "Gagal menyimpan data", "error");
+                            showToast(`${gagal.length} data gagal disimpan`, "error");
                         }
+
+                        table.setData(`${BASE_URL}/monev/shg/input-data/availability-nr/data`);
+                        document.getElementById("createForm").reset();
+                        closeModal();
                     })
                     .catch(error => {
                         console.error("Error saat submit:", error);

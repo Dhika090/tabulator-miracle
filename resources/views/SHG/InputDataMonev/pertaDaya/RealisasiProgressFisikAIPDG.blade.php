@@ -191,99 +191,11 @@
             <h3>Tambah Data Realisasi Progress Fisik AI 2025</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
-                <div>
-                    <label>Periode</label>
-                    <input type="month" name="periode">
-                </div>
 
-                <div>
-                    <label>No</label>
-                    <input type="number" name="no">
-                </div>
+                <label>Jumlah Row yang ingin dibuat</label>
+                <input type="number" name="jumlah_row" id="jumlah_row" min="1" value="1" required>
 
-                <div>
-                    <label>Program Kerja</label>
-                    <input type="text" name="program_kerja">
-                </div>
-
-                <div>
-                    <label>Kategori AIBT</label>
-                    <input type="text" name="kategori_aibt">
-                </div>
-
-                <div>
-                    <label>Jenis Anggaran</label>
-                    <input type="text" name="jenis_anggaran">
-                </div>
-
-                <div>
-                    <label>Besar RKAP</label>
-                    <input type="number" name="besar_rkap" step="0.01">
-                </div>
-
-                <div>
-                    <label>Entitas</label>
-                    <input type="text" name="entitas">
-                </div>
-
-                <div>
-                    <label>Unit</label>
-                    <input type="text" name="unit">
-                </div>
-
-                <div>
-                    <label>Nilai Kontrak</label>
-                    <input type="number" name="nilai_kontrak" step="0.01">
-                </div>
-
-                <fieldset>
-                    <legend>Rencana (Plan)</legend>
-                    <label>Plan Jan</label><input type="number" name="plan_jan" step="0.01">
-                    <label>Plan Feb</label><input type="number" name="plan_feb" step="0.01">
-                    <label>Plan Mar</label><input type="number" name="plan_mar" step="0.01">
-                    <label>Plan Apr</label><input type="number" name="plan_apr" step="0.01">
-                    <label>Plan May</label><input type="number" name="plan_may" step="0.01">
-                    <label>Plan Jun</label><input type="number" name="plan_jun" step="0.01">
-                    <label>Plan Jul</label><input type="number" name="plan_jul" step="0.01">
-                    <label>Plan Aug</label><input type="number" name="plan_aug" step="0.01">
-                    <label>Plan Sep</label><input type="number" name="plan_sep" step="0.01">
-                    <label>Plan Oct</label><input type="number" name="plan_oct" step="0.01">
-                    <label>Plan Nov</label><input type="number" name="plan_nov" step="0.01">
-                    <label>Plan Dec</label><input type="number" name="plan_dec" step="0.01">
-                </fieldset>
-
-                <fieldset>
-                    <legend>Realisasi (Actual)</legend>
-                    <label>Actual Jan</label><input type="number" name="actual_jan" step="0.01">
-                    <label>Actual Feb</label><input type="number" name="actual_feb" step="0.01">
-                    <label>Actual Mar</label><input type="number" name="actual_mar" step="0.01">
-                    <label>Actual Apr</label><input type="number" name="actual_apr" step="0.01">
-                    <label>Actual May</label><input type="number" name="actual_may" step="0.01">
-                    <label>Actual Jun</label><input type="number" name="actual_jun" step="0.01">
-                    <label>Actual Jul</label><input type="number" name="actual_jul" step="0.01">
-                    <label>Actual Aug</label><input type="number" name="actual_aug" step="0.01">
-                    <label>Actual Sep</label><input type="number" name="actual_sep" step="0.01">
-                    <label>Actual Oct</label><input type="number" name="actual_oct" step="0.01">
-                    <label>Actual Nov</label><input type="number" name="actual_nov" step="0.01">
-                    <label>Actual Dec</label><input type="number" name="actual_dec" step="0.01">
-                </fieldset>
-
-                <div>
-                    <label>Kode</label>
-                    <input type="text" name="kode">
-                </div>
-
-                <div>
-                    <label>Kendala</label>
-                    <input type="text" name="kendala"></input>
-                </div>
-
-                <div>
-                    <label>Tindak Lanjut</label>
-                    <input type="text" name="tindak_lanjut"></input>
-                </div>
-
-                <button class="btn btn-primary" type="submit">Simpan</button>
+                <button type="submit" class="btn btn-success">Submit</button>
             </form>
         </div>
     </div>
@@ -635,6 +547,73 @@
                     return changes;
                 }
 
+                function isValidPeriodeFormat(value) {
+                    const regex = /^\d{4}$/;
+                    return regex.test(value);
+                }
+
+                function isValidDecimal(value) {
+                    if (value === null || value === undefined || value === "") return true;
+                    const number = parseFloat(value);
+                    return (
+                        !isNaN(number) &&
+                        number >= 0 &&
+                        number <= 100 &&
+                        /^\d{1,3}(\.\d{1,2})?$/.test(value.toString())
+                    );
+                }
+                const bulan = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
+
+                table.on("cellEdited", function(cell) {
+                    const updatedData = cell.getRow().getData();
+                    const id = updatedData.id;
+                    if (!id) return;
+                    const field = cell.getField();
+                    const value = cell.getValue();
+
+                    if (field === "periode" && !isValidPeriodeFormat(value)) {
+                        showToast(`"${value}" Format Periode tidak valid! Gunakan format: 2025`, "error");
+                        cell.restoreOldValue();
+                        return;
+                    }
+
+                    if (
+                        field.startsWith("plan_") ||
+                        field.startsWith("actual_")
+                    ) {
+                        if (!isValidDecimal(value)) {
+                            showToast(
+                                `"${value}" tidak valid! Input harus berupa desimal, maksimal 100, tanpa ribuan`,
+                                "error");
+                            cell.restoreOldValue();
+                            return;
+                        }
+                    }
+
+                    fetch(`realisasi-progress-fisik-ai-pdg/${id}`, {
+                            method: "PUT",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute("content")
+                            },
+                            body: JSON.stringify(updatedData)
+                        })
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.success) {
+                                showToast("Update berhasil!", "success");
+                            } else {
+                                showToast("Update gagal: " + data.message, "error");
+                            }
+                        })
+                        .catch(err => {
+                            console.error("Gagal update:", err);
+                            showToast("Terjadi kesalahan saat update!", "error");
+                        });
+                });
+
                 table.on("dataChanged", function(newData) {
                     const changedRows = getChangedRows(newData, previousData);
                     console.log("Baris yang berubah:", changedRows);
@@ -643,22 +622,14 @@
                         const id = rowData.id;
                         if (!id) return;
 
-                        if (cell.getField() === "periode" && !isValidPeriodeFormat(cell.getValue())) {
-                            showToast("Format Periode tidak valid! Gunakan format: Sep-24", "error");
-                            cell.restoreOldValue();
-                            return;
-                        }
-
                         const oldRow = previousData.find(r => r.id === id);
                         if (!oldRow) return;
 
                         if (rowData.periode !== oldRow.periode && !isValidPeriodeFormat(rowData
                                 .periode)) {
                             showToast(
-                                `"${rowData.periode}" Format Periode tidak valid! Gunakan format: Jan-25`,
+                                `"${rowData.periode}" Format Periode tidak valid! Gunakan format: 2025`,
                                 "error");
-
-                            rowData.periode = oldRow.periode;
 
                             table.updateData([{
                                 id: rowData.id,
@@ -667,6 +638,37 @@
 
                             return;
                         }
+
+                        let invalidField = null;
+
+                        for (let b of bulan) {
+                            for (let prefix of ["plan_", "actual_"]) {
+                                const field = prefix + b;
+                                const newValue = rowData[field];
+                                const oldValue = oldRow[field];
+
+                                if (newValue !== oldValue && !isValidDecimal(newValue)) {
+                                    invalidField = field;
+                                    break;
+                                }
+                            }
+                            if (invalidField) break;
+                        }
+
+                        if (invalidField) {
+                            showToast(
+                                `"${rowData[invalidField]}" Nilai pada kolom "${invalidField}" tidak valid! Gunakan angka desimal 0 - 100 tanpa ribuan`,
+                                "error");
+
+                            const rollbackData = {
+                                id
+                            };
+                            rollbackData[invalidField] = oldRow[invalidField];
+
+                            table.updateData([rollbackData]);
+                            return;
+                        }
+
                         fetch(`realisasi-progress-fisik-ai-pdg/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
@@ -694,47 +696,6 @@
                     });
 
                     previousData = JSON.parse(JSON.stringify(newData));
-                });
-
-                function isValidPeriodeFormat(value) {
-                    const regex = /^[A-Za-z]{3}-\d{2}$/;
-                    return regex.test(value);
-                }
-
-                table.on("cellEdited", function(cell) {
-                    const updatedData = cell.getRow().getData();
-                    const id = updatedData.id;
-
-                    if (!id) return;
-
-                    if (cell.getField() === "periode" && !isValidPeriodeFormat(cell.getValue())) {
-                        showToast("Format Periode tidak valid! Gunakan format: Sep-24", "error");
-                        cell.restoreOldValue();
-                        return;
-                    }
-
-                    fetch(`realisasi-progress-fisik-ai-pdg/${id}`, {
-                            method: "PUT",
-                            headers: {
-                                "Content-Type": "application/json",
-                                "Accept": "application/json",
-                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
-                                    .getAttribute("content")
-                            },
-                            body: JSON.stringify(updatedData)
-                        })
-                        .then(res => res.json())
-                        .then(data => {
-                            if (data.success) {
-                                showToast("Update berhasil!", "success");
-                            } else {
-                                showToast("Update gagal: " + data.message, "error");
-                            }
-                        })
-                        .catch(err => {
-                            console.error("Gagal update:", err);
-                            showToast("Terjadi kesalahan saat update!", "error");
-                        });
                 });
                 loadData();
             });
@@ -769,67 +730,78 @@
 
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
+                const jumlahRow = parseInt(data.jumlah_row);
+                const payloadArray = [];
 
-                fetch("realisasi-progress-fisik-ai-pdg", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Accept": "application/json",
-                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute(
-                                "content")
-                        },
-                        body: JSON.stringify({
-                            periode: data.periode,
-                            no: data.no,
-                            program_kerja: data.program_kerja,
-                            kategori_aibt: data.kategori_aibt,
-                            jenis_anggaran: data.jenis_anggaran,
-                            besar_rkap: data.besar_rkap,
-                            entitas: data.entitas,
-                            unit: data.unit,
-                            nilai_kontrak: data.nilai_kontrak,
+                for (let i = 0; i < jumlahRow; i++) {
+                    payloadArray.push({
+                        periode: data[`periode_${i}`],
+                        no: data[`no_${i}`],
+                        program_kerja: data[`program_kerja_${i}`],
+                        kategori_aibt: data[`kategori_aibt_${i}`],
+                        jenis_anggaran: data[`jenis_anggaran_${i}`],
+                        besar_rkap: data[`besar_rkap_${i}`],
+                        entitas: data[`entitas_${i}`],
+                        unit: data[`unit_${i}`],
+                        nilai_kontrak: data[`nilai_kontrak_${i}`],
 
-                            plan_jan: data.plan_jan,
-                            plan_feb: data.plan_feb,
-                            plan_mar: data.plan_mar,
-                            plan_apr: data.plan_apr,
-                            plan_may: data.plan_may,
-                            plan_jun: data.plan_jun,
-                            plan_jul: data.plan_jul,
-                            plan_aug: data.plan_aug,
-                            plan_sep: data.plan_sep,
-                            plan_oct: data.plan_oct,
-                            plan_nov: data.plan_nov,
-                            plan_dec: data.plan_dec,
+                        plan_jan: data[`plan_jan_${i}`],
+                        plan_feb: data[`plan_feb_${i}`],
+                        plan_mar: data[`plan_mar_${i}`],
+                        plan_apr: data[`plan_apr_${i}`],
+                        plan_may: data[`plan_may_${i}`],
+                        plan_jun: data[`plan_jun_${i}`],
+                        plan_jul: data[`plan_jul_${i}`],
+                        plan_aug: data[`plan_aug_${i}`],
+                        plan_sep: data[`plan_sep_${i}`],
+                        plan_oct: data[`plan_oct_${i}`],
+                        plan_nov: data[`plan_nov_${i}`],
+                        plan_dec: data[`plan_dec_${i}`],
 
-                            actual_jan: data.actual_jan,
-                            actual_feb: data.actual_feb,
-                            actual_mar: data.actual_mar,
-                            actual_apr: data.actual_apr,
-                            actual_may: data.actual_may,
-                            actual_jun: data.actual_jun,
-                            actual_jul: data.actual_jul,
-                            actual_aug: data.actual_aug,
-                            actual_sep: data.actual_sep,
-                            actual_oct: data.actual_oct,
-                            actual_nov: data.actual_nov,
-                            actual_dec: data.actual_dec,
+                        actual_jan: data[`actual_jan_${i}`],
+                        actual_feb: data[`actual_feb_${i}`],
+                        actual_mar: data[`actual_mar_${i}`],
+                        actual_apr: data[`actual_apr_${i}`],
+                        actual_may: data[`actual_may_${i}`],
+                        actual_jun: data[`actual_jun_${i}`],
+                        actual_jul: data[`actual_jul_${i}`],
+                        actual_aug: data[`actual_aug_${i}`],
+                        actual_sep: data[`actual_sep_${i}`],
+                        actual_oct: data[`actual_oct_${i}`],
+                        actual_nov: data[`actual_nov_${i}`],
+                        actual_dec: data[`actual_dec_${i}`],
 
-                            kode: data.kode,
-                            kendala: data.kendala,
-                            tindak_lanjut: data.tindak_lanjut,
-                        })
-                    })
-                    .then(response => response.json())
-                    .then(result => {
-                        if (result.success) {
-                            showToast(result.message || "Data berhasil disimpan", "success");
-                            table.setData(`${BASE_URL}/monev/shg/input-data/realisasi-progress-fisik-ai-pdg/data`);
-                            this.reset();
-                            closeModal();
+                        kode: data[`kode_${i}`],
+                        kendala: data[`kendala_${i}`],
+                        tindak_lanjut: data[`tindak_lanjut_${i}`],
+                    });
+                }
+
+                Promise.all(
+                        payloadArray.map(item =>
+                            fetch("realisasi-progress-fisik-ai-pdg", {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                    "Accept": "application/json",
+                                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute(
+                                        "content")
+                                },
+                                body: JSON.stringify(item)
+                            }).then(res => res.json())
+                        )
+                    )
+                    .then(results => {
+                        const gagal = results.filter(r => !r.success);
+                        if (gagal.length === 0) {
+                            showToast(`${jumlahRow} baris data berhasil disimpan`, "success");
                         } else {
-                            showToast(result.message || "Gagal menyimpan data", "error");
+                            showToast(`${gagal.length} dari ${jumlahRow} baris gagal disimpan`, "error");
                         }
+
+                        table.setData(`${BASE_URL}/monev/shg/input-data/realisasi-progress-fisik-ai-pdg/data`);
+                        document.getElementById("createForm").reset();
+                        closeModal();
                     })
                     .catch(error => {
                         console.error("Error saat submit:", error);

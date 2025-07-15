@@ -3,7 +3,7 @@
     @push('styles')
         <link href="https://unpkg.com/tabulator-tables@5.6.0/dist/css/tabulator.min.css" rel="stylesheet">
         <style>
-          .tabulator-wrapper {
+            .tabulator-wrapper {
                 overflow-x: auto;
             }
 
@@ -24,11 +24,6 @@
 
             .tabulator-cell {
                 font-size: 14px;
-            }
-
-            .tabulator .tabulator-cell {
-                white-space: normal !important;
-                word-wrap: break-word;
             }
 
             .tabulator .tabulator-cell {
@@ -138,7 +133,7 @@
     <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-                <h5 class="card-title mb-3 mb-md-0">Air Budget Tagging TGI</h5>
+                <h5 class="card-title mb-3 mb-md-0">Asset Breakdown</h5>
                 <div class="d-flex flex-column flex-md-row align-items-center gap-3">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
@@ -196,152 +191,19 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Tambah Data Air Budget Tagging TGI</h3>
+            <h3>Tambah Target SAP</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
-                <div>
-                    <label>Periode</label>
-                    <input type="month" name="periode" id="periode">
-                </div>
-                <div>
-                    <label>Satker</label>
-                    <input type="text" name="satker" id="satker">
-                </div>
 
-                <div>
-                    <label>Kategori</label>
-                    <input type="text" name="kategori" id="kategori">
-                </div>
-
-                <div>
-                    <label>CE</label>
-                    <input type="text" name="ce" id="ce">
-                </div>
-
-                <div>
-                    <label>Cost Element Name</label>
-                    <input type="text" name="cost_element_name" id="cost_element_name">
-                </div>
-
-                <div>
-                    <label>Program Kerja</label>
-                    <input type="text" name="program_kerja" id="program_kerja">
-                </div>
-
-                <div>
-                    <label>Total Pagu (USD)</label>
-                    <input type="text" name="total_pagu_usd" id="total_pagu_usd">
-                </div>
-
-                <div>
-                    <label>JAN</label>
-                    <input type="text" name="jan" id="jan">
-                </div>
-
-                <div>
-                    <label>FEB</label>
-                    <input type="text" name="feb" id="feb">
-                </div>
-
-                <div>
-                    <label>MAR</label>
-                    <input type="text" name="mar" id="mar">
-                </div>
-
-                <div>
-                    <label>APR</label>
-                    <input type="text" name="apr" id="apr">
-                </div>
-
-                <div>
-                    <label>MAY</label>
-                    <input type="text" name="may" id="may">
-                </div>
-
-                <div>
-                    <label>JUN</label>
-                    <input type="text" name="jun" id="jun">
-                </div>
-
-                <div>
-                    <label>JUL</label>
-                    <input type="text" name="jul" id="jul">
-                </div>
-
-                <div>
-                    <label>AUG</label>
-                    <input type="text" name="aug" id="aug">
-                </div>
-
-                <div>
-                    <label>SEP</label>
-                    <input type="text" name="sep" id="sep">
-                </div>
-
-                <div>
-                    <label>OCT</label>
-                    <input type="text" name="oct" id="oct">
-                </div>
-
-                <div>
-                    <label>NOV</label>
-                    <input type="text" name="nov" id="nov">
-                </div>
-
-                <div>
-                    <label>DEC</label>
-                    <input type="text" name="dec" id="dec">
-                </div>
-
-                <div>
-                    <label>Aset Integrity (Yes/No)</label>
-                    <select name="aset_integrity" id="aset_integrity" class="form-select">
-                        <option value="">Pilih</option>
-                        <option value="Yes">Yes</option>
-                        <option value="No">No</option>
-                    </select>
-                </div>
-                <div>
-                    <label>AIRTagging (Asset Integrity & Reliability)</label>
-                    <input type="text" name="airtagging" id="airtagging">
-                </div>
-
-                <div>
-                    <label>Prioritas</label>
-                    <input type="text" name="prioritas" id="prioritas">
-                </div>
-
-                <div>
-                    <label>Status Integrity per Des 2024</label>
-                    <input type="text" name="status_integrity" id="status_integrity">
-                </div>
-
-                <div>
-                    <label>Jumlah Aset Critical SECE</label>
-                    <input type="number" name="jumlah_aset_critical_sece" id="jumlah_aset_critical_sece">
-                </div>
-
-                <div>
-                    <label>Jumlah Aset Critical PCE</label>
-                    <input type="number" name="jumlah_aset_critical_pce" id="jumlah_aset_critical_pce">
-                </div>
-
-                <div>
-                    <label>Jumlah Aset Important</label>
-                    <input type="number" name="jumlah_aset_important" id="jumlah_aset_important">
-                </div>
-
-                <div>
-                    <label>Jumlah Aset Secondary</label>
-                    <input type="number" name="jumlah_aset_secondary" id="jumlah_aset_secondary">
-                </div>
+                <label>Jumlah Row yang ingin dibuat</label>
+                <input type="number" name="jumlah_row" id="jumlah_row" min="1" value="1" required>
 
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
         </div>
     </div>
 
-    
+
     <div id="toastNotification"
         style="display:none; position: fixed; top: 20px; right: 20px; z-index: 9999; padding: 15px 20px; border-radius: 8px; color: white; font-weight: bold;">
     </div>
@@ -351,9 +213,10 @@
 
         <script>
             const BASE_URL = "{{ config('app.url') }}";
+
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
-                    fetch(`air-budget-tagging-tgi/${id}`, {
+                    fetch(`asset-breakdown-tgi/${id}`, {
                             method: "DELETE",
                             headers: {
                                 "Accept": "application/json",
@@ -381,38 +244,82 @@
                             value: keyword
                         },
                         {
-                            field: "satker",
+                            field: "company",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "kategori",
+                            field: "plant_segment",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "ce",
+                            field: "kategori_criticality",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "cost_element_name",
+                            field: "tag",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "program_kerja",
+                            field: "deskripsi_peralatan",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "total_pagu_usd",
+                            field: "jenis_kerusakan",
                             type: "like",
                             value: keyword
                         },
+                        {
+                            field: "penyebab_root_cause",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "kendala_perbaikan",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "mitigasi",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "perbaikan_permanen",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "progres_perbaikan_permanen",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "tindak_lanjut",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "target_penyelesaian",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "estimasi_biaya_perbaikan",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "link_foto_video",
+                            type: "like",
+                            value: keyword
+                        }
                     ]
                 ]);
-
             });
 
             function clearSearch() {
@@ -421,7 +328,7 @@
             }
 
             function loadData() {
-                fetch("/monev/shg/input-data/air-budget-tagging-tgi/data", {
+                fetch(`${BASE_URL}/monev/shg/input-data/asset-breakdown-tgi/data`, {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -449,22 +356,19 @@
 
             document.addEventListener("DOMContentLoaded", function() {
                 const columnMap = {
-                    "air-budget-tagging-tgi": [{
+                    "asset-breakdown-tgi": [{
                             title: "No",
-                            hozAlign: "center",
-                            width: 60,
-                            download: false,
                             formatter: function(cell) {
                                 const row = cell.getRow();
-                                const table = row.getTable();
-
-                                const pageSize = table.getPageSize();
-                                const currentPage = table.getPage();
-                                const rowIndex = row
-                                    .getPosition();
-
-                                return ((currentPage - 1) * pageSize) + rowIndex;
-                            }
+                                const table = cell.getTable();
+                                const sortedData = table.getRows("active").map(r => r.getData());
+                                const index = sortedData.findIndex(data => data.id === row.getData().id);
+                                return index + 1;
+                            },
+                            hozAlign: "center",
+                            width: 60,
+                            headerSort: false,
+                            download: false
                         },
                         {
                             title: "ID",
@@ -475,6 +379,7 @@
                             title: "Periode",
                             field: "periode",
                             editor: "input",
+                            hozAlign: "center",
                             headerFilter: "select",
                             headerFilterParams: {
                                 values: [{
@@ -555,168 +460,107 @@
                             }
                         },
                         {
-                            title: "Satker",
-                            field: "satker",
+                            title: "Company",
+                            field: "company",
+                            editor: "input",
+                            hozAlign: "center",
+
+                        },
+                        {
+                            title: "Plant/Segment",
+                            field: "plant_segment",
+                            editor: "input",
+                            hozAlign: "center",
+
+                        },
+                        {
+                            title: "Kategori Criticality",
+                            field: "kategori_criticality",
+                            editor: "input",
+                            hozAlign: "center",
+                        },
+                        {
+                            title: "Tag",
+                            field: "tag",
+                            editor: "input",
+                            hozAlign: "center",
+                        },
+                        {
+                            title: "Deskripsi Peralatan",
+                            field: "deskripsi_peralatan",
+                            editor: "input",
+                            hozAlign: "center",
+                        },
+                        {
+                            title: "Jenis Kerusakan",
+                            field: "jenis_kerusakan",
+                            editor: "input",
+                            width: 450
+                        },
+                        {
+                            title: "Penyebab/Root Cause",
+                            field: "penyebab",
                             editor: "input"
                         },
                         {
-                            title: "Kategori",
-                            field: "kategori",
+                            title: "Kendala Perbaikan",
+                            field: "kendala_perbaikan",
+                            editor: "input",
+                            width: 450
+                        },
+                        {
+                            title: "Mitigasi / Penanganan Sementara",
+                            field: "mitigasi",
+                            editor: "input",
+                            width: 450
+                        },
+                        {
+                            title: "Perbaikan Permanen",
+                            field: "perbaikan_permanen",
                             editor: "input"
                         },
                         {
-                            title: "CE",
-                            field: "ce",
-                            editor: "input"
-                        },
-                        {
-                            title: "Cost Element Name",
-                            field: "cost_element_name",
-                            editor: "input"
-                        },
-                        {
-                            title: "Program Kerja",
-                            field: "program_kerja",
-                            width: 400,
-                            editor: "input"
-                        },
-                        {
-                            title: "Total Pagu (USD)",
-                            field: "total_pagu_usd",
-                            editor: "input",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "JAN",
-                            field: "jan",
-                            editor: "input",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "FEB",
-                            field: "feb",
-                            editor: "input",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "MAR",
-                            field: "mar",
-                            editor: "input",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "APR",
-                            field: "apr",
-                            editor: "input",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "MAY",
-                            field: "may",
-                            editor: "input",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "JUN",
-                            field: "jun",
-                            editor: "input",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "JUL",
-                            field: "jul",
-                            editor: "input",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "AUG",
-                            field: "aug",
-                            editor: "input",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "SEP",
-                            field: "sep",
-                            editor: "input",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "OCT",
-                            field: "oct",
-                            editor: "input",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "NOV",
-                            field: "nov",
-                            editor: "input",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "DEC",
-                            field: "dec",
-                            editor: "input",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "Aset Integrity (Yes/No)",
-                            field: "aset_integrity",
-                            editor: "input"
-                        },
-                        {
-                            title: "AIRTagging (Asset Integrity & Reliability)",
-                            field: "airtagging",
-                            editor: "input"
-                        },
-                        {
-                            title: "Prioritas",
-                            field: "prioritas",
-                            editor: "input"
-                        },
-                        {
-                            title: "Status Integrity per Des 2024",
-                            field: "status_integrity",
-                            editor: "input"
-                        },
-                        {
-                            title: "Jumlah Aset Critical SECE",
-                            field: "jumlah_aset_critical_sece",
+                            title: "Progres Perbaikan Permanen",
+                            field: "progres_perbaikan_permanen",
                             editor: "number",
                             hozAlign: "center"
                         },
                         {
-                            title: "Jumlah Aset Critical PCE",
-                            field: "jumlah_aset_critical_pce",
-                            editor: "number",
-                            hozAlign: "center"
+                            title: "Tindak Lanjut",
+                            field: "tindak_lanjut",
+                            editor: "input"
                         },
                         {
-                            title: "Jumlah Aset Important",
-                            field: "jumlah_aset_important",
-                            editor: "number",
-                            hozAlign: "center"
+                            title: "Target Penyelesaian",
+                            field: "target_penyelesaian",
+                            editor: "input"
                         },
                         {
-                            title: "Jumlah Aset Secondary",
-                            field: "jumlah_aset_secondary",
+                            title: "Estimasi Biaya Perbaikan",
+                            field: "estimasi_biaya_perbaikan",
                             editor: "number",
-                            hozAlign: "center"
+                            hozAlign: "right"
                         },
-                     {
-    title: "Aksi",
-    download: false,
-    hozAlign: "center",
-    width: 150,
-    formatter: (cell) => {
-        const row = cell.getData();
-        return `
+                        {
+                            title: "Link Foto/Video",
+                            field: "link_foto_video",
+                            editor: "input"
+                        },
+                        {
+                            title: "Aksi",
+                            download: false,
+                            hozAlign: "center",
+                            width: 150,
+                            formatter: (cell) => {
+                                const row = cell.getData();
+                                return `
             <button onclick='deleteData("${row.id}")'
                 class="btn btn-sm btn-danger">
                 <i class="bi bi-trash"></i> Hapus
             </button>
         `;
-    }
-}
+                            }
+                        }
                     ]
                 };
 
@@ -724,7 +568,9 @@
                     layout: "fitDataTable",
                     responsiveLayout: "collapse",
                     autoResize: true,
-                    columns: columnMap["air-budget-tagging-tgi"],
+                    columns: columnMap["asset-breakdown-tgi"],
+                    virtualDom: true,
+                    height: "700px",
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -748,6 +594,7 @@
                     clipboardCopyRowRange: "range",
                     clipboardPasteParser: "range",
                     clipboardPasteAction: "range",
+                    clipboardPasteRow: true,
 
                     columnDefaults: {
                         headerSort: true,
@@ -758,8 +605,8 @@
                 });
 
                 document.getElementById("download-xlsx").addEventListener("click", function() {
-                    window.table.download("xlsx", "air-budget-tagging-tgi.xlsx", {
-                        sheetName: "air-budget-tagging-tgi",
+                    window.table.download("xlsx", "asset-breakdown-tgi.xlsx", {
+                        sheetName: "asset-breakdown-tgi",
                         columnHeaders: true,
                         downloadDataFormatter: function(data) {
                             return data.map(row => {
@@ -780,13 +627,24 @@
                     });
                 });
 
+                function isValidPeriodeFormat(value) {
+                    const regex = /^[A-Za-z]{3}-\d{2}$/;
+                    return regex.test(value);
+                }
+
                 table.on("cellEdited", function(cell) {
                     const updatedData = cell.getRow().getData();
                     const id = updatedData.id;
 
                     if (!id) return;
 
-                    fetch(`air-budget-tagging-tgi/${id}`, {
+                    if (cell.getField() === "periode" && !isValidPeriodeFormat(cell.getValue())) {
+                        showToast("Format Periode tidak valid! Gunakan format: Sep-24", "error");
+                        cell.restoreOldValue();
+                        return;
+                    }
+
+                    fetch(`asset-breakdown-tgi/${id}`, {
                             method: "PUT",
                             headers: {
                                 "Content-Type": "application/json",
@@ -797,8 +655,17 @@
                             body: JSON.stringify(updatedData)
                         })
                         .then(res => res.json())
-                        .then(data => console.log("Update berhasil:", data))
-                        .catch(err => console.error("Gagal update:", err));
+                        .then(data => {
+                            if (data.success) {
+                                showToast("Update berhasil!", "success");
+                            } else {
+                                showToast("Update gagal: " + data.message, "error");
+                            }
+                        })
+                        .catch(err => {
+                            console.error("Gagal update:", err);
+                            showToast("Terjadi kesalahan saat update!", "error");
+                        });
                 });
 
                 let previousData = [];
@@ -825,8 +692,29 @@
                     const changedRows = getChangedRows(newData, previousData);
                     console.log("Baris yang berubah:", changedRows);
 
-                    changedRows.forEach(rowData => {
-                        fetch(`air-budget-tagging-tgi/${rowData.id}`, {
+                    changedRows.forEach((rowData, index) => {
+                        const id = rowData.id;
+                        if (!id) return;
+
+                        const oldRow = previousData.find(r => r.id === id);
+                        if (!oldRow) return;
+
+                        if (rowData.periode !== oldRow.periode && !isValidPeriodeFormat(rowData
+                                .periode)) {
+                            showToast(
+                                `"${rowData.periode}" Format Periode tidak valid! Gunakan format: Jan-25`,
+                                "error");
+
+                            rowData.periode = oldRow.periode;
+
+                            table.updateData([{
+                                id: rowData.id,
+                                periode: oldRow.periode
+                            }]);
+
+                            return;
+                        }
+                        fetch(`asset-breakdown-tgi/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
                                     "Content-Type": "application/json",
@@ -838,10 +726,17 @@
                             })
                             .then(res => res.json())
                             .then(response => {
-                                console.log("Data berhasil disimpan:", response);
+                                if (response.success) {
+                                    showToast(`Data berhasil disimpan`, "success");
+                                } else {
+                                    showToast(
+                                        `Format Periode tidak valid! Gunakan format: Jan-25 : ${response.message}`,
+                                        "error");
+                                }
                             })
                             .catch(err => {
                                 console.error("Gagal menyimpan hasil paste:", err);
+                                showToast(`Kesalahan pada ID ${id}`, "error");
                             });
                     });
 
@@ -853,14 +748,14 @@
 
         {{-- create data  --}}
         <script>
-             function showToast(message, type = "success") {
+            function showToast(message, type = "success") {
                 const toast = document.getElementById("toastNotification");
                 toast.textContent = message;
                 toast.className = "";
                 toast.classList.add(type === "success" ? "toast-success" : "toast-error");
                 toast.style.display = "block";
 
-               setTimeout(() => {
+                setTimeout(() => {
                     toast.style.display = "none";
                 }, 3500);
             }
@@ -881,55 +776,54 @@
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
 
-                fetch("air-budget-tagging-tgi", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Accept": "application/json",
-                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute(
-                                "content")
-                        },
-                        body: JSON.stringify({
-                            periode: data.periode,
-                            satker: data.satker || null,
-                            kategori: data.kategori || null,
-                            ce: data.ce || null,
-                            cost_element_name: data.cost_element_name || null,
-                            program_kerja: data.program_kerja || null,
-                            total_pagu_usd: data.total_pagu_usd || null,
-                            jan: data.jan || null,
-                            feb: data.feb || null,
-                            mar: data.mar || null,
-                            apr: data.apr || null,
-                            may: data.may || null,
-                            jun: data.jun || null,
-                            jul: data.jul || null,
-                            aug: data.aug || null,
-                            sep: data.sep || null,
-                            oct: data.oct || null,
-                            nov: data.nov || null,
-                            dec: data.dec || null,
-                            aset_integrity: data.aset_integrity || null,
-                            airtagging: data.airtagging || null,
-                            prioritas: data.prioritas || null,
-                            status_integrity: data.status_integrity || null,
-                            jumlah_aset_critical_sece: data.jumlah_aset_critical_sece || null,
-                            jumlah_aset_critical_pce: data.jumlah_aset_critical_pce || null,
-                            jumlah_aset_important: data.jumlah_aset_important || null,
-                            jumlah_aset_secondary: data.jumlah_aset_secondary || null,
-                        })
+                const jumlahRow = parseInt(data.jumlah_row);
 
-                    })
-                    .then(response => response.json())
-                    .then(result => {
-                        if (result.success) {
-                            showToast(result.message || "Data berhasil disimpan", "success");
-                            table.setData("/monev/shg/input-data/air-budget-tagging-tgi/data");
-                            this.reset();
-                            closeModal();
-                       } else {
-                            showToast(result.message || "Gagal menyimpan data", "error");
+                const payloadArray = [];
+
+                for (let i = 0; i < jumlahRow; i++) {
+                    payloadArray.push({
+                        periode: data.periode,
+                        company: data.company,
+                        plant_segment: data.plant_segment,
+                        kategori_criticality: data.kategori_criticality,
+                        tag: data.tag,
+                        deskripsi_peralatan: data.deskripsi_peralatan,
+                        jenis_kerusakan: data.jenis_kerusakan,
+                        penyebab: data.penyebab,
+                        kendala_perbaikan: data.kendala_perbaikan,
+                        mitigasi: data.mitigasi,
+                        perbaikan_permanen: data.perbaikan_permanen,
+                        progres_perbaikan_permanen: data.progres_perbaikan_permanen,
+                        tindak_lanjut: data.tindak_lanjut,
+                        target_penyelesaian: data.target_penyelesaian,
+                        estimasi_biaya_perbaikan: data.estimasi_biaya_perbaikan,
+                        link_foto_video: data.link_foto_video
+                    });
+                }
+
+                Promise.all(payloadArray.map(dataItem => {
+                        return fetch("asset-breakdown-tgi", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute("content")
+                            },
+                            body: JSON.stringify(dataItem)
+                        }).then(res => res.json());
+                    }))
+                    .then(results => {
+                        const gagal = results.filter(r => !r.success);
+                        if (gagal.length === 0) {
+                            showToast(`${jumlahRow} baris data berhasil buat`, "success");
+                        } else {
+                            showToast(`${gagal.length} data gagal disimpan`, "error");
                         }
+
+                        table.setData(`${BASE_URL}/monev/shg/input-data/asset-breakdown-tgi/data`);
+                        document.getElementById("createForm").reset();
+                        closeModal();
                     })
                     .catch(error => {
                         console.error("Error saat submit:", error);

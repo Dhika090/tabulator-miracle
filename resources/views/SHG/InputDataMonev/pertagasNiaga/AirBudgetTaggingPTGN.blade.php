@@ -289,7 +289,7 @@
             }
 
             function loadData() {
-                fetch(`${base_url}/monev/shg/input-data/air-budget-tagging-ptgn/data`, {
+                fetch(`${BASE_URL}/monev/shg/input-data/air-budget-tagging-ptgn/data`, {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -653,14 +653,33 @@
                     return regex.test(value);
                 }
 
+                function isValidDecimal(value) {
+                    const parsed = parseFloat(value);
+                    return !isNaN(parsed) && parsed >= 0;
+                }
+
                 table.on("cellEdited", function(cell) {
                     const updatedData = cell.getRow().getData();
                     const id = updatedData.id;
 
                     if (!id) return;
 
-                    if (cell.getField() === "periode" && !isValidPeriodeFormat(cell.getValue())) {
+                    const field = cell.getField();
+                    const value = cell.getValue();
+
+                    if (field === "periode" && !isValidPeriodeFormat(value)) {
                         showToast("Format Periode tidak valid! Gunakan format: Sep-24", "error");
+                        cell.restoreOldValue();
+                        return;
+                    }
+
+                    const monthFields = [
+                        "jan", "feb", "mar", "apr", "may", "jun",
+                        "jul", "aug", "sep", "oct", "nov", "dec"
+                    ];
+                    if (monthFields.includes(field) && !isValidDecimal(value)) {
+                        showToast(`Nilai pada kolom ${field.toUpperCase()} harus berupa angka desimal ≥ 0`,
+                            "error");
                         cell.restoreOldValue();
                         return;
                     }
@@ -735,6 +754,33 @@
 
                             return;
                         }
+
+                        const monthFields = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug",
+                            "sep", "oct", "nov", "dec"
+                        ];
+
+                        for (const field of monthFields) {
+                            if (rowData[field] !== undefined && rowData[field] !== oldRow[field]) {
+                                const val = rowData[field];
+                                const parsed = parseFloat(val);
+
+                                if (isNaN(parsed) || parsed < 0) {
+                                    showToast(
+                                        `Nilai ${field.toUpperCase()} harus berupa angka desimal ≥ 0`,
+                                        "error");
+
+                                    rowData[field] = oldRow[field];
+
+                                    table.updateData([{
+                                        id: rowData.id,
+                                        [field]: oldRow[field]
+                                    }]);
+
+                                    return;
+                                }
+                            }
+                        }
+
                         fetch(`air-budget-tagging-ptgn/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
@@ -794,7 +840,8 @@
             document.getElementById("createForm").addEventListener("submit", function(e) {
                 e.preventDefault();
 
-                const formData = new FormData(this);
+                const form = this;
+                const formData = new FormData(form);
                 const data = Object.fromEntries(formData.entries());
 
                 fetch("air-budget-tagging-ptgn", {
@@ -812,7 +859,7 @@
                             ce: data.ce || null,
                             cost_element_name: data.cost_element_name || null,
                             program_kerja: data.program_kerja || null,
-                            total_pagu_usd: data.total_pagu_usd || null,
+                            total_pagu_usd: data.total_pagu_usd ? parseFloat(data.total_pagu_usd) : null,
                             jan: data.jan || null,
                             feb: data.feb || null,
                             mar: data.mar || null,
@@ -834,14 +881,14 @@
                             jumlah_aset_important: data.jumlah_aset_important || null,
                             jumlah_aset_secondary: data.jumlah_aset_secondary || null,
                         })
-
                     })
                     .then(response => response.json())
                     .then(result => {
                         if (result.success) {
                             showToast(result.message || "Data berhasil disimpan", "success");
-                            table.setData(`${base_url}/monev/shg/input-data/air-budget-tagging-ptgn/data`);
-                            this.reset();
+                            table.setData(
+                                `${BASE_URL}${BASE_URL}/monev/shg/input-data/air-budget-tagging-ptgn/data`);
+                            form.reset();
                             closeModal();
                         } else {
                             showToast(result.message || "Gagal menyimpan data", "error");

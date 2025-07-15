@@ -764,43 +764,58 @@
             document.getElementById("createForm").addEventListener("submit", function(e) {
                 e.preventDefault();
 
-                const formData = new FormData(this);
+                const form = this;
+                const formData = new FormData(form);
                 const data = Object.fromEntries(formData.entries());
+                const jumlahRow = parseInt(data.jumlah_row);
 
-                fetch("sistem-informasi-aims-gei", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Accept": "application/json",
-                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute(
-                                "content")
-                        },
-                        body: JSON.stringify({
-                            periode: data.periode,
-                            company: data.company,
-                            jumlah_aset_operasi: data.jumlah_aset_operasi,
-                            jumlah_aset_teregister: data.jumlah_aset_teregister,
-                            kendala_aset_register: data.kendala_aset_register,
-                            tindak_lanjut_aset_register: data.tindak_lanjut_aset_register,
-                            sistem_informasi_aim: data.sistem_informasi_aim,
-                            total_wo_comply: data.total_wo_comply,
-                            total_wo_completed: data.total_wo_completed,
-                            total_wo_in_progress: data.total_wo_in_progress,
-                            total_wo_backlog: data.total_wo_backlog,
-                            kendala: data.kendala,
-                            tindak_lanjut: data.tindak_lanjut
+                const parseNullableInt = val => val !== "" ? parseInt(val) : null;
+
+                const payloadArray = [];
+
+                for (let i = 0; i < jumlahRow; i++) {
+                    payloadArray.push({
+                        periode: data.periode || "",
+                        company: data.company || "",
+                        jumlah_aset_operasi: parseNullableInt(data.jumlah_aset_operasi),
+                        jumlah_aset_teregister: parseNullableInt(data.jumlah_aset_teregister),
+                        kendala_aset_register: data.kendala_aset_register || "",
+                        tindak_lanjut_aset_register: data.tindak_lanjut_aset_register || "",
+                        sistem_informasi_aim: data.sistem_informasi_aim || "",
+                        total_wo_comply: parseNullableInt(data.total_wo_comply),
+                        total_wo_completed: parseNullableInt(data.total_wo_completed),
+                        total_wo_in_progress: parseNullableInt(data.total_wo_in_progress),
+                        total_wo_backlog: parseNullableInt(data.total_wo_backlog),
+                        kendala: data.kendala || "",
+                        tindak_lanjut: data.tindak_lanjut || ""
+                    });
+                }
+
+                Promise.all(
+                        payloadArray.map(payload => {
+                            return fetch("sistem-informasi-aims-gei", {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                    "Accept": "application/json",
+                                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                        .getAttribute("content")
+                                },
+                                body: JSON.stringify(payload)
+                            }).then(res => res.json());
                         })
-                    })
-                    .then(response => response.json())
-                    .then(result => {
-                        if (result.success) {
-                            showToast(result.message || "Data berhasil disimpan", "success");
-                            table.setData(`${BASE_URL}/monev/shg/input-data/sistem-informasi-aims-gei/data`);
-                            this.reset();
-                            closeModal();
+                    )
+                    .then(results => {
+                        const gagal = results.filter(r => !r.success);
+                        if (gagal.length === 0) {
+                            showToast(`${jumlahRow} baris data berhasil disimpan`, "success");
                         } else {
-                            showToast(result.message || "Gagal menyimpan data", "error");
+                            showToast(`${gagal.length} dari ${jumlahRow} data gagal disimpan`, "error");
                         }
+
+                        table.setData(`${BASE_URL}/monev/shg/input-data/sistem-informasi-aims-gei/data`);
+                        form.reset();
+                        closeModal();
                     })
                     .catch(error => {
                         console.error("Error saat submit:", error);

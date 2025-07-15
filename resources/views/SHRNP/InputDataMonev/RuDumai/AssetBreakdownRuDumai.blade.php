@@ -133,7 +133,7 @@
     <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-                <h5 class="card-title mb-3 mb-md-0">Asset Breakdown RuDumai</h5>
+                <h5 class="card-title mb-3 mb-md-0">Asset Breakdown</h5>
                 <div class="d-flex flex-column flex-md-row align-items-center gap-3">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
@@ -191,7 +191,7 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Tambah Target Asset Breakdown RuDumai</h3>
+            <h3>Tambah Target AssetBreakdown</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
 
@@ -203,12 +203,14 @@
         </div>
     </div>
 
+
     <div id="toastNotification"
         style="display:none; position: fixed; top: 20px; right: 20px; z-index: 9999; padding: 15px 20px; border-radius: 8px; color: white; font-weight: bold;">
     </div>
     @push('scripts')
         <script src="https://unpkg.com/tabulator-tables@5.6.0/dist/js/tabulator.min.js"></script>
         <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+
         <script>
             const BASE_URL = "{{ config('app.url') }}";
 
@@ -272,7 +274,7 @@
                             value: keyword
                         },
                         {
-                            field: "penyebab",
+                            field: "penyebab_root_cause",
                             type: "like",
                             value: keyword
                         },
@@ -326,13 +328,29 @@
             }
 
             function loadData() {
-                fetch("/monev/shrnp/input-data/asset-breakdown-ru-dumai/data", {
+                fetch(`${BASE_URL}/monev/shrnp/input-data/asset-breakdown-ru-dumai/data`, {
                         headers: {
                             "Accept": "application/json"
                         }
                     })
                     .then(res => res.json())
-                    .then(data => table.setData(data))
+                    .then(data => {
+                        const cleaned = data.map(row => {
+                            const cleanedRow = {};
+                            for (const [key, value] of Object.entries(row)) {
+                                const valStr = String(value).trim().toLowerCase();
+                                cleanedRow[key] = (
+                                    value === null ||
+                                    value === undefined ||
+                                    valStr === "null" ||
+                                    valStr === "undefined"
+                                ) ? "" : value;
+                            }
+                            return cleanedRow;
+                        });
+
+                        table.setData(cleaned);
+                    })
                     .catch(err => console.error("Gagal load data:", err));
             }
 
@@ -340,20 +358,17 @@
                 const columnMap = {
                     "asset-breakdown-ru-dumai": [{
                             title: "No",
-                            hozAlign: "center",
-                            width: 60,
-                            download: false,
                             formatter: function(cell) {
                                 const row = cell.getRow();
-                                const table = row.getTable();
-
-                                const pageSize = table.getPageSize();
-                                const currentPage = table.getPage();
-                                const rowIndex = row
-                                    .getPosition();
-
-                                return ((currentPage - 1) * pageSize) + rowIndex;
-                            }
+                                const table = cell.getTable();
+                                const sortedData = table.getRows("active").map(r => r.getData());
+                                const index = sortedData.findIndex(data => data.id === row.getData().id);
+                                return index + 1;
+                            },
+                            hozAlign: "center",
+                            width: 60,
+                            headerSort: false,
+                            download: false
                         },
                         {
                             title: "ID",
@@ -364,6 +379,7 @@
                             title: "Periode",
                             field: "periode",
                             editor: "input",
+                            hozAlign: "center",
                             headerFilter: "select",
                             headerFilterParams: {
                                 values: [{
@@ -446,41 +462,45 @@
                         {
                             title: "Company",
                             field: "company",
+                            editor: "input",
                             hozAlign: "center",
-                            editor: "input"
+
                         },
                         {
                             title: "Plant/Segment",
                             field: "plant_segment",
-                            editor: "input"
+                            editor: "input",
+                            hozAlign: "center",
+
                         },
                         {
                             title: "Kategori Criticality",
                             field: "kategori_criticality",
+                            editor: "input",
                             hozAlign: "center",
-                            editor: "input"
                         },
                         {
                             title: "Tag",
                             field: "tag",
-                            editor: "input"
+                            editor: "input",
+                            hozAlign: "center",
                         },
                         {
                             title: "Deskripsi Peralatan",
                             field: "deskripsi_peralatan",
-                            editor: "input"
+                            editor: "input",
+                            hozAlign: "center",
                         },
                         {
                             title: "Jenis Kerusakan",
                             field: "jenis_kerusakan",
-                            editor: "textarea",
-                            width: 300,
+                            editor: "input",
+                            width: 450
                         },
                         {
                             title: "Penyebab/Root Cause",
                             field: "penyebab",
-                            editor: "input",
-                            width: 400
+                            editor: "input"
                         },
                         {
                             title: "Kendala Perbaikan",
@@ -497,20 +517,18 @@
                         {
                             title: "Perbaikan Permanen",
                             field: "perbaikan_permanen",
-                            editor: "input",
-                            width: 400
+                            editor: "input"
                         },
                         {
                             title: "Progres Perbaikan Permanen",
                             field: "progres_perbaikan_permanen",
-                            editor: "input",
-                            width: 350
+                            editor: "number",
+                            hozAlign: "center"
                         },
                         {
                             title: "Tindak Lanjut",
                             field: "tindak_lanjut",
-                            editor: "input",
-                            width: 450
+                            editor: "input"
                         },
                         {
                             title: "Target Penyelesaian",
@@ -520,37 +538,13 @@
                         {
                             title: "Estimasi Biaya Perbaikan",
                             field: "estimasi_biaya_perbaikan",
-                            hozAlign: "center",
-                            // formatter: function(cell) {
-                            //     let rawValue = cell.getValue();
-                            //     if (rawValue === null || rawValue === undefined || rawValue === "") {
-                            //         return "0.00";
-                            //     }
-
-                            //     let cleanValue = rawValue.toString().replace(/[^0-9.-]+/g, '');
-                            //     let value = parseFloat(cleanValue);
-
-                            //     if (!isNaN(value)) {
-                            //         return value.toLocaleString("en-US", {
-                            //             minimumFractionDigits: 2,
-                            //             maximumFractionDigits: 2
-                            //         });
-                            //     }
-
-                            //     return "0.00";
-                            // },
-                            editor: "input"
+                            editor: "number",
+                            hozAlign: "right"
                         },
                         {
                             title: "Link Foto/Video",
                             field: "link_foto_video",
-                            editor: "input",
-                            width: 400,
-                            formatter: "link",
-                            formatterParams: {
-                                labelField: "link_foto_video",
-                                target: "_blank"
-                            }
+                            editor: "input"
                         },
                         {
                             title: "Aksi",
@@ -575,13 +569,14 @@
                     responsiveLayout: "collapse",
                     autoResize: true,
                     columns: columnMap["asset-breakdown-ru-dumai"],
+                    virtualDom: true,
+                    height: "700px",
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
                     selectableRangeRows: true,
                     selectableRangeClearCells: true,
                     editTriggerEvent: "dblclick",
-                    virtualDom: true,
 
                     pagination: "local",
                     paginationSize: 20,
@@ -599,7 +594,6 @@
                     clipboardCopyRowRange: "range",
                     clipboardPasteParser: "range",
                     clipboardPasteAction: "range",
-
                     clipboardPasteRow: true,
 
                     columnDefaults: {
@@ -612,7 +606,7 @@
 
                 document.getElementById("download-xlsx").addEventListener("click", function() {
                     window.table.download("xlsx", "asset-breakdown-ru-dumai.xlsx", {
-                        sheetName: "Data Pelatihan",
+                        sheetName: "asset-breakdown-ru-dumai",
                         columnHeaders: true,
                         downloadDataFormatter: function(data) {
                             return data.map(row => {
@@ -643,6 +637,7 @@
                     const id = updatedData.id;
 
                     if (!id) return;
+
                     if (cell.getField() === "periode" && !isValidPeriodeFormat(cell.getValue())) {
                         showToast("Format Periode tidak valid! Gunakan format: Sep-24", "error");
                         cell.restoreOldValue();
@@ -747,7 +742,6 @@
 
                     previousData = JSON.parse(JSON.stringify(newData));
                 });
-
                 loadData();
             });
         </script>
@@ -827,7 +821,7 @@
                             showToast(`${gagal.length} data gagal disimpan`, "error");
                         }
 
-                        table.setData("/monev/shrnp/input-data/asset-breakdown-ru-dumai/data");
+                        table.setData(`${BASE_URL}/monev/shrnp/input-data/asset-breakdown-ru-dumai/data`);
                         document.getElementById("createForm").reset();
                         closeModal();
                     })
@@ -873,6 +867,7 @@
                     });
                 });
 
+                // Ketika halaman reload setelah klik, cek dan scroll otomatis
                 if (sessionStorage.getItem('scrollToActiveTab') === 'yes') {
                     scrollToActiveTab();
                     sessionStorage.removeItem('scrollToActiveTab');

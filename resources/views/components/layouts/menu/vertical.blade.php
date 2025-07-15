@@ -109,12 +109,12 @@
                         Input Target Kinerja SHG
                     </a>
                     <ul class="menu-sub">
-                        <li
+                        {{-- <li
                             class="menu-item {{ request()->is('monev/shg/kinerja/shg-target-kpi-2025-ai*') ? 'active' : '' }}">
                             <a class="menu-link" href="{{ route('shg-target-kpi-2025-ai') }}">
                                 Target Status Asset Integrity
                             </a>
-                        </li>
+                        </li> --}}
                         <li
                             class="menu-item {{ request()->is('monev/shg/kinerja/shg-target-penurunan-plo*') ? 'active' : '' }}">
                             <a class="menu-link" href="{{ route('shg-target-penurunan-plo') }}">
@@ -288,12 +288,12 @@
                         Input Target Kinerja SHU
                     </a>
                     <ul class="menu-sub">
-                        <li
+                        {{-- <li
                             class="menu-item {{ request()->is('monev/shu/kinerja/shu-target-kpi-2025-ai*') ? 'active' : '' }}">
                             <a class="menu-link" href="{{ route('shu-target-kpi-2025-ai') }}">
                                 Target Status Asset Integrity SHU
                             </a>
-                        </li>
+                        </li> --}}
                         <li
                             class="menu-item {{ request()->is('monev/shu/kinerja/shu-target-penurunan-plo*') ? 'active' : '' }}">
                             <a class="menu-link" href="{{ route('shu-target-penurunan-plo') }}">

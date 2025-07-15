@@ -22,13 +22,13 @@
                 box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             }
 
-            .tabulator-cell {
-                font-size: 14px;
-            }
-
             .tabulator .tabulator-cell {
                 white-space: normal !important;
                 word-wrap: break-word;
+            }
+
+            .tabulator-cell {
+                font-size: 14px;
             }
 
             .card {
@@ -179,7 +179,6 @@
                     </div>
                 </div>
             </div>
-
             <div id="mainTable"></div>
 
             <div class="tabulator-wrapper mt-4">
@@ -194,25 +193,9 @@
             <h3>Pelatihan AIMS NR</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
-                <div>
-                    <label>Periode</label>
-                    <input type="month" name="periode" id="periode">
-                </div>
 
-                <div>
-                    <label>Company</label>
-                    <input type="text" name="company" id="company">
-                </div>
-
-                <div>
-                    <label>Judul Pelatihan/Training/Forum</label>
-                    <input type="text" name="judul_pelatihan" id="judul_pelatihan">
-                </div>
-
-                <div>
-                    <label>Realisasi Perwira</label>
-                    <input type="number" name="realisasi_perwira" id="realisasi_perwira">
-                </div>
+                <label>Jumlah Row yang ingin dibuat</label>
+                <input type="number" name="jumlah_row" id="jumlah_row" min="1" value="1" required>
 
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
@@ -311,25 +294,21 @@
                     .catch(err => console.error("Gagal load data:", err));
             }
 
-
             document.addEventListener("DOMContentLoaded", function() {
                 const columnMap = {
                     "pelatihan-aims-nr": [{
                             title: "No",
-                            hozAlign: "center",
-                            width: 60,
-                            download: false,
                             formatter: function(cell) {
                                 const row = cell.getRow();
-                                const table = row.getTable();
-
-                                const pageSize = table.getPageSize();
-                                const currentPage = table.getPage();
-                                const rowIndex = row
-                                    .getPosition();
-
-                                return ((currentPage - 1) * pageSize) + rowIndex;
-                            }
+                                const table = cell.getTable();
+                                const sortedData = table.getRows("active").map(r => r.getData());
+                                const index = sortedData.findIndex(data => data.id === row.getData().id);
+                                return index + 1;
+                            },
+                            hozAlign: "center",
+                            width: 60,
+                            headerSort: false,
+                            download: false
                         },
                         {
                             title: "ID",
@@ -429,14 +408,14 @@
                         {
                             title: "Judul Pelatihan",
                             field: "judul_pelatihan",
-                            width: 400,
                             editor: "input",
+                            width: 450
                         },
                         {
                             title: "Realisasi Perwira",
                             field: "realisasi_perwira",
                             editor: "number",
-                            hozAlign: "center"
+                            hozAlign: "center",
                         },
                         {
                             title: "Aksi",
@@ -457,10 +436,12 @@
                 };
 
                 window.table = new Tabulator("#example-table", {
-                    layout: "fitDataTable",
+                    layout: "fitColumns",
                     responsiveLayout: "collapse",
                     autoResize: true,
                     columns: columnMap["pelatihan-aims-nr"],
+                    virtualDom: true,
+                    height: "700px",
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -515,46 +496,6 @@
                             });
                         }
                     });
-                });
-
-                function isValidPeriodeFormat(value) {
-                    const regex = /^[A-Za-z]{3}-\d{2}$/;
-                    return regex.test(value);
-                }
-
-                table.on("cellEdited", function(cell) {
-                    const updatedData = cell.getRow().getData();
-                    const id = updatedData.id;
-
-                    if (!id) return;
-
-                    if (cell.getField() === "periode" && !isValidPeriodeFormat(cell.getValue())) {
-                        showToast("Format Periode tidak valid! Gunakan format: Sep-24", "error");
-                        cell.restoreOldValue();
-                        return;
-                    }
-                    fetch(`pelatihan-aims-nr/${id}`, {
-                            method: "PUT",
-                            headers: {
-                                "Content-Type": "application/json",
-                                "Accept": "application/json",
-                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
-                                    .getAttribute("content")
-                            },
-                            body: JSON.stringify(updatedData)
-                        })
-                        .then(res => res.json())
-                        .then(data => {
-                            if (data.success) {
-                                showToast("Update berhasil!", "success");
-                            } else {
-                                showToast("Update gagal: " + data.message, "error");
-                            }
-                        })
-                        .catch(err => {
-                            console.error("Gagal update:", err);
-                            showToast("Terjadi kesalahan saat update!", "error");
-                        });
                 });
 
                 let previousData = [];
@@ -631,6 +572,47 @@
 
                     previousData = JSON.parse(JSON.stringify(newData));
                 });
+
+                function isValidPeriodeFormat(value) {
+                    const regex = /^[A-Za-z]{3}-\d{2}$/;
+                    return regex.test(value);
+                }
+
+                table.on("cellEdited", function(cell) {
+                    const updatedData = cell.getRow().getData();
+                    const id = updatedData.id;
+
+                    if (!id) return;
+
+                    if (cell.getField() === "periode" && !isValidPeriodeFormat(cell.getValue())) {
+                        showToast("Format Periode tidak valid! Gunakan format: Sep-24", "error");
+                        cell.restoreOldValue();
+                        return;
+                    }
+
+                    fetch(`pelatihan-aims-nr/${id}`, {
+                            method: "PUT",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute("content")
+                            },
+                            body: JSON.stringify(updatedData)
+                        })
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.success) {
+                                showToast("Update berhasil!", "success");
+                            } else {
+                                showToast("Update gagal: " + data.message, "error");
+                            }
+                        })
+                        .catch(err => {
+                            console.error("Gagal update:", err);
+                            showToast("Terjadi kesalahan saat update!", "error");
+                        });
+                });
                 loadData();
             });
         </script>
@@ -664,32 +646,43 @@
 
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
+                const jumlahRow = parseInt(data.jumlah_row);
 
-                fetch("pelatihan-aims-nr", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Accept": "application/json",
-                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute(
-                                "content")
-                        },
-                        body: JSON.stringify({
-                            periode: data.periode,
-                            company: data.company,
-                            judul_pelatihan: data.judul_pelatihan,
-                            realisasi_perwira: data.realisasi_perwira
-                        })
-                    })
-                    .then(response => response.json())
-                    .then(result => {
-                        if (result.success) {
-                            showToast(result.message || "Data berhasil disimpan", "success");
-                            table.setData(`${BASE_URL}/monev/shg/input-data/pelatihan-aims-nr/data`);
-                            this.reset();
-                            closeModal();
+                const payloadArray = [];
+
+                for (let i = 0; i < jumlahRow; i++) {
+                    payloadArray.push({
+                        periode: data.periode,
+                        company: data.company,
+                        judul_pelatihan: data.judul_pelatihan,
+                        realisasi_perwira: data.realisasi_perwira
+                    });
+                }
+
+                Promise.all(payloadArray.map(dataItem => {
+                        return fetch("pelatihan-aims-nr", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute(
+                                        "content")
+                            },
+                            body: JSON.stringify(dataItem)
+                        }).then(res => res.json());
+                    }))
+                    .then(results => {
+                        const gagal = results.filter(r => !r.success);
+                        if (gagal.length === 0) {
+                            showToast(`${jumlahRow} baris data berhasil buat`, "success");
                         } else {
-                            showToast(result.message || "Gagal menyimpan data", "error");
+                            showToast(`${gagal.length} data gagal disimpan`, "error");
                         }
+
+                        table.setData(`${BASE_URL}/monev/shg/input-data/pelatihan-aims-nr/data`);
+                        document.getElementById("createForm").reset();
+                        closeModal();
                     })
                     .catch(error => {
                         console.error("Error saat submit:", error);

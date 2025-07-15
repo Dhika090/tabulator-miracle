@@ -31,11 +31,6 @@
                 word-wrap: break-word;
             }
 
-            .tabulator .tabulator-cell {
-                white-space: normal !important;
-                word-wrap: break-word;
-            }
-
             .card {
                 margin-top: 20px;
             }
@@ -196,7 +191,7 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Tambah Data Air Budget Tagging NR</h3>
+            <h3>Pelatihan AIMS NR</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
 
@@ -205,6 +200,7 @@
 
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
+
         </div>
     </div>
 
@@ -322,7 +318,7 @@
                             formatter: "rownum",
                             hozAlign: "center",
                             width: 60,
-                            headerSort: false
+                            donwload: false
                         },
                         {
                             title: "ID",
@@ -416,14 +412,14 @@
                         {
                             title: "Satker",
                             field: "satker",
-                            editor: "input",
                             hozAlign: "center",
+                            editor: "input"
                         },
                         {
                             title: "Kategori",
                             field: "kategori",
-                            editor: "input",
                             hozAlign: "center",
+                            editor: "input"
                         },
                         {
                             title: "CE",
@@ -433,12 +429,13 @@
                         {
                             title: "Cost Element Name",
                             field: "cost_element_name",
+                            hozAlign: "center",
                             editor: "input"
                         },
                         {
                             title: "Program Kerja",
                             field: "program_kerja",
-                            width: 400,
+                            width: 450,
                             editor: "input"
                         },
                         {
@@ -447,89 +444,34 @@
                             editor: "input",
                             hozAlign: "center"
                         },
+                        @php
+                            $months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+                        @endphp
+
                         {
-                            title: "JAN",
-                            field: "jan",
-                            editor: "input",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "FEB",
-                            field: "feb",
-                            editor: "input",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "MAR",
-                            field: "mar",
-                            editor: "input",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "APR",
-                            field: "apr",
-                            editor: "input",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "MAY",
-                            field: "may",
-                            editor: "input",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "JUN",
-                            field: "jun",
-                            editor: "input",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "JUL",
-                            field: "jul",
-                            editor: "input",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "AUG",
-                            field: "aug",
-                            editor: "input",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "SEP",
-                            field: "sep",
-                            editor: "input",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "OCT",
-                            field: "oct",
-                            editor: "input",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "NOV",
-                            field: "nov",
-                            editor: "input",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "DEC",
-                            field: "dec",
-                            editor: "input",
-                            hozAlign: "center"
+                            title: "Bulan",
+                            columns: [
+                                @foreach ($months as $month)
+                                    {
+                                        title: "{{ $month }}",
+                                        field: "{{ strtolower($month) }}",
+                                        editor: "input",
+                                        hozAlign: "center",
+                                        validator: ["numeric", "min:0"]
+                                    },
+                                @endforeach
+                            ]
                         },
                         {
                             title: "Aset Integrity (Yes/No)",
                             field: "aset_integrity",
-                            editor: "input",
                             hozAlign: "center",
+                            editor: "input"
                         },
                         {
                             title: "AIRTagging (Asset Integrity & Reliability)",
                             field: "airtagging",
-                            editor: "input",
-                            hozAlign: "center",
+                            editor: "input"
                         },
                         {
                             title: "Prioritas",
@@ -539,8 +481,7 @@
                         {
                             title: "Status Integrity per Des 2024",
                             field: "status_integrity",
-                            editor: "input",
-                            hozAlign: "center",
+                            editor: "input"
                         },
                         {
                             title: "Jumlah Aset Critical SECE",
@@ -589,6 +530,8 @@
                     responsiveLayout: "collapse",
                     autoResize: true,
                     columns: columnMap["air-budget-tagging-nr"],
+                    virtualDom: true,
+                    height: "700px",
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -612,6 +555,7 @@
                     clipboardCopyRowRange: "range",
                     clipboardPasteParser: "range",
                     clipboardPasteAction: "range",
+                    clipboardPasteRow: true,
 
                     columnDefaults: {
                         headerSort: true,
@@ -649,17 +593,37 @@
                     return regex.test(value);
                 }
 
+                function isValidDecimal(value) {
+                    const parsed = parseFloat(value);
+                    return !isNaN(parsed) && parsed >= 0;
+                }
+
                 table.on("cellEdited", function(cell) {
                     const updatedData = cell.getRow().getData();
                     const id = updatedData.id;
 
                     if (!id) return;
 
-                    if (cell.getField() === "periode" && !isValidPeriodeFormat(cell.getValue())) {
+                    const field = cell.getField();
+                    const value = cell.getValue();
+
+                    if (field === "periode" && !isValidPeriodeFormat(value)) {
                         showToast("Format Periode tidak valid! Gunakan format: Sep-24", "error");
                         cell.restoreOldValue();
                         return;
                     }
+
+                    const monthFields = [
+                        "jan", "feb", "mar", "apr", "may", "jun",
+                        "jul", "aug", "sep", "oct", "nov", "dec"
+                    ];
+                    if (monthFields.includes(field) && !isValidDecimal(value)) {
+                        showToast(`Nilai pada kolom ${field.toUpperCase()} harus berupa angka desimal ≥ 0`,
+                            "error");
+                        cell.restoreOldValue();
+                        return;
+                    }
+
                     fetch(`air-budget-tagging-nr/${id}`, {
                             method: "PUT",
                             headers: {
@@ -730,6 +694,33 @@
 
                             return;
                         }
+
+                        const monthFields = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug",
+                            "sep", "oct", "nov", "dec"
+                        ];
+
+                        for (const field of monthFields) {
+                            if (rowData[field] !== undefined && rowData[field] !== oldRow[field]) {
+                                const val = rowData[field];
+                                const parsed = parseFloat(val);
+
+                                if (isNaN(parsed) || parsed < 0) {
+                                    showToast(
+                                        `Nilai ${field.toUpperCase()} harus berupa angka desimal ≥ 0`,
+                                        "error");
+
+                                    rowData[field] = oldRow[field];
+
+                                    table.updateData([{
+                                        id: rowData.id,
+                                        [field]: oldRow[field]
+                                    }]);
+
+                                    return;
+                                }
+                            }
+                        }
+
                         fetch(`air-budget-tagging-nr/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
@@ -788,59 +779,67 @@
 
             document.getElementById("createForm").addEventListener("submit", function(e) {
                 e.preventDefault();
-
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
+                const jumlahRow = parseInt(data.jumlah_row);
 
-                fetch("air-budget-tagging-nr", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Accept": "application/json",
-                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute(
-                                "content")
-                        },
-                        body: JSON.stringify({
-                            periode: data.periode,
-                            satker: data.satker || null,
-                            kategori: data.kategori || null,
-                            ce: data.ce || null,
-                            cost_element_name: data.cost_element_name || null,
-                            program_kerja: data.program_kerja || null,
-                            total_pagu_usd: data.total_pagu_usd || null,
-                            jan: data.jan || null,
-                            feb: data.feb || null,
-                            mar: data.mar || null,
-                            apr: data.apr || null,
-                            may: data.may || null,
-                            jun: data.jun || null,
-                            jul: data.jul || null,
-                            aug: data.aug || null,
-                            sep: data.sep || null,
-                            oct: data.oct || null,
-                            nov: data.nov || null,
-                            dec: data.dec || null,
-                            aset_integrity: data.aset_integrity || null,
-                            airtagging: data.airtagging || null,
-                            prioritas: data.prioritas || null,
-                            status_integrity: data.status_integrity || null,
-                            jumlah_aset_critical_sece: data.jumlah_aset_critical_sece || null,
-                            jumlah_aset_critical_pce: data.jumlah_aset_critical_pce || null,
-                            jumlah_aset_important: data.jumlah_aset_important || null,
-                            jumlah_aset_secondary: data.jumlah_aset_secondary || null,
-                        })
+                const payloadArray = [];
 
-                    })
-                    .then(response => response.json())
-                    .then(result => {
-                        if (result.success) {
-                            showToast(result.message || "Data berhasil disimpan", "success");
-                            table.setData(`${BASE_URL}/monev/shg/input-data/air-budget-tagging-nr/data`);
-                            this.reset();
-                            closeModal();
+                for (let i = 0; i < jumlahRow; i++) {
+                    payloadArray.push({
+                        periode: data.periode,
+                        satker: data.satker,
+                        kategori: data.kategori,
+                        ce: data.ce,
+                        cost_element_name: data.cost_element_name,
+                        program_kerja: data.program_kerja,
+                        total_pagu: data.total_pagu,
+                        jan: data.jan,
+                        feb: data.feb,
+                        mar: data.mar,
+                        apr: data.apr,
+                        may: data.may,
+                        jun: data.jun,
+                        jul: data.jul,
+                        aug: data.aug,
+                        sep: data.sep,
+                        oct: data.oct,
+                        nov: data.nov,
+                        dec: data.dec,
+                        aset_integrity: data.aset_integrity,
+                        airtagging: data.airtagging,
+                        prioritas: data.prioritas,
+                        status_integrity: data.status_integrity,
+                        jumlah_aset_critical_sece: data.jumlah_aset_critical_sece,
+                        jumlah_aset_critical_pce: data.jumlah_aset_critical_pce,
+                        jumlah_aset_important: data.jumlah_aset_important,
+                        jumlah_aset_secondary: data.jumlah_aset_secondary,
+                    });
+                }
+
+                Promise.all(payloadArray.map(dataItem => {
+                        return fetch("air-budget-tagging-nr", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute("content")
+                            },
+                            body: JSON.stringify(dataItem)
+                        }).then(res => res.json());
+                    }))
+                    .then(results => {
+                        const gagal = results.filter(r => !r.success);
+                        if (gagal.length === 0) {
+                            showToast(`${jumlahRow} baris data berhasil buat`, "success");
                         } else {
-                            showToast(result.message || "Gagal menyimpan data", "error");
+                            showToast(`${gagal.length} data gagal disimpan`, "error");
                         }
+
+                        table.setData(`${BASE_URL}/monev/shg/input-data/air-budget-tagging-nr/data`);
+                        document.getElementById("createForm").reset();
+                        closeModal();
                     })
                     .catch(error => {
                         console.error("Error saat submit:", error);

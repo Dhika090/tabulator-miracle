@@ -193,75 +193,14 @@
             <span class="close" onclick="closeModal()">&times;</span>
             <h3>Tambah Sistem Informasi AIMS PTGN</h3>
             <form id="createForm">
-
                 <input type="hidden" name="id" id="form-id">
-                <div>
-                    <label for="periode">Periode</label>
-                    <input type="month" id="periode" name="periode">
-                </div>
 
-                <div>
-                    <label for="company">Company</label>
-                    <input type="text" id="company" name="company">
-                </div>
-
-                <div>
-                    <label for="jumlah_aset_operasi">Jumlah Aset Operasi</label>
-                    <input type="text" id="jumlah_aset_operasi" name="jumlah_aset_operasi">
-                </div>
-
-                <div>
-                    <label for="jumlah_aset_teregister">Jumlah Aset Teregister</label>
-                    <input type="text" id="jumlah_aset_teregister" name="jumlah_aset_teregister">
-                </div>
-
-                <div>
-                    <label for="kendala_aset_register">Kendala Aset Register</label>
-                    <input id="kendala_aset_register" type="text" name="kendala_aset_register"></input>
-                </div>
-
-                <div>
-                    <label for="tindak_lanjut_aset_register">Tindak Lanjut Aset Register</label>
-                    <input id="tindak_lanjut_aset_register" type="text" name="tindak_lanjut_aset_register"></input>
-                </div>
-
-                <div>
-                    <label for="sistem_informasi_aim">Sistem Informasi AIM</label>
-                    <input type="text" id="sistem_informasi_aim" name="sistem_informasi_aim">
-                </div>
-
-                <div>
-                    <label for="total_wo_comply">Total WO Comply</label>
-                    <input type="number" id="total_wo_comply" name="total_wo_comply">
-                </div>
-
-                <div>
-                    <label for="total_wo_completed">Total WO Completed</label>
-                    <input type="number" id="total_wo_completed" name="total_wo_completed">
-                </div>
-
-                <div>
-                    <label for="total_wo_in_progress">Total WO In Progress</label>
-                    <input type="number" id="total_wo_in_progress" name="total_wo_in_progress">
-                </div>
-
-                <div>
-                    <label for="total_wo_backlog">Total WO Backlog</label>
-                    <input type="number" id="total_wo_backlog" name="total_wo_backlog">
-                </div>
-
-                <div>
-                    <label for="kendala">Kendala</label>
-                    <input id="kendala" type="text" name="kendala"></input>
-                </div>
-
-                <div>
-                    <label for="tindak_lanjut">Tindak Lanjut</label>
-                    <input id="tindak_lanjut" type="text" name="tindak_lanjut"></input>
-                </div>
+                <label>Jumlah Row yang ingin dibuat</label>
+                <input type="number" name="jumlah_row" id="jumlah_row" min="1" value="1" required>
 
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
+
         </div>
     </div>
 
@@ -375,7 +314,7 @@
             }
 
             function loadData() {
-                fetch("/monev/shg/input-data/sistem-informasi-aims-ptgn/data", {
+                fetch(`${BASE_URL}/monev/shg/input-data/sistem-informasi-aims-ptgn/dat`, {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -823,7 +762,7 @@
                     .then(result => {
                         if (result.success) {
                             showToast(result.message || "Data berhasil disimpan", "success");
-                            table.setData("/monev/shg/input-data/sistem-informasi-aims-ptgn/data");
+                            table.setData(`${BASE_URL}/monev/shg/input-data/sistem-informasi-aims-ptgn/dat`);
                             this.reset();
                             closeModal();
                         } else {

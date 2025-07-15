@@ -36,13 +36,9 @@
                 padding-bottom: 5px;
             }
 
-            .tabulator .tabulator-cell {
-                white-space: normal !important;
-                word-wrap: break-word;
-            }
-
             .tab-scroll-wrapper {
                 display: inline-block;
+                /* display: flex; */
                 align-items: center;
                 overflow-x: hidden;
                 max-width: 100%;
@@ -203,6 +199,7 @@
         </div>
     </div>
 
+
     <div id="toastNotification"
         style="display:none; position: fixed; top: 20px; right: 20px; z-index: 9999; padding: 15px 20px; border-radius: 8px; color: white; font-weight: bold;">
     </div>
@@ -333,7 +330,7 @@
             }
 
             function loadData() {
-                fetch("/monev/shrnp/input-data/status-plo-ru-dumai/data", {
+                fetch(`${BASE_URL}/monev/shrnp/input-data/status-plo-ru-dumai/data`, {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -486,7 +483,6 @@
                         {
                             title: "Nama Aset",
                             field: "nama_aset",
-                            width: 300,
                             editor: "input"
                         },
                         {
@@ -527,7 +523,9 @@
                         {
                             title: "BA PK",
                             field: "ba_pk",
-                            editor: "input"
+                            editor: "input",
+                            hozAlign: "center",
+
                         },
                         {
                             title: "Penerbitan PLO Valid",
@@ -568,6 +566,7 @@
                     autoResize: true,
                     columns: columnMap["status-plo-ru-dumai"],
                     virtualDom: true,
+                    height: "700px",
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -629,13 +628,38 @@
                     return regex.test(value);
                 }
 
+                function isValidDateFormat(value) {
+                    const regex = /^\d{2}-\d{2}-\d{4}$/;
+                    if (!regex.test(value)) return false;
+
+                    const [day, month, year] = value.split("-").map(Number);
+                    const date = new Date(year, month - 1, day);
+
+                    return (
+                        date.getFullYear() === year &&
+                        date.getMonth() === month - 1 &&
+                        date.getDate() === day
+                    );
+                }
+
                 table.on("cellEdited", function(cell) {
                     const updatedData = cell.getRow().getData();
                     const id = updatedData.id;
+                    const field = cell.getField();
+                    const value = cell.getValue();
 
                     if (!id) return;
-                    if (cell.getField() === "periode" && !isValidPeriodeFormat(cell.getValue())) {
+
+                    if (field === "periode" && !isValidPeriodeFormat(value)) {
                         showToast("Format Periode tidak valid! Gunakan format: Sep-24", "error");
+                        cell.restoreOldValue();
+                        return;
+                    }
+
+                    if ((field === "tanggal_pengesahan" || field === "masa_berlaku") && !isValidDateFormat(
+                            value)) {
+                        showToast(`Format ${field.replace("_", " ")} tidak valid! Gunakan format: DD-MM-YYYY`,
+                            "error");
                         cell.restoreOldValue();
                         return;
                     }
@@ -663,6 +687,8 @@
                             showToast("Terjadi kesalahan saat update!", "error");
                         });
                 });
+
+
                 let previousData = [];
                 table.on("dataLoaded", function(newData) {
                     previousData = JSON.parse(JSON.stringify(newData));
@@ -699,16 +725,43 @@
                             showToast(
                                 `"${rowData.periode}" Format Periode tidak valid! Gunakan format: Jan-25`,
                                 "error");
-
                             rowData.periode = oldRow.periode;
 
                             table.updateData([{
                                 id: rowData.id,
                                 periode: oldRow.periode
                             }]);
-
                             return;
                         }
+
+                        if (rowData.tanggal_pengesahan !== oldRow.tanggal_pengesahan &&
+                            !isValidDateFormat(rowData.tanggal_pengesahan)) {
+                            showToast(
+                                `"${rowData.tanggal_pengesahan}" Format Tanggal Pengesahan tidak valid! Gunakan format: DD-MM-YYYY`,
+                                "error");
+                            rowData.tanggal_pengesahan = oldRow.tanggal_pengesahan;
+
+                            table.updateData([{
+                                id: rowData.id,
+                                tanggal_pengesahan: oldRow.tanggal_pengesahan
+                            }]);
+                            return;
+                        }
+
+                        if (rowData.masa_berlaku !== oldRow.masa_berlaku &&
+                            !isValidDateFormat(rowData.masa_berlaku)) {
+                            showToast(
+                                `"${rowData.masa_berlaku}" Format Masa Berlaku tidak valid! Gunakan format: DD-MM-YYYY`,
+                                "error");
+                            rowData.masa_berlaku = oldRow.masa_berlaku;
+
+                            table.updateData([{
+                                id: rowData.id,
+                                masa_berlaku: oldRow.masa_berlaku
+                            }]);
+                            return;
+                        }
+
                         fetch(`status-plo-ru-dumai/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
@@ -724,9 +777,7 @@
                                 if (response.success) {
                                     showToast(`Data berhasil disimpan`, "success");
                                 } else {
-                                    showToast(
-                                        `Format Periode tidak valid! Gunakan format: Jan-25 : ${response.message}`,
-                                        "error");
+                                    showToast(`Gagal menyimpan: ${response.message}`, "error");
                                 }
                             })
                             .catch(err => {
@@ -737,6 +788,7 @@
 
                     previousData = JSON.parse(JSON.stringify(newData));
                 });
+
                 loadData();
             });
         </script>
@@ -771,45 +823,56 @@
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
 
-                fetch("status-plo-ru-dumai", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Accept": "application/json",
-                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute(
-                                "content")
-                        },
-                        body: JSON.stringify({
-                            periode: data.periode,
-                            nomor_plo: data.nomor_plo,
-                            company: data.company,
-                            area: data.area,
-                            lokasi: data.lokasi,
-                            nama_aset: data.nama_aset,
-                            tanggal_pengesahan: data.tanggal_pengesahan,
-                            masa_berlaku: data.masa_berlaku,
-                            keterangan: data.keterangan,
-                            belum_proses: data.belum_proses,
-                            pre_inspection: data.pre_inspection,
-                            inspection: data.inspection,
-                            coi_peralatan: data.coi_peralatan,
-                            ba_pk: data.ba_pk,
-                            penerbitan_plo_valid: data.penerbitan_plo_valid,
-                            kendala: data.kendala,
-                            tindak_lanjut: data.tindak_lanjut
-                        })
+                const jumlahRow = parseInt(data.jumlah_row);
 
-                    })
-                    .then(response => response.json())
-                    .then(result => {
-                        if (result.success) {
-                            showToast(result.message || "Data berhasil disimpan", "success");
-                            table.setData("/monev/shrnp/input-data/status-plo-ru-dumai/data");
-                            this.reset();
-                            closeModal();
+                const payloadArray = [];
+
+                for (let i = 0; i < jumlahRow; i++) {
+                    payloadArray.push({
+                        periode: data.periode,
+                        nomor_plo: data.nomor_plo,
+                        company: data.company,
+                        area: data.area,
+                        lokasi: data.lokasi,
+                        nama_aset: data.nama_aset,
+                        tanggal_pengesahan: data.tanggal_pengesahan,
+                        masa_berlaku: data.masa_berlaku,
+                        keterangan: data.keterangan,
+                        belum_proses: data.belum_proses,
+                        pre_inspection: data.pre_inspection,
+                        inspection: data.inspection,
+                        coi_peralatan: data.coi_peralatan,
+                        ba_pk: data.ba_pk,
+                        penerbitan_plo_valid: data.penerbitan_plo_valid,
+                        kendala: data.kendala,
+                        tindak_lanjut: data.tindak_lanjut
+                    });
+                }
+
+                Promise.all(payloadArray.map(dataItem => {
+                        return fetch("status-plo-ru-dumai", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute(
+                                        "content")
+                            },
+                            body: JSON.stringify(dataItem)
+                        }).then(res => res.json());
+                    }))
+                    .then(results => {
+                        const gagal = results.filter(r => !r.success);
+                        if (gagal.length === 0) {
+                            showToast(`${jumlahRow} baris data berhasil buat`, "success");
                         } else {
-                            showToast(result.message || "Gagal menyimpan data", "error");
+                            showToast(`${gagal.length} data gagal disimpan`, "error");
                         }
+
+                        table.setData(`${BASE_URL}/monev/shrnp/input-data/status-plo-ru-dumai/data`);
+                        document.getElementById("createForm").reset();
+                        closeModal();
                     })
                     .catch(error => {
                         console.error("Error saat submit:", error);

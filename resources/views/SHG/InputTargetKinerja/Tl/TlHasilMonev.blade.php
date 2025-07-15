@@ -194,33 +194,13 @@
             <h3>Tambah Data Tindak Lanjut Hasil Monev</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
-                <div>
-                    <label>Periode</label>
-                    <input type="text" name="periode" id="periode">
-                </div>
 
-                <div>
-                    <label>No</label>
-                    <input type="number" name="no" id="no" min="0">
-                </div>
-
-                <div>
-                    <label>Bahasan</label>
-                    <input type="text" name="bahasan" id="bahasan">
-                </div>
-
-                <div>
-                    <label>RTL</label>
-                    <input type="text" name="rtl" id="rtl">
-                </div>
-
-                <div>
-                    <label>Progress</label>
-                    <input type="text" name="progress" id="progress">
-                </div>
+                <label>Jumlah Row yang ingin dibuat</label>
+                <input type="number" name="jumlah_row" id="jumlah_row" min="1" value="1" required>
 
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
+
 
         </div>
     </div>
@@ -293,7 +273,7 @@
             }
 
             function loadData() {
-                fetch(`${base_url}/monev/shg/kinerja/tindak-lanjut-hasil-monev/data`, {
+                fetch(`${BASE_URL}/monev/shg/kinerja/tindak-lanjut-hasil-monev/data`, {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -425,19 +405,31 @@
                             title: "Bahasan",
                             field: "bahasan",
                             width: 400,
-                            editor: "input",
+                            editor: "textarea",
+                            formatter: function(cell) {
+                                return cell.getValue()
+                                    ?.replace(/\n/g, "<br>") || "";
+                            }
                         },
                         {
                             title: "RTL",
                             field: "rtl",
-                            editor: "input",
+                            editor: "textarea",
                             width: 400,
+                            formatter: function(cell) {
+                                return cell.getValue()
+                                    ?.replace(/\n/g, "<br>") || "";
+                            }
                         },
                         {
                             title: "Progress",
                             field: "progress",
-                            editor: "input",
+                            editor: "textarea",
                             width: 400,
+                            formatter: function(cell) {
+                                return cell.getValue()
+                                    ?.replace(/\n/g, "<br>") || "";
+                            }
                         },
                         {
                             title: "Aksi",
@@ -458,11 +450,13 @@
                 };
 
                 window.table = new Tabulator("#example-table", {
-                    layout: "fitDataTable",
+                    // layout: "fitDataTable",
+                    layout: "fitDataStretch",
                     responsiveLayout: "collapse",
                     autoResize: true,
                     columns: columnMap["tindak-lanjut-hasil-monev"],
 
+                    headerWordWrap: true,
                     selectableRange: 1,
                     selectableRangeColumns: true,
                     selectableRangeRows: true,
@@ -598,7 +592,7 @@
                 toast.classList.add(type === "success" ? "toast-success" : "toast-error");
                 toast.style.display = "block";
 
-               setTimeout(() => {
+                setTimeout(() => {
                     toast.style.display = "none";
                 }, 3500);
             }
@@ -639,7 +633,7 @@
                     .then(result => {
                         if (result.success) {
                             showToast(result.message || "Data berhasil disimpan", "success");
-                            table.setData(`${base_url}/monev/shg/kinerja/tindak-lanjut-hasil-monev/data`);
+                            table.setData(`${BASE_URL}/monev/shg/kinerja/tindak-lanjut-hasil-monev/data`);
                             this.reset();
                             closeModal();
                         } else {

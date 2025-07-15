@@ -654,18 +654,37 @@
                     return regex.test(value);
                 }
 
+                function isValidDecimal(value) {
+                    const parsed = parseFloat(value);
+                    return !isNaN(parsed) && parsed >= 0;
+                }
+
                 table.on("cellEdited", function(cell) {
                     const updatedData = cell.getRow().getData();
                     const id = updatedData.id;
 
-
                     if (!id) return;
 
-                    if (cell.getField() === "periode" && !isValidPeriodeFormat(cell.getValue())) {
+                    const field = cell.getField();
+                    const value = cell.getValue();
+
+                    if (field === "periode" && !isValidPeriodeFormat(value)) {
                         showToast("Format Periode tidak valid! Gunakan format: Sep-24", "error");
                         cell.restoreOldValue();
                         return;
                     }
+
+                    const monthFields = [
+                        "jan", "feb", "mar", "apr", "may", "jun",
+                        "jul", "aug", "sep", "oct", "nov", "dec"
+                    ];
+                    if (monthFields.includes(field) && !isValidDecimal(value)) {
+                        showToast(`Nilai pada kolom ${field.toUpperCase()} harus berupa angka desimal ≥ 0`,
+                            "error");
+                        cell.restoreOldValue();
+                        return;
+                    }
+
                     fetch(`air-budget-tagging-gei/${id}`, {
                             method: "PUT",
                             headers: {
@@ -736,6 +755,33 @@
 
                             return;
                         }
+
+                        const monthFields = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug",
+                            "sep", "oct", "nov", "dec"
+                        ];
+
+                        for (const field of monthFields) {
+                            if (rowData[field] !== undefined && rowData[field] !== oldRow[field]) {
+                                const val = rowData[field];
+                                const parsed = parseFloat(val);
+
+                                if (isNaN(parsed) || parsed < 0) {
+                                    showToast(
+                                        `Nilai ${field.toUpperCase()} harus berupa angka desimal ≥ 0`,
+                                        "error");
+
+                                    rowData[field] = oldRow[field];
+
+                                    table.updateData([{
+                                        id: rowData.id,
+                                        [field]: oldRow[field]
+                                    }]);
+
+                                    return;
+                                }
+                            }
+                        }
+
                         fetch(`air-budget-tagging-gei/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
@@ -795,60 +841,78 @@
             document.getElementById("createForm").addEventListener("submit", function(e) {
                 e.preventDefault();
 
-                const formData = new FormData(this);
+                const form = this;
+                const formData = new FormData(form);
                 const data = Object.fromEntries(formData.entries());
 
-                fetch("air-budget-tagging-gei", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Accept": "application/json",
-                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute(
-                                "content")
-                        },
-                        body: JSON.stringify({
-                            periode: data.periode,
-                            satker: data.satker || null,
-                            kategori: data.kategori || null,
-                            ce: data.ce || null,
-                            cost_element_name: data.cost_element_name || null,
-                            program_kerja: data.program_kerja || null,
-                            total_pagu_usd: data.total_pagu_usd || null,
-                            jan: data.jan || null,
-                            feb: data.feb || null,
-                            mar: data.mar || null,
-                            apr: data.apr || null,
-                            may: data.may || null,
-                            jun: data.jun || null,
-                            jul: data.jul || null,
-                            aug: data.aug || null,
-                            sep: data.sep || null,
-                            oct: data.oct || null,
-                            nov: data.nov || null,
-                            dec: data.dec || null,
-                            aset_integrity: data.aset_integrity || null,
-                            airtagging: data.airtagging || null,
-                            prioritas: data.prioritas || null,
-                            status_integrity: data.status_integrity || null,
-                            jumlah_aset_critical_sece: data.jumlah_aset_critical_sece || null,
-                            jumlah_aset_critical_pce: data.jumlah_aset_critical_pce || null,
-                            jumlah_aset_important: data.jumlah_aset_important || null,
-                            jumlah_aset_secondary: data.jumlah_aset_secondary || null,
-                        })
+                const jumlahRow = parseInt(data.jumlah_row); // harus ada input name="jumlah_row" di form
 
-                    })
-                    .then(response => response.json())
-                    .then(result => {
-                        if (result.success) {
-                            showToast(result.message || "Data berhasil disimpan", "success");
-                            table.setData(`${BASE_URL}/monev/shg/input-data/air-budget-tagging-gei/data`);
-                            this.reset();
-                            closeModal();
+                const parseNullableFloat = (val) => val !== "" ? parseFloat(val) : null;
+
+                const payloadArray = [];
+
+                for (let i = 0; i < jumlahRow; i++) {
+                    payloadArray.push({
+                        periode: data.periode,
+                        satker: data.satker || null,
+                        kategori: data.kategori || null,
+                        ce: data.ce || null,
+                        cost_element_name: data.cost_element_name || null,
+                        program_kerja: data.program_kerja || null,
+                        total_pagu_usd: parseNullableFloat(data.total_pagu_usd),
+
+                        jan: data.jan || null,
+                        feb: data.feb || null,
+                        mar: data.mar || null,
+                        apr: data.apr || null,
+                        may: data.may || null,
+                        jun: data.jun || null,
+                        jul: data.jul || null,
+                        aug: data.aug || null,
+                        sep: data.sep || null,
+                        oct: data.oct || null,
+                        nov: data.nov || null,
+                        dec: data.dec || null,
+
+                        aset_integrity: data.aset_integrity || null,
+                        airtagging: data.airtagging || null,
+                        prioritas: data.prioritas || null,
+                        status_integrity: data.status_integrity || null,
+                        jumlah_aset_critical_sece: data.jumlah_aset_critical_sece || null,
+                        jumlah_aset_critical_pce: data.jumlah_aset_critical_pce || null,
+                        jumlah_aset_important: data.jumlah_aset_important || null,
+                        jumlah_aset_secondary: data.jumlah_aset_secondary || null,
+                    });
+                }
+
+                Promise.all(
+                        payloadArray.map((payload) =>
+                            fetch("air-budget-tagging-gei", {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                    "Accept": "application/json",
+                                    "X-CSRF-TOKEN": document
+                                        .querySelector('meta[name="csrf-token"]')
+                                        .getAttribute("content"),
+                                },
+                                body: JSON.stringify(payload),
+                            }).then((res) => res.json())
+                        )
+                    )
+                    .then((results) => {
+                        const gagal = results.filter((r) => !r.success);
+                        if (gagal.length === 0) {
+                            showToast(`${jumlahRow} baris data berhasil disimpan`, "success");
                         } else {
-                            showToast(result.message || "Gagal menyimpan data", "error");
+                            showToast(`${gagal.length} dari ${jumlahRow} data gagal disimpan`, "error");
                         }
+
+                        table.setData(`${BASE_URL}/monev/shg/input-data/air-budget-tagging-gei/data`);
+                        form.reset();
+                        closeModal();
                     })
-                    .catch(error => {
+                    .catch((error) => {
                         console.error("Error saat submit:", error);
                         showToast("Terjadi kesalahan saat mengirim data.", "error");
                     });

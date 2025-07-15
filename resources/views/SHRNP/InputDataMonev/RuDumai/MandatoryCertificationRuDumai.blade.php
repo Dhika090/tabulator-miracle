@@ -2,12 +2,6 @@
 <x-layouts.app :title="__('')">
     @push('styles')
         <link href="https://unpkg.com/tabulator-tables@5.6.0/dist/css/tabulator.min.css" rel="stylesheet">
-        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
         <style>
             .tabulator-wrapper {
                 overflow-x: auto;
@@ -30,11 +24,6 @@
 
             .tabulator-cell {
                 font-size: 14px;
-            }
-
-            .tabulator .tabulator-cell {
-                white-space: normal !important;
-                word-wrap: break-word;
             }
 
             .card {
@@ -139,7 +128,7 @@
     <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-                <h5 class="card-title mb-3 mb-md-0">Mandatory Certification RuDumai</h5>
+                <h5 class="card-title mb-3 mb-md-0">Mandatory Certification RU Dumai</h5>
                 <div class="d-flex flex-column flex-md-row align-items-center gap-3">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
@@ -185,6 +174,7 @@
                     </div>
                 </div>
             </div>
+
             <div id="mainTable"></div>
 
             <div class="tabulator-wrapper mt-4">
@@ -196,7 +186,7 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Tambah Target Mandatory Certification RuDumai</h3>
+            <h3>Tambah Target SAP</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
 
@@ -208,12 +198,14 @@
         </div>
     </div>
 
+
     <div id="toastNotification"
         style="display:none; position: fixed; top: 20px; right: 20px; z-index: 9999; padding: 15px 20px; border-radius: 8px; color: white; font-weight: bold;">
     </div>
     @push('scripts')
         <script src="https://unpkg.com/tabulator-tables@5.6.0/dist/js/tabulator.min.js"></script>
         <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+
         <script>
             const BASE_URL = "{{ config('app.url') }}";
 
@@ -236,38 +228,6 @@
                             showToast("Terjadi kesalahan saat mengirim data.", "error");
                         });
                 }
-            }
-
-            function clearSearch() {
-                document.getElementById("search-input").value = "";
-                table.clearFilter();
-            }
-
-            function loadData() {
-                fetch("/monev/shrnp/input-data/mandatory-certification-ru-dumai/data", {
-                        headers: {
-                            "Accept": "application/json"
-                        }
-                    })
-                    .then(res => res.json())
-                    .then(data => {
-                        const cleaned = data.map(row => {
-                            const cleanedRow = {};
-                            for (const [key, value] of Object.entries(row)) {
-                                const valStr = String(value).trim().toLowerCase();
-                                cleanedRow[key] = (
-                                    value === null ||
-                                    value === undefined ||
-                                    valStr === "null" ||
-                                    valStr === "undefined"
-                                ) ? "" : value;
-                            }
-                            return cleanedRow;
-                        });
-
-                        table.setData(cleaned);
-                    })
-                    .catch(err => console.error("Gagal load data:", err));
             }
 
             document.getElementById("search-input").addEventListener("input", function(e) {
@@ -318,24 +278,53 @@
 
             });
 
+            function clearSearch() {
+                document.getElementById("search-input").value = "";
+                table.clearFilter();
+            }
+
+            function loadData() {
+                fetch("/monev/shrnp/input-data/mandatory-certification-ru-dumai/data", {
+                        headers: {
+                            "Accept": "application/json"
+                        }
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        const cleaned = data.map(row => {
+                            const cleanedRow = {};
+                            for (const [key, value] of Object.entries(row)) {
+                                const valStr = String(value).trim().toLowerCase();
+                                cleanedRow[key] = (
+                                    value === null ||
+                                    value === undefined ||
+                                    valStr === "null" ||
+                                    valStr === "undefined"
+                                ) ? "" : value;
+                            }
+                            return cleanedRow;
+                        });
+
+                        table.setData(cleaned);
+                    })
+                    .catch(err => console.error("Gagal load data:", err));
+            }
+
             document.addEventListener("DOMContentLoaded", function() {
                 const columnMap = {
                     "mandatory-certification-ru-dumai": [{
                             title: "No",
-                            hozAlign: "center",
-                            width: 60,
-                            download: false,
                             formatter: function(cell) {
                                 const row = cell.getRow();
-                                const table = row.getTable();
-
-                                const pageSize = table.getPageSize();
-                                const currentPage = table.getPage();
-                                const rowIndex = row
-                                    .getPosition();
-
-                                return ((currentPage - 1) * pageSize) + rowIndex;
-                            }
+                                const table = cell.getTable();
+                                const sortedData = table.getRows("active").map(r => r.getData());
+                                const index = sortedData.findIndex(data => data.id === row.getData().id);
+                                return index + 1;
+                            },
+                            hozAlign: "center",
+                            width: 60,
+                            headerSort: false,
+                            download: false
                         },
                         {
                             title: "ID",
@@ -428,26 +417,22 @@
                         {
                             title: "Subholding",
                             field: "subholding",
-                            hozAlign: "center",
                             editor: "input"
                         },
                         {
                             title: "Company",
                             field: "company",
-                            hozAlign: "center",
                             editor: "input"
                         },
                         {
                             title: "Unit",
                             field: "unit",
-                            editor: "input",
-                            width: 200
+                            editor: "input"
                         },
                         {
                             title: "Nama Sertifikasi",
                             field: "nama_sertifikasi",
-                            editor: "input",
-                            width: 450
+                            editor: "input"
                         },
                         {
                             title: "Lembaga Penerbit Sertifikat",
@@ -457,13 +442,13 @@
                         {
                             title: "Jumlah Sertifikasi yang Sudah Terbit",
                             field: "jumlah_sertifikasi_terbit",
-                            editor: "input",
+                            editor: "number",
                             hozAlign: "center"
                         },
                         {
                             title: "Jumlah Learning Hours",
                             field: "jumlah_learning_hours",
-                            editor: "input",
+                            editor: "number",
                             hozAlign: "center"
                         },
                         {
@@ -489,6 +474,8 @@
                     responsiveLayout: "collapse",
                     autoResize: true,
                     columns: columnMap["mandatory-certification-ru-dumai"],
+                    virtualDom: true,
+                    height: "700px",
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -523,8 +510,8 @@
                 });
 
                 document.getElementById("download-xlsx").addEventListener("click", function() {
-                    window.table.download("xlsx", "pelatihan-aims-ru-dumai.xlsx", {
-                        sheetName: "pelatihan-aims-ru-dumai",
+                    window.table.download("xlsx", "mandatory-certification-ru-dumai.xlsx", {
+                        sheetName: "mandatory-certification-ru-dumai",
                         columnHeaders: true,
                         downloadDataFormatter: function(data) {
                             return data.map(row => {
@@ -555,6 +542,7 @@
                     const id = updatedData.id;
 
                     if (!id) return;
+
                     if (cell.getField() === "periode" && !isValidPeriodeFormat(cell.getValue())) {
                         showToast("Format Periode tidak valid! Gunakan format: Sep-24", "error");
                         cell.restoreOldValue();
@@ -584,6 +572,7 @@
                             showToast("Terjadi kesalahan saat update!", "error");
                         });
                 });
+
                 let previousData = [];
                 table.on("dataLoaded", function(newData) {
                     previousData = JSON.parse(JSON.stringify(newData));
@@ -691,37 +680,47 @@
 
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
+                const jumlahRow = parseInt(data.jumlah_row);
 
-                fetch("mandatory-certification-ru-dumai", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Accept": "application/json",
-                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute(
-                                "content")
-                        },
-                        body: JSON.stringify({
-                            periode: data.periode,
-                            subholding: data.subholding,
-                            company: data.company,
-                            unit: data.unit,
-                            nama_sertifikasi: data.nama_sertifikasi,
-                            lembaga_penerbit_sertifikat: data.lembaga_penerbit_sertifikat,
-                            jumlah_sertifikasi_terbit: data.jumlah_sertifikasi_terbit,
-                            jumlah_learning_hours: data.jumlah_learning_hours
-                        })
+                const payloadArray = [];
 
-                    })
-                    .then(response => response.json())
-                    .then(result => {
-                        if (result.success) {
-                            showToast(result.message || "Data berhasil disimpan", "success");
-                            table.setData("/monev/shrnp/input-data/mandatory-certification-ru-dumai/data");
-                            this.reset();
-                            closeModal();
+                for (let i = 0; i < jumlahRow; i++) {
+                    payloadArray.push({
+                        periode: data.periode,
+                        subholding: data.subholding,
+                        company: data.company,
+                        unit: data.unit,
+                        nama_sertifikasi: data.nama_sertifikasi,
+                        lembaga_penerbit_sertifikat: data.lembaga_penerbit_sertifikat,
+                        jumlah_sertifikasi_sudah_terbit: data.jumlah_sertifikasi_sudah_terbit,
+                        jumlah_learning_hours: data.jumlah_learning_hours
+                    });
+                }
+
+                Promise.all(payloadArray.map(dataItem => {
+                        return fetch("mandatory-certification-ru-dumai", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute(
+                                        "content")
+                            },
+                            body: JSON.stringify(dataItem)
+                        }).then(res => res.json());
+                    }))
+                    .then(results => {
+                        const gagal = results.filter(r => !r.success);
+                        if (gagal.length === 0) {
+                            showToast(`${jumlahRow} baris data berhasil buat`, "success");
                         } else {
-                            showToast(result.message || "Gagal menyimpan data", "error");
+                            showToast(`${gagal.length} data gagal disimpan`, "error");
                         }
+
+                        table.setData("/monev/shrnp/input-data/mandatory-certification-ru-dumai/data");
+                        document.getElementById("createForm").reset();
+                        closeModal();
                     })
                     .catch(error => {
                         console.error("Error saat submit:", error);

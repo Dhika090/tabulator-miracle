@@ -546,24 +546,71 @@
                         }
                     });
                 });
+                let previousData = [];
+                table.on("dataLoaded", function(newData) {
+                    previousData = JSON.parse(JSON.stringify(newData));
+                });
+
+                function getChangedRows(newData, oldData) {
+                    const changes = [];
+                    newData.forEach((row, index) => {
+                        if (!row.id) return;
+                        const oldRow = oldData[index];
+                        if (!oldRow) return;
+
+                        const isDifferent = Object.keys(row).some(key => row[key] !== oldRow[key]);
+                        if (isDifferent) {
+                            changes.push(row);
+                        }
+                    });
+                    return changes;
+                }
 
                 function isValidPeriodeFormat(value) {
-                    const regex = /^[A-Za-z]{3}-\d{2}$/;
+                    const regex = /^\d{4}$/;
                     return regex.test(value);
                 }
+
+                function isValidDecimal(value) {
+                    if (value === null || value === undefined || value === "") return true;
+                    const number = parseFloat(value);
+                    return (
+                        !isNaN(number) &&
+                        number >= 0 &&
+                        number <= 100 &&
+                        /^\d{1,3}(\.\d{1,2})?$/.test(value.toString())
+                    );
+                }
+                const bulan = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
+
 
                 table.on("cellEdited", function(cell) {
                     const updatedData = cell.getRow().getData();
                     const id = updatedData.id;
-
-
                     if (!id) return;
+                    const field = cell.getField();
+                    const value = cell.getValue();
 
-                    if (cell.getField() === "periode" && !isValidPeriodeFormat(cell.getValue())) {
-                        showToast("Format Periode tidak valid! Gunakan format: Sep-24", "error");
+                    if (field === "periode" && !isValidPeriodeFormat(value)) {
+                        showToast(`"${value}" Format Periode tidak valid! Gunakan format: 2025`, "error");
                         cell.restoreOldValue();
                         return;
                     }
+
+                    if (
+                        field.startsWith("plan_") ||
+                        field.startsWith("prognosa_") ||
+                        field.startsWith("actual_")
+                    ) {
+                        if (!isValidDecimal(value)) {
+                            showToast(
+                                `"${value}" tidak valid! Input harus berupa desimal, maksimal 100, tanpa ribuan`,
+                                "error");
+                            cell.restoreOldValue();
+                            return;
+                        }
+                    }
+
                     fetch(`realisasi-anggaran-ai-gei/${id}`, {
                             method: "PUT",
                             headers: {
@@ -588,26 +635,6 @@
                         });
                 });
 
-                let previousData = [];
-                table.on("dataLoaded", function(newData) {
-                    previousData = JSON.parse(JSON.stringify(newData));
-                });
-
-                function getChangedRows(newData, oldData) {
-                    const changes = [];
-                    newData.forEach((row, index) => {
-                        if (!row.id) return;
-                        const oldRow = oldData[index];
-                        if (!oldRow) return;
-
-                        const isDifferent = Object.keys(row).some(key => row[key] !== oldRow[key]);
-                        if (isDifferent) {
-                            changes.push(row);
-                        }
-                    });
-                    return changes;
-                }
-
                 table.on("dataChanged", function(newData) {
                     const changedRows = getChangedRows(newData, previousData);
                     console.log("Baris yang berubah:", changedRows);
@@ -622,10 +649,8 @@
                         if (rowData.periode !== oldRow.periode && !isValidPeriodeFormat(rowData
                                 .periode)) {
                             showToast(
-                                `"${rowData.periode}" Format Periode tidak valid! Gunakan format: Jan-25`,
+                                `"${rowData.periode}" Format Periode tidak valid! Gunakan format: 2025`,
                                 "error");
-
-                            rowData.periode = oldRow.periode;
 
                             table.updateData([{
                                 id: rowData.id,
@@ -634,6 +659,37 @@
 
                             return;
                         }
+
+                        let invalidField = null;
+
+                        for (let b of bulan) {
+                            for (let prefix of ["plan_", "prognosa_", "actual_"]) {
+                                const field = prefix + b;
+                                const newValue = rowData[field];
+                                const oldValue = oldRow[field];
+
+                                if (newValue !== oldValue && !isValidDecimal(newValue)) {
+                                    invalidField = field;
+                                    break;
+                                }
+                            }
+                            if (invalidField) break;
+                        }
+
+                        if (invalidField) {
+                            showToast(
+                                `"${rowData[invalidField]}" Nilai pada kolom "${invalidField}" tidak valid! Gunakan angka desimal 0 - 100 tanpa ribuan`,
+                                "error");
+
+                            const rollbackData = {
+                                id
+                            };
+                            rollbackData[invalidField] = oldRow[invalidField];
+
+                            table.updateData([rollbackData]);
+                            return;
+                        }
+
                         fetch(`realisasi-anggaran-ai-gei/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
@@ -689,90 +745,99 @@
                 document.getElementById("form-id").value = "";
                 document.getElementById("createModal").style.display = "none";
             }
-
             document.getElementById("createForm").addEventListener("submit", function(e) {
                 e.preventDefault();
 
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
+                const jumlahRow = parseInt(data.jumlah_row);
 
-                fetch("realisasi-anggaran-ai-gei", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Accept": "application/json",
-                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute(
-                                "content")
-                        },
-                        body: JSON.stringify({
-                            periode: data.periode || "",
-                            no: data.no || 0,
-                            program_kerja: data.program_kerja || "",
-                            kategori_aibt: data.kategori_aibt || "",
-                            jenis_anggaran: data.jenis_anggaran || "",
-                            besar_rkap: data.besar_rkap !== "" ? parseFloat(data.besar_rkap) : null,
-                            entitas: data.entitas || "",
-                            unit: data.unit || "",
-                            nilai_kontrak: data.nilai_kontrak !== "" ? parseFloat(data.nilai_kontrak) :
-                                null,
+                const payloadArray = [];
 
-                            // Plan
-                            plan_jan: data.plan_jan,
-                            plan_feb: data.plan_feb,
-                            plan_mar: data.plan_mar,
-                            plan_apr: data.plan_apr,
-                            plan_may: data.plan_may,
-                            plan_jun: data.plan_jun,
-                            plan_jul: data.plan_jul,
-                            plan_aug: data.plan_aug,
-                            plan_sep: data.plan_sep,
-                            plan_oct: data.plan_oct,
-                            plan_nov: data.plan_nov,
-                            plan_dec: data.plan_dec,
+                for (let i = 0; i < jumlahRow; i++) {
+                    payloadArray.push({
+                        periode: data.periode || "",
+                        no: data.no || 0,
+                        program_kerja: data.program_kerja || "",
+                        kategori_aibt: data.kategori_aibt || "",
+                        jenis_anggaran: data.jenis_anggaran || "",
+                        besar_rkap: data.besar_rkap !== "" ? parseFloat(data.besar_rkap) : null,
+                        entitas: data.entitas || "",
+                        unit: data.unit || "",
+                        nilai_kontrak: data.nilai_kontrak !== "" ? parseFloat(data.nilai_kontrak) : null,
 
-                            // Prognosa
-                            prognosa_jan: data.prognosa_jan,
-                            prognosa_feb: data.prognosa_feb,
-                            prognosa_mar: data.prognosa_mar,
-                            prognosa_apr: data.prognosa_apr,
-                            prognosa_may: data.prognosa_may,
-                            prognosa_jun: data.prognosa_jun,
-                            prognosa_jul: data.prognosa_jul,
-                            prognosa_aug: data.prognosa_aug,
-                            prognosa_sep: data.prognosa_sep,
-                            prognosa_oct: data.prognosa_oct,
-                            prognosa_nov: data.prognosa_nov,
-                            prognosa_dec: data.prognosa_dec,
+                        // Plan
+                        plan_jan: data.plan_jan,
+                        plan_feb: data.plan_feb,
+                        plan_mar: data.plan_mar,
+                        plan_apr: data.plan_apr,
+                        plan_may: data.plan_may,
+                        plan_jun: data.plan_jun,
+                        plan_jul: data.plan_jul,
+                        plan_aug: data.plan_aug,
+                        plan_sep: data.plan_sep,
+                        plan_oct: data.plan_oct,
+                        plan_nov: data.plan_nov,
+                        plan_dec: data.plan_dec,
 
-                            // Actual
-                            actual_jan: data.actual_jan,
-                            actual_feb: data.actual_feb,
-                            actual_mar: data.actual_mar,
-                            actual_apr: data.actual_apr,
-                            actual_may: data.actual_may,
-                            actual_jun: data.actual_jun,
-                            actual_jul: data.actual_jul,
-                            actual_aug: data.actual_aug,
-                            actual_sep: data.actual_sep,
-                            actual_oct: data.actual_oct,
-                            actual_nov: data.actual_nov,
-                            actual_dec: data.actual_dec,
+                        // Prognosa
+                        prognosa_jan: data.prognosa_jan,
+                        prognosa_feb: data.prognosa_feb,
+                        prognosa_mar: data.prognosa_mar,
+                        prognosa_apr: data.prognosa_apr,
+                        prognosa_may: data.prognosa_may,
+                        prognosa_jun: data.prognosa_jun,
+                        prognosa_jul: data.prognosa_jul,
+                        prognosa_aug: data.prognosa_aug,
+                        prognosa_sep: data.prognosa_sep,
+                        prognosa_oct: data.prognosa_oct,
+                        prognosa_nov: data.prognosa_nov,
+                        prognosa_dec: data.prognosa_dec,
 
-                            kode: data.kode,
-                            kendala: data.kendala,
-                            tindak_lanjut: data.tindak_lanjut
-                        })
-                    })
-                    .then(response => response.json())
-                    .then(result => {
-                        if (result.success) {
-                            showToast(result.message || "Data berhasil disimpan", "success");
-                            table.setData(`${BASE_URL}/monev/shg/input-data/realisasi-anggaran-ai-gei/data`);
-                            this.reset();
-                            closeModal();
+                        // Actual
+                        actual_jan: data.actual_jan,
+                        actual_feb: data.actual_feb,
+                        actual_mar: data.actual_mar,
+                        actual_apr: data.actual_apr,
+                        actual_may: data.actual_may,
+                        actual_jun: data.actual_jun,
+                        actual_jul: data.actual_jul,
+                        actual_aug: data.actual_aug,
+                        actual_sep: data.actual_sep,
+                        actual_oct: data.actual_oct,
+                        actual_nov: data.actual_nov,
+                        actual_dec: data.actual_dec,
+
+                        kode: data.kode,
+                        kendala: data.kendala,
+                        tindak_lanjut: data.tindak_lanjut
+                    });
+                }
+
+                Promise.all(payloadArray.map(dataItem => {
+                        return fetch("realisasi-anggaran-ai-gei", {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                    "Accept": "application/json",
+                                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                        .getAttribute("content")
+                                },
+                                body: JSON.stringify(dataItem)
+                            })
+                            .then(res => res.json());
+                    }))
+                    .then(results => {
+                        const gagal = results.filter(r => !r.success);
+                        if (gagal.length === 0) {
+                            showToast(`${jumlahRow} baris data berhasil buat`, "success");
                         } else {
-                            showToast(result.message || "Gagal menyimpan data", "error");
+                            showToast(`${gagal.length} data gagal disimpan`, "error");
                         }
+
+                        table.setData(`${BASE_URL}/monev/shg/input-data/realisasi-anggaran-ai-gei/data`);
+                        document.getElementById("createForm").reset();
+                        closeModal();
                     })
                     .catch(error => {
                         console.error("Error saat submit:", error);

@@ -3,7 +3,7 @@
     @push('styles')
         <link href="https://unpkg.com/tabulator-tables@5.6.0/dist/css/tabulator.min.css" rel="stylesheet">
         <style>
-          .tabulator-wrapper {
+            .tabulator-wrapper {
                 overflow-x: auto;
             }
 
@@ -22,13 +22,13 @@
                 box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             }
 
-            .tabulator-cell {
-                font-size: 14px;
-            }
-
             .tabulator .tabulator-cell {
                 white-space: normal !important;
                 word-wrap: break-word;
+            }
+
+            .tabulator-cell {
+                font-size: 14px;
             }
 
             .card {
@@ -133,7 +133,7 @@
     <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-                <h5 class="card-title mb-3 mb-md-0">Sistem Informasi AIMS TGI</h5>
+                <h5 class="card-title mb-3 mb-md-0">Sistem Informasi AIMS KJG</h5>
                 <div class="d-flex flex-column flex-md-row align-items-center gap-3">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
@@ -193,79 +193,17 @@
             <span class="close" onclick="closeModal()">&times;</span>
             <h3>Tambah Sistem Informasi AIMS TGI</h3>
             <form id="createForm">
-
                 <input type="hidden" name="id" id="form-id">
-                <div>
-                    <label for="periode">Periode</label>
-                    <input type="month" id="periode" name="periode">
-                </div>
 
-                <div>
-                    <label for="company">Company</label>
-                    <input type="text" id="company" name="company">
-                </div>
-
-                <div>
-                    <label for="jumlah_aset_operasi">Jumlah Aset Operasi</label>
-                    <input type="text" id="jumlah_aset_operasi" name="jumlah_aset_operasi">
-                </div>
-
-                <div>
-                    <label for="jumlah_aset_teregister">Jumlah Aset Teregister</label>
-                    <input type="text" id="jumlah_aset_teregister" name="jumlah_aset_teregister">
-                </div>
-
-                <div>
-                    <label for="kendala_aset_register">Kendala Aset Register</label>
-                    <input id="kendala_aset_register" type="text" name="kendala_aset_register"></input>
-                </div>
-
-                <div>
-                    <label for="tindak_lanjut_aset_register">Tindak Lanjut Aset Register</label>
-                    <input id="tindak_lanjut_aset_register" type="text" name="tindak_lanjut_aset_register"></input>
-                </div>
-
-                <div>
-                    <label for="sistem_informasi_aim">Sistem Informasi AIM</label>
-                    <input type="text" id="sistem_informasi_aim" name="sistem_informasi_aim">
-                </div>
-
-                <div>
-                    <label for="total_wo_comply">Total WO Comply</label>
-                    <input type="number" step="0.01" id="total_wo_comply" name="total_wo_comply">
-                </div>
-
-                <div>
-                    <label for="total_wo_completed">Total WO Completed</label>
-                    <input type="number" step="0.01" id="total_wo_completed" name="total_wo_completed">
-                </div>
-
-                <div>
-                    <label for="total_wo_in_progress">Total WO In Progress</label>
-                    <input type="number" step="0.01" id="total_wo_in_progress" name="total_wo_in_progress">
-                </div>
-
-                <div>
-                    <label for="total_wo_backlog">Total WO Backlog</label>
-                    <input type="number" step="0.01" id="total_wo_backlog" name="total_wo_backlog">
-                </div>
-
-                <div>
-                    <label for="kendala">Kendala</label>
-                    <input id="kendala" type="text" name="kendala"></input>
-                </div>
-
-                <div>
-                    <label for="tindak_lanjut">Tindak Lanjut</label>
-                    <input id="tindak_lanjut" type="text" name="tindak_lanjut"></input>
-                </div>
+                <label>Jumlah Row yang ingin dibuat</label>
+                <input type="number" name="jumlah_row" id="jumlah_row" min="1" value="1" required>
 
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
         </div>
     </div>
 
-    
+
     <div id="toastNotification"
         style="display:none; position: fixed; top: 20px; right: 20px; z-index: 9999; padding: 15px 20px; border-radius: 8px; color: white; font-weight: bold;">
     </div>
@@ -275,6 +213,7 @@
 
         <script>
             const BASE_URL = "{{ config('app.url') }}";
+
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
                     fetch(`sistem-informasi-aims-tgi/${id}`, {
@@ -374,7 +313,7 @@
             }
 
             function loadData() {
-                fetch("/monev/shg/input-data/sistem-informasi-aims-tgi/data", {
+                fetch(`${BASE_URL}/monev/shg/input-data/sistem-informasi-aims-tgi/data`, {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -399,25 +338,21 @@
                     })
                     .catch(err => console.error("Gagal load data:", err));
             }
-
             document.addEventListener("DOMContentLoaded", function() {
                 const columnMap = {
                     "sistem-informasi-aims-tgi": [{
                             title: "No",
-                            hozAlign: "center",
-                            width: 60,
-                            download: false,
                             formatter: function(cell) {
                                 const row = cell.getRow();
-                                const table = row.getTable();
-
-                                const pageSize = table.getPageSize();
-                                const currentPage = table.getPage();
-                                const rowIndex = row
-                                    .getPosition();
-
-                                return ((currentPage - 1) * pageSize) + rowIndex;
-                            }
+                                const table = cell.getTable();
+                                const sortedData = table.getRows("active").map(r => r.getData());
+                                const index = sortedData.findIndex(data => data.id === row.getData().id);
+                                return index + 1;
+                            },
+                            hozAlign: "center",
+                            width: 60,
+                            headerSort: false,
+                            download: false
                         },
                         {
                             title: "ID",
@@ -430,39 +365,98 @@
                             editor: "input",
                             headerFilter: "select",
                             headerFilterParams: {
-                                values: (() => {
-                                    const years = [];
-                                    years.push({
-                                        value: "",
-                                        label: "Pilih Tahun"
-                                    });
-                                    for (let year = 2020; year <= new Date().getFullYear() +
-                                        5; year++) {
-                                        years.push({
-                                            value: String(year),
-                                            label: String(year)
-                                        });
+                                values: [{
+                                        value: "01",
+                                        label: "Januari"
+                                    },
+                                    {
+                                        value: "02",
+                                        label: "Februari"
+                                    },
+                                    {
+                                        value: "03",
+                                        label: "Maret"
+                                    },
+                                    {
+                                        value: "04",
+                                        label: "April"
+                                    },
+                                    {
+                                        value: "05",
+                                        label: "Mei"
+                                    },
+                                    {
+                                        value: "06",
+                                        label: "Juni"
+                                    },
+                                    {
+                                        value: "07",
+                                        label: "Juli"
+                                    },
+                                    {
+                                        value: "08",
+                                        label: "Agustus"
+                                    },
+                                    {
+                                        value: "09",
+                                        label: "September"
+                                    },
+                                    {
+                                        value: "10",
+                                        label: "Oktober"
+                                    },
+                                    {
+                                        value: "11",
+                                        label: "November"
+                                    },
+                                    {
+                                        value: "12",
+                                        label: "Desember"
                                     }
-                                    return years;
-                                })()
+                                ]
+                            },
+                            headerFilterPlaceholder: "Pilih Bulan",
+                            headerFilterFunc: function(headerValue, rowValue) {
+                                if (!headerValue) return true;
+                                if (!rowValue) return false;
+
+                                const periode = rowValue.toLowerCase();
+
+                                const bulanTextMap = {
+                                    "01": ["jan", "january"],
+                                    "02": ["feb", "february"],
+                                    "03": ["mar", "march"],
+                                    "04": ["apr", "april"],
+                                    "05": ["may", "mei"],
+                                    "06": ["jun", "june"],
+                                    "07": ["jul", "july"],
+                                    "08": ["aug", "august"],
+                                    "09": ["sep", "september"],
+                                    "10": ["oct", "october"],
+                                    "11": ["nov", "november"],
+                                    "12": ["dec", "december"]
+                                };
+
+                                const keywords = bulanTextMap[headerValue];
+                                return keywords.some(keyword => periode.includes(keyword)) || periode
+                                    .includes(`-${headerValue}`);
                             }
                         },
                         {
                             title: "Company",
                             field: "company",
-                            editor: "input",
-                            hozAlign: "center",
+                            editor: "input"
                         },
                         {
                             title: "Jumlah Aset Operasi",
                             field: "jumlah_aset_operasi",
-                            editor: "input",
+                            editor: "number",
                             hozAlign: "center"
                         },
                         {
                             title: "Jumlah Aset Teregister",
                             field: "jumlah_aset_teregister",
-                            editor: "input",
+                            editor: "number",
                             hozAlign: "center"
                         },
                         {
@@ -483,54 +477,53 @@
                         {
                             title: "Total WO Comply",
                             field: "total_wo_comply",
-                            editor: "input",
+                            editor: "number",
                             hozAlign: "center"
                         },
                         {
                             title: "Total WO Completed",
                             field: "total_wo_completed",
-                            editor: "input",
+                            editor: "number",
                             hozAlign: "center"
                         },
                         {
                             title: "Total WO In Progress",
                             field: "total_wo_in_progress",
-                            editor: "input",
+                            editor: "number",
                             hozAlign: "center"
                         },
                         {
                             title: "Total WO Backlog",
                             field: "total_wo_backlog",
-                            editor: "input",
+                            editor: "number",
                             hozAlign: "center"
                         },
                         {
                             title: "Kendala",
                             field: "kendala",
-                            editor: "input",
-                            width: 450
+                            editor: "input"
                         },
                         {
                             title: "Tindak Lanjut",
                             field: "tindak_lanjut",
                             editor: "input",
-                            width: 400
+                            width: 300
                         },
                         {
-    title: "Aksi",
-    download: false,
-    hozAlign: "center",
-    width: 150,
-    formatter: (cell) => {
-        const row = cell.getData();
-        return `
+                            title: "Aksi",
+                            download: false,
+                            hozAlign: "center",
+                            width: 150,
+                            formatter: (cell) => {
+                                const row = cell.getData();
+                                return `
             <button onclick='deleteData("${row.id}")'
                 class="btn btn-sm btn-danger">
                 <i class="bi bi-trash"></i> Hapus
             </button>
         `;
-    }
-}
+                            }
+                        }
                     ]
                 };
 
@@ -539,6 +532,8 @@
                     responsiveLayout: "collapse",
                     autoResize: true,
                     columns: columnMap["sistem-informasi-aims-tgi"],
+                    virtualDom: true,
+                    height: "700px",
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -595,27 +590,6 @@
                     });
                 });
 
-                table.on("cellEdited", function(cell) {
-                    const updatedData = cell.getRow().getData();
-                    const id = updatedData.id;
-
-                    if (!id) return;
-
-                    fetch(`sistem-informasi-aims-tgi/${id}`, {
-                            method: "PUT",
-                            headers: {
-                                "Content-Type": "application/json",
-                                "Accept": "application/json",
-                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
-                                    .getAttribute("content")
-                            },
-                            body: JSON.stringify(updatedData)
-                        })
-                        .then(res => res.json())
-                        .then(data => console.log("Berhasil update:", data))
-                        .catch(err => console.error("Gagal update:", err));
-                });
-
                 let previousData = [];
                 table.on("dataLoaded", function(newData) {
                     previousData = JSON.parse(JSON.stringify(newData));
@@ -636,11 +610,73 @@
                     return changes;
                 }
 
+                function isValidPeriodeFormat(value) {
+                    const regex = /^[A-Za-z]{3}-\d{2}$/;
+                    return regex.test(value);
+                }
+
+                table.on("cellEdited", function(cell) {
+                    const updatedData = cell.getRow().getData();
+                    const id = updatedData.id;
+
+                    if (!id) return;
+
+                    if (cell.getField() === "periode" && !isValidPeriodeFormat(cell.getValue())) {
+                        showToast("Format Periode tidak valid! Gunakan format: Sep-24", "error");
+                        cell.restoreOldValue();
+                        return;
+                    }
+
+                    fetch(`sistem-informasi-aims-tgi/${id}`, {
+                            method: "PUT",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute("content")
+                            },
+                            body: JSON.stringify(updatedData)
+                        })
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.success) {
+                                showToast("Update berhasil!", "success");
+                            } else {
+                                showToast("Update gagal: " + data.message, "error");
+                            }
+                        })
+                        .catch(err => {
+                            console.error("Gagal update:", err);
+                            showToast("Terjadi kesalahan saat update!", "error");
+                        });
+                });
+
                 table.on("dataChanged", function(newData) {
                     const changedRows = getChangedRows(newData, previousData);
                     console.log("Baris yang berubah:", changedRows);
 
-                    changedRows.forEach(rowData => {
+                    changedRows.forEach((rowData, index) => {
+                        const id = rowData.id;
+                        if (!id) return;
+
+                        const oldRow = previousData.find(r => r.id === id);
+                        if (!oldRow) return;
+
+                        if (rowData.periode !== oldRow.periode && !isValidPeriodeFormat(rowData
+                                .periode)) {
+                            showToast(
+                                `"${rowData.periode}" Format Periode tidak valid! Gunakan format: Jan-25`,
+                                "error");
+
+                            rowData.periode = oldRow.periode;
+
+                            table.updateData([{
+                                id: rowData.id,
+                                periode: oldRow.periode
+                            }]);
+
+                            return;
+                        }
                         fetch(`sistem-informasi-aims-tgi/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
@@ -653,29 +689,37 @@
                             })
                             .then(res => res.json())
                             .then(response => {
-                                console.log("Data berhasil disimpan:", response);
+                                if (response.success) {
+                                    showToast(`Data berhasil disimpan`, "success");
+                                } else {
+                                    showToast(
+                                        `Format Periode tidak valid! Gunakan format: Jan-25 : ${response.message}`,
+                                        "error");
+                                }
                             })
                             .catch(err => {
                                 console.error("Gagal menyimpan hasil paste:", err);
+                                showToast(`Kesalahan pada ID ${id}`, "error");
                             });
                     });
 
                     previousData = JSON.parse(JSON.stringify(newData));
                 });
+
                 loadData();
             });
         </script>
 
         {{-- create data  --}}
         <script>
-             function showToast(message, type = "success") {
+            function showToast(message, type = "success") {
                 const toast = document.getElementById("toastNotification");
                 toast.textContent = message;
                 toast.className = "";
                 toast.classList.add(type === "success" ? "toast-success" : "toast-error");
                 toast.style.display = "block";
 
-               setTimeout(() => {
+                setTimeout(() => {
                     toast.style.display = "none";
                 }, 3500);
             }
@@ -696,40 +740,51 @@
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
 
-                fetch("sistem-informasi-aims-tgi", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Accept": "application/json",
-                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute(
-                                "content")
-                        },
-                        body: JSON.stringify({
-                            periode: data.periode,
-                            company: data.company,
-                            jumlah_aset_operasi: data.jumlah_aset_operasi,
-                            jumlah_aset_teregister: data.jumlah_aset_teregister,
-                            kendala_aset_register: data.kendala_aset_register,
-                            tindak_lanjut_aset_register: data.tindak_lanjut_aset_register,
-                            sistem_informasi_aim: data.sistem_informasi_aim,
-                            total_wo_comply: data.total_wo_comply,
-                            total_wo_completed: data.total_wo_completed,
-                            total_wo_in_progress: data.total_wo_in_progress,
-                            total_wo_backlog: data.total_wo_backlog,
-                            kendala: data.kendala,
-                            tindak_lanjut: data.tindak_lanjut
-                        })
-                    })
-                    .then(response => response.json())
-                    .then(result => {
-                        if (result.success) {
-                            showToast(result.message || "Data berhasil disimpan", "success");
-                            table.setData("/monev/shg/input-data/sistem-informasi-aims-tgi/data");
-                            this.reset();
-                            closeModal();
-                       } else {
-                            showToast(result.message || "Gagal menyimpan data", "error");
+                const jumlahRow = parseInt(data.jumlah_row);
+
+                const payloadArray = [];
+
+                for (let i = 0; i < jumlahRow; i++) {
+                    payloadArray.push({
+                        periode: data.periode,
+                        company: data.company,
+                        jumlah_aset_operasi: data.jumlah_aset_operasi,
+                        jumlah_aset_teregister: data.jumlah_aset_teregister,
+                        kendala_aset_register: data.kendala_aset_register,
+                        tindak_lanjut_aset_register: data.tindak_lanjut_aset_register,
+                        sistem_informasi_aim: data.sistem_informasi_aim,
+                        total_wo_comply: data.total_wo_comply,
+                        total_wo_completed: data.total_wo_completed,
+                        total_wo_in_progress: data.total_wo_in_progress,
+                        total_wo_backlog: data.total_wo_backlog,
+                        kendala: data.kendala,
+                        tindak_lanjut: data.tindak_lanjut
+                    });
+                }
+
+                Promise.all(payloadArray.map(dataItem => {
+                        return fetch("sistem-informasi-aims-tgi", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute("content")
+                            },
+                            body: JSON.stringify(dataItem)
+                        }).then(res => res.json());
+                    }))
+                    .then(results => {
+                        const gagal = results.filter(r => !r.success);
+                        if (gagal.length === 0) {
+                            showToast(`${jumlahRow} baris data berhasil buat`, "success");
+                        } else {
+                            showToast(`${gagal.length} data gagal disimpan`, "error");
                         }
+
+                        table.setData(`${BASE_URL}/monev/shg/input-data/sistem-informasi-aims-tgi/data`);
+                        document.getElementById("createForm").reset();
+                        closeModal();
                     })
                     .catch(error => {
                         console.error("Error saat submit:", error);

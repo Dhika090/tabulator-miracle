@@ -673,14 +673,14 @@ Route::middleware([\App\Http\Middleware\CorsMiddleware::class])->group(function 
     });
 
     // SHG Target 2025 AI
-    Route::prefix('monev/shg/kinerja/target-2025-ai')->group(function () {
-        Route::get('/', [Target2025KPIController::class, 'index'])->name('target-2025-ai');
-        Route::post('/', [Target2025KPIController::class, 'store'])->name('target-2025-ai');
-        Route::get('/data', [Target2025KPIController::class, 'data'])->name('target-2025-ai.data');
-        Route::get('/{id}/edit', [Target2025KPIController::class, 'edit'])->name('target-2025-ai.edit');
-        Route::put('/{id}', [Target2025KPIController::class, 'update'])->name('target-2025-ai.update');
-        Route::delete('/{id}', [Target2025KPIController::class, 'destroy'])->name('target-2025-ai.destroy');
-    });
+    // Route::prefix('monev/shg/kinerja/target-2025-ai')->group(function () {
+    //     Route::get('/', [Target2025KPIController::class, 'index'])->name('target-2025-ai');
+    //     Route::post('/', [Target2025KPIController::class, 'store'])->name('target-2025-ai');
+    //     Route::get('/data', [Target2025KPIController::class, 'data'])->name('target-2025-ai.data');
+    //     Route::get('/{id}/edit', [Target2025KPIController::class, 'edit'])->name('target-2025-ai.edit');
+    //     Route::put('/{id}', [Target2025KPIController::class, 'update'])->name('target-2025-ai.update');
+    //     Route::delete('/{id}', [Target2025KPIController::class, 'destroy'])->name('target-2025-ai.destroy');
+    // });
 
     // target-status-plo
     // Prognosa Status PLO SHG

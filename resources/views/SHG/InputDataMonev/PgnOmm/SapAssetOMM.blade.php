@@ -3,7 +3,7 @@
     @push('styles')
         <link href="https://unpkg.com/tabulator-tables@5.6.0/dist/css/tabulator.min.css" rel="stylesheet">
         <style>
-          .tabulator-wrapper {
+            .tabulator-wrapper {
                 overflow-x: auto;
             }
 
@@ -33,11 +33,6 @@
             .tab-scroll-wrapper {
                 border-bottom: 1px solid #dee2e6;
                 padding-bottom: 5px;
-            }
-
-            .tabulator .tabulator-cell {
-                white-space: normal !important;
-                word-wrap: break-word;
             }
 
             .tab-scroll-wrapper {
@@ -149,7 +144,6 @@
                 <button onclick="openModal()" class="btn btn-primary px-4 py-2" style="white-space: nowrap;">
                     Create Data
                 </button>
-
                 <div class="dropdown me-2 position-relative" style="z-index: 1050;">
                     <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="tabDropdown"
                         data-bs-toggle="dropdown" aria-expanded="false">
@@ -191,106 +185,19 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Tambah Target Sap Asset OMM</h3>
+            <h3>Tambah Target PIS</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
-                <div>
-                    <label>Periode</label>
-                    <input type="month" name="periode" id="periode">
-                </div>
 
-                <div>
-                    <label>Subholding</label>
-                    <input type="text" name="subholding" id="subholding">
-                </div>
+                <label>Jumlah Row yang ingin dibuat</label>
+                <input type="number" name="jumlah_row" id="jumlah_row" min="1" value="1" required>
 
-                <div>
-                    <label>Company</label>
-                    <input type="text" name="company" id="company">
-                </div>
-
-                <div>
-                    <label>Unit</label>
-                    <input type="text" name="unit" id="unit">
-                </div>
-
-                <div>
-                    <label>Nama Stasiun</label>
-                    <input type="text" name="nama_stasiun" id="nama_stasiun">
-                </div>
-
-                <div>
-                    <label>Belum Mulai</label>
-                    <input type="number" name="belum_mulai" id="belum_mulai">
-                </div>
-
-                <div>
-                    <label>Kickoff Meeting</label>
-                    <input type="number" name="kickoff_meeting" id="kickoff_meeting">
-                </div>
-
-                <div>
-                    <label>Identifikasi Peralatan</label>
-                    <input type="number" name="identifikasi_peralatan" id="identifikasi_peralatan">
-                </div>
-
-                <div>
-                    <label>Survey Lapangan</label>
-                    <input type="number" name="survey_lapangan" id="survey_lapangan">
-                </div>
-
-                <div>
-                    <label>Pembenahan Fun Loc</label>
-                    <input type="number" name="pembenahan_funloc" id="pembenahan_funloc">
-                </div>
-
-                <div>
-                    <label>Review Criticality</label>
-                    <input type="number" name="review_criticality" id="review_criticality">
-                </div>
-
-                <div>
-                    <label>Penyelarasan Dokumen dan Lapangan</label>
-                    <input type="number" name="penyelarasan_dokumen_dan_lapangan"
-                        id="penyelarasan_dokumen_dan_lapangan">
-                </div>
-
-                <div>
-                    <label>Melengkapi Tag Fisik</label>
-                    <input type="number" name="melengkapi_tag_fisik" id="melengkapi_tag_fisik">
-                </div>
-
-                <div>
-                    <label>Mempersiapkan Form Upload Data</label>
-                    <input type="number" name="mempersiapkan_form_upload_data" id="mempersiapkan_form_upload_data">
-                </div>
-
-                <div>
-                    <label>Request ke Master Data</label>
-                    <input type="number" name="request_ke_master_data" id="request_ke_master_data">
-                </div>
-
-                <div>
-                    <label>Update di Master Data</label>
-                    <input type="number" name="update_di_master_data" id="update_di_master_data">
-                </div>
-
-                <div>
-                    <label>Kendala</label>
-                    <input type="text" name="kendala" id="kendala" rows="3"></input>
-                </div>
-
-                <div>
-                    <label>Tindak Lanjut</label>
-                    <input type="text" name="tindak_lanjut" id="tindak_lanjut" rows="3"></input>
-                </div>
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
-
         </div>
     </div>
 
-    
+
     <div id="toastNotification"
         style="display:none; position: fixed; top: 20px; right: 20px; z-index: 9999; padding: 15px 20px; border-radius: 8px; color: white; font-weight: bold;">
     </div>
@@ -300,6 +207,7 @@
 
         <script>
             const BASE_URL = "{{ config('app.url') }}";
+
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
                     fetch(`sap-asset-omm/${id}`, {
@@ -413,7 +321,7 @@
                             field: "tindak_lanjut",
                             type: "like",
                             value: keyword
-                        },
+                        }
                     ]
                 ]);
             });
@@ -424,7 +332,7 @@
             }
 
             function loadData() {
-                fetch("/monev/shg/input-data/sap-asset-omm/data", {
+                fetch(`${BASE_URL}/monev/shg/input-data/sap-asset-omm/data`, {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -454,20 +362,17 @@
                 const columnMap = {
                     "sap-asset-omm": [{
                             title: "No",
-                            hozAlign: "center",
-                            width: 60,
-                            download: false,
                             formatter: function(cell) {
                                 const row = cell.getRow();
-                                const table = row.getTable();
-
-                                const pageSize = table.getPageSize();
-                                const currentPage = table.getPage();
-                                const rowIndex = row
-                                    .getPosition();
-
-                                return ((currentPage - 1) * pageSize) + rowIndex;
-                            }
+                                const table = cell.getTable();
+                                const sortedData = table.getRows("active").map(r => r.getData());
+                                const index = sortedData.findIndex(data => data.id === row.getData().id);
+                                return index + 1;
+                            },
+                            hozAlign: "center",
+                            width: 60,
+                            headerSort: false,
+                            download: false
                         },
                         {
                             title: "ID",
@@ -560,116 +465,114 @@
                         {
                             title: "Subholding",
                             field: "subholding",
-                            editor: "input",
+                            editor: "input"
                         },
                         {
                             title: "Company",
                             field: "company",
-                            editor: "input",
+                            editor: "input"
                         },
                         {
                             title: "Unit",
                             field: "unit",
-                            editor: "input",
+                            editor: "input"
                         },
                         {
                             title: "Nama Stasiun",
                             field: "nama_stasiun",
-                            editor: "input",
+                            editor: "input"
                         },
                         {
                             title: "Belum Mulai",
                             field: "belum_mulai",
-                            editor: "number",
-                            hozAlign: "center",
+                            editor: "input",
+                            hozAlign: "center"
                         },
                         {
                             title: "Kickoff Meeting",
                             field: "kickoff_meeting",
-                            editor: "number",
-                            hozAlign: "center",
+                            editor: "input",
+                            hozAlign: "center"
                         },
                         {
                             title: "Identifikasi Peralatan",
                             field: "identifikasi_peralatan",
-                            editor: "number",
-                            hozAlign: "center",
+                            editor: "input",
+                            hozAlign: "center"
                         },
                         {
                             title: "Survey Lapangan",
                             field: "survey_lapangan",
-                            editor: "number",
-                            hozAlign: "center",
+                            editor: "input",
+                            hozAlign: "center"
                         },
                         {
-                            title: "Pembenahan Fun Loc",
+                            title: "Pembenahan Funloc",
                             field: "pembenahan_funloc",
-                            editor: "number",
-                            hozAlign: "center",
+                            editor: "input",
+                            hozAlign: "center"
                         },
                         {
                             title: "Review Criticality",
                             field: "review_criticality",
-                            editor: "number",
-                            hozAlign: "center",
+                            editor: "input",
+                            hozAlign: "center"
                         },
                         {
                             title: "Penyelarasan Dokumen dan Lapangan",
                             field: "penyelarasan_dokumen_dan_lapangan",
-                            editor: "number",
-                            hozAlign: "center",
+                            editor: "input"
                         },
                         {
                             title: "Melengkapi Tag Fisik",
                             field: "melengkapi_tag_fisik",
-                            editor: "number",
-                            hozAlign: "center",
+                            editor: "input",
+                            hozAlign: "center"
                         },
                         {
                             title: "Mempersiapkan Form Upload Data",
                             field: "mempersiapkan_form_upload_data",
-                            editor: "number",
-                            hozAlign: "center",
+                            editor: "input",
+                            hozAlign: "center"
                         },
                         {
                             title: "Request ke Master Data",
                             field: "request_ke_master_data",
-                            editor: "number",
-                            hozAlign: "center",
+                            editor: "input",
+                            hozAlign: "center"
                         },
                         {
-                            title: "Update di Master Data",
+                            title: "Update Di Master Data",
                             field: "update_di_master_data",
-                            editor: "number",
-                            hozAlign: "center",
+                            editor: "input",
+                            hozAlign: "center"
                         },
                         {
                             title: "Kendala",
                             field: "kendala",
                             editor: "input",
-                            width: 350
+                            hozAlign: "center"
                         },
                         {
                             title: "Tindak Lanjut",
                             field: "tindak_lanjut",
-                            editor: "input",
-                            width: 350
+                            editor: "input"
                         },
                         {
-    title: "Aksi",
-    download: false,
-    hozAlign: "center",
-    width: 150,
-    formatter: (cell) => {
-        const row = cell.getData();
-        return `
+                            title: "Aksi",
+                            download: false,
+                            hozAlign: "center",
+                            width: 150,
+                            formatter: (cell) => {
+                                const row = cell.getData();
+                                return `
             <button onclick='deleteData("${row.id}")'
                 class="btn btn-sm btn-danger">
                 <i class="bi bi-trash"></i> Hapus
             </button>
         `;
-    }
-}
+                            }
+                        }
                     ]
                 };
 
@@ -678,6 +581,8 @@
                     responsiveLayout: "collapse",
                     autoResize: true,
                     columns: columnMap["sap-asset-omm"],
+                    virtualDom: true,
+                    height: "700px",
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -710,7 +615,7 @@
                         resizable: "header",
                     },
                 });
-                
+
                 document.getElementById("download-xlsx").addEventListener("click", function() {
                     window.table.download("xlsx", "sap-asset-omm.xlsx", {
                         sheetName: "sap-asset-omm",
@@ -734,27 +639,7 @@
                     });
                 });
 
-                table.on("cellEdited", function(cell) {
-                    const updatedData = cell.getRow().getData();
-                    const id = updatedData.id;
-
-                    if (!id) return;
-
-                    fetch(`sap-asset-omm/${id}`, {
-                            method: "PUT",
-                            headers: {
-                                "Content-Type": "application/json",
-                                "Accept": "application/json",
-                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
-                                    .getAttribute("content")
-                            },
-                            body: JSON.stringify(updatedData)
-                        })
-                        .then(res => res.json())
-                        .then(data => console.log("Update berhasil:", data))
-                        .catch(err => console.error("Gagal update:", err));
-                });
-
+                const table = window.table;
                 let previousData = [];
                 table.on("dataLoaded", function(newData) {
                     previousData = JSON.parse(JSON.stringify(newData));
@@ -775,11 +660,74 @@
                     return changes;
                 }
 
+
+                function isValidPeriodeFormat(value) {
+                    const regex = /^[A-Za-z]{3}-\d{2}$/;
+                    return regex.test(value);
+                }
+
+                table.on("cellEdited", function(cell) {
+                    const updatedData = cell.getRow().getData();
+                    const id = updatedData.id;
+
+                    if (!id) return;
+
+                    if (cell.getField() === "periode" && !isValidPeriodeFormat(cell.getValue())) {
+                        showToast("Format Periode tidak valid! Gunakan format: Sep-24", "error");
+                        cell.restoreOldValue();
+                        return;
+                    }
+
+                    fetch(`sap-asset-omm/${id}`, {
+                            method: "PUT",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute("content")
+                            },
+                            body: JSON.stringify(updatedData)
+                        })
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.success) {
+                                showToast("Update berhasil!", "success");
+                            } else {
+                                showToast("Update gagal: " + data.message, "error");
+                            }
+                        })
+                        .catch(err => {
+                            console.error("Gagal update:", err);
+                            showToast("Terjadi kesalahan saat update!", "error");
+                        });
+                });
+
                 table.on("dataChanged", function(newData) {
                     const changedRows = getChangedRows(newData, previousData);
                     console.log("Baris yang berubah:", changedRows);
 
-                    changedRows.forEach(rowData => {
+                    changedRows.forEach((rowData, index) => {
+                        const id = rowData.id;
+                        if (!id) return;
+
+                        const oldRow = previousData.find(r => r.id === id);
+                        if (!oldRow) return;
+
+                        if (rowData.periode !== oldRow.periode && !isValidPeriodeFormat(rowData
+                                .periode)) {
+                            showToast(
+                                `"${rowData.periode}" Format Periode tidak valid! Gunakan format: Jan-25`,
+                                "error");
+
+                            rowData.periode = oldRow.periode;
+
+                            table.updateData([{
+                                id: rowData.id,
+                                periode: oldRow.periode
+                            }]);
+
+                            return;
+                        }
                         fetch(`sap-asset-omm/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
@@ -792,10 +740,17 @@
                             })
                             .then(res => res.json())
                             .then(response => {
-                                console.log("Data berhasil disimpan:", response);
+                                if (response.success) {
+                                    showToast(`Data berhasil disimpan`, "success");
+                                } else {
+                                    showToast(
+                                        `Format Periode tidak valid! Gunakan format: Jan-25 : ${response.message}`,
+                                        "error");
+                                }
                             })
                             .catch(err => {
                                 console.error("Gagal menyimpan hasil paste:", err);
+                                showToast(`Kesalahan pada ID ${id}`, "error");
                             });
                     });
 
@@ -808,14 +763,14 @@
 
         {{-- create data  --}}
         <script>
-             function showToast(message, type = "success") {
+            function showToast(message, type = "success") {
                 const toast = document.getElementById("toastNotification");
                 toast.textContent = message;
                 toast.className = "";
                 toast.classList.add(type === "success" ? "toast-success" : "toast-error");
                 toast.style.display = "block";
 
-               setTimeout(() => {
+                setTimeout(() => {
                     toast.style.display = "none";
                 }, 3500);
             }
@@ -835,46 +790,55 @@
 
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
+                const jumlahRow = parseInt(data.jumlah_row);
 
-                fetch("sap-asset-omm", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Accept": "application/json",
-                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute(
-                                "content")
-                        },
-                        body: JSON.stringify({
-                            periode: data.periode,
-                            subholding: data.subholding,
-                            company: data.company,
-                            unit: data.unit,
-                            nama_stasiun: data.nama_stasiun,
-                            belum_mulai: data.belum_mulai,
-                            kickoff_meeting: data.kickoff_meeting,
-                            identifikasi_peralatan: data.identifikasi_peralatan,
-                            survey_lapangan: data.survey_lapangan,
-                            pembenahan_funloc: data.pembenahan_funloc,
-                            review_criticality: data.review_criticality,
-                            penyelarasan_dokumen_dan_lapangan: data.penyelarasan_dokumen_dan_lapangan,
-                            melengkapi_tag_fisik: data.melengkapi_tag_fisik,
-                            mempersiapkan_form_upload_data: data.mempersiapkan_form_upload_data,
-                            request_ke_master_data: data.request_ke_master_data,
-                            update_di_master_data: data.update_di_master_data,
-                            kendala: data.kendala,
-                            tindak_lanjut: data.tindak_lanjut,
-                        })
-                    })
-                    .then(response => response.json())
-                    .then(result => {
-                        if (result.success) {
-                            showToast(result.message || "Data berhasil disimpan", "success");
-                            table.setData("/monev/shg/input-data/sap-asset-omm/data");
-                            this.reset();
-                            closeModal();
-                       } else {
-                            showToast(result.message || "Gagal menyimpan data", "error");
+                const payloadArray = [];
+
+                for (let i = 0; i < jumlahRow; i++) {
+                    payloadArray.push({
+                        periode: data.periode,
+                        company: data.company,
+                        unit: data.unit,
+                        nama_stasiun: data.nama_stasiun,
+                        belum_mulai: data.belum_mulai,
+                        kickoff_meeting: data.kickoff_meeting,
+                        identifikasi_peralatan: data.identifikasi_peralatan,
+                        survey_lapangan: data.survey_lapangan,
+                        pembenahan_funloc: data.pembenahan_funloc,
+                        review_criticality: data.review_criticality,
+                        penyelarasan_dokumen_dan_lapangan: data.penyelarasan_dokumen_dan_lapangan,
+                        melengkapi_tag_fisik: data.melengkapi_tag_fisik,
+                        mempersiapkan_form_upload_data: data.mempersiapkan_form_upload_data,
+                        request_ke_master_data: data.request_ke_master_data,
+                        update_di_master_data: data.update_di_master_data,
+                        kendala: data.kendala,
+                        tindak_lanjut: data.tindak_lanjut
+                    });
+                }
+
+                Promise.all(payloadArray.map(dataItem => {
+                        return fetch("sap-asset-omm", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute("content")
+                            },
+                            body: JSON.stringify(dataItem)
+                        }).then(res => res.json());
+                    }))
+                    .then(results => {
+                        const gagal = results.filter(r => !r.success);
+                        if (gagal.length === 0) {
+                            showToast(`${jumlahRow} baris data berhasil buat`, "success");
+                        } else {
+                            showToast(`${gagal.length} data gagal disimpan`, "error");
                         }
+
+                        table.setData(`${BASE_URL}/monev/shg/input-data/sap-asset-omm/data`);
+                        document.getElementById("createForm").reset();
+                        closeModal();
                     })
                     .catch(error => {
                         console.error("Error saat submit:", error);

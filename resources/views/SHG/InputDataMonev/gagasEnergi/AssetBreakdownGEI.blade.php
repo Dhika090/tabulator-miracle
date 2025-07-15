@@ -789,48 +789,63 @@
             document.getElementById("createForm").addEventListener("submit", function(e) {
                 e.preventDefault();
 
-                const formData = new FormData(this);
+                const form = this;
+                const formData = new FormData(form);
                 const data = Object.fromEntries(formData.entries());
 
-                fetch("asset-breakdown-gei", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Accept": "application/json",
-                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute(
-                                "content")
-                        },
-                        body: JSON.stringify({
-                            periode: data.periode,
-                            company: data.company,
-                            plant_segment: data.plant_segment,
-                            kategori_criticality: data.kategori_criticality,
-                            tag: data.tag,
-                            deskripsi_peralatan: data.deskripsi_peralatan,
-                            jenis_kerusakan: data.jenis_kerusakan,
-                            penyebab: data.penyebab,
-                            kendala_perbaikan: data.kendala_perbaikan,
-                            mitigasi: data.mitigasi,
-                            perbaikan_permanen: data.perbaikan_permanen,
-                            progres_perbaikan_permanen: data.progres_perbaikan_permanen,
-                            tindak_lanjut: data.tindak_lanjut,
-                            target_penyelesaian: data.target_penyelesaian,
-                            estimasi_biaya_perbaikan: data.estimasi_biaya_perbaikan,
-                            link_foto_video: data.link_foto_video
-                        })
-                    })
-                    .then(response => response.json())
-                    .then(result => {
-                        if (result.success) {
-                            showToast(result.message || "Data berhasil disimpan", "success");
-                            table.setData(`${BASE_URL}/monev/shg/input-data/asset-breakdown-gei/data`);
-                            this.reset();
-                            closeModal();
+                const jumlahRow = parseInt(data.jumlah_row); // pastikan ada input name="jumlah_row"
+
+                const payloadArray = [];
+
+                for (let i = 0; i < jumlahRow; i++) {
+                    payloadArray.push({
+                        periode: data.periode || "",
+                        company: data.company || "",
+                        plant_segment: data.plant_segment || "",
+                        kategori_criticality: data.kategori_criticality || "",
+                        tag: data.tag || "",
+                        deskripsi_peralatan: data.deskripsi_peralatan || "",
+                        jenis_kerusakan: data.jenis_kerusakan || "",
+                        penyebab: data.penyebab || "",
+                        kendala_perbaikan: data.kendala_perbaikan || "",
+                        mitigasi: data.mitigasi || "",
+                        perbaikan_permanen: data.perbaikan_permanen || "",
+                        progres_perbaikan_permanen: data.progres_perbaikan_permanen || "",
+                        tindak_lanjut: data.tindak_lanjut || "",
+                        target_penyelesaian: data.target_penyelesaian || "",
+                        estimasi_biaya_perbaikan: data.estimasi_biaya_perbaikan || "",
+                        link_foto_video: data.link_foto_video || ""
+                    });
+                }
+
+                Promise.all(
+                        payloadArray.map((payload) =>
+                            fetch("asset-breakdown-gei", {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                    "Accept": "application/json",
+                                    "X-CSRF-TOKEN": document
+                                        .querySelector('meta[name="csrf-token"]')
+                                        .getAttribute("content"),
+                                },
+                                body: JSON.stringify(payload),
+                            }).then((res) => res.json())
+                        )
+                    )
+                    .then((results) => {
+                        const gagal = results.filter((r) => !r.success);
+                        if (gagal.length === 0) {
+                            showToast(`${jumlahRow} baris data berhasil disimpan`, "success");
                         } else {
-                            showToast(result.message || "Gagal menyimpan data", "error");
+                            showToast(`${gagal.length} dari ${jumlahRow} data gagal disimpan`, "error");
                         }
+
+                        table.setData(`${BASE_URL}/monev/shg/input-data/asset-breakdown-gei/data`);
+                        form.reset();
+                        closeModal();
                     })
-                    .catch(error => {
+                    .catch((error) => {
                         console.error("Error saat submit:", error);
                         showToast("Terjadi kesalahan saat mengirim data.", "error");
                     });

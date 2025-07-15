@@ -22,13 +22,13 @@
                 box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             }
 
-            .tabulator-cell {
-                font-size: 14px;
-            }
-
             .tabulator .tabulator-cell {
                 white-space: normal !important;
                 word-wrap: break-word;
+            }
+
+            .tabulator-cell {
+                font-size: 14px;
             }
 
             .card {
@@ -133,7 +133,7 @@
     <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-                <h5 class="card-title mb-3 mb-md-0">Sistem Informasi AIMS Ru Dumai</h5>
+                <h5 class="card-title mb-3 mb-md-0">Sistem Informasi AIMS KJG</h5>
                 <div class="d-flex flex-column flex-md-row align-items-center gap-3">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
@@ -191,7 +191,7 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Tambah Sistem Informasi AIMS Ru Dumai</h3>
+            <h3>Tambah Sistem Informasi AIMS RU Dumai</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
 
@@ -202,6 +202,7 @@
             </form>
         </div>
     </div>
+
 
     <div id="toastNotification"
         style="display:none; position: fixed; top: 20px; right: 20px; z-index: 9999; padding: 15px 20px; border-radius: 8px; color: white; font-weight: bold;">
@@ -312,7 +313,7 @@
             }
 
             function loadData() {
-                fetch("/monev/shrnp/input-data/sistem-informasi-aims-ru-dumai/data", {
+                fetch(`${BASE_URL}/monev/shrnp/input-data/sistem-informasi-aims-ru-dumai/data`, {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -337,25 +338,21 @@
                     })
                     .catch(err => console.error("Gagal load data:", err));
             }
-
             document.addEventListener("DOMContentLoaded", function() {
                 const columnMap = {
                     "sistem-informasi-aims-ru-dumai": [{
                             title: "No",
-                            hozAlign: "center",
-                            width: 60,
-                            download: false,
                             formatter: function(cell) {
                                 const row = cell.getRow();
-                                const table = row.getTable();
-
-                                const pageSize = table.getPageSize();
-                                const currentPage = table.getPage();
-                                const rowIndex = row
-                                    .getPosition();
-
-                                return ((currentPage - 1) * pageSize) + rowIndex;
-                            }
+                                const table = cell.getTable();
+                                const sortedData = table.getRows("active").map(r => r.getData());
+                                const index = sortedData.findIndex(data => data.id === row.getData().id);
+                                return index + 1;
+                            },
+                            hozAlign: "center",
+                            width: 60,
+                            headerSort: false,
+                            download: false
                         },
                         {
                             title: "ID",
@@ -453,13 +450,13 @@
                         {
                             title: "Jumlah Aset Operasi",
                             field: "jumlah_aset_operasi",
-                            editor: "input",
+                            editor: "number",
                             hozAlign: "center"
                         },
                         {
                             title: "Jumlah Aset Teregister",
                             field: "jumlah_aset_teregister",
-                            editor: "input",
+                            editor: "number",
                             hozAlign: "center"
                         },
                         {
@@ -475,44 +472,42 @@
                         {
                             title: "Sistem Informasi AIM",
                             field: "sistem_informasi_aim",
-                            editor: "input",
-                            hozAlign: "center"
+                            editor: "input"
                         },
                         {
                             title: "Total WO Comply",
                             field: "total_wo_comply",
-                            editor: "input",
+                            editor: "number",
                             hozAlign: "center"
                         },
                         {
                             title: "Total WO Completed",
                             field: "total_wo_completed",
-                            editor: "input",
+                            editor: "number",
                             hozAlign: "center"
                         },
                         {
                             title: "Total WO In Progress",
                             field: "total_wo_in_progress",
-                            editor: "input",
+                            editor: "number",
                             hozAlign: "center"
                         },
                         {
                             title: "Total WO Backlog",
                             field: "total_wo_backlog",
-                            editor: "input",
+                            editor: "number",
                             hozAlign: "center"
                         },
                         {
                             title: "Kendala",
                             field: "kendala",
-                            editor: "input",
-                            width: 450
+                            editor: "input"
                         },
                         {
                             title: "Tindak Lanjut",
                             field: "tindak_lanjut",
                             editor: "input",
-                            width: 400
+                            width: 300
                         },
                         {
                             title: "Aksi",
@@ -537,6 +532,8 @@
                     responsiveLayout: "collapse",
                     autoResize: true,
                     columns: columnMap["sistem-informasi-aims-ru-dumai"],
+                    virtualDom: true,
+                    height: "700px",
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -593,37 +590,6 @@
                     });
                 });
 
-                function isValidPeriodeFormat(value) {
-                    const regex = /^[A-Za-z]{3}-\d{2}$/;
-                    return regex.test(value);
-                }
-
-                table.on("cellEdited", function(cell) {
-                    const updatedData = cell.getRow().getData();
-                    const id = updatedData.id;
-
-                    if (!id) return;
-                    if (cell.getField() === "periode" && !isValidPeriodeFormat(cell.getValue())) {
-                        showToast("Format Periode tidak valid! Gunakan format: Sep-24", "error");
-                        cell.restoreOldValue();
-                        return;
-                    }
-
-                    fetch(`sistem-informasi-aims-ru-dumai/${id}`, {
-                            method: "PUT",
-                            headers: {
-                                "Content-Type": "application/json",
-                                "Accept": "application/json",
-                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
-                                    .getAttribute("content")
-                            },
-                            body: JSON.stringify(updatedData)
-                        })
-                        .then(res => res.json())
-                        .then(data => console.log("Berhasil update:", data))
-                        .catch(err => console.error("Gagal update:", err));
-                });
-
                 let previousData = [];
                 table.on("dataLoaded", function(newData) {
                     previousData = JSON.parse(JSON.stringify(newData));
@@ -643,6 +609,47 @@
                     });
                     return changes;
                 }
+
+                function isValidPeriodeFormat(value) {
+                    const regex = /^[A-Za-z]{3}-\d{2}$/;
+                    return regex.test(value);
+                }
+
+                table.on("cellEdited", function(cell) {
+                    const updatedData = cell.getRow().getData();
+                    const id = updatedData.id;
+
+                    if (!id) return;
+
+                    if (cell.getField() === "periode" && !isValidPeriodeFormat(cell.getValue())) {
+                        showToast("Format Periode tidak valid! Gunakan format: Sep-24", "error");
+                        cell.restoreOldValue();
+                        return;
+                    }
+
+                    fetch(`sistem-informasi-aims-ru-dumai/${id}`, {
+                            method: "PUT",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute("content")
+                            },
+                            body: JSON.stringify(updatedData)
+                        })
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.success) {
+                                showToast("Update berhasil!", "success");
+                            } else {
+                                showToast("Update gagal: " + data.message, "error");
+                            }
+                        })
+                        .catch(err => {
+                            console.error("Gagal update:", err);
+                            showToast("Terjadi kesalahan saat update!", "error");
+                        });
+                });
 
                 table.on("dataChanged", function(newData) {
                     const changedRows = getChangedRows(newData, previousData);
@@ -698,6 +705,7 @@
 
                     previousData = JSON.parse(JSON.stringify(newData));
                 });
+
                 loadData();
             });
         </script>
@@ -732,40 +740,51 @@
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
 
-                fetch("sistem-informasi-aims-ru-dumai", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Accept": "application/json",
-                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute(
-                                "content")
-                        },
-                        body: JSON.stringify({
-                            periode: data.periode,
-                            company: data.company,
-                            jumlah_aset_operasi: data.jumlah_aset_operasi,
-                            jumlah_aset_teregister: data.jumlah_aset_teregister,
-                            kendala_aset_register: data.kendala_aset_register,
-                            tindak_lanjut_aset_register: data.tindak_lanjut_aset_register,
-                            sistem_informasi_aim: data.sistem_informasi_aim,
-                            total_wo_comply: data.total_wo_comply,
-                            total_wo_completed: data.total_wo_completed,
-                            total_wo_in_progress: data.total_wo_in_progress,
-                            total_wo_backlog: data.total_wo_backlog,
-                            kendala: data.kendala,
-                            tindak_lanjut: data.tindak_lanjut
-                        })
-                    })
-                    .then(response => response.json())
-                    .then(result => {
-                        if (result.success) {
-                            showToast(result.message || "Data berhasil disimpan", "success");
-                            table.setData("/monev/shrnp/input-data/sistem-informasi-aims-ru-dumai/data");
-                            this.reset();
-                            closeModal();
+                const jumlahRow = parseInt(data.jumlah_row);
+
+                const payloadArray = [];
+
+                for (let i = 0; i < jumlahRow; i++) {
+                    payloadArray.push({
+                        periode: data.periode,
+                        company: data.company,
+                        jumlah_aset_operasi: data.jumlah_aset_operasi,
+                        jumlah_aset_teregister: data.jumlah_aset_teregister,
+                        kendala_aset_register: data.kendala_aset_register,
+                        tindak_lanjut_aset_register: data.tindak_lanjut_aset_register,
+                        sistem_informasi_aim: data.sistem_informasi_aim,
+                        total_wo_comply: data.total_wo_comply,
+                        total_wo_completed: data.total_wo_completed,
+                        total_wo_in_progress: data.total_wo_in_progress,
+                        total_wo_backlog: data.total_wo_backlog,
+                        kendala: data.kendala,
+                        tindak_lanjut: data.tindak_lanjut
+                    });
+                }
+
+                Promise.all(payloadArray.map(dataItem => {
+                        return fetch("sistem-informasi-aims-ru-dumai", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute("content")
+                            },
+                            body: JSON.stringify(dataItem)
+                        }).then(res => res.json());
+                    }))
+                    .then(results => {
+                        const gagal = results.filter(r => !r.success);
+                        if (gagal.length === 0) {
+                            showToast(`${jumlahRow} baris data berhasil buat`, "success");
                         } else {
-                            showToast(result.message || "Gagal menyimpan data", "error");
+                            showToast(`${gagal.length} data gagal disimpan`, "error");
                         }
+
+                        table.setData(`${BASE_URL}/monev/shrnp/input-data/sistem-informasi-aims-ru-dumai/data`);
+                        document.getElementById("createForm").reset();
+                        closeModal();
                     })
                     .catch(error => {
                         console.error("Error saat submit:", error);

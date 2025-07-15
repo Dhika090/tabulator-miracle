@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
+use Illuminate\Container\Attributes\Auth;
+
 
 class AuthController extends Controller
 {
@@ -24,6 +26,7 @@ class AuthController extends Controller
             if (Carbon::now()->timestamp > $decoded->exp) {
                 return response()->json(['error' => 'Token expired.'], 401);
             }
+
             $user = UserDigio::updateOrCreate(
                 ['userid' => $decoded->userid],
                 [
@@ -51,16 +54,23 @@ class AuthController extends Controller
                 'token' => $user->token
             ]);
 
-            //     return response()->json(['message' => 'Login berhasil.', 'user' => $user])->with('console', 'Login successful');
-            // } catch (\Exception $e) {
-            //     return response()->json(['error' => 'Token tidak valid: ' . $e->getMessage()], 403)->with('console', 'Login failed');
-            // }
-
-            return response()->json([
-                'message' => 'Login berhasil.',
-                'console' => 'Login successful',
-                'user' => $user
-            ]);
+            return response()
+                ->json([
+                    'message' => 'Login berhasil.',
+                    'console' => 'Login successful',
+                    'user' => $user,
+                ])
+                ->cookie(
+                    'digio_token', // nama cookie
+                    $token,        // isi token JWT
+                    60,            // durasi (menit)
+                    '/',           // path
+                    null,          // domain
+                    true,          // secure (true jika pakai HTTPS)
+                    false,         // HttpOnly
+                    false,         // raw
+                    'Strict'       // SameSite
+                );
         } catch (\Exception $e) {
             return response()->json([
                 'error' => 'Token tidak valid: ' . $e->getMessage(),

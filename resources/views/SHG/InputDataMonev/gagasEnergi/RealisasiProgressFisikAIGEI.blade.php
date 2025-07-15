@@ -549,6 +549,73 @@
                     return changes;
                 }
 
+                function isValidPeriodeFormat(value) {
+                    const regex = /^\d{4}$/;
+                    return regex.test(value);
+                }
+
+                function isValidDecimal(value) {
+                    if (value === null || value === undefined || value === "") return true;
+                    const number = parseFloat(value);
+                    return (
+                        !isNaN(number) &&
+                        number >= 0 &&
+                        number <= 100 &&
+                        /^\d{1,3}(\.\d{1,2})?$/.test(value.toString())
+                    );
+                }
+                const bulan = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
+
+                table.on("cellEdited", function(cell) {
+                    const updatedData = cell.getRow().getData();
+                    const id = updatedData.id;
+                    if (!id) return;
+                    const field = cell.getField();
+                    const value = cell.getValue();
+
+                    if (field === "periode" && !isValidPeriodeFormat(value)) {
+                        showToast(`"${value}" Format Periode tidak valid! Gunakan format: 2025`, "error");
+                        cell.restoreOldValue();
+                        return;
+                    }
+
+                    if (
+                        field.startsWith("plan_") ||
+                        field.startsWith("actual_")
+                    ) {
+                        if (!isValidDecimal(value)) {
+                            showToast(
+                                `"${value}" tidak valid! Input harus berupa desimal, maksimal 100, tanpa ribuan`,
+                                "error");
+                            cell.restoreOldValue();
+                            return;
+                        }
+                    }
+
+                    fetch(`realisasi-progress-fisik-ai-gei/${id}`, {
+                            method: "PUT",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute("content")
+                            },
+                            body: JSON.stringify(updatedData)
+                        })
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.success) {
+                                showToast("Update berhasil!", "success");
+                            } else {
+                                showToast("Update gagal: " + data.message, "error");
+                            }
+                        })
+                        .catch(err => {
+                            console.error("Gagal update:", err);
+                            showToast("Terjadi kesalahan saat update!", "error");
+                        });
+                });
+
                 table.on("dataChanged", function(newData) {
                     const changedRows = getChangedRows(newData, previousData);
                     console.log("Baris yang berubah:", changedRows);
@@ -563,10 +630,8 @@
                         if (rowData.periode !== oldRow.periode && !isValidPeriodeFormat(rowData
                                 .periode)) {
                             showToast(
-                                `"${rowData.periode}" Format Periode tidak valid! Gunakan format: Jan-25`,
+                                `"${rowData.periode}" Format Periode tidak valid! Gunakan format: 2025`,
                                 "error");
-
-                            rowData.periode = oldRow.periode;
 
                             table.updateData([{
                                 id: rowData.id,
@@ -575,6 +640,37 @@
 
                             return;
                         }
+
+                        let invalidField = null;
+
+                        for (let b of bulan) {
+                            for (let prefix of ["plan_", "actual_"]) {
+                                const field = prefix + b;
+                                const newValue = rowData[field];
+                                const oldValue = oldRow[field];
+
+                                if (newValue !== oldValue && !isValidDecimal(newValue)) {
+                                    invalidField = field;
+                                    break;
+                                }
+                            }
+                            if (invalidField) break;
+                        }
+
+                        if (invalidField) {
+                            showToast(
+                                `"${rowData[invalidField]}" Nilai pada kolom "${invalidField}" tidak valid! Gunakan angka desimal 0 - 100 tanpa ribuan`,
+                                "error");
+
+                            const rollbackData = {
+                                id
+                            };
+                            rollbackData[invalidField] = oldRow[invalidField];
+
+                            table.updateData([rollbackData]);
+                            return;
+                        }
+
                         fetch(`realisasi-progress-fisik-ai-gei/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
@@ -602,47 +698,6 @@
                     });
 
                     previousData = JSON.parse(JSON.stringify(newData));
-                });
-
-                function isValidPeriodeFormat(value) {
-                    const regex = /^[A-Za-z]{3}-\d{2}$/;
-                    return regex.test(value);
-                }
-
-                table.on("cellEdited", function(cell) {
-                    const updatedData = cell.getRow().getData();
-                    const id = updatedData.id;
-
-
-                    if (!id) return;
-
-                    if (cell.getField() === "periode" && !isValidPeriodeFormat(cell.getValue())) {
-                        showToast("Format Periode tidak valid! Gunakan format: Sep-24", "error");
-                        cell.restoreOldValue();
-                        return;
-                    }
-                    fetch(`realisasi-progress-fisik-ai-gei/${id}`, {
-                            method: "PUT",
-                            headers: {
-                                "Content-Type": "application/json",
-                                "Accept": "application/json",
-                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
-                                    .getAttribute("content")
-                            },
-                            body: JSON.stringify(updatedData)
-                        })
-                        .then(res => res.json())
-                        .then(data => {
-                            if (data.success) {
-                                showToast("Update berhasil!", "success");
-                            } else {
-                                showToast("Update gagal: " + data.message, "error");
-                            }
-                        })
-                        .catch(err => {
-                            console.error("Gagal update:", err);
-                            showToast("Terjadi kesalahan saat update!", "error");
-                        });
                 });
                 loadData();
             });
@@ -675,69 +730,86 @@
             document.getElementById("createForm").addEventListener("submit", function(e) {
                 e.preventDefault();
 
-                const formData = new FormData(this);
+                const form = this;
+                const formData = new FormData(form);
                 const data = Object.fromEntries(formData.entries());
+                const jumlahRow = parseInt(data.jumlah_row); // input jumlah baris yang ingin dikirim
 
-                fetch("realisasi-progress-fisik-ai-gei", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Accept": "application/json",
-                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute(
-                                "content")
-                        },
-                        body: JSON.stringify({
-                            periode: data.periode,
-                            no: data.no,
-                            program_kerja: data.program_kerja,
-                            kategori_aibt: data.kategori_aibt,
-                            jenis_anggaran: data.jenis_anggaran,
-                            besar_rkap: data.besar_rkap,
-                            entitas: data.entitas,
-                            unit: data.unit,
-                            nilai_kontrak: data.nilai_kontrak,
+                const parseNullableFloat = val => val !== "" ? parseFloat(val) : null;
 
-                            plan_jan: data.plan_jan,
-                            plan_feb: data.plan_feb,
-                            plan_mar: data.plan_mar,
-                            plan_apr: data.plan_apr,
-                            plan_may: data.plan_may,
-                            plan_jun: data.plan_jun,
-                            plan_jul: data.plan_jul,
-                            plan_aug: data.plan_aug,
-                            plan_sep: data.plan_sep,
-                            plan_oct: data.plan_oct,
-                            plan_nov: data.plan_nov,
-                            plan_dec: data.plan_dec,
+                const payloadArray = [];
 
-                            actual_jan: data.actual_jan,
-                            actual_feb: data.actual_feb,
-                            actual_mar: data.actual_mar,
-                            actual_apr: data.actual_apr,
-                            actual_may: data.actual_may,
-                            actual_jun: data.actual_jun,
-                            actual_jul: data.actual_jul,
-                            actual_aug: data.actual_aug,
-                            actual_sep: data.actual_sep,
-                            actual_oct: data.actual_oct,
-                            actual_nov: data.actual_nov,
-                            actual_dec: data.actual_dec,
+                for (let i = 0; i < jumlahRow; i++) {
+                    payloadArray.push({
+                        periode: data.periode || "",
+                        no: data.no || 0,
+                        program_kerja: data.program_kerja || "",
+                        kategori_aibt: data.kategori_aibt || "",
+                        jenis_anggaran: data.jenis_anggaran || "",
+                        besar_rkap: parseNullableFloat(data.besar_rkap),
+                        entitas: data.entitas || "",
+                        unit: data.unit || "",
+                        nilai_kontrak: parseNullableFloat(data.nilai_kontrak),
 
-                            kode: data.kode,
-                            kendala: data.kendala,
-                            tindak_lanjut: data.tindak_lanjut,
+                        // Plan
+                        plan_jan: data.plan_jan || null,
+                        plan_feb: data.plan_feb || null,
+                        plan_mar: data.plan_mar || null,
+                        plan_apr: data.plan_apr || null,
+                        plan_may: data.plan_may || null,
+                        plan_jun: data.plan_jun || null,
+                        plan_jul: data.plan_jul || null,
+                        plan_aug: data.plan_aug || null,
+                        plan_sep: data.plan_sep || null,
+                        plan_oct: data.plan_oct || null,
+                        plan_nov: data.plan_nov || null,
+                        plan_dec: data.plan_dec || null,
+
+                        // Actual
+                        actual_jan: data.actual_jan || null,
+                        actual_feb: data.actual_feb || null,
+                        actual_mar: data.actual_mar || null,
+                        actual_apr: data.actual_apr || null,
+                        actual_may: data.actual_may || null,
+                        actual_jun: data.actual_jun || null,
+                        actual_jul: data.actual_jul || null,
+                        actual_aug: data.actual_aug || null,
+                        actual_sep: data.actual_sep || null,
+                        actual_oct: data.actual_oct || null,
+                        actual_nov: data.actual_nov || null,
+                        actual_dec: data.actual_dec || null,
+
+                        kode: data.kode || "",
+                        kendala: data.kendala || "",
+                        tindak_lanjut: data.tindak_lanjut || ""
+                    });
+                }
+
+                Promise.all(
+                        payloadArray.map(payload => {
+                            return fetch("realisasi-progress-fisik-ai-gei", {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                    "Accept": "application/json",
+                                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                        .getAttribute("content")
+                                },
+                                body: JSON.stringify(payload)
+                            }).then(res => res.json());
                         })
-                    })
-                    .then(response => response.json())
-                    .then(result => {
-                        if (result.success) {
-                            showToast(result.message || "Data berhasil disimpan", "success");
-                            table.setData(`${BASE_URL}/monev/shg/input-data/realisasi-progress-fisik-ai-gei/data`);
-                            this.reset();
-                            closeModal();
+                    )
+                    .then(results => {
+                        const gagal = results.filter(r => !r.success);
+                        if (gagal.length === 0) {
+                            showToast(`${jumlahRow} baris data berhasil disimpan`, "success");
                         } else {
-                            showToast(result.message || "Gagal menyimpan data", "error");
+                            showToast(`${gagal.length} dari ${jumlahRow} data gagal disimpan`, "error");
                         }
+
+                        table.setData(`${BASE_URL}/monev/shg/input-data/realisasi-progress-fisik-ai-gei/data`);
+                        form.reset();
+                        closeModal();
                     })
                     .catch(error => {
                         console.error("Error saat submit:", error);

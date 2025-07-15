@@ -926,61 +926,80 @@
             document.getElementById("createForm").addEventListener("submit", function(e) {
                 e.preventDefault();
 
-                const formData = new FormData(this);
+                const form = this;
+                const formData = new FormData(form);
                 const data = Object.fromEntries(formData.entries());
 
-                fetch("gagas-energi-indonesia", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Accept": "application/json",
-                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute(
-                                "content")
-                        },
-                        body: JSON.stringify({
-                            periode: data.periode,
-                            subholding: data.subholding,
-                            company: data.company,
-                            unit: data.unit,
-                            asset_group: data.asset_group,
-                            jumlah: data.jumlah,
-                            sece_low_breakdown: data.sece_low_breakdown,
-                            sece_medium_due_date_inspection: data.sece_medium_due_date_inspection,
-                            sece_medium_low_condition: data.sece_medium_low_condition,
-                            sece_medium_low_performance: data.sece_medium_low_performance,
-                            sece_high: data.sece_high,
-                            pce_low_breakdown: data.pce_low_breakdown,
-                            pce_medium_due_date_inspection: data.pce_medium_due_date_inspection,
-                            pce_medium_low_condition: data.pce_medium_low_condition,
-                            pce_medium_low_performance: data.pce_medium_low_performance,
-                            pce_high: data.pce_high,
-                            important_low_breakdown: data.important_low_breakdown,
-                            important_medium_due_date_inspection: data.important_medium_due_date_inspection,
-                            important_medium_low_condition: data.important_medium_low_condition,
-                            important_medium_low_performance: data.important_medium_low_performance,
-                            important_high: data.important_high,
-                            secondary_low_breakdown: data.secondary_low_breakdown,
-                            secondary_medium_due_date_inspection: data.secondary_medium_due_date_inspection,
-                            secondary_medium_low_condition: data.secondary_medium_low_condition,
-                            secondary_medium_low_performance: data.secondary_medium_low_performance,
-                            secondary_high: data.secondary_high,
-                            kegiatan_penurunan_low: data.kegiatan_penurunan_low,
-                            kegiatan_penurunan_med: data.kegiatan_penurunan_med,
-                            informasi_penyebab_low: data.informasi_penyebab_low,
-                            informasi_penambahan_jumlah_aset: data.informasi_penambahan_jumlah_aset,
-                            informasi_naik_turun_low: data.informasi_naik_turun_low
-                        })
-                    })
-                    .then(response => response.json())
-                    .then(result => {
-                        if (result.success) {
-                            showToast(result.message || "Data berhasil disimpan", "success");
-                            table.setData(`${BASE_URL}/monev/shg/input-data/gagas-energi-indonesia/data`);
-                            this.reset();
-                            closeModal();
+                const jumlahRow = parseInt(data.jumlah_row);
+                const parseNullableInt = val => val !== "" ? parseInt(val) : null;
+
+                const payloadArray = [];
+
+                for (let i = 0; i < jumlahRow; i++) {
+                    payloadArray.push({
+                        periode: data.periode || "",
+                        subholding: data.subholding || "",
+                        company: data.company || "",
+                        unit: data.unit || "",
+                        asset_group: data.asset_group || "",
+                        jumlah: parseNullableInt(data.jumlah),
+                        sece_low_breakdown: parseNullableInt(data.sece_low_breakdown),
+                        sece_medium_due_date_inspection: parseNullableInt(data.sece_medium_due_date_inspection),
+                        sece_medium_low_condition: parseNullableInt(data.sece_medium_low_condition),
+                        sece_medium_low_performance: parseNullableInt(data.sece_medium_low_performance),
+                        sece_high: parseNullableInt(data.sece_high),
+                        pce_low_breakdown: parseNullableInt(data.pce_low_breakdown),
+                        pce_medium_due_date_inspection: parseNullableInt(data.pce_medium_due_date_inspection),
+                        pce_medium_low_condition: parseNullableInt(data.pce_medium_low_condition),
+                        pce_medium_low_performance: parseNullableInt(data.pce_medium_low_performance),
+                        pce_high: parseNullableInt(data.pce_high),
+                        important_low_breakdown: parseNullableInt(data.important_low_breakdown),
+                        important_medium_due_date_inspection: parseNullableInt(data
+                            .important_medium_due_date_inspection),
+                        important_medium_low_condition: parseNullableInt(data.important_medium_low_condition),
+                        important_medium_low_performance: parseNullableInt(data
+                            .important_medium_low_performance),
+                        important_high: parseNullableInt(data.important_high),
+                        secondary_low_breakdown: parseNullableInt(data.secondary_low_breakdown),
+                        secondary_medium_due_date_inspection: parseNullableInt(data
+                            .secondary_medium_due_date_inspection),
+                        secondary_medium_low_condition: parseNullableInt(data.secondary_medium_low_condition),
+                        secondary_medium_low_performance: parseNullableInt(data
+                            .secondary_medium_low_performance),
+                        secondary_high: parseNullableInt(data.secondary_high),
+                        kegiatan_penurunan_low: data.kegiatan_penurunan_low || "",
+                        kegiatan_penurunan_med: data.kegiatan_penurunan_med || "",
+                        informasi_penyebab_low: data.informasi_penyebab_low || "",
+                        informasi_penambahan_jumlah_aset: data.informasi_penambahan_jumlah_aset || "",
+                        informasi_naik_turun_low: data.informasi_naik_turun_low || ""
+                    });
+                }
+
+                Promise.all(
+                        payloadArray.map(payload =>
+                            fetch("gagas-energi-indonesia", {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                    "Accept": "application/json",
+                                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute(
+                                        "content")
+                                },
+                                body: JSON.stringify(payload)
+                            }).then(res => res.json())
+                        )
+                    )
+                    .then(results => {
+                        const gagal = results.filter(r => !r.success);
+                        if (gagal.length === 0) {
+                            showToast(`${jumlahRow} baris data berhasil disimpan`, "success");
                         } else {
-                            showToast(result.message || "Gagal menyimpan data", "error");
+                            showToast(`${gagal.length} dari ${jumlahRow} data gagal disimpan`, "error");
                         }
+
+                        table.setData(`${BASE_URL}/monev/shg/input-data/gagas-energi-indonesia/data`);
+                        form.reset();
+                        closeModal();
                     })
                     .catch(error => {
                         console.error("Error saat submit:", error);

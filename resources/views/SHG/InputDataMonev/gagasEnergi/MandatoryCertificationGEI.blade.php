@@ -532,7 +532,6 @@
                     const updatedData = cell.getRow().getData();
                     const id = updatedData.id;
 
-
                     if (!id) return;
 
                     if (cell.getField() === "periode" && !isValidPeriodeFormat(cell.getValue())) {
@@ -670,37 +669,47 @@
 
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
+                const jumlahRow = parseInt(data.jumlah_row);
 
-                fetch("mandatory-certification-gei", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Accept": "application/json",
-                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute(
-                                "content")
-                        },
-                        body: JSON.stringify({
-                            periode: data.periode,
-                            subholding: data.subholding,
-                            company: data.company,
-                            unit: data.unit,
-                            nama_sertifikasi: data.nama_sertifikasi,
-                            lembaga_penerbit_sertifikat: data.lembaga_penerbit_sertifikat,
-                            jumlah_sertifikasi_terbit: data.jumlah_sertifikasi_terbit,
-                            jumlah_learning_hours: data.jumlah_learning_hours
-                        })
+                const payloadArray = [];
 
-                    })
-                    .then(response => response.json())
-                    .then(result => {
-                        if (result.success) {
-                            showToast(result.message || "Data berhasil disimpan", "success");
-                            table.setData(`${BASE_URL}/monev/shg/input-data/mandatory-certification-gei/data`);
-                            this.reset();
-                            closeModal();
+                for (let i = 0; i < jumlahRow; i++) {
+                    payloadArray.push({
+                        periode: data.periode,
+                        subholding: data.subholding,
+                        company: data.company,
+                        unit: data.unit,
+                        nama_sertifikasi: data.nama_sertifikasi,
+                        lembaga_penerbit_sertifikat: data.lembaga_penerbit_sertifikat,
+                        jumlah_sertifikasi_sudah_terbit: data.jumlah_sertifikasi_sudah_terbit,
+                        jumlah_learning_hours: data.jumlah_learning_hours
+                    });
+                }
+
+                Promise.all(payloadArray.map(dataItem => {
+                        return fetch("mandatory-certification-gei", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute(
+                                        "content")
+                            },
+                            body: JSON.stringify(dataItem)
+                        }).then(res => res.json());
+                    }))
+                    .then(results => {
+                        const gagal = results.filter(r => !r.success);
+                        if (gagal.length === 0) {
+                            showToast(`${jumlahRow} baris data berhasil buat`, "success");
                         } else {
-                            showToast(result.message || "Gagal menyimpan data", "error");
+                            showToast(`${gagal.length} data gagal disimpan`, "error");
                         }
+
+                        table.setData("/monev/shg/input-data/mandatory-certification-gei/data");
+                        document.getElementById("createForm").reset();
+                        closeModal();
                     })
                     .catch(error => {
                         console.error("Error saat submit:", error);

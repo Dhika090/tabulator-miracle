@@ -133,7 +133,7 @@
     <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-                <h5 class="card-title mb-3 mb-md-0">Real Anggaran Figure RuDumai</h5>
+                <h5 class="card-title mb-3 mb-md-0">Real Anggaran Figure Ru Dumai</h5>
                 <div class="d-flex flex-column flex-md-row align-items-center gap-3">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
@@ -191,7 +191,7 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Real Anggaran Figure RuDumai</h3>
+            <h3>Real Anggaran Figure Ru Dumai</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
 
@@ -287,7 +287,7 @@
             }
 
             function loadData() {
-                fetch("/monev/shrnp/input-data/real-anggaran-figure-ru-dumai/data", {
+                fetch(`${BASE_URL}/monev/shrnp/input-data/real-anggaran-figure-ru-dumai/data`, {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -389,188 +389,26 @@
                         {
                             title: "Nilai Kontrak",
                             field: "nilai_kontrak",
-                            editor: "number"
+                            editor: "input"
                         },
-                        {
-                            title: "Plan Jan",
-                            field: "plan_jan",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Feb",
-                            field: "plan_feb",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Mar",
-                            field: "plan_mar",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Apr",
-                            field: "plan_apr",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Mei",
-                            field: "plan_mei",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Jun",
-                            field: "plan_jun",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Jul",
-                            field: "plan_jul",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Agu",
-                            field: "plan_agu",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Sep",
-                            field: "plan_sep",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Okt",
-                            field: "plan_okt",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Nov",
-                            field: "plan_nov",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Des",
-                            field: "plan_des",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Jan",
-                            field: "prognosa_jan",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Feb",
-                            field: "prognosa_feb",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Mar",
-                            field: "prognosa_mar",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Apr",
-                            field: "prognosa_apr",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Mei",
-                            field: "prognosa_mei",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Jun",
-                            field: "prognosa_jun",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Jul",
-                            field: "prognosa_jul",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Agu",
-                            field: "prognosa_agu",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Sep",
-                            field: "prognosa_sep",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Okt",
-                            field: "prognosa_okt",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Nov",
-                            field: "prognosa_nov",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Des",
-                            field: "prognosa_des",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Jan",
-                            field: "actual_jan",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Feb",
-                            field: "actual_feb",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Mar",
-                            field: "actual_mar",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Apr",
-                            field: "actual_apr",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Mei",
-                            field: "actual_mei",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Jun",
-                            field: "actual_jun",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Jul",
-                            field: "actual_jul",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Agu",
-                            field: "actual_agu",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Sep",
-                            field: "actual_sep",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Okt",
-                            field: "actual_okt",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Nov",
-                            field: "actual_nov",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Des",
-                            field: "actual_des",
-                            editor: "number"
-                        },
+                        ...["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+                        .map(bulan => ({
+                            title: `Plan ${bulan}`,
+                            field: `plan_${bulan.toLowerCase()}`,
+                            editor: "input"
+                        })),
+                        ...["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+                        .map(bulan => ({
+                            title: `Prognosa ${bulan}`,
+                            field: `prognosa_${bulan.toLowerCase()}`,
+                            editor: "input"
+                        })),
+                        ...["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+                        .map(bulan => ({
+                            title: `Actual ${bulan}`,
+                            field: `actual_${bulan.toLowerCase()}`,
+                            editor: "input"
+                        })),
                         {
                             title: "Kode",
                             field: "kode",
@@ -665,20 +503,69 @@
                     });
                 });
 
+                let previousData = [];
+                table.on("dataLoaded", function(newData) {
+                    previousData = JSON.parse(JSON.stringify(newData));
+                });
+
+                function getChangedRows(newData, oldData) {
+                    const changes = [];
+                    newData.forEach((row, index) => {
+                        if (!row.id) return;
+                        const oldRow = oldData[index];
+                        if (!oldRow) return;
+
+                        const isDifferent = Object.keys(row).some(key => row[key] !== oldRow[key]);
+                        if (isDifferent) {
+                            changes.push(row);
+                        }
+                    });
+                    return changes;
+                }
+
                 function isValidPeriodeFormat(value) {
-                    const regex = /^[A-Za-z]{3}-\d{2}$/;
+                    const regex = /^\d{4}$/;
                     return regex.test(value);
                 }
+
+                function isValidDecimal(value) {
+                    if (value === null || value === undefined || value === "") return true;
+                    const number = parseFloat(value);
+                    return (
+                        !isNaN(number) &&
+                        number >= 0 &&
+                        number <= 100 &&
+                        /^\d{1,3}(\.\d{1,2})?$/.test(value.toString())
+                    );
+                }
+                const bulan = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
+
 
                 table.on("cellEdited", function(cell) {
                     const updatedData = cell.getRow().getData();
                     const id = updatedData.id;
-
                     if (!id) return;
-                    if (cell.getField() === "periode" && !isValidPeriodeFormat(cell.getValue())) {
-                        showToast("Format Periode tidak valid! Gunakan format: Sep-24", "error");
+                    const field = cell.getField();
+                    const value = cell.getValue();
+
+                    if (field === "periode" && !isValidPeriodeFormat(value)) {
+                        showToast(`"${value}" Format Periode tidak valid! Gunakan format: 2025`, "error");
                         cell.restoreOldValue();
                         return;
+                    }
+
+                    if (
+                        field.startsWith("plan_") ||
+                        field.startsWith("prognosa_") ||
+                        field.startsWith("actual_")
+                    ) {
+                        if (!isValidDecimal(value)) {
+                            showToast(
+                                `"${value}" tidak valid! Input harus berupa desimal, maksimal 100, tanpa ribuan`,
+                                "error");
+                            cell.restoreOldValue();
+                            return;
+                        }
                     }
 
                     fetch(`real-anggaran-figure-ru-dumai/${id}`, {
@@ -705,26 +592,6 @@
                         });
                 });
 
-                let previousData = [];
-                table.on("dataLoaded", function(newData) {
-                    previousData = JSON.parse(JSON.stringify(newData));
-                });
-
-                function getChangedRows(newData, oldData) {
-                    const changes = [];
-                    newData.forEach((row, index) => {
-                        if (!row.id) return;
-                        const oldRow = oldData[index];
-                        if (!oldRow) return;
-
-                        const isDifferent = Object.keys(row).some(key => row[key] !== oldRow[key]);
-                        if (isDifferent) {
-                            changes.push(row);
-                        }
-                    });
-                    return changes;
-                }
-
                 table.on("dataChanged", function(newData) {
                     const changedRows = getChangedRows(newData, previousData);
                     console.log("Baris yang berubah:", changedRows);
@@ -739,10 +606,8 @@
                         if (rowData.periode !== oldRow.periode && !isValidPeriodeFormat(rowData
                                 .periode)) {
                             showToast(
-                                `"${rowData.periode}" Format Periode tidak valid! Gunakan format: Jan-25`,
+                                `"${rowData.periode}" Format Periode tidak valid! Gunakan format: 2025`,
                                 "error");
-
-                            rowData.periode = oldRow.periode;
 
                             table.updateData([{
                                 id: rowData.id,
@@ -751,6 +616,37 @@
 
                             return;
                         }
+
+                        let invalidField = null;
+
+                        for (let b of bulan) {
+                            for (let prefix of ["plan_", "prognosa_", "actual_"]) {
+                                const field = prefix + b;
+                                const newValue = rowData[field];
+                                const oldValue = oldRow[field];
+
+                                if (newValue !== oldValue && !isValidDecimal(newValue)) {
+                                    invalidField = field;
+                                    break;
+                                }
+                            }
+                            if (invalidField) break;
+                        }
+
+                        if (invalidField) {
+                            showToast(
+                                `"${rowData[invalidField]}" Nilai pada kolom "${invalidField}" tidak valid! Gunakan angka desimal 0 - 100 tanpa ribuan`,
+                                "error");
+
+                            const rollbackData = {
+                                id
+                            };
+                            rollbackData[invalidField] = oldRow[invalidField];
+
+                            table.updateData([rollbackData]);
+                            return;
+                        }
+
                         fetch(`real-anggaran-figure-ru-dumai/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
@@ -779,6 +675,7 @@
 
                     previousData = JSON.parse(JSON.stringify(newData));
                 });
+
                 loadData();
             });
         </script>
@@ -810,34 +707,97 @@
             document.getElementById("createForm").addEventListener("submit", function(e) {
                 e.preventDefault();
 
-                const formData = new FormData(this);
+                const form = this;
+                const formData = new FormData(form);
                 const data = Object.fromEntries(formData.entries());
 
-                fetch("real-anggaran-figure-ru-dumai", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Accept": "application/json",
-                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute(
-                                "content")
-                        },
-                        body: JSON.stringify({
-                            periode: data.periode,
-                            company: data.company,
-                            judul_pelatihan: data.judul_pelatihan,
-                            realisasi_perwira: data.realisasi_perwira
-                        })
-                    })
-                    .then(response => response.json())
-                    .then(result => {
-                        if (result.success) {
-                            showToast(result.message || "Data berhasil disimpan", "success");
-                            table.setData("/monev/shrnp/input-data/real-anggaran-figure-ru-dumai/data");
-                            this.reset();
-                            closeModal();
+                const jumlahRow = parseInt(data.jumlah_row);
+                const parseNullableFloat = val => val !== "" ? parseFloat(val) : null;
+
+                const payloadArray = [];
+
+                for (let i = 0; i < jumlahRow; i++) {
+                    payloadArray.push({
+                        periode: data.periode,
+                        no: data.no,
+                        kategori_aibt: data.kategori_aibt,
+                        jenis_anggaran: data.jenis_anggaran,
+                        besar_rkap: parseNullableFloat(data.besar_rkap),
+                        entitas: data.entitas,
+                        unit: data.unit,
+                        nilai_kontrak: parseNullableFloat(data.nilai_kontrak),
+
+                        plan_jan: parseNullableFloat(data.plan_jan),
+                        plan_feb: parseNullableFloat(data.plan_feb),
+                        plan_mar: parseNullableFloat(data.plan_mar),
+                        plan_apr: parseNullableFloat(data.plan_apr),
+                        plan_mei: parseNullableFloat(data.plan_mei),
+                        plan_jun: parseNullableFloat(data.plan_jun),
+                        plan_jul: parseNullableFloat(data.plan_jul),
+                        plan_agu: parseNullableFloat(data.plan_agu),
+                        plan_sep: parseNullableFloat(data.plan_sep),
+                        plan_okt: parseNullableFloat(data.plan_okt),
+                        plan_nov: parseNullableFloat(data.plan_nov),
+                        plan_des: parseNullableFloat(data.plan_des),
+
+                        prognosa_jan: parseNullableFloat(data.prognosa_jan),
+                        prognosa_feb: parseNullableFloat(data.prognosa_feb),
+                        prognosa_mar: parseNullableFloat(data.prognosa_mar),
+                        prognosa_apr: parseNullableFloat(data.prognosa_apr),
+                        prognosa_mei: parseNullableFloat(data.prognosa_mei),
+                        prognosa_jun: parseNullableFloat(data.prognosa_jun),
+                        prognosa_jul: parseNullableFloat(data.prognosa_jul),
+                        prognosa_agu: parseNullableFloat(data.prognosa_agu),
+                        prognosa_sep: parseNullableFloat(data.prognosa_sep),
+                        prognosa_okt: parseNullableFloat(data.prognosa_okt),
+                        prognosa_nov: parseNullableFloat(data.prognosa_nov),
+                        prognosa_des: parseNullableFloat(data.prognosa_des),
+
+                        actual_jan: parseNullableFloat(data.actual_jan),
+                        actual_feb: parseNullableFloat(data.actual_feb),
+                        actual_mar: parseNullableFloat(data.actual_mar),
+                        actual_apr: parseNullableFloat(data.actual_apr),
+                        actual_mei: parseNullableFloat(data.actual_mei),
+                        actual_jun: parseNullableFloat(data.actual_jun),
+                        actual_jul: parseNullableFloat(data.actual_jul),
+                        actual_agu: parseNullableFloat(data.actual_agu),
+                        actual_sep: parseNullableFloat(data.actual_sep),
+                        actual_okt: parseNullableFloat(data.actual_okt),
+                        actual_nov: parseNullableFloat(data.actual_nov),
+                        actual_des: parseNullableFloat(data.actual_des),
+
+                        kode: data.kode,
+                        kendala: data.kendala,
+                        tindak_lanjut: data.tindak_lanjut
+                    });
+                }
+
+                Promise.all(
+                        payloadArray.map(payload =>
+                            fetch("real-anggaran-figure-ru-dumai", {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                    "Accept": "application/json",
+                                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute(
+                                        "content")
+                                },
+                                body: JSON.stringify(payload)
+                            }).then(res => res.json())
+                        )
+                    )
+                    .then(results => {
+                        const gagal = results.filter(r => !r.success);
+                        if (gagal.length === 0) {
+                            showToast(`${jumlahRow} baris data berhasil disimpan`, "success");
                         } else {
-                            showToast(result.message || "Gagal menyimpan data", "error");
+                            showToast(`${gagal.length} data gagal disimpan`, "error");
                         }
+
+                        table.setData(
+                            `${BASE_URL}/monev/shrnp/input-data/real-anggaran-figure-ru-dumai/data`);
+                        form.reset();
+                        closeModal();
                     })
                     .catch(error => {
                         console.error("Error saat submit:", error);

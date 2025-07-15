@@ -195,124 +195,12 @@
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
 
-                <div>
-                    <label>Periode</label>
-                    <input type="month" name="periode" id="periode">
-                </div>
-
-                <div>
-                    <label>Subholding</label>
-                    <input type="text" name="subholding" id="subholding">
-                </div>
-
-                <label for="company">Company:</label>
-                <select name="company" id="company" class="form-select">
-                    <option value="">-- Pilih Company --</option>
-                    @foreach ($companies as $company)
-                        <option value="{{ $company }}">{{ $company }}</option>
-                    @endforeach
-                </select>
-
-                <div>
-                    <label>Unit</label>
-                    <input type="text" name="unit" id="unit">
-                </div>
-
-                <div>
-                    <label>Asset Group</label>
-                    <input type="text" name="asset_group" id="asset_group">
-                </div>
-
-                <div>
-                    <label>Jumlah</label>
-                    <input type="number" name="jumlah" id="jumlah" step="0.01">
-                </div>
-
-                <!-- SECE -->
-                <h4>SECE</h4>
-                <div><label>Low Integrity - Breakdown</label><input type="number" id="sece_low_integrity_breakdown"
-                        step="0.01">
-                </div>
-                <div><label>Medium - Due Date Inspection</label><input type="number"
-                        id="sece_medium_due_date_inspection" step="0.01"></div>
-                <div><label>Medium - Low Condition</label><input type="number" id="sece_medium_low_condition"
-                        step="0.01"></div>
-                <div><label>Medium - Low Performance</label><input type="number" id="sece_medium_low_performance"
-                        step="0.01">
-                </div>
-                <div><label>High Integrity</label><input type="number" id="sece_high_integrity" step="0.01"></div>
-
-                <!-- PCE -->
-                <h4>PCE</h4>
-                <div><label>Low Integrity - Breakdown</label><input type="number" id="pce_low_integrity_breakdown"
-                        step="0.01">
-                </div>
-                <div><label>Medium - Due Date Inspection</label><input type="number"
-                        id="pce_medium_due_date_inspection" step="0.01"></div>
-                <div><label>Medium - Low Condition</label><input type="number" id="pce_medium_low_condition"
-                        step="0.01"></div>
-                <div><label>Medium - Low Performance</label><input type="number" id="pce_medium_low_performance"
-                        step="0.01"></div>
-                <div><label>High Integrity</label><input type="number" id="pce_high_integrity" step="0.01"></div>
-
-                <!-- IMPORTANT -->
-                <h4>IMPORTANT</h4>
-                <div><label>Low Integrity - Breakdown</label><input type="number"
-                        id="important_low_integrity_breakdown" step="0.01"></div>
-                <div><label>Medium - Due Date Inspection</label><input type="number"
-                        id="important_medium_due_date_inspection" step="0.01"></div>
-                <div><label>Medium - Low Condition</label><input type="number" id="important_medium_low_condition"
-                        step="0.01">
-                </div>
-                <div><label>Medium - Low Performance</label><input type="number"
-                        id="important_medium_low_performance" step="0.01">
-                </div>
-                <div><label>High Integrity</label><input type="number" id="important_high_integrity" step="0.01">
-                </div>
-
-                <!-- SECONDARY -->
-                <h4>SECONDARY</h4>
-                <div><label>Low Integrity - Breakdown</label><input type="number"
-                        id="secondary_low_integrity_breakdown" step="0.01"></div>
-                <div><label>Medium - Due Date Inspection</label><input type="number"
-                        id="secondary_medium_due_date_inspection" step="0.01"></div>
-                <div><label>Medium - Low Condition</label><input type="number" id="secondary_medium_low_condition"
-                        step="0.01">
-                </div>
-                <div><label>Medium - Low Performance</label><input type="number"
-                        id="secondary_medium_low_performance" step="0.01">
-                </div>
-                <div><label>High Integrity</label><input type="number" id="secondary_high_integrity" step="0.01">
-                </div>
-
-                <!-- Tambahan Informasi -->
-                <div>
-                    <label>Kegiatan Penurunan Low</label>
-                    <input type="text" id="kegiatan_penurunan_low">
-                </div>
-
-                <div>
-                    <label>Kegiatan Penurunan Med</label>
-                    <input type="text" id="kegiatan_penurunan_med">
-                </div>
-
-                <div>
-                    <label>Informasi Penyebab Low Integrity</label>
-                    <input id="informasi_penyebab_low_integrity"></input>
-                </div>
-
-                <div>
-                    <label>Informasi Penambahan Jumlah Aset</label>
-                    <input id="informasi_penambahan_jumlah_aset"></input>
-                </div>
-
-                <div>
-                    <label>Informasi Naik Turun Low Integrity</label>
-                    <input id="informasi_naik_turun_low_integrity"></input>
-                </div>
+                <label>Jumlah Row yang ingin dibuat</label>
+                <input type="number" name="jumlah_row" id="jumlah_row" min="1" value="1" required>
 
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
+
 
         </div>
     </div>
@@ -417,7 +305,7 @@
             }
 
             function loadData() {
-                fetch("/monev/shg/input-data/pertagas-niaga/data", {
+                fetch(`${BASE_URL}/monev/shg/input-data/pertagas-niaga/data`, {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -1092,7 +980,7 @@
                     .then(result => {
                         if (result.success) {
                             showToast(result.message || "Data berhasil disimpan", "success");
-                            table.setData("/monev/shg/input-data/pertagas-niaga/data");
+                            table.setData(`${BASE_URL}/monev/shg/input-data/pertagas-niaga/data`);
                             this.reset();
                             closeModal();
                         } else {

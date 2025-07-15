@@ -37,7 +37,6 @@ return [
     [
         'title' => 'Realisasi Anggaran Figure Ru V Balikpapan',
         'route' => 'realisasi-anggaran-figure-balikpapan',
-
     ],
     [
         'title' => 'Realisasi Prog Fisik AI Ru V Balikpapan',

@@ -191,100 +191,13 @@
             <h3>Tambah Data Realisasi Progress Fisik AI 2025</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
-                <div>
-                    <label>Periode</label>
-                    <input type="month" name="periode">
-                </div>
 
-                <div>
-                    <label>No</label>
-                    <input type="number" name="no">
-                </div>
+                <label>Jumlah Row yang ingin dibuat</label>
+                <input type="number" name="jumlah_row" id="jumlah_row" min="1" value="1" required>
 
-                <div>
-                    <label>Program Kerja</label>
-                    <input type="text" name="program_kerja">
-                </div>
-
-                <div>
-                    <label>Kategori AIBT</label>
-                    <input type="text" name="kategori_aibt">
-                </div>
-
-                <div>
-                    <label>Jenis Anggaran</label>
-                    <input type="text" name="jenis_anggaran">
-                </div>
-
-                <div>
-                    <label>Besar RKAP</label>
-                    <input type="number" name="besar_rkap" step="0.01">
-                </div>
-
-                <div>
-                    <label>Entitas</label>
-                    <input type="text" name="entitas">
-                </div>
-
-                <div>
-                    <label>Unit</label>
-                    <input type="text" name="unit">
-                </div>
-
-                <div>
-                    <label>Nilai Kontrak</label>
-                    <input type="number" name="nilai_kontrak" step="0.01">
-                </div>
-
-                <fieldset>
-                    <legend>Rencana (Plan)</legend>
-                    <label>Plan Jan</label><input type="number" name="plan_jan" step="0.01">
-                    <label>Plan Feb</label><input type="number" name="plan_feb" step="0.01">
-                    <label>Plan Mar</label><input type="number" name="plan_mar" step="0.01">
-                    <label>Plan Apr</label><input type="number" name="plan_apr" step="0.01">
-                    <label>Plan May</label><input type="number" name="plan_may" step="0.01">
-                    <label>Plan Jun</label><input type="number" name="plan_jun" step="0.01">
-                    <label>Plan Jul</label><input type="number" name="plan_jul" step="0.01">
-                    <label>Plan Aug</label><input type="number" name="plan_aug" step="0.01">
-                    <label>Plan Sep</label><input type="number" name="plan_sep" step="0.01">
-                    <label>Plan Oct</label><input type="number" name="plan_oct" step="0.01">
-                    <label>Plan Nov</label><input type="number" name="plan_nov" step="0.01">
-                    <label>Plan Dec</label><input type="number" name="plan_dec" step="0.01">
-                </fieldset>
-
-                <fieldset>
-                    <legend>Realisasi (Actual)</legend>
-                    <label>Actual Jan</label><input type="number" name="actual_jan" step="0.01">
-                    <label>Actual Feb</label><input type="number" name="actual_feb" step="0.01">
-                    <label>Actual Mar</label><input type="number" name="actual_mar" step="0.01">
-                    <label>Actual Apr</label><input type="number" name="actual_apr" step="0.01">
-                    <label>Actual May</label><input type="number" name="actual_may" step="0.01">
-                    <label>Actual Jun</label><input type="number" name="actual_jun" step="0.01">
-                    <label>Actual Jul</label><input type="number" name="actual_jul" step="0.01">
-                    <label>Actual Aug</label><input type="number" name="actual_aug" step="0.01">
-                    <label>Actual Sep</label><input type="number" name="actual_sep" step="0.01">
-                    <label>Actual Oct</label><input type="number" name="actual_oct" step="0.01">
-                    <label>Actual Nov</label><input type="number" name="actual_nov" step="0.01">
-                    <label>Actual Dec</label><input type="number" name="actual_dec" step="0.01">
-                </fieldset>
-
-                <div>
-                    <label>Kode</label>
-                    <input type="text" name="kode">
-                </div>
-
-                <div>
-                    <label>Kendala</label>
-                    <input type="text" name="kendala"></input>
-                </div>
-
-                <div>
-                    <label>Tindak Lanjut</label>
-                    <input type="text" name="tindak_lanjut"></input>
-                </div>
-
-                <button class="btn btn-primary" type="submit">Simpan</button>
+                <button type="submit" class="btn btn-success">Submit</button>
             </form>
+
         </div>
     </div>
 
@@ -393,7 +306,7 @@
             }
 
             function loadData() {
-                fetch("/monev/shg/input-data/realisasi-progress-fisik-ai-ptgn/data", {
+                fetch(`${BASE_URL}/monev/shg/input-data/realisasi-progress-fisik-ai-ptgn/data`, {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -819,7 +732,7 @@
                     .then(result => {
                         if (result.success) {
                             showToast(result.message || "Data berhasil disimpan", "success");
-                            table.setData("/monev/shg/input-data/realisasi-progress-fisik-ai-ptgn/data");
+                            table.setData(`${BASE_URL}/monev/shg/input-data/realisasi-progress-fisik-ai-ptgn/data`);
                             this.reset();
                             closeModal();
                         } else {

@@ -185,7 +185,7 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Tambah Target Ru Dumai</h3>
+            <h3>Tambah Target PIS</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
 
@@ -196,6 +196,7 @@
             </form>
         </div>
     </div>
+
 
     <div id="toastNotification"
         style="display:none; position: fixed; top: 20px; right: 20px; z-index: 9999; padding: 15px 20px; border-radius: 8px; color: white; font-weight: bold;">
@@ -287,7 +288,7 @@
                             value: keyword
                         },
                         {
-                            field: "penyelarasan_dokumen",
+                            field: "penyelarasan_dokumen_dan_lapangan",
                             type: "like",
                             value: keyword
                         },
@@ -297,17 +298,17 @@
                             value: keyword
                         },
                         {
-                            field: "form_upload_data",
+                            field: "mempersiapkan_form_upload_data",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "request_master_data",
+                            field: "request_ke_master_data",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "update_master_data",
+                            field: "update_di_master_data",
                             type: "like",
                             value: keyword
                         },
@@ -331,7 +332,7 @@
             }
 
             function loadData() {
-                fetch("/monev/shrnp/input-data/sap-asset-ru-dumai/data", {
+                fetch(`${BASE_URL}/monev/shrnp/input-data/sap-asset-ru-dumai/data`, {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -485,37 +486,37 @@
                             title: "Belum Mulai",
                             field: "belum_mulai",
                             editor: "input",
-                            hozAlign: "center",
+                            hozAlign: "center"
                         },
                         {
                             title: "Kickoff Meeting",
                             field: "kickoff_meeting",
                             editor: "input",
-                            hozAlign: "center",
+                            hozAlign: "center"
                         },
                         {
                             title: "Identifikasi Peralatan",
                             field: "identifikasi_peralatan",
                             editor: "input",
-                            hozAlign: "center",
+                            hozAlign: "center"
                         },
                         {
                             title: "Survey Lapangan",
                             field: "survey_lapangan",
                             editor: "input",
-                            hozAlign: "center",
+                            hozAlign: "center"
                         },
                         {
                             title: "Pembenahan Funloc",
                             field: "pembenahan_funloc",
                             editor: "input",
-                            hozAlign: "center",
+                            hozAlign: "center"
                         },
                         {
                             title: "Review Criticality",
                             field: "review_criticality",
                             editor: "input",
-                            hozAlign: "center",
+                            hozAlign: "center"
                         },
                         {
                             title: "Penyelarasan Dokumen dan Lapangan",
@@ -526,31 +527,31 @@
                             title: "Melengkapi Tag Fisik",
                             field: "melengkapi_tag_fisik",
                             editor: "input",
-                            hozAlign: "center",
+                            hozAlign: "center"
                         },
                         {
                             title: "Mempersiapkan Form Upload Data",
                             field: "mempersiapkan_form_upload_data",
                             editor: "input",
-                            hozAlign: "center",
+                            hozAlign: "center"
                         },
                         {
                             title: "Request ke Master Data",
                             field: "request_ke_master_data",
                             editor: "input",
-                            hozAlign: "center",
+                            hozAlign: "center"
                         },
                         {
                             title: "Update Di Master Data",
                             field: "update_di_master_data",
                             editor: "input",
-                            hozAlign: "center",
+                            hozAlign: "center"
                         },
                         {
                             title: "Kendala",
                             field: "kendala",
                             editor: "input",
-                            hozAlign: "center",
+                            hozAlign: "center"
                         },
                         {
                             title: "Tindak Lanjut",
@@ -581,6 +582,7 @@
                     autoResize: true,
                     columns: columnMap["sap-asset-ru-dumai"],
                     virtualDom: true,
+                    height: "700px",
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -658,6 +660,48 @@
                     return changes;
                 }
 
+
+                function isValidPeriodeFormat(value) {
+                    const regex = /^[A-Za-z]{3}-\d{2}$/;
+                    return regex.test(value);
+                }
+
+                table.on("cellEdited", function(cell) {
+                    const updatedData = cell.getRow().getData();
+                    const id = updatedData.id;
+
+                    if (!id) return;
+
+                    if (cell.getField() === "periode" && !isValidPeriodeFormat(cell.getValue())) {
+                        showToast("Format Periode tidak valid! Gunakan format: Sep-24", "error");
+                        cell.restoreOldValue();
+                        return;
+                    }
+
+                    fetch(`sap-asset-ru-dumai/${id}`, {
+                            method: "PUT",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute("content")
+                            },
+                            body: JSON.stringify(updatedData)
+                        })
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.success) {
+                                showToast("Update berhasil!", "success");
+                            } else {
+                                showToast("Update gagal: " + data.message, "error");
+                            }
+                        })
+                        .catch(err => {
+                            console.error("Gagal update:", err);
+                            showToast("Terjadi kesalahan saat update!", "error");
+                        });
+                });
+
                 table.on("dataChanged", function(newData) {
                     const changedRows = getChangedRows(newData, previousData);
                     console.log("Baris yang berubah:", changedRows);
@@ -713,45 +757,6 @@
                     previousData = JSON.parse(JSON.stringify(newData));
                 });
 
-                function isValidPeriodeFormat(value) {
-                    const regex = /^[A-Za-z]{3}-\d{2}$/;
-                    return regex.test(value);
-                }
-
-                table.on("cellEdited", function(cell) {
-                    const updatedData = cell.getRow().getData();
-                    const id = updatedData.id;
-
-                    if (!id) return;
-                    if (cell.getField() === "periode" && !isValidPeriodeFormat(cell.getValue())) {
-                        showToast("Format Periode tidak valid! Gunakan format: Sep-24", "error");
-                        cell.restoreOldValue();
-                        return;
-                    }
-
-                    fetch(`sap-asset-ru-dumai/${id}`, {
-                            method: "PUT",
-                            headers: {
-                                "Content-Type": "application/json",
-                                "Accept": "application/json",
-                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
-                                    .getAttribute("content")
-                            },
-                            body: JSON.stringify(updatedData)
-                        })
-                        .then(res => res.json())
-                        .then(data => {
-                            if (data.success) {
-                                showToast("Update berhasil!", "success");
-                            } else {
-                                showToast("Update gagal: " + data.message, "error");
-                            }
-                        })
-                        .catch(err => {
-                            console.error("Gagal update:", err);
-                            showToast("Terjadi kesalahan saat update!", "error");
-                        });
-                });
                 loadData();
             });
         </script>
@@ -785,47 +790,55 @@
 
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
+                const jumlahRow = parseInt(data.jumlah_row);
 
-                fetch("sap-asset-ru-dumai", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Accept": "application/json",
-                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute(
-                                "content")
-                        },
-                        body: JSON.stringify({
-                            periode: data.periode,
-                            subholding: data.subholding,
-                            company: data.company,
-                            unit: data.unit,
-                            nama_stasiun: data.nama_stasiun,
-                            belum_mulai: data.belum_mulai,
-                            kickoff_meeting: data.kickoff_meeting,
-                            identifikasi_peralatan: data.identifikasi_peralatan,
-                            survey_lapangan: data.survey_lapangan,
-                            pembenahan_funloc: data.pembenahan_funloc,
-                            review_criticality: data.review_criticality,
-                            penyelarasan_dokumen_dan_lapangan: data.penyelarasan_dokumen_dan_lapangan,
-                            melengkapi_tag_fisik: data.melengkapi_tag_fisik,
-                            mempersiapkan_form_upload_data: data.mempersiapkan_form_upload_data,
-                            request_ke_master_data: data.request_ke_master_data,
-                            update_di_master_data: data.update_di_master_data,
-                            kendala: data.kendala,
-                            tindak_lanjut: data.tindak_lanjut
-                        })
+                const payloadArray = [];
 
-                    })
-                    .then(response => response.json())
-                    .then(result => {
-                        if (result.success) {
-                            showToast(result.message || "Data berhasil disimpan", "success");
-                            table.setData("/monev/shrnp/input-data/sap-asset-ru-dumai/data");
-                            this.reset();
-                            closeModal();
+                for (let i = 0; i < jumlahRow; i++) {
+                    payloadArray.push({
+                        periode: data.periode,
+                        company: data.company,
+                        unit: data.unit,
+                        nama_stasiun: data.nama_stasiun,
+                        belum_mulai: data.belum_mulai,
+                        kickoff_meeting: data.kickoff_meeting,
+                        identifikasi_peralatan: data.identifikasi_peralatan,
+                        survey_lapangan: data.survey_lapangan,
+                        pembenahan_funloc: data.pembenahan_funloc,
+                        review_criticality: data.review_criticality,
+                        penyelarasan_dokumen_dan_lapangan: data.penyelarasan_dokumen_dan_lapangan,
+                        melengkapi_tag_fisik: data.melengkapi_tag_fisik,
+                        mempersiapkan_form_upload_data: data.mempersiapkan_form_upload_data,
+                        request_ke_master_data: data.request_ke_master_data,
+                        update_di_master_data: data.update_di_master_data,
+                        kendala: data.kendala,
+                        tindak_lanjut: data.tindak_lanjut
+                    });
+                }
+
+                Promise.all(payloadArray.map(dataItem => {
+                        return fetch("sap-asset-ru-dumai", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute("content")
+                            },
+                            body: JSON.stringify(dataItem)
+                        }).then(res => res.json());
+                    }))
+                    .then(results => {
+                        const gagal = results.filter(r => !r.success);
+                        if (gagal.length === 0) {
+                            showToast(`${jumlahRow} baris data berhasil buat`, "success");
                         } else {
-                            showToast(result.message || "Gagal menyimpan data", "error");
+                            showToast(`${gagal.length} data gagal disimpan`, "error");
                         }
+
+                        table.setData(`${BASE_URL}/monev/shrnp/input-data/sap-asset-ru-dumai/data`);
+                        document.getElementById("createForm").reset();
+                        closeModal();
                     })
                     .catch(error => {
                         console.error("Error saat submit:", error);

@@ -639,6 +639,7 @@
                     });
                 });
 
+
                 function isValidPeriodeFormat(value) {
                     const regex = /^[A-Za-z]{3}-\d{2}$/;
                     return regex.test(value);
@@ -647,8 +648,6 @@
                 table.on("cellEdited", function(cell) {
                     const updatedData = cell.getRow().getData();
                     const id = updatedData.id;
-
-                    if (!id) return;
 
                     if (cell.getField() === "periode" && !isValidPeriodeFormat(cell.getValue())) {
                         showToast("Format Periode tidak valid! Gunakan format: Sep-24", "error");
@@ -794,44 +793,56 @@
 
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
+                const jumlahRow = parseInt(data.jumlah_row);
 
-                fetch("asset-breakdown-pdg", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Accept": "application/json",
-                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute(
-                                "content")
-                        },
-                        body: JSON.stringify({
-                            periode: data.periode,
-                            company: data.company,
-                            plant_segment: data.plant_segment,
-                            kategori_criticality: data.kategori_criticality,
-                            tag: data.tag,
-                            deskripsi_peralatan: data.deskripsi_peralatan,
-                            jenis_kerusakan: data.jenis_kerusakan,
-                            penyebab: data.penyebab,
-                            kendala_perbaikan: data.kendala_perbaikan,
-                            mitigasi: data.mitigasi,
-                            perbaikan_permanen: data.perbaikan_permanen,
-                            progres_perbaikan_permanen: data.progres_perbaikan_permanen,
-                            tindak_lanjut: data.tindak_lanjut,
-                            target_penyelesaian: data.target_penyelesaian,
-                            estimasi_biaya_perbaikan: data.estimasi_biaya_perbaikan,
-                            link_foto_video: data.link_foto_video
-                        })
-                    })
-                    .then(response => response.json())
-                    .then(result => {
-                        if (result.success) {
-                            showToast(result.message || "Data berhasil disimpan", "success");
-                            table.setData(`${BASE_URL}/monev/shg/input-data/asset-breakdown-pdg/data`);
-                            this.reset();
-                            closeModal();
+                const payloadArray = [];
+
+                for (let i = 0; i < jumlahRow; i++) {
+                    payloadArray.push({
+                        periode: data[`periode_${i}`],
+                        company: data[`company_${i}`],
+                        plant_segment: data[`plant_segment_${i}`],
+                        kategori_criticality: data[`kategori_criticality_${i}`],
+                        tag: data[`tag_${i}`],
+                        deskripsi_peralatan: data[`deskripsi_peralatan_${i}`],
+                        jenis_kerusakan: data[`jenis_kerusakan_${i}`],
+                        penyebab: data[`penyebab_${i}`],
+                        kendala_perbaikan: data[`kendala_perbaikan_${i}`],
+                        mitigasi: data[`mitigasi_${i}`],
+                        perbaikan_permanen: data[`perbaikan_permanen_${i}`],
+                        progres_perbaikan_permanen: data[`progres_perbaikan_permanen_${i}`],
+                        tindak_lanjut: data[`tindak_lanjut_${i}`],
+                        target_penyelesaian: data[`target_penyelesaian_${i}`],
+                        estimasi_biaya_perbaikan: data[`estimasi_biaya_perbaikan_${i}`],
+                        link_foto_video: data[`link_foto_video_${i}`],
+                    });
+                }
+
+                Promise.all(
+                        payloadArray.map(row =>
+                            fetch("asset-breakdown-pdg", {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                    "Accept": "application/json",
+                                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute(
+                                        "content")
+                                },
+                                body: JSON.stringify(row)
+                            }).then(res => res.json())
+                        )
+                    )
+                    .then(results => {
+                        const gagal = results.filter(r => !r.success);
+                        if (gagal.length === 0) {
+                            showToast(`${jumlahRow} baris data berhasil disimpan`, "success");
                         } else {
-                            showToast(result.message || "Gagal menyimpan data", "error");
+                            showToast(`${gagal.length} dari ${jumlahRow} data gagal disimpan`, "error");
                         }
+
+                        table.setData(`${BASE_URL}/monev/shg/input-data/asset-breakdown-pdg/data`);
+                        document.getElementById("createForm").reset();
+                        closeModal();
                     })
                     .catch(error => {
                         console.error("Error saat submit:", error);
