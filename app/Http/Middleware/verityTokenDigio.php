@@ -22,7 +22,8 @@ class verityTokenDigio
         $token = $request->cookie('digio_token');
 
         if (!$token) {
-            return redirect('/unauthorized')->with('error', 'Token tidak ditemukan.');
+            // return redirect('/unauthorized')->with('error', 'Token tidak ditemukan.');
+            return redirect()->away('https://digio.pgn.co.id');
         }
 
         try {
