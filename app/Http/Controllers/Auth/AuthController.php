@@ -60,22 +60,14 @@ class AuthController extends Controller
                     'console' => 'Login successful',
                     'user' => $user,
                 ])
-                ->cookie(
-                    'digio_token', // nama cookie
-                    $token,        // isi token JWT
-                    60,            // durasi (menit)
-                    '/',           // path
-                    null,          // domain
-                    true,          // secure (true jika pakai HTTPS)
-                    false,         // HttpOnly
-                    false,         // raw
-                    'Strict'       // SameSite
-                );
+
+                ->cookie('digio_token', $token, 60, '/', null, false, false);
         } catch (\Exception $e) {
             return response()->json([
                 'error' => 'Token tidak valid: ' . $e->getMessage(),
                 'console' => 'Login failed'
-            ], 403);
+            ], 403)
+                ->cookie('digio_token', '', 0);
         }
     }
 }

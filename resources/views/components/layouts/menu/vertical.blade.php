@@ -763,6 +763,66 @@
             </ul>
         </li>
 
+        {{-- Mona / IIS --}}
+        <li class="menu-item {{ request()->is('mona/iis/*') ? 'active open' : '' }}">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-building-house"></i>
+                <div>Mona</div>
+            </a>
+            <ul class="menu-sub">
+                <li class="menu-item {{ request()->is('mona/iis/*') ? 'active open' : '' }}">
+                    <a href="javascript:void(0);" class="menu-link menu-toggle">
+                        IIS
+                    </a>
+                    <ul class="menu-sub">
+                        <li class="menu-item {{ request()->is('mona/iis/maintanance-database*') ? 'active' : '' }}">
+                            <a class="menu-link" href="{{ url('mona/iis/maintanance-database') }}">
+                                <i class="fa fa-wrench me-2"></i>Maintanance Database
+                            </a>
+                        </li>
+                        <li class="menu-item {{ request()->is('mona/iis/maintanance-sap') ? 'active' : '' }}">
+                            <a class="menu-link" href="{{ url('mona/iis/maintanance-sap') }}">
+                                <i class="fa fa-wrench me-2"></i>Maintanance SAP
+                            </a>
+                        </li>
+                        <li class="menu-item {{ request()->is('mona/iis/maintanance-aplikasi') ? 'active' : '' }}">
+                            <a class="menu-link" href="{{ url('mona/iis/maintanance-aplikasi') }}">
+                                <i class="fa fa-wrench me-2"></i>Maintanance Aplikasi
+                            </a>
+                        </li>
+                        <li
+                            class="menu-item {{ request()->is('mona/iis/opertator-basis-data-omr-1') ? 'active' : '' }}">
+                            <a class="menu-link" href="{{ url('mona/iis/opertator-basis-data-omr-1') }}">
+                                <i class="fa fa-wrench me-2"></i>Operator Basis Data OMR 1
+                            </a>
+                        </li>
+                        <li
+                            class="menu-item {{ request()->is('mona/iis/opertator-basis-data-omr-2') ? 'active' : '' }}">
+                            <a class="menu-link" href="{{ url('mona/iis/opertator-basis-data-omr-2') }}">
+                                <i class="fa fa-wrench me-2"></i>Operator Basis Data OMR 2
+                            </a>
+                        </li>
+                        <li
+                            class="menu-item {{ request()->is('mona/iis/opertator-basis-data-omr-3') ? 'active' : '' }}">
+                            <a class="menu-link" href="{{ url('mona/iis/opertator-basis-data-omr-3') }}">
+                                <i class="fa fa-wrench me-2"></i>Operator Basis Data OMR 3
+                            </a>
+                        </li>
+                        <li class="menu-item {{ request()->is('mona/iis/maintanance-dashboard') ? 'active' : '' }}">
+                            <a class="menu-link" href="{{ url('mona/iis/maintanance-dashboard') }}">
+                                <i class="fa fa-wrench me-2"></i>Maintanance Dashboard
+                            </a>
+                        </li>
+                        <li class="menu-item {{ request()->is('mona/iis/general-administrasi') ? 'active' : '' }}">
+                            <a class="menu-link" href="{{ url('mona/iis/general-administrasi') }}">
+                                <i class="fa fa-wrench me-2"></i>General Administrasi
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+
         {{-- </ul>
         </li> --}}
 
