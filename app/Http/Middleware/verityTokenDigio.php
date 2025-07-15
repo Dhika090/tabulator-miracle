@@ -46,7 +46,8 @@ class verityTokenDigio
 
             return $next($request);
         } catch (\Exception $e) {
-            return redirect('/unauthorized')->with('error', 'Token tidak valid: ' . $e->getMessage());
+            return redirect()->away('https://digio.pgn.co.id')->with('error', 'Token tidak valid: ' . $e->getMessage());
+            // return redirect('/unauthorized')->with('error', 'Token tidak valid: ' . $e->getMessage());
         }
     }
 }
