@@ -3,7 +3,7 @@
     @push('styles')
         <link href="https://unpkg.com/tabulator-tables@5.6.0/dist/css/tabulator.min.css" rel="stylesheet">
         <style>
-          .tabulator-wrapper {
+            .tabulator-wrapper {
                 overflow-x: auto;
             }
 
@@ -22,13 +22,13 @@
                 box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             }
 
-            .tabulator-cell {
-                font-size: 14px;
-            }
-
             .tabulator .tabulator-cell {
                 white-space: normal !important;
                 word-wrap: break-word;
+            }
+
+            .tabulator-cell {
+                font-size: 14px;
             }
 
             .card {
@@ -110,11 +110,9 @@
                 color: red;
             }
 
-            input {
-                width: 100%;
-                padding: 8px;
-                margin-top: 5px;
-                margin-bottom: 10px;
+            #search-input,
+            button {
+                height: 40px;
             }
 
 
@@ -133,23 +131,21 @@
     <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-                <h5 class="card-title mb-3 mb-md-0">Real Anggaran Figure Jawa1Power</h5>
+                <h5 class="card-title mb-3 mb-md-0">Realisasi Progress Fisik AI Jawa 1 Power</h5>
                 <div class="d-flex flex-column flex-md-row align-items-center gap-3">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
-                    <button class="btn btn-outline-secondary ms-2 h-100 mt-1 d" type="button"
+                    <button class="btn btn-outline-secondary h-100" type="button"
                         onclick="clearSearch()">Clear</button>
                     <button class="btn btn-primary px-4 py-2" id="download-xlsx" style="white-space: nowrap;">
                         Export Excel
                     </button>
                 </div>
             </div>
-
             <div class="d-flex flex-column flex-md-row align-items-center gap-3">
                 <button onclick="openModal()" class="btn btn-primary px-4 py-2" style="white-space: nowrap;">
                     Create Data
                 </button>
-
                 <div class="dropdown me-2 position-relative" style="z-index: 1050;">
                     <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="tabDropdown"
                         data-bs-toggle="dropdown" aria-expanded="false">
@@ -191,250 +187,23 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Real Anggaran Figure Jawa1Power</h3>
+            <h3>Tambah Realisasi Progress Fisik AI Jawa 1 Power</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
-                <div>
-                    <label>Periode</label>
-                    <input type="month" name="periode" id="periode">
-                </div>
 
-                <div>
-                    <label>No</label>
-                    <input type="number" name="no" id="no">
-                </div>
-
-                <div>
-                    <label>Kategori AIBT</label>
-                    <input type="text" name="kategori_aibt" id="kategori_aibt">
-                </div>
-
-                <div>
-                    <label>Jenis Anggaran</label>
-                    <input type="text" name="jenis_anggaran" id="jenis_anggaran">
-                </div>
-
-                <div>
-                    <label>Besar RKAP</label>
-                    <input type="number" name="besar_rkap" id="besar_rkap">
-                </div>
-
-                <div>
-                    <label>Entitas</label>
-                    <input type="text" name="entitas" id="entitas">
-                </div>
-
-                <div>
-                    <label>Unit</label>
-                    <input type="text" name="unit" id="unit">
-                </div>
-
-                <div>
-                    <label>Nilai Kontrak</label>
-                    <input type="number" name="nilai_kontrak" id="nilai_kontrak">
-                </div>
-
-                <div>
-                    <label>Plan Jan</label>
-                    <input type="number" name="plan_jan" id="plan_jan">
-                </div>
-
-                <div>
-                    <label>Plan Feb</label>
-                    <input type="number" name="plan_feb" id="plan_feb">
-                </div>
-
-                <div>
-                    <label>Plan Mar</label>
-                    <input type="number" name="plan_mar" id="plan_mar">
-                </div>
-
-                <div>
-                    <label>Plan Apr</label>
-                    <input type="number" name="plan_apr" id="plan_apr">
-                </div>
-
-                <div>
-                    <label>Plan Mei</label>
-                    <input type="number" name="plan_mei" id="plan_mei">
-                </div>
-
-                <div>
-                    <label>Plan Jun</label>
-                    <input type="number" name="plan_jun" id="plan_jun">
-                </div>
-
-                <div>
-                    <label>Plan Jul</label>
-                    <input type="number" name="plan_jul" id="plan_jul">
-                </div>
-
-                <div>
-                    <label>Plan Agu</label>
-                    <input type="number" name="plan_agu" id="plan_agu">
-                </div>
-
-                <div>
-                    <label>Plan Sep</label>
-                    <input type="number" name="plan_sep" id="plan_sep">
-                </div>
-
-                <div>
-                    <label>Plan Okt</label>
-                    <input type="number" name="plan_okt" id="plan_okt">
-                </div>
-
-                <div>
-                    <label>Plan Nov</label>
-                    <input type="number" name="plan_nov" id="plan_nov">
-                </div>
-
-                <div>
-                    <label>Plan Des</label>
-                    <input type="number" name="plan_des" id="plan_des">
-                </div>
-
-                <div>
-                    <label>Prognosa Jan</label>
-                    <input type="number" name="prognosa_jan" id="prognosa_jan">
-                </div>
-
-                <div>
-                    <label>Prognosa Feb</label>
-                    <input type="number" name="prognosa_feb" id="prognosa_feb">
-                </div>
-
-                <div>
-                    <label>Prognosa Mar</label>
-                    <input type="number" name="prognosa_mar" id="prognosa_mar">
-                </div>
-
-                <div>
-                    <label>Prognosa Apr</label>
-                    <input type="number" name="prognosa_apr" id="prognosa_apr">
-                </div>
-
-                <div>
-                    <label>Prognosa Mei</label>
-                    <input type="number" name="prognosa_mei" id="prognosa_mei">
-                </div>
-
-                <div>
-                    <label>Prognosa Jun</label>
-                    <input type="number" name="prognosa_jun" id="prognosa_jun">
-                </div>
-
-                <div>
-                    <label>Prognosa Jul</label>
-                    <input type="number" name="prognosa_jul" id="prognosa_jul">
-                </div>
-
-                <div>
-                    <label>Prognosa Agu</label>
-                    <input type="number" name="prognosa_agu" id="prognosa_agu">
-                </div>
-
-                <div>
-                    <label>Prognosa Sep</label>
-                    <input type="number" name="prognosa_sep" id="prognosa_sep">
-                </div>
-
-                <div>
-                    <label>Prognosa Okt</label>
-                    <input type="number" name="prognosa_okt" id="prognosa_okt">
-                </div>
-
-                <div>
-                    <label>Prognosa Nov</label>
-                    <input type="number" name="prognosa_nov" id="prognosa_nov">
-                </div>
-
-                <div>
-                    <label>Prognosa Des</label>
-                    <input type="number" name="prognosa_des" id="prognosa_des">
-                </div>
-
-                <div>
-                    <label>Actual Jan</label>
-                    <input type="number" name="actual_jan" id="actual_jan">
-                </div>
-
-                <div>
-                    <label>Actual Feb</label>
-                    <input type="number" name="actual_feb" id="actual_feb">
-                </div>
-
-                <div>
-                    <label>Actual Mar</label>
-                    <input type="number" name="actual_mar" id="actual_mar">
-                </div>
-
-                <div>
-                    <label>Actual Apr</label>
-                    <input type="number" name="actual_apr" id="actual_apr">
-                </div>
-
-                <div>
-                    <label>Actual Mei</label>
-                    <input type="number" name="actual_mei" id="actual_mei">
-                </div>
-
-                <div>
-                    <label>Actual Jun</label>
-                    <input type="number" name="actual_jun" id="actual_jun">
-                </div>
-
-                <div>
-                    <label>Actual Jul</label>
-                    <input type="number" name="actual_jul" id="actual_jul">
-                </div>
-
-                <div>
-                    <label>Actual Agu</label>
-                    <input type="number" name="actual_agu" id="actual_agu">
-                </div>
-
-                <div>
-                    <label>Actual Sep</label>
-                    <input type="number" name="actual_sep" id="actual_sep">
-                </div>
-
-                <div>
-                    <label>Actual Okt</label>
-                    <input type="number" name="actual_okt" id="actual_okt">
-                </div>
-
-                <div>
-                    <label>Actual Nov</label>
-                    <input type="number" name="actual_nov" id="actual_nov">
-                </div>
-
-                <div>
-                    <label>Actual Des</label>
-                    <input type="number" name="actual_des" id="actual_des">
-                </div>
-
-                <div>
-                    <label>Kode</label>
-                    <input type="text" name="kode" id="kode">
-                </div>
-
-                <div>
-                    <label>Kendala</label>
-                    <input type="text" name="kendala" id="kendala">
-                </div>
-
-                <div>
-                    <label>Tindak Lanjut</label>
-                    <input type="text" name="tindak_lanjut" id="tindak_lanjut">
+                <div class="mb-3">
+                    <label for="jumlah_row" class="form-label">Jumlah Row yang ingin dibuat</label>
+                    <input type="number" name="jumlah_row" id="jumlah_row" class="form-control" min="1"
+                        value="1" required>
                 </div>
 
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
+
         </div>
     </div>
 
-    
+
     <div id="toastNotification"
         style="display:none; position: fixed; top: 20px; right: 20px; z-index: 9999; padding: 15px 20px; border-radius: 8px; color: white; font-weight: bold;">
     </div>
@@ -443,6 +212,8 @@
         <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
 
         <script>
+            const BASE_URL = "{{ config('app.url') }}";
+
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
                     fetch(`real-anggaran-figure-jawa1power/${id}`, {
@@ -478,6 +249,11 @@
                             value: keyword
                         },
                         {
+                            field: "program_kerja",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
                             field: "kategori_aibt",
                             type: "like",
                             value: keyword
@@ -506,6 +282,21 @@
                             field: "nilai_kontrak",
                             type: "like",
                             value: keyword
+                        },
+                        {
+                            field: "kode",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "kendala",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "tindak_lanjut",
+                            type: "like",
+                            value: keyword
                         }
                     ]
                 ]);
@@ -517,7 +308,7 @@
             }
 
             function loadData() {
-                fetch("/monev/shpnre/input-data/real-anggaran-figure-jawa1power/data", {
+                fetch(`${BASE_URL}/monev/shpnre/input-data/real-anggaran-figure-jawa1power/data`, {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -547,10 +338,17 @@
                 const columnMap = {
                     "real-anggaran-figure-jawa1power": [{
                             title: "No",
-                            formatter: "rownum",
+                            formatter: function(cell) {
+                                const row = cell.getRow();
+                                const table = cell.getTable();
+                                const sortedData = table.getRows("active").map(r => r.getData());
+                                const index = sortedData.findIndex(data => data.id === row.getData().id);
+                                return index + 1;
+                            },
                             hozAlign: "center",
                             width: 60,
-                            download: false,
+                            headerSort: false,
+                            download: false
                         },
                         {
                             title: "ID",
@@ -583,8 +381,13 @@
                         {
                             title: "No",
                             field: "no",
-                            hozAlign: "center",
-                            editor: "number"
+                            editor: "input"
+                        },
+                        {
+                            title: "Program Kerja",
+                            field: "program_kerja",
+                            width: 450,
+                            editor: "input"
                         },
                         {
                             title: "Kategori AIBT",
@@ -616,186 +419,20 @@
                             field: "nilai_kontrak",
                             editor: "number"
                         },
-                        {
-                            title: "Plan Jan",
-                            field: "plan_jan",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Feb",
-                            field: "plan_feb",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Mar",
-                            field: "plan_mar",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Apr",
-                            field: "plan_apr",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Mei",
-                            field: "plan_mei",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Jun",
-                            field: "plan_jun",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Jul",
-                            field: "plan_jul",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Agu",
-                            field: "plan_agu",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Sep",
-                            field: "plan_sep",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Okt",
-                            field: "plan_okt",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Nov",
-                            field: "plan_nov",
-                            editor: "number"
-                        },
-                        {
-                            title: "Plan Des",
-                            field: "plan_des",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Jan",
-                            field: "prognosa_jan",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Feb",
-                            field: "prognosa_feb",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Mar",
-                            field: "prognosa_mar",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Apr",
-                            field: "prognosa_apr",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Mei",
-                            field: "prognosa_mei",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Jun",
-                            field: "prognosa_jun",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Jul",
-                            field: "prognosa_jul",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Agu",
-                            field: "prognosa_agu",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Sep",
-                            field: "prognosa_sep",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Okt",
-                            field: "prognosa_okt",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Nov",
-                            field: "prognosa_nov",
-                            editor: "number"
-                        },
-                        {
-                            title: "Prognosa Des",
-                            field: "prognosa_des",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Jan",
-                            field: "actual_jan",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Feb",
-                            field: "actual_feb",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Mar",
-                            field: "actual_mar",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Apr",
-                            field: "actual_apr",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Mei",
-                            field: "actual_mei",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Jun",
-                            field: "actual_jun",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Jul",
-                            field: "actual_jul",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Agu",
-                            field: "actual_agu",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Sep",
-                            field: "actual_sep",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Okt",
-                            field: "actual_okt",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Nov",
-                            field: "actual_nov",
-                            editor: "number"
-                        },
-                        {
-                            title: "Actual Des",
-                            field: "actual_des",
-                            editor: "number"
-                        },
+                        // Plan Fields
+                        ...["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+                        .map(bulan => ({
+                            title: `Plan ${bulan}`,
+                            field: `plan_${bulan.toLowerCase()}`,
+                            editor: "input"
+                        })),
+                        // Actual Fields
+                        ...["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+                        .map(bulan => ({
+                            title: `Actual ${bulan}`,
+                            field: `actual_${bulan.toLowerCase()}`,
+                            editor: "input"
+                        })),
                         {
                             title: "Kode",
                             field: "kode",
@@ -809,31 +446,34 @@
                         {
                             title: "Tindak Lanjut",
                             field: "tindak_lanjut",
-                            editor: "input"
+                            editor: "input",
+                            width: 400
                         },
-                       {
-    title: "Aksi",
-    download: false,
-    hozAlign: "center",
-    width: 150,
-    formatter: (cell) => {
-        const row = cell.getData();
-        return `
+                        {
+                            title: "Aksi",
+                            download: false,
+                            hozAlign: "center",
+                            width: 150,
+                            formatter: (cell) => {
+                                const row = cell.getData();
+                                return `
             <button onclick='deleteData("${row.id}")'
                 class="btn btn-sm btn-danger">
                 <i class="bi bi-trash"></i> Hapus
             </button>
         `;
-    }
-}
+                            }
+                        }
                     ]
                 };
 
                 window.table = new Tabulator("#example-table", {
-                    layout: "fitDataTable",
-                    responsiveLayout: "collapse",
+                    layout: "fitDataStretch",
+                    headerWordWrap: true,
                     autoResize: true,
                     columns: columnMap["real-anggaran-figure-jawa1power"],
+                    virtualDom: true,
+                    height: "700px",
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -890,27 +530,6 @@
                     });
                 });
 
-                table.on("cellEdited", function(cell) {
-                    const updatedData = cell.getRow().getData();
-                    const id = updatedData.id;
-
-                    if (!id) return;
-
-                    fetch(`real-anggaran-figure-jawa1power/${id}`, {
-                            method: "PUT",
-                            headers: {
-                                "Content-Type": "application/json",
-                                "Accept": "application/json",
-                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
-                                    .getAttribute("content")
-                            },
-                            body: JSON.stringify(updatedData)
-                        })
-                        .then(res => res.json())
-                        .then(data => console.log("Update berhasil:", data))
-                        .catch(err => console.error("Gagal update:", err));
-                });
-
                 let previousData = [];
                 table.on("dataLoaded", function(newData) {
                     previousData = JSON.parse(JSON.stringify(newData));
@@ -931,11 +550,128 @@
                     return changes;
                 }
 
+                function isValidPeriodeFormat(value) {
+                    const regex = /^\d{4}$/;
+                    return regex.test(value);
+                }
+
+                function isValidDecimal(value) {
+                    if (value === null || value === undefined || value === "") return true;
+                    const number = parseFloat(value);
+                    return (
+                        !isNaN(number) &&
+                        number >= 0 &&
+                        number <= 100 &&
+                        /^\d{1,3}(\.\d{1,2})?$/.test(value.toString())
+                    );
+                }
+                const bulan = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
+
+                table.on("cellEdited", function(cell) {
+                    const updatedData = cell.getRow().getData();
+                    const id = updatedData.id;
+                    if (!id) return;
+                    const field = cell.getField();
+                    const value = cell.getValue();
+
+                    if (field === "periode" && !isValidPeriodeFormat(value)) {
+                        showToast(`"${value}" Format Periode tidak valid! Gunakan format: 2025`, "error");
+                        cell.restoreOldValue();
+                        return;
+                    }
+
+                    if (
+                        field.startsWith("plan_") ||
+                        field.startsWith("actual_")
+                    ) {
+                        if (!isValidDecimal(value)) {
+                            showToast(
+                                `"${value}" tidak valid! Input harus berupa desimal, maksimal 100, tanpa ribuan`,
+                                "error");
+                            cell.restoreOldValue();
+                            return;
+                        }
+                    }
+
+                    fetch(`real-anggaran-figure-jawa1power/${id}`, {
+                            method: "PUT",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute("content")
+                            },
+                            body: JSON.stringify(updatedData)
+                        })
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.success) {
+                                showToast("Update berhasil!", "success");
+                            } else {
+                                showToast("Update gagal: " + data.message, "error");
+                            }
+                        })
+                        .catch(err => {
+                            console.error("Gagal update:", err);
+                            showToast("Terjadi kesalahan saat update!", "error");
+                        });
+                });
+
                 table.on("dataChanged", function(newData) {
                     const changedRows = getChangedRows(newData, previousData);
                     console.log("Baris yang berubah:", changedRows);
 
-                    changedRows.forEach(rowData => {
+                    changedRows.forEach((rowData, index) => {
+                        const id = rowData.id;
+                        if (!id) return;
+
+                        const oldRow = previousData.find(r => r.id === id);
+                        if (!oldRow) return;
+
+                        if (rowData.periode !== oldRow.periode && !isValidPeriodeFormat(rowData
+                                .periode)) {
+                            showToast(
+                                `"${rowData.periode}" Format Periode tidak valid! Gunakan format: 2025`,
+                                "error");
+
+                            table.updateData([{
+                                id: rowData.id,
+                                periode: oldRow.periode
+                            }]);
+
+                            return;
+                        }
+
+                        let invalidField = null;
+
+                        for (let b of bulan) {
+                            for (let prefix of ["plan_", "actual_"]) {
+                                const field = prefix + b;
+                                const newValue = rowData[field];
+                                const oldValue = oldRow[field];
+
+                                if (newValue !== oldValue && !isValidDecimal(newValue)) {
+                                    invalidField = field;
+                                    break;
+                                }
+                            }
+                            if (invalidField) break;
+                        }
+
+                        if (invalidField) {
+                            showToast(
+                                `"${rowData[invalidField]}" Nilai pada kolom "${invalidField}" tidak valid! Gunakan angka desimal 0 - 100 tanpa ribuan`,
+                                "error");
+
+                            const rollbackData = {
+                                id
+                            };
+                            rollbackData[invalidField] = oldRow[invalidField];
+
+                            table.updateData([rollbackData]);
+                            return;
+                        }
+
                         fetch(`real-anggaran-figure-jawa1power/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
@@ -948,29 +684,37 @@
                             })
                             .then(res => res.json())
                             .then(response => {
-                                console.log("Data berhasil disimpan:", response);
+                                if (response.success) {
+                                    showToast(`Data berhasil disimpan`, "success");
+                                } else {
+                                    showToast(
+                                        `Format Periode tidak valid! Gunakan format: Jan-25 : ${response.message}`,
+                                        "error");
+                                }
                             })
                             .catch(err => {
                                 console.error("Gagal menyimpan hasil paste:", err);
+                                showToast(`Kesalahan pada ID ${id}`, "error");
                             });
                     });
 
                     previousData = JSON.parse(JSON.stringify(newData));
                 });
+
                 loadData();
             });
         </script>
 
         {{-- create data  --}}
         <script>
-           function showToast(message, type = "success") {
+            function showToast(message, type = "success") {
                 const toast = document.getElementById("toastNotification");
                 toast.textContent = message;
                 toast.className = "";
                 toast.classList.add(type === "success" ? "toast-success" : "toast-error");
                 toast.style.display = "block";
 
-               setTimeout(() => {
+                setTimeout(() => {
                     toast.style.display = "none";
                 }, 3500);
             }
@@ -990,32 +734,79 @@
 
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
+                const jumlahRow = parseInt(data.jumlah_row);
 
-                fetch("real-anggaran-figure-jawa1power", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Accept": "application/json",
-                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute(
-                                "content")
-                        },
-                        body: JSON.stringify({
-                            periode: data.periode,
-                            company: data.company,
-                            judul_pelatihan: data.judul_pelatihan,
-                            realisasi_perwira: data.realisasi_perwira
-                        })
-                    })
-                    .then(response => response.json())
-                    .then(result => {
-                        if (result.success) {
-                            showToast(result.message || "Data berhasil disimpan", "success");
-                            table.setData("/monev/shpnre/input-data/real-anggaran-figure-jawa1power/data");
-                            this.reset();
-                            closeModal();
+                const payloadArray = [];
+
+                for (let i = 0; i < jumlahRow; i++) {
+                    payloadArray.push({
+                        periode: data.periode,
+                        no: data.no,
+                        program_kerja: data.program_kerja,
+                        kategori_aibt: data.kategori_aibt,
+                        jenis_anggaran: data.jenis_anggaran,
+                        besar_rkap: data.besar_rkap,
+                        entitas: data.entitas,
+                        unit: data.unit,
+                        nilai_kontrak: data.nilai_kontrak,
+
+                        plan_jan: data.plan_jan,
+                        plan_feb: data.plan_feb,
+                        plan_mar: data.plan_mar,
+                        plan_apr: data.plan_apr,
+                        plan_may: data.plan_may,
+                        plan_jun: data.plan_jun,
+                        plan_jul: data.plan_jul,
+                        plan_aug: data.plan_aug,
+                        plan_sep: data.plan_sep,
+                        plan_oct: data.plan_oct,
+                        plan_nov: data.plan_nov,
+                        plan_dec: data.plan_dec,
+
+                        actual_jan: data.actual_jan,
+                        actual_feb: data.actual_feb,
+                        actual_mar: data.actual_mar,
+                        actual_apr: data.actual_apr,
+                        actual_may: data.actual_may,
+                        actual_jun: data.actual_jun,
+                        actual_jul: data.actual_jul,
+                        actual_aug: data.actual_aug,
+                        actual_sep: data.actual_sep,
+                        actual_oct: data.actual_oct,
+                        actual_nov: data.actual_nov,
+                        actual_dec: data.actual_dec,
+
+                        kode: data.kode,
+                        kendala: data.kendala,
+                        tindak_lanjut: data.tindak_lanjut,
+                    });
+                }
+
+                Promise.all(payloadArray.map(dataItem => {
+                        return fetch("real-anggaran-figure-jawa1power", {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                    "Accept": "application/json",
+                                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                        .getAttribute("content")
+                                },
+                                body: JSON.stringify(dataItem)
+                            })
+                            .then(res => res.json());
+                    }))
+                    .then(results => {
+                        const gagal = results.filter(r => !r.success);
+                        if (gagal.length === 0) {
+                            showToast(`${jumlahRow} baris data berhasil buat`, "success");
                         } else {
-                            showToast(result.message || "Gagal menyimpan data", "error");
+                            showToast(`${gagal.length} data gagal disimpan`, "error");
                         }
+
+                        table.setData(
+                            `${BASE_URL}/monev/shpnre/input-data/real-anggaran-figure-jawa1power/data`);
+                        document.getElementById("createForm").reset();
+                        closeModal();
                     })
                     .catch(error => {
                         console.error("Error saat submit:", error);

@@ -61,13 +61,35 @@ class AuthController extends Controller
                     'user' => $user,
                 ])
 
-                ->cookie('digio_token', $token, 60, '/', true, null, false, false);
+                // ->cookie('digio_token', $token, 60, '/', false, null, false, false);
+                ->cookie(
+                    'digio_token',
+                    $token,
+                    60,            // Menit
+                    '/',           // Path root
+                    request()->getHost(), // Domain: bisa diubah ke domain spesifik
+                    true,          // Secure: HANYA terkirim via HTTPS (true di production)
+                    true,          // HttpOnly: tidak bisa diakses via JavaScript
+                    false,         // Raw (jarang digunakan)
+                    'Strict'       // SameSite policy: 'Strict' | 'Lax' | 'None'
+                );
         } catch (\Exception $e) {
             return response()->json([
                 'error' => 'Token tidak valid: ' . $e->getMessage(),
                 'console' => 'Login failed'
             ], 403)
-                ->cookie('digio_token', '', 0);
+                ->cookie(
+                    'digio_token',
+                    '',
+                    -1,
+                    '/',
+                    request()->getHost(),
+                    true,          // secure
+                    true,          // httpOnly
+                    false,
+                    'Strict'
+                );
         }
+
     }
 }

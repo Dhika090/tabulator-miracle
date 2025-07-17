@@ -3,7 +3,7 @@
     @push('styles')
         <link href="https://unpkg.com/tabulator-tables@5.6.0/dist/css/tabulator.min.css" rel="stylesheet">
         <style>
-          .tabulator-wrapper {
+            .tabulator-wrapper {
                 overflow-x: auto;
             }
 
@@ -24,14 +24,13 @@
 
             .tabulator-cell {
                 font-size: 14px;
-                white-space: normal !important;
-                word-wrap: break-word;
             }
 
             .tabulator .tabulator-cell {
                 white-space: normal !important;
                 word-wrap: break-word;
             }
+
 
             .card {
                 margin-top: 20px;
@@ -112,11 +111,9 @@
                 color: red;
             }
 
-            input {
-                width: 100%;
-                padding: 8px;
-                margin-top: 5px;
-                margin-bottom: 10px;
+            #search-input,
+            button {
+                height: 40px;
             }
 
 
@@ -139,7 +136,7 @@
                 <div class="d-flex flex-column flex-md-row align-items-center gap-3">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
-                    <button class="btn btn-outline-secondary ms-2 h-100 mt-1 d" type="button"
+                    <button class="btn btn-outline-secondary h-100" type="button"
                         onclick="clearSearch()">Clear</button>
                     <button class="btn btn-primary px-4 py-2" id="download-xlsx" style="white-space: nowrap;">
                         Export Excel
@@ -193,58 +190,23 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Tambah Data Availability Jawa 1 Power</h3>
+            <h3>Availability JAWA1POWER</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
 
-                <div>
-                    <label>Periode</label>
-                    <input type="month" name="periode" id="periode">
-                </div>
-
-                <div>
-                    <label>Company</label>
-                    <input type="text" name="company" id="company">
-                </div>
-
-                <div>
-                    <label>Kategori</label>
-                    <input type="text" name="kategori" id="kategori">
-                </div>
-
-                <div>
-                    <label>Target</label>
-                    <input type="number" name="target" id="target" step="0.01" min="0" max="100">
-
-                </div>
-
-                <div>
-                    <label>Availability</label>
-                    <input type="number" name="availability" id="availability" step="0.01" min="0"
-                        max="100">
-                </div>
-
-                <div>
-                    <label>Isu / Problem / Bad Actor</label>
-                    <input type="text" name="isu" id="isu"></input>
-                </div>
-
-                <div>
-                    <label>Kendala</label>
-                    <input type="text" name="kendala" id="kendala"></input>
-                </div>
-
-                <div>
-                    <label>Tindak Lanjut</label>
-                    <input type="text" name="tindak_lanjut" id="tindak_lanjut"></input>
+                <div class="mb-3">
+                    <label for="jumlah_row" class="form-label">Jumlah Row yang ingin dibuat</label>
+                    <input type="number" name="jumlah_row" id="jumlah_row" class="form-control" min="1"
+                        value="1" required>
                 </div>
 
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
+
+
         </div>
     </div>
 
-    
     <div id="toastNotification"
         style="display:none; position: fixed; top: 20px; right: 20px; z-index: 9999; padding: 15px 20px; border-radius: 8px; color: white; font-weight: bold;">
     </div>
@@ -253,6 +215,8 @@
         <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
 
         <script>
+            const BASE_URL = "{{ config('app.url') }}";
+
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
                     fetch(`availability-jawa1power/${id}`, {
@@ -272,11 +236,6 @@
                             showToast("Terjadi kesalahan saat mengirim data.", "error");
                         });
                 }
-            }
-
-            function clearSearch() {
-                document.getElementById("search-input").value = "";
-                table.clearFilter();
             }
 
             document.getElementById("search-input").addEventListener("input", function(e) {
@@ -326,8 +285,13 @@
                 ]);
             });
 
+            function clearSearch() {
+                document.getElementById("search-input").value = "";
+                table.clearFilter();
+            }
+
             function loadData() {
-                fetch("/monev/shpnre/input-data/availability-jawa1power/data", {
+                fetch(`${BASE_URL}/monev/shpnre/input-data/availability-jawa1power/data`, {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -370,26 +334,25 @@
 
                 const formatPercent = (cell) => {
                     let value = parseFloat(cell.getValue());
-                    return isNaN(value) ? "-" : value.toFixed(2) + " %";
+                    if (isNaN(value)) return "-";
+                    const displayValue = value <= 1 ? value * 100 : value;
+                    return displayValue.toFixed(2) + " %";
                 };
 
                 const columnMap = {
-                    "availability-jawa1power": [  {
+                    "availability-jawa1power": [{
                             title: "No",
-                            hozAlign: "center",
-                            width: 60,
-                            download: false,
                             formatter: function(cell) {
                                 const row = cell.getRow();
-                                const table = row.getTable();
-
-                                const pageSize = table.getPageSize();
-                                const currentPage = table.getPage();
-                                const rowIndex = row
-                                    .getPosition();
-
-                                return ((currentPage - 1) * pageSize) + rowIndex;
-                            }
+                                const table = cell.getTable();
+                                const sortedData = table.getRows("active").map(r => r.getData());
+                                const index = sortedData.findIndex(data => data.id === row.getData().id);
+                                return index + 1;
+                            },
+                            hozAlign: "center",
+                            width: 60,
+                            headerSort: false,
+                            download: false
                         },
                         {
                             title: "ID",
@@ -482,7 +445,6 @@
                         {
                             title: "Company",
                             field: "company",
-                            hozAlign: "center",
                             editor: "input"
                         },
                         {
@@ -507,47 +469,45 @@
                         {
                             title: "Isu / Problem / Bad Actor",
                             field: "isu",
-                            editor: "textarea",
-                            width: 400,
-                            hozAlign: "center",
-
+                            editor: "input",
+                            width: 400
                         },
                         {
                             title: "Kendala",
                             field: "kendala",
-                            editor: "input",
-                            width: 400
-
+                            editor: "input"
                         },
                         {
                             title: "Tindak Lanjut",
                             field: "tindak_lanjut",
                             editor: "input"
                         },
-                       {
-    title: "Aksi",
-    download: false,
-    hozAlign: "center",
-    width: 150,
-    formatter: (cell) => {
-        const row = cell.getData();
-        return `
+                        {
+                            title: "Aksi",
+                            download: false,
+                            hozAlign: "center",
+                            width: 150,
+                            formatter: (cell) => {
+                                const row = cell.getData();
+                                return `
             <button onclick='deleteData("${row.id}")'
                 class="btn btn-sm btn-danger">
                 <i class="bi bi-trash"></i> Hapus
             </button>
         `;
-    }
-}
+                            }
+                        }
                     ]
                 };
 
-
                 window.table = new Tabulator("#example-table", {
-                    layout: "fitDataTable",
-                    responsiveLayout: "collapse",
+                    layout: "fitDataStretch",
+                    headerWordWrap: true,
                     autoResize: true,
                     columns: columnMap["availability-jawa1power"],
+
+                    virtualDom: true,
+                    height: "700px",
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -581,102 +541,175 @@
                     },
                 });
 
-                document.getElementById("download-xlsx").addEventListener("click", () => {
-                    table.download("xlsx", "availability-jawa1power.xlsx", {
+                document.getElementById("download-xlsx").addEventListener("click", function() {
+                    window.table.download("xlsx", "availability-jawa1power.xlsx", {
                         sheetName: "availability-jawa1power",
                         columnHeaders: true,
-                        downloadDataFormatter: (data) => data.map(cleanRow)
+                        downloadDataFormatter: function(data) {
+                            return data.map(row => {
+                                const cleanedRow = {};
+                                for (const [key, value] of Object.entries(row)) {
+                                    const valStr = String(value).trim().toLowerCase();
+                                    cleanedRow[key] = (
+                                        value === null ||
+                                        value === undefined ||
+                                        value === "" ||
+                                        valStr === "null" ||
+                                        valStr === "undefined"
+                                    ) ? "" : value;
+                                }
+                                return cleanedRow;
+                            });
+                        }
                     });
                 });
 
                 let previousDataMap = new Map();
 
-                // Load data
-                function loadData() {
-                    fetch("/monev/shpnre/input-data/availability-jawa1power/data", {
+                function isValidPeriodeFormat(value) {
+                    const regex = /^[A-Za-z]{3}-\d{2}$/;
+                    return regex.test(value);
+                }
+
+                let previousData = [];
+                table.on("dataLoaded", function(newData) {
+                    previousData = JSON.parse(JSON.stringify(newData));
+                });
+
+                table.on("cellEdited", function(cell) {
+                    const updatedData = cell.getRow().getData();
+                    const field = cell.getField();
+                    const id = updatedData.id;
+
+                    if (!id) return;
+
+                    if (cell.getField() === "periode" && !isValidPeriodeFormat(cell.getValue())) {
+                        showToast("Format Periode tidak valid! Gunakan format: Sep-24", "error");
+                        cell.restoreOldValue();
+                        return;
+                    }
+
+                    if (field === "target" || field === "availability") {
+                        let value = parseFloat(cell.getValue());
+                        if (!isNaN(value)) {
+                            updatedData[field] = value > 1 ? (value / 100) : value;
+
+                            cell.getRow().update({
+                                [field]: updatedData[field]
+                            });
+                        }
+                    }
+
+                    fetch(`availability-jawa1power/${id}`, {
+                            method: "PUT",
                             headers: {
-                                "Accept": "application/json"
-                            }
+                                "Content-Type": "application/json",
+                                "Accept": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute("content")
+                            },
+                            body: JSON.stringify(updatedData)
                         })
                         .then(res => res.json())
                         .then(data => {
-                            const cleaned = data.map(cleanRow);
-                            previousDataMap = new Map(cleaned.map(item => [item.id, JSON.stringify(item)]));
-                            table.setData(cleaned);
-                        })
-                        .catch(err => console.error("Gagal load data:", err));
-                }
-
-                // Debounce untuk batch update
-                let debounceTimer;
-                table.on("dataChanged", function(newData) {
-                    clearTimeout(debounceTimer);
-                    debounceTimer = setTimeout(() => {
-                        const changedRows = [];
-
-                        for (const row of newData) {
-                            const id = row.id;
-                            if (!id) continue;
-
-                            const oldRowStr = previousDataMap.get(id);
-                            const currentRowStr = JSON.stringify(row);
-
-                            if (oldRowStr && oldRowStr !== currentRowStr) {
-                                // Convert persen ke number jika perlu
-                                ["target", "availability"].forEach(field => {
-                                    if (typeof row[field] === "string") {
-                                        row[field] = parseFloat(row[field].replace("%", "")
-                                            .trim());
-                                    }
-                                });
-
-                                changedRows.push({
-                                    ...row
-                                });
+                            if (data.success) {
+                                showToast("Update berhasil!", "success");
+                            } else {
+                                showToast("Update gagal: " + data.message, "error");
                             }
-                        }
-
-                        if (changedRows.length > 0) {
-                            console.log("Changed rows:", changedRows);
-
-                            // Simpan secara paralel
-                            Promise.all(changedRows.map(row =>
-                                fetch(`availability-jawa1power/${row.id}`, {
-                                    method: "PUT",
-                                    headers: {
-                                        "Content-Type": "application/json",
-                                        "Accept": "application/json",
-                                        "X-CSRF-TOKEN": CSRF_TOKEN
-                                    },
-                                    body: JSON.stringify(row)
-                                })
-                                .then(res => res.json())
-                                .then(resp => console.log(`Updated ID ${row.id}`, resp))
-                                .catch(err => console.error(`Gagal update ID ${row.id}`, err))
-                            ));
-
-                            // Update previousDataMap
-                            changedRows.forEach(row => {
-                                previousDataMap.set(row.id, JSON.stringify(row));
-                            });
-                        }
-                    }, 1000); // debounce 1 detik
+                        })
+                        .catch(err => {
+                            console.error("Gagal update:", err);
+                            showToast("Terjadi kesalahan saat update!", "error");
+                        });
                 });
 
+                function getChangedRows(newData, oldData) {
+                    const changes = [];
+                    newData.forEach((row, index) => {
+                        if (!row.id) return;
+                        const oldRow = oldData.find(old => old.id === row.id);
+                        if (!oldRow) return;
+
+                        const isDifferent = Object.keys(row).some(key => row[key] !== oldRow[key]);
+                        if (isDifferent) changes.push({
+                            new: row,
+                            old: oldRow
+                        });
+                    });
+                    return changes;
+                }
+
+                table.on("dataChanged", function(newData) {
+                    const changedRows = getChangedRows(newData, previousData);
+
+                    changedRows.forEach(({
+                        new: newRow,
+                        old: oldRow
+                    }) => {
+                        const id = newRow.id;
+                        if (!id) return;
+
+                        if (newRow.periode !== oldRow.periode && !isValidPeriodeFormat(newRow
+                                .periode)) {
+                            showToast(
+                                `"${newRow.periode}" Format Periode tidak valid! Gunakan format: Jan-25`,
+                                "error");
+
+                            table.updateData([{
+                                id: newRow.id,
+                                periode: oldRow.periode
+                            }]);
+                            return;
+                        }
+
+                        ["target", "availability"].forEach(field => {
+                            const value = parseFloat(newRow[field]);
+                            if (!isNaN(value)) {
+                                newRow[field] = value > 1 ? (value / 100) : value;
+                            }
+                        });
+
+                        fetch(`availability-jawa1power/${id}`, {
+                                method: "PUT",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                    "Accept": "application/json",
+                                    "X-CSRF-TOKEN": document.querySelector(
+                                        'meta[name="csrf-token"]').getAttribute("content")
+                                },
+                                body: JSON.stringify(newRow)
+                            })
+                            .then(res => res.json())
+                            .then(response => {
+                                if (response.success) {
+                                    showToast(`Data berhasil disimpan`, "success");
+                                } else {
+                                    showToast(`Gagal simpan : ${response.message}`, "error");
+                                }
+                            })
+                            .catch(err => {
+                                console.error("Gagal simpan hasil paste:", err);
+                                showToast(`Kesalahan pada ID ${id}`, "error");
+                            });
+                    });
+
+                    previousData = JSON.parse(JSON.stringify(newData));
+                });
                 loadData();
             });
         </script>
 
         {{-- create data  --}}
         <script>
-           function showToast(message, type = "success") {
+            function showToast(message, type = "success") {
                 const toast = document.getElementById("toastNotification");
                 toast.textContent = message;
                 toast.className = "";
                 toast.classList.add(type === "success" ? "toast-success" : "toast-error");
                 toast.style.display = "block";
 
-               setTimeout(() => {
+                setTimeout(() => {
                     toast.style.display = "none";
                 }, 3500);
             }
@@ -690,44 +723,51 @@
                 document.getElementById("form-id").value = "";
                 document.getElementById("createModal").style.display = "none";
             }
-
             document.getElementById("createForm").addEventListener("submit", function(e) {
                 e.preventDefault();
 
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
 
-                fetch("availability-jawa1power", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Accept": "application/json",
-                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute(
-                                "content")
-                        },
+                const jumlahRow = parseInt(data.jumlah_row);
+                const payloadArray = [];
 
-                        body: JSON.stringify({
-                            periode: data.periode,
-                            company: data.company,
-                            kategori: data.kategori || null,
-                            target: data.target || null,
-                            availability: data.availability || null,
-                            isu: data.isu || null,
-                            kendala: data.kendala || null,
-                            tindak_lanjut: data.tindak_lanjut || null,
-                        })
+                for (let i = 0; i < jumlahRow; i++) {
+                    payloadArray.push({
+                        periode: data.periode,
+                        company: data.company,
+                        kategori: data.kategori,
+                        target: data.target,
+                        availability: data.availability,
+                        isu: data.isu,
+                        kendala: data.kendala,
+                        tindak_lanjut: data.tindak_lanjut,
+                    });
+                }
 
-                    })
-                    .then(response => response.json())
-                    .then(result => {
-                        if (result.success) {
-                            showToast(result.message || "Data berhasil disimpan", "success");
-                            table.setData("/monev/shpnre/input-data/availability-jawa1power/data");
-                            this.reset();
-                            closeModal();
+                Promise.all(payloadArray.map(dataItem => {
+                        return fetch("availability-jawa1power", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute("content")
+                            },
+                            body: JSON.stringify(dataItem)
+                        }).then(res => res.json());
+                    }))
+                    .then(results => {
+                        const gagal = results.filter(r => !r.success);
+                        if (gagal.length === 0) {
+                            showToast(`${jumlahRow} baris data berhasil buat`, "success");
                         } else {
-                            showToast(result.message || "Gagal menyimpan data", "error");
+                            showToast(`${gagal.length} data gagal disimpan`, "error");
                         }
+
+                        table.setData(`${BASE_URL}/monev/shpnre/input-data/availability-jawa1power/data`);
+                        document.getElementById("createForm").reset();
+                        closeModal();
                     })
                     .catch(error => {
                         console.error("Error saat submit:", error);
@@ -771,6 +811,7 @@
                     });
                 });
 
+                // Ketika halaman reload setelah klik, cek dan scroll otomatis
                 if (sessionStorage.getItem('scrollToActiveTab') === 'yes') {
                     scrollToActiveTab();
                     sessionStorage.removeItem('scrollToActiveTab');

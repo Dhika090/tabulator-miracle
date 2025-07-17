@@ -632,7 +632,7 @@ use Illuminate\Support\Facades\App;
 // })->name('login');
 
 // Route::post('/auth/digio-token-login', [AuthController::class, 'loginWithDigioToken']);
-Route::post('/auth/digio-jwt-login', [AuthController::class, 'loginFromDigioToken']);
+Route::get('/auth/digio-jwt-login', [AuthController::class, 'loginFromDigioToken']);
 
 
 Route::get('monev-aim', [MonevAimController::class, 'index'])

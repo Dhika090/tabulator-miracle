@@ -189,7 +189,7 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Tambah Target SAP</h3>
+            <h3>Tambah Target PTG</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
 
@@ -567,8 +567,8 @@
                 };
 
                 window.table = new Tabulator("#example-table", {
-                    layout: "fitDataTable",
-                    responsiveLayout: "collapse",
+                    layout: "fitDataStretch",
+                    headerWordWrap: true,
                     autoResize: true,
                     columns: columnMap["asset-breakdown-ptg"],
                     virtualDom: true,
