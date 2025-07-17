@@ -110,13 +110,10 @@
                 color: red;
             }
 
-            input {
-                width: 100%;
-                padding: 8px;
-                margin-top: 5px;
-                margin-bottom: 10px;
+            #search-input,
+            button {
+                height: 40px;
             }
-
 
             @media screen and (max-width: 768px) {
                 .tabulator .tabulator-header {
@@ -137,7 +134,7 @@
                 <div class="d-flex flex-column flex-md-row align-items-center gap-3">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
-                    <button class="btn btn-outline-secondary ms-2 h-100 mt-1 d" type="button"
+                    <button class="btn btn-outline-secondary h-100" type="button"
                         onclick="clearSearch()">Clear</button>
                     <button class="btn btn-primary px-4 py-2" id="download-xlsx" style="white-space: nowrap;">
                         Export Excel
@@ -283,7 +280,7 @@
     <div id="toastNotification"
         style="display:none; position: fixed; top: 20px; right: 20px; z-index: 9999; padding: 15px 20px; border-radius: 8px; color: white; font-weight: bold;">
     </div>
-    
+
     <div id="toastNotification"
         style="display:none; position: fixed; top: 20px; right: 20px; z-index: 9999; padding: 15px 20px; border-radius: 8px; color: white; font-weight: bold;">
     </div>
@@ -781,7 +778,7 @@
                 toast.classList.add(type === "success" ? "toast-success" : "toast-error");
                 toast.style.display = "block";
 
-               setTimeout(() => {
+                setTimeout(() => {
                     toast.style.display = "none";
                 }, 3500);
             }
@@ -831,11 +828,12 @@
                     })
                     .then(response => response.json())
                     .then(result => {
-                        if (result.success) {showToast(result.message || "Data berhasil disimpan", "success");
+                        if (result.success) {
+                            showToast(result.message || "Data berhasil disimpan", "success");
                             table.setData("/monev/shiml/input-data/asset-breakdown-pet/data");
                             this.reset();
                             closeModal();
-                         } else {
+                        } else {
                             showToast(result.message || "Gagal menyimpan data", "error");
                         }
                     })

@@ -118,11 +118,9 @@
                 color: red;
             }
 
-            input {
-                width: 100%;
-                padding: 8px;
-                margin-top: 5px;
-                margin-bottom: 10px;
+            #search-input,
+            button {
+                height: 40px;
             }
 
 
@@ -717,7 +715,7 @@
                 toast.classList.add(type === "success" ? "toast-success" : "toast-error");
                 toast.style.display = "block";
 
-               setTimeout(() => {
+                setTimeout(() => {
                     toast.style.display = "none";
                 }, 3500);
             }
@@ -754,9 +752,12 @@
                             posisi_awal_tahun: parseFloat(data.posisi_awal_tahun) || null,
                             posisi_vacant_awal_tahun: parseFloat(data.posisi_vacant_awal_tahun) || null,
                             posisi_terisi_awal_tahun: parseFloat(data.posisi_terisi_awal_tahun) || null,
-                            target_personil_memenuhi_sertifikasi_tahunan: parseFloat(data.target_personil_memenuhi_sertifikasi_tahunan) || null,
-                            target_personil_memenuhi_sertifikasi_bulanan: parseFloat(data.target_personil_memenuhi_sertifikasi_bulanan) || null,
-                            target_personil_memenuhi_sertifikasi_kumulatif: parseFloat(data.target_personil_memenuhi_sertifikasi_kumulatif) || null,
+                            target_personil_memenuhi_sertifikasi_tahunan: parseFloat(data
+                                .target_personil_memenuhi_sertifikasi_tahunan) || null,
+                            target_personil_memenuhi_sertifikasi_bulanan: parseFloat(data
+                                .target_personil_memenuhi_sertifikasi_bulanan) || null,
+                            target_personil_memenuhi_sertifikasi_kumulatif: parseFloat(data
+                                .target_personil_memenuhi_sertifikasi_kumulatif) || null,
                             target_kpi: parseFloat(data.target_kpi) || null,
                             target_kpi_kumulatif: parseFloat(data.target_kpi_kumulatif) || null,
                         })

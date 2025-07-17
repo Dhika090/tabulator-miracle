@@ -118,11 +118,9 @@
                 color: red;
             }
 
-            input {
-                width: 100%;
-                padding: 8px;
-                margin-top: 5px;
-                margin-bottom: 10px;
+            #search-input,
+            button {
+                height: 40px;
             }
 
 
@@ -145,7 +143,7 @@
                 <div class="d-flex flex-column flex-md-row align-items-center gap-3">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
-                    <button class="btn btn-outline-secondary ms-2 h-100 mt-1 d" type="button"
+                    <button class="btn btn-outline-secondary h-100" type="button"
                         onclick="clearSearch()">Clear</button>
                     <button class="btn btn-primary px-4 py-2" id="download-xlsx" style="white-space: nowrap;">
                         Export Excel
@@ -201,75 +199,12 @@
             <span class="close" onclick="closeModal()">&times;</span>
             <h3>Tambah Sistem Informasi AIMS cilacap</h3>
             <form id="createForm">
-
                 <input type="hidden" name="id" id="form-id">
-                <div>
-                    <label for="periode">Periode</label>
-                    <input type="month" id="periode" name="periode">
-                </div>
 
-                <div>
-                    <label for="company">Company</label>
-                    <input type="text" id="company" name="company">
-                </div>
-
-                <div>
-                    <label for="jumlah_aset_operasi">Jumlah Aset Operasi</label>
-                    <input type="text" id="jumlah_aset_operasi" name="jumlah_aset_operasi">
-                </div>
-
-                <div>
-                    <label for="jumlah_aset_teregister">Jumlah Aset Teregister</label>
-                    <input type="text" id="jumlah_aset_teregister" name="jumlah_aset_teregister">
-                </div>
-
-                <div>
-                    <label for="kendala_aset_register">Kendala Aset Register</label>
-                    <input id="kendala_aset_register" type="text" name="kendala_aset_register"></input>
-                </div>
-
-                <div>
-                    <label for="tindak_lanjut_aset_register">Tindak Lanjut Aset Register</label>
-                    <input id="tindak_lanjut_aset_register" type="text" name="tindak_lanjut_aset_register"></input>
-                </div>
-
-                <div>
-                    <label for="sistem_informasi_aim">Sistem Informasi AIM</label>
-                    <input type="text" id="sistem_informasi_aim" name="sistem_informasi_aim">
-                </div>
-
-                <div>
-                    <label for="total_wo_comply">Total WO Comply</label>
-                    <input type="number" step="any" id="total_wo_comply" name="total_wo_comply"
-                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
-                </div>
-
-                <div>
-                    <label for="total_wo_completed">Total WO Completed</label>
-                    <input type="number" step="any" id="total_wo_completed" name="total_wo_completed"
-                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
-                </div>
-
-                <div>
-                    <label for="total_wo_in_progress">Total WO In Progress</label>
-                    <input type="number" step="any" id="total_wo_in_progress" name="total_wo_in_progress"
-                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
-                </div>
-
-                <div>
-                    <label for="total_wo_backlog">Total WO Backlog</label>
-                    <input type="number" step="any" id="total_wo_backlog" name="total_wo_backlog"
-                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
-                </div>
-
-                <div>
-                    <label for="kendala">Kendala</label>
-                    <input id="kendala" type="text" name="kendala"></input>
-                </div>
-
-                <div>
-                    <label for="tindak_lanjut">Tindak Lanjut</label>
-                    <input id="tindak_lanjut" type="text" name="tindak_lanjut"></input>
+                <div class="mb-3">
+                    <label for="jumlah_row" class="form-label">Jumlah Row yang ingin dibuat</label>
+                    <input type="number" name="jumlah_row" id="jumlah_row" class="form-control" min="1"
+                        value="1" required>
                 </div>
 
                 <button type="submit" class="btn btn-success">Submit</button>
@@ -286,6 +221,7 @@
 
         <script>
             const BASE_URL = "{{ config('app.url') }}";
+
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
                     fetch(`sistem-informasi-aims-regional-3/${id}`, {
@@ -759,7 +695,7 @@
                 toast.classList.add(type === "success" ? "toast-success" : "toast-error");
                 toast.style.display = "block";
 
-               setTimeout(() => {
+                setTimeout(() => {
                     toast.style.display = "none";
                 }, 3500);
             }
@@ -771,7 +707,7 @@
                 toast.classList.add(type === "success" ? "toast-success" : "toast-error");
                 toast.style.display = "block";
 
-               setTimeout(() => {
+                setTimeout(() => {
                     toast.style.display = "none";
                 }, 3500);
             }

@@ -1,6 +1,22 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\MONA\IIS\ApkNonRutinController;
+use App\Http\Controllers\MONA\IIS\ApkRutinController;
+use App\Http\Controllers\MONA\IIS\BasisDataOmr1NonRutinController;
+use App\Http\Controllers\MONA\IIS\BasisDataOmr1RutinController;
+use App\Http\Controllers\MONA\IIS\BasisDataOmr2NonRutinController;
+use App\Http\Controllers\MONA\IIS\BasisDataOmr2RutinController;
+use App\Http\Controllers\MONA\IIS\BasisDataOmr3NonRutinController;
+use App\Http\Controllers\MONA\IIS\BasisDataOmr3RutinController;
+use App\Http\Controllers\MONA\IIS\DashboardNonRutinController;
+use App\Http\Controllers\MONA\IIS\DashboardRutinController;
+use App\Http\Controllers\MONA\IIS\DatabaseNonRutinController;
+use App\Http\Controllers\MONA\IIS\DatabaseRutinController;
+use App\Http\Controllers\MONA\IIS\GeneralAdministrasiNonRutinController;
+use App\Http\Controllers\MONA\IIS\GeneralAdministrasiRutinController;
+use App\Http\Controllers\MONA\IIS\SapNonRutinController;
+use App\Http\Controllers\MONA\IIS\SapRutinController;
 use App\Http\Controllers\MonevAimController;
 use App\Http\Controllers\SHCNT\InputDataMonev\AssetBreakdown\Region1AssetBreakdownController;
 use App\Http\Controllers\SHCNT\InputDataMonev\AssetBreakdown\Region2AssetBreakdownController;
@@ -623,8 +639,8 @@ Route::get('monev-aim', [MonevAimController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('monev.aim');
 
-// Route::middleware([\App\Http\Middleware\CorsMiddleware::class])->group(function () {
-Route::middleware([\App\Http\Middleware\verityTokenDigio::class])->group(function () {
+Route::middleware([\App\Http\Middleware\CorsMiddleware::class])->group(function () {
+    // Route::middleware([\App\Http\Middleware\verityTokenDigio::class])->group(function () {
     Route::get('/', function () {
         return view('dashboard');
     });
@@ -5630,6 +5646,146 @@ Route::middleware([\App\Http\Middleware\verityTokenDigio::class])->group(functio
         Route::put('/{id}', [Region8StatusPloController::class, 'update'])->name('status-plo-region-8.update');
         Route::delete('/{id}', [Region8StatusPloController::class, 'destroy'])->name('status-plo-region-8.destroy');
     });
+
+    // Mona IIS
+    // DatabaseRutinController
+    Route::prefix('mona/iis/database-rutin')->group(function () {
+        Route::get('/', [DatabaseRutinController::class, 'index'])->name('database-rutin');
+        Route::post('/', [DatabaseRutinController::class, 'store'])->name('database-rutin.store');
+        Route::get('/data', [DatabaseRutinController::class, 'data'])->name('database-rutin.data');
+        Route::put('/{id}', [DatabaseRutinController::class, 'update'])->name('database-rutin.update');
+        Route::delete('/{id}', [DatabaseRutinController::class, 'destroy'])->name('database-rutin.destroy');
+    });
+
+    // DatabaseNonRutinController
+    Route::prefix('mona/iis/database-non-rutin')->group(function () {
+        Route::get('/', [DatabaseNonRutinController::class, 'index'])->name('database-non-rutin');
+        Route::post('/', [DatabaseNonRutinController::class, 'store'])->name('database-non-rutin.store');
+        Route::get('/data', [DatabaseNonRutinController::class, 'data'])->name('database-non-rutin.data');
+        Route::put('/{id}', [DatabaseNonRutinController::class, 'update'])->name('database-non-rutin.update');
+        Route::delete('/{id}', [DatabaseNonRutinController::class, 'destroy'])->name('database-non-rutin.destroy');
+    });
+    // SapNonRutinController
+    Route::prefix('mona/iis/sap-non-rutin')->group(function () {
+        Route::get('/', [SapNonRutinController::class, 'index'])->name('sap-non-rutin');
+        Route::post('/', [SapNonRutinController::class, 'store'])->name('sap-non-rutin.store');
+        Route::get('/data', [SapNonRutinController::class, 'data'])->name('sap-non-rutin.data');
+        Route::put('/{id}', [SapNonRutinController::class, 'update'])->name('sap-non-rutin.update');
+        Route::delete('/{id}', [SapNonRutinController::class, 'destroy'])->name('sap-non-rutin.destroy');
+    });
+    // SapRutinController
+    Route::prefix('mona/iis/sap-rutin')->group(function () {
+        Route::get('/', [SapRutinController::class, 'index'])->name('sap-rutin');
+        Route::post('/', [SapRutinController::class, 'store'])->name('sap-rutin.store');
+        Route::get('/data', [SapRutinController::class, 'data'])->name('sap-rutin.data');
+        Route::put('/{id}', [SapRutinController::class, 'update'])->name('sap-rutin.update');
+        Route::delete('/{id}', [SapRutinController::class, 'destroy'])->name('sap-rutin.destroy');
+    });
+    // ApkNonRutinController
+    Route::prefix('mona/iis/apk-non-rutin')->group(function () {
+        Route::get('/', [ApkNonRutinController::class, 'index'])->name('apk-non-rutin');
+        Route::post('/', [ApkNonRutinController::class, 'store'])->name('apk-non-rutin.store');
+        Route::get('/data', [ApkNonRutinController::class, 'data'])->name('apk-non-rutin.data');
+        Route::put('/{id}', [ApkNonRutinController::class, 'update'])->name('apk-non-rutin.update');
+        Route::delete('/{id}', [ApkNonRutinController::class, 'destroy'])->name('apk-non-rutin.destroy');
+    });
+    // ApkRutinController
+    Route::prefix('mona/iis/apk-rutin')->group(function () {
+        Route::get('/', [ApkRutinController::class, 'index'])->name('apk-rutin');
+        Route::post('/', [ApkRutinController::class, 'store'])->name('apk-rutin.store');
+        Route::get('/data', [ApkRutinController::class, 'data'])->name('apk-rutin.data');
+        Route::put('/{id}', [ApkRutinController::class, 'update'])->name('apk-rutin.update');
+        Route::delete('/{id}', [ApkRutinController::class, 'destroy'])->name('apk-rutin.destroy');
+    });
+
+    // BasisDataOmr1RutinController
+    Route::prefix('mona/iis/basis-data-omr-1-rutin')->group(function () {
+        Route::get('/', [BasisDataOmr1RutinController::class, 'index'])->name('basis-data-omr-1-rutin');
+        Route::post('/', [BasisDataOmr1RutinController::class, 'store'])->name('basis-data-omr-1-rutin.store');
+        Route::get('/data', [BasisDataOmr1RutinController::class, 'data'])->name('basis-data-omr-1-rutin.data');
+        Route::put('/{id}', [BasisDataOmr1RutinController::class, 'update'])->name('basis-data-omr-1-rutin.update');
+        Route::delete('/{id}', [BasisDataOmr1RutinController::class, 'destroy'])->name('basis-data-omr-1-rutin.destroy');
+    });
+    // BasisDataOmr1NonRutinController
+    Route::prefix('mona/iis/basis-data-omr-1-non-rutin')->group(function () {
+        Route::get('/', [BasisDataOmr1NonRutinController::class, 'index'])->name('basis-data-omr-1-non-rutin');
+        Route::post('/', [BasisDataOmr1NonRutinController::class, 'store'])->name('basis-data-omr-1-non-rutin.store');
+        Route::get('/data', [BasisDataOmr1NonRutinController::class, 'data'])->name('basis-data-omr-1-non-rutin.data');
+        Route::put('/{id}', [BasisDataOmr1NonRutinController::class, 'update'])->name('basis-data-omr-1-non-rutin.update');
+        Route::delete('/{id}', [BasisDataOmr1NonRutinController::class, 'destroy'])->name('basis-data-omr-1-non-rutin.destroy');
+    });
+
+    // BasisDataOmr2RutinController
+    Route::prefix('mona/iis/basis-data-omr-2-rutin')->group(function () {
+        Route::get('/', [BasisDataOmr2RutinController::class, 'index'])->name('basis-data-omr-2-rutin');
+        Route::post('/', [BasisDataOmr2RutinController::class, 'store'])->name('basis-data-omr-2-rutin.store');
+        Route::get('/data', [BasisDataOmr2RutinController::class, 'data'])->name('basis-data-omr-2-rutin.data');
+        Route::put('/{id}', [BasisDataOmr2RutinController::class, 'update'])->name('basis-data-omr-2-rutin.update');
+        Route::delete('/{id}', [BasisDataOmr2RutinController::class, 'destroy'])->name('basis-data-omr-2-rutin.destroy');
+    });
+    // BasisDataOmr2NonRutinController
+    Route::prefix('mona/iis/basis-data-omr-2-non-rutin')->group(function () {
+        Route::get('/', [BasisDataOmr2NonRutinController::class, 'index'])->name('basis-data-omr-2-non-rutin');
+        Route::post('/', [BasisDataOmr2NonRutinController::class, 'store'])->name('basis-data-omr-2-non-rutin.store');
+        Route::get('/data', [BasisDataOmr2NonRutinController::class, 'data'])->name('basis-data-omr-2-non-rutin.data');
+        Route::put('/{id}', [BasisDataOmr2NonRutinController::class, 'update'])->name('basis-data-omr-2-non-rutin.update');
+        Route::delete('/{id}', [BasisDataOmr2NonRutinController::class, 'destroy'])->name('basis-data-omr-2-non-rutin.destroy');
+    });
+
+    // BasisDataOmr3RutinController
+    Route::prefix('mona/iis/basis-data-omr-3-rutin')->group(function () {
+        Route::get('/', [BasisDataOmr3RutinController::class, 'index'])->name('basis-data-omr-3-rutin');
+        Route::post('/', [BasisDataOmr3RutinController::class, 'store'])->name('basis-data-omr-3-rutin.store');
+        Route::get('/data', [BasisDataOmr3RutinController::class, 'data'])->name('basis-data-omr-3-rutin.data');
+        Route::put('/{id}', [BasisDataOmr3RutinController::class, 'update'])->name('basis-data-omr-3-rutin.update');
+        Route::delete('/{id}', [BasisDataOmr3RutinController::class, 'destroy'])->name('basis-data-omr-3-rutin.destroy');
+    });
+    // BasisDataOmr3NonRutinController
+    Route::prefix('mona/iis/basis-data-omr-3-non-rutin')->group(function () {
+        Route::get('/', [BasisDataOmr3NonRutinController::class, 'index'])->name('basis-data-omr-3-non-rutin');
+        Route::post('/', [BasisDataOmr3NonRutinController::class, 'store'])->name('basis-data-omr-3-non-rutin.store');
+        Route::get('/data', [BasisDataOmr3NonRutinController::class, 'data'])->name('basis-data-omr-3-non-rutin.data');
+        Route::put('/{id}', [BasisDataOmr3NonRutinController::class, 'update'])->name('basis-data-omr-3-non-rutin.update');
+        Route::delete('/{id}', [BasisDataOmr3NonRutinController::class, 'destroy'])->name('basis-data-omr-3-non-rutin.destroy');
+    });
+
+    Route::prefix('mona/iis/dashboard-rutin')->group(function () {
+        Route::get('/', [DashboardRutinController::class, 'index'])->name('dashboard-rutin');
+        Route::post('/', [DashboardRutinController::class, 'store'])->name('dashboard-rutin.store');
+        Route::get('/data', [DashboardRutinController::class, 'data'])->name('dashboard-rutin.data');
+        Route::put('/{id}', [DashboardRutinController::class, 'update'])->name('dashboard-rutin.update');
+        Route::delete('/{id}', [DashboardRutinController::class, 'destroy'])->name('dashboard-rutin.destroy');
+    });
+
+    Route::prefix('mona/iis/dashboard-non-rutin')->group(function () {
+        Route::get('/', [DashboardNonRutinController::class, 'index'])->name('dashboard-non-rutin');
+        Route::post('/', [DashboardNonRutinController::class, 'store'])->name('dashboard-non-rutin.store');
+        Route::get('/data', [DashboardNonRutinController::class, 'data'])->name('dashboard-non-rutin.data');
+        Route::put('/{id}', [DashboardNonRutinController::class, 'update'])->name('dashboard-non-rutin.update');
+        Route::delete('/{id}', [DashboardNonRutinController::class, 'destroy'])->name('dashboard-non-rutin.destroy');
+    });
+
+    // GeneralAdministrasiNonRutinController
+    Route::prefix('mona/iis/general-administrasi-non-rutin')->group(function () {
+        Route::get('/', [GeneralAdministrasiNonRutinController::class, 'index'])->name('general-administrasi-non-rutin');
+        Route::post('/', [GeneralAdministrasiNonRutinController::class, 'store'])->name('general-administrasi-non-rutin.store');
+        Route::get('/data', [GeneralAdministrasiNonRutinController::class, 'data'])->name('general-administrasi-non-rutin.data');
+        Route::put('/{id}', [GeneralAdministrasiNonRutinController::class, 'update'])->name('general-administrasi-non-rutin.update');
+        Route::delete('/{id}', [GeneralAdministrasiNonRutinController::class, 'destroy'])->name('general-administrasi-non-rutin.destroy');
+    });
+
+    // GeneralAdministrasiRutinController
+    Route::prefix('mona/iis/general-administrasi-rutin')->group(function () {
+        Route::get('/', [GeneralAdministrasiRutinController::class, 'index'])->name('general-administrasi-rutin');
+        Route::post('/', [GeneralAdministrasiRutinController::class, 'store'])->name('general-administrasi-rutin.store');
+        Route::get('/data', [GeneralAdministrasiRutinController::class, 'data'])->name('general-administrasi-rutin.data');
+        Route::put('/{id}', [GeneralAdministrasiRutinController::class, 'update'])->name('general-administrasi-rutin.update');
+        Route::delete('/{id}', [GeneralAdministrasiRutinController::class, 'destroy'])->name('general-administrasi-rutin.destroy');
+    });
+
+
+
+
 });
 
 

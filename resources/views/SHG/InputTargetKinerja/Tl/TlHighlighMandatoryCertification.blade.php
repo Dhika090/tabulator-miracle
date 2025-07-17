@@ -110,11 +110,9 @@
                 color: red;
             }
 
-            input {
-                width: 100%;
-                padding: 8px;
-                margin-top: 5px;
-                margin-bottom: 10px;
+            #search-input,
+            button {
+                height: 40px;
             }
 
 
@@ -137,7 +135,7 @@
                 <div class="d-flex flex-column flex-md-row align-items-center gap-3">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
-                    <button class="btn btn-outline-secondary ms-2 h-100 mt-1 d" type="button"
+                    <button class="btn btn-outline-secondary h-100" type="button"
                         onclick="clearSearch()">Clear</button>
                     <button class="btn btn-primary px-4 py-2" id="download-xlsx" style="white-space: nowrap;">
                         Export Excel
@@ -612,7 +610,7 @@
                             showToast(result.message || "Data berhasil disimpan", "success");
                             table.setData(
                                 `${BASE_URL}/monev/shg/kinerja/tindak-lanjut-highlight-mandatory-certification/data`
-                                );
+                            );
                             this.reset();
                             closeModal();
                         } else {

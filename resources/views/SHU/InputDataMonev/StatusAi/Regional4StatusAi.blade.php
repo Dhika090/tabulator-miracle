@@ -110,11 +110,9 @@
                 color: red;
             }
 
-            input {
-                width: 100%;
-                padding: 8px;
-                margin-top: 5px;
-                margin-bottom: 10px;
+            #search-input,
+            button {
+                height: 40px;
             }
 
 
@@ -145,7 +143,7 @@
                 <div class="d-flex flex-column flex-md-row align-items-center gap-3">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
-                    <button class="btn btn-outline-secondary ms-2 h-100 mt-1 d" type="button"
+                    <button class="btn btn-outline-secondary h-100" type="button"
                         onclick="clearSearch()">Clear</button>
                     <button class="btn btn-primary px-4 py-2" id="download-xlsx" style="white-space: nowrap;">
                         Export Excel
@@ -202,187 +200,13 @@
             <h3>Tambah Status AI Regional 4</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
-                <div>
-                    <label>Periode</label>
-                    <input type="month" name="periode" id="periode">
+
+                <div class="mb-3">
+                    <label for="jumlah_row" class="form-label">Jumlah Row yang ingin dibuat</label>
+                    <input type="number" name="jumlah_row" id="jumlah_row" class="form-control" min="1"
+                        value="1" required>
                 </div>
 
-                <div>
-                    <label>Subholding</label>
-                    <input type="text" name="subholding" id="subholding">
-                </div>
-
-                <div>
-                    <label>Company</label>
-                    <input type="text" name="company" id="company">
-                </div>
-
-                <div>
-                    <label>Unit</label>
-                    <input type="text" name="unit" id="unit">
-                </div>
-
-                <div>
-                    <label>Asset Group</label>
-                    <input type="text" name="asset_group" id="asset_group">
-                </div>
-
-                <div>
-                    <label>Jumlah</label>
-                    <input type="number" name="jumlah" id="jumlah">
-                </div>
-
-                <div>
-                    <label>SECE Low Integrity Breakdown</label>
-                    <input type="text" name="sece_low_integrity_breakdown" id="sece_low_integrity_breakdown">
-                </div>
-
-                <div>
-                    <label>SECE Medium Integrity Due Date Inspection</label>
-                    <input type="text" name="sece_medium_integrity_due_date_inspection"
-                        id="sece_medium_integrity_due_date_inspection">
-                </div>
-
-                <div>
-                    <label>SECE Medium Integrity Low Condition</label>
-                    <input type="text" name="sece_medium_integrity_low_condition"
-                        id="sece_medium_integrity_low_condition">
-                </div>
-
-                <div>
-                    <label>SECE Medium Integrity Low Performance</label>
-                    <input type="text" name="sece_medium_integrity_low_performance"
-                        id="sece_medium_integrity_low_performance">
-                </div>
-
-                <div>
-                    <label>SECE High Integrity</label>
-                    <input type="text" name="sece_high_integrity" id="sece_high_integrity">
-                </div>
-
-                <div>
-                    <label>PCE Low Integrity Breakdown</label>
-                    <input type="text" name="pce_low_integrity_breakdown" id="pce_low_integrity_breakdown">
-                </div>
-
-                <div>
-                    <label>PCE Medium Integrity Due Date Inspection</label>
-                    <input type="text" name="pce_medium_integrity_due_date_inspection"
-                        id="pce_medium_integrity_due_date_inspection">
-                </div>
-
-                <div>
-                    <label>PCE Medium Integrity Low Condition</label>
-                    <input type="text" name="pce_medium_integrity_low_condition"
-                        id="pce_medium_integrity_low_condition">
-                </div>
-
-                <div>
-                    <label>PCE Medium Integrity Low Performance</label>
-                    <input type="text" name="pce_medium_integrity_low_performance"
-                        id="pce_medium_integrity_low_performance">
-                </div>
-
-                <div>
-                    <label>PCE High Integrity</label>
-                    <input type="text" name="pce_high_integrity" id="pce_high_integrity">
-                </div>
-
-                <div>
-                    <label>Important Low Integrity Breakdown</label>
-                    <input type="text" name="important_low_integrity_breakdown"
-                        id="important_low_integrity_breakdown">
-                </div>
-
-                <div>
-                    <label>Important Medium Integrity Due Date Inspection</label>
-                    <input type="text" name="important_medium_integrity_due_date_inspection"
-                        id="important_medium_integrity_due_date_inspection">
-                </div>
-
-                <div>
-                    <label>Important Medium Integrity Low Condition</label>
-                    <input type="text" name="important_medium_integrity_low_condition"
-                        id="important_medium_integrity_low_condition">
-                </div>
-
-                <div>
-                    <label>Important Medium Integrity Low Performance</label>
-                    <input type="text" name="important_medium_integrity_low_performance"
-                        id="important_medium_integrity_low_performance">
-                </div>
-
-                <div>
-                    <label>Important High Integrity</label>
-                    <input type="text" name="important_high_integrity" id="important_high_integrity">
-                </div>
-
-                <div>
-                    <label>Secondary Low Integrity Breakdown</label>
-                    <input type="text" name="secondary_low_integrity_breakdown"
-                        id="secondary_low_integrity_breakdown">
-                </div>
-
-                <div>
-                    <label>Secondary Medium Integrity Due Date Inspection</label>
-                    <input type="text" name="secondary_medium_integrity_due_date_inspection"
-                        id="secondary_medium_integrity_due_date_inspection">
-                </div>
-
-                <div>
-                    <label>Secondary Medium Integrity Low Condition</label>
-                    <input type="text" name="secondary_medium_integrity_low_condition"
-                        id="secondary_medium_integrity_low_condition">
-                </div>
-
-                <div>
-                    <label>Secondary Medium Integrity Low Performance</label>
-                    <input type="text" name="secondary_medium_integrity_low_performance"
-                        id="secondary_medium_integrity_low_performance">
-                </div>
-
-                <div>
-                    <label>Secondary High Integrity</label>
-                    <input type="text" name="secondary_high_integrity" id="secondary_high_integrity">
-                </div>
-
-                <div>
-                    <label>Kegiatan Penurunan Low</label>
-                    <input type="text" name="kegiatan_penurunan_low" id="kegiatan_penurunan_low">
-                </div>
-
-                <div>
-                    <label>Kegiatan Penurunan Med</label>
-                    <input type="text" name="kegiatan_penurunan_med" id="kegiatan_penurunan_med">
-                </div>
-
-                <div>
-                    <label>Tanggal Realisasi</label>
-                    <input type="date" name="tanggal_realisasi" id="tanggal_realisasi">
-                </div>
-
-                <div>
-                    <label>Tanggal Prognosa</label>
-                    <input type="date" name="tanggal_prognosa" id="tanggal_prognosa">
-                </div>
-
-                <div>
-                    <label>Informasi Penyebab Low Integrity</label>
-                    <input type="text" name="informasi_penyebab_low_integrity"
-                        id="informasi_penyebab_low_integrity">
-                </div>
-
-                <div>
-                    <label>Informasi Penambahan Jumlah Aset</label>
-                    <input type="text" name="informasi_penambahan_jumlah_aset"
-                        id="informasi_penambahan_jumlah_aset">
-                </div>
-
-                <div>
-                    <label>Informasi Naik Turun Low Integrity</label>
-                    <input type="text" name="informasi_naik_turun_low_integrity"
-                        id="informasi_naik_turun_low_integrity">
-                </div>
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
 
@@ -402,6 +226,7 @@
 
         <script>
             const BASE_URL = "{{ config('app.url') }}";
+
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
                     fetch(`status-ai-regional-4/${id}`, {
@@ -996,7 +821,7 @@
                 toast.classList.add(type === "success" ? "toast-success" : "toast-error");
                 toast.style.display = "block";
 
-               setTimeout(() => {
+                setTimeout(() => {
                     toast.style.display = "none";
                 }, 3500);
             }
@@ -1008,7 +833,7 @@
                 toast.classList.add(type === "success" ? "toast-success" : "toast-error");
                 toast.style.display = "block";
 
-               setTimeout(() => {
+                setTimeout(() => {
                     toast.style.display = "none";
                 }, 3500);
             }

@@ -107,11 +107,9 @@
                 color: red;
             }
 
-            input {
-                width: 100%;
-                padding: 8px;
-                margin-top: 5px;
-                margin-bottom: 10px;
+            #search-input,
+            button {
+                height: 40px;
             }
 
 
@@ -189,11 +187,15 @@
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
 
-                <label>Jumlah Row yang ingin dibuat</label>
-                <input type="number" name="jumlah_row" id="jumlah_row" min="1" value="1" required>
+                <div class="mb-3">
+                    <label for="jumlah_row" class="form-label">Jumlah Row yang ingin dibuat</label>
+                    <input type="number" name="jumlah_row" id="jumlah_row" class="form-control" min="1"
+                        value="1" required>
+                </div>
 
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
+
         </div>
     </div>
 

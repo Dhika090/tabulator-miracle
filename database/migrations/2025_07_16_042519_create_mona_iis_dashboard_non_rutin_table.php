@@ -4,14 +4,13 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::create('mona_iis_database_non_rutin', function (Blueprint $table) {
+        Schema::create('mona_iis_dashboard_non_rutin', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
             $table->string('aktifitas')->nullable();
@@ -35,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('mona_iis_database_non_rutin');
+        Schema::dropIfExists('mona_iis_dashboard_non_rutin');
     }
 };

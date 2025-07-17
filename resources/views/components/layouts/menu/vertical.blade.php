@@ -154,26 +154,6 @@
                         Input Data Monev
                     </a>
                     <ul class="menu-sub">
-                        {{-- @php
-                            $entitasIni = 'pertamina'; // lowercase agar konsisten
-                            $isActive = $entitasUser === $entitasIni;
-                            if ($isActive) {
-                                echo '<script>
-                                    console.log("Entitas cocok: ' . $entitasUser . '");
-                                </script>';
-                            } else {
-                                echo '<script>
-                                    console.log("Entitas tidak cocok: ' . $entitasUser . '");
-                                </script>';
-                            }
-                        @endphp --}}
-                        {{-- <li
-                            class="menu-item {{ request()->is('monev/shg/input-data/pertamina-gas*') ? 'active' : '' }} {{ $isActive ? '' : 'disabled-menu' }}">
-                            <a class="menu-link {{ $isActive ? '' : 'no-click' }}"
-                                href="{{ $isActive ? url('monev/shg/input-data/pertamina-gas') : '#' }}">
-                                <i class="fa fa-wrench me-2"></i>PT Pertamina Gas
-                            </a>
-                        </li> --}}
                         <li
                             class="menu-item {{ request()->is('monev/shg/input-data/pertamina-gas*') ? 'active' : '' }}">
                             <a class="menu-link" href="{{ url('monev/shg/input-data/pertamina-gas') }}">
@@ -775,46 +755,47 @@
                         IIS
                     </a>
                     <ul class="menu-sub">
-                        <li class="menu-item {{ request()->is('mona/iis/maintanance-database*') ? 'active' : '' }}">
-                            <a class="menu-link" href="{{ url('mona/iis/maintanance-database') }}">
-                                <i class="fa fa-wrench me-2"></i>Maintanance Database
+                        <li class="menu-item {{ request()->is('mona/iis/database-rutin*') ? 'active' : '' }}">
+                            <a class="menu-link" href="{{ route('database-non-rutin') }}">
+                                Maintanance Database
                             </a>
                         </li>
-                        <li class="menu-item {{ request()->is('mona/iis/maintanance-sap') ? 'active' : '' }}">
-                            <a class="menu-link" href="{{ url('mona/iis/maintanance-sap') }}">
-                                <i class="fa fa-wrench me-2"></i>Maintanance SAP
+                        <li class="menu-item {{ request()->is('mona/iis/sap-rutin*') ? 'active' : '' }}">
+                            <a class="menu-link" href="{{ route('sap-non-rutin') }}">
+                                Maintanance SAP
                             </a>
                         </li>
-                        <li class="menu-item {{ request()->is('mona/iis/maintanance-aplikasi') ? 'active' : '' }}">
-                            <a class="menu-link" href="{{ url('mona/iis/maintanance-aplikasi') }}">
+                        <li class="menu-item {{ request()->is('mona/iis/apk-non-rutin') ? 'active' : '' }}">
+                            <a class="menu-link" href="{{ route('apk-non-rutin') }}">
                                 <i class="fa fa-wrench me-2"></i>Maintanance Aplikasi
                             </a>
                         </li>
                         <li
-                            class="menu-item {{ request()->is('mona/iis/opertator-basis-data-omr-1') ? 'active' : '' }}">
-                            <a class="menu-link" href="{{ url('mona/iis/opertator-basis-data-omr-1') }}">
+                            class="menu-item {{ request()->is('mona/iis/basis-data-omr-1-non-rutin') ? 'active' : '' }}">
+                            <a class="menu-link" href="{{ route('basis-data-omr-1-non-rutin') }}">
                                 <i class="fa fa-wrench me-2"></i>Operator Basis Data OMR 1
                             </a>
                         </li>
                         <li
-                            class="menu-item {{ request()->is('mona/iis/opertator-basis-data-omr-2') ? 'active' : '' }}">
-                            <a class="menu-link" href="{{ url('mona/iis/opertator-basis-data-omr-2') }}">
+                            class="menu-item {{ request()->is('mona/iis/basis-data-omr-2-non-rutin') ? 'active' : '' }}">
+                            <a class="menu-link" href="{{ url('mona/iis/basis-data-omr-2-non-rutin') }}">
                                 <i class="fa fa-wrench me-2"></i>Operator Basis Data OMR 2
                             </a>
                         </li>
                         <li
-                            class="menu-item {{ request()->is('mona/iis/opertator-basis-data-omr-3') ? 'active' : '' }}">
-                            <a class="menu-link" href="{{ url('mona/iis/opertator-basis-data-omr-3') }}">
+                            class="menu-item {{ request()->is('mona/iis/basis-data-omr-3-non-rutin') ? 'active' : '' }}">
+                            <a class="menu-link" href="{{ url('mona/iis/basis-data-omr-3-non-rutin') }}">
                                 <i class="fa fa-wrench me-2"></i>Operator Basis Data OMR 3
                             </a>
                         </li>
-                        <li class="menu-item {{ request()->is('mona/iis/maintanance-dashboard') ? 'active' : '' }}">
-                            <a class="menu-link" href="{{ url('mona/iis/maintanance-dashboard') }}">
+                        <li class="menu-item {{ request()->is('mona/iis/dashboard-non-rutin') ? 'active' : '' }}">
+                            <a class="menu-link" href="{{ url('mona/iis/dashboard-non-rutin') }}">
                                 <i class="fa fa-wrench me-2"></i>Maintanance Dashboard
                             </a>
                         </li>
-                        <li class="menu-item {{ request()->is('mona/iis/general-administrasi') ? 'active' : '' }}">
-                            <a class="menu-link" href="{{ url('mona/iis/general-administrasi') }}">
+                        <li
+                            class="menu-item {{ request()->is('mona/iis/general-administrasi-non-rutin') ? 'active' : '' }}">
+                            <a class="menu-link" href="{{ url('mona/iis/general-administrasi-non-rutin') }}">
                                 <i class="fa fa-wrench me-2"></i>General Administrasi
                             </a>
                         </li>
@@ -822,27 +803,6 @@
                 </li>
             </ul>
         </li>
-
-        {{-- </ul>
-        </li> --}}
-
-        <!-- Settings -->
-        {{-- <li class="menu-item {{ request()->is('settings/*') ? 'active open' : '' }}">
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-cog"></i>
-                <div class="text-truncate">{{ __('Settings') }}</div>
-            </a>
-            <ul class="menu-sub">
-                <li class="menu-item {{ request()->routeIs('settings.profile') ? 'active' : '' }}">
-                    <a class="menu-link" href="{{ route('settings.profile') }}"
-                        wire:navigate>{{ __('Profile') }}</a>
-                </li>
-                <li class="menu-item {{ request()->routeIs('settings.password') ? 'active' : '' }}">
-                    <a class="menu-link" href="{{ route('settings.password') }}"
-                        wire:navigate>{{ __('Password') }}</a>
-                </li>
-            </ul>
-        </li> --}}
     </ul>
 
 </aside>

@@ -2,21 +2,7 @@
 <x-layouts.app :title="__('')">
     @push('styles')
         <link href="https://unpkg.com/tabulator-tables@5.6.0/dist/css/tabulator.min.css" rel="stylesheet">
-        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
         <style>
-            .toast-success {
-                background-color: #28a745;
-            }
-
-            .toast-error {
-                background-color: #dc3545;
-            }
-
             .tabulator-wrapper {
                 overflow-x: auto;
             }
@@ -38,11 +24,6 @@
 
             .tabulator-cell {
                 font-size: 14px;
-            }
-
-            .tabulator .tabulator-cell {
-                white-space: normal !important;
-                word-wrap: break-word;
             }
 
             .card {
@@ -124,11 +105,9 @@
                 color: red;
             }
 
-            input {
-                width: 100%;
-                padding: 8px;
-                margin-top: 5px;
-                margin-bottom: 10px;
+            #search-input,
+            button {
+                height: 40px;
             }
 
 
@@ -151,7 +130,7 @@
                 <div class="d-flex flex-column flex-md-row align-items-center gap-3">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
-                    <button class="btn btn-outline-secondary ms-2 h-100 mt-1 d" type="button"
+                    <button class="btn btn-outline-secondary h-100" type="button"
                         onclick="clearSearch()">Clear</button>
                     <button class="btn btn-primary px-4 py-2" id="download-xlsx" style="white-space: nowrap;">
                         Export Excel
@@ -193,6 +172,7 @@
                     </div>
                 </div>
             </div>
+
             <div id="mainTable"></div>
 
             <div class="tabulator-wrapper mt-4">
@@ -204,59 +184,22 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Tambah Target Mandatory Certification Regional 1</h3>
+            <h3>Tambah Target Regional 1</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
-                <div>
-                    <label>Periode</label>
-                    <input type="month" name="periode" id="periode">
-                </div>
 
-                <div>
-                    <label>Subholding</label>
-                    <input type="text" name="subholding" id="subholding">
-                </div>
-
-                <div>
-                    <label>Company</label>
-                    <input type="text" name="company" id="company">
-                </div>
-
-                <div>
-                    <label>Unit</label>
-                    <input type="text" name="unit" id="unit">
-                </div>
-
-                {{-- dropdown nama Sertifikasi --}}
-                <div>
-                    <label>Nama Sertifikasi</label>
-                    <select name="nama_sertifikasi" id="nama_sertifikasi" class="form-control">
-                        <option value="">-- Pilih Sertifikasi --</option>
-                        @foreach ($sertifikasiOptions as $option)
-                            <option value="{{ $option }}">{{ $option }}</option>
-                        @endforeach
-                    </select>
-                </div>
-
-                <div>
-                    <label>Lembaga Penerbit Sertifikat</label>
-                    <input type="text" name="lembaga_penerbit_sertifikat" id="lembaga_penerbit_sertifikat">
-                </div>
-
-                <div>
-                    <label>Jumlah Sertifikasi yang Sudah Terbit</label>
-                    <input type="number" name="jumlah_sertifikasi_terbit" id="jumlah_sertifikasi_terbit">
-                </div>
-
-                <div>
-                    <label>Jumlah Learning Hours</label>
-                    <input type="number" name="jumlah_learning_hours" id="jumlah_learning_hours">
+                <div class="mb-3">
+                    <label for="jumlah_row" class="form-label">Jumlah Row yang ingin dibuat</label>
+                    <input type="number" name="jumlah_row" id="jumlah_row" class="form-control" min="1"
+                        value="1" required>
                 </div>
 
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
+
         </div>
     </div>
+
 
     <div id="toastNotification"
         style="display:none; position: fixed; top: 20px; right: 20px; z-index: 9999; padding: 15px 20px; border-radius: 8px; color: white; font-weight: bold;">
@@ -264,6 +207,7 @@
     @push('scripts')
         <script src="https://unpkg.com/tabulator-tables@5.6.0/dist/js/tabulator.min.js"></script>
         <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+
         <script>
             const BASE_URL = "{{ config('app.url') }}";
 
@@ -286,38 +230,6 @@
                             showToast("Terjadi kesalahan saat mengirim data.", "error");
                         });
                 }
-            }
-
-            function clearSearch() {
-                document.getElementById("search-input").value = "";
-                table.clearFilter();
-            }
-
-            function loadData() {
-                fetch(`${BASE_URL}/monev/shu/input-data/mandatory-certification-regional-1/data`, {
-                        headers: {
-                            "Accept": "application/json"
-                        }
-                    })
-                    .then(res => res.json())
-                    .then(data => {
-                        const cleaned = data.map(row => {
-                            const cleanedRow = {};
-                            for (const [key, value] of Object.entries(row)) {
-                                const valStr = String(value).trim().toLowerCase();
-                                cleanedRow[key] = (
-                                    value === null ||
-                                    value === undefined ||
-                                    valStr === "null" ||
-                                    valStr === "undefined"
-                                ) ? "" : value;
-                            }
-                            return cleanedRow;
-                        });
-
-                        table.setData(cleaned);
-                    })
-                    .catch(err => console.error("Gagal load data:", err));
             }
 
             document.getElementById("search-input").addEventListener("input", function(e) {
@@ -368,24 +280,53 @@
 
             });
 
+            function clearSearch() {
+                document.getElementById("search-input").value = "";
+                table.clearFilter();
+            }
+
+            function loadData() {
+                fetch("/monev/shu/input-data/mandatory-certification-regional-1/data", {
+                        headers: {
+                            "Accept": "application/json"
+                        }
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        const cleaned = data.map(row => {
+                            const cleanedRow = {};
+                            for (const [key, value] of Object.entries(row)) {
+                                const valStr = String(value).trim().toLowerCase();
+                                cleanedRow[key] = (
+                                    value === null ||
+                                    value === undefined ||
+                                    valStr === "null" ||
+                                    valStr === "undefined"
+                                ) ? "" : value;
+                            }
+                            return cleanedRow;
+                        });
+
+                        table.setData(cleaned);
+                    })
+                    .catch(err => console.error("Gagal load data:", err));
+            }
+
             document.addEventListener("DOMContentLoaded", function() {
                 const columnMap = {
                     "mandatory-certification-regional-1": [{
                             title: "No",
-                            hozAlign: "center",
-                            width: 60,
-                            download: false,
                             formatter: function(cell) {
                                 const row = cell.getRow();
-                                const table = row.getTable();
-
-                                const pageSize = table.getPageSize();
-                                const currentPage = table.getPage();
-                                const rowIndex = row
-                                    .getPosition();
-
-                                return ((currentPage - 1) * pageSize) + rowIndex;
-                            }
+                                const table = cell.getTable();
+                                const sortedData = table.getRows("active").map(r => r.getData());
+                                const index = sortedData.findIndex(data => data.id === row.getData().id);
+                                return index + 1;
+                            },
+                            hozAlign: "center",
+                            width: 60,
+                            headerSort: false,
+                            download: false
                         },
                         {
                             title: "ID",
@@ -478,26 +419,22 @@
                         {
                             title: "Subholding",
                             field: "subholding",
-                            hozAlign: "center",
                             editor: "input"
                         },
                         {
                             title: "Company",
                             field: "company",
-                            hozAlign: "center",
                             editor: "input"
                         },
                         {
                             title: "Unit",
                             field: "unit",
-                            editor: "input",
-                            width: 200
+                            editor: "input"
                         },
                         {
                             title: "Nama Sertifikasi",
                             field: "nama_sertifikasi",
-                            editor: "input",
-                            width: 450
+                            editor: "input"
                         },
                         {
                             title: "Lembaga Penerbit Sertifikat",
@@ -507,13 +444,13 @@
                         {
                             title: "Jumlah Sertifikasi yang Sudah Terbit",
                             field: "jumlah_sertifikasi_terbit",
-                            editor: "input",
+                            editor: "number",
                             hozAlign: "center"
                         },
                         {
                             title: "Jumlah Learning Hours",
                             field: "jumlah_learning_hours",
-                            editor: "input",
+                            editor: "number",
                             hozAlign: "center"
                         },
                         {
@@ -535,10 +472,11 @@
                 };
 
                 window.table = new Tabulator("#example-table", {
-                    layout: "fitDataTable",
-                    responsiveLayout: "collapse",
-                    autoResize: true,
+                    layout: "fitColumns",
+                    headerWordWrap: true,
                     columns: columnMap["mandatory-certification-regional-1"],
+                    virtualDom: true,
+                    height: "700px",
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -573,8 +511,8 @@
                 });
 
                 document.getElementById("download-xlsx").addEventListener("click", function() {
-                    window.table.download("xlsx", "pelatihan-aims-cilacap.xlsx", {
-                        sheetName: "pelatihan-aims-cilacap",
+                    window.table.download("xlsx", "mandatory-certification-regional-1.xlsx", {
+                        sheetName: "mandatory-certification-regional-1",
                         columnHeaders: true,
                         downloadDataFormatter: function(data) {
                             return data.map(row => {
@@ -595,11 +533,22 @@
                     });
                 });
 
+                function isValidPeriodeFormat(value) {
+                    const regex = /^[A-Za-z]{3}-\d{2}$/;
+                    return regex.test(value);
+                }
+
                 table.on("cellEdited", function(cell) {
                     const updatedData = cell.getRow().getData();
                     const id = updatedData.id;
 
                     if (!id) return;
+
+                    if (cell.getField() === "periode" && !isValidPeriodeFormat(cell.getValue())) {
+                        showToast("Format Periode tidak valid! Gunakan format: Sep-24", "error");
+                        cell.restoreOldValue();
+                        return;
+                    }
 
                     fetch(`mandatory-certification-regional-1/${id}`, {
                             method: "PUT",
@@ -612,9 +561,19 @@
                             body: JSON.stringify(updatedData)
                         })
                         .then(res => res.json())
-                        .then(data => console.log("Update berhasil:", data))
-                        .catch(err => console.error("Gagal update:", err));
+                        .then(data => {
+                            if (data.success) {
+                                showToast("Update berhasil!", "success");
+                            } else {
+                                showToast("Update gagal: " + data.message, "error");
+                            }
+                        })
+                        .catch(err => {
+                            console.error("Gagal update:", err);
+                            showToast("Terjadi kesalahan saat update!", "error");
+                        });
                 });
+
                 let previousData = [];
                 table.on("dataLoaded", function(newData) {
                     previousData = JSON.parse(JSON.stringify(newData));
@@ -639,7 +598,28 @@
                     const changedRows = getChangedRows(newData, previousData);
                     console.log("Baris yang berubah:", changedRows);
 
-                    changedRows.forEach(rowData => {
+                    changedRows.forEach((rowData, index) => {
+                        const id = rowData.id;
+                        if (!id) return;
+
+                        const oldRow = previousData.find(r => r.id === id);
+                        if (!oldRow) return;
+
+                        if (rowData.periode !== oldRow.periode && !isValidPeriodeFormat(rowData
+                                .periode)) {
+                            showToast(
+                                `"${rowData.periode}" Format Periode tidak valid! Gunakan format: Jan-25`,
+                                "error");
+
+                            rowData.periode = oldRow.periode;
+
+                            table.updateData([{
+                                id: rowData.id,
+                                periode: oldRow.periode
+                            }]);
+
+                            return;
+                        }
                         fetch(`mandatory-certification-regional-1/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
@@ -652,10 +632,17 @@
                             })
                             .then(res => res.json())
                             .then(response => {
-                                console.log("Data berhasil disimpan:", response);
+                                if (response.success) {
+                                    showToast(`Data berhasil disimpan`, "success");
+                                } else {
+                                    showToast(
+                                        `Format Periode tidak valid! Gunakan format: Jan-25 : ${response.message}`,
+                                        "error");
+                                }
                             })
                             .catch(err => {
                                 console.error("Gagal menyimpan hasil paste:", err);
+                                showToast(`Kesalahan pada ID ${id}`, "error");
                             });
                     });
 
@@ -674,19 +661,7 @@
                 toast.classList.add(type === "success" ? "toast-success" : "toast-error");
                 toast.style.display = "block";
 
-               setTimeout(() => {
-                    toast.style.display = "none";
-                }, 3500);
-            }
-
-            function showToast(message, type = "success") {
-                const toast = document.getElementById("toastNotification");
-                toast.textContent = message;
-                toast.className = "";
-                toast.classList.add(type === "success" ? "toast-success" : "toast-error");
-                toast.style.display = "block";
-
-               setTimeout(() => {
+                setTimeout(() => {
                     toast.style.display = "none";
                 }, 3500);
             }
@@ -706,38 +681,47 @@
 
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
+                const jumlahRow = parseInt(data.jumlah_row);
 
-                fetch("mandatory-certification-regional-1", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Accept": "application/json",
-                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute(
-                                "content")
-                        },
-                        body: JSON.stringify({
-                            periode: data.periode,
-                            subholding: data.subholding,
-                            company: data.company,
-                            unit: data.unit,
-                            nama_sertifikasi: data.nama_sertifikasi,
-                            lembaga_penerbit_sertifikat: data.lembaga_penerbit_sertifikat,
-                            jumlah_sertifikasi_terbit: data.jumlah_sertifikasi_terbit,
-                            jumlah_learning_hours: data.jumlah_learning_hours
-                        })
+                const payloadArray = [];
 
-                    })
-                    .then(response => response.json())
-                    .then(result => {
-                        if (result.success) {
-                            showToast(result.message || "Data berhasil disimpan", "success");
-                            table.setData(
-                                `${BASE_URL}/monev/shu/input-data/mandatory-certification-regional-1/data`);
-                            this.reset();
-                            closeModal();
+                for (let i = 0; i < jumlahRow; i++) {
+                    payloadArray.push({
+                        periode: data.periode,
+                        subholding: data.subholding,
+                        company: data.company,
+                        unit: data.unit,
+                        nama_sertifikasi: data.nama_sertifikasi,
+                        lembaga_penerbit_sertifikat: data.lembaga_penerbit_sertifikat,
+                        jumlah_sertifikasi_sudah_terbit: data.jumlah_sertifikasi_sudah_terbit,
+                        jumlah_learning_hours: data.jumlah_learning_hours
+                    });
+                }
+
+                Promise.all(payloadArray.map(dataItem => {
+                        return fetch("mandatory-certification-regional-1", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute(
+                                        "content")
+                            },
+                            body: JSON.stringify(dataItem)
+                        }).then(res => res.json());
+                    }))
+                    .then(results => {
+                        const gagal = results.filter(r => !r.success);
+                        if (gagal.length === 0) {
+                            showToast(`${jumlahRow} baris data berhasil buat`, "success");
                         } else {
-                            showToast(result.message || "Gagal menyimpan data", "error");
+                            showToast(`${gagal.length} data gagal disimpan`, "error");
                         }
+
+                        table.setData("/monev/shu/input-data/mandatory-certification-regional-1/data");
+                        document.getElementById("createForm").reset();
+                        closeModal();
                     })
                     .catch(error => {
                         console.error("Error saat submit:", error);

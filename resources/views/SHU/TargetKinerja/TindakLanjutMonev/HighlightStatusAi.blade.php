@@ -110,11 +110,9 @@
                 color: red;
             }
 
-            input {
-                width: 100%;
-                padding: 8px;
-                margin-top: 5px;
-                margin-bottom: 10px;
+            #search-input,
+            button {
+                height: 40px;
             }
 
 
@@ -196,17 +194,17 @@
                 <input type="hidden" name="id" id="form-id">
                 <div>
                     <label>Periode</label>
-                    <input type="text" name="periode" id="periode" >
+                    <input type="text" name="periode" id="periode">
                 </div>
 
                 <div>
                     <label>No</label>
-                    <input type="number" name="no" id="no"  min="0">
+                    <input type="number" name="no" id="no" min="0">
                 </div>
 
                 <div>
                     <label>Highlight</label>
-                    <input type="text" name="highlight" id="highlight" >
+                    <input type="text" name="highlight" id="highlight">
                 </div>
 
                 <button type="submit" class="btn btn-success">Submit</button>
@@ -251,8 +249,7 @@
             document.getElementById("search-input").addEventListener("input", function(e) {
                 const keyword = e.target.value;
                 table.setFilter([
-                    [
-                        {
+                    [{
                             field: "periode",
                             type: "like",
                             value: keyword
@@ -570,7 +567,7 @@
                 toast.classList.add(type === "success" ? "toast-success" : "toast-error");
                 toast.style.display = "block";
 
-               setTimeout(() => {
+                setTimeout(() => {
                     toast.style.display = "none";
                 }, 3500);
             }

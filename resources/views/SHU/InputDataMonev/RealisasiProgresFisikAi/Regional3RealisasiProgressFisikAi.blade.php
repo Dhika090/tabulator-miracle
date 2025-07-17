@@ -22,13 +22,13 @@
                 box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             }
 
-            .tabulator-cell {
-                font-size: 14px;
-            }
-
             .tabulator .tabulator-cell {
                 white-space: normal !important;
                 word-wrap: break-word;
+            }
+
+            .tabulator-cell {
+                font-size: 14px;
             }
 
             .card {
@@ -110,11 +110,9 @@
                 color: red;
             }
 
-            input {
-                width: 100%;
-                padding: 8px;
-                margin-top: 5px;
-                margin-bottom: 10px;
+            #search-input,
+            button {
+                height: 40px;
             }
 
 
@@ -133,23 +131,21 @@
     <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-                <h5 class="card-title mb-3 mb-md-0">Real Prog Fisik AI regional 3</h5>
+                <h5 class="card-title mb-3 mb-md-0">Realisasi Progress Fisik AI Regional 3</h5>
                 <div class="d-flex flex-column flex-md-row align-items-center gap-3">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
-                    <button class="btn btn-outline-secondary ms-2 h-100 mt-1 d" type="button"
+                    <button class="btn btn-outline-secondary h-100" type="button"
                         onclick="clearSearch()">Clear</button>
                     <button class="btn btn-primary px-4 py-2" id="download-xlsx" style="white-space: nowrap;">
                         Export Excel
                     </button>
                 </div>
             </div>
-
             <div class="d-flex flex-column flex-md-row align-items-center gap-3">
                 <button onclick="openModal()" class="btn btn-primary px-4 py-2" style="white-space: nowrap;">
                     Create Data
                 </button>
-
                 <div class="dropdown me-2 position-relative" style="z-index: 1050;">
                     <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="tabDropdown"
                         data-bs-toggle="dropdown" aria-expanded="false">
@@ -191,192 +187,14 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Real Prog Fisik AI regional 3</h3>
+            <h3>Tambah Realisasi Progress Fisik AI Regional 3</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
-                <div>
-                    <label for="periode">Periode (Tahun):</label>
-                    <select name="periode" id="periode" class="form-select">
-                        <option value="" selected disabled>Pilih Periode</option>
-                        @for ($year = 2000; $year <= date('Y') + 5; $year++)
-                            <option value="{{ $year }}">{{ $year }}</option>
-                        @endfor
-                    </select>
-                </div>
 
-                <div>
-                    <label>No</label>
-                    <input type="number" name="no" id="no">
-                </div>
-
-                <div>
-                    <label>Program Kerja</label>
-                    <input type="text" name="program_kerja" id="program_kerja">
-                </div>
-
-                <div>
-                    <label>Kategori AIBT</label>
-                    <input type="text" name="kategori_aibt" id="kategori_aibt">
-                </div>
-
-                <div>
-                    <label>Jenis Anggaran</label>
-                    <input type="text" name="jenis_anggaran" id="jenis_anggaran">
-                </div>
-
-                <div>
-                    <label>Besar RKAP</label>
-                    <input type="number" name="besar_rkap" id="besar_rkap">
-                </div>
-
-                <div>
-                    <label>Entitas</label>
-                    <input type="text" name="entitas" id="entitas">
-                </div>
-
-                <div>
-                    <label>Unit</label>
-                    <input type="text" name="unit" id="unit">
-                </div>
-
-                <div>
-                    <label>Nilai Kontrak</label>
-                    <input type="number" name="nilai_kontrak" id="nilai_kontrak">
-                </div>
-
-                <div>
-                    <label>Plan Jan</label>
-                    <input type="number" name="plan_jan" id="plan_jan">
-                </div>
-
-                <div>
-                    <label>Plan Feb</label>
-                    <input type="number" name="plan_feb" id="plan_feb">
-                </div>
-
-                <div>
-                    <label>Plan Mar</label>
-                    <input type="number" name="plan_mar" id="plan_mar">
-                </div>
-
-                <div>
-                    <label>Plan Apr</label>
-                    <input type="number" name="plan_apr" id="plan_apr">
-                </div>
-
-                <div>
-                    <label>Plan May</label>
-                    <input type="number" name="plan_may" id="plan_may">
-                </div>
-
-                <div>
-                    <label>Plan Jun</label>
-                    <input type="number" name="plan_jun" id="plan_jun">
-                </div>
-
-                <div>
-                    <label>Plan Jul</label>
-                    <input type="number" name="plan_jul" id="plan_jul">
-                </div>
-
-                <div>
-                    <label>Plan Aug</label>
-                    <input type="number" name="plan_aug" id="plan_aug">
-                </div>
-
-                <div>
-                    <label>Plan Sep</label>
-                    <input type="number" name="plan_sep" id="plan_sep">
-                </div>
-
-                <div>
-                    <label>Plan Oct</label>
-                    <input type="number" name="plan_oct" id="plan_oct">
-                </div>
-
-                <div>
-                    <label>Plan Nov</label>
-                    <input type="number" name="plan_nov" id="plan_nov">
-                </div>
-
-                <div>
-                    <label>Plan Dec</label>
-                    <input type="number" name="plan_dec" id="plan_dec">
-                </div>
-
-                <div>
-                    <label>Actual Jan</label>
-                    <input type="number" name="actual_jan" id="actual_jan">
-                </div>
-
-                <div>
-                    <label>Actual Feb</label>
-                    <input type="number" name="actual_feb" id="actual_feb">
-                </div>
-
-                <div>
-                    <label>Actual Mar</label>
-                    <input type="number" name="actual_mar" id="actual_mar">
-                </div>
-
-                <div>
-                    <label>Actual Apr</label>
-                    <input type="number" name="actual_apr" id="actual_apr">
-                </div>
-
-                <div>
-                    <label>Actual May</label>
-                    <input type="number" name="actual_may" id="actual_may">
-                </div>
-
-                <div>
-                    <label>Actual Jun</label>
-                    <input type="number" name="actual_jun" id="actual_jun">
-                </div>
-
-                <div>
-                    <label>Actual Jul</label>
-                    <input type="number" name="actual_jul" id="actual_jul">
-                </div>
-
-                <div>
-                    <label>Actual Aug</label>
-                    <input type="number" name="actual_aug" id="actual_aug">
-                </div>
-
-                <div>
-                    <label>Actual Sep</label>
-                    <input type="number" name="actual_sep" id="actual_sep">
-                </div>
-
-                <div>
-                    <label>Actual Oct</label>
-                    <input type="number" name="actual_oct" id="actual_oct">
-                </div>
-
-                <div>
-                    <label>Actual Nov</label>
-                    <input type="number" name="actual_nov" id="actual_nov">
-                </div>
-
-                <div>
-                    <label>Actual Dec</label>
-                    <input type="number" name="actual_dec" id="actual_dec">
-                </div>
-
-                <div>
-                    <label>Kode</label>
-                    <input type="text" name="kode" id="kode">
-                </div>
-
-                <div>
-                    <label>Kendala</label>
-                    <input type="text" name="kendala" id="kendala">
-                </div>
-
-                <div>
-                    <label>Tindak Lanjut</label>
-                    <input type="text" name="tindak_lanjut" id="tindak_lanjut">
+                <div class="mb-3">
+                    <label for="jumlah_row" class="form-label">Jumlah Row yang ingin dibuat</label>
+                    <input type="number" name="jumlah_row" id="jumlah_row" class="form-control" min="1"
+                        value="1" required>
                 </div>
 
                 <button type="submit" class="btn btn-success">Submit</button>
@@ -384,6 +202,7 @@
 
         </div>
     </div>
+
 
     <div id="toastNotification"
         style="display:none; position: fixed; top: 20px; right: 20px; z-index: 9999; padding: 15px 20px; border-radius: 8px; color: white; font-weight: bold;">
@@ -394,6 +213,7 @@
 
         <script>
             const BASE_URL = "{{ config('app.url') }}";
+
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
                     fetch(`realisasi-progres-fisik-ai-regional-3/${id}`, {
@@ -463,6 +283,21 @@
                             type: "like",
                             value: keyword
                         },
+                        {
+                            field: "kode",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "kendala",
+                            type: "like",
+                            value: keyword
+                        },
+                        {
+                            field: "tindak_lanjut",
+                            type: "like",
+                            value: keyword
+                        }
                     ]
                 ]);
             });
@@ -503,10 +338,17 @@
                 const columnMap = {
                     "realisasi-progres-fisik-ai-regional-3": [{
                             title: "No",
-                            formatter: "rownum",
+                            formatter: function(cell) {
+                                const row = cell.getRow();
+                                const table = cell.getTable();
+                                const sortedData = table.getRows("active").map(r => r.getData());
+                                const index = sortedData.findIndex(data => data.id === row.getData().id);
+                                return index + 1;
+                            },
                             hozAlign: "center",
                             width: 60,
-                            download: false,
+                            headerSort: false,
+                            download: false
                         },
                         {
                             title: "ID",
@@ -515,7 +357,6 @@
                         },
                         {
                             title: "Periode",
-                            hozAlign: "center",
                             field: "periode",
                             editor: "input",
                             headerFilter: "select",
@@ -540,239 +381,73 @@
                         {
                             title: "No",
                             field: "no",
-                            editor: "input",
-                            hozAlign: "center",
+                            editor: "input"
                         },
                         {
                             title: "Program Kerja",
                             field: "program_kerja",
-                            editor: "input",
-                            width: 200
+                            width: 450,
+                            editor: "input"
                         },
                         {
                             title: "Kategori AIBT",
                             field: "kategori_aibt",
-                            editor: "input",
-                            width: 150
+                            editor: "input"
                         },
                         {
                             title: "Jenis Anggaran",
                             field: "jenis_anggaran",
-                            hozAlign: "center",
-                            editor: "input",
-                            width: 150
+                            editor: "input"
                         },
                         {
                             title: "Besar RKAP",
                             field: "besar_rkap",
-                            editor: "number",
-                            width: 150,
-                            hozAlign: "right"
+                            editor: "number"
                         },
                         {
                             title: "Entitas",
                             field: "entitas",
-                            editor: "input",
-                            width: 150
+                            editor: "input"
                         },
                         {
                             title: "Unit",
                             field: "unit",
-                            editor: "input",
-                            width: 150
+                            editor: "input"
                         },
                         {
                             title: "Nilai Kontrak",
                             field: "nilai_kontrak",
-                            editor: "number",
-                            width: 150,
-                            hozAlign: "right"
+                            editor: "number"
                         },
-                        {
-                            title: "Plan Jan",
-                            field: "plan_jan",
-                            editor: "number",
-                            width: 100,
-                            hozAlign: "right"
-                        },
-                        {
-                            title: "Plan Feb",
-                            field: "plan_feb",
-                            editor: "number",
-                            width: 100,
-                            hozAlign: "right"
-                        },
-                        {
-                            title: "Plan Mar",
-                            field: "plan_mar",
-                            editor: "number",
-                            width: 100,
-                            hozAlign: "right"
-                        },
-                        {
-                            title: "Plan Apr",
-                            field: "plan_apr",
-                            editor: "number",
-                            width: 100,
-                            hozAlign: "right"
-                        },
-                        {
-                            title: "Plan Mei",
-                            field: "plan_may",
-                            editor: "number",
-                            width: 100,
-                            hozAlign: "right"
-                        },
-                        {
-                            title: "Plan Jun",
-                            field: "plan_jun",
-                            editor: "number",
-                            width: 100,
-                            hozAlign: "right"
-                        },
-                        {
-                            title: "Plan Jul",
-                            field: "plan_jul",
-                            editor: "number",
-                            width: 100,
-                            hozAlign: "right"
-                        },
-                        {
-                            title: "Plan Ags",
-                            field: "plan_aug",
-                            editor: "number",
-                            width: 100,
-                            hozAlign: "right"
-                        },
-                        {
-                            title: "Plan Sep",
-                            field: "plan_sep",
-                            editor: "number",
-                            width: 100,
-                            hozAlign: "right"
-                        },
-                        {
-                            title: "Plan Okt",
-                            field: "plan_oct",
-                            editor: "number",
-                            width: 100,
-                            hozAlign: "right"
-                        },
-                        {
-                            title: "Plan Nov",
-                            field: "plan_nov",
-                            editor: "number",
-                            width: 100,
-                            hozAlign: "right"
-                        },
-                        {
-                            title: "Plan Des",
-                            field: "plan_dec",
-                            editor: "number",
-                            width: 100,
-                            hozAlign: "right"
-                        },
-                        {
-                            title: "Actual Jan",
-                            field: "actual_jan",
-                            editor: "number",
-                            width: 100,
-                            hozAlign: "right"
-                        },
-                        {
-                            title: "Actual Feb",
-                            field: "actual_feb",
-                            editor: "number",
-                            width: 100,
-                            hozAlign: "right"
-                        },
-                        {
-                            title: "Actual Mar",
-                            field: "actual_mar",
-                            editor: "number",
-                            width: 100,
-                            hozAlign: "right"
-                        },
-                        {
-                            title: "Actual Apr",
-                            field: "actual_apr",
-                            editor: "number",
-                            width: 100,
-                            hozAlign: "right"
-                        },
-                        {
-                            title: "Actual Mei",
-                            field: "actual_may",
-                            editor: "number",
-                            width: 100,
-                            hozAlign: "right"
-                        },
-                        {
-                            title: "Actual Jun",
-                            field: "actual_jun",
-                            editor: "number",
-                            width: 100,
-                            hozAlign: "right"
-                        },
-                        {
-                            title: "Actual Jul",
-                            field: "actual_jul",
-                            editor: "number",
-                            width: 100,
-                            hozAlign: "right"
-                        },
-                        {
-                            title: "Actual Ags",
-                            field: "actual_aug",
-                            editor: "number",
-                            width: 100,
-                            hozAlign: "right"
-                        },
-                        {
-                            title: "Actual Sep",
-                            field: "actual_sep",
-                            editor: "number",
-                            width: 100,
-                            hozAlign: "right"
-                        },
-                        {
-                            title: "Actual Okt",
-                            field: "actual_oct",
-                            editor: "number",
-                            width: 100,
-                            hozAlign: "right"
-                        },
-                        {
-                            title: "Actual Nov",
-                            field: "actual_nov",
-                            editor: "number",
-                            width: 100,
-                            hozAlign: "right"
-                        },
-                        {
-                            title: "Actual Des",
-                            field: "actual_dec",
-                            editor: "number",
-                            width: 100,
-                            hozAlign: "right"
-                        },
+                        // Plan Fields
+                        ...["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+                        .map(bulan => ({
+                            title: `Plan ${bulan}`,
+                            field: `plan_${bulan.toLowerCase()}`,
+                            editor: "input"
+                        })),
+                        // Actual Fields
+                        ...["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+                        .map(bulan => ({
+                            title: `Actual ${bulan}`,
+                            field: `actual_${bulan.toLowerCase()}`,
+                            editor: "input"
+                        })),
                         {
                             title: "Kode",
                             field: "kode",
-                            editor: "input",
-                            width: 100
+                            editor: "input"
                         },
                         {
                             title: "Kendala",
                             field: "kendala",
-                            editor: "input",
-                            width: 200
+                            editor: "input"
                         },
                         {
                             title: "Tindak Lanjut",
                             field: "tindak_lanjut",
                             editor: "input",
-                            width: 200
+                            width: 400
                         },
                         {
                             title: "Aksi",
@@ -793,10 +468,12 @@
                 };
 
                 window.table = new Tabulator("#example-table", {
-                    layout: "fitDataTable",
-                    responsiveLayout: "collapse",
+                    layout: "fitDataStretch",
+                    headerWordWrap: true,
                     autoResize: true,
                     columns: columnMap["realisasi-progres-fisik-ai-regional-3"],
+                    virtualDom: true,
+                    height: "700px",
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -853,27 +530,6 @@
                     });
                 });
 
-                table.on("cellEdited", function(cell) {
-                    const updatedData = cell.getRow().getData();
-                    const id = updatedData.id;
-
-                    if (!id) return;
-
-                    fetch(`realisasi-progres-fisik-ai-regional-3/${id}`, {
-                            method: "PUT",
-                            headers: {
-                                "Content-Type": "application/json",
-                                "Accept": "application/json",
-                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
-                                    .getAttribute("content")
-                            },
-                            body: JSON.stringify(updatedData)
-                        })
-                        .then(res => res.json())
-                        .then(data => console.log("Update berhasil:", data))
-                        .catch(err => console.error("Gagal update:", err));
-                });
-
                 let previousData = [];
                 table.on("dataLoaded", function(newData) {
                     previousData = JSON.parse(JSON.stringify(newData));
@@ -894,11 +550,128 @@
                     return changes;
                 }
 
+                function isValidPeriodeFormat(value) {
+                    const regex = /^\d{4}$/;
+                    return regex.test(value);
+                }
+
+                function isValidDecimal(value) {
+                    if (value === null || value === undefined || value === "") return true;
+                    const number = parseFloat(value);
+                    return (
+                        !isNaN(number) &&
+                        number >= 0 &&
+                        number <= 100 &&
+                        /^\d{1,3}(\.\d{1,2})?$/.test(value.toString())
+                    );
+                }
+                const bulan = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
+
+                table.on("cellEdited", function(cell) {
+                    const updatedData = cell.getRow().getData();
+                    const id = updatedData.id;
+                    if (!id) return;
+                    const field = cell.getField();
+                    const value = cell.getValue();
+
+                    if (field === "periode" && !isValidPeriodeFormat(value)) {
+                        showToast(`"${value}" Format Periode tidak valid! Gunakan format: 2025`, "error");
+                        cell.restoreOldValue();
+                        return;
+                    }
+
+                    if (
+                        field.startsWith("plan_") ||
+                        field.startsWith("actual_")
+                    ) {
+                        if (!isValidDecimal(value)) {
+                            showToast(
+                                `"${value}" tidak valid! Input harus berupa desimal, maksimal 100, tanpa ribuan`,
+                                "error");
+                            cell.restoreOldValue();
+                            return;
+                        }
+                    }
+
+                    fetch(`realisasi-progres-fisik-ai-regional-3/${id}`, {
+                            method: "PUT",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute("content")
+                            },
+                            body: JSON.stringify(updatedData)
+                        })
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.success) {
+                                showToast("Update berhasil!", "success");
+                            } else {
+                                showToast("Update gagal: " + data.message, "error");
+                            }
+                        })
+                        .catch(err => {
+                            console.error("Gagal update:", err);
+                            showToast("Terjadi kesalahan saat update!", "error");
+                        });
+                });
+
                 table.on("dataChanged", function(newData) {
                     const changedRows = getChangedRows(newData, previousData);
                     console.log("Baris yang berubah:", changedRows);
 
-                    changedRows.forEach(rowData => {
+                    changedRows.forEach((rowData, index) => {
+                        const id = rowData.id;
+                        if (!id) return;
+
+                        const oldRow = previousData.find(r => r.id === id);
+                        if (!oldRow) return;
+
+                        if (rowData.periode !== oldRow.periode && !isValidPeriodeFormat(rowData
+                                .periode)) {
+                            showToast(
+                                `"${rowData.periode}" Format Periode tidak valid! Gunakan format: 2025`,
+                                "error");
+
+                            table.updateData([{
+                                id: rowData.id,
+                                periode: oldRow.periode
+                            }]);
+
+                            return;
+                        }
+
+                        let invalidField = null;
+
+                        for (let b of bulan) {
+                            for (let prefix of ["plan_", "actual_"]) {
+                                const field = prefix + b;
+                                const newValue = rowData[field];
+                                const oldValue = oldRow[field];
+
+                                if (newValue !== oldValue && !isValidDecimal(newValue)) {
+                                    invalidField = field;
+                                    break;
+                                }
+                            }
+                            if (invalidField) break;
+                        }
+
+                        if (invalidField) {
+                            showToast(
+                                `"${rowData[invalidField]}" Nilai pada kolom "${invalidField}" tidak valid! Gunakan angka desimal 0 - 100 tanpa ribuan`,
+                                "error");
+
+                            const rollbackData = {
+                                id
+                            };
+                            rollbackData[invalidField] = oldRow[invalidField];
+
+                            table.updateData([rollbackData]);
+                            return;
+                        }
+
                         fetch(`realisasi-progres-fisik-ai-regional-3/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
@@ -911,15 +684,23 @@
                             })
                             .then(res => res.json())
                             .then(response => {
-                                console.log("Data berhasil disimpan:", response);
+                                if (response.success) {
+                                    showToast(`Data berhasil disimpan`, "success");
+                                } else {
+                                    showToast(
+                                        `Format Periode tidak valid! Gunakan format: Jan-25 : ${response.message}`,
+                                        "error");
+                                }
                             })
                             .catch(err => {
                                 console.error("Gagal menyimpan hasil paste:", err);
+                                showToast(`Kesalahan pada ID ${id}`, "error");
                             });
                     });
 
                     previousData = JSON.parse(JSON.stringify(newData));
                 });
+
                 loadData();
             });
         </script>
@@ -933,7 +714,7 @@
                 toast.classList.add(type === "success" ? "toast-success" : "toast-error");
                 toast.style.display = "block";
 
-               setTimeout(() => {
+                setTimeout(() => {
                     toast.style.display = "none";
                 }, 3500);
             }
@@ -953,32 +734,79 @@
 
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
+                const jumlahRow = parseInt(data.jumlah_row);
 
-                fetch("realisasi-progres-fisik-ai-regional-3", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Accept": "application/json",
-                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute(
-                                "content")
-                        },
-                        body: JSON.stringify({
-                            periode: data.periode,
-                            company: data.company,
-                            judul_pelatihan: data.judul_pelatihan,
-                            realisasi_perwira: data.realisasi_perwira
-                        })
-                    })
-                    .then(response => response.json())
-                    .then(result => {
-                        if (result.success) {
-                            showToast(result.message || "Data berhasil disimpan", "success");
-                            table.setData(`${BASE_URL}/monev/shu/input-data/realisasi-progres-fisik-ai-regional-3/data`);
-                            this.reset();
-                            closeModal();
+                const payloadArray = [];
+
+                for (let i = 0; i < jumlahRow; i++) {
+                    payloadArray.push({
+                        periode: data.periode,
+                        no: data.no,
+                        program_kerja: data.program_kerja,
+                        kategori_aibt: data.kategori_aibt,
+                        jenis_anggaran: data.jenis_anggaran,
+                        besar_rkap: data.besar_rkap,
+                        entitas: data.entitas,
+                        unit: data.unit,
+                        nilai_kontrak: data.nilai_kontrak,
+
+                        plan_jan: data.plan_jan,
+                        plan_feb: data.plan_feb,
+                        plan_mar: data.plan_mar,
+                        plan_apr: data.plan_apr,
+                        plan_may: data.plan_may,
+                        plan_jun: data.plan_jun,
+                        plan_jul: data.plan_jul,
+                        plan_aug: data.plan_aug,
+                        plan_sep: data.plan_sep,
+                        plan_oct: data.plan_oct,
+                        plan_nov: data.plan_nov,
+                        plan_dec: data.plan_dec,
+
+                        actual_jan: data.actual_jan,
+                        actual_feb: data.actual_feb,
+                        actual_mar: data.actual_mar,
+                        actual_apr: data.actual_apr,
+                        actual_may: data.actual_may,
+                        actual_jun: data.actual_jun,
+                        actual_jul: data.actual_jul,
+                        actual_aug: data.actual_aug,
+                        actual_sep: data.actual_sep,
+                        actual_oct: data.actual_oct,
+                        actual_nov: data.actual_nov,
+                        actual_dec: data.actual_dec,
+
+                        kode: data.kode,
+                        kendala: data.kendala,
+                        tindak_lanjut: data.tindak_lanjut,
+                    });
+                }
+
+                Promise.all(payloadArray.map(dataItem => {
+                        return fetch("realisasi-progres-fisik-ai-regional-3", {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                    "Accept": "application/json",
+                                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                        .getAttribute("content")
+                                },
+                                body: JSON.stringify(dataItem)
+                            })
+                            .then(res => res.json());
+                    }))
+                    .then(results => {
+                        const gagal = results.filter(r => !r.success);
+                        if (gagal.length === 0) {
+                            showToast(`${jumlahRow} baris data berhasil buat`, "success");
                         } else {
-                            showToast(result.message || "Gagal menyimpan data", "error");
+                            showToast(`${gagal.length} data gagal disimpan`, "error");
                         }
+
+                        table.setData(
+                            `${BASE_URL}/monev/shu/input-data/realisasi-progres-fisik-ai-regional-3/data`);
+                        document.getElementById("createForm").reset();
+                        closeModal();
                     })
                     .catch(error => {
                         console.error("Error saat submit:", error);
@@ -1022,7 +850,6 @@
                     });
                 });
 
-                // Ketika halaman reload setelah klik, cek dan scroll otomatis
                 if (sessionStorage.getItem('scrollToActiveTab') === 'yes') {
                     scrollToActiveTab();
                     sessionStorage.removeItem('scrollToActiveTab');

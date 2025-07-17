@@ -118,11 +118,9 @@
                 color: red;
             }
 
-            input {
-                width: 100%;
-                padding: 8px;
-                margin-top: 5px;
-                margin-bottom: 10px;
+            #search-input,
+            button {
+                height: 40px;
             }
 
 
@@ -145,7 +143,7 @@
                 <div class="d-flex flex-column flex-md-row align-items-center gap-3">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
-                    <button class="btn btn-outline-secondary ms-2 h-100 mt-1 d" type="button"
+                    <button class="btn btn-outline-secondary h-100" type="button"
                         onclick="clearSearch()">Clear</button>
                     <button class="btn btn-primary px-4 py-2" id="download-xlsx" style="white-space: nowrap;">
                         Export Excel
@@ -245,12 +243,14 @@
 
                 <div>
                     <label>Jumlah Sertifikasi Sudah Terbit</label>
-                    <input type="number" name="jumlah_sertifikasi_sudah_terbit" id="jumlah_sertifikasi_sudah_terbit" disabled>
+                    <input type="number" name="jumlah_sertifikasi_sudah_terbit" id="jumlah_sertifikasi_sudah_terbit"
+                        disabled>
                 </div>
 
                 <div>
                     <label>Jumlah Sertifikasi Belum Terbit</label>
-                    <input type="number" name="jumlah_sertifikasi_belum_terbit" id="jumlah_sertifikasi_belum_terbit" disabled>
+                    <input type="number" name="jumlah_sertifikasi_belum_terbit" id="jumlah_sertifikasi_belum_terbit"
+                        disabled>
                 </div>
 
                 <div>
@@ -260,7 +260,8 @@
 
                 <div>
                     <label>Jumlah Learning Hours Kumulatif</label>
-                    <input type="number" name="jumlah_learning_hours_kumulatif" id="jumlah_learning_hours_kumulatif" disabled>
+                    <input type="number" name="jumlah_learning_hours_kumulatif" id="jumlah_learning_hours_kumulatif"
+                        disabled>
                 </div>
 
                 <div>
@@ -904,7 +905,7 @@
                 toast.classList.add(type === "success" ? "toast-success" : "toast-error");
                 toast.style.display = "block";
 
-               setTimeout(() => {
+                setTimeout(() => {
                     toast.style.display = "none";
                 }, 3500);
             }
@@ -916,7 +917,7 @@
                 toast.classList.add(type === "success" ? "toast-success" : "toast-error");
                 toast.style.display = "block";
 
-               setTimeout(() => {
+                setTimeout(() => {
                     toast.style.display = "none";
                 }, 3500);
             }
@@ -928,7 +929,7 @@
                 toast.classList.add(type === "success" ? "toast-success" : "toast-error");
                 toast.style.display = "block";
 
-               setTimeout(() => {
+                setTimeout(() => {
                     toast.style.display = "none";
                 }, 3500);
             }
