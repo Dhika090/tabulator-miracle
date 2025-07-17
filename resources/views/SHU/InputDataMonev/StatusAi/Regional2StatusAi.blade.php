@@ -22,6 +22,11 @@
                 box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             }
 
+            .tabulator .tabulator-cell {
+                white-space: normal !important;
+                word-wrap: break-word;
+            }
+
             .tabulator-cell {
                 font-size: 14px;
             }
@@ -33,11 +38,6 @@
             .tab-scroll-wrapper {
                 border-bottom: 1px solid #dee2e6;
                 padding-bottom: 5px;
-            }
-
-            .tabulator .tabulator-cell {
-                white-space: normal !important;
-                word-wrap: break-word;
             }
 
             .tab-scroll-wrapper {
@@ -125,21 +125,13 @@
                     font-size: 12px;
                 }
             }
-
-            .toast-success {
-                background-color: #28a745;
-            }
-
-            .toast-error {
-                background-color: #dc3545;
-            }
         </style>
     @endpush
 
     <div class="card">
         <div class="card-body d-flex flex-column">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-                <h5 class="card-title mb-3 mb-md-0">Status AI Regional 2</h5>
+                <h5 class="card-title mb-3 mb-md-0">Status Asset 2025 AI Regional 2</h5>
                 <div class="d-flex flex-column flex-md-row align-items-center gap-3">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
                         style="max-width: 200px;">
@@ -197,7 +189,7 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Tambah Status AI Regional 2</h3>
+            <h3>Create New Data Regional 2</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
 
@@ -210,11 +202,8 @@
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
 
-        </div>
-    </div>
 
-    <div id="toastNotification"
-        style="display:none; position: fixed; top: 20px; right: 20px; z-index: 9999; padding: 15px 20px; border-radius: 8px; color: white; font-weight: bold;">
+        </div>
     </div>
 
     <div id="toastNotification"
@@ -282,27 +271,12 @@
                             value: keyword
                         },
                         {
-                            field: "kegiatan_penurunan_low",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
                             field: "kegiatan_penurunan_med",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "tanggal_realisasi",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "tanggal_prognosa",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "informasi_penyebab_low_integrity",
+                            field: "informasi_penyebab_low",
                             type: "like",
                             value: keyword
                         },
@@ -312,7 +286,7 @@
                             value: keyword
                         },
                         {
-                            field: "informasi_naik_turun_low_integrity",
+                            field: "informasi_naik_turun_low",
                             type: "like",
                             value: keyword
                         },
@@ -351,6 +325,7 @@
                     })
                     .catch(err => console.error("Gagal load data:", err));
             }
+
 
             document.addEventListener("DOMContentLoaded", function() {
                 const columnMap = {
@@ -462,204 +437,270 @@
                         {
                             title: "Subholding",
                             field: "subholding",
-                            editor: "input",
+                            editor: "input"
                         },
                         {
                             title: "Company",
                             field: "company",
-                            editor: "input",
+                            editor: "input"
                         },
                         {
                             title: "Unit",
                             field: "unit",
-                            editor: "input",
+                            editor: "input"
                         },
                         {
                             title: "Asset Group",
                             field: "asset_group",
-                            editor: "input",
+                            editor: "input"
                         },
                         {
                             title: "Jumlah",
                             field: "jumlah",
                             editor: "number",
-                            hozAlign: "center",
-                            width: 100
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
+                            hozAlign: "center"
                         },
                         {
-                            title: "SECE Low Integrity Breakdown",
-                            field: "sece_low_integrity_breakdown",
+                            title: "SECE Low Integrity - Breakdown",
+                            field: "sece_low_breakdown",
                             editor: "number",
-                            hozAlign: "center",
-                            width: 250
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
+                            hozAlign: "center"
                         },
                         {
-                            title: "SECE Medium Integrity Due Date Inspection",
-                            field: "sece_medium_integrity_due_date_inspection",
+                            title: "SECE Medium Integrity - Due Date Inspection",
+                            field: "sece_medium_due_date_inspection",
                             editor: "number",
-                            hozAlign: "center",
-                            width: 350
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
+                            hozAlign: "center"
                         },
                         {
-                            title: "SECE Medium Integrity Low Condition",
-                            field: "sece_medium_integrity_low_condition",
+                            title: "SECE Medium Integrity - Low Condition",
+                            field: "sece_medium_low_condition",
                             editor: "number",
-                            hozAlign: "center",
-                            width: 250
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
+                            hozAlign: "center"
                         },
                         {
-                            title: "SECE Medium Integrity Low Performance",
-                            field: "sece_medium_integrity_low_performance",
+                            title: "SECE Medium Integrity - Low Performance",
+                            field: "sece_medium_low_performance",
                             editor: "number",
-                            hozAlign: "center",
-                            width: 250
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
+                            hozAlign: "center"
                         },
                         {
                             title: "SECE High Integrity",
-                            field: "sece_high_integrity",
+                            field: "sece_high",
                             editor: "number",
-                            hozAlign: "center",
-                            width: 150
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
+                            hozAlign: "center"
                         },
                         {
-                            title: "PCE Low Integrity Breakdown",
-                            field: "pce_low_integrity_breakdown",
+                            title: "PCE Low Integrity - Breakdown",
+                            field: "pce_low_breakdown",
                             editor: "number",
-                            hozAlign: "center",
-                            width: 250
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
+                            hozAlign: "center"
                         },
                         {
-                            title: "PCE Medium Integrity Due Date Inspection",
-                            field: "pce_medium_integrity_due_date_inspection",
+                            title: "PCE Medium Integrity - Due Date Inspection",
+                            field: "pce_medium_due_date_inspection",
                             editor: "number",
-                            hozAlign: "center",
-                            width: 350
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
+                            hozAlign: "center"
                         },
                         {
-                            title: "PCE Medium Integrity Low Condition",
-                            field: "pce_medium_integrity_low_condition",
+                            title: "PCE Medium Integrity - Low Condition",
+                            field: "pce_medium_low_condition",
                             editor: "number",
-                            hozAlign: "center",
-                            width: 250
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
+                            hozAlign: "center"
                         },
                         {
-                            title: "PCE Medium Integrity Low Performance",
-                            field: "pce_medium_integrity_low_performance",
+                            title: "PCE Medium Integrity - Low Performance",
+                            field: "pce_medium_low_performance",
                             editor: "number",
-                            hozAlign: "center",
-                            width: 250
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
+                            hozAlign: "center"
                         },
                         {
                             title: "PCE High Integrity",
-                            field: "pce_high_integrity",
+                            field: "pce_high",
                             editor: "number",
-                            hozAlign: "center",
-                            width: 150
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
+                            hozAlign: "center"
                         },
                         {
-                            title: "Important Low Integrity Breakdown",
-                            field: "important_low_integrity_breakdown",
+                            title: "IMPORTANT Low Integrity - Breakdown",
+                            field: "important_low_breakdown",
                             editor: "number",
-                            hozAlign: "center",
-                            width: 250
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
+                            hozAlign: "center"
                         },
                         {
-                            title: "Important Medium Integrity Due Date Inspection",
-                            field: "important_medium_integrity_due_date_inspection",
+                            title: "IMPORTANT Medium Integrity - Due Date Inspection",
+                            field: "important_medium_due_date_inspection",
                             editor: "number",
-                            hozAlign: "center",
-                            width: 350
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
+                            hozAlign: "center"
                         },
                         {
-                            title: "Important Medium Integrity Low Condition",
-                            field: "important_medium_integrity_low_condition",
+                            title: "IMPORTANT Medium Integrity - Low Condition",
+                            field: "important_medium_low_condition",
                             editor: "number",
-                            hozAlign: "center",
-                            width: 250
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
+                            hozAlign: "center"
                         },
                         {
-                            title: "Important Medium Integrity Low Performance",
-                            field: "important_medium_integrity_low_performance",
+                            title: "IMPORTANT Medium Integrity - Low Performance",
+                            field: "important_medium_low_performance",
                             editor: "number",
-                            hozAlign: "center",
-                            width: 250
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
+                            hozAlign: "center"
                         },
                         {
-                            title: "Important High Integrity",
-                            field: "important_high_integrity",
+                            title: "IMPORTANT High Integrity",
+                            field: "important_high",
                             editor: "number",
-                            hozAlign: "center",
-                            width: 150
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
+                            hozAlign: "center"
                         },
                         {
-                            title: "Secondary Low Integrity Breakdown",
-                            field: "secondary_low_integrity_breakdown",
+                            title: "SECONDARY Low Integrity - Breakdown",
+                            field: "secondary_low_breakdown",
                             editor: "number",
-                            hozAlign: "center",
-                            width: 250
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
+                            hozAlign: "center"
                         },
                         {
-                            title: "Secondary Medium Integrity Due Date Inspection",
-                            field: "secondary_medium_integrity_due_date_inspection",
+                            title: "SECONDARY Medium Integrity - Due Date Inspection",
+                            field: "secondary_medium_due_date_inspection",
                             editor: "number",
-                            hozAlign: "center",
-                            width: 350
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
+                            hozAlign: "center"
                         },
                         {
-                            title: "Secondary Medium Integrity Low Condition",
-                            field: "secondary_medium_integrity_low_condition",
+                            title: "SECONDARY Medium Integrity - Low Condition",
+                            field: "secondary_medium_low_condition",
                             editor: "number",
-                            hozAlign: "center",
-                            width: 250
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
+                            hozAlign: "center"
                         },
                         {
-                            title: "Secondary Medium Integrity Low Performance",
-                            field: "secondary_medium_integrity_low_performance",
+                            title: "SECONDARY Medium Integrity - Low Performance",
+                            field: "secondary_medium_low_performance",
                             editor: "number",
-                            hozAlign: "center",
-                            width: 250
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
+                            hozAlign: "center"
                         },
                         {
-                            title: "Secondary High Integrity",
-                            field: "secondary_high_integrity",
+                            title: "SECONDARY High Integrity",
+                            field: "secondary_high",
                             editor: "number",
-                            hozAlign: "center",
-                            width: 150
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
+                            hozAlign: "center"
                         },
                         {
                             title: "Kegiatan Penurunan Low",
                             field: "kegiatan_penurunan_low",
-                            editor: "input",
+                            editor: "number",
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
+                            hozAlign: "center"
                         },
                         {
                             title: "Kegiatan Penurunan Med",
                             field: "kegiatan_penurunan_med",
-                            editor: "input",
-                        },
-                        {
-                            title: "Tanggal Realisasi",
-                            field: "tanggal_realisasi",
-                            editor: "input",
-                        },
-                        {
-                            title: "Tanggal Prognosa",
-                            field: "tanggal_prognosa",
-                            editor: "input",
+                            editor: "number",
+                            editorParams: {
+                                step: 1,
+                                min: 0
+                            },
+                            hozAlign: "center"
                         },
                         {
                             title: "Informasi Penyebab Low Integrity",
-                            field: "informasi_penyebab_low_integrity",
+                            field: "penyebab_low_integrity",
                             editor: "input",
+                            width: 450
                         },
                         {
                             title: "Informasi Penambahan Jumlah Aset",
-                            field: "informasi_penambahan_jumlah_aset",
+                            field: "penambahan_jumlah_aset",
                             editor: "input",
+                            width: 450
                         },
                         {
                             title: "Informasi Naik Turun Low Integrity",
-                            field: "informasi_naik_turun_low_integrity",
+                            field: "naik_turun_low_integrity",
                             editor: "input",
+                            width: 450
                         },
                         {
                             title: "Aksi",
@@ -680,10 +721,12 @@
                 };
 
                 window.table = new Tabulator("#example-table", {
-                    layout: "fitDataTable",
-                    responsiveLayout: "collapse",
+                    layout: "fitDataStretch",
+                    headerWordWrap: true,
                     autoResize: true,
                     columns: columnMap["status-ai-regional-2"],
+                    virtualDom: true,
+                    height: "700px",
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -719,7 +762,7 @@
 
                 document.getElementById("download-xlsx").addEventListener("click", function() {
                     window.table.download("xlsx", "status-ai-regional-2.xlsx", {
-                        sheetName: "kondisi-vacant-aims",
+                        sheetName: "status-asset-ai",
                         columnHeaders: true,
                         downloadDataFormatter: function(data) {
                             return data.map(row => {
@@ -731,7 +774,7 @@
                                         value === undefined ||
                                         value === "" ||
                                         valStr === "null" ||
-                                        valStr === "null"
+                                        valStr === "undefined"
                                     ) ? "" : value;
                                 }
                                 return cleanedRow;
@@ -740,31 +783,15 @@
                     });
                 });
 
-                table.on("cellEdited", function(cell) {
-                    const updatedData = cell.getRow().getData();
-                    const id = updatedData.id;
-
-                    if (!id) return;
-
-                    fetch(`status-ai-regional-2/${id}`, {
-                            method: "PUT",
-                            headers: {
-                                "Content-Type": "application/json",
-                                "Accept": "application/json",
-                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
-                                    .getAttribute("content")
-                            },
-                            body: JSON.stringify(updatedData)
-                        })
-                        .then(res => res.json())
-                        .then(data => console.log("Update berhasil:", data))
-                        .catch(err => console.error("Gagal update:", err));
-                });
-
                 let previousData = [];
                 table.on("dataLoaded", function(newData) {
                     previousData = JSON.parse(JSON.stringify(newData));
                 });
+
+                function isValidPeriodeFormat(value) {
+                    const regex = /^[A-Za-z]{3}-\d{2}$/;
+                    return regex.test(value);
+                }
 
                 function getChangedRows(newData, oldData) {
                     const changes = [];
@@ -785,7 +812,28 @@
                     const changedRows = getChangedRows(newData, previousData);
                     console.log("Baris yang berubah:", changedRows);
 
-                    changedRows.forEach(rowData => {
+                    changedRows.forEach((rowData, index) => {
+                        const id = rowData.id;
+                        if (!id) return;
+
+                        const oldRow = previousData.find(r => r.id === id);
+                        if (!oldRow) return;
+
+                        if (rowData.periode !== oldRow.periode && !isValidPeriodeFormat(rowData
+                                .periode)) {
+                            showToast(
+                                `"${rowData.periode}" Format Periode tidak valid! Gunakan format: Jan-25`,
+                                "error");
+
+                            rowData.periode = oldRow.periode;
+
+                            table.updateData([{
+                                id: rowData.id,
+                                periode: oldRow.periode
+                            }]);
+
+                            return;
+                        }
                         fetch(`status-ai-regional-2/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
@@ -798,34 +846,63 @@
                             })
                             .then(res => res.json())
                             .then(response => {
-                                console.log("Data berhasil disimpan:", response);
+                                if (response.success) {
+                                    showToast(`Data berhasil disimpan`, "success");
+                                } else {
+                                    showToast(
+                                        `Format Periode tidak valid! Gunakan format: Jan-25 : ${response.message}`,
+                                        "error");
+                                }
                             })
                             .catch(err => {
                                 console.error("Gagal menyimpan hasil paste:", err);
+                                showToast(`Kesalahan pada ID ${id}`, "error");
                             });
                     });
 
                     previousData = JSON.parse(JSON.stringify(newData));
                 });
 
+                table.on("cellEdited", function(cell) {
+                    const updatedData = cell.getRow().getData();
+                    const id = updatedData.id;
+
+                    if (!id) return;
+                    if (cell.getField() === "periode" && !isValidPeriodeFormat(cell.getValue())) {
+                        showToast("Format Periode tidak valid! Gunakan format: Sep-24", "error");
+                        cell.restoreOldValue();
+                        return;
+                    }
+
+                    fetch(`status-ai-regional-2/${id}`, {
+                            method: "PUT",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute("content")
+                            },
+                            body: JSON.stringify(updatedData)
+                        })
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.success) {
+                                showToast("Update berhasil!", "success");
+                            } else {
+                                showToast("Update gagal: " + data.message, "error");
+                            }
+                        })
+                        .catch(err => {
+                            console.error("Gagal update:", err);
+                            showToast("Terjadi kesalahan saat update!", "error");
+                        });
+                });
                 loadData();
             });
         </script>
 
-        {{-- create data --}}
+        {{-- create and update data --}}
         <script>
-            function showToast(message, type = "success") {
-                const toast = document.getElementById("toastNotification");
-                toast.textContent = message;
-                toast.className = "";
-                toast.classList.add(type === "success" ? "toast-success" : "toast-error");
-                toast.style.display = "block";
-
-                setTimeout(() => {
-                    toast.style.display = "none";
-                }, 3500);
-            }
-
             function showToast(message, type = "success") {
                 const toast = document.getElementById("toastNotification");
                 toast.textContent = message;
@@ -854,69 +931,70 @@
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
 
-                fetch("status-ai-regional-2", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Accept": "application/json",
-                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute(
-                                "content")
-                        },
-                        body: JSON.stringify({
-                            periode: data.periode,
-                            subholding: data.subholding,
-                            company: data.company,
-                            unit: data.unit,
-                            asset_group: data.asset_group,
-                            jumlah: data.jumlah,
-                            sece_low_integrity_breakdown: data.sece_low_integrity_breakdown,
-                            sece_medium_integrity_due_date_inspection: data
-                                .sece_medium_integrity_due_date_inspection,
-                            sece_medium_integrity_low_condition: data.sece_medium_integrity_low_condition,
-                            sece_medium_integrity_low_performance: data
-                                .sece_medium_integrity_low_performance,
-                            sece_high_integrity: data.sece_high_integrity,
-                            pce_low_integrity_breakdown: data.pce_low_integrity_breakdown,
-                            pce_medium_integrity_due_date_inspection: data
-                                .pce_medium_integrity_due_date_inspection,
-                            pce_medium_integrity_low_condition: data.pce_medium_integrity_low_condition,
-                            pce_medium_integrity_low_performance: data.pce_medium_integrity_low_performance,
-                            pce_high_integrity: data.pce_high_integrity,
-                            important_low_integrity_breakdown: data.important_low_integrity_breakdown,
-                            important_medium_integrity_due_date_inspection: data
-                                .important_medium_integrity_due_date_inspection,
-                            important_medium_integrity_low_condition: data
-                                .important_medium_integrity_low_condition,
-                            important_medium_integrity_low_performance: data
-                                .important_medium_integrity_low_performance,
-                            important_high_integrity: data.important_high_integrity,
-                            secondary_low_integrity_breakdown: data.secondary_low_integrity_breakdown,
-                            secondary_medium_integrity_due_date_inspection: data
-                                .secondary_medium_integrity_due_date_inspection,
-                            secondary_medium_integrity_low_condition: data
-                                .secondary_medium_integrity_low_condition,
-                            secondary_medium_integrity_low_performance: data
-                                .secondary_medium_integrity_low_performance,
-                            secondary_high_integrity: data.secondary_high_integrity,
-                            kegiatan_penurunan_low: data.kegiatan_penurunan_low,
-                            kegiatan_penurunan_med: data.kegiatan_penurunan_med,
-                            tanggal_realisasi: data.tanggal_realisasi,
-                            tanggal_prognosa: data.tanggal_prognosa,
-                            informasi_penyebab_low_integrity: data.informasi_penyebab_low_integrity,
-                            informasi_penambahan_jumlah_aset: data.informasi_penambahan_jumlah_aset,
-                            informasi_naik_turun_low_integrity: data.informasi_naik_turun_low_integrity,
-                        })
-                    })
-                    .then(response => response.json())
-                    .then(result => {
-                        if (result.success) {
-                            showToast(result.message || "Data berhasil disimpan", "success");
-                            table.setData(`${BASE_URL}/monev/shu/input-data/status-ai-regional-2/data`);
-                            this.reset();
-                            closeModal();
+                const jumlahRow = parseInt(data.jumlah_row);
+
+                const payloadArray = [];
+
+                for (let i = 0; i < jumlahRow; i++) {
+                    payloadArray.push({
+                        periode: data.periode,
+                        subholding: data.subholding,
+                        company: data.company,
+                        unit: data.unit,
+                        asset_group: data.asset_group,
+                        jumlah: data.jumlah,
+                        sece_low_breakdown: data.sece_low_breakdown,
+                        sece_medium_due_date_inspection: data.sece_medium_due_date_inspection,
+                        sece_medium_low_condition: data.sece_medium_low_condition,
+                        sece_medium_low_performance: data.sece_medium_low_performance,
+                        sece_high: data.sece_high,
+                        pce_low_breakdown: data.pce_low_breakdown,
+                        pce_medium_due_date_inspection: data.pce_medium_due_date_inspection,
+                        pce_medium_low_condition: data.pce_medium_low_condition,
+                        pce_medium_low_performance: data.pce_medium_low_performance,
+                        pce_high: data.pce_high,
+                        important_low_breakdown: data.important_low_breakdown,
+                        important_medium_due_date_inspection: data.important_medium_due_date_inspection,
+                        important_medium_low_condition: data.important_medium_low_condition,
+                        important_medium_low_performance: data.important_medium_low_performance,
+                        important_high: data.important_high,
+                        secondary_low_breakdown: data.secondary_low_breakdown,
+                        secondary_medium_due_date_inspection: data.secondary_medium_due_date_inspection,
+                        secondary_medium_low_condition: data.secondary_medium_low_condition,
+                        secondary_medium_low_performance: data.secondary_medium_low_performance,
+                        secondary_high: data.secondary_high,
+                        kegiatan_penurunan_low: data.kegiatan_penurunan_low,
+                        kegiatan_penurunan_med: data.kegiatan_penurunan_med,
+                        informasi_penyebab_low: data.informasi_penyebab_low,
+                        informasi_penambahan_jumlah_aset: data.informasi_penambahan_jumlah_aset,
+                        informasi_naik_turun_low: data.informasi_naik_turun_low
+                    });
+                }
+
+                Promise.all(payloadArray.map(dataItem => {
+                        return fetch("status-ai-regional-2", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute(
+                                        "content")
+                            },
+                            body: JSON.stringify(dataItem)
+                        }).then(res => res.json());
+                    }))
+                    .then(results => {
+                        const gagal = results.filter(r => !r.success);
+                        if (gagal.length === 0) {
+                            showToast(`${jumlahRow} baris data berhasil buat`, "success");
                         } else {
-                            showToast(result.message || "Gagal menyimpan data", "error");
+                            showToast(`${gagal.length} data gagal disimpan`, "error");
                         }
+
+                        table.setData(`${BASE_URL}/monev/shu/input-data/status-ai-regional-2/data`);
+                        document.getElementById("createForm").reset();
+                        closeModal();
                     })
                     .catch(error => {
                         console.error("Error saat submit:", error);

@@ -190,7 +190,7 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Tambah Target Status PLO Regional 3</h3>
+            <h3>Tambah Target Regional 3</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
 
@@ -202,12 +202,10 @@
 
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
+
         </div>
     </div>
 
-    <div id="toastNotification"
-        style="display:none; position: fixed; top: 20px; right: 20px; z-index: 9999; padding: 15px 20px; border-radius: 8px; color: white; font-weight: bold;">
-    </div>
 
     <div id="toastNotification"
         style="display:none; position: fixed; top: 20px; right: 20px; z-index: 9999; padding: 15px 20px; border-radius: 8px; color: white; font-weight: bold;">
@@ -492,7 +490,8 @@
                         {
                             title: "Nama Aset",
                             field: "nama_aset",
-                            editor: "input"
+                            editor: "input",
+                            width: 300
                         },
                         {
                             title: "Tanggal Pengesahan",
@@ -532,7 +531,9 @@
                         {
                             title: "BA PK",
                             field: "ba_pk",
-                            editor: "input"
+                            editor: "input",
+                            hozAlign: "center",
+
                         },
                         {
                             title: "Penerbitan PLO Valid",
@@ -547,8 +548,13 @@
                         {
                             title: "Tindak Lanjut",
                             field: "tindak_lanjut",
-                            editor: "input",
-                            width: 450
+                            editor: "textarea",
+                            width: 350,
+                            formatter: function(cell) {
+                                return cell.getValue()
+                                    ?.replace(/\n/g, "<br>") || "";
+                            }
+
                         },
                         {
                             title: "Aksi",
@@ -569,11 +575,12 @@
                 };
 
                 window.table = new Tabulator("#example-table", {
-                    layout: "fitDataTable",
-                    responsiveLayout: "collapse",
+                    layout: "fitDataStretch",
+                    headerWordWrap: true,
                     autoResize: true,
                     columns: columnMap["status-plo-regional-3"],
                     virtualDom: true,
+                    height: "700px",
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -630,11 +637,46 @@
                     });
                 });
 
+                function isValidPeriodeFormat(value) {
+                    const regex = /^[A-Za-z]{3}-\d{2}$/;
+                    return regex.test(value);
+                }
+
+                function isValidDateFormat(value) {
+                    const regex = /^\d{2}-\d{2}-\d{4}$/;
+                    if (!regex.test(value)) return false;
+
+                    const [day, month, year] = value.split("-").map(Number);
+                    const date = new Date(year, month - 1, day);
+
+                    return (
+                        date.getFullYear() === year &&
+                        date.getMonth() === month - 1 &&
+                        date.getDate() === day
+                    );
+                }
+
                 table.on("cellEdited", function(cell) {
                     const updatedData = cell.getRow().getData();
                     const id = updatedData.id;
+                    const field = cell.getField();
+                    const value = cell.getValue();
 
                     if (!id) return;
+
+                    if (field === "periode" && !isValidPeriodeFormat(value)) {
+                        showToast("Format Periode tidak valid! Gunakan format: Sep-24", "error");
+                        cell.restoreOldValue();
+                        return;
+                    }
+
+                    if ((field === "tanggal_pengesahan" || field === "masa_berlaku") && !isValidDateFormat(
+                            value)) {
+                        showToast(`Format ${field.replace("_", " ")} tidak valid! Gunakan format: DD-MM-YYYY`,
+                            "error");
+                        cell.restoreOldValue();
+                        return;
+                    }
 
                     fetch(`status-plo-regional-3/${id}`, {
                             method: "PUT",
@@ -647,9 +689,20 @@
                             body: JSON.stringify(updatedData)
                         })
                         .then(res => res.json())
-                        .then(data => console.log("Update berhasil:", data))
-                        .catch(err => console.error("Gagal update:", err));
+                        .then(data => {
+                            if (data.success) {
+                                showToast("Update berhasil!", "success");
+                            } else {
+                                showToast("Update gagal: " + data.message, "error");
+                            }
+                        })
+                        .catch(err => {
+                            console.error("Gagal update:", err);
+                            showToast("Terjadi kesalahan saat update!", "error");
+                        });
                 });
+
+
                 let previousData = [];
                 table.on("dataLoaded", function(newData) {
                     previousData = JSON.parse(JSON.stringify(newData));
@@ -674,7 +727,55 @@
                     const changedRows = getChangedRows(newData, previousData);
                     console.log("Baris yang berubah:", changedRows);
 
-                    changedRows.forEach(rowData => {
+                    changedRows.forEach((rowData, index) => {
+                        const id = rowData.id;
+                        if (!id) return;
+
+                        const oldRow = previousData.find(r => r.id === id);
+                        if (!oldRow) return;
+
+                        if (rowData.periode !== oldRow.periode && !isValidPeriodeFormat(rowData
+                                .periode)) {
+                            showToast(
+                                `"${rowData.periode}" Format Periode tidak valid! Gunakan format: Jan-25`,
+                                "error");
+                            rowData.periode = oldRow.periode;
+
+                            table.updateData([{
+                                id: rowData.id,
+                                periode: oldRow.periode
+                            }]);
+                            return;
+                        }
+
+                        if (rowData.tanggal_pengesahan !== oldRow.tanggal_pengesahan &&
+                            !isValidDateFormat(rowData.tanggal_pengesahan)) {
+                            showToast(
+                                `"${rowData.tanggal_pengesahan}" Format Tanggal Pengesahan tidak valid! Gunakan format: DD-MM-YYYY`,
+                                "error");
+                            rowData.tanggal_pengesahan = oldRow.tanggal_pengesahan;
+
+                            table.updateData([{
+                                id: rowData.id,
+                                tanggal_pengesahan: oldRow.tanggal_pengesahan
+                            }]);
+                            return;
+                        }
+
+                        if (rowData.masa_berlaku !== oldRow.masa_berlaku &&
+                            !isValidDateFormat(rowData.masa_berlaku)) {
+                            showToast(
+                                `"${rowData.masa_berlaku}" Format Masa Berlaku tidak valid! Gunakan format: DD-MM-YYYY`,
+                                "error");
+                            rowData.masa_berlaku = oldRow.masa_berlaku;
+
+                            table.updateData([{
+                                id: rowData.id,
+                                masa_berlaku: oldRow.masa_berlaku
+                            }]);
+                            return;
+                        }
+
                         fetch(`status-plo-regional-3/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
@@ -687,15 +788,21 @@
                             })
                             .then(res => res.json())
                             .then(response => {
-                                console.log("Data berhasil disimpan:", response);
+                                if (response.success) {
+                                    showToast(`Data berhasil disimpan`, "success");
+                                } else {
+                                    showToast(`Gagal menyimpan: ${response.message}`, "error");
+                                }
                             })
                             .catch(err => {
                                 console.error("Gagal menyimpan hasil paste:", err);
+                                showToast(`Kesalahan pada ID ${id}`, "error");
                             });
                     });
 
                     previousData = JSON.parse(JSON.stringify(newData));
                 });
+
                 loadData();
             });
         </script>
@@ -730,45 +837,56 @@
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
 
-                fetch("status-plo-regional-3", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Accept": "application/json",
-                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute(
-                                "content")
-                        },
-                        body: JSON.stringify({
-                            periode: data.periode,
-                            nomor_plo: data.nomor_plo,
-                            company: data.company,
-                            area: data.area,
-                            lokasi: data.lokasi,
-                            nama_aset: data.nama_aset,
-                            tanggal_pengesahan: data.tanggal_pengesahan,
-                            masa_berlaku: data.masa_berlaku,
-                            keterangan: data.keterangan,
-                            belum_proses: data.belum_proses,
-                            pre_inspection: data.pre_inspection,
-                            inspection: data.inspection,
-                            coi_peralatan: data.coi_peralatan,
-                            ba_pk: data.ba_pk,
-                            penerbitan_plo_valid: data.penerbitan_plo_valid,
-                            kendala: data.kendala,
-                            tindak_lanjut: data.tindak_lanjut
-                        })
+                const jumlahRow = parseInt(data.jumlah_row);
 
-                    })
-                    .then(response => response.json())
-                    .then(result => {
-                        if (result.success) {
-                            showToast(result.message || "Data berhasil disimpan", "success");
-                            table.setData(`${BASE_URL}/monev/shu/input-data/status-plo-regional-3/data`);
-                            this.reset();
-                            closeModal();
+                const payloadArray = [];
+
+                for (let i = 0; i < jumlahRow; i++) {
+                    payloadArray.push({
+                        periode: data.periode,
+                        nomor_plo: data.nomor_plo,
+                        company: data.company,
+                        area: data.area,
+                        lokasi: data.lokasi,
+                        nama_aset: data.nama_aset,
+                        tanggal_pengesahan: data.tanggal_pengesahan,
+                        masa_berlaku: data.masa_berlaku,
+                        keterangan: data.keterangan,
+                        belum_proses: data.belum_proses,
+                        pre_inspection: data.pre_inspection,
+                        inspection: data.inspection,
+                        coi_peralatan: data.coi_peralatan,
+                        ba_pk: data.ba_pk,
+                        penerbitan_plo_valid: data.penerbitan_plo_valid,
+                        kendala: data.kendala,
+                        tindak_lanjut: data.tindak_lanjut
+                    });
+                }
+
+                Promise.all(payloadArray.map(dataItem => {
+                        return fetch("status-plo-regional-3", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute(
+                                        "content")
+                            },
+                            body: JSON.stringify(dataItem)
+                        }).then(res => res.json());
+                    }))
+                    .then(results => {
+                        const gagal = results.filter(r => !r.success);
+                        if (gagal.length === 0) {
+                            showToast(`${jumlahRow} baris data berhasil buat`, "success");
                         } else {
-                            showToast(result.message || "Gagal menyimpan data", "error");
+                            showToast(`${gagal.length} data gagal disimpan`, "error");
                         }
+
+                        table.setData(`${BASE_URL}/monev/shu/input-data/status-plo-regional-3/data`);
+                        document.getElementById("createForm").reset();
+                        closeModal();
                     })
                     .catch(error => {
                         console.error("Error saat submit:", error);
