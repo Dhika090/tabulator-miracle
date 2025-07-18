@@ -22,6 +22,18 @@
                 box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             }
 
+            .tabulator-paginator {
+                display: flex !important;
+                justify-content: flex-start !important;
+                flex-wrap: wrap;
+            }
+
+            .tabulator-paginator button,
+            .tabulator-paginator select {
+                margin-right: 20px;
+            }
+
+
             .tabulator-cell {
                 font-size: 14px;
             }
@@ -114,7 +126,6 @@
             button {
                 height: 40px;
             }
-
 
             @media screen and (max-width: 768px) {
                 .tabulator .tabulator-header {
@@ -452,7 +463,6 @@
                 };
 
                 window.table = new Tabulator("#example-table", {
-                    // layout: "fitDataTable",
                     layout: "fitDataStretch",
                     responsiveLayout: "collapse",
                     autoResize: true,

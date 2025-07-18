@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\UserDigio;
 use Carbon\Carbon;
 use Closure;
 use Firebase\JWT\JWT;
@@ -22,6 +23,7 @@ class verityTokenDigio
     {
         $token = $request->cookie('digio_token') ?? $request->query('token');
         $tokenFromQuery = $request->query('token');
+
         if (!$token) {
             return redirect()->away('https://digio.pgn.co.id');
         }
@@ -31,7 +33,7 @@ class verityTokenDigio
             $decoded = JWT::decode($token, new Key($secretKey, 'HS256'));
 
             if (Carbon::now()->timestamp > $decoded->exp) {
-                return redirect('/unauthorized')->with('error', 'Token expired.');
+                return redirect('https://digio.pgn.co.id')->with('error', 'Token expired.');
             }
 
             if (!Session::has('user')) {
@@ -43,6 +45,21 @@ class verityTokenDigio
                     'token' => $token
                 ]);
             }
+
+            $user = UserDigio::updateOrCreate(
+                ['userid' => $decoded->userid],
+                [
+                    'display_name' => $decoded->displayName ?? null,
+                    'title' => $decoded->title ?? null,
+                    'group' => $decoded->group ?? null,
+                    'dir' => $decoded->dir ?? null,
+                    'iss' => $decoded->iss ?? null,
+                    'aud' => $decoded->aud ?? null,
+                    'jwt_exp' => Carbon::createFromTimestamp($decoded->exp),
+                    'token' => $token,
+                    'is_active' => true
+                ]
+            );
 
             if (!$request->cookie('digio_token')) {
                 Cookie::queue('digio_token', $token, 60, '/');
