@@ -24,41 +24,53 @@ class verityTokenDigio
     {
         $token = $request->query('token');
 
-        if (!$token) {
+        if (!$token && !session()->has('digio_token')) {
             return redirect()->away('https://digio.pgn.co.id');
         }
 
         try {
             $secretKey = env('DIGIO_JWT_SECRET', 'zx7xCQraOUX/PFANpi5E+dNqN4Q0QV3S8QXdQpJHHKM=');
-            $decoded = JWT::decode($token, new Key($secretKey, 'HS256'));
 
-            if (Carbon::now()->timestamp > $decoded->exp) {
+            if ($token) {
+                $decoded = JWT::decode($token, new Key($secretKey, 'HS256'));
+                $expTime = Carbon::createFromTimestamp($decoded->exp);
+
+                // Simpan token dan data user di session
+                session()->put('digio_token', $token);
+                session()->put('digio_token_exp', $expTime);
+
+                UserDigio::updateOrCreate(
+                    ['userid' => $decoded->userid],
+                    [
+                        'display_name' => $decoded->displayName ?? null,
+                        'title' => $decoded->title ?? null,
+                        'group' => $decoded->group ?? null,
+                        'dir' => $decoded->dir ?? null,
+                        'iss' => $decoded->iss ?? null,
+                        'aud' => $decoded->aud ?? null,
+                        'jwt_exp' => $expTime,
+                        'token' => $token,
+                        'is_active' => true
+                    ]
+                );
+
+                if (!session()->has('token_cleaned')) {
+                    session()->put('token_cleaned', true);
+                    return redirect($request->url());
+                }
+            }
+
+            // Cek expired token di session
+            $tokenExp = session()->get('digio_token_exp');
+            if ($tokenExp && Carbon::now()->gt($tokenExp)) {
+                session()->flush(); // Hapus semua session
                 return redirect()->away('https://digio.pgn.co.id')->with('error', 'Token expired.');
             }
 
-            $user = UserDigio::updateOrCreate(
-                ['userid' => $decoded->userid],
-                [
-                    'display_name' => $decoded->displayName ?? null,
-                    'title' => $decoded->title ?? null,
-                    'group' => $decoded->group ?? null,
-                    'dir' => $decoded->dir ?? null,
-                    'iss' => $decoded->iss ?? null,
-                    'aud' => $decoded->aud ?? null,
-                    'jwt_exp' => Carbon::createFromTimestamp($decoded->exp),
-                    'token' => $token,
-                    'is_active' => true
-                ]
-            );
-
-            if ($request->query('token') && !session()->has('token_cleaned')) {
-                session()->put('token_cleaned', true);
-                $cleanUrl = $request->url();
-                return redirect($cleanUrl);
-            }
-
             return $next($request);
+
         } catch (\Exception $e) {
+            session()->flush();
             return redirect()->away('https://digio.pgn.co.id')->with('error', 'Token tidak valid: ' . $e->getMessage());
         }
     }
