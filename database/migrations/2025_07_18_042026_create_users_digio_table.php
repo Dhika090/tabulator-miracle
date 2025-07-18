@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -14,15 +13,14 @@ return new class extends Migration
         Schema::create('users_digio', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
-            // Tambahan untuk integrasi JWT/Digio
             $table->string('userid')->unique();
             $table->string('display_name')->nullable();
-            $table->string('title',550)->nullable();
+            $table->string('title', 550)->nullable();
             $table->string('group')->nullable();
             $table->string('dir')->nullable();
             $table->string('iss')->nullable();
             $table->string('aud')->nullable();
-            $table->string('token',1000)->nullable();
+            $table->string('token', 1000)->nullable();
             $table->timestamp('jwt_exp')->nullable();
 
             // Status dan fitur tambahan
