@@ -472,10 +472,17 @@ use App\Http\Controllers\SHIML\InputDataMonev\PTK\SapAssetPtkController;
 use App\Http\Controllers\SHIML\InputDataMonev\PTK\SistemInformasiAimsPtkController;
 use App\Http\Controllers\SHIML\InputDataMonev\PTK\StatusAssetAiPtkController;
 use App\Http\Controllers\SHIML\InputDataMonev\PTK\StatusPloPtkController;
+use App\Http\Controllers\SHPNRE\TargetKinerja\HasilMonev\HasilMonevShpnreController;
+use App\Http\Controllers\SHPNRE\TargetKinerja\HasilMonev\HighlightInformasiDomainShpnreController;
+use App\Http\Controllers\SHPNRE\TargetKinerja\HasilMonev\HighlightMandatoryCertificationShpnreController;
+use App\Http\Controllers\SHPNRE\TargetKinerja\HasilMonev\HighlightRealisasiAiShpnreController;
+use App\Http\Controllers\SHPNRE\TargetKinerja\HasilMonev\HighlightStatusAiShpnreController;
+use App\Http\Controllers\SHPNRE\TargetKinerja\HasilMonev\HighlightStatusPloShpnreController;
 use App\Http\Controllers\SHPNRE\TargetKinerja\StatusPlo\KumulatifStatusPloSHPNREController;
 use App\Http\Controllers\SHPNRE\TargetKinerja\StatusPlo\PrognosaStatusPloSHPNREController;
 use App\Http\Controllers\SHPNRE\TargetKinerja\StatusPlo\TargetPenurunanPloSHPNREController;
 use App\Http\Controllers\SHPNRE\TargetKinerja\TargetMandatoryCertficationShpnreController;
+use App\Http\Controllers\SHPNRE\TargetKinerja\TargetSapAssetPnreController;
 use App\Http\Controllers\SHRNP\InputDataMonev\Balikpapan\AssetBreakdownBalikpapanController;
 use App\Http\Controllers\SHRNP\InputDataMonev\Balikpapan\AvailabilityBalikpapanController;
 use App\Http\Controllers\SHRNP\InputDataMonev\Balikpapan\KondisiVacantAimsBalikpapanController;
@@ -639,8 +646,8 @@ Route::get('monev-aim', [MonevAimController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('monev.aim');
 
-Route::middleware([\App\Http\Middleware\CorsMiddleware::class])->group(function () {
-    // Route::middleware([\App\Http\Middleware\verityTokenDigio::class])->group(function () {
+// Route::middleware([\App\Http\Middleware\CorsMiddleware::class])->group(function () {
+Route::middleware([\App\Http\Middleware\verityTokenDigio::class])->group(function () {
     Route::get('/', function () {
         return view('dashboard');
     });
@@ -3215,6 +3222,68 @@ Route::middleware([\App\Http\Middleware\CorsMiddleware::class])->group(function 
         Route::get('/data', [TargetMandatoryCertficationShpnreController::class, 'data'])->name('target-mandatory-certification-shpnre.data');
         Route::put('/{id}', [TargetMandatoryCertficationShpnreController::class, 'update'])->name('target-mandatory-certification-shpnre.update');
         Route::delete('/{id}', [TargetMandatoryCertficationShpnreController::class, 'destroy'])->name('target-mandatory-certification-shpnre.destroy');
+    });
+    // TargetSapAssetPnreController
+    Route::prefix('monev/shpnre/kinerja/target-sap-asset-pnre')->group(function () {
+        Route::get('/', [TargetSapAssetPnreController::class, 'index'])->name('target-sap-asset-pnre');
+        Route::post('/', [TargetSapAssetPnreController::class, 'store'])->name('target-sap-asset-pnre.store');
+        Route::get('/data', [TargetSapAssetPnreController::class, 'data'])->name('target-sap-asset-pnre.data');
+        Route::put('/{id}', [TargetSapAssetPnreController::class, 'update'])->name('target-sap-asset-pnre.update');
+        Route::delete('/{id}', [TargetSapAssetPnreController::class, 'destroy'])->name('target-sap-asset-pnre.destroy');
+    });
+
+    // HasilMonevShpnreController
+    Route::prefix('monev/shpnre/kinerja/tindak-lanjut-hasil-monev-shpnre')->group(function () {
+        Route::get('/', [HasilMonevShpnreController::class, 'index'])->name('tindak-lanjut-hasil-monev-shpnre');
+        Route::post('/', [HasilMonevShpnreController::class, 'store'])->name('tindak-lanjut-hasil-monev-shpnre.store');
+        Route::get('/data', [HasilMonevShpnreController::class, 'data'])->name('tindak-lanjut-hasil-monev-shpnre.data');
+        Route::put('/{id}', [HasilMonevShpnreController::class, 'update'])->name('tindak-lanjut-hasil-monev-shpnre.update');
+        Route::delete('/{id}', [HasilMonevShpnreController::class, 'destroy'])->name('tindak-lanjut-hasil-monev-shpnre.destroy');
+    });
+
+    // HighlightInformasiDomainShpnreController
+    Route::prefix('monev/shpnre/kinerja/tindak-lanjut-highlight-informasi-domain-shpnre')->group(function () {
+        Route::get('/', [HighlightInformasiDomainShpnreController::class, 'index'])->name('tindak-lanjut-highlight-informasi-domain-shpnre');
+        Route::post('/', [HighlightInformasiDomainShpnreController::class, 'store'])->name('tindak-lanjut-highlight-informasi-domain-shpnre.store');
+        Route::get('/data', [HighlightInformasiDomainShpnreController::class, 'data'])->name('tindak-lanjut-highlight-informasi-domain-shpnre.data');
+        Route::put('/{id}', [HighlightInformasiDomainShpnreController::class, 'update'])->name('tindak-lanjut-highlight-informasi-domain-shpnre.update');
+        Route::delete('/{id}', [HighlightInformasiDomainShpnreController::class, 'destroy'])->name('tindak-lanjut-highlight-informasi-domain-shpnre.destroy');
+    });
+
+    // HighlightMandatoryCertificationShpnreController
+    Route::prefix('monev/shpnre/kinerja/tindak-lanjut-highlight-mandatory-certification-shpnre')->group(function () {
+        Route::get('/', [HighlightMandatoryCertificationShpnreController::class, 'index'])->name('tindak-lanjut-highlight-mandatory-certification-shpnre');
+        Route::post('/', [HighlightMandatoryCertificationShpnreController::class, 'store'])->name('tindak-lanjut-highlight-mandatory-certification-shpnre.store');
+        Route::get('/data', [HighlightMandatoryCertificationShpnreController::class, 'data'])->name('tindak-lanjut-highlight-mandatory-certification-shpnre.data');
+        Route::put('/{id}', [HighlightMandatoryCertificationShpnreController::class, 'update'])->name('tindak-lanjut-highlight-mandatory-certification-shpnre.update');
+        Route::delete('/{id}', [HighlightMandatoryCertificationShpnreController::class, 'destroy'])->name('tindak-lanjut-highlight-mandatory-certification-shpnre.destroy');
+    });
+
+    // HighlightRealisasiAiShpnreController
+    Route::prefix('monev/shpnre/kinerja/tindak-lanjut-highlight-realisasi-aims-shpnre')->group(function () {
+        Route::get('/', [HighlightRealisasiAiShpnreController::class, 'index'])->name('tindak-lanjut-highlight-realisasi-aims-shpnre');
+        Route::post('/', [HighlightRealisasiAiShpnreController::class, 'store'])->name('tindak-lanjut-highlight-realisasi-aims-shpnre.store');
+        Route::get('/data', [HighlightRealisasiAiShpnreController::class, 'data'])->name('tindak-lanjut-highlight-realisasi-aims-shpnre.data');
+        Route::put('/{id}', [HighlightRealisasiAiShpnreController::class, 'update'])->name('tindak-lanjut-highlight-realisasi-aims-shpnre.update');
+        Route::delete('/{id}', [HighlightRealisasiAiShpnreController::class, 'destroy'])->name('tindak-lanjut-highlight-realisasi-aims-shpnre.destroy');
+    });
+
+    // HighlightStatusAiShpnreController
+    Route::prefix('monev/shpnre/kinerja/tindak-lanjut-highlight-status-ai-shpnre')->group(function () {
+        Route::get('/', [HighlightStatusAiShpnreController::class, 'index'])->name('tindak-lanjut-highlight-status-ai-shpnre');
+        Route::post('/', [HighlightStatusAiShpnreController::class, 'store'])->name('tindak-lanjut-highlight-status-ai-shpnre.store');
+        Route::get('/data', [HighlightStatusAiShpnreController::class, 'data'])->name('tindak-lanjut-highlight-status-ai-shpnre.data');
+        Route::put('/{id}', [HighlightStatusAiShpnreController::class, 'update'])->name('tindak-lanjut-highlight-status-ai-shpnre.update');
+        Route::delete('/{id}', [HighlightStatusAiShpnreController::class, 'destroy'])->name('tindak-lanjut-highlight-status-ai-shpnre.destroy');
+    });
+
+    // HighlightStatusPloShpnreController
+    Route::prefix('monev/shpnre/kinerja/tindak-lanjut-highlight-status-plo-shpnre')->group(function () {
+        Route::get('/', [HighlightStatusPloShpnreController::class, 'index'])->name('tindak-lanjut-highlight-status-plo-shpnre');
+        Route::post('/', [HighlightStatusPloShpnreController::class, 'store'])->name('tindak-lanjut-highlight-status-plo-shpnre.store');
+        Route::get('/data', [HighlightStatusPloShpnreController::class, 'data'])->name('tindak-lanjut-highlight-status-plo-shpnre.data');
+        Route::put('/{id}', [HighlightStatusPloShpnreController::class, 'update'])->name('tindak-lanjut-highlight-status-plo-shpnre.update');
+        Route::delete('/{id}', [HighlightStatusPloShpnreController::class, 'destroy'])->name('tindak-lanjut-highlight-status-plo-shpnre.destroy');
     });
 
     // SHIML

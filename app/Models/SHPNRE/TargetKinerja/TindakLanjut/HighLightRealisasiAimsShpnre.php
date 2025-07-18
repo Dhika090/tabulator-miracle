@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Models\SHG\TargetKinerja;
-
-use Illuminate\Database\Eloquent\Model;
+namespace App\Models\SHPNRE\TargetKinerja\TindakLanjut;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
-class KumulatifStatusPloShg extends Model
+
+class HighLightRealisasiAimsShpnre extends Model
 {
     use HasFactory;
     public $incrementing = false;
@@ -23,13 +23,10 @@ class KumulatifStatusPloShg extends Model
         });
     }
 
-    protected $table = 'shg_target_kinerja_kumulatif_status_plo';
+    protected $table = 'shpnre_tindak_lanjut_highlight_informasi_domain';
     protected $fillable = [
         'periode',
-        'company',
-        'uncertified',
-        'exp',
-        'exp_lt6',
-        'valid',
+        'no',
+        'highlight',
     ];
 }

@@ -3,14 +3,6 @@
     @push('styles')
         <link href="https://unpkg.com/tabulator-tables@5.6.0/dist/css/tabulator.min.css" rel="stylesheet">
         <style>
-            .toast-success {
-                background-color: #28a745;
-            }
-
-            .toast-error {
-                background-color: #dc3545;
-            }
-
             .tabulator-wrapper {
                 overflow-x: auto;
             }
@@ -118,11 +110,9 @@
                 color: red;
             }
 
-            input {
-                width: 100%;
-                padding: 8px;
-                margin-top: 5px;
-                margin-bottom: 10px;
+            #search-input,
+            button {
+                height: 40px;
             }
 
 
@@ -140,31 +130,54 @@
 
     <div class="card">
         <div class="card-body d-flex flex-column">
-            <div class="d-flex justify-content-between align-items-center">
-                <h5 class="card-title mb-0">Mandatory Certification SHPNRE</h5>
-            </div>
-
-            <div
-                class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-3 mb-3">
-                <button onclick="openModal()" class="btn btn-primary px-4 py-2" style="white-space: nowrap;">
-                    Create Data
-                </button>
-
-                <div class="d-flex flex-column flex-md-row align-items-center gap-2 mb-0">
+            <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
+                <h5 class="card-title mb-3 mb-md-0">Tindak Lanjut Hasil Monev</h5>
+                <div class="d-flex flex-column flex-md-row align-items-center gap-3">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
-                        style="max-width: 200px; margin-top: 15px;">
-
-                    <button class="btn btn-outline-secondary" type="button" onclick="clearSearch()">
-                        Clear
-                    </button>
-
+                        style="max-width: 200px;">
+                    <button class="btn btn-outline-secondary h-100" type="button"
+                        onclick="clearSearch()">Clear</button>
                     <button class="btn btn-primary px-4 py-2" id="download-xlsx" style="white-space: nowrap;">
                         Export Excel
                     </button>
                 </div>
             </div>
 
-            <!-- Tabel dan Konten -->
+            <div class="d-flex flex-column flex-md-row align-items-center gap-3">
+                <button onclick="openModal()" class="btn btn-primary px-4 py-2" style="white-space: nowrap;">
+                    Create Data
+                </button>
+
+                <div class="dropdown me-2 position-relative" style="z-index: 1050;">
+                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="tabDropdown"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Navigasi
+                    </button>
+                    <ul class="dropdown-menu" id="tabDropdownList" style="max-height: 300px; overflow-y: auto;">
+                        @foreach ($tabs as $tab)
+                            <li>
+                                <a class="dropdown-item {{ $tab['active'] ? 'active' : '' }}"
+                                    href="{{ $tab['route'] }}">
+                                    {{ $tab['title'] }}
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+
+                <div class="tab-scroll-wrapper d-flex align-items-center flex-grow-1 overflow-auto"
+                    style="scroll-behavior: smooth;" id="tabContainer">
+                    <div class="btn-group" role="group" id="tabSwitcher" style="white-space: nowrap;">
+                        @foreach ($tabs as $tab)
+                            <a href="{{ $tab['route'] }}"
+                                class="btn btn-outline-secondary {{ $tab['active'] ? 'active' : '' }}">
+                                {{ $tab['title'] }}
+                            </a>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+
             <div id="mainTable"></div>
 
             <div class="tabulator-wrapper mt-4">
@@ -176,76 +189,26 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Target Mandatory Certification SHPNRE</h3>
+            <h3>Tambah Data Tindak Lanjut Hasil Monev</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
-                <div>
-                    <label>Periode</label>
-                    <input type="month" name="periode" id="periode">
-                </div>
 
-                <div>
-                    <label>Subholding</label>
-                    <input type="text" name="subholding" id="subholding">
-                </div>
-
-                <div>
-                    <label>Company</label>
-                    <input type="text" name="company" id="company">
-                </div>
-
-                <div>
-                    <label>Unit</label>
-                    <input type="text" name="unit" id="unit">
-                </div>
-
-                <div>
-                    <label>Posisi Awal Tahun</label>
-                    <input type="number" step="0.01" name="posisi_awal_tahun" id="posisi_awal_tahun">
-                </div>
-
-                <div>
-                    <label>Posisi Vacant Awal Tahun</label>
-                    <input type="number" step="0.01" name="posisi_vacant_awal_tahun" id="posisi_vacant_awal_tahun">
-                </div>
-
-                <div>
-                    <label>Posisi Terisi Awal Tahun</label>
-                    <input type="number" step="0.01" name="posisi_terisi_awal_tahun" id="posisi_terisi_awal_tahun">
-                </div>
-
-                <div>
-                    <label>Target Personil Memenuhi Sertifikasi Tahunan</label>
-                    <input type="number" step="0.01" name="target_personil_memenuhi_sertifikasi_tahunan"
-                        id="target_personil_memenuhi_sertifikasi_tahunan">
-                </div>
-
-                <div>
-                    <label>Target Personil Memenuhi Sertifikasi Bulanan</label>
-                    <input type="number" step="0.01" name="target_personil_memenuhi_sertifikasi_bulanan"
-                        id="target_personil_memenuhi_sertifikasi_bulanan">
-                </div>
-
-                <div>
-                    <label>Target Personil Memenuhi Sertifikasi Kumulatif</label>
-                    <input type="number" step="0.01" name="target_personil_memenuhi_sertifikasi_kumulatif"
-                        id="target_personil_memenuhi_sertifikasi_kumulatif">
-                </div>
-
-                <div>
-                    <label>Target KPI</label>
-                    <input type="number" step="0.01" name="target_kpi" id="target_kpi">
-                </div>
-
-                <div>
-                    <label>Target KPI Kumulatif</label>
-                    <input type="number" step="0.01" name="target_kpi_kumulatif" id="target_kpi_kumulatif">
+                <div class="mb-3">
+                    <label for="jumlah_row" class="form-label">Jumlah Row yang ingin dibuat</label>
+                    <input type="number" name="jumlah_row" id="jumlah_row" class="form-control" min="1"
+                        value="1" required>
                 </div>
 
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
 
+
+
         </div>
+    </div>
+
+    <div id="toastNotification"
+        style="display:none; position: fixed; top: 20px; right: 20px; z-index: 9999; padding: 15px 20px; border-radius: 8px; color: white; font-weight: bold;">
     </div>
 
     <div id="toastNotification"
@@ -260,7 +223,7 @@
 
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
-                    fetch(`target-mandatory-certification-shpnre/${id}`, {
+                    fetch(`tindak-lanjut-hasil-monev-shpnre/${id}`, {
                             method: "DELETE",
                             headers: {
                                 "Accept": "application/json",
@@ -288,57 +251,17 @@
                             value: keyword
                         },
                         {
-                            field: "subholding",
+                            field: "bahasan",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "company",
+                            field: "rtl",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "unit",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "posisi_awal_tahun",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "posisi_vacant_awal_tahun",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "posisi_terisi_awal_tahun",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "target_personil_memenuhi_sertifikasi_tahunan",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "target_personil_memenuhi_sertifikasi_bulanan",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "target_personil_memenuhi_sertifikasi_kumulatif",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "target_kpi",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "target_kpi_kumulatif",
+                            field: "progress",
                             type: "like",
                             value: keyword
                         }
@@ -352,7 +275,7 @@
             }
 
             function loadData() {
-                fetch(`${BASE_URL}/monev/shpnre/kinerja/target-mandatory-certification-shpnre/data`, {
+                fetch(`${BASE_URL}/monev/shpnre/kinerja/tindak-lanjut-hasil-monev-shpnre/data`, {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -380,22 +303,12 @@
 
             document.addEventListener("DOMContentLoaded", function() {
                 const columnMap = {
-                    "target-mandatory-certification-shpnre": [{
+                    "tindak-lanjut-hasil-monev-shpnre": [{
                             title: "No",
+                            formatter: "rownum",
                             hozAlign: "center",
                             width: 60,
                             download: false,
-                            formatter: function(cell) {
-                                const row = cell.getRow();
-                                const table = row.getTable();
-
-                                const pageSize = table.getPageSize();
-                                const currentPage = table.getPage();
-                                const rowIndex = row
-                                    .getPosition();
-
-                                return ((currentPage - 1) * pageSize) + rowIndex;
-                            }
                         },
                         {
                             title: "ID",
@@ -486,78 +399,39 @@
                             }
                         },
                         {
-                            title: "Subholding",
-                            field: "subholding",
-                            editor: "input",
-                            validator: "string"
+                            title: "No",
+                            field: "no",
+                            editor: "number"
                         },
                         {
-                            title: "Company",
-                            field: "company",
-                            editor: "input",
-                            validator: "string"
+                            title: "Bahasan",
+                            field: "bahasan",
+                            width: 400,
+                            editor: "textarea",
+                            formatter: function(cell) {
+                                return cell.getValue()
+                                    ?.replace(/\n/g, "<br>") || "";
+                            }
                         },
                         {
-                            title: "Unit",
-                            field: "unit",
-                            editor: "input",
-                            validator: "string"
+                            title: "RTL",
+                            field: "rtl",
+                            editor: "textarea",
+                            width: 400,
+                            formatter: function(cell) {
+                                return cell.getValue()
+                                    ?.replace(/\n/g, "<br>") || "";
+                            }
                         },
                         {
-                            title: "Posisi Awal Tahun",
-                            field: "posisi_awal_tahun",
-                            editor: "number",
-                            validator: "number",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "Posisi Vacant Awal Tahun",
-                            field: "posisi_vacant_awal_tahun",
-                            editor: "number",
-                            validator: "number",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "Posisi Terisi Awal Tahun",
-                            field: "posisi_terisi_awal_tahun",
-                            editor: "number",
-                            validator: "number",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "Target Personil Memenuhi Sertifikasi Tahunan",
-                            field: "target_personil_memenuhi_sertifikasi_tahunan",
-                            editor: "number",
-                            validator: "number",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "Target Personil Memenuhi Sertifikasi Bulanan",
-                            field: "target_personil_memenuhi_sertifikasi_bulanan",
-                            editor: "number",
-                            validator: "number",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "Target Personil Memenuhi Sertifikasi Kumulatif",
-                            field: "target_personil_memenuhi_sertifikasi_kumulatif",
-                            editor: "number",
-                            validator: "number",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "Target KPI",
-                            field: "target_kpi",
-                            editor: "number",
-                            validator: "number",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "Target KPI Kumulatif",
-                            field: "target_kpi_kumulatif",
-                            editor: "number",
-                            validator: "number",
-                            hozAlign: "center"
+                            title: "Progress",
+                            field: "progress",
+                            editor: "textarea",
+                            width: 400,
+                            formatter: function(cell) {
+                                return cell.getValue()
+                                    ?.replace(/\n/g, "<br>") || "";
+                            }
                         },
                         {
                             title: "Aksi",
@@ -578,11 +452,13 @@
                 };
 
                 window.table = new Tabulator("#example-table", {
-                    layout: "fitDataTable",
+                    // layout: "fitDataTable",
+                    layout: "fitDataStretch",
                     responsiveLayout: "collapse",
                     autoResize: true,
-                    columns: columnMap["target-mandatory-certification-shpnre"],
+                    columns: columnMap["tindak-lanjut-hasil-monev-shpnre"],
 
+                    headerWordWrap: true,
                     selectableRange: 1,
                     selectableRangeColumns: true,
                     selectableRangeRows: true,
@@ -593,14 +469,15 @@
                     paginationSize: 20,
                     paginationSizeSelector: [40, 60, 80, 100],
                     paginationCounter: "rows",
+
                     movableColumns: true,
+
                     clipboard: true,
                     clipboardCopyStyled: false,
                     clipboardCopyConfig: {
                         rowHeaders: false,
                         columnHeaders: false,
                     },
-
                     clipboardCopyRowRange: "range",
                     clipboardPasteParser: "range",
                     clipboardPasteAction: "range",
@@ -615,8 +492,8 @@
                 });
 
                 document.getElementById("download-xlsx").addEventListener("click", function() {
-                    window.table.download("xlsx", "target-mandatory-certification-shpnre.xlsx", {
-                        sheetName: "target-mandatory-certification-shpnre",
+                    window.table.download("xlsx", "tindak-lanjut-hasil-monev-shpnre.xlsx", {
+                        sheetName: "tindak-lanjut-hasil-monev-shpnre",
                         columnHeaders: true,
                         downloadDataFormatter: function(data) {
                             return data.map(row => {
@@ -643,7 +520,7 @@
 
                     if (!id) return;
 
-                    fetch(`target-mandatory-certification-shpnre/${id}`, {
+                    fetch(`tindak-lanjut-hasil-monev-shpnre/${id}`, {
                             method: "PUT",
                             headers: {
                                 "Content-Type": "application/json",
@@ -683,7 +560,7 @@
                     console.log("Baris yang berubah:", changedRows);
 
                     changedRows.forEach(rowData => {
-                        fetch(`target-mandatory-certification-shpnre/${rowData.id}`, {
+                        fetch(`tindak-lanjut-hasil-monev-shpnre/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
                                     "Content-Type": "application/json",
@@ -738,7 +615,7 @@
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
 
-                fetch("target-mandatory-certification-shpnre", {
+                fetch("tindak-lanjut-hasil-monev-shpnre", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -748,28 +625,17 @@
                         },
                         body: JSON.stringify({
                             periode: data.periode,
-                            subholding: data.subholding,
-                            company: data.company,
-                            unit: data.unit,
-                            posisi_awal_tahun: parseFloat(data.posisi_awal_tahun) || null,
-                            posisi_vacant_awal_tahun: parseFloat(data.posisi_vacant_awal_tahun) || null,
-                            posisi_terisi_awal_tahun: parseFloat(data.posisi_terisi_awal_tahun) || null,
-                            target_personil_memenuhi_sertifikasi_tahunan: parseFloat(data
-                                .target_personil_memenuhi_sertifikasi_tahunan) || null,
-                            target_personil_memenuhi_sertifikasi_bulanan: parseFloat(data
-                                .target_personil_memenuhi_sertifikasi_bulanan) || null,
-                            target_personil_memenuhi_sertifikasi_kumulatif: parseFloat(data
-                                .target_personil_memenuhi_sertifikasi_kumulatif) || null,
-                            target_kpi: parseFloat(data.target_kpi) || null,
-                            target_kpi_kumulatif: parseFloat(data.target_kpi_kumulatif) || null,
+                            no: data.no,
+                            bahasan: data.bahasan,
+                            rtl: data.rtl,
+                            progress: data.progress
                         })
                     })
                     .then(response => response.json())
                     .then(result => {
                         if (result.success) {
                             showToast(result.message || "Data berhasil disimpan", "success");
-                            table.setData(
-                                `${BASE_URL}/monev/shpnre/kinerja/target-mandatory-certification-shpnre/data`);
+                            table.setData(`${BASE_URL}/monev/shpnre/kinerja/tindak-lanjut-hasil-monev-shpnre/data`);
                             this.reset();
                             closeModal();
                         } else {

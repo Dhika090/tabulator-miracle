@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Models\SHG\TargetKinerja;
-
-use Illuminate\Database\Eloquent\Model;
+namespace App\Models\SHPNRE\TargetKinerja;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Model;
 
-class KumulatifStatusPloShg extends Model
+class TargetSapAssetPnre extends Model
 {
     use HasFactory;
     public $incrementing = false;
@@ -23,13 +22,13 @@ class KumulatifStatusPloShg extends Model
         });
     }
 
-    protected $table = 'shg_target_kinerja_kumulatif_status_plo';
+    protected $table = 'shpnre_target_kinerja_target_penurunan_plo';
     protected $fillable = [
         'periode',
+        'subholding',
         'company',
-        'uncertified',
-        'exp',
-        'exp_lt6',
-        'valid',
+        'unit',
+        'jumlah_unit_yang_harus_dibenahi',
+        'jumlah_unit_yang_sedang_dibenahi',
     ];
 }

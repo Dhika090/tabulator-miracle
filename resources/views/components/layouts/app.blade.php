@@ -38,10 +38,11 @@
                     <!-- /Footer -->
 
                     <div class="content-backdrop fade"></div>
+
+                    <!-- /Content wrapper -->
                 </div>
-                <!-- /Content wrapper -->
+                <!-- /Layout page -->
             </div>
-            <!-- /Layout page -->
         </div>
     </div>
     @include('partials.scripts')

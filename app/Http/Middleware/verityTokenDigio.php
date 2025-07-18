@@ -7,6 +7,7 @@ use Closure;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Session;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -19,10 +20,9 @@ class verityTokenDigio
      */
     public function handle(Request $request, Closure $next)
     {
-        $token = $request->cookie('digio_token');
-
+        $token = $request->cookie('digio_token') ?? $request->query('token');
+        $tokenFromQuery = $request->query('token');
         if (!$token) {
-            // return redirect('/unauthorized')->with('error', 'Token tidak ditemukan.');
             return redirect()->away('https://digio.pgn.co.id');
         }
 
@@ -44,10 +44,19 @@ class verityTokenDigio
                 ]);
             }
 
+            if (!$request->cookie('digio_token')) {
+                Cookie::queue('digio_token', $token, 60, '/');
+            }
+
+            if ($tokenFromQuery) {
+                $cleanUrl = $request->url();
+                return redirect($cleanUrl);
+            }
+
             return $next($request);
         } catch (\Exception $e) {
             return redirect()->away('https://digio.pgn.co.id')->with('error', 'Token tidak valid: ' . $e->getMessage());
-            // return redirect('/unauthorized')->with('error', 'Token tidak valid: ' . $e->getMessage());
         }
     }
+
 }

@@ -169,38 +169,16 @@
             <h3>Create Data Target Sap Asset </h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
-                <div>
-                    <label>Periode</label>
-                    <input type="month" name="periode" id="periode">
-                </div>
 
-                <div>
-                    <label>Subholding</label>
-                    <input type="text" name="subholding" id="subholding">
-                </div>
-
-                <div>
-                    <label>Company</label>
-                    <input type="text" name="company" id="company">
-                </div>
-
-                <div>
-                    <label>Unit</label>
-                    <input type="text" name="unit" id="unit">
-                </div>
-
-                <div>
-                    <label>Jumlah Unit Yang Harus Dibenahi</label>
-                    <input type="number" name="jumlah_unit_yang_harus_dibenahi" id="jumlah_unit_yang_harus_dibenahi">
-                </div>
-
-                <div>
-                    <label>Jumlah Unit Yang Sedang Dibenahi</label>
-                    <input type="number" name="jumlah_unit_yang_sedang_dibenahi" id="jumlah_unit_yang_sedang_dibenahi">
+                <div class="mb-3">
+                    <label for="jumlah_row" class="form-label">Jumlah Row yang ingin dibuat</label>
+                    <input type="number" name="jumlah_row" id="jumlah_row" class="form-control" min="1"
+                        value="1" required>
                 </div>
 
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
+
 
         </div>
     </div>

@@ -3,14 +3,6 @@
     @push('styles')
         <link href="https://unpkg.com/tabulator-tables@5.6.0/dist/css/tabulator.min.css" rel="stylesheet">
         <style>
-            .toast-success {
-                background-color: #28a745;
-            }
-
-            .toast-error {
-                background-color: #dc3545;
-            }
-
             .tabulator-wrapper {
                 overflow-x: auto;
             }
@@ -30,13 +22,13 @@
                 box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             }
 
-            .tabulator-cell {
-                font-size: 14px;
-            }
-
             .tabulator .tabulator-cell {
                 white-space: normal !important;
                 word-wrap: break-word;
+            }
+
+            .tabulator-cell {
+                font-size: 14px;
             }
 
             .card {
@@ -118,11 +110,9 @@
                 color: red;
             }
 
-            input {
-                width: 100%;
-                padding: 8px;
-                margin-top: 5px;
-                margin-bottom: 10px;
+            #search-input,
+            button {
+                height: 40px;
             }
 
 
@@ -140,8 +130,8 @@
 
     <div class="card">
         <div class="card-body d-flex flex-column">
-            <div class="d-flex justify-content-between align-items-center">
-                <h5 class="card-title mb-0">Mandatory Certification SHPNRE</h5>
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="card-title mb-0">Target Sap Asset</h5>
             </div>
 
             <div
@@ -150,9 +140,9 @@
                     Create Data
                 </button>
 
-                <div class="d-flex flex-column flex-md-row align-items-center gap-2 mb-0">
+                <div class="d-flex flex-column flex-md-row align-items-center gap-2">
                     <input id="search-input" type="text" class="form-control" placeholder="Search data..."
-                        style="max-width: 200px; margin-top: 15px;">
+                        style="max-width: 200px;">
 
                     <button class="btn btn-outline-secondary" type="button" onclick="clearSearch()">
                         Clear
@@ -176,77 +166,23 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Target Mandatory Certification SHPNRE</h3>
+            <h3>Pelatihan AIMS PTG</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
-                <div>
-                    <label>Periode</label>
-                    <input type="month" name="periode" id="periode">
-                </div>
 
-                <div>
-                    <label>Subholding</label>
-                    <input type="text" name="subholding" id="subholding">
-                </div>
-
-                <div>
-                    <label>Company</label>
-                    <input type="text" name="company" id="company">
-                </div>
-
-                <div>
-                    <label>Unit</label>
-                    <input type="text" name="unit" id="unit">
-                </div>
-
-                <div>
-                    <label>Posisi Awal Tahun</label>
-                    <input type="number" step="0.01" name="posisi_awal_tahun" id="posisi_awal_tahun">
-                </div>
-
-                <div>
-                    <label>Posisi Vacant Awal Tahun</label>
-                    <input type="number" step="0.01" name="posisi_vacant_awal_tahun" id="posisi_vacant_awal_tahun">
-                </div>
-
-                <div>
-                    <label>Posisi Terisi Awal Tahun</label>
-                    <input type="number" step="0.01" name="posisi_terisi_awal_tahun" id="posisi_terisi_awal_tahun">
-                </div>
-
-                <div>
-                    <label>Target Personil Memenuhi Sertifikasi Tahunan</label>
-                    <input type="number" step="0.01" name="target_personil_memenuhi_sertifikasi_tahunan"
-                        id="target_personil_memenuhi_sertifikasi_tahunan">
-                </div>
-
-                <div>
-                    <label>Target Personil Memenuhi Sertifikasi Bulanan</label>
-                    <input type="number" step="0.01" name="target_personil_memenuhi_sertifikasi_bulanan"
-                        id="target_personil_memenuhi_sertifikasi_bulanan">
-                </div>
-
-                <div>
-                    <label>Target Personil Memenuhi Sertifikasi Kumulatif</label>
-                    <input type="number" step="0.01" name="target_personil_memenuhi_sertifikasi_kumulatif"
-                        id="target_personil_memenuhi_sertifikasi_kumulatif">
-                </div>
-
-                <div>
-                    <label>Target KPI</label>
-                    <input type="number" step="0.01" name="target_kpi" id="target_kpi">
-                </div>
-
-                <div>
-                    <label>Target KPI Kumulatif</label>
-                    <input type="number" step="0.01" name="target_kpi_kumulatif" id="target_kpi_kumulatif">
+                <div class="mb-3">
+                    <label for="jumlah_row" class="form-label">Jumlah Row yang ingin dibuat</label>
+                    <input type="number" name="jumlah_row" id="jumlah_row" class="form-control" min="1"
+                        value="1" required>
                 </div>
 
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
 
+
         </div>
     </div>
+
 
     <div id="toastNotification"
         style="display:none; position: fixed; top: 20px; right: 20px; z-index: 9999; padding: 15px 20px; border-radius: 8px; color: white; font-weight: bold;">
@@ -260,7 +196,7 @@
 
             function deleteData(id) {
                 if (confirm("Yakin ingin menghapus data ini?")) {
-                    fetch(`target-mandatory-certification-shpnre/${id}`, {
+                    fetch(`target-sap-asset-pnre/${id}`, {
                             method: "DELETE",
                             headers: {
                                 "Accept": "application/json",
@@ -288,57 +224,17 @@
                             value: keyword
                         },
                         {
-                            field: "subholding",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
                             field: "company",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "unit",
+                            field: "judul_pelatihan",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "posisi_awal_tahun",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "posisi_vacant_awal_tahun",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "posisi_terisi_awal_tahun",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "target_personil_memenuhi_sertifikasi_tahunan",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "target_personil_memenuhi_sertifikasi_bulanan",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "target_personil_memenuhi_sertifikasi_kumulatif",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "target_kpi",
-                            type: "like",
-                            value: keyword
-                        },
-                        {
-                            field: "target_kpi_kumulatif",
+                            field: "realisasi_perwira",
                             type: "like",
                             value: keyword
                         }
@@ -352,7 +248,7 @@
             }
 
             function loadData() {
-                fetch(`${BASE_URL}/monev/shpnre/kinerja/target-mandatory-certification-shpnre/data`, {
+                fetch(`${BASE_URL}/monev/shpnre/input-data/target-sap-asset-pnre/data`, {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -380,22 +276,19 @@
 
             document.addEventListener("DOMContentLoaded", function() {
                 const columnMap = {
-                    "target-mandatory-certification-shpnre": [{
+                    "target-sap-asset-pnre": [{
                             title: "No",
-                            hozAlign: "center",
-                            width: 60,
-                            download: false,
                             formatter: function(cell) {
                                 const row = cell.getRow();
-                                const table = row.getTable();
-
-                                const pageSize = table.getPageSize();
-                                const currentPage = table.getPage();
-                                const rowIndex = row
-                                    .getPosition();
-
-                                return ((currentPage - 1) * pageSize) + rowIndex;
-                            }
+                                const table = cell.getTable();
+                                const sortedData = table.getRows("active").map(r => r.getData());
+                                const index = sortedData.findIndex(data => data.id === row.getData().id);
+                                return index + 1;
+                            },
+                            hozAlign: "center",
+                            width: 60,
+                            headerSort: false,
+                            download: false
                         },
                         {
                             title: "ID",
@@ -406,6 +299,7 @@
                             title: "Periode",
                             field: "periode",
                             editor: "input",
+                            hozAlign: "center",
                             headerFilter: "select",
                             headerFilterParams: {
                                 values: [{
@@ -486,78 +380,22 @@
                             }
                         },
                         {
-                            title: "Subholding",
-                            field: "subholding",
-                            editor: "input",
-                            validator: "string"
-                        },
-                        {
                             title: "Company",
                             field: "company",
                             editor: "input",
-                            validator: "string"
+                            hozAlign: "center",
                         },
                         {
-                            title: "Unit",
-                            field: "unit",
+                            title: "Judul Pelatihan",
+                            field: "judul_pelatihan",
                             editor: "input",
-                            validator: "string"
+                            width: 450
                         },
                         {
-                            title: "Posisi Awal Tahun",
-                            field: "posisi_awal_tahun",
+                            title: "Realisasi Perwira",
+                            field: "realisasi_perwira",
                             editor: "number",
-                            validator: "number",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "Posisi Vacant Awal Tahun",
-                            field: "posisi_vacant_awal_tahun",
-                            editor: "number",
-                            validator: "number",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "Posisi Terisi Awal Tahun",
-                            field: "posisi_terisi_awal_tahun",
-                            editor: "number",
-                            validator: "number",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "Target Personil Memenuhi Sertifikasi Tahunan",
-                            field: "target_personil_memenuhi_sertifikasi_tahunan",
-                            editor: "number",
-                            validator: "number",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "Target Personil Memenuhi Sertifikasi Bulanan",
-                            field: "target_personil_memenuhi_sertifikasi_bulanan",
-                            editor: "number",
-                            validator: "number",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "Target Personil Memenuhi Sertifikasi Kumulatif",
-                            field: "target_personil_memenuhi_sertifikasi_kumulatif",
-                            editor: "number",
-                            validator: "number",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "Target KPI",
-                            field: "target_kpi",
-                            editor: "number",
-                            validator: "number",
-                            hozAlign: "center"
-                        },
-                        {
-                            title: "Target KPI Kumulatif",
-                            field: "target_kpi_kumulatif",
-                            editor: "number",
-                            validator: "number",
-                            hozAlign: "center"
+                            hozAlign: "center",
                         },
                         {
                             title: "Aksi",
@@ -578,10 +416,12 @@
                 };
 
                 window.table = new Tabulator("#example-table", {
-                    layout: "fitDataTable",
+                    layout: "fitColumns",
                     responsiveLayout: "collapse",
                     autoResize: true,
-                    columns: columnMap["target-mandatory-certification-shpnre"],
+                    columns: columnMap["target-sap-asset-pnre"],
+                    virtualDom: true,
+                    height: "700px",
 
                     selectableRange: 1,
                     selectableRangeColumns: true,
@@ -593,14 +433,15 @@
                     paginationSize: 20,
                     paginationSizeSelector: [40, 60, 80, 100],
                     paginationCounter: "rows",
+
                     movableColumns: true,
+
                     clipboard: true,
                     clipboardCopyStyled: false,
                     clipboardCopyConfig: {
                         rowHeaders: false,
                         columnHeaders: false,
                     },
-
                     clipboardCopyRowRange: "range",
                     clipboardPasteParser: "range",
                     clipboardPasteAction: "range",
@@ -615,8 +456,8 @@
                 });
 
                 document.getElementById("download-xlsx").addEventListener("click", function() {
-                    window.table.download("xlsx", "target-mandatory-certification-shpnre.xlsx", {
-                        sheetName: "target-mandatory-certification-shpnre",
+                    window.table.download("xlsx", "target-sap-asset-pnre.xlsx", {
+                        sheetName: "target-sap-asset-pnre",
                         columnHeaders: true,
                         downloadDataFormatter: function(data) {
                             return data.map(row => {
@@ -635,27 +476,6 @@
                             });
                         }
                     });
-                });
-
-                table.on("cellEdited", function(cell) {
-                    const updatedData = cell.getRow().getData();
-                    const id = updatedData.id;
-
-                    if (!id) return;
-
-                    fetch(`target-mandatory-certification-shpnre/${id}`, {
-                            method: "PUT",
-                            headers: {
-                                "Content-Type": "application/json",
-                                "Accept": "application/json",
-                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
-                                    .getAttribute("content")
-                            },
-                            body: JSON.stringify(updatedData)
-                        })
-                        .then(res => res.json())
-                        .then(data => console.log("Update berhasil:", data))
-                        .catch(err => console.error("Gagal update:", err));
                 });
 
                 let previousData = [];
@@ -682,8 +502,29 @@
                     const changedRows = getChangedRows(newData, previousData);
                     console.log("Baris yang berubah:", changedRows);
 
-                    changedRows.forEach(rowData => {
-                        fetch(`target-mandatory-certification-shpnre/${rowData.id}`, {
+                    changedRows.forEach((rowData, index) => {
+                        const id = rowData.id;
+                        if (!id) return;
+
+                        const oldRow = previousData.find(r => r.id === id);
+                        if (!oldRow) return;
+
+                        if (rowData.periode !== oldRow.periode && !isValidPeriodeFormat(rowData
+                                .periode)) {
+                            showToast(
+                                `"${rowData.periode}" Format Periode tidak valid! Gunakan format: Jan-25`,
+                                "error");
+
+                            rowData.periode = oldRow.periode;
+
+                            table.updateData([{
+                                id: rowData.id,
+                                periode: oldRow.periode
+                            }]);
+
+                            return;
+                        }
+                        fetch(`target-sap-asset-pnre/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
                                     "Content-Type": "application/json",
@@ -695,14 +536,62 @@
                             })
                             .then(res => res.json())
                             .then(response => {
-                                console.log("Data berhasil disimpan:", response);
+                                if (response.success) {
+                                    showToast(`Data berhasil disimpan`, "success");
+                                } else {
+                                    showToast(
+                                        `Format Periode tidak valid! Gunakan format: Jan-25 : ${response.message}`,
+                                        "error");
+                                }
                             })
                             .catch(err => {
                                 console.error("Gagal menyimpan hasil paste:", err);
+                                showToast(`Kesalahan pada ID ${id}`, "error");
                             });
                     });
 
                     previousData = JSON.parse(JSON.stringify(newData));
+                });
+
+                function isValidPeriodeFormat(value) {
+                    const regex = /^[A-Za-z]{3}-\d{2}$/;
+                    return regex.test(value);
+                }
+
+                table.on("cellEdited", function(cell) {
+                    const updatedData = cell.getRow().getData();
+                    const id = updatedData.id;
+
+                    if (!id) return;
+
+                    if (cell.getField() === "periode" && !isValidPeriodeFormat(cell.getValue())) {
+                        showToast("Format Periode tidak valid! Gunakan format: Sep-24", "error");
+                        cell.restoreOldValue();
+                        return;
+                    }
+
+                    fetch(`target-sap-asset-pnre/${id}`, {
+                            method: "PUT",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute("content")
+                            },
+                            body: JSON.stringify(updatedData)
+                        })
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.success) {
+                                showToast("Update berhasil!", "success");
+                            } else {
+                                showToast("Update gagal: " + data.message, "error");
+                            }
+                        })
+                        .catch(err => {
+                            console.error("Gagal update:", err);
+                            showToast("Terjadi kesalahan saat update!", "error");
+                        });
                 });
                 loadData();
             });
@@ -737,44 +626,43 @@
 
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
+                const jumlahRow = parseInt(data.jumlah_row);
 
-                fetch("target-mandatory-certification-shpnre", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Accept": "application/json",
-                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute(
-                                "content")
-                        },
-                        body: JSON.stringify({
-                            periode: data.periode,
-                            subholding: data.subholding,
-                            company: data.company,
-                            unit: data.unit,
-                            posisi_awal_tahun: parseFloat(data.posisi_awal_tahun) || null,
-                            posisi_vacant_awal_tahun: parseFloat(data.posisi_vacant_awal_tahun) || null,
-                            posisi_terisi_awal_tahun: parseFloat(data.posisi_terisi_awal_tahun) || null,
-                            target_personil_memenuhi_sertifikasi_tahunan: parseFloat(data
-                                .target_personil_memenuhi_sertifikasi_tahunan) || null,
-                            target_personil_memenuhi_sertifikasi_bulanan: parseFloat(data
-                                .target_personil_memenuhi_sertifikasi_bulanan) || null,
-                            target_personil_memenuhi_sertifikasi_kumulatif: parseFloat(data
-                                .target_personil_memenuhi_sertifikasi_kumulatif) || null,
-                            target_kpi: parseFloat(data.target_kpi) || null,
-                            target_kpi_kumulatif: parseFloat(data.target_kpi_kumulatif) || null,
-                        })
-                    })
-                    .then(response => response.json())
-                    .then(result => {
-                        if (result.success) {
-                            showToast(result.message || "Data berhasil disimpan", "success");
-                            table.setData(
-                                `${BASE_URL}/monev/shpnre/kinerja/target-mandatory-certification-shpnre/data`);
-                            this.reset();
-                            closeModal();
+                const payloadArray = [];
+
+                for (let i = 0; i < jumlahRow; i++) {
+                    payloadArray.push({
+                        periode: data.periode,
+                        company: data.company,
+                        judul_pelatihan: data.judul_pelatihan,
+                        realisasi_perwira: data.realisasi_perwira
+                    });
+                }
+
+                Promise.all(payloadArray.map(dataItem => {
+                        return fetch("target-sap-asset-pnre", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute(
+                                        "content")
+                            },
+                            body: JSON.stringify(dataItem)
+                        }).then(res => res.json());
+                    }))
+                    .then(results => {
+                        const gagal = results.filter(r => !r.success);
+                        if (gagal.length === 0) {
+                            showToast(`${jumlahRow} baris data berhasil buat`, "success");
                         } else {
-                            showToast(result.message || "Gagal menyimpan data", "error");
+                            showToast(`${gagal.length} data gagal disimpan`, "error");
                         }
+
+                        table.setData(`${BASE_URL}/monev/shpnre/input-data/target-sap-asset-pnre/data`);
+                        document.getElementById("createForm").reset();
+                        closeModal();
                     })
                     .catch(error => {
                         console.error("Error saat submit:", error);
