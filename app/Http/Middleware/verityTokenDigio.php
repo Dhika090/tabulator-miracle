@@ -21,8 +21,7 @@ class verityTokenDigio
      */
     public function handle(Request $request, Closure $next)
     {
-        $token = $request->cookie('digio_token') ?? $request->query('token');
-        $tokenFromQuery = $request->query('token');
+        $token = $request->query('token');
 
         if (!$token) {
             return redirect()->away('https://digio.pgn.co.id');
@@ -33,10 +32,9 @@ class verityTokenDigio
             $decoded = JWT::decode($token, new Key($secretKey, 'HS256'));
 
             if (Carbon::now()->timestamp > $decoded->exp) {
-                return redirect('https://digio.pgn.co.id')->with('error', 'Token expired.');
+                return redirect()->away('https://digio.pgn.co.id')->with('error', 'Token expired.');
             }
 
-            // Simpan atau update user di DB
             $user = UserDigio::updateOrCreate(
                 ['userid' => $decoded->userid],
                 [
@@ -52,20 +50,18 @@ class verityTokenDigio
                 ]
             );
 
-            Session::put('user', [
-                'username' => $user->userid,
-                'nama' => $user->display_name,
-                'entitas' => strtolower($user->dir),
-                'group' => $user->group,
-                'token' => $user->token
-            ]);
+            // Simpan session
+            // Session::put('user', [
+            //     'username' => $user->userid,
+            //     'nama' => $user->display_name,
+            //     'entitas' => strtolower($user->dir),
+            //     'group' => $user->group,
+            //     'token' => $user->token,
+            //     'jwt_exp' => $user->jwt_exp
+            // ]);
 
-            if ($request->cookie('digio_token') !== $token) {
-                Cookie::queue('digio_token', $token, 60, '/');
-            }
-
-            if ($tokenFromQuery) {
-                $cleanUrl = $request->url(); // Tanpa ?token=xxx
+            if ($request->query('token')) {
+                $cleanUrl = $request->url();
                 return redirect($cleanUrl);
             }
 
@@ -74,6 +70,5 @@ class verityTokenDigio
             return redirect()->away('https://digio.pgn.co.id')->with('error', 'Token tidak valid: ' . $e->getMessage());
         }
     }
-
 
 }
