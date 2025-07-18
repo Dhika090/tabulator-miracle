@@ -30,6 +30,16 @@
                 box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             }
 
+            .tabulator-paginator {
+                display: flex !important;
+                justify-content: flex-start !important;
+                flex-wrap: wrap;
+                justify-content: flex-start;
+                align-items: center;
+                padding-left: 10px;
+                gap: 8px;
+            }
+
             .tabulator-cell {
                 font-size: 14px;
             }
@@ -630,7 +640,7 @@
                 toast.classList.add(type === "success" ? "toast-success" : "toast-error");
                 toast.style.display = "block";
 
-               setTimeout(() => {
+                setTimeout(() => {
                     toast.style.display = "none";
                 }, 3500);
             }
@@ -642,7 +652,7 @@
                 toast.classList.add(type === "success" ? "toast-success" : "toast-error");
                 toast.style.display = "block";
 
-               setTimeout(() => {
+                setTimeout(() => {
                     toast.style.display = "none";
                 }, 3500);
             }
@@ -654,7 +664,7 @@
                 toast.classList.add(type === "success" ? "toast-success" : "toast-error");
                 toast.style.display = "block";
 
-               setTimeout(() => {
+                setTimeout(() => {
                     toast.style.display = "none";
                 }, 3500);
             }

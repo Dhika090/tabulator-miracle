@@ -1,6 +1,6 @@
 @section('title', __(''))
-    <x-layouts.app :title="__('')">
-        @push('styles')
+<x-layouts.app :title="__('')">
+    @push('styles')
         <link href="https://unpkg.com/tabulator-tables@5.6.0/dist/css/tabulator.min.css" rel="stylesheet">
         <style>
             .toast-success {
@@ -28,6 +28,16 @@
                 min-width: 800px;
                 border-radius: 8px;
                 box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            }
+
+            .tabulator-paginator {
+                display: flex !important;
+                justify-content: flex-start !important;
+                flex-wrap: wrap;
+                justify-content: flex-start;
+                align-items: center;
+                padding-left: 10px;
+                gap: 8px;
             }
 
             .tabulator-cell {
@@ -134,159 +144,159 @@
                 }
             }
         </style>
-        @endpush
+    @endpush
 
-        <div class="card">
-            <div class="card-body d-flex flex-column">
-                <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
-                    <h5 class="card-title mb-3 mb-md-0">Kinerja KPI Status AI</h5>
-                    <div class="d-flex flex-column flex-md-row align-items-center gap-3">
-                        <input id="search-input" type="text" class="form-control" placeholder="Search data..."
-                            style="max-width: 200px;">
-                        <button class="btn btn-outline-secondary ms-2 h-100 mt-1 d" type="button"
-                            onclick="clearSearch()">Clear</button>
-                        <button class="btn btn-primary px-4 py-2" id="download-xlsx" style="white-space: nowrap;">
-                            Export Excel
-                        </button>
-                    </div>
-                </div>
-
+    <div class="card">
+        <div class="card-body d-flex flex-column">
+            <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-3">
+                <h5 class="card-title mb-3 mb-md-0">Kinerja KPI Status AI</h5>
                 <div class="d-flex flex-column flex-md-row align-items-center gap-3">
-                    <button onclick="openModal()" class="btn btn-primary px-4 py-2" style="white-space: nowrap;">
-                        Create Data
+                    <input id="search-input" type="text" class="form-control" placeholder="Search data..."
+                        style="max-width: 200px;">
+                    <button class="btn btn-outline-secondary ms-2 h-100 mt-1 d" type="button"
+                        onclick="clearSearch()">Clear</button>
+                    <button class="btn btn-primary px-4 py-2" id="download-xlsx" style="white-space: nowrap;">
+                        Export Excel
                     </button>
+                </div>
+            </div>
 
-                    <div class="dropdown me-2 position-relative" style="z-index: 1050;">
-                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="tabDropdown"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Navigasi
-                        </button>
-                        <ul class="dropdown-menu" id="tabDropdownList" style="max-height: 300px; overflow-y: auto;">
-                            @foreach ($tabs as $tab)
-                                <li>
-                                    <a class="dropdown-item {{ $tab['active'] ? 'active' : '' }}"
-                                        href="{{ $tab['route'] }}">
-                                        {{ $tab['title'] }}
-                                    </a>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
+            <div class="d-flex flex-column flex-md-row align-items-center gap-3">
+                <button onclick="openModal()" class="btn btn-primary px-4 py-2" style="white-space: nowrap;">
+                    Create Data
+                </button>
 
-                    <div class="tab-scroll-wrapper d-flex align-items-center flex-grow-1 overflow-auto"
-                        style="scroll-behavior: smooth;" id="tabContainer">
-                        <div class="btn-group" role="group" id="tabSwitcher" style="white-space: nowrap;">
-                            @foreach ($tabs as $tab)
-                                <a href="{{ $tab['route'] }}"
-                                    class="btn btn-outline-secondary {{ $tab['active'] ? 'active' : '' }}">
+                <div class="dropdown me-2 position-relative" style="z-index: 1050;">
+                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="tabDropdown"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Navigasi
+                    </button>
+                    <ul class="dropdown-menu" id="tabDropdownList" style="max-height: 300px; overflow-y: auto;">
+                        @foreach ($tabs as $tab)
+                            <li>
+                                <a class="dropdown-item {{ $tab['active'] ? 'active' : '' }}"
+                                    href="{{ $tab['route'] }}">
                                     {{ $tab['title'] }}
                                 </a>
-                            @endforeach
-                        </div>
-                    </div>
+                            </li>
+                        @endforeach
+                    </ul>
                 </div>
 
-                <div id="mainTable"></div>
-
-                <div class="tabulator-wrapper mt-4">
-                    <div id="example-table"></div>
+                <div class="tab-scroll-wrapper d-flex align-items-center flex-grow-1 overflow-auto"
+                    style="scroll-behavior: smooth;" id="tabContainer">
+                    <div class="btn-group" role="group" id="tabSwitcher" style="white-space: nowrap;">
+                        @foreach ($tabs as $tab)
+                            <a href="{{ $tab['route'] }}"
+                                class="btn btn-outline-secondary {{ $tab['active'] ? 'active' : '' }}">
+                                {{ $tab['title'] }}
+                            </a>
+                        @endforeach
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div id="createModal" class="modal">
-            <div class="modal-content">
-                <span class="close" onclick="closeModal()">&times;</span>
-                <h3>Kinerja KPI Status AI</h3>
-                <form id="createForm">
-                    <input type="hidden" name="id" id="form-id">
-                    <div>
-                        <label>Periode</label>
-                        <input type="month" name="periode" id="periode">
-                    </div>
+            <div id="mainTable"></div>
 
-                    <div>
-                        <label>Company</label>
-                        <input type="text" name="company" id="company">
-                    </div>
-
-                    <div>
-                        <label>Target Penurunan Aset Low Tahunan</label>
-                        <input type="number" name="target_penurunan_aset_low_tahunan"
-                            id="target_penurunan_aset_low_tahunan">
-                    </div>
-
-                    <div>
-                        <label>Target Penurunan Aset Med Tahunan</label>
-                        <input type="number" name="target_penurunan_aset_med_tahunan"
-                            id="target_penurunan_aset_med_tahunan">
-                    </div>
-
-                    <div>
-                        <label>Target Penurunan Aset Low</label>
-                        <input type="number" name="target_penurunan_aset_low" id="target_penurunan_aset_low">
-                    </div>
-
-                    <div>
-                        <label>Target Penurunan Aset Med</label>
-                        <input type="number" name="target_penurunan_aset_med" id="target_penurunan_aset_med">
-                    </div>
-
-                    <div>
-                        <label>Realisasi Penurunan Low</label>
-                        <input type="number" name="realisasi_penurunan_low" id="realisasi_penurunan_low">
-                    </div>
-
-                    <div>
-                        <label>Realisasi Penurunan Med</label>
-                        <input type="number" name="realisasi_penurunan_med" id="realisasi_penurunan_med">
-                    </div>
-
-                    <div>
-                        <label>Target</label>
-                        <input type="number" name="target" id="target">
-                    </div>
-
-                    <div>
-                        <label>Target Kumulatif</label>
-                        <input type="number" name="target_kumulatif" id="target_kumulatif">
-                    </div>
-
-                    <div>
-                        <label>Real</label>
-                        <input type="number" name="real" id="real">
-                    </div>
-
-                    <div>
-                        <label>Real Kumulatif</label>
-                        <input type="number" name="real_kumulatif" id="real_kumulatif">
-                    </div>
-
-                    <div>
-                        <label>Real KPI</label>
-                        <input type="number" name="real_kpi" id="real_kpi">
-                    </div>
-
-                    <div>
-                        <label>Real KPI Kumulatif</label>
-                        <input type="number" name="real_kpi_kumulatif" id="real_kpi_kumulatif">
-                    </div>
-
-                    <div>
-                        <label>KPI Summary</label>
-                        <input type="number" name="kpi_summary" id="kpi_summary">
-                    </div>
-
-                    <button type="submit" class="btn btn-success">Submit</button>
-                </form>
-
+            <div class="tabulator-wrapper mt-4">
+                <div id="example-table"></div>
             </div>
         </div>
+    </div>
 
-        <div id="toastNotification"
-            style="display:none; position: fixed; top: 20px; right: 20px; z-index: 9999; padding: 15px 20px; border-radius: 8px; color: white; font-weight: bold;">
+    <div id="createModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h3>Kinerja KPI Status AI</h3>
+            <form id="createForm">
+                <input type="hidden" name="id" id="form-id">
+                <div>
+                    <label>Periode</label>
+                    <input type="month" name="periode" id="periode">
+                </div>
+
+                <div>
+                    <label>Company</label>
+                    <input type="text" name="company" id="company">
+                </div>
+
+                <div>
+                    <label>Target Penurunan Aset Low Tahunan</label>
+                    <input type="number" name="target_penurunan_aset_low_tahunan"
+                        id="target_penurunan_aset_low_tahunan">
+                </div>
+
+                <div>
+                    <label>Target Penurunan Aset Med Tahunan</label>
+                    <input type="number" name="target_penurunan_aset_med_tahunan"
+                        id="target_penurunan_aset_med_tahunan">
+                </div>
+
+                <div>
+                    <label>Target Penurunan Aset Low</label>
+                    <input type="number" name="target_penurunan_aset_low" id="target_penurunan_aset_low">
+                </div>
+
+                <div>
+                    <label>Target Penurunan Aset Med</label>
+                    <input type="number" name="target_penurunan_aset_med" id="target_penurunan_aset_med">
+                </div>
+
+                <div>
+                    <label>Realisasi Penurunan Low</label>
+                    <input type="number" name="realisasi_penurunan_low" id="realisasi_penurunan_low">
+                </div>
+
+                <div>
+                    <label>Realisasi Penurunan Med</label>
+                    <input type="number" name="realisasi_penurunan_med" id="realisasi_penurunan_med">
+                </div>
+
+                <div>
+                    <label>Target</label>
+                    <input type="number" name="target" id="target">
+                </div>
+
+                <div>
+                    <label>Target Kumulatif</label>
+                    <input type="number" name="target_kumulatif" id="target_kumulatif">
+                </div>
+
+                <div>
+                    <label>Real</label>
+                    <input type="number" name="real" id="real">
+                </div>
+
+                <div>
+                    <label>Real Kumulatif</label>
+                    <input type="number" name="real_kumulatif" id="real_kumulatif">
+                </div>
+
+                <div>
+                    <label>Real KPI</label>
+                    <input type="number" name="real_kpi" id="real_kpi">
+                </div>
+
+                <div>
+                    <label>Real KPI Kumulatif</label>
+                    <input type="number" name="real_kpi_kumulatif" id="real_kpi_kumulatif">
+                </div>
+
+                <div>
+                    <label>KPI Summary</label>
+                    <input type="number" name="kpi_summary" id="kpi_summary">
+                </div>
+
+                <button type="submit" class="btn btn-success">Submit</button>
+            </form>
+
         </div>
-        @push('scripts')
+    </div>
+
+    <div id="toastNotification"
+        style="display:none; position: fixed; top: 20px; right: 20px; z-index: 9999; padding: 15px 20px; border-radius: 8px; color: white; font-weight: bold;">
+    </div>
+    @push('scripts')
         <script src="https://unpkg.com/tabulator-tables@5.6.0/dist/js/tabulator.min.js"></script>
         <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
 
@@ -962,5 +972,5 @@
                 }
             });
         </script>
-        @endpush
-    </x-layouts.app>
+    @endpush
+</x-layouts.app>

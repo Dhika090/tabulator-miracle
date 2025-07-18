@@ -3,6 +3,14 @@
     @push('styles')
         <link href="https://unpkg.com/tabulator-tables@5.6.0/dist/css/tabulator.min.css" rel="stylesheet">
         <style>
+            .toast-success {
+                background-color: #28a745;
+            }
+
+            .toast-error {
+                background-color: #dc3545;
+            }
+
             .tabulator-wrapper {
                 overflow-x: auto;
             }
@@ -26,13 +34,11 @@
                 display: flex !important;
                 justify-content: flex-start !important;
                 flex-wrap: wrap;
+                justify-content: flex-start;
+                align-items: center;
+                padding-left: 10px;
+                gap: 8px;
             }
-
-            .tabulator-paginator button,
-            .tabulator-paginator select {
-                margin-right: 20px;
-            }
-
 
             .tabulator-cell {
                 font-size: 14px;
@@ -122,10 +128,13 @@
                 color: red;
             }
 
-            #search-input,
-            button {
-                height: 40px;
+            input {
+                width: 100%;
+                padding: 8px;
+                margin-top: 5px;
+                margin-bottom: 10px;
             }
+
 
             @media screen and (max-width: 768px) {
                 .tabulator .tabulator-header {
@@ -188,7 +197,6 @@
                     </div>
                 </div>
             </div>
-
             <div id="mainTable"></div>
 
             <div class="tabulator-wrapper mt-4">
@@ -200,7 +208,7 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3>Tambah Data Tindak Lanjut Hasil Monev</h3>
+            <h3>Pelatihan AIMS Regional 1</h3>
             <form id="createForm">
                 <input type="hidden" name="id" id="form-id">
 
@@ -214,13 +222,9 @@
             </form>
 
 
-
         </div>
     </div>
 
-    <div id="toastNotification"
-        style="display:none; position: fixed; top: 20px; right: 20px; z-index: 9999; padding: 15px 20px; border-radius: 8px; color: white; font-weight: bold;">
-    </div>
 
     <div id="toastNotification"
         style="display:none; position: fixed; top: 20px; right: 20px; z-index: 9999; padding: 15px 20px; border-radius: 8px; color: white; font-weight: bold;">
@@ -262,17 +266,17 @@
                             value: keyword
                         },
                         {
-                            field: "bahasan",
+                            field: "company",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "rtl",
+                            field: "judul_pelatihan",
                             type: "like",
                             value: keyword
                         },
                         {
-                            field: "progress",
+                            field: "realisasi_perwira",
                             type: "like",
                             value: keyword
                         }
@@ -316,10 +320,17 @@
                 const columnMap = {
                     "tindak-lanjut-hasil-monev-shpnre": [{
                             title: "No",
-                            formatter: "rownum",
+                            formatter: function(cell) {
+                                const row = cell.getRow();
+                                const table = cell.getTable();
+                                const sortedData = table.getRows("active").map(r => r.getData());
+                                const index = sortedData.findIndex(data => data.id === row.getData().id);
+                                return index + 1;
+                            },
                             hozAlign: "center",
                             width: 60,
-                            download: false,
+                            headerSort: false,
+                            download: false
                         },
                         {
                             title: "ID",
@@ -330,6 +341,7 @@
                             title: "Periode",
                             field: "periode",
                             editor: "input",
+                            hozAlign: "center",
                             headerFilter: "select",
                             headerFilterParams: {
                                 values: [{
@@ -412,37 +424,26 @@
                         {
                             title: "No",
                             field: "no",
-                            editor: "number"
+                            editor: "input",
+                            hozAlign: "center",
                         },
                         {
                             title: "Bahasan",
                             field: "bahasan",
-                            width: 400,
                             editor: "textarea",
-                            formatter: function(cell) {
-                                return cell.getValue()
-                                    ?.replace(/\n/g, "<br>") || "";
-                            }
+                            width: 400
                         },
                         {
                             title: "RTL",
                             field: "rtl",
                             editor: "textarea",
-                            width: 400,
-                            formatter: function(cell) {
-                                return cell.getValue()
-                                    ?.replace(/\n/g, "<br>") || "";
-                            }
+                            width: 300
                         },
                         {
                             title: "Progress",
                             field: "progress",
                             editor: "textarea",
-                            width: 400,
-                            formatter: function(cell) {
-                                return cell.getValue()
-                                    ?.replace(/\n/g, "<br>") || "";
-                            }
+                            width: 400
                         },
                         {
                             title: "Aksi",
@@ -463,12 +464,11 @@
                 };
 
                 window.table = new Tabulator("#example-table", {
-                    layout: "fitDataStretch",
-                    responsiveLayout: "collapse",
+                    layout: "fitColumns",
+                    headerWordWrap: true,
                     autoResize: true,
                     columns: columnMap["tindak-lanjut-hasil-monev-shpnre"],
 
-                    headerWordWrap: true,
                     selectableRange: 1,
                     selectableRangeColumns: true,
                     selectableRangeRows: true,
@@ -479,15 +479,14 @@
                     paginationSize: 20,
                     paginationSizeSelector: [40, 60, 80, 100],
                     paginationCounter: "rows",
-
                     movableColumns: true,
-
                     clipboard: true,
                     clipboardCopyStyled: false,
                     clipboardCopyConfig: {
                         rowHeaders: false,
                         columnHeaders: false,
                     },
+
                     clipboardCopyRowRange: "range",
                     clipboardPasteParser: "range",
                     clipboardPasteAction: "range",
@@ -524,27 +523,6 @@
                     });
                 });
 
-                table.on("cellEdited", function(cell) {
-                    const updatedData = cell.getRow().getData();
-                    const id = updatedData.id;
-
-                    if (!id) return;
-
-                    fetch(`tindak-lanjut-hasil-monev-shpnre/${id}`, {
-                            method: "PUT",
-                            headers: {
-                                "Content-Type": "application/json",
-                                "Accept": "application/json",
-                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
-                                    .getAttribute("content")
-                            },
-                            body: JSON.stringify(updatedData)
-                        })
-                        .then(res => res.json())
-                        .then(data => console.log("Update berhasil:", data))
-                        .catch(err => console.error("Gagal update:", err));
-                });
-
                 let previousData = [];
                 table.on("dataLoaded", function(newData) {
                     previousData = JSON.parse(JSON.stringify(newData));
@@ -569,7 +547,28 @@
                     const changedRows = getChangedRows(newData, previousData);
                     console.log("Baris yang berubah:", changedRows);
 
-                    changedRows.forEach(rowData => {
+                    changedRows.forEach((rowData, index) => {
+                        const id = rowData.id;
+                        if (!id) return;
+
+                        const oldRow = previousData.find(r => r.id === id);
+                        if (!oldRow) return;
+
+                        if (rowData.periode !== oldRow.periode && !isValidPeriodeFormat(rowData
+                                .periode)) {
+                            showToast(
+                                `"${rowData.periode}" Format Periode tidak valid! Gunakan format: Jan-25`,
+                                "error");
+
+                            rowData.periode = oldRow.periode;
+
+                            table.updateData([{
+                                id: rowData.id,
+                                periode: oldRow.periode
+                            }]);
+
+                            return;
+                        }
                         fetch(`tindak-lanjut-hasil-monev-shpnre/${rowData.id}`, {
                                 method: "PUT",
                                 headers: {
@@ -582,14 +581,62 @@
                             })
                             .then(res => res.json())
                             .then(response => {
-                                console.log("Data berhasil disimpan:", response);
+                                if (response.success) {
+                                    showToast(`Data berhasil disimpan`, "success");
+                                } else {
+                                    showToast(
+                                        `Format Periode tidak valid! Gunakan format: Jan-25 : ${response.message}`,
+                                        "error");
+                                }
                             })
                             .catch(err => {
                                 console.error("Gagal menyimpan hasil paste:", err);
+                                showToast(`Kesalahan pada ID ${id}`, "error");
                             });
                     });
 
                     previousData = JSON.parse(JSON.stringify(newData));
+                });
+
+                function isValidPeriodeFormat(value) {
+                    const regex = /^[A-Za-z]{3}-\d{2}$/;
+                    return regex.test(value);
+                }
+
+                table.on("cellEdited", function(cell) {
+                    const updatedData = cell.getRow().getData();
+                    const id = updatedData.id;
+
+                    if (!id) return;
+
+                    if (cell.getField() === "periode" && !isValidPeriodeFormat(cell.getValue())) {
+                        showToast("Format Periode tidak valid! Gunakan format: Sep-24", "error");
+                        cell.restoreOldValue();
+                        return;
+                    }
+
+                    fetch(`tindak-lanjut-hasil-monev-shpnre/${id}`, {
+                            method: "PUT",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute("content")
+                            },
+                            body: JSON.stringify(updatedData)
+                        })
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.success) {
+                                showToast("Update berhasil!", "success");
+                            } else {
+                                showToast("Update gagal: " + data.message, "error");
+                            }
+                        })
+                        .catch(err => {
+                            console.error("Gagal update:", err);
+                            showToast("Terjadi kesalahan saat update!", "error");
+                        });
                 });
                 loadData();
             });
@@ -624,33 +671,44 @@
 
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
+                const jumlahRow = parseInt(data.jumlah_row);
 
-                fetch("tindak-lanjut-hasil-monev-shpnre", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Accept": "application/json",
-                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute(
-                                "content")
-                        },
-                        body: JSON.stringify({
-                            periode: data.periode,
-                            no: data.no,
-                            bahasan: data.bahasan,
-                            rtl: data.rtl,
-                            progress: data.progress
-                        })
-                    })
-                    .then(response => response.json())
-                    .then(result => {
-                        if (result.success) {
-                            showToast(result.message || "Data berhasil disimpan", "success");
-                            table.setData(`${BASE_URL}/monev/shpnre/kinerja/tindak-lanjut-hasil-monev-shpnre/data`);
-                            this.reset();
-                            closeModal();
+                const payloadArray = [];
+
+                for (let i = 0; i < jumlahRow; i++) {
+                    payloadArray.push({
+                        periode: data.periode,
+                        no: data.no,
+                        bahasan: data.bahasan,
+                        rtl: data.rtl,
+                        progress: data.progress
+                    });
+                }
+
+                Promise.all(payloadArray.map(dataItem => {
+                        return fetch("tindak-lanjut-hasil-monev-shpnre", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute(
+                                        "content")
+                            },
+                            body: JSON.stringify(dataItem)
+                        }).then(res => res.json());
+                    }))
+                    .then(results => {
+                        const gagal = results.filter(r => !r.success);
+                        if (gagal.length === 0) {
+                            showToast(`${jumlahRow} baris data berhasil buat`, "success");
                         } else {
-                            showToast(result.message || "Gagal menyimpan data", "error");
+                            showToast(`${gagal.length} data gagal disimpan`, "error");
                         }
+
+                        table.setData(`${BASE_URL}/monev/shpnre/kinerja/tindak-lanjut-hasil-monev-shpnre/data`);
+                        document.getElementById("createForm").reset();
+                        closeModal();
                     })
                     .catch(error => {
                         console.error("Error saat submit:", error);

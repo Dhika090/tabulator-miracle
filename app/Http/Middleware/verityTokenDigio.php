@@ -36,16 +36,7 @@ class verityTokenDigio
                 return redirect('https://digio.pgn.co.id')->with('error', 'Token expired.');
             }
 
-            if (!Session::has('user')) {
-                Session::put('user', [
-                    'username' => $decoded->userid,
-                    'nama' => $decoded->displayName ?? '',
-                    'entitas' => strtolower($decoded->dir ?? ''),
-                    'group' => $decoded->group ?? '',
-                    'token' => $token
-                ]);
-            }
-
+            // Simpan atau update user di DB
             $user = UserDigio::updateOrCreate(
                 ['userid' => $decoded->userid],
                 [
@@ -61,12 +52,20 @@ class verityTokenDigio
                 ]
             );
 
-            if (!$request->cookie('digio_token')) {
+            Session::put('user', [
+                'username' => $user->userid,
+                'nama' => $user->display_name,
+                'entitas' => strtolower($user->dir),
+                'group' => $user->group,
+                'token' => $user->token
+            ]);
+
+            if ($request->cookie('digio_token') !== $token) {
                 Cookie::queue('digio_token', $token, 60, '/');
             }
 
             if ($tokenFromQuery) {
-                $cleanUrl = $request->url();
+                $cleanUrl = $request->url(); // Tanpa ?token=xxx
                 return redirect($cleanUrl);
             }
 
@@ -75,5 +74,6 @@ class verityTokenDigio
             return redirect()->away('https://digio.pgn.co.id')->with('error', 'Token tidak valid: ' . $e->getMessage());
         }
     }
+
 
 }

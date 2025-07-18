@@ -3,7 +3,7 @@
     @push('styles')
         <link href="https://unpkg.com/tabulator-tables@5.6.0/dist/css/tabulator.min.css" rel="stylesheet">
         <style>
-          .tabulator-wrapper {
+            .tabulator-wrapper {
                 overflow-x: auto;
             }
 
@@ -20,6 +20,16 @@
                 min-width: 800px;
                 border-radius: 8px;
                 box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            }
+
+            .tabulator-paginator {
+                display: flex !important;
+                justify-content: flex-start !important;
+                flex-wrap: wrap;
+                justify-content: flex-start;
+                align-items: center;
+                padding-left: 10px;
+                gap: 8px;
             }
 
             .tabulator-cell {
@@ -317,7 +327,7 @@
         </div>
     </div>
 
-    
+
     <div id="toastNotification"
         style="display:none; position: fixed; top: 20px; right: 20px; z-index: 9999; padding: 15px 20px; border-radius: 8px; color: white; font-weight: bold;">
     </div>
@@ -443,7 +453,7 @@
 
             document.addEventListener("DOMContentLoaded", function() {
                 const columnMap = {
-                    "lahendong": [  {
+                    "lahendong": [{
                             title: "No",
                             hozAlign: "center",
                             width: 60,
@@ -721,21 +731,21 @@
                             editor: "input",
                             width: 450
                         },
-                       {
-    title: "Aksi",
-    download: false,
-    hozAlign: "center",
-    width: 150,
-    formatter: (cell) => {
-        const row = cell.getData();
-        return `
+                        {
+                            title: "Aksi",
+                            download: false,
+                            hozAlign: "center",
+                            width: 150,
+                            formatter: (cell) => {
+                                const row = cell.getData();
+                                return `
             <button onclick='deleteData("${row.id}")'
                 class="btn btn-sm btn-danger">
                 <i class="bi bi-trash"></i> Hapus
             </button>
         `;
-    }
-}
+                            }
+                        }
                     ]
                 };
 
@@ -875,14 +885,14 @@
 
         {{-- create and update data --}}
         <script>
-           function showToast(message, type = "success") {
+            function showToast(message, type = "success") {
                 const toast = document.getElementById("toastNotification");
                 toast.textContent = message;
                 toast.className = "";
                 toast.classList.add(type === "success" ? "toast-success" : "toast-error");
                 toast.style.display = "block";
 
-               setTimeout(() => {
+                setTimeout(() => {
                     toast.style.display = "none";
                 }, 3500);
             }

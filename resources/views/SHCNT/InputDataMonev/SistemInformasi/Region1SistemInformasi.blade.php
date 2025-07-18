@@ -30,6 +30,16 @@
                 box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             }
 
+            .tabulator-paginator {
+                display: flex !important;
+                justify-content: flex-start !important;
+                flex-wrap: wrap;
+                justify-content: flex-start;
+                align-items: center;
+                padding-left: 10px;
+                gap: 8px;
+            }
+
             .tabulator-cell {
                 font-size: 14px;
             }
@@ -764,33 +774,34 @@
                 }
 
                 Promise.all(payloadArray.map(dataItem => {
-                    return fetch("sistem-informasi-aims-region-1", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Accept": "application/json",
-                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute(
-                                "content")
-                        },
-                        body: JSON.stringify(dataItem)
-                    }).then(res => res.json());
-                }))
-                .then(results => {
-                    const gagal = results.filter(r => !r.success);
-                    if (gagal.length === 0) {
-                        showToast(`${jumlahRow} baris data berhasil disimpan`, "success");
-                    } else {
-                        showToast(`${gagal.length} data gagal disimpan`, "error");
-                    }
+                        return fetch("sistem-informasi-aims-region-1", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                    .getAttribute(
+                                        "content")
+                            },
+                            body: JSON.stringify(dataItem)
+                        }).then(res => res.json());
+                    }))
+                    .then(results => {
+                        const gagal = results.filter(r => !r.success);
+                        if (gagal.length === 0) {
+                            showToast(`${jumlahRow} baris data berhasil disimpan`, "success");
+                        } else {
+                            showToast(`${gagal.length} data gagal disimpan`, "error");
+                        }
 
-                    table.setData(`${BASE_URL}/monev/shcnt/input-data/sistem-informasi-aims-region-1/data`);
-                    document.getElementById("createForm").reset();
-                    closeModal();
-                })
-                .catch(error => {
-                    console.error("Error saat submit:", error);
-                    showToast("Terjadi kesalahan saat mengirim data.", "error");
-                });
+                        table.setData(`${BASE_URL}/monev/shcnt/input-data/sistem-informasi-aims-region-1/data`);
+                        document.getElementById("createForm").reset();
+                        closeModal();
+                    })
+                    .catch(error => {
+                        console.error("Error saat submit:", error);
+                        showToast("Terjadi kesalahan saat mengirim data.", "error");
+                    });
             });
         </script>
 
