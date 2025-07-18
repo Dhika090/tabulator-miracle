@@ -301,7 +301,7 @@
             }
 
             function loadData() {
-                fetch("/monev/shg/input-data/mandatory-certification-ptg/data", {
+                fetch(`${BASE_URL}/monev/shg/input-data/mandatory-certification-ptg/data`, {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -735,7 +735,7 @@
                             showToast(`${gagal.length} data gagal disimpan`, "error");
                         }
 
-                        table.setData("/monev/shg/input-data/mandatory-certification-ptg/data");
+                        table.setData(`${BASE_URL}/monev/shg/input-data/mandatory-certification-ptg/data`);
                         document.getElementById("createForm").reset();
                         closeModal();
                     })

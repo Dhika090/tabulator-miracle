@@ -290,7 +290,7 @@
             }
 
             function loadData() {
-                fetch("/monev/shg/input-data/kondisi-vacant-fungsi-aims-ptg/data", {
+                fetch(`${BASE_URL}/monev/shg/input-data/kondisi-vacant-fungsi-aims-ptg/data`, {
                         headers: {
                             "Accept": "application/json"
                         }
@@ -315,6 +315,7 @@
                     })
                     .catch(err => console.error("Gagal load data:", err));
             }
+
 
             document.addEventListener("DOMContentLoaded", function() {
                 const columnMap = {
@@ -457,7 +458,7 @@
                             title: "Aksi",
                             download: false,
                             hozAlign: "center",
-                            width: 150,
+                            width: 100,
                             formatter: (cell) => {
                                 const row = cell.getData();
                                 return `
@@ -472,7 +473,7 @@
                 };
 
                 window.table = new Tabulator("#example-table", {
-                    layout: "fitDataStretch",
+                    layout: "fitColumn",
                     headerWordWrap: true,
                     autoResize: true,
                     columns: columnMap["kondisi-vacant-fungsi-aims-ptg"],
@@ -718,7 +719,7 @@
                             showToast(`${gagal.length} data gagal disimpan`, "error");
                         }
 
-                        table.setData("/monev/shg/input-data/kondisi-vacant-fungsi-aims-ptg/data");
+                        table.setData(`${BASE_URL}/monev/shg/input-data/kondisi-vacant-fungsi-aims-ptg/data`);
                         document.getElementById("createForm").reset();
                         closeModal();
                     })

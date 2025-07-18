@@ -48,8 +48,7 @@
     @include('partials.scripts')
     @stack('scripts')
     @vite(['resources/js/app.js'])
+
 </body>
-
-
 
 </html>
